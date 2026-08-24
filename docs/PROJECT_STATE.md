@@ -134,3 +134,37 @@ service.
   wider, revoke at github.com/settings/tokens.
 
 **Open:** Hendrix names the game (M0 turn). Then M1 — The House.
+
+---
+
+## M1 — The House. Done 24 Aug 2026.
+
+Live and verified at https://house-rules-18l4.onrender.com (press Start
+the night to see it). Commit `674ba72`.
+
+What landed:
+- `data/rooms.js` — nine rooms as plain x/y/w/h rectangles, nine anchors
+  with a mount type each, and the MOUNTS list whose wording drives the
+  caption on screen. Hendrix's file.
+- `js/house.js` — draws the house from that list. It does not contain a
+  single room name, which is the lesson.
+- `css/house.css` — appearance only. All colour from tokens.css.
+- New tokens both themes: `--house-sky`, `--room-floor`, `--room-outside`,
+  `--room-line`, `--room-label`, `--stairs`, `--anchor-idle`, and one
+  colour per mount type.
+
+Verified headless on the live URL: 9 rooms, 9 anchors, 4 legend items,
+both themes, keyboard tab and Enter operate the anchors, console clean,
+no horizontal scroll at 390px, restart clears the caption and the lit
+anchor.
+
+Bedroom and bathroom deliberately have no anchors. That is the M5 turn
+for Hendrix (add an anchor to a room that does not have one).
+
+**Design note:** mockups are being produced separately in Cowork and will
+be saved to project files. The house was built so that applying them is
+mostly a tokens.css swap plus shape tweaks in house.js, not a rewrite.
+Nothing in `data/rooms.js` should need to change for a restyle.
+
+**Open:** Hendrix names the game (M0 turn) and picks the wall colour (M1
+turn). Then M2 — The Hero.
