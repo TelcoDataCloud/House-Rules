@@ -1,0 +1,135 @@
+/* ===========================================================
+   TOKENS - every colour and size in the game lives here
+
+   Hendrix: this is the paint box. If you want to change what
+   colour something is, you change it HERE, not anywhere else.
+   Change a value, save the file, refresh the page. Done.
+
+   There are two themes: night (the default) and day.
+   If you change a colour in one theme, change it in the other
+   one too, or the day version will look wrong.
+   =========================================================== */
+
+:root {
+  /* --- INK: the thick black outline on everything --- */
+  --ink: #14121c;
+  --ink-soft: #3b3646;
+
+  /* --- SKY and GROUND --- */
+  --sky-top: #1b1b3a;
+  --sky-bottom: #3d2a5c;
+  --moon: #ffeeb5;
+  --star: #fff6d8;
+  --ground: #2a3d2c;
+  --ground-dark: #1d2b1f;
+  --hedge: #24402a;
+
+  /* --- THE HOUSE --- */
+  --wall: #c96f4a;        /* <-- M1: this is the wall colour */
+  --wall-shadow: #a4553a;
+  --roof: #5c3a52;
+  --door: #7b4a2d;
+  --window-glass: #ffd166;   /* lights are on */
+  --window-dark: #2f3550;    /* lights are off */
+  --chimney: #6b4438;
+
+  /* --- CHARACTERS --- */
+  --burglar-a: #4d5b7c;   /* Sid, wiry and twitchy */
+  --burglar-b: #6b5140;   /* Bruno, enormous and slow */
+  --burglar-mask: #1d1b26;
+  --skin: #f0c39b;
+  --sack: #9d8760;
+  --hero-top: #e0533f;
+
+  /* --- PAGE and PANELS --- */
+  --bg: #171526;
+  --bg-2: #221f38;
+  --panel: #2c2846;
+  --panel-edge: #14121c;
+  --text: #f6f1e6;
+  --text-dim: #b9b1c9;
+
+  /* --- BUTTONS --- */
+  --btn: #ffd166;
+  --btn-text: #14121c;
+  --btn-shadow: #c99a2e;
+  --btn-quiet: #3a3559;
+  --btn-quiet-text: #f6f1e6;
+  --accent: #6fcf97;
+  --danger: #e0533f;
+  --focus: #6fcf97;
+
+  /* --- MILESTONE STRIP --- */
+  --dot-done: #6fcf97;
+  --dot-todo: #46415f;
+
+  /* --- SIZES --- */
+  --tap: 52px;            /* smallest thing you are allowed to tap */
+  --outline: 4px;         /* thickness of the cartoon outlines */
+  --radius: 14px;
+  --radius-lg: 22px;
+  --gap: 12px;
+  --gap-lg: 22px;
+  --shadow-drop: 6px;     /* how far the chunky button shadow sits */
+
+  /* --- TYPE --- */
+  --font-display: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* --- SPEED --- */
+  --anim-fast: 120ms;
+  --anim: 260ms;
+}
+
+/* ===========================================================
+   DAY THEME
+   Same names, different colours. The sun is up, the burglars
+   are pretending to read a newspaper across the street.
+   =========================================================== */
+
+[data-theme="day"] {
+  --ink: #14121c;
+  --ink-soft: #4a4553;
+
+  --sky-top: #9fd8f2;
+  --sky-bottom: #d8eef8;
+  --moon: #fff3c4;
+  --star: #d8eef8;
+  --ground: #7fb069;
+  --ground-dark: #5f8f4d;
+  --hedge: #4f8a45;
+
+  --wall: #f0a868;        /* <-- M1: and the day version here */
+  --wall-shadow: #d08a4e;
+  --roof: #a45c6d;
+  --door: #9a5f38;
+  --window-glass: #cfeaf7;
+  --window-dark: #b6d4e2;
+  --chimney: #8a5a49;
+
+  --burglar-a: #6478a1;
+  --burglar-b: #8a6a52;
+  --burglar-mask: #2b2833;
+  --skin: #f5cba7;
+  --sack: #cbb083;
+  --hero-top: #e0533f;
+
+  --bg: #fdf4e3;
+  --bg-2: #f7e8cd;
+  --panel: #fffaf0;
+  --panel-edge: #14121c;
+  --text: #201d2b;
+  --text-dim: #5d5768;
+
+  --btn: #ffd166;
+  --btn-text: #14121c;
+  --btn-shadow: #c99a2e;
+  --btn-quiet: #efe0c4;
+  --btn-quiet-text: #201d2b;
+  --accent: #2e9e63;
+  --danger: #cf3f2c;
+  --focus: #1f7a4d;
+
+  --dot-done: #2e9e63;
+  --dot-todo: #d6c7a8;
+}

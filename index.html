@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House Rules</title>
+<meta name="description" content="Two burglars. One night. A house full of junk and a very bad attitude.">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
+</head>
+<body>
+
+<!-- The two little round buttons in the top right corner. -->
+<div class="toolbar">
+  <button type="button" id="theme-toggle" class="toggle" aria-label="Switch theme">&#9728;&#65039;</button>
+  <button type="button" id="sound-toggle" class="toggle" aria-label="Turn sound off">&#128266;</button>
+</div>
+
+
+<!-- =========================================================
+     SCREEN 1: THE TITLE
+     ========================================================= -->
+<main>
+<section class="screen is-active" data-screen="title">
+
+  <div class="title-block">
+    <!-- HENDRIX: this is the name of the game. It is your job to
+         pick a better one. Change the words between the tags,
+         save the file, refresh the page. Change the one in the
+         <title> tag at the top of this file too, because that is
+         what shows up on the browser tab. -->
+    <h1 class="game-title">House Rules</h1>
+    <p class="tagline">Two burglars. One night. A house full of junk and a very bad attitude.</p>
+  </div>
+
+  <!-- =======================================================
+       THE SCENE
+       Every single thing below is drawn with shapes, not a
+       picture file. Right click any part of it, choose Inspect,
+       and you can find the exact line that draws it.
+       ======================================================= -->
+  <div class="scene">
+  <svg viewBox="0 0 800 460" role="img"
+       aria-label="A cartoon house at night. A boy watches from the attic window while two burglars sneak across the front garden.">
+
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="var(--sky-top)"/>
+        <stop offset="100%" stop-color="var(--sky-bottom)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- SKY -->
+    <rect x="0" y="0" width="800" height="460" fill="url(#skyGrad)"/>
+
+    <!-- MOON and STARS. These fade out in the day theme. -->
+    <g class="night-only">
+      <circle cx="702" cy="74" r="36" fill="var(--moon)" class="ink"/>
+      <circle cx="688" cy="64" r="7" fill="var(--sky-top)" opacity="0.25"/>
+      <circle cx="712" cy="88" r="5" fill="var(--sky-top)" opacity="0.25"/>
+      <g fill="var(--star)">
+        <path class="twinkle"   d="M96 62 L100 74 L112 78 L100 82 L96 94 L92 82 L80 78 L92 74 Z"/>
+        <path class="twinkle-b" d="M212 40 L215 49 L224 52 L215 55 L212 64 L209 55 L200 52 L209 49 Z"/>
+        <path class="twinkle-c" d="M560 46 L563 55 L572 58 L563 61 L560 70 L557 61 L548 58 L557 55 Z"/>
+        <circle class="twinkle-b" cx="330" cy="34" r="3"/>
+        <circle class="twinkle-c" cx="470" cy="96" r="3"/>
+        <circle class="twinkle"   cx="640" cy="150" r="2.5"/>
+        <circle class="twinkle-b" cx="150" cy="130" r="2.5"/>
+      </g>
+    </g>
+
+    <!-- GROUND -->
+    <path d="M0 374 Q200 360 400 368 T800 358 L800 460 L0 460 Z"
+          fill="var(--ground)" class="ink"/>
+    <path d="M0 424 Q260 410 520 420 T800 412 L800 460 L0 460 Z"
+          fill="var(--ground-dark)" opacity="0.55"/>
+
+    <!-- TREE, stage left -->
+    <g class="ink">
+      <path d="M44 382 L44 300 L64 300 L64 382 Z" fill="var(--chimney)"/>
+      <path d="M54 306 Q-2 300 4 258 Q4 222 46 216 Q68 190 98 212 Q136 214 134 254 Q140 296 88 304 Z"
+            fill="var(--hedge)"/>
+    </g>
+
+    <!-- THE HOUSE -->
+    <g class="ink">
+      <!-- chimney, drawn first so the roof sits on top of it -->
+      <path d="M498 34 L540 34 L542 132 L496 132 Z" fill="var(--chimney)"/>
+      <!-- roof, deliberately not quite symmetrical -->
+      <path d="M208 162 L420 50 L632 162 Z" fill="var(--roof)"/>
+      <!-- walls -->
+      <path d="M250 160 L590 160 L594 384 L246 384 Z" fill="var(--wall)"/>
+      <!-- a bit of shadow down the right hand side -->
+      <path d="M540 160 L590 160 L594 384 L544 384 Z" fill="var(--wall-shadow)" stroke="none"/>
+
+      <!-- ATTIC WINDOW, with Hendrix in it -->
+      <circle cx="420" cy="116" r="31" fill="var(--window-glass)"/>
+      <g stroke="none">
+        <!-- his head -->
+        <circle cx="420" cy="120" r="14" fill="var(--skin)"/>
+        <!-- his hair -->
+        <path d="M406 116 Q408 102 420 102 Q432 102 434 116 Q426 110 406 116 Z" fill="var(--ink)"/>
+        <!-- eyes and a permanent slight smirk -->
+        <circle cx="415" cy="120" r="2.2" fill="var(--ink)"/>
+        <circle cx="426" cy="120" r="2.2" fill="var(--ink)"/>
+      </g>
+      <path d="M414 128 Q420 133 427 126" fill="none" class="ink-thin"/>
+      <circle cx="420" cy="116" r="31" fill="none" class="ink"/>
+
+      <!-- UPSTAIRS WINDOWS -->
+      <path d="M288 184 L348 184 L348 240 L288 240 Z" fill="var(--window-glass)"/>
+      <path d="M492 184 L552 184 L552 240 L492 240 Z" fill="var(--window-dark)"/>
+      <!-- GROUND FLOOR WINDOWS -->
+      <path d="M286 274 L346 274 L346 330 L286 330 Z" fill="var(--window-glass)"/>
+      <path d="M494 274 L554 274 L554 330 L494 330 Z" fill="var(--window-glass)"/>
+
+      <!-- window crossbars -->
+      <g class="ink-thin" fill="none">
+        <path d="M318 184 L318 240 M288 212 L348 212"/>
+        <path d="M522 184 L522 240 M492 212 L552 212"/>
+        <path d="M316 274 L316 330 M286 302 L346 302"/>
+        <path d="M524 274 L524 330 M494 302 L554 302"/>
+      </g>
+
+      <!-- FRONT DOOR -->
+      <path d="M390 272 L452 272 L454 384 L388 384 Z" fill="var(--door)"/>
+      <circle cx="444" cy="332" r="5" fill="var(--btn)"/>
+      <!-- doormat -->
+      <path d="M372 384 L470 384 L474 398 L368 398 Z" fill="var(--chimney)"/>
+    </g>
+
+    <!-- HEDGES along the front -->
+    <g class="ink">
+      <path d="M180 384 Q212 348 246 384 Z" fill="var(--hedge)"/>
+      <path d="M600 384 Q634 346 668 384 Z" fill="var(--hedge)"/>
+    </g>
+
+    <!-- =====================================================
+         SID "FINGERS" COBB - wiry, twitchy, sneaking in low
+         ===================================================== -->
+    <g transform="translate(120 262)"><g class="sneak-a">
+      <g class="ink">
+        <!-- legs -->
+        <path d="M30 150 L30 108 L46 108 L46 150 Z" fill="var(--burglar-a)"/>
+        <path d="M56 150 L56 108 L72 108 L72 150 Z" fill="var(--burglar-a)"/>
+        <!-- boots -->
+        <path d="M22 150 L50 150 L50 162 L18 162 Z" fill="var(--burglar-mask)"/>
+        <path d="M52 150 L80 150 L82 162 L48 162 Z" fill="var(--burglar-mask)"/>
+        <!-- body, leaning forward -->
+        <path d="M26 112 L22 66 Q22 54 38 52 L66 52 Q80 54 78 66 L76 112 Z" fill="var(--burglar-a)"/>
+        <!-- stripes, because of course -->
+        <path d="M23 72 L79 72 M24 88 L78 88" fill="none" stroke="var(--ink)" stroke-width="5" opacity="0.55"/>
+        <!-- arm reaching forward -->
+        <path d="M28 68 Q6 82 4 100" fill="none" stroke="var(--burglar-a)" stroke-width="13" stroke-linecap="round"/>
+        <path d="M28 68 Q6 82 4 100" fill="none" stroke="var(--ink)" stroke-width="17" stroke-linecap="round" opacity="0"/>
+        <circle cx="4" cy="102" r="8" fill="var(--skin)"/>
+        <!-- head -->
+        <circle cx="50" cy="30" r="21" fill="var(--skin)"/>
+        <!-- beanie -->
+        <path d="M29 26 Q30 4 50 4 Q70 4 71 26 Z" fill="var(--burglar-mask)"/>
+        <path d="M27 26 L73 26 L73 34 L27 34 Z" fill="var(--burglar-mask)"/>
+        <!-- the eye mask, because he is a burglar in a cartoon -->
+        <path d="M29 33 L71 33 L71 46 L29 46 Z" fill="var(--burglar-mask)"/>
+      </g>
+      <!-- eyes, wide and worried -->
+      <circle cx="43" cy="38" r="4.5" fill="#ffffff" class="ink-thin"/>
+      <circle cx="58" cy="38" r="4.5" fill="#ffffff" class="ink-thin"/>
+      <circle cx="43" cy="39" r="2" fill="var(--ink)"/>
+      <circle cx="58" cy="39" r="2" fill="var(--ink)"/>
+      <path d="M44 50 Q51 46 58 50" fill="none" class="ink-thin"/>
+    </g></g>
+
+    <!-- SPEECH BUBBLE, Sid is already regretting this -->
+    <g transform="translate(100 176)">
+      <path d="M10 0 L160 0 Q170 0 170 10 L170 42 Q170 52 160 52 L86 52 L68 76 L64 52 L10 52 Q0 52 0 42 L0 10 Q0 0 10 0 Z"
+            fill="var(--panel)" class="ink"/>
+      <text x="18" y="34" font-family="var(--font-body)" font-size="19"
+            font-weight="700" fill="var(--text)">Lights are on.</text>
+    </g>
+
+    <!-- =====================================================
+         BRUNO MALLOY - enormous, slow, unbothered
+         ===================================================== -->
+    <g transform="translate(640 256)"><g class="sneak-b">
+      <g class="ink">
+        <!-- legs, short and thick -->
+        <path d="M28 156 L28 118 L52 118 L52 156 Z" fill="var(--burglar-b)"/>
+        <path d="M62 156 L62 118 L86 118 L86 156 Z" fill="var(--burglar-b)"/>
+        <path d="M20 156 L56 156 L56 170 L16 170 Z" fill="var(--burglar-mask)"/>
+        <path d="M58 156 L94 156 L96 170 L54 170 Z" fill="var(--burglar-mask)"/>
+        <!-- enormous body -->
+        <path d="M18 122 L14 68 Q14 52 38 50 L78 50 Q102 52 100 68 L96 122 Z" fill="var(--burglar-b)"/>
+        <!-- arm -->
+        <path d="M96 72 Q116 86 114 106" fill="none" stroke="var(--burglar-b)" stroke-width="17" stroke-linecap="round"/>
+        <circle cx="114" cy="108" r="9" fill="var(--skin)"/>
+        <!-- swag sack, empty for now, hanging at his side -->
+        <g transform="translate(4 46)">
+          <path d="M-16 58 Q-30 32 -14 20 L10 20 Q26 32 12 58 Q-2 70 -16 58 Z" fill="var(--sack)"/>
+          <path d="M-18 12 L14 12 L14 22 L-18 22 Z" fill="var(--burglar-mask)"/>
+          <path d="M-8 12 Q-3 0 3 12 Z" fill="var(--sack)"/>
+        </g>
+        <!-- head, square and calm -->
+        <path d="M36 8 L80 8 Q88 8 88 18 L88 44 Q88 54 78 54 L38 54 Q28 54 28 44 L28 18 Q28 8 36 8 Z" fill="var(--skin)"/>
+        <!-- beanie -->
+        <path d="M28 22 Q30 0 58 0 Q86 0 88 22 Z" fill="var(--burglar-mask)"/>
+        <path d="M26 22 L90 22 L90 30 L26 30 Z" fill="var(--burglar-mask)"/>
+        <path d="M29 29 L87 29 L87 46 L29 46 Z" fill="var(--burglar-mask)"/>
+      </g>
+      <!-- eyes, half shut, thoroughly bored -->
+      <circle cx="47" cy="38" r="5" fill="#ffffff" class="ink-thin"/>
+      <circle cx="69" cy="38" r="5" fill="#ffffff" class="ink-thin"/>
+      <circle cx="47" cy="39" r="2.2" fill="var(--ink)"/>
+      <circle cx="69" cy="39" r="2.2" fill="var(--ink)"/>
+      <path d="M46 50 L72 50" fill="none" class="ink-thin"/>
+    </g></g>
+
+  </svg>
+  </div>
+
+
+  <!-- DIFFICULTY -->
+  <div class="panel">
+    <h2>Pick your night</h2>
+    <p class="panel-hint">This sets one thing: how long you get to raid the house before the burglars arrive.</p>
+    <div class="difficulty" id="difficulty" role="group" aria-label="Difficulty"></div>
+    <div class="start-row">
+      <button type="button" id="start-btn" class="btn btn-big">Start the night</button>
+    </div>
+  </div>
+
+
+  <!-- MILESTONE STRIP -->
+  <div class="panel">
+    <h2>Build progress</h2>
+    <p class="panel-hint">Ten steps from an empty page to a finished game. A dot goes green when the step is really done.</p>
+    <ul class="milestones" id="milestones"></ul>
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 2: A PHASE THAT IS NOT BUILT YET
+     Every phase lands here for now. It is honest, and it means
+     the machine that switches phases is real from day one.
+     ========================================================= -->
+<section class="screen" data-screen="phase">
+  <div class="panel phase-card">
+    <p class="phase-name" id="phase-name">Scavenge</p>
+    <p id="phase-line">Raid your own house for junk before the clock runs out.</p>
+    <p id="phase-difficulty"></p>
+    <p><strong id="phase-milestone">M3 builds this one.</strong></p>
+    <button type="button" id="back-btn" class="btn btn-quiet">Back to the title</button>
+  </div>
+</section>
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
