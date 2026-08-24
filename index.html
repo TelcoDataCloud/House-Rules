@@ -7,6 +7,7 @@
 <meta name="description" content="Two burglars. One night. A house full of junk and a very bad attitude.">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/house.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -246,6 +247,16 @@
      the machine that switches phases is real from day one.
      ========================================================= -->
 <section class="screen" data-screen="phase">
+
+  <!-- THE HOUSE. Built by js/house.js out of data/rooms.js.
+       It is empty in the HTML on purpose: nothing here needs
+       changing to add a room. -->
+  <div class="house-wrap" id="house-wrap" hidden>
+    <div class="house-scene" id="house"></div>
+    <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot, or press Tab, to see what goes there.</p>
+    <ul class="legend" id="legend" aria-label="What the glowing spots mean"></ul>
+  </div>
+
   <div class="panel phase-card">
     <p class="phase-name" id="phase-name">Scavenge</p>
     <p id="phase-line">Raid your own house for junk before the clock runs out.</p>

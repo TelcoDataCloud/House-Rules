@@ -33,6 +33,21 @@
   --window-dark: #2f3550;    /* lights are off */
   --chimney: #6b4438;
 
+  /* --- INSIDE THE HOUSE (M1: the cut open view) --- */
+  --house-sky: #1b1b3a;      /* behind the house */
+  --room-floor: #f3e2c7;     /* <-- M1: the floor of every room */
+  --room-outside: #cbb894;   /* the shed, which is not a room */
+  --room-line: #b9a483;      /* floorboards */
+  --room-label: #4a4034;     /* room names */
+  --stairs: #d8bf95;
+
+  /* --- ANCHOR POINTS, one colour per mount type --- */
+  --anchor-idle: #ffd166;
+  --mount-floor: #6fcf97;
+  --mount-doorway: #ffd166;
+  --mount-overhead: #7fb3ff;
+  --mount-stairs: #e0533f;
+
   /* --- CHARACTERS --- */
   --burglar-a: #4d5b7c;   /* Sid, wiry and twitchy */
   --burglar-b: #6b5140;   /* Bruno, enormous and slow */
@@ -106,6 +121,19 @@
   --window-glass: #cfeaf7;
   --window-dark: #b6d4e2;
   --chimney: #8a5a49;
+
+  --house-sky: #9fd8f2;
+  --room-floor: #fff6e4;     /* <-- M1: and the day version here */
+  --room-outside: #e6d4b0;
+  --room-line: #cbb489;
+  --room-label: #4a4034;
+  --stairs: #e8cfa6;
+
+  --anchor-idle: #e8a020;
+  --mount-floor: #1f7a4d;
+  --mount-doorway: #c07800;
+  --mount-overhead: #2f6bbf;
+  --mount-stairs: #cf3f2c;
 
   --burglar-a: #6478a1;
   --burglar-b: #8a6a52;

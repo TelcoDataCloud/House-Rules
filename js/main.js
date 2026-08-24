@@ -14,6 +14,7 @@
 
 import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
+import { buildHouse } from './house.js';
 import { sfx } from './audio.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
@@ -23,7 +24,7 @@ const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
     line: 'Raid your own house for junk before the clock runs out.',
-    milestone: 'M3 builds this one.'
+    milestone: 'The house is real now. M3 puts the junk in it.'
   },
   workshop: {
     title: 'Workshop',
@@ -69,10 +70,17 @@ function showScreen(name, moveFocus = true) {
   window.scrollTo(0, 0);
 }
 
+/* The three phases that actually happen inside the house. The
+   workshop is at a bench and the result screen is afterwards, so
+   neither of those needs the floor plan. */
+const PHASES_WITH_HOUSE = ['scavenge', 'rig', 'night'];
+
 function renderPhaseScreen(phase) {
   const info = PHASE_INFO[phase];
   if (!info) return;
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
+
+  el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
 
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
@@ -85,6 +93,7 @@ function boot() {
   buildDifficulty(el('difficulty'));
   buildMilestones(el('milestones'));
   setupToggles(el('theme-toggle'), el('sound-toggle'));
+  buildHouse(el('house'), el('house-caption'), el('legend'));
 
   el('start-btn').addEventListener('click', () => {
     sfx.start();
@@ -100,6 +109,12 @@ function boot() {
   document.addEventListener('phasechange', (event) => {
     const phase = event.detail;
     if (phase === 'title') {
+      /* Put the house caption back to its starting line, so
+         restart really does leave nothing behind. */
+      el('house-caption').textContent =
+        'Point at a glowing spot, or press Tab, to see what goes there.';
+      document.querySelectorAll('.anchor.is-live')
+        .forEach((a) => a.classList.remove('is-live'));
       showScreen('title');
     } else {
       renderPhaseScreen(phase);

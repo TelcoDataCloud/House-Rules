@@ -1,0 +1,189 @@
+/* ===========================================================
+   HOUSE - how the cut open house looks
+
+   Hendrix: WHERE the rooms sit is decided in data/rooms.js.
+   This file only decides how they look once they are there.
+   Every colour comes from tokens.css. If you see a #code in
+   here, it escaped, and it should go back to tokens.css.
+   =========================================================== */
+
+.house-wrap {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.house-scene {
+  width: 100%;
+  border: var(--outline) solid var(--ink);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-2);
+  box-shadow: 0 var(--shadow-drop) 0 var(--ink);
+}
+
+.house-scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- ROOMS ---------------------------------------------------- */
+
+.room-box {
+  fill-opacity: 1;
+}
+
+.room-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  fill: var(--room-label);
+}
+
+.boards { opacity: 0.5; }
+
+/* --- ANCHOR POINTS -------------------------------------------
+   A ring and a dot. The ring is see through until you point at
+   it or tab to it, then it lights up in the colour of its mount
+   type so you can tell a floor spot from an overhead one.
+   ------------------------------------------------------------- */
+
+.anchor { cursor: pointer; }
+
+.anchor-ring {
+  fill: none;
+  stroke: var(--anchor-idle);
+  stroke-width: 4;
+  stroke-dasharray: 7 7;
+  opacity: 0.85;
+  transition: stroke var(--anim) ease,
+              opacity var(--anim) ease,
+              stroke-width var(--anim) ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: anchor-spin 14s linear infinite;
+}
+
+.anchor-dot {
+  fill: var(--anchor-idle);
+  stroke: var(--ink);
+  stroke-width: 3;
+  transition: fill var(--anim) ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: anchor-pulse 2.6s ease-in-out infinite;
+}
+
+/* Each mount type gets its own colour, so the map reads at a
+   glance. The names come from data/rooms.js. */
+.anchor[data-mount="FLOOR"]    .anchor-dot { fill: var(--mount-floor); }
+.anchor[data-mount="DOORWAY"]  .anchor-dot { fill: var(--mount-doorway); }
+.anchor[data-mount="OVERHEAD"] .anchor-dot { fill: var(--mount-overhead); }
+.anchor[data-mount="STAIRS"]   .anchor-dot { fill: var(--mount-stairs); }
+
+.anchor[data-mount="FLOOR"]:hover    .anchor-ring,
+.anchor[data-mount="FLOOR"].is-live    .anchor-ring { stroke: var(--mount-floor); }
+.anchor[data-mount="DOORWAY"]:hover  .anchor-ring,
+.anchor[data-mount="DOORWAY"].is-live  .anchor-ring { stroke: var(--mount-doorway); }
+.anchor[data-mount="OVERHEAD"]:hover .anchor-ring,
+.anchor[data-mount="OVERHEAD"].is-live .anchor-ring { stroke: var(--mount-overhead); }
+.anchor[data-mount="STAIRS"]:hover   .anchor-ring,
+.anchor[data-mount="STAIRS"].is-live   .anchor-ring { stroke: var(--mount-stairs); }
+
+.anchor:hover .anchor-ring,
+.anchor.is-live .anchor-ring {
+  opacity: 1;
+  stroke-width: 6;
+  stroke-dasharray: none;
+}
+
+.anchor:hover .anchor-dot,
+.anchor.is-live .anchor-dot {
+  r: 12;
+}
+
+/* Keyboard users get the same fat ring everything else gets. */
+.anchor:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+@keyframes anchor-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes anchor-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.18); }
+}
+
+/* --- THE CAPTION UNDER THE HOUSE ------------------------------ */
+
+.house-caption {
+  margin: 0;
+  min-height: 26px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* --- THE LEGEND ----------------------------------------------- */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+}
+
+.legend-item[data-mount="FLOOR"]    .legend-dot { background: var(--mount-floor); }
+.legend-item[data-mount="DOORWAY"]  .legend-dot { background: var(--mount-doorway); }
+.legend-item[data-mount="OVERHEAD"] .legend-dot { background: var(--mount-overhead); }
+.legend-item[data-mount="STAIRS"]   .legend-dot { background: var(--mount-stairs); }
+
+/* --- SMALL SCREENS -------------------------------------------- */
+
+@media (max-width: 560px) {
+  .room-name { font-size: 19px; }
+  .legend-item { font-size: 13px; padding: 6px 9px; }
+}
+
+/* --- REDUCED MOTION -------------------------------------------
+   If someone has asked their computer to stop things moving, the
+   anchors still light up, they just stop spinning and pulsing.
+   -------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .anchor-ring, .anchor-dot { animation: none; }
+}
