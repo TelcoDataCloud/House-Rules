@@ -113,3 +113,24 @@ service.
 | Idea | Ingredients | Status |
 |---|---|---|
 | | | |
+
+---
+
+## Session 3 — 24 Aug 2026, deployed
+
+- `main` pushed from the Claude chat sandbox with the write-scoped PAT.
+  History intact: `40f2dcf`, `1f01b6c`.
+- Render static site created: service `srv-da61f9gu01pc738sdqe0`, live at
+  **https://house-rules-18l4.onrender.com** — no build command, publish
+  path `.`, auto-deploy on.
+- Verified live in headless Chromium: both themes screenshotted and
+  checked, console clean.
+- Gotcha for the log: Render's CDN (Cloudflare) cached 404s for ~5 minutes
+  (`s-maxage=300`) on assets requested during the first seconds of the
+  first deploy. It clears itself. Do not chase phantom 404s right after a
+  deploy; wait five minutes and retest.
+- PAT hygiene: token is scoped to this one repo, Contents read/write only.
+  Asa accepted it living in the project instructions. If it ever leaks
+  wider, revoke at github.com/settings/tokens.
+
+**Open:** Hendrix names the game (M0 turn). Then M1 — The House.
