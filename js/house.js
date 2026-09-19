@@ -236,11 +236,17 @@ function drawShell(svg) {
 }
 
 /* The ways between floors, read from STAIRS in data/rooms.js.
-   Steps get a carpet runner, a handrail and spindles. A ladder
-   is two rails with rungs between them. */
+
+   A staircase seen from the side is three things: the steps (the
+   zig-zag you walk on, with a carpet runner), the stringer (the
+   long sloping board holding the steps up) and the banister (a
+   handrail on spindles, with a thick post at each end). The main
+   stairs also have a cupboard underneath, like real ones do.
+
+   A ladder is two rails with rungs between them. */
 function drawStairs(svg) {
   STAIRS.forEach((flight) => {
-    const g = make('g', { 'data-stairs': flight.id });
+    const g = make('g', { class: 'stairs', 'data-stairs': flight.id });
     const { left, right, bottom, top, steps } = flight;
 
     if (flight.kind === 'ladder') {
@@ -254,24 +260,48 @@ function drawStairs(svg) {
       return;
     }
 
-    const stepW = (right - left) / steps;
-    const stepH = (bottom - top) / steps;
-    const railUp = 34;
-    for (let i = 0; i < steps; i += 1) {
-      const x = left + i * stepW;
-      const y = bottom - (i + 1) * stepH;
-      box(g, x, y, stepW, (i + 1) * stepH, 'var(--wood)', 'ink-thin');
-      box(g, x, y, stepW, 4, 'var(--fabric-a)', '');
-      if (flight.handrail !== false) {
-        g.append(make('line', { x1: x + stepW / 2, y1: y, x2: x + stepW / 2, y2: y - railUp, class: 'stair-spindle' }));
-      }
+    const w = (right - left) / steps;          // how deep each step is
+    const h = (bottom - top) / steps;          // how tall each step is
+    const slope = (bottom - top) / (right - left);
+    const board = 16;                          // how thick the stringer is
+    const underTop = top + board;              // underside of the stairs, top end
+    const underFoot = right - (bottom - underTop) / slope;   // where the underside meets the floor
+
+    /* the cupboard under the stairs */
+    if (flight.cupboard) {
+      path(g, `M${underFoot} ${bottom} L${right} ${underTop} L${right} ${bottom} Z`, 'var(--partition)', 'ink-thin');
+      path(g, `M${underFoot} ${bottom} L${right} ${underTop} L${right} ${underTop + 10} L${underFoot + 10} ${bottom} Z`, 'var(--ink)', 'p-shadow');
+      const doorW = 30;
+      const doorX = right - doorW - 8;
+      const doorTop = bottom - 64;
+      box(g, doorX, doorTop, doorW, 64, 'var(--door)', 'ink-thin', { rx: 2 });
+      g.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
     }
+
+    /* the steps: a zig-zag up the front, closed off along the slope */
+    let zig = `M${left} ${bottom}`;
+    for (let i = 0; i < steps; i += 1) {
+      const y = bottom - (i + 1) * h;
+      zig += ` L${left + i * w} ${y} L${left + (i + 1) * w} ${y}`;
+    }
+    path(g, `${zig} Z`, 'var(--wood-light)', 'ink-thin');
+    g.append(make('path', { d: zig, class: 'stair-runner' }));
+
+    /* the stringer, the long board the steps sit on */
+    path(g, `M${left} ${bottom} L${right} ${top} L${right} ${underTop} L${underFoot} ${bottom} Z`, 'var(--wood-dark)', 'ink-thin');
+
     if (flight.handrail === false) { svg.append(g); return; }
-    g.append(make('line', {
-      x1: left + stepW / 2 - 4, y1: bottom - stepH - railUp,
-      x2: right - stepW / 2 + 4, y2: top - railUp, class: 'stair-handrail'
-    }));
-    box(g, left - 3, bottom - stepH - railUp - 6, 8, stepH + railUp + 6, 'var(--wood-dark)', 'ink-thin', { rx: 2 });
+
+    /* the banister: spindles up from each step to a sloping rail */
+    const railUp = 36;
+    const railAt = (x) => bottom - (x - left) * slope - h / 2 - railUp;
+    for (let i = 0; i < steps; i += 1) {
+      const x = left + (i + 0.5) * w;
+      g.append(make('line', { x1: x, y1: bottom - (i + 1) * h, x2: x, y2: railAt(x), class: 'stair-spindle' }));
+    }
+    g.append(make('line', { x1: left + 2, y1: railAt(left + 2), x2: right - 2, y2: railAt(right - 2), class: 'stair-handrail' }));
+    box(g, left - 3, railAt(left) - 6, 9, bottom - railAt(left) + 6, 'var(--wood-dark)', 'ink-thin', { rx: 2 });
+    box(g, right - 6, railAt(right) - 6, 9, top - railAt(right) + 6, 'var(--wood-dark)', 'ink-thin', { rx: 2 });
     svg.append(g);
   });
 }
@@ -297,14 +327,18 @@ function flooring(room) {
   return room.flooring || 'wood';
 }
 
+function drawGlow(g, room) {
+  const x = room.x + room.w * 0.72;
+  g.append(make('ellipse', {
+    cx: x, cy: room.y + room.h * 0.45, rx: Math.min(room.w * 0.55, 90), ry: room.h * 0.55,
+    fill: 'url(#grad-lamp)', class: 'room-glow'
+  }));
+}
+
 function drawLamp(g, room) {
   const x = room.x + room.w * 0.72;
   const y = room.y;
   const bare = room.floor !== 'upstairs' && room.floor !== 'ground';
-  g.append(make('ellipse', {
-    cx: x, cy: y + room.h * 0.45, rx: Math.min(room.w * 0.55, 90), ry: room.h * 0.55,
-    fill: 'url(#grad-lamp)', class: 'room-glow'
-  }));
   const drop = bare ? 14 : 20;
   g.append(make('line', { x1: x, y1: y, x2: x, y2: y + drop, class: 'ink-thin' }));
   if (bare) {
@@ -324,7 +358,10 @@ function drawRooms(svg) {
     clip.append(make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, rx: 4 }));
     defs.append(clip);
 
-    const g = make('g', { class: 'room', 'data-room': room.id });
+    const g = make('g', {
+      class: 'room', 'data-room': room.id,
+      tabindex: '0', role: 'button', 'aria-label': `Look inside the ${room.name}`
+    });
     const inside = make('g', { 'clip-path': `url(#${clipId})` });
     const floorY = room.y + room.h - FLOOR_DEPTH;
     const indoor = room.floor === 'upstairs' || room.floor === 'ground';
@@ -347,8 +384,9 @@ function drawRooms(svg) {
     box(inside, room.x, floorY, room.w, FLOOR_DEPTH, `url(#pat-floor-${floorType})`, 'ink-thin');
     if (indoor) box(inside, room.x, floorY - 5, room.w, 5, 'var(--porcelain)', 'ink-thin');
 
-    /* light from the lamp, then the furniture */
-    drawLamp(inside, room);
+    /* light from the lamp, then the furniture, then the lamp
+       itself so it hangs in front of whatever is on the wall */
+    drawGlow(inside, room);
     (room.props || []).forEach((prop) => {
       const p = make('g', {
         class: 'prop', 'data-prop': prop.kind,
@@ -357,6 +395,8 @@ function drawRooms(svg) {
       drawProp(prop.kind, p, prop);
       inside.append(p);
     });
+
+    drawLamp(inside, room);
 
     /* shadow under the ceiling, so the room has depth */
     box(inside, room.x, room.y, room.w, 22, 'url(#grad-ceiling)', '');
@@ -408,14 +448,20 @@ function drawAnchors(svg, caption) {
       'aria-label': `${anchor.name}, in the ${roomName}. ${mount.name} trap spot.`
     });
 
+    /* The outer group puts the spot in place. This inner group is
+       what shrinks when you zoom into a room, so the spot stays a
+       sensible size on screen. (Two groups, because a CSS transform
+       would wipe out the position if they were the same one.) */
+    const body = make('g', { class: 'anchor-body' });
     /* a big invisible circle so it is easy to hit with a finger */
-    g.append(make('circle', { r: 28, fill: 'transparent', class: 'anchor-hit' }));
+    body.append(make('circle', { r: 28, fill: 'transparent', class: 'anchor-hit' }));
     /* a dark halo so the spot stands out against the furniture */
-    g.append(make('circle', { r: 16, class: 'anchor-halo' }));
+    body.append(make('circle', { r: 16, class: 'anchor-halo' }));
     /* the ring that spins and glows */
-    g.append(make('circle', { r: 20, class: 'anchor-ring' }));
+    body.append(make('circle', { r: 20, class: 'anchor-ring' }));
     /* the solid dot in the middle */
-    g.append(make('circle', { r: 9, class: 'anchor-dot' }));
+    body.append(make('circle', { r: 9, class: 'anchor-dot' }));
+    g.append(body);
 
     const say = () => {
       caption.textContent = `${anchor.name}. ${mount.line}`;
@@ -469,9 +515,164 @@ function buildLegend(list) {
   });
 }
 
+/* --- THE CAMERA ----------------------------------------------
+   Tap a room and the view glides in until that room fills the
+   screen. Tap "Whole house", or press Escape, to glide back out.
+   With a room open, the arrow keys move you to the room next door,
+   upstairs or downstairs. In M2 the hero will drive this: wherever
+   Hendrix walks, the camera follows.
+
+   How it works: an SVG has a viewBox, which is the part of the
+   picture it shows. Showing the whole house means a viewBox the
+   size of the whole picture. Zooming in just means a smaller
+   viewBox around one room. Nothing is redrawn, which is why it is
+   smooth.
+   ------------------------------------------------------------ */
+
+const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
+const view = { svg: null, box: null, hud: null, onRoom: null };
+
+/* Grow a box until it has the same shape as the picture, so the
+   room is not squashed, then keep it inside the picture. */
+function fitBox(x, y, w, h) {
+  const aspect = PICTURE.w / PICTURE.h;
+  if (w / h > aspect) { const nh = w / aspect; y -= (nh - h) / 2; h = nh; }
+  else { const nw = h * aspect; x -= (nw - w) / 2; w = nw; }
+  x = Math.max(0, Math.min(x, PICTURE.w - w));
+  y = Math.max(0, Math.min(y, PICTURE.h - h));
+  return { x, y, w, h };
+}
+
+function roomBox(room) {
+  const pad = Math.max(room.w, room.h) * 0.12;
+  return fitBox(room.x - pad, room.y - pad, room.w + pad * 2, room.h + pad * 2);
+}
+
+const WHOLE = () => ({ x: 0, y: 0, w: PICTURE.w, h: PICTURE.h });
+
+/* Outlines and spots are sized for the whole house. Zoomed in,
+   they would be enormous, so they are thinned and shrunk to suit. */
+function applyScale(box) {
+  const svg = view.svg;
+  const width = svg.getBoundingClientRect().width;
+  const closer = PICTURE.w / box.w;
+  const zoom = (width || PICTURE.w) / box.w;       // screen pixels per picture step
+  /* never let a spot's tap area drop under 54 pixels across */
+  const finger = width ? 27 / (28 * zoom) : 0;
+  svg.style.setProperty('--line', String(Math.min(1, 1 / Math.sqrt(closer))));
+  svg.style.setProperty('--anchor-scale', String(Math.min(1, Math.max(1.25 / Math.sqrt(closer), finger))));
+}
+
+function setBox(box) {
+  view.box = box;
+  view.svg.setAttribute('viewBox', `${box.x} ${box.y} ${box.w} ${box.h}`);
+  applyScale(box);
+}
+
+function glideTo(target) {
+  const from = view.box || WHOLE();
+  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still) { setBox(target); return; }
+  const start = performance.now();
+  const time = 520;
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / time);
+    const k = ease(t);
+    setBox({
+      x: from.x + (target.x - from.x) * k,
+      y: from.y + (target.y - from.y) * k,
+      w: from.w + (target.w - from.w) * k,
+      h: from.h + (target.h - from.h) * k
+    });
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function showHud(room) {
+  const { name, note, out } = view.hud;
+  if (room) {
+    name.textContent = room.name;
+    note.textContent = room.note || '';
+    out.hidden = false;
+  } else {
+    name.textContent = 'The whole house';
+    note.textContent = 'Tap a room to look inside.';
+    out.hidden = true;
+  }
+}
+
+export function zoomToRoom(id) {
+  const room = findRoom(id);
+  if (!room || !view.svg) return;
+  if (view.box) applyScale(view.box);
+  view.svg.classList.add('is-zoomed');
+  view.svg.querySelectorAll('.room').forEach((r) => r.classList.toggle('is-open', r.dataset.room === id));
+  glideTo(roomBox(room));
+  showHud(room);
+  if (view.onRoom) view.onRoom(id);
+}
+
+export function showWholeHouse(animate = true) {
+  if (!view.svg) return;
+  view.svg.classList.remove('is-zoomed');
+  view.svg.querySelectorAll('.room.is-open').forEach((r) => r.classList.remove('is-open'));
+  if (animate) glideTo(WHOLE()); else setBox(WHOLE());
+  showHud(null);
+  if (view.onRoom) view.onRoom(null);
+}
+
+/* Which room is next door? Left and right stay on the same floor.
+   Up and down pick the room above or below that overlaps most.
+   The garage and shed count as the ground floor. */
+function neighbour(id, dir) {
+  const here = findRoom(id);
+  const level = (r) => (r.floor === 'outside' ? 'ground' : r.floor);
+  if (dir === 'left' || dir === 'right') {
+    const row = ROOMS.filter((r) => level(r) === level(here)).sort((a, b) => a.x - b.x);
+    const i = row.indexOf(here) + (dir === 'right' ? 1 : -1);
+    return row[i] || null;
+  }
+  const f = FLOOR_ORDER.indexOf(level(here)) + (dir === 'down' ? 1 : -1);
+  const floor = FLOOR_ORDER[f];
+  if (!floor) return null;
+  const overlap = (r) => Math.min(r.x + r.w, here.x + here.w) - Math.max(r.x, here.x);
+  const centre = (r) => Math.abs((r.x + r.w / 2) - (here.x + here.w / 2));
+  const row = ROOMS.filter((r) => level(r) === floor);
+  row.sort((a, b) => (overlap(b) - overlap(a)) || (centre(a) - centre(b)));
+  return row[0] || null;
+}
+
+function wireCamera(svg) {
+  svg.querySelectorAll('.room').forEach((g) => {
+    const open = () => zoomToRoom(g.dataset.room);
+    g.addEventListener('click', open);
+    g.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+    });
+  });
+
+  const keys = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
+  svg.addEventListener('keydown', (event) => {
+    const open = svg.querySelector('.room.is-open');
+    if (event.key === 'Escape' && open) { event.preventDefault(); showWholeHouse(); return; }
+    if (!open || !keys[event.key]) return;
+    const next = neighbour(open.dataset.room, keys[event.key]);
+    event.preventDefault();
+    if (next) {
+      zoomToRoom(next.id);
+      const g = svg.querySelector(`.room[data-room="${next.id}"]`);
+      if (g) g.focus({ preventScroll: true });
+    }
+  });
+
+  window.addEventListener('resize', () => { if (view.box) applyScale(view.box); });
+}
+
 /* --- PUT IT ALL TOGETHER ------------------------------------- */
 
-export function buildHouse(container, caption, legend) {
+export function buildHouse(container, caption, legend, hud, onRoom) {
   container.innerHTML = '';
 
   const rooms = ROOMS.map((room) => room.name).join(', ');
@@ -491,4 +692,11 @@ export function buildHouse(container, caption, legend) {
 
   container.append(svg);
   if (legend) buildLegend(legend);
+
+  view.svg = svg;
+  view.hud = hud;
+  view.onRoom = onRoom || null;
+  wireCamera(svg);
+  if (hud) hud.out.addEventListener('click', () => showWholeHouse());
+  showWholeHouse(false);
 }

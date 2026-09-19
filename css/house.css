@@ -31,6 +31,55 @@
   height: auto;
 }
 
+/* --- THE CAMERA ----------------------------------------------
+   --line and --anchor-scale are set by js/house.js as you zoom, so
+   outlines and glowing spots stay a sensible size on screen.
+   ------------------------------------------------------------- */
+
+.house-scene .ink { stroke-width: calc(4px * var(--line, 1)); }
+.house-scene .ink-thin { stroke-width: calc(2.5px * var(--line, 1)); }
+
+.room-hud {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  min-height: var(--tap);
+  padding-right: 124px;   /* room for the day/night and sound buttons */
+}
+
+.room-hud-text {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+#room-hud-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--btn);
+}
+
+#room-hud-note { color: var(--text-dim); font-size: 15px; }
+
+/* Rooms can be tapped. A light outline shows which one you are on. */
+.room { cursor: zoom-in; outline: none; }
+.room:hover .room-box,
+.room:focus-visible .room-box { stroke: var(--btn); stroke-width: calc(5px * var(--line, 1)); }
+.is-zoomed .room { cursor: pointer; }
+.is-zoomed .room.is-open { cursor: default; }
+.is-zoomed .room.is-open .room-box { stroke: var(--btn); stroke-width: calc(4px * var(--line, 1)); }
+
+/* Zoomed in, the name is up in the bar, so the little tags go. */
+.room-tag { transition: opacity var(--anim) ease; }
+.is-zoomed .room-tag { opacity: 0; }
+
 /* --- ROOMS ---------------------------------------------------- */
 
 .room-box {
@@ -66,14 +115,14 @@
 
 .p-ink {
   stroke: var(--ink);
-  stroke-width: 2.2;
+  stroke-width: calc(2.2px * var(--line, 1));
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
 .p-fine {
   stroke: var(--ink);
-  stroke-width: 1.3;
+  stroke-width: calc(1.3px * var(--line, 1));
   stroke-linejoin: round;
   stroke-linecap: round;
 }
@@ -92,8 +141,9 @@
 
 .stair-rail { stroke: var(--wood-light); stroke-width: 5; stroke-linecap: round; }
 .stair-rung { stroke: var(--wood-light); stroke-width: 3.5; stroke-linecap: round; }
-.stair-spindle { stroke: var(--wood-dark); stroke-width: 2; }
-.stair-handrail { stroke: var(--wood-dark); stroke-width: 5; stroke-linecap: round; }
+.stair-runner { fill: none; stroke: var(--fabric-a); stroke-width: 4; stroke-linejoin: miter; }
+.stair-spindle { stroke: var(--wood-dark); stroke-width: 2.4; }
+.stair-handrail { stroke: var(--wood-dark); stroke-width: 6; stroke-linecap: round; }
 
 /* --- ANCHOR POINTS -------------------------------------------
    A ring and a dot. The ring is see through until you point at
@@ -102,6 +152,13 @@
    ------------------------------------------------------------- */
 
 .anchor { cursor: pointer; }
+
+.anchor-body {
+  transform: scale(var(--anchor-scale, 1));
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--anim) ease;
+}
 
 .anchor-halo {
   fill: var(--ink);
@@ -226,12 +283,13 @@
 
 /* --- SMALL SCREENS -------------------------------------------- */
 
-/* On a phone the whole house would shrink until the glowing spots
-   are too small for a finger. So instead the house stays big and
-   you slide it sideways inside its frame. */
+/* On a phone the whole house is small, so the way in is to tap a
+   room. Zoomed in, the spots are big enough for a finger. */
 @media (max-width: 560px) {
-  .house-scene { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .house-scene svg { min-width: 960px; }
+  #room-hud-name { font-size: 18px; }
+  .room-hud { flex-direction: column; align-items: stretch; padding-right: 0; }
+  .room-hud-text { padding-right: 124px; min-height: var(--tap); }
+  .room-hud .btn { width: 100%; }
   .legend-item { font-size: 13px; padding: 6px 9px; }
 }
 
@@ -242,4 +300,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .anchor-ring, .anchor-dot { animation: none; }
+  .anchor-body, .room-tag { transition: none; }
 }
