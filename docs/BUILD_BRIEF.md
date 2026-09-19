@@ -1,4 +1,4 @@
-# BUILD BRIEF — "HOUSE RULES" *(working title)*
+# BUILD BRIEF — "TRAP HOUSE"
 
 **A browser game built by Asa & Hendrix.**
 Version 1 spec. Deploys to Render as a static site.
@@ -286,7 +286,8 @@ once. Four levels plus two outbuildings, thirteen rooms in total, laid out
 in §7a.
 
 **Characters:** simple, expressive, big silhouettes. Sid tall and thin. Bruno
-square and wide. Hero small, determined, permanent slight smirk.
+square and wide. The hero **is Hendrix**: small, determined, permanent slight
+smirk, dressed head to foot in **camouflage** for the night.
 
 **Rendering:** inline **SVG + DOM + CSS animations**. Deliberately *not*
 canvas — because Hendrix can right-click any part of the game, hit Inspect,
@@ -338,7 +339,13 @@ sofa, behind the boiler, in the airing cupboard, in the chest freezer, on the
 shed shelves. Roughly two per room, weighted toward the awkward ones.
 
 The four rare items always spawn somewhere annoying: the cellar, the box
-room, the shed, or the garage. Getting one costs you a chunk of the clock.
+room, the shed, the garage, or **inside the piano** in the lounge, which is
+Hendrix's own pick for the best hiding spot in the house. Getting one costs
+you a chunk of the clock.
+
+**Colours:** the outside of the house is red. Rooms are white unless they
+are painted; Hendrix's room is light green. Paint is a word on each room in
+`data/rooms.js` that points at a colour in `css/tokens.css`.
 
 ### Rig: the 24 anchor points
 

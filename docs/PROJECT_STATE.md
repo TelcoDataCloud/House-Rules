@@ -112,7 +112,7 @@ service.
 
 | Idea | Ingredients | Status |
 |---|---|---|
-| | | |
+| **Glue Bomb** (19 Sep): the swinging flour bomb, then a water bomb straight after, so the flour turns to glue | Flour Bomb + Water Balloon (a new item he adds in M3). Swings overhead like the Swinging Flour Bomb. STICKY and MESSY, which is exactly Bruno's weakness. | Goes in at M4. Kept to one upgrade step so it fits the crafting rule. |
 
 ---
 
@@ -212,4 +212,15 @@ Pushed as `6eb6df7` through the GitHub connector. Note: the API now reports
 the repo as `TelcoDataCloud/House-Rules`; `asa-a11y/House-Rules` still
 resolves to it.
 
-**Next:** M2 — The Hero, once 3 and 4 are answered.
+**Hendrix's answers, 19 Sep:**
+1. Name: **Trap House**. He types it in himself on GitHub (M0 turn).
+2. Outside of the house **red**. Rooms mostly white, some coloured, and
+   **his room light green**. Done: `--wall` is red, rooms take a `paint`
+   in `data/rooms.js`. Bathroom blue and kitchen yellow are placeholder
+   picks, his to change.
+3. The hero **is Hendrix**.
+4. He wears **camouflage**.
+5. Best search spot: **inside the piano**, in the lounge. It becomes a
+   rare-item spot in M3.
+
+**Next:** M2 — The Hero: Hendrix, in camouflage.
