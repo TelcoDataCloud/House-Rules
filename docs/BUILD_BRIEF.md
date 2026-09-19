@@ -69,8 +69,11 @@ would make you wince, it's out.
 One **night** = four phases. A full night runs 6-10 minutes.
 
 ### Phase 1 — SCAVENGE *(timed, length set by difficulty)*
-Hendrix controls the hero and moves around the house cross-section. Items are
-hidden in rooms, cupboards, drawers and the shed. He grabs what he can before
+Hendrix controls the hero and moves around the house cross-section. The
+camera zooms into whichever room he is in, so that room fills the screen and
+every cupboard and drawer is big enough to search; the whole house is the
+map he zooms back out to. Items are hidden in rooms, cupboards, drawers and
+the shed. He grabs what he can before
 the clock runs out. Carry limit: **8 items**.
 
 The timer is the whole tension of this phase. On Hard he will not get
@@ -105,6 +108,9 @@ silhouettes — that's the thing that will keep him experimenting.
 The house shows **24 anchor points**, one trap each. They are listed in
 full in §7a. Every anchor is a real place in the house: a door frame, a
 staircase, a ceiling, a stretch of floor.
+
+Rigging works the same way: pick a room, the camera zooms in, and the anchor
+points in it are big and easy to hit. Zoom back out to see the whole plan.
 
 Traps have a **mount type**: `FLOOR`, `DOORWAY`, `OVERHEAD`, `STAIRS`.
 Anchors only accept matching types. A swinging paint tin needs something to
