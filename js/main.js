@@ -14,7 +14,7 @@
 
 import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
-import { buildHouse } from './house.js';
+import { buildHouse, showWholeHouse } from './house.js';
 import { sfx } from './audio.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
@@ -93,7 +93,9 @@ function boot() {
   buildDifficulty(el('difficulty'));
   buildMilestones(el('milestones'));
   setupToggles(el('theme-toggle'), el('sound-toggle'));
-  buildHouse(el('house'), el('house-caption'), el('legend'));
+  buildHouse(el('house'), el('house-caption'), el('legend'),
+    { name: el('room-hud-name'), note: el('room-hud-note'), out: el('zoom-out') },
+    (room) => { state.room = room; });
 
   el('start-btn').addEventListener('click', () => {
     sfx.start();
@@ -115,6 +117,7 @@ function boot() {
         'Point at a glowing spot, or press Tab, to see what goes there.';
       document.querySelectorAll('.anchor.is-live')
         .forEach((a) => a.classList.remove('is-live'));
+      showWholeHouse(false);
       showScreen('title');
     } else {
       renderPhaseScreen(phase);

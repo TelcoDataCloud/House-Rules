@@ -132,8 +132,8 @@ export const ROOMS = [
     x: 132, y: 402, w: 160, h: 154,
     note: 'Both of them come through here. Both.',
     props: [
-      { kind: 'picture', x: 16 },
-      { kind: 'clock',   x: 70 }
+      { kind: 'clock',   x: 2 },
+      { kind: 'picture', x: 30, lift: 22 }
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
@@ -202,15 +202,17 @@ export const ROOMS = [
 ];
 
 /* The three ways between floors. Steps are a staircase, a ladder
-   is a ladder. left and right say how wide, bottom and top say
-   how far it climbs. handrail: false leaves the banister off. */
+   is a ladder. left and right say how wide. bottom is the floor it
+   starts on and top is the floor it arrives at, so they line up
+   with the floors of the rooms. handrail: false leaves the
+   banister off. cupboard: true puts a cupboard under the stairs. */
 export const STAIRS = [
-  { id: 'main',   name: 'The stairs',  kind: 'steps',
-    left: 140, right: 286, bottom: 556, top: 392, steps: 9 },
-  { id: 'cellar', name: 'Cellar steps', kind: 'steps',
-    left: 712, right: 790, bottom: 700, top: 556, steps: 7, handrail: false },
+  { id: 'main',   name: 'The stairs',  kind: 'steps', cupboard: true,
+    left: 140, right: 286, bottom: 544, top: 380, steps: 9 },
+  { id: 'cellar', name: 'Cellar steps', kind: 'steps', handrail: false,
+    left: 712, right: 790, bottom: 688, top: 544, steps: 7 },
   { id: 'loft',   name: 'Loft ladder',  kind: 'ladder',
-    left: 306, right: 330, bottom: 392, top: 222, steps: 6 }
+    left: 306, right: 330, bottom: 380, top: 208, steps: 6 }
 ];
 
 /* Twenty four anchor points. One trap each, later on. */

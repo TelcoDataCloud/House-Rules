@@ -34,6 +34,9 @@ export function freshState() {
     theme: 'night',
     soundOn: true,
 
+    /* Which room the camera is zoomed into. null is the whole house. */
+    room: null,
+
     /* These are empty until the milestones that fill them. */
     inventory: [],      // M3: items the hero is carrying
     traps: [],          // M4: traps built at the workbench
