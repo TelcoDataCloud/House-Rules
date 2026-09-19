@@ -242,4 +242,24 @@ drawn properly, still cartoon:
 himself on GitHub (`8f66584`). The big title on the page still says House
 Rules; that is the other half, same file, the `<h1 class="game-title">` line.
 
+**Room camera and stairs, 19 Sep.** Asa: when Hendrix moves around it
+should zoom in on one room at a time, for more detail when hunting and
+rigging. And the stairs did not look right.
+- Tap any room (or Tab to it and press Enter) and the view glides in until
+  it fills the screen. A bar above the house shows the room's name and its
+  note, with a Whole house button. Escape also zooms out. With a room open,
+  the arrow keys move to the room next door, upstairs or downstairs. The
+  garage and shed count as the ground floor.
+- It works by animating the SVG viewBox, so nothing is redrawn. Outlines
+  thin out and trap spots shrink as you zoom so they stay a sensible size;
+  spots never get smaller than a 54px tap target.
+- `state.room` holds the room the camera is on; restart returns to the
+  whole house. `zoomToRoom(id)` and `showWholeHouse()` are exported from
+  `js/house.js`, ready for M2 so the camera follows Hendrix.
+- The phone horizontal-scroll hack is gone; on a phone you tap a room.
+- Stairs rebuilt: a proper zig-zag of steps with a carpet runner, a sloping
+  stringer, a banister with spindles and a newel post at each end, and a
+  cupboard under the stairs (a good M3 hiding spot). Stairs, cellar steps
+  and loft ladder now start and finish exactly on the floors of the rooms.
+
 **Next:** M2 — The Hero: Hendrix, in camouflage.
