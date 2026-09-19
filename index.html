@@ -252,6 +252,14 @@
        It is empty in the HTML on purpose: nothing here needs
        changing to add a room. -->
   <div class="house-wrap" id="house-wrap" hidden>
+    <!-- Which room you are looking at, and the way back out. -->
+    <div class="room-hud">
+      <p class="room-hud-text" aria-live="polite">
+        <strong id="room-hud-name">The whole house</strong>
+        <span id="room-hud-note">Tap a room to look inside.</span>
+      </p>
+      <button type="button" class="btn btn-quiet" id="zoom-out" hidden>Whole house</button>
+    </div>
     <div class="house-scene" id="house"></div>
     <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot, or press Tab, to see what goes there.</p>
     <ul class="legend" id="legend" aria-label="What the glowing spots mean"></ul>
