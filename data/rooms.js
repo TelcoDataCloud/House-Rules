@@ -30,6 +30,18 @@
    it a paint: white, green, blue, yellow or pink. Those colours
    live in css/tokens.css, so a new colour goes there first.
 
+   FLOORING
+   Wood unless it says tile or carpet. The cellar, garage and shed
+   are concrete whatever you say, because they would be.
+
+   PROPS
+   The furniture. Each one is a kind (the name of a drawing in
+   js/props.js) and an x (how far in from the room's left wall).
+   Some take a colour, like the duvet on your bed. Some take a
+   lift, which moves them up the wall. They are drawn in order, so
+   something later in the list stands in front of something
+   earlier. Move the piano, swap the bed, add a second plant.
+
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
 
@@ -54,69 +66,149 @@ export const PICTURE = { w: 1040, h: 740 };
 
 export const ROOMS = [
   /* --- THE ATTIC, up in the roof, where you hide --- */
-  { id: 'attic',    name: 'Attic',         floor: 'attic',
+  { id: 'attic',    name: 'Attic',         floor: 'attic', paint: 'wood',
     x: 250, y: 150, w: 340, h: 70,
-    note: 'You watch the monitors from up here.' },
+    note: 'You watch the monitors from up here.',
+    props: [
+      { kind: 'monitors', x: 110 },
+      { kind: 'boxes',    x: 232 },
+      { kind: 'porthole', x: 302 }
+    ] },
 
   /* --- UPSTAIRS --- */
   { id: 'bathroom', name: 'Bathroom',      floor: 'upstairs', paint: 'blue',
+    flooring: 'tile',
     x: 48,  y: 232, w: 124, h: 160,
-    note: 'Nothing worth stealing. They check anyway.' },
+    note: 'Nothing worth stealing. They check anyway.',
+    props: [
+      { kind: 'bath',   x: 4 },
+      { kind: 'toilet', x: 92 }
+    ] },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
+    flooring: 'carpet',
     x: 176, y: 232, w: 160, h: 160,
-    note: 'The stairs come up here. The loft hatch is in the ceiling.' },
+    note: 'The stairs come up here. The loft hatch is in the ceiling.',
+    props: [
+      { kind: 'plant',    x: 4 },
+      { kind: 'picture',  x: 34 },
+      { kind: 'radiator', x: 62 }
+    ] },
   { id: 'my-room',  name: "Hendrix's room", floor: 'upstairs', paint: 'green',
+    flooring: 'carpet',
     x: 340, y: 232, w: 156, h: 160,
-    note: 'The workbench lives in here.' },
+    note: 'The workbench lives in here.',
+    props: [
+      { kind: 'window',    x: 30, colour: 'fabric-c' },
+      { kind: 'bed',       x: 2,  colour: 'fabric-c' },
+      { kind: 'workbench', x: 98 }
+    ] },
   { id: 'big-room', name: "Mum and Dad's", floor: 'upstairs',
+    flooring: 'carpet',
     x: 500, y: 232, w: 152, h: 160,
-    note: 'Jewellery box. Sid goes straight here.' },
+    note: 'Jewellery box. Sid goes straight here.',
+    props: [
+      { kind: 'wardrobe', x: 2 },
+      { kind: 'picture',  x: 86 },
+      { kind: 'bed',      x: 54, colour: 'fabric-a' }
+    ] },
   { id: 'box-room', name: 'Box room',      floor: 'upstairs',
     x: 656, y: 232, w: 136, h: 160,
-    note: 'Nobody has opened some of these boxes in years.' },
+    note: 'Nobody has opened some of these boxes in years.',
+    props: [
+      { kind: 'boxes',     x: 6 },
+      { kind: 'bookshelf', x: 80 }
+    ] },
 
   /* --- GROUND FLOOR --- */
   { id: 'porch',    name: 'Porch',         floor: 'ground',
+    flooring: 'tile',
     x: 48,  y: 402, w: 80,  h: 154,
-    note: 'Wellies, coats, and the front door.' },
+    note: 'Wellies, coats, and the front door.',
+    props: [
+      { kind: 'coats', x: 6 },
+      { kind: 'plant', x: 52 }
+    ] },
   { id: 'hall',     name: 'Hall',          floor: 'ground',
     x: 132, y: 402, w: 160, h: 154,
-    note: 'Both of them come through here. Both.' },
+    note: 'Both of them come through here. Both.',
+    props: [
+      { kind: 'picture', x: 16 },
+      { kind: 'clock',   x: 70 }
+    ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
-    note: 'The telly, and the piano. Always check the piano.' },
+    note: 'The telly, and the piano. Always check the piano.',
+    props: [
+      { kind: 'window', x: 78 },
+      { kind: 'rug',    x: 36 },
+      { kind: 'piano',  x: 2 },
+      { kind: 'tv',     x: 72 },
+      { kind: 'lamp',   x: 132 }
+    ] },
   { id: 'dining',   name: 'Dining room',   floor: 'ground',
     x: 456, y: 402, w: 124, h: 154,
-    note: 'The cash tin is in the sideboard.' },
+    note: 'The cash tin is in the dresser drawer.',
+    props: [
+      { kind: 'picture', x: 34 },
+      { kind: 'table',   x: 2 },
+      { kind: 'dresser', x: 96 }
+    ] },
   { id: 'kitchen',  name: 'Kitchen',       floor: 'ground', paint: 'yellow',
+    flooring: 'tile',
     x: 584, y: 402, w: 118, h: 154,
-    note: 'Window, cupboards, and a lot of useful junk.' },
+    note: 'Window, cupboards, and a lot of useful junk.',
+    props: [
+      { kind: 'window',  x: 40, colour: 'fabric-b' },
+      { kind: 'counter', x: 2 },
+      { kind: 'fridge',  x: 84 }
+    ] },
   { id: 'utility',  name: 'Utility',       floor: 'ground',
+    flooring: 'tile',
     x: 706, y: 402, w: 86,  h: 154,
-    note: 'Back door. Steps down to the cellar.' },
+    note: 'Back door. Steps down to the cellar.',
+    props: [
+      { kind: 'washer', x: 4 },
+      { kind: 'boiler', x: 48 },
+      { kind: 'bucket', x: 44 }
+    ] },
 
   /* --- THE CELLAR, under the ground --- */
   { id: 'cellar',   name: 'Cellar',        floor: 'cellar',
     x: 456, y: 572, w: 336, h: 128,
-    note: 'Dark, far away, and the best junk in the house.' },
+    note: 'Dark, far away, and the best junk in the house.',
+    props: [
+      { kind: 'shelves', x: 8 },
+      { kind: 'boxes',   x: 72 },
+      { kind: 'freezer', x: 142 },
+      { kind: 'shelves', x: 200 }
+    ] },
 
   /* --- OUTSIDE --- */
   { id: 'garage',   name: 'Garage',        floor: 'outside',
     x: 812, y: 460, w: 120, h: 96,
-    note: 'Tools, paint, a garden hose.' },
-  { id: 'shed',     name: 'Shed',          floor: 'outside',
+    note: 'Tools, paint, a garden hose.',
+    props: [
+      { kind: 'pegboard', x: 30, lift: -6 },
+      { kind: 'car',      x: 10 }
+    ] },
+  { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
     x: 948, y: 476, w: 84,  h: 80,
-    note: 'A long walk. Worth it.' }
+    note: 'A long walk. Worth it.',
+    props: [
+      { kind: 'pegboard',  x: 22, lift: -26 },
+      { kind: 'lawnmower', x: 2 },
+      { kind: 'bucket',    x: 60 }
+    ] }
 ];
 
 /* The three ways between floors. Steps are a staircase, a ladder
    is a ladder. left and right say how wide, bottom and top say
-   how far it climbs. */
+   how far it climbs. handrail: false leaves the banister off. */
 export const STAIRS = [
   { id: 'main',   name: 'The stairs',  kind: 'steps',
     left: 140, right: 286, bottom: 556, top: 392, steps: 9 },
   { id: 'cellar', name: 'Cellar steps', kind: 'steps',
-    left: 712, right: 790, bottom: 700, top: 556, steps: 7 },
+    left: 712, right: 790, bottom: 700, top: 556, steps: 7, handrail: false },
   { id: 'loft',   name: 'Loft ladder',  kind: 'ladder',
     left: 306, right: 330, bottom: 392, top: 222, steps: 6 }
 ];

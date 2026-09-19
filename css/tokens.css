@@ -45,9 +45,44 @@
   --room-outside: #cbb894;   /* the garage and the shed */
   --room-cellar: #c9b38c;    /* the cellar, a bit darker */
   --earth: #2b2119;          /* the dirt the cellar is dug into */
-  --room-line: #b9a483;      /* floorboards */
-  --room-label: #4a4034;     /* room names */
   --stairs: #d8bf95;
+
+  /* --- FURNITURE and THINGS IN THE HOUSE (js/props.js) ---
+     Every sofa, bed and fridge is painted from this list. */
+  --wood: #8a5a3a;
+  --wood-dark: #5e3d28;
+  --wood-light: #c08d5e;
+  --fabric-a: #c0504a;       /* red: sofa, coats, curtains */
+  --fabric-b: #4f7cae;       /* blue: duvets, coats */
+  --fabric-c: #5f9a4e;       /* green: Hendrix's duvet */
+  --cardboard: #c49a62;
+  --metal: #aab2bd;
+  --porcelain: #eef1f5;
+  --glass: #9cc9e0;
+  --screen: #86e0ff;
+  --night-glass: #22284a;    /* what you see through a window */
+  --leaf: #4f9a52;
+  --pot: #b8643c;
+  --units: #8fb3a3;          /* kitchen cupboards */
+  --worktop: #4f535a;
+  --car: #3f6fb5;
+  --lamp-shade: #f2c46b;
+  --lamp-glow: #ffd98a;
+  --glow-strength: 0.55;     /* how bright the lamps look. 0 is off */
+
+  /* --- WALLS, FLOORS and the BUILDING itself --- */
+  --mortar: #7a2019;         /* the lines between the bricks */
+  --partition: #d8c8ae;      /* the thin walls between rooms */
+  --joist: #6e4a30;          /* the beams between floors */
+  --paint-wood: #7a5a40;     /* the attic */
+  --wall-tile: #dfe9ee;
+  --grout: #a9b6bd;
+  --floor-wood: #a8764c;
+  --floor-tile: #d9d4c8;
+  --floor-carpet: #7d6a96;
+  --floor-concrete: #7c7872;
+  --label-bg: rgba(20, 18, 28, 0.66);
+  --label-text: #fff6e4;
 
   /* --- ANCHOR POINTS, one colour per mount type --- */
   --anchor-idle: #ffd166;
@@ -139,9 +174,41 @@
   --room-outside: #e6d4b0;
   --room-cellar: #dcc79f;
   --earth: #a8845c;
-  --room-line: #cbb489;
-  --room-label: #4a4034;
   --stairs: #e8cfa6;
+
+  --wood: #a87148;
+  --wood-dark: #7a5134;
+  --wood-light: #d8a877;
+  --fabric-a: #d45d55;
+  --fabric-b: #5b8cc4;
+  --fabric-c: #6fb05a;
+  --cardboard: #d8b07a;
+  --metal: #c3cad3;
+  --porcelain: #ffffff;
+  --glass: #bfe3f2;
+  --screen: #9fe6ff;
+  --night-glass: #9fd8f2;
+  --leaf: #5fae5f;
+  --pot: #cc7447;
+  --units: #a5c7b8;
+  --worktop: #6a6f77;
+  --car: #4a80cc;
+  --lamp-shade: #f2c46b;
+  --lamp-glow: #fff0c2;
+  --glow-strength: 0.18;
+
+  --mortar: #f0b7ad;
+  --partition: #efe2cc;
+  --joist: #8a5c3a;
+  --paint-wood: #a07a58;
+  --wall-tile: #eef5f8;
+  --grout: #c3ced4;
+  --floor-wood: #c08a5a;
+  --floor-tile: #eeeae0;
+  --floor-carpet: #9a88b3;
+  --floor-concrete: #a19d96;
+  --label-bg: rgba(20, 18, 28, 0.6);
+  --label-text: #fff6e4;
 
   --anchor-idle: #e8a020;
   --mount-floor: #1f7a4d;
