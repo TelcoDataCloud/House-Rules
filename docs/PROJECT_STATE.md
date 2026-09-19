@@ -112,7 +112,7 @@ service.
 
 | Idea | Ingredients | Status |
 |---|---|---|
-| **Glue Bomb** (19 Sep): the swinging flour bomb, then a water bomb straight after, so the flour turns to glue | Flour Bomb + Water Balloon (a new item he adds in M3). Swings overhead like the Swinging Flour Bomb. STICKY and MESSY, which is exactly Bruno's weakness. | Goes in at M4. Kept to one upgrade step so it fits the crafting rule. |
+| **Glue Bomb** (19 Sep): the swinging flour bomb, then a water bomb straight after, so the flour turns to glue | Flour Bomb + Water Balloon (a new item he adds in M3). Swings overhead like the Swinging Flour Bomb. STICKY and MESSY, which is exactly Bruno's weakness. | **Agreed 19 Sep.** In the brief's upgrade table. Water Balloon goes in at M3 (his item), Glue Bomb at M4. |
 
 ---
 
@@ -222,5 +222,24 @@ resolves to it.
 4. He wears **camouflage**.
 5. Best search spot: **inside the piano**, in the lounge. It becomes a
    rare-item spot in M3.
+
+**House art, 19 Sep.** Asa: the house looked too basic. Now furnished and
+drawn properly, still cartoon:
+- New `js/props.js`: 35 furniture drawings (bed, wardrobe, workbench, bath,
+  piano, telly, fridge, car, security monitors and so on). Each starts at
+  the floor on its left edge; colours are token names.
+- Rooms in `data/rooms.js` list their props by kind and x, plus optional
+  `colour` and `lift`. Rooms can also set `flooring` (wood, tile, carpet)
+  and `walls: 'planks'`.
+- `js/house.js` now draws brick outer walls, a tiled roof with fascia and
+  gutter, a chimney with pots, beams between floors, a stone cellar, sky
+  with moon or sun, grass and earth, a lamp and light pool in every room,
+  wallpaper stripes or wall tiles, floors, skirting, a carpeted staircase
+  with a banister, and a name tag on each room.
+- New tokens for furniture, floors and building parts, both themes.
+
+**Hendrix's M0 turn, half done:** he renamed the browser tab to Trap House
+himself on GitHub (`8f66584`). The big title on the page still says House
+Rules; that is the other half, same file, the `<h1 class="game-title">` line.
 
 **Next:** M2 — The Hero: Hendrix, in camouflage.
