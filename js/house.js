@@ -169,7 +169,7 @@ function drawRooms(svg) {
       rx: 6,
       fill: room.floor === 'outside' ? 'var(--room-outside)'
         : room.floor === 'cellar' ? 'var(--room-cellar)'
-        : 'var(--room-floor)',
+        : `var(--paint-${room.paint || 'white'})`,
       class: 'ink-thin room-box'
     }));
 

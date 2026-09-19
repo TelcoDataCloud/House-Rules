@@ -25,6 +25,11 @@
    ground, cellar, or outside. Outside ones get their own little
    roof.
 
+   PAINT
+   Rooms are white unless they say otherwise. To repaint one, give
+   it a paint: white, green, blue, yellow or pink. Those colours
+   live in css/tokens.css, so a new colour goes there first.
+
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
 
@@ -54,13 +59,13 @@ export const ROOMS = [
     note: 'You watch the monitors from up here.' },
 
   /* --- UPSTAIRS --- */
-  { id: 'bathroom', name: 'Bathroom',      floor: 'upstairs',
+  { id: 'bathroom', name: 'Bathroom',      floor: 'upstairs', paint: 'blue',
     x: 48,  y: 232, w: 124, h: 160,
     note: 'Nothing worth stealing. They check anyway.' },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
     x: 176, y: 232, w: 160, h: 160,
     note: 'The stairs come up here. The loft hatch is in the ceiling.' },
-  { id: 'my-room',  name: "Hendrix's room", floor: 'upstairs',
+  { id: 'my-room',  name: "Hendrix's room", floor: 'upstairs', paint: 'green',
     x: 340, y: 232, w: 156, h: 160,
     note: 'The workbench lives in here.' },
   { id: 'big-room', name: "Mum and Dad's", floor: 'upstairs',
@@ -79,11 +84,11 @@ export const ROOMS = [
     note: 'Both of them come through here. Both.' },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
-    note: 'The telly. The one Bruno really wants.' },
+    note: 'The telly, and the piano. Always check the piano.' },
   { id: 'dining',   name: 'Dining room',   floor: 'ground',
     x: 456, y: 402, w: 124, h: 154,
     note: 'The cash tin is in the sideboard.' },
-  { id: 'kitchen',  name: 'Kitchen',       floor: 'ground',
+  { id: 'kitchen',  name: 'Kitchen',       floor: 'ground', paint: 'yellow',
     x: 584, y: 402, w: 118, h: 154,
     note: 'Window, cupboards, and a lot of useful junk.' },
   { id: 'utility',  name: 'Utility',       floor: 'ground',

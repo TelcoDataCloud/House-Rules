@@ -25,8 +25,8 @@
   --hedge: #24402a;
 
   /* --- THE HOUSE --- */
-  --wall: #c96f4a;        /* <-- M1: this is the wall colour */
-  --wall-shadow: #a4553a;
+  --wall: #b3342b;        /* <-- M1: the outside of the house. Red, Hendrix's pick */
+  --wall-shadow: #8a2620;
   --roof: #5c3a52;
   --door: #7b4a2d;
   --window-glass: #ffd166;   /* lights are on */
@@ -35,7 +35,13 @@
 
   /* --- INSIDE THE HOUSE (M1: the cut open view) --- */
   --house-sky: #1b1b3a;      /* behind the house */
-  --room-floor: #f3e2c7;     /* <-- M1: the floor of every room */
+  /* Room paint. A room in data/rooms.js picks one of these by
+     name, like paint: 'green'. No paint means white. */
+  --paint-white: #f4efe6;
+  --paint-green: #cfe8c4;    /* Hendrix's room */
+  --paint-blue: #cfe0ee;
+  --paint-yellow: #f4e7b8;
+  --paint-pink: #f2d4d7;
   --room-outside: #cbb894;   /* the garage and the shed */
   --room-cellar: #c9b38c;    /* the cellar, a bit darker */
   --earth: #2b2119;          /* the dirt the cellar is dug into */
@@ -116,8 +122,8 @@
   --ground-dark: #5f8f4d;
   --hedge: #4f8a45;
 
-  --wall: #f0a868;        /* <-- M1: and the day version here */
-  --wall-shadow: #d08a4e;
+  --wall: #d9463a;        /* <-- M1: and the day version here */
+  --wall-shadow: #b23429;
   --roof: #a45c6d;
   --door: #9a5f38;
   --window-glass: #cfeaf7;
@@ -125,7 +131,11 @@
   --chimney: #8a5a49;
 
   --house-sky: #9fd8f2;
-  --room-floor: #fff6e4;     /* <-- M1: and the day version here */
+  --paint-white: #ffffff;
+  --paint-green: #dff3d6;
+  --paint-blue: #e2eef8;
+  --paint-yellow: #fbf1c9;
+  --paint-pink: #f9e3e5;
   --room-outside: #e6d4b0;
   --room-cellar: #dcc79f;
   --earth: #a8845c;
