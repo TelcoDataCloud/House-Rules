@@ -220,9 +220,12 @@ Garden Hose · Blender · Glitter Cannon
 The rare items exist to make the scavenge phase worth exploring properly and
 to give the recipe notebook something to chase.
 
+**Hendrix's item:** **Water Balloon**, common. He adds it himself in M3, and
+it unlocks his Glue Bomb in M4.
+
 ---
 
-## 6. Recipes — 19 base + 7 upgrades
+## 6. Recipes — 19 base + 8 upgrades
 
 ### Base traps — two items each
 Order never matters (normalise by sorting ingredient IDs).
@@ -264,6 +267,7 @@ burglar who shrugs off your favourite trick.
 | Ghost Bomb + Glitter Cannon | **Poltergeist** | MESSY · STARTLE | 5 | White cloud, then it sparkles. Sid genuinely believes the house is haunted. |
 | Marble Avalanche + Cooking Oil | **Greased Avalanche** | SLIPPERY | 5 | No grip, no marbles-free floor, no dignity |
 | Rattlesnake Line + Christmas Lights | **Rave Snare** | LOUD · STARTLE | 4 | Cans, strobe, chaos. Neighbours definitely noticed. |
+| Flour Bomb + Water Balloon | **Glue Bomb** *(Hendrix's)* | STICKY · MESSY | 5 | Flour first, water straight after, and now it is glue. Hangs overhead and swings like the Swinging Flour Bomb. Bruno's worst nightmare. |
 
 When a trap has two categories, nerve damage uses whichever the burglar is
 **weaker** to. That is the point of upgrading — a two-category trap always
@@ -503,7 +507,7 @@ traps; a trap editor.
 ## 11. Done means
 
 - A stranger understands what to do within ten seconds of the title screen
-- All 26 recipes work, base and upgrade, each with its own animation
+- All 27 recipes work, base and upgrade, each with its own animation
 - The two burglars need genuinely different traps to beat
 - A night runs 6-10 minutes and can be won *or* lost, at all three difficulty
   settings
