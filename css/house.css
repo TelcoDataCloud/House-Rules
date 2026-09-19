@@ -39,9 +39,9 @@
 
 .room-name {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   fill: var(--room-label);
 }
@@ -174,8 +174,12 @@
 
 /* --- SMALL SCREENS -------------------------------------------- */
 
+/* On a phone the whole house would shrink until the glowing spots
+   are too small for a finger. So instead the house stays big and
+   you slide it sideways inside its frame. */
 @media (max-width: 560px) {
-  .room-name { font-size: 19px; }
+  .house-scene { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .house-scene svg { min-width: 960px; }
   .legend-item { font-size: 13px; padding: 6px 9px; }
 }
 

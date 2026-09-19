@@ -36,7 +36,9 @@
   /* --- INSIDE THE HOUSE (M1: the cut open view) --- */
   --house-sky: #1b1b3a;      /* behind the house */
   --room-floor: #f3e2c7;     /* <-- M1: the floor of every room */
-  --room-outside: #cbb894;   /* the shed, which is not a room */
+  --room-outside: #cbb894;   /* the garage and the shed */
+  --room-cellar: #c9b38c;    /* the cellar, a bit darker */
+  --earth: #2b2119;          /* the dirt the cellar is dug into */
   --room-line: #b9a483;      /* floorboards */
   --room-label: #4a4034;     /* room names */
   --stairs: #d8bf95;
@@ -125,6 +127,8 @@
   --house-sky: #9fd8f2;
   --room-floor: #fff6e4;     /* <-- M1: and the day version here */
   --room-outside: #e6d4b0;
+  --room-cellar: #dcc79f;
+  --earth: #a8845c;
   --room-line: #cbb489;
   --room-label: #4a4034;
   --stairs: #e8cfa6;

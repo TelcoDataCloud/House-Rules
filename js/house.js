@@ -14,7 +14,7 @@
    and the browser will show you the exact line that drew it.
    =========================================================== */
 
-import { ROOMS, ANCHORS, MOUNTS } from '../data/rooms.js';
+import { PICTURE, ROOMS, STAIRS, ANCHORS, MOUNTS } from '../data/rooms.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -33,71 +33,127 @@ function findRoom(id) {
 }
 
 /* --- THE SHELL ----------------------------------------------
-   The roof, the outside walls, the grass and the stairs. These
-   are the bits that hold still no matter what is in rooms.js.
+   The roof, the outside walls, the floors between storeys, the
+   grass and the earth. None of these have numbers of their own.
+   They measure the rooms in data/rooms.js and wrap themselves
+   around whatever they find, so moving a room moves the walls.
    ------------------------------------------------------------ */
+
+/* The top, bottom, left and right edge of every room on a floor. */
+function measure(floor) {
+  const rooms = ROOMS.filter((room) => room.floor === floor);
+  if (rooms.length === 0) return null;
+  return {
+    top: Math.min(...rooms.map((r) => r.y)),
+    bottom: Math.max(...rooms.map((r) => r.y + r.h)),
+    left: Math.min(...rooms.map((r) => r.x)),
+    right: Math.max(...rooms.map((r) => r.x + r.w))
+  };
+}
 
 function drawShell(svg) {
   const shell = make('g');
+  const W = PICTURE.w;
+  const H = PICTURE.h;
+
+  const up = measure('upstairs');
+  const down = measure('ground');
+  const attic = measure('attic');
+
+  /* The outside walls hug the upstairs and ground floor rooms. */
+  const wallLeft = Math.min(up.left, down.left) - 4;
+  const wallRight = Math.max(up.right, down.right) + 4;
+  const wallTop = up.top - 10;
+  const grass = down.bottom;
 
   /* sky behind everything */
-  shell.append(make('rect', { x: 0, y: 0, width: 900, height: 640, fill: 'var(--house-sky)' }));
+  shell.append(make('rect', { x: 0, y: 0, width: W, height: H, fill: 'var(--house-sky)' }));
 
-  /* grass */
+  /* the earth under the grass, where the cellar is dug */
   shell.append(make('path', {
-    d: 'M0 548 L900 548 L900 640 L0 640 Z',
-    fill: 'var(--ground)', class: 'ink'
+    d: `M0 ${grass} L${W} ${grass} L${W} ${H} L0 ${H} Z`,
+    fill: 'var(--earth)', class: 'ink'
+  }));
+  shell.append(make('path', {
+    d: `M0 ${grass} L${W} ${grass} L${W} ${grass + 12} L0 ${grass + 12} Z`,
+    fill: 'var(--ground)'
   }));
 
-  /* chimney first, so the roof lands on top of it */
+  /* The roof sits on top of the walls and is tall enough to hold
+     the attic. The chimney goes on first so the roof covers its
+     bottom. */
+  const roofLeft = wallLeft - 22;
+  const roofRight = wallRight + 22;
+  const roofBase = wallTop + 2;
+  const peakX = (roofLeft + roofRight) / 2;
+  const peakY = (attic ? attic.top : roofBase) - 90;
+  const chimX = peakX + (roofRight - peakX) * 0.45;
   shell.append(make('path', {
-    d: 'M596 74 L636 74 L638 176 L594 176 Z',
+    d: `M${chimX} ${peakY + 24} L${chimX + 40} ${peakY + 24} L${chimX + 42} ${roofBase - 40} L${chimX - 2} ${roofBase - 40} Z`,
     fill: 'var(--chimney)', class: 'ink'
   }));
-
-  /* roof */
   shell.append(make('path', {
-    d: 'M48 170 L380 44 L712 170 Z',
+    d: `M${roofLeft} ${roofBase} L${peakX} ${peakY} L${roofRight} ${roofBase} Z`,
     fill: 'var(--roof)', class: 'ink'
   }));
 
   /* the outside walls, cut open at the front */
   shell.append(make('path', {
-    d: 'M60 168 L700 168 L700 548 L60 548 Z',
+    d: `M${wallLeft} ${wallTop} L${wallRight} ${wallTop} L${wallRight} ${grass} L${wallLeft} ${grass} Z`,
     fill: 'var(--wall)', class: 'ink'
   }));
 
   /* the floor between upstairs and downstairs */
   shell.append(make('path', {
-    d: 'M60 352 L700 352 L700 364 L60 364 Z',
+    d: `M${wallLeft} ${up.bottom + 2} L${wallRight} ${up.bottom + 2} L${wallRight} ${down.top - 2} L${wallLeft} ${down.top - 2} Z`,
     fill: 'var(--wall-shadow)', class: 'ink-thin'
   }));
+
+  /* every outside building gets its own little roof */
+  ROOMS.filter((room) => room.floor === 'outside').forEach((room) => {
+    shell.append(make('path', {
+      d: `M${room.x - 8} ${room.y - 6} L${room.x + room.w + 8} ${room.y - 6} L${room.x + room.w + 8} ${room.y + room.h} L${room.x - 8} ${room.y + room.h} Z`,
+      fill: 'var(--wall-shadow)', class: 'ink'
+    }));
+    shell.append(make('path', {
+      d: `M${room.x - 16} ${room.y - 4} L${room.x + room.w / 2} ${room.y - 40} L${room.x + room.w + 16} ${room.y - 4} Z`,
+      fill: 'var(--roof)', class: 'ink'
+    }));
+  });
 
   svg.append(shell);
 }
 
-/* The staircase, drawn as real steps so it reads instantly.
-   It climbs through the foyer and arrives on the landing. */
+/* The ways between floors, read from STAIRS in data/rooms.js.
+   Steps are drawn as real steps so they read instantly. A ladder
+   is two rails with rungs between them. */
 function drawStairs(svg) {
-  const stairs = make('g', { class: 'ink' });
-  const steps = 7;
-  const left = 120;
-  const right = 228;
-  const bottom = 540;
-  const top = 372;
-  const stepW = (right - left) / steps;
-  const stepH = (bottom - top) / steps;
+  STAIRS.forEach((flight) => {
+    const g = make('g', { class: 'ink', 'data-stairs': flight.id });
+    const { left, right, bottom, top, steps } = flight;
 
-  for (let i = 0; i < steps; i += 1) {
-    stairs.append(make('rect', {
-      x: left + i * stepW,
-      y: bottom - (i + 1) * stepH,
-      width: stepW,
-      height: stepH,
-      fill: 'var(--stairs)'
-    }));
-  }
-  svg.append(stairs);
+    if (flight.kind === 'ladder') {
+      g.append(make('line', { x1: left, y1: top, x2: left, y2: bottom, stroke: 'var(--stairs)', 'stroke-width': 6 }));
+      g.append(make('line', { x1: right, y1: top, x2: right, y2: bottom, stroke: 'var(--stairs)', 'stroke-width': 6 }));
+      const gap = (bottom - top) / (steps + 1);
+      for (let i = 1; i <= steps; i += 1) {
+        g.append(make('line', { x1: left, y1: top + i * gap, x2: right, y2: top + i * gap, stroke: 'var(--stairs)', 'stroke-width': 4 }));
+      }
+    } else {
+      const stepW = (right - left) / steps;
+      const stepH = (bottom - top) / steps;
+      for (let i = 0; i < steps; i += 1) {
+        g.append(make('rect', {
+          x: left + i * stepW,
+          y: bottom - (i + 1) * stepH,
+          width: stepW,
+          height: (i + 1) * stepH,
+          fill: 'var(--stairs)'
+        }));
+      }
+    }
+    svg.append(g);
+  });
 }
 
 /* --- THE ROOMS ----------------------------------------------- */
@@ -111,7 +167,9 @@ function drawRooms(svg) {
     g.append(make('rect', {
       x: room.x, y: room.y, width: room.w, height: room.h,
       rx: 6,
-      fill: room.floor === 'outside' ? 'var(--room-outside)' : 'var(--room-floor)',
+      fill: room.floor === 'outside' ? 'var(--room-outside)'
+        : room.floor === 'cellar' ? 'var(--room-cellar)'
+        : 'var(--room-floor)',
       class: 'ink-thin room-box'
     }));
 
@@ -233,13 +291,13 @@ function buildLegend(list) {
 export function buildHouse(container, caption, legend) {
   container.innerHTML = '';
 
+  const rooms = ROOMS.map((room) => room.name).join(', ');
   const svg = make('svg', {
-    viewBox: '0 0 900 640',
+    viewBox: `0 0 ${PICTURE.w} ${PICTURE.h}`,
     role: 'img',
     'aria-label':
-      'A cut open view of the house. Attic at the top, then the landing, hallway, ' +
-      'bedroom and bathroom, then the foyer, lounge and kitchen, with a shed outside. ' +
-      'Nine glowing spots show where traps can go.'
+      `A cut open view of the house. The rooms are: ${rooms}. ` +
+      `${ANCHORS.length} glowing spots show where traps can go.`
   });
 
   drawShell(svg);
