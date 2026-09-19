@@ -29,6 +29,13 @@ thing carrying context to the next one.
 
 ## 2. Repository and deploy
 
+**Where the build happens:** in Claude chat, in the Claude project "Hendrix
+Burglar game". Code tools only when needed. The sandbox git proxy refuses
+pushes, so commits reach GitHub through the GitHub connector
+(`push_files`), one commit per milestone.
+
+Live site: <https://house-rules-18l4.onrender.com>
+
 | | |
 |---|---|
 | Repo | `github.com/asa-a11y/House-Rules` (public) |

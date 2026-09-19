@@ -102,9 +102,9 @@ upgrade paths as a little branch off the base trap, with unknown upgrades as
 silhouettes — that's the thing that will keep him experimenting.
 
 ### Phase 3 — RIG *(untimed)*
-The house shows **anchor points** — front door, back door, kitchen window,
-bottom of stairs, top of stairs, upstairs hallway, landing, lounge, kitchen.
-One trap per anchor.
+The house shows **24 anchor points**, one trap each. They are listed in
+full in §7a. Every anchor is a real place in the house: a door frame, a
+staircase, a ceiling, a stretch of floor.
 
 Traps have a **mount type**: `FLOOR`, `DOORWAY`, `OVERHEAD`, `STAIRS`.
 Anchors only accept matching types. A swinging paint tin needs something to
@@ -281,9 +281,9 @@ for having built the base trap.
 **Style:** hand-drawn cartoon, chunky black outlines, warm interior colours,
 slightly wonky lines. Think a comic book, not a UI kit.
 
-**The house:** two-storey cross-section, dollhouse view — you can see every
-room at once. Ground floor: foyer, lounge, kitchen. Upstairs: landing,
-bedroom, bathroom. Plus attic (hero's hideout) and shed (scavenge only).
+**The house:** cross-section, dollhouse view — you can see every room at
+once. Four levels plus two outbuildings, thirteen rooms in total, laid out
+in §7a.
 
 **Characters:** simple, expressive, big silhouettes. Sid tall and thin. Bruno
 square and wide. Hero small, determined, permanent slight smirk.
@@ -305,6 +305,70 @@ horror.
 skitter. Small self-generated WebAudio blips rather than downloaded files, so
 there's nothing to host and nothing to license. Visible mute toggle. The game
 must be complete with sound off.
+
+---
+
+## 7a. The house — rooms and anchors
+
+Settled 24 August 2026 from the art direction pack. This replaces the
+six-room house the brief originally described. It is bigger on purpose: the
+scavenge clock only creates a real decision if the house is too big to
+search in the time you have.
+
+### Levels and rooms
+
+| Level | Rooms |
+|---|---|
+| Attic | attic (the hero's hideout, and where the security monitors are) |
+| Upstairs | bathroom, landing, Hendrix's room, Mum and Dad's, box room |
+| Ground | porch, hall, lounge, dining room, kitchen, utility |
+| Cellar | cellar |
+| Outside | garage, shed |
+
+Thirteen rooms plus the garage and the shed, so fifteen places to be.
+
+Three ways between levels, and all three are riggable: the **main staircase**
+(hall to landing), the **cellar steps** (utility to cellar), and the **loft
+hatch** (landing to attic).
+
+### Scavenge: 26 search spots
+
+Items hide *in* things, not on the floor. Under the bed, down the back of the
+sofa, behind the boiler, in the airing cupboard, in the chest freezer, on the
+shed shelves. Roughly two per room, weighted toward the awkward ones.
+
+The four rare items always spawn somewhere annoying: the cellar, the box
+room, the shed, or the garage. Getting one costs you a chunk of the clock.
+
+### Rig: the 24 anchor points
+
+Grouped by mount type. Mount type is what decides whether a trap fits.
+
+- **DOORWAY** (11) — front door, back door, lounge door, dining door,
+  kitchen door, kitchen window, utility door, bathroom door, his bedroom
+  door, their room door, box room door
+- **OVERHEAD** (6) — porch ceiling, hall ceiling, lounge ceiling, bathroom
+  ceiling, upstairs hall, loft hatch
+- **FLOOR** (4) — landing floor, dining floor, kitchen floor, cellar floor
+- **STAIRS** (3) — bottom of stairs, top of stairs, cellar steps
+
+The positions live in `data/rooms.js`. Hendrix's room, Mum and Dad's and
+the box room only have a door anchor; adding one inside is his M5 turn.
+
+### Why the routes work
+
+Sid goes up: hall, stairs, landing, bedrooms, box room. Bruno stays down:
+hall, lounge, dining room, kitchen. They only share the hall and the bottom
+of the stairs. Cover one route properly and the other man walks straight to
+the telly, which is the tactical point of the whole rig phase.
+
+### Art direction
+
+The visual reference for all of the above is the art direction pack, eight
+sheets covering the cast and their expressions, the house inside and out,
+the items, the workbench and the trap payoffs. The canvas is at
+<https://claude.ai/code/artifact/733c6456-904e-475f-a473-bdd32d77b0b0>
+and the written summary is `claude/ART_DIRECTION.md` in the Claude project.
 
 ---
 

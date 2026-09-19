@@ -168,3 +168,48 @@ Nothing in `data/rooms.js` should need to change for a restyle.
 
 **Open:** Hendrix names the game (M0 turn) and picks the wall colour (M1
 turn). Then M2 — The Hero.
+
+---
+
+## Session 4 — 19 Sep 2026, M1 rebuilt to the new house
+
+**Where we build: here, in Claude chat.** Not Claude Code, not a separate
+Cowork lane. Code tools only when needed. Writes to GitHub go through the
+GitHub connector, because the sandbox git proxy still refuses pushes.
+
+**Art direction settled** (done 24 Aug, recorded now): eight sheets at
+<https://claude.ai/code/artifact/733c6456-904e-475f-a473-bdd32d77b0b0>, summary in
+the Claude project at `claude/ART_DIRECTION.md`. It changed the spec; see
+brief section 7a.
+
+**M1 rebuilt.** The first M1 used the old nine-room house. It now matches
+the art pack:
+- 13 rooms over four levels (attic, upstairs, ground, cellar) plus garage
+  and shed, all in `data/rooms.js`
+- 3 ways between floors in a new `STAIRS` list: main stairs, cellar steps,
+  loft ladder
+- 24 anchors: 11 doorway, 6 overhead, 4 floor, 3 stairs
+- `js/house.js` no longer has any house numbers of its own. Walls, roof,
+  floor slab, grass, earth and outbuilding roofs are all measured from the
+  rooms, so moving a room in `data/rooms.js` moves the walls with it.
+- New tokens: `--room-cellar`, `--earth`.
+
+Verified headless: 15 rooms and 24 anchors drawn, both themes, keyboard
+focus shows the caption, Back resets caption and lit anchor, no horizontal
+scroll at 390px, console clean.
+
+**Decisions waiting on Hendrix** (asked 19 Sep, answers pending):
+1. The game's name (M0 turn)
+2. The house colour (M1 turn, `--wall` in `css/tokens.css`)
+3. Is the hero him, or a made-up kid?
+4. What the hero wears for the night (feeds M2)
+5. The best hiding spot in the house (becomes a rare-item search spot in M3)
+
+Name options given to Hendrix: Trap House, Not In My House, Midnight
+Junk, Sticky Fingers, Rig The House. His pick, or his own.
+
+Pushed as `6eb6df7` through the GitHub connector. Note: the API now reports
+the repo as `TelcoDataCloud/House-Rules`; `asa-a11y/House-Rules` still
+resolves to it.
+
+**Next:** M2 — The Hero, once 3 and 4 are answered.
