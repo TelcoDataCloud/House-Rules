@@ -262,4 +262,26 @@ rigging. And the stairs did not look right.
   cupboard under the stairs (a good M3 hiding spot). Stairs, cellar steps
   and loft ladder now start and finish exactly on the floors of the rooms.
 
+**Hunting, 20 Sep.** Asa: zoomed in, a room should show more detail than
+the whole-house view, with more places to look; and no dots while
+searching, things should light up under the pointer so it is a hunt.
+- 49 hiding places. Any prop in `data/rooms.js` with `search: '...'` is
+  one; the stairs cupboard is one via `STAIRS` (`search`, `room`).
+- New `closeUp` list per room: small things (teddy, vase, trophy shelf,
+  hat box, keys, toolbox, bottles...) that fade in only when that room is
+  open. 25 new drawings at the bottom of `js/props.js`.
+- Scavenge is search mode: the anchor dots and legend are hidden. Pointing
+  at a hiding place in the open room gives it a yellow glow, a small lift
+  and a magnifying-glass cursor; the HUD names it. Click, tap or Enter
+  rummages (wiggle plus a sound), marks it searched (grey glow from then
+  on) and says there is nothing there yet, because M3 fills them. Under
+  the house: "Searched 1 of 3 hiding places in here."
+- Only the open room's hiding places can be pointed at or tabbed to. Once
+  a room is open it stops being a button (role group) so its hiding places
+  are not nested inside a button.
+- Rig mode (phase `rig`) shows the anchors and legend and switches hiding
+  places off. Before M5, see it with `HOUSE.setPhase('rig')` in the console.
+- `state.searched` holds searched ids; restart clears them and the marks.
+- Verified headless, desktop and phone, both themes, console clean.
+
 **Next:** M2 — The Hero: Hendrix, in camouflage.
