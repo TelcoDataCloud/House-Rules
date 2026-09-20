@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/scavenge.css">
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/workshop.css">
+<link rel="stylesheet" href="css/rig.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -302,6 +303,20 @@
       <h2>Recipe notebook</h2>
       <p class="panel-hint" id="ws-found"></p>
       <ul class="notebook" id="notebook"></ul>
+    </div>
+  </div>
+
+  <!-- RIGGING (M5). Your traps, waiting to go into the house.
+       js/rig.js fills it in. -->
+  <div class="rig-bar panel" id="rig" hidden>
+    <div class="rig-head">
+      <h2>Your traps <span class="rig-count" id="rig-count"></span></h2>
+      <p class="rig-say" id="rig-say" aria-live="polite"></p>
+    </div>
+    <ul class="rig-tray" id="rig-tray" aria-label="Your traps"></ul>
+    <div class="rig-buttons">
+      <button type="button" class="btn btn-quiet" id="rig-back">Back to the workbench</button>
+      <button type="button" class="btn btn-big" id="let-in" disabled>Let them in</button>
     </div>
   </div>
 

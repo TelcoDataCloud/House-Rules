@@ -94,13 +94,6 @@ function drawDefs(svg) {
     ['rect', { width: 8, height: 8, fill: 'var(--floor-carpet)' }],
     ['circle', { cx: 2, cy: 2, r: 0.8, fill: 'var(--ink)', 'fill-opacity': 0.12 }]
   ]);
-  /* Hendrix's camouflage: a green base with blobs on it. */
-  pattern(defs, 'pat-camo', 14, 14, [
-    ['rect', { width: 14, height: 14, fill: 'var(--camo-a)' }],
-    ['path', { d: 'M1 2 Q4 0 6 3 Q5 6 2 5 Z M9 8 Q13 7 13 11 Q10 13 8 11 Z', fill: 'var(--camo-b)' }],
-    ['path', { d: 'M8 1 Q11 1 11 4 Q9 5 7 3 Z M1 9 Q4 8 5 11 Q3 13 1 12 Z', fill: 'var(--camo-c)' }],
-    ['path', { d: 'M5 6 Q7 6 7 8 Q6 9 5 8 Z M11 12 Q12 13 11 14 L10 13 Z', fill: 'var(--camo-d)' }]
-  ]);
   pattern(defs, 'pat-floor-concrete', 20, 12, [
     ['rect', { width: 20, height: 12, fill: 'var(--floor-concrete)' }],
     ['circle', { cx: 5, cy: 4, r: 0.9, fill: 'var(--ink)', 'fill-opacity': 0.2 }],
@@ -473,17 +466,20 @@ function drawRooms(svg) {
 }
 
 /* --- THE ANCHOR POINTS ---------------------------------------
-   A glowing spot where a trap will go in M5. Right now it does
-   nothing except light up and tell you what it is, which is
-   exactly what M1 is supposed to do.
+   A glowing spot where a trap can go. Point at one and it tells
+   you what it is. When you are rigging (M5), clicking one puts
+   the trap you picked on it: js/rig.js decides, this just draws.
 
    Each one is a button. That means you can click it OR tab to
    it with the keyboard, which matters for anyone who cannot use
    a mouse.
    ------------------------------------------------------------ */
 
+const anchorNodes = {};
+
 function drawAnchors(svg, caption) {
   const layer = make('g', { class: 'anchors' });
+  view.anchorLayer = layer;
 
   ANCHORS.forEach((anchor) => {
     const mount = MOUNTS[anchor.mount];
@@ -515,9 +511,17 @@ function drawAnchors(svg, caption) {
     g.append(body);
 
     const say = () => {
-      caption.textContent = `${anchor.name}. ${mount.line}`;
+      /* when rigging, js/rig.js says what is on it; otherwise say what
+         kind of spot it is */
+      caption.textContent = view.describeAnchor
+        ? view.describeAnchor(anchor)
+        : `${anchor.name}. ${mount.line}`;
       layer.querySelectorAll('.anchor').forEach((a) => a.classList.remove('is-live'));
       g.classList.add('is-live');
+    };
+    const pick = () => {
+      say();
+      if (view.onAnchor) view.onAnchor(anchor);
     };
     const hush = () => {
       g.classList.remove('is-live');
@@ -527,18 +531,69 @@ function drawAnchors(svg, caption) {
     g.addEventListener('mouseleave', hush);
     g.addEventListener('focus', say);
     g.addEventListener('blur', hush);
-    g.addEventListener('click', say);
+    g.addEventListener('click', pick);
     g.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        say();
+        pick();
       }
     });
 
+    anchorNodes[anchor.id] = g;
     layer.append(g);
   });
 
   svg.append(layer);
+}
+
+/* --- TRAPS ON ANCHORS (M5) -----------------------------------
+   js/rig.js decides what goes where. These just draw it: light up
+   the spots a trap would fit, and show a trap sitting on a spot.
+   ------------------------------------------------------------ */
+
+export function setAnchorHandler(onPick, describe) {
+  view.onAnchor = onPick || null;
+  view.describeAnchor = describe || null;
+}
+
+/* Light up every spot of one mount type, and fade the rest.
+   null puts them all back to normal. */
+export function highlightMount(mount) {
+  if (!view.anchorLayer) return;
+  view.anchorLayer.classList.toggle('is-choosing', Boolean(mount));
+  Object.values(anchorNodes).forEach((g) => {
+    g.classList.toggle('is-match', Boolean(mount) && g.dataset.mount === mount);
+  });
+}
+
+/* Put a little picture of a trap on a spot (or take it off with
+   item = null). The picture is one of the things it is made of. */
+export function showTrapOnAnchor(anchorId, item, name) {
+  const g = anchorNodes[anchorId];
+  if (!g) return;
+  const body = g.querySelector('.anchor-body');
+  const old = body.querySelector('.anchor-trap');
+  if (old) old.remove();
+  g.classList.toggle('is-rigged', Boolean(item));
+  const anchor = ANCHORS.find((a) => a.id === anchorId);
+  const room = findRoom(anchor.room);
+  const where = `${anchor.name}, in the ${room ? room.name : anchor.room}.`;
+  if (!item) {
+    g.setAttribute('aria-label', `${where} ${MOUNTS[anchor.mount].name} trap spot. Empty.`);
+    return;
+  }
+  const badge = make('g', { class: 'anchor-trap' });
+  badge.append(make('circle', { r: 15, class: 'anchor-trap-back' }));
+  const pic = make('g', { transform: 'translate(-9.6 9.6) scale(1.2)' });
+  drawItem(item, pic);
+  badge.append(pic);
+  body.append(badge);
+  g.setAttribute('aria-label', `${where} Rigged with ${name}.`);
+}
+
+export function clearAnchorTraps() {
+  Object.keys(anchorNodes).forEach((id) => showTrapOnAnchor(id, null));
+  highlightMount(null);
 }
 
 /* --- HIDING PLACES -------------------------------------------
@@ -747,7 +802,8 @@ const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
 const view = {
   svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search',
   onLook: null, answered: false,
-  onRoomClick: null, onArrow: null, follow: false, heroLayer: null, glideId: 0
+  onRoomClick: null, onArrow: null, follow: false, heroLayer: null, glideId: 0,
+  onAnchor: null, describeAnchor: null, anchorLayer: null
 };
 
 /* Grow a box until it has the same shape as the picture, so the
@@ -944,6 +1000,7 @@ export function resetHouse() {
   }
   spots.forEach((spot) => spot.node.classList.remove('is-searched', 'is-rummaging'));
   document.querySelectorAll('.anchor.is-live').forEach((a) => a.classList.remove('is-live'));
+  clearAnchorTraps();
   showWholeHouse(false);
 }
 

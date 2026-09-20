@@ -18,6 +18,7 @@ import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
 import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
 import { setupWorkshop, showWorkshop, hideWorkshop } from './workshop.js';
+import { setupRig, showRig, hideRig, drawRigged } from './rig.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
 /* What each phase is called on screen, and what it will do
@@ -36,7 +37,7 @@ const PHASE_INFO = {
   rig: {
     title: 'Rig',
     line: 'Put a trap on every door, stair and hallway.',
-    milestone: 'M5 builds this one.'
+    milestone: 'A trap only fits the right kind of spot. Tap a room to zoom in for a closer look.'
   },
   night: {
     title: 'Night',
@@ -83,8 +84,8 @@ function renderPhaseScreen(phase) {
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
 
   el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
-  /* Rigging shows the trap spots. Everything else is a hunt. */
-  setHouseMode(phase === 'rig' ? 'rig' : 'search');
+  /* Rigging and the night show the trap spots. The scavenge is a hunt. */
+  setHouseMode(phase === 'rig' || phase === 'night' ? 'rig' : 'search');
 
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
@@ -114,6 +115,11 @@ function boot() {
     notebook: el('notebook'), found: el('ws-found')
   });
 
+  setupRig({
+    panel: el('rig'), tray: el('rig-tray'), say: el('rig-say'), count: el('rig-count'),
+    back: el('rig-back'), letIn: el('let-in')
+  });
+
   el('start-btn').addEventListener('click', () => {
     sfx.start();
     setPhase('scavenge');
@@ -132,6 +138,7 @@ function boot() {
          does leave nothing behind. */
       hideScavenge();
       hideWorkshop();
+      hideRig();
       resetHouse();
       setHouseMode('search');
       showScreen('title');
@@ -141,8 +148,11 @@ function boot() {
       /* switch everything off, then switch on what this phase needs */
       hideScavenge();
       hideWorkshop();
+      hideRig();
       if (phase === 'scavenge') startNight();
       else if (phase === 'workshop') showWorkshop();
+      else if (phase === 'rig') showRig();
+      else if (phase === 'night') drawRigged();
     }
   });
 
@@ -151,7 +161,6 @@ function boot() {
   /* A door into the game from the browser console, so you can
      poke at it while it runs. Try: HOUSE.state */
   window.HOUSE = { state, setPhase, resetGame };
-  /* Want to see the trap spots before M5? Type: HOUSE.setPhase('rig') */
 }
 
 if (document.readyState === 'loading') {

@@ -15,7 +15,7 @@ export const MILESTONES = [
   { code: 'M2',  name: 'The Hero',      done: true  },
   { code: 'M3',  name: 'Collectables',  done: true  },
   { code: 'M4',  name: 'The Workshop',  done: true  },
-  { code: 'M5',  name: 'Rigging',       done: false },
+  { code: 'M5',  name: 'Rigging',       done: true  },
   { code: 'M6',  name: 'The Burglars',  done: false },
   { code: 'M7',  name: 'Traps Fire',    done: false },
   { code: 'M8',  name: 'Slapstick',     done: false },

@@ -126,6 +126,7 @@
   --bench-top: #b07a4a;      /* the workbench */
   --bench-edge: #7a5134;
   --smoke: #cfc9d6;
+  --trap-badge: #fff6e4;     /* the round badge a set trap sits on */
 
   /* --- PAGE and PANELS --- */
   --bg: #171526;
@@ -271,6 +272,7 @@
   --bench-top: #c8925e;
   --bench-edge: #8a5c3a;
   --smoke: #b8b2c2;
+  --trap-badge: #ffffff;
 
   --bg: #fdf4e3;
   --bg-2: #f7e8cd;
