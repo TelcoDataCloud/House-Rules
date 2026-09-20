@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/house.css">
+<link rel="stylesheet" href="css/scavenge.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -247,6 +248,24 @@
      the machine that switches phases is real from day one.
      ========================================================= -->
 <section class="screen" data-screen="phase">
+
+  <!-- THE SCAVENGE BAR: the clock, your bag, and a way to stop
+       early. js/scavenge.js fills it in. -->
+  <div class="scavenge-bar" id="scavenge-bar" hidden>
+    <p class="clock" id="clock" role="timer" aria-label="Time left">
+      <span class="clock-label">Time</span>
+      <span class="clock-time" id="clock-time">0:00</span>
+    </p>
+    <div class="bag-wrap">
+      <p class="bag-title">Your bag <span id="bag-count"></span></p>
+      <ul class="bag" id="bag" aria-label="Your bag"></ul>
+    </div>
+    <button type="button" class="btn btn-quiet" id="done-btn">I'm done</button>
+  </div>
+  <div class="scavenge-end panel" id="scavenge-end" hidden>
+    <p class="scavenge-end-text" id="scavenge-end-text" aria-live="assertive"></p>
+    <button type="button" class="btn" id="to-workshop">Take it to the workbench</button>
+  </div>
 
   <!-- THE HOUSE. Built by js/house.js out of data/rooms.js.
        It is empty in the HTML on purpose: nothing here needs
