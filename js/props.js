@@ -502,6 +502,208 @@ export const PROPS = {
     shape(g, 'M11 -14 Q21 -28 19 -40 Q10 -28 11 -14 Z', 'leaf', THIN);
     shape(g, 'M11 -14 Q9 -36 13 -46 Q17 -32 11 -14 Z', 'leaf', THIN);
     shape(g, 'M2 -14 L20 -14 L17 0 L5 0 Z', 'pot');
+  },
+
+  /* ============================================================
+     CLOSE UP THINGS
+     These are small. You only see them when you zoom into a room,
+     because from the whole house they would be a few dots. Rooms
+     ask for them in their closeUp list in data/rooms.js.
+     Things on a wall are drawn at their own height, like the
+     picture above, so they do not need a lift.
+     ============================================================ */
+
+  trunk(g) {
+    box(g, 0, -22, 40, 22, 'wood');
+    shape(g, 'M0 -22 Q20 -31 40 -22 Z', 'wood-dark');
+    box(g, 8, -26, 4, 26, 'metal', THIN, 0.5);
+    box(g, 28, -26, 4, 26, 'metal', THIN, 0.5);
+    box(g, 17, -18, 6, 6, 'paint-yellow', THIN, 1);
+    shadow(g, 'M34 -22 L40 -22 L40 0 L34 0 Z');
+  },
+
+  suitcase(g, o) {
+    shape(g, 'M14 -14 Q14 -19 18 -19 L22 -19 Q26 -19 26 -14', 'none', THIN);   // handle
+    box(g, 0, -14, 40, 14, o.colour || 'fabric-b', THICK, 3);
+    box(g, 9, -14, 3, 14, 'wood-dark', 'none', 0);
+    box(g, 28, -14, 3, 14, 'wood-dark', 'none', 0);
+    ball(g, 20, -7, 3.5, 'paint-yellow', THIN);                            // sticker
+    shadow(g, 'M34 -14 L40 -14 L40 0 L34 0 Z');
+  },
+
+  /* A mirror cabinet, high on the bathroom wall */
+  cabinet(g) {
+    box(g, 0, -124, 30, 32, 'porcelain');
+    box(g, 3, -121, 24, 26, 'glass', THIN, 1);
+    shine(g, 'M6 -119 L13 -119 L6 -107 Z');
+    ball(g, 25, -108, 1.4, 'metal', THIN);
+    box(g, -2, -92, 34, 3, 'porcelain', THIN, 1);
+    box(g, 4, -98, 4, 6, 'fabric-b', THIN, 1);          // toothbrush pot
+  },
+
+  towel(g, o) {
+    line(g, 0, -92, 30, -92, THICK);
+    shape(g, 'M4 -92 L26 -92 L25 -66 L5 -66 Z', o.colour || 'fabric-a', THIN);
+    line(g, 6, -71, 24, -71);
+  },
+
+  /* The airing cupboard. Warm, full of towels, and nobody ever
+     checks it. */
+  airing(g) {
+    box(g, 0, -104, 34, 104, 'porcelain');
+    [-96, -91, -86, -81].forEach((y) => line(g, 5, y, 29, y));
+    box(g, 4, -70, 26, 62, 'none', THIN, 1);
+    ball(g, 28, -48, 1.8, 'metal', THIN);
+    shadow(g, 'M29 -104 L34 -104 L34 0 L29 0 Z');
+  },
+
+  /* Hendrix's shelf: a trophy, some books, a rocket */
+  trophyshelf(g) {
+    box(g, 0, -96, 40, 3, 'wood-dark', THIN, 0.5);
+    shape(g, 'M3 -93 L9 -93 L3 -87 Z', 'wood-dark', THIN);
+    shape(g, 'M31 -93 L37 -93 L37 -87 Z', 'wood-dark', THIN);
+    shape(g, 'M4 -108 L12 -108 Q12 -101 8 -100 L8 -98 L10 -96 L6 -96 L8 -98 L8 -100 Q4 -101 4 -108 Z', 'paint-yellow', THIN);
+    box(g, 16, -108, 4, 12, 'fabric-a', THIN, 0.5);
+    box(g, 20.5, -106, 4, 10, 'fabric-b', THIN, 0.5);
+    box(g, 25, -109, 3.5, 13, 'fabric-c', THIN, 0.5);
+    shape(g, 'M33 -96 L33 -104 Q35 -110 37 -104 L37 -96 Z', 'porcelain', THIN);  // rocket
+    shape(g, 'M33 -99 L31 -96 L33 -96 Z', 'fabric-a', 'none');
+    shape(g, 'M37 -99 L39 -96 L37 -96 Z', 'fabric-a', 'none');
+  },
+
+  football(g) {
+    ball(g, 7, -7, 7, 'porcelain');
+    shape(g, 'M5 -9 L7 -11 L9.5 -9.5 L8.5 -6.5 L5.5 -6.5 Z', 'ink', 'none');
+    shine(g, 'M3 -11 Q4 -13 6 -13 Z');
+  },
+
+  hatbox(g) {
+    box(g, 0, -14, 26, 14, 'paint-pink', THICK, 2);
+    box(g, -1, -16, 28, 4, 'paint-pink', THIN, 2);
+    box(g, 11, -16, 4, 16, 'fabric-a', 'none', 0);
+  },
+
+  slippers(g) {
+    shape(g, 'M0 0 Q0 -5 5 -5 L14 -4 Q16 -2 14 0 Z', 'fabric-b', THIN);
+    shape(g, 'M10 0 Q10 -5 15 -5 L24 -4 Q26 -2 24 0 Z', 'fabric-b', THIN);
+  },
+
+  teddy(g) {
+    ball(g, 9, -7, 7, 'cardboard');
+    ball(g, 9, -18, 6, 'cardboard');
+    ball(g, 4, -23, 2.5, 'cardboard', THIN);
+    ball(g, 14, -23, 2.5, 'cardboard', THIN);
+    ball(g, 9, -16, 2.2, 'paint-yellow', 'none');
+    add(g, 'circle', { cx: 7, cy: -19.5, r: 0.9, class: 'p-ink-fill' });
+    add(g, 'circle', { cx: 11, cy: -19.5, r: 0.9, class: 'p-ink-fill' });
+  },
+
+  umbrellas(g) {
+    shape(g, 'M3 -34 Q3 -40 8 -40', 'none', THICK);
+    shape(g, 'M8 -30 Q8 -38 13 -38', 'none', THICK);
+    box(g, 0, -22, 14, 22, 'metal', THICK, 2);
+    line(g, 1, -16, 13, -16);
+  },
+
+  mat(g) {
+    box(g, 0, -3, 30, 3, 'cardboard', THIN, 1);
+  },
+
+  books(g) {
+    box(g, 0, -5, 22, 5, 'fabric-b', THIN, 0.5);
+    box(g, 2, -9, 18, 4, 'fabric-a', THIN, 0.5);
+    box(g, 1, -13, 20, 4, 'paint-yellow', THIN, 0.5);
+  },
+
+  vase(g) {
+    shape(g, 'M5 0 Q-2 -12 5 -20 L5 -24 L15 -24 L15 -20 Q22 -12 15 0 Z', 'fabric-b');
+    shape(g, 'M5 -12 Q10 -9 15 -12', 'none', THIN);
+    shine(g, 'M6 -17 Q4 -11 6 -5 L8 -5 Q6 -11 8 -17 Z');
+  },
+
+  teapot(g) {
+    shape(g, 'M2 0 Q0 -12 10 -12 Q20 -12 18 0 Z', 'porcelain');
+    shape(g, 'M18 -8 Q23 -9 24 -14', 'none', THIN);
+    shape(g, 'M2 -9 Q-3 -8 0 -3', 'none', THIN);
+    ball(g, 10, -13, 1.6, 'fabric-a', THIN);
+  },
+
+  /* A kitchen cupboard up on the wall */
+  wallcupboard(g) {
+    box(g, 0, -122, 34, 30, 'units');
+    line(g, 17, -120, 17, -94);
+    line(g, 13, -110, 13, -104);
+    line(g, 21, -110, 21, -104);
+    shadow(g, 'M0 -94 L34 -94 L34 -92 L0 -92 Z');
+  },
+
+  cereal(g) {
+    box(g, 0, -18, 12, 18, 'paint-yellow', THIN, 1);
+    ball(g, 6, -10, 3, 'fabric-a', 'none');
+    box(g, 13, -14, 10, 14, 'fabric-b', THIN, 1);
+  },
+
+  /* The utility shelf, full of bottles you should not drink */
+  bottleshelf(g) {
+    box(g, 0, -84, 34, 3, 'wood-dark', THIN, 0.5);
+    box(g, 3, -98, 6, 14, 'fabric-b', THIN, 2);
+    box(g, 5, -101, 2, 3, 'porcelain', THIN, 0);
+    box(g, 12, -96, 7, 12, 'fabric-c', THIN, 2);
+    box(g, 22, -99, 8, 15, 'paint-yellow', THIN, 2);
+    box(g, 24, -102, 4, 3, 'fabric-a', THIN, 0);
+  },
+
+  toolbox(g) {
+    shape(g, 'M10 -14 L10 -19 L22 -19 L22 -14', 'none', THICK);
+    box(g, 0, -14, 32, 14, 'fabric-a', THICK, 1.5);
+    line(g, 1, -9, 31, -9);
+    box(g, 14, -11, 4, 4, 'metal', THIN, 0.5);
+  },
+
+  tins(g) {
+    box(g, 0, -11, 11, 11, 'metal', THIN, 1);
+    box(g, 0, -8, 11, 3, 'fabric-b', 'none', 0);
+    box(g, 12, -9, 10, 9, 'metal', THIN, 1);
+    box(g, 12, -6, 10, 3, 'paint-yellow', 'none', 0);
+    box(g, 5, -21, 11, 10, 'metal', THIN, 1);
+    box(g, 5, -17, 11, 3, 'fabric-a', 'none', 0);
+  },
+
+  /* A garden hose wound on a reel, on the garage wall */
+  hosereel(g) {
+    box(g, 6, -66, 4, 24, 'wood-dark', THIN, 0.5);
+    ball(g, 8, -52, 9, 'leaf');
+    ball(g, 8, -52, 6, 'none', THIN);
+    ball(g, 8, -52, 2.5, 'metal', THIN);
+    shape(g, 'M14 -46 Q18 -30 10 -24', 'none', 'p-fine');
+  },
+
+  flowerpots(g) {
+    shape(g, 'M0 -10 L14 -10 L12 0 L2 0 Z', 'pot');
+    shape(g, 'M1 -18 L13 -18 L11.5 -10 L2.5 -10 Z', 'pot');
+    shape(g, 'M2 -25 L12 -25 L10.5 -18 L3.5 -18 Z', 'pot');
+  },
+
+  keys(g) {
+    box(g, 0, -92, 18, 5, 'wood', THIN, 1);
+    line(g, 5, -87, 5, -80);
+    ball(g, 5, -78, 2.5, 'metal', THIN);
+    line(g, 12, -87, 12, -82);
+    ball(g, 12, -80, 2.5, 'paint-yellow', THIN);
+    box(g, 10.5, -77, 3, 5, 'fabric-a', THIN, 1);
+  },
+
+  /* Letters on the doormat */
+  post(g) {
+    shape(g, 'M0 0 L10 -3 L12 0 Z', 'porcelain', THIN);
+    shape(g, 'M3 0 L13 -2 L14 0 Z', 'paint-yellow', THIN);
+  },
+
+  /* A plug socket, low on the wall. Nothing hides in it. */
+  socket(g) {
+    box(g, 0, -20, 10, 8, 'porcelain', THIN, 1);
+    line(g, 3, -17, 3, -15);
+    line(g, 7, -17, 7, -15);
   }
 };
 
