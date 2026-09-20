@@ -72,9 +72,11 @@ One **night** = four phases. A full night runs 6-10 minutes.
 Hendrix controls the hero and moves around the house cross-section. The
 camera zooms into whichever room he is in, so that room fills the screen and
 every cupboard and drawer is big enough to search; the whole house is the
-map he zooms back out to. Items are hidden in rooms, cupboards, drawers and
-the shed. He grabs what he can before
-the clock runs out. Carry limit: **8 items**.
+map he zooms back out to. Zoomed in, the room shows more than the whole
+house can: small things, and more places to look. Items are hidden in rooms,
+cupboards, drawers and the shed. There are no markers: hiding places light
+up when he points at them, so finding them is the hunt. He grabs what he
+can before the clock runs out. Carry limit: **8 items**.
 
 The timer is the whole tension of this phase. On Hard he will not get
 everything, and that is the point — it makes the crafting phase a real
@@ -342,11 +344,14 @@ Three ways between levels, and all three are riggable: the **main staircase**
 (hall to landing), the **cellar steps** (utility to cellar), and the **loft
 hatch** (landing to attic).
 
-### Scavenge: 26 search spots
+### Scavenge: 49 hiding places
 
 Items hide *in* things, not on the floor. Under the bed, down the back of the
 sofa, behind the boiler, in the airing cupboard, in the chest freezer, on the
-shed shelves. Roughly two per room, weighted toward the awkward ones.
+shed shelves. About three per room, weighted toward the awkward ones. With
+21 items and 49 places, most places are empty, which is the point: the
+clock runs out before he has checked them all. No dots while searching; a
+hiding place glows when the pointer is on it and goes grey once checked.
 
 The four rare items always spawn somewhere annoying: the cellar, the box
 room, the shed, the garage, or **inside the piano** in the lounge, which is
