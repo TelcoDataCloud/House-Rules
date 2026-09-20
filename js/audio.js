@@ -59,5 +59,9 @@ export const sfx = {
   start()   { blip(440, 120, 'square'); setTimeout(() => blip(660, 160, 'square'), 110); },
   back()    { blip(330, 110, 'sine'); },
   toggle()  { blip(760, 60, 'sine'); },
+  pickup()  { blip(660, 70, 'square'); setTimeout(() => blip(990, 90, 'square'), 70); },
+  rare()    { [660, 830, 990, 1320].forEach((f, i) => setTimeout(() => blip(f, 90, 'square'), i * 70)); },
+  full()    { blip(140, 160, 'sawtooth', 0.05); },
+  timeUp()  { blip(520, 160, 'square'); setTimeout(() => blip(390, 160, 'square'), 170); setTimeout(() => blip(260, 320, 'square'), 340); },
   rummage() { blip(180, 60, 'sawtooth', 0.04); setTimeout(() => blip(150, 60, 'sawtooth', 0.04), 90); setTimeout(() => blip(210, 70, 'sawtooth', 0.04), 180); }
 };

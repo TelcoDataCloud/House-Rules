@@ -40,8 +40,14 @@ export function freshState() {
     /* Hiding places you have already looked in, like 'lounge-inside-the-piano'. */
     searched: [],
 
+    /* The scavenge (M3). */
+    inventory: [],      // ids of the things in your bag
+    hidden: {},         // which hiding place holds what, like { 'hall-key-hooks': 'bell' }
+    lying: [],          // ids of things left lying about in plain sight
+    timeLeft: 0,        // seconds left on the scavenge clock
+    scavenging: false,  // true while the clock is running
+
     /* These are empty until the milestones that fill them. */
-    inventory: [],      // M3: items the hero is carrying
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor
     notebook: [],       // M4: recipes discovered so far

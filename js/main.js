@@ -16,6 +16,7 @@ import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
 import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
+import { setupScavenge, startNight, showBagOnly, hideScavenge } from './scavenge.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
 /* What each phase is called on screen, and what it will do
@@ -23,12 +24,12 @@ import { DIFFICULTY } from '../data/difficulty.js';
 const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
-    line: 'Raid your own house for junk before the clock runs out.',
-    milestone: 'The house is real now. M3 puts the junk in it.'
+    line: 'Raid your own house for junk before the clock runs out. Some of it is lying about. Most of it is hidden.',
+    milestone: 'M2 puts you in the house. For now, tap a room to go in.'
   },
   workshop: {
     title: 'Workshop',
-    line: 'Bolt two bits of junk together and see what you get.',
+    line: 'Bolt two bits of junk together and see what you get. Here is what you carried.',
     milestone: 'M4 builds this one.'
   },
   rig: {
@@ -99,6 +100,12 @@ function boot() {
     { name: el('room-hud-name'), note: el('room-hud-note'), out: el('zoom-out') },
     (room) => { state.room = room; });
 
+  setupScavenge({
+    bar: el('scavenge-bar'), clock: el('clock'), time: el('clock-time'),
+    bag: el('bag'), count: el('bag-count'), done: el('done-btn'),
+    end: el('scavenge-end'), endText: el('scavenge-end-text'), toWorkshop: el('to-workshop')
+  });
+
   el('start-btn').addEventListener('click', () => {
     sfx.start();
     setPhase('scavenge');
@@ -115,12 +122,17 @@ function boot() {
     if (phase === 'title') {
       /* Forget every search and zoom out, so restart really
          does leave nothing behind. */
+      hideScavenge();
       resetHouse();
       setHouseMode('search');
       showScreen('title');
     } else {
       renderPhaseScreen(phase);
       showScreen('phase');
+      /* the scavenge starts the clock; after it, the bag stays */
+      if (phase === 'scavenge') startNight();
+      else if (phase === 'workshop') showBagOnly();
+      else hideScavenge();
     }
   });
 
