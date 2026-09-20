@@ -91,6 +91,14 @@
   --mount-overhead: #7fb3ff;
   --mount-stairs: #e0533f;
 
+  /* --- HIDING PLACES: the glow when you point at one --- */
+  --hud-name: #ffd166;       /* the room name above the house */
+  --spot-glow: #ffe066;
+  --spot-searched: #b9b1c9;  /* the glow once you have looked there */
+  /* The magnifying glass you hunt with. It is a tiny picture, so
+     its colours are written inside it: yellow glass, dark rim. */
+  --cursor-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cline x1='19' y1='19' x2='29' y2='29' stroke='%2314121c' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='9' fill='%23ffe066' fill-opacity='.45' stroke='%2314121c' stroke-width='4'/%3E%3C/svg%3E") 12 12, pointer;
+
   /* --- CHARACTERS --- */
   --burglar-a: #4d5b7c;   /* Sid, wiry and twitchy */
   --burglar-b: #6b5140;   /* Bruno, enormous and slow */
@@ -215,6 +223,10 @@
   --mount-doorway: #c07800;
   --mount-overhead: #2f6bbf;
   --mount-stairs: #cf3f2c;
+
+  --hud-name: #9a5a00;
+  --spot-glow: #ffb703;
+  --spot-searched: #8f889c;
 
   --burglar-a: #6478a1;
   --burglar-b: #8a6a52;

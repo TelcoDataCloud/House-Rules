@@ -63,7 +63,7 @@
   font-weight: 900;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--btn);
+  color: var(--hud-name);
 }
 
 #room-hud-note { color: var(--text-dim); font-size: 15px; }
@@ -136,6 +136,62 @@
 .p-stitch { stroke: var(--paint-yellow); stroke-dasharray: 3 3; }
 .p-frost { stroke: var(--glass); stroke-width: 1.4; }
 .p-twinkle { animation: twinkle 2.2s ease-in-out infinite; }
+
+/* --- CLOSE UP and HIDING PLACES --------------------------------
+   The close up things fade in when you zoom into their room.
+   Hiding places only wake up in the room you are in: point at one
+   and it glows, click it and it wiggles like you are rummaging.
+   ------------------------------------------------------------- */
+
+.close-up {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+.room.is-open .close-up { opacity: 1; pointer-events: auto; }
+
+.spot-flood { flood-color: var(--spot-glow); }
+.spot-flood-done { flood-color: var(--spot-searched); }
+
+.spot { outline: none; }
+.spot:not(.is-here) { pointer-events: none; }
+.spot.is-here { cursor: var(--cursor-search); }
+.house-scene svg[data-mode="search"] .room.is-open { cursor: var(--cursor-search); }
+
+.spot .prop-body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform var(--anim-fast) ease;
+}
+
+.spot.is-here:hover .prop-body,
+.spot.is-here:focus-visible .prop-body {
+  filter: url(#spot-glow);
+  transform: translateY(-1px) scale(1.04);
+}
+
+/* Already searched: it still lights up, but grey, so you can
+   tell at a glance you have been there. */
+.spot.is-here.is-searched:hover .prop-body,
+.spot.is-here.is-searched:focus-visible .prop-body {
+  filter: url(#spot-glow-done);
+  transform: none;
+}
+
+.spot.is-rummaging .prop-body { animation: rummage 600ms ease-in-out; }
+
+@keyframes rummage {
+  0%, 100% { transform: rotate(0deg); }
+  20%      { transform: rotate(-4deg); }
+  40%      { transform: rotate(4deg); }
+  60%      { transform: rotate(-3deg); }
+  80%      { transform: rotate(2deg); }
+}
+
+/* Searching is a hunt, so the trap spots stay hidden until you
+   are rigging. */
+.house-scene svg[data-mode="search"] .anchors { display: none; }
+.legend[hidden] { display: none; }
 
 /* --- STAIRS -------------------------------------------------- */
 
@@ -300,5 +356,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .anchor-ring, .anchor-dot { animation: none; }
-  .anchor-body, .room-tag { transition: none; }
+  .anchor-body, .room-tag, .close-up, .spot .prop-body { transition: none; }
+  .spot.is-rummaging .prop-body { animation: none; }
 }
