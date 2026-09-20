@@ -284,4 +284,38 @@ searching, things should light up under the pointer so it is a hunt.
 - `state.searched` holds searched ids; restart clears them and the marks.
 - Verified headless, desktop and phone, both themes, console clean.
 
+## M3 — Collectables. Done 20 Sep 2026 (before M2, Asa's call)
+
+Asa: some items should be visible in the rooms, easy to find; others in
+cupboards and drawers. He chose to build M3 before M2.
+- `data/items.js` (new, Hendrix's): 16 common + 4 rare items, each with a
+  `look`, plus the dials `CARRY_LIMIT` 8, `OUT_IN_THE_OPEN` 6,
+  `RARE_EACH_NIGHT` 2, `RARE_HIDEOUTS` (cellar, box room, shed, garage,
+  the piano). Water Balloon is deliberately NOT in the list: adding it is
+  his M3 turn, and the `balloon` look is ready for him.
+- `data/rooms.js`: each room has `inTheOpen` places (27 in all).
+- `js/item-art.js` (new): 22 item drawings, parcel fallback for unknown looks.
+- `js/scavenge.js` (new): shuffles each night, leaves 6 in the open, hides
+  rare ones in awkward places and the rest anywhere, runs the clock from
+  `data/difficulty.js`, answers every click (found, nothing, bag full,
+  time up). Finish early with I'm done; either way "Take it to the
+  workbench" goes to the workshop placeholder, which shows the bag.
+- `js/house.js`: loose junk is drawn in the room with a shadow and glows
+  like a hiding place; picking it up removes it. Found things pop out of
+  their hiding place. `setLookHandler`, `placeLooseItem`, `hidingPlaces`.
+- The scavenge bar: clock (last 10 seconds go red and tick), 8 bag slots
+  (rare ones get a pink ring), I'm done.
+- State: `inventory`, `hidden`, `lying`, `timeLeft`, `scavenging`; restart
+  clears all of them and the junk in the house.
+- Fixed: the house stayed visible on the workshop screen (`.house-wrap`
+  display overrode `hidden`).
+- M3 dot is lit. M2 is not, so the strip shows M0, M1, M3.
+- Push lesson, again: the M3 code went up in four commits and the live
+  site was broken for about two minutes between them (main.js needed
+  house.js and the new markup). Next time, every file that depends on
+  another goes in ONE push_files call, however big.
+
+**Hendrix's M3 turn:** add Water Balloon to `data/items.js`, then change
+the Hard timer in `data/difficulty.js`.
+
 **Next:** M2 — The Hero: Hendrix, in camouflage.

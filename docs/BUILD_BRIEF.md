@@ -73,10 +73,13 @@ Hendrix controls the hero and moves around the house cross-section. The
 camera zooms into whichever room he is in, so that room fills the screen and
 every cupboard and drawer is big enough to search; the whole house is the
 map he zooms back out to. Zoomed in, the room shows more than the whole
-house can: small things, and more places to look. Items are hidden in rooms,
-cupboards, drawers and the shed. There are no markers: hiding places light
-up when he points at them, so finding them is the hunt. He grabs what he
-can before the clock runs out. Carry limit: **8 items**.
+house can: small things, and more places to look. **Some junk is lying
+about in plain sight** (on a worktop, the floor, the bath rim), easy grabs
+you can even spot from the whole house. **The rest is hidden** in cupboards,
+drawers, under beds and inside the piano. There are no markers: hiding places
+light up when he points at them, so finding them is the hunt. Everything is
+shuffled fresh every night. He grabs what he can before the clock runs out.
+Carry limit: **8 items**; when the bag is full it is full.
 
 The timer is the whole tension of this phase. On Hard he will not get
 everything, and that is the point — it makes the crafting phase a real
@@ -352,6 +355,11 @@ shed shelves. About three per room, weighted toward the awkward ones. With
 21 items and 49 places, most places are empty, which is the point: the
 clock runs out before he has checked them all. No dots while searching; a
 hiding place glows when the pointer is on it and goes grey once checked.
+
+Each night 6 of the common items are left **in the open**, in one of 27
+`inTheOpen` places listed per room in `data/rooms.js`. The other common
+items go in random hiding places. The dials (how many in the open, how many
+rare, bag size, where rare things may hide) are in `data/items.js`.
 
 The four rare items always spawn somewhere annoying: the cellar, the box
 room, the shed, the garage, or **inside the piano** in the lounge, which is
