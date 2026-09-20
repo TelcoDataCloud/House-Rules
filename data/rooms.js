@@ -42,6 +42,19 @@
    something later in the list stands in front of something
    earlier. Move the piano, swap the bed, add a second plant.
 
+   CLOSE UP
+   The small stuff: a teddy, a vase, a shelf of bottles. From the
+   whole house they would be a few dots, so they only appear once
+   you zoom into the room. Same kind, x and lift as a prop.
+
+   HIDING PLACES
+   Give any prop or close up thing a search, like
+       search: 'Under your bed'
+   and it becomes somewhere you can look. Point at it and it
+   lights up. Click it and you rummage. The words are what the
+   game says when you find it. No search means it is just
+   furniture.
+
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
 
@@ -71,8 +84,13 @@ export const ROOMS = [
     note: 'You watch the monitors from up here.',
     props: [
       { kind: 'monitors', x: 110 },
-      { kind: 'boxes',    x: 232 },
+      { kind: 'boxes',    x: 232, search: 'Boxes of old toys' },
       { kind: 'porthole', x: 302 }
+    ],
+    closeUp: [
+      { kind: 'trunk',    x: 20, search: 'Old trunk' },
+      { kind: 'suitcase', x: 66, search: 'Dusty suitcase', colour: 'fabric-a' },
+      { kind: 'teddy',    x: 240, lift: 50 }
     ] },
 
   /* --- UPSTAIRS --- */
@@ -81,42 +99,63 @@ export const ROOMS = [
     x: 48,  y: 232, w: 124, h: 160,
     note: 'Nothing worth stealing. They check anyway.',
     props: [
-      { kind: 'bath',   x: 4 },
-      { kind: 'toilet', x: 92 }
+      { kind: 'bath',   x: 4,  search: 'Behind the bath panel' },
+      { kind: 'toilet', x: 92, search: 'Toilet cistern' }
+    ],
+    closeUp: [
+      { kind: 'towel',   x: 30, colour: 'fabric-b' },
+      { kind: 'cabinet', x: 93, search: 'Bathroom cabinet' }
     ] },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
     flooring: 'carpet',
     x: 176, y: 232, w: 160, h: 160,
     note: 'The stairs come up here. The loft hatch is in the ceiling.',
     props: [
-      { kind: 'plant',    x: 4 },
-      { kind: 'picture',  x: 34 },
-      { kind: 'radiator', x: 62 }
+      { kind: 'plant',    x: 2,  search: 'Plant pot' },
+      { kind: 'airing',   x: 26, search: 'Airing cupboard' },
+      { kind: 'picture',  x: 68 },
+      { kind: 'radiator', x: 64, search: 'Behind the radiator' }
+    ],
+    closeUp: [
+      { kind: 'socket', x: 106 }
     ] },
   { id: 'my-room',  name: "Hendrix's room", floor: 'upstairs', paint: 'green',
     flooring: 'carpet',
     x: 340, y: 232, w: 156, h: 160,
     note: 'The workbench lives in here.',
     props: [
-      { kind: 'window',    x: 30, colour: 'fabric-c' },
-      { kind: 'bed',       x: 2,  colour: 'fabric-c' },
-      { kind: 'workbench', x: 98 }
+      { kind: 'window',    x: 46, colour: 'fabric-c' },
+      { kind: 'bed',       x: 2,  colour: 'fabric-c', search: 'Under your bed' },
+      { kind: 'workbench', x: 98, search: 'Under the workbench' }
+    ],
+    closeUp: [
+      { kind: 'trophyshelf', x: 2, search: 'Your shelf' },
+      { kind: 'football',    x: 60 },
+      { kind: 'socket',      x: 88 }
     ] },
   { id: 'big-room', name: "Mum and Dad's", floor: 'upstairs',
     flooring: 'carpet',
     x: 500, y: 232, w: 152, h: 160,
     note: 'Jewellery box. Sid goes straight here.',
     props: [
-      { kind: 'wardrobe', x: 2 },
+      { kind: 'wardrobe', x: 2,  search: 'Wardrobe' },
       { kind: 'picture',  x: 86 },
-      { kind: 'bed',      x: 54, colour: 'fabric-a' }
+      { kind: 'bed',      x: 54, colour: 'fabric-a', search: 'Under their bed' }
+    ],
+    closeUp: [
+      { kind: 'hatbox',   x: 12, lift: 104, search: 'Box on the wardrobe' },
+      { kind: 'slippers', x: 58 }
     ] },
   { id: 'box-room', name: 'Box room',      floor: 'upstairs',
     x: 656, y: 232, w: 136, h: 160,
     note: 'Nobody has opened some of these boxes in years.',
     props: [
-      { kind: 'boxes',     x: 6 },
-      { kind: 'bookshelf', x: 80 }
+      { kind: 'boxes',     x: 6,  search: 'Pile of boxes' },
+      { kind: 'bookshelf', x: 80, search: 'Behind the books' }
+    ],
+    closeUp: [
+      { kind: 'suitcase', x: 12, lift: 50, search: 'Old suitcase' },
+      { kind: 'teddy',    x: 94, lift: 92 }
     ] },
 
   /* --- GROUND FLOOR --- */
@@ -125,51 +164,74 @@ export const ROOMS = [
     x: 48,  y: 402, w: 80,  h: 154,
     note: 'Wellies, coats, and the front door.',
     props: [
-      { kind: 'coats', x: 6 },
-      { kind: 'plant', x: 52 }
+      { kind: 'coats', x: 6,  search: 'Coat pockets' },
+      { kind: 'plant', x: 56, search: 'Plant pot' }
+    ],
+    closeUp: [
+      { kind: 'mat',       x: 2 },
+      { kind: 'umbrellas', x: 41, search: 'Umbrella stand' }
     ] },
   { id: 'hall',     name: 'Hall',          floor: 'ground',
     x: 132, y: 402, w: 160, h: 154,
     note: 'Both of them come through here. Both.',
     props: [
       { kind: 'clock',   x: 2 },
-      { kind: 'picture', x: 30, lift: 22 }
+      { kind: 'picture', x: 30, lift: 22, search: 'Behind the picture' }
+    ],
+    closeUp: [
+      { kind: 'keys', x: 4, search: 'Key hooks' },
+      { kind: 'post', x: 0 }
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
     note: 'The telly, and the piano. Always check the piano.',
     props: [
       { kind: 'window', x: 78 },
-      { kind: 'rug',    x: 36 },
-      { kind: 'piano',  x: 2 },
-      { kind: 'tv',     x: 72 },
+      { kind: 'rug',    x: 36, search: 'Under the rug' },
+      { kind: 'piano',  x: 2,  search: 'Inside the piano' },
+      { kind: 'tv',     x: 72, search: 'TV cabinet' },
       { kind: 'lamp',   x: 132 }
+    ],
+    closeUp: [
+      { kind: 'books',  x: 6, lift: 66 },
+      { kind: 'socket', x: 134 }
     ] },
   { id: 'dining',   name: 'Dining room',   floor: 'ground',
     x: 456, y: 402, w: 124, h: 154,
     note: 'The cash tin is in the dresser drawer.',
     props: [
       { kind: 'picture', x: 34 },
-      { kind: 'table',   x: 2 },
-      { kind: 'dresser', x: 96 }
+      { kind: 'table',   x: 2,  search: 'Under the tablecloth' },
+      { kind: 'dresser', x: 96, search: 'Dresser drawers' }
+    ],
+    closeUp: [
+      { kind: 'vase',   x: 100, lift: 86, search: 'Big vase' },
+      { kind: 'teapot', x: 64,  lift: 37 }
     ] },
   { id: 'kitchen',  name: 'Kitchen',       floor: 'ground', paint: 'yellow',
     flooring: 'tile',
     x: 584, y: 402, w: 118, h: 154,
     note: 'Window, cupboards, and a lot of useful junk.',
     props: [
-      { kind: 'window',  x: 40, colour: 'fabric-b' },
-      { kind: 'counter', x: 2 },
-      { kind: 'fridge',  x: 84 }
+      { kind: 'window',  x: 44, colour: 'fabric-b' },
+      { kind: 'counter', x: 2,  search: 'Kitchen cupboards' },
+      { kind: 'fridge',  x: 84, search: 'Fridge' }
+    ],
+    closeUp: [
+      { kind: 'wallcupboard', x: 2,  search: 'Top cupboard' },
+      { kind: 'cereal',       x: 88, lift: 84, search: 'On top of the fridge' }
     ] },
   { id: 'utility',  name: 'Utility',       floor: 'ground',
     flooring: 'tile',
     x: 706, y: 402, w: 86,  h: 154,
     note: 'Back door. Steps down to the cellar.',
     props: [
-      { kind: 'washer', x: 4 },
-      { kind: 'boiler', x: 48 },
-      { kind: 'bucket', x: 44 }
+      { kind: 'washer', x: 4,  search: 'Washing machine' },
+      { kind: 'boiler', x: 48, search: 'Behind the boiler' },
+      { kind: 'bucket', x: 44, search: 'Mop bucket' }
+    ],
+    closeUp: [
+      { kind: 'bottleshelf', x: 2, search: 'Shelf of bottles' }
     ] },
 
   /* --- THE CELLAR, under the ground --- */
@@ -177,10 +239,14 @@ export const ROOMS = [
     x: 456, y: 572, w: 336, h: 128,
     note: 'Dark, far away, and the best junk in the house.',
     props: [
-      { kind: 'shelves', x: 8 },
-      { kind: 'boxes',   x: 72 },
-      { kind: 'freezer', x: 142 },
-      { kind: 'shelves', x: 200 }
+      { kind: 'shelves', x: 8,   search: 'Metal shelves' },
+      { kind: 'boxes',   x: 72,  search: 'Old boxes' },
+      { kind: 'freezer', x: 142, search: 'Chest freezer' },
+      { kind: 'shelves', x: 200, search: 'Back shelves' }
+    ],
+    closeUp: [
+      { kind: 'toolbox', x: 150, lift: 38, search: 'Toolbox on the freezer' },
+      { kind: 'tins',    x: 60 }
     ] },
 
   /* --- OUTSIDE --- */
@@ -188,16 +254,22 @@ export const ROOMS = [
     x: 812, y: 460, w: 120, h: 96,
     note: 'Tools, paint, a garden hose.',
     props: [
-      { kind: 'pegboard', x: 30, lift: -6 },
-      { kind: 'car',      x: 10 }
+      { kind: 'pegboard', x: 30, lift: -6, search: 'Tool wall' },
+      { kind: 'car',      x: 10, search: 'Car boot' }
+    ],
+    closeUp: [
+      { kind: 'hosereel', x: 98, search: 'Hose reel' }
     ] },
   { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
     x: 948, y: 476, w: 84,  h: 80,
     note: 'A long walk. Worth it.',
     props: [
-      { kind: 'pegboard',  x: 22, lift: -26 },
-      { kind: 'lawnmower', x: 2 },
+      { kind: 'pegboard',  x: 22, lift: -26, search: 'Shed wall' },
+      { kind: 'lawnmower', x: 2,  search: 'Grass box' },
       { kind: 'bucket',    x: 60 }
+    ],
+    closeUp: [
+      { kind: 'flowerpots', x: 44, search: 'Stack of flower pots' }
     ] }
 ];
 
@@ -205,9 +277,11 @@ export const ROOMS = [
    is a ladder. left and right say how wide. bottom is the floor it
    starts on and top is the floor it arrives at, so they line up
    with the floors of the rooms. handrail: false leaves the
-   banister off. cupboard: true puts a cupboard under the stairs. */
+   banister off. cupboard: true puts a cupboard under the stairs,
+   and search makes its door a hiding place in that room. */
 export const STAIRS = [
-  { id: 'main',   name: 'The stairs',  kind: 'steps', cupboard: true,
+  { id: 'main',   name: 'The stairs',  kind: 'steps',
+    cupboard: true, room: 'hall', search: 'Cupboard under the stairs',
     left: 140, right: 286, bottom: 544, top: 380, steps: 9 },
   { id: 'cellar', name: 'Cellar steps', kind: 'steps', handrail: false,
     left: 712, right: 790, bottom: 688, top: 544, steps: 7 },
