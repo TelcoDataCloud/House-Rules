@@ -306,8 +306,10 @@ once. Four levels plus two outbuildings, thirteen rooms in total, laid out
 in §7a.
 
 **Characters:** simple, expressive, big silhouettes. Sid tall and thin. Bruno
-square and wide. The hero **is Hendrix**: small, determined, permanent slight
-smirk, dressed head to foot in **camouflage** for the night.
+square and wide. The hero **is Hendrix**: a kid, drawn with a big head and a
+small body, messy hair, permanent slight smirk, in **stripy pyjamas and
+slippers** because he is meant to be in bed. (Camouflage was the first idea;
+Asa switched it to pyjamas on 20 Sep.)
 
 **Rendering:** inline **SVG + DOM + CSS animations**. Deliberately *not*
 canvas — because Hendrix can right-click any part of the game, hit Inspect,
