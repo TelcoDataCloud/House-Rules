@@ -1,0 +1,41 @@
+/* ===========================================================
+   HERO - how Hendrix moves
+
+   js/hero.js slides him from place to place. This file only
+   does the little bits: legs and arms swinging, a bob as he
+   walks. Colours are in tokens.css (--camo-a to --camo-d).
+   =========================================================== */
+
+/* He never gets in the way of your clicks. */
+.hero-layer, .hero { pointer-events: none; }
+
+.hero-leg, .hero-arm {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.hero.is-walking .hero-leg-front { animation: hero-swing 0.36s ease-in-out infinite alternate; }
+.hero.is-walking .hero-leg-back  { animation: hero-swing 0.36s ease-in-out infinite alternate-reverse; }
+.hero.is-walking .hero-arm-front { animation: hero-swing 0.36s ease-in-out infinite alternate-reverse; }
+.hero.is-walking .hero-arm-back  { animation: hero-swing 0.36s ease-in-out infinite alternate; }
+.hero.is-walking .hero-bob       { animation: hero-bob 0.18s ease-in-out infinite alternate; }
+
+@keyframes hero-swing {
+  from { transform: rotate(-24deg); }
+  to   { transform: rotate(24deg); }
+}
+@keyframes hero-bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1.5px); }
+}
+
+/* The little portrait of him in the workshop. */
+.hero-picture { width: 64px; height: 112px; flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.is-walking .hero-leg-front,
+  .hero.is-walking .hero-leg-back,
+  .hero.is-walking .hero-arm-front,
+  .hero.is-walking .hero-arm-back,
+  .hero.is-walking .hero-bob { animation: none; }
+}
