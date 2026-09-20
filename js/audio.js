@@ -58,5 +58,6 @@ export const sfx = {
   select()  { blip(660, 90, 'square'); blip(880, 90, 'square'); },
   start()   { blip(440, 120, 'square'); setTimeout(() => blip(660, 160, 'square'), 110); },
   back()    { blip(330, 110, 'sine'); },
-  toggle()  { blip(760, 60, 'sine'); }
+  toggle()  { blip(760, 60, 'sine'); },
+  rummage() { blip(180, 60, 'sawtooth', 0.04); setTimeout(() => blip(150, 60, 'sawtooth', 0.04), 90); setTimeout(() => blip(210, 70, 'sawtooth', 0.04), 180); }
 };

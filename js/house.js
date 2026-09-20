@@ -16,6 +16,8 @@
 
 import { PICTURE, ROOMS, STAIRS, ANCHORS, MOUNTS } from '../data/rooms.js';
 import { drawProp } from './props.js';
+import { state } from './state.js';
+import { sfx } from './audio.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -104,6 +106,24 @@ function drawDefs(svg) {
     [['0%', 'var(--ink)', 0.38], ['100%', 'var(--ink)', 0]], { x1: 0, y1: 0, x2: 0, y2: 1 });
   gradient(defs, 'grad-lamp', 'radial',
     [['0%', 'var(--lamp-glow)', 0.95], ['100%', 'var(--lamp-glow)', 0]]);
+
+  /* The glow round a hiding place when you point at it. It fattens
+     the shape a little, paints that in the spot colour, softens
+     it, then puts the real drawing back on top. */
+  /* Two of them: yellow for a new place, grey once you have looked. */
+  [['spot-glow', 'spot-flood'], ['spot-glow-done', 'spot-flood-done']].forEach(([id, flood]) => {
+    const glowFilter = make('filter', { id, x: '-25%', y: '-25%', width: '150%', height: '150%' });
+    glowFilter.append(
+      make('feMorphology', { in: 'SourceAlpha', operator: 'dilate', radius: 2.2, result: 'fat' }),
+      make('feFlood', { class: flood, result: 'colour' }),
+      make('feComposite', { in: 'colour', in2: 'fat', operator: 'in', result: 'ring' }),
+      make('feGaussianBlur', { in: 'ring', stdDeviation: 1.6, result: 'soft' })
+    );
+    const merge = make('feMerge');
+    merge.append(make('feMergeNode', { in: 'soft' }), make('feMergeNode', { in: 'ring' }), make('feMergeNode', { in: 'SourceGraphic' }));
+    glowFilter.append(merge);
+    defs.append(glowFilter);
+  });
 
   svg.append(defs);
 }
@@ -274,8 +294,13 @@ function drawStairs(svg) {
       const doorW = 30;
       const doorX = right - doorW - 8;
       const doorTop = bottom - 64;
-      box(g, doorX, doorTop, doorW, 64, 'var(--door)', 'ink-thin', { rx: 2 });
-      g.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
+      const door = make('g');
+      const body = make('g', { class: 'prop-body' });
+      box(body, doorX, doorTop, doorW, 64, 'var(--door)', 'ink-thin', { rx: 2 });
+      body.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
+      door.append(body);
+      if (flight.search && flight.room) makeSpot(door, flight.room, flight.search);
+      g.append(door);
     }
 
     /* the steps: a zig-zag up the front, closed off along the slope */
@@ -348,6 +373,22 @@ function drawLamp(g, room) {
   }
 }
 
+/* Put one prop in its place. The outer group moves it to the
+   right spot in the room. The inner one (prop-body) is the drawing
+   itself, and that is the part that glows and wiggles when it is a
+   hiding place. Two groups, for the same reason as the anchors. */
+function placeThing(layer, room, thing, floorY) {
+  const at = make('g', {
+    class: 'prop', 'data-prop': thing.kind,
+    transform: `translate(${room.x + thing.x} ${floorY - (thing.lift || 0)})`
+  });
+  const body = make('g', { class: 'prop-body' });
+  drawProp(thing.kind, body, thing);
+  at.append(body);
+  if (thing.search) makeSpot(at, room.id, thing.search);
+  layer.append(at);
+}
+
 function drawRooms(svg) {
   const layer = make('g');
   const defs = svg.querySelector('defs');
@@ -387,14 +428,12 @@ function drawRooms(svg) {
     /* light from the lamp, then the furniture, then the lamp
        itself so it hangs in front of whatever is on the wall */
     drawGlow(inside, room);
-    (room.props || []).forEach((prop) => {
-      const p = make('g', {
-        class: 'prop', 'data-prop': prop.kind,
-        transform: `translate(${room.x + prop.x} ${floorY - (prop.lift || 0)})`
-      });
-      drawProp(prop.kind, p, prop);
-      inside.append(p);
-    });
+    (room.props || []).forEach((prop) => placeThing(inside, room, prop, floorY));
+
+    /* the small stuff, which only shows once you zoom in */
+    const closeUp = make('g', { class: 'close-up' });
+    (room.closeUp || []).forEach((thing) => placeThing(closeUp, room, thing, floorY));
+    inside.append(closeUp);
 
     drawLamp(inside, room);
 
@@ -490,6 +529,106 @@ function drawAnchors(svg, caption) {
   svg.append(layer);
 }
 
+/* --- HIDING PLACES -------------------------------------------
+   Anything in data/rooms.js with a search is a hiding place. There
+   are no dots on them. You have to hunt: zoom into a room, move
+   the pointer around, and the things you can look in light up.
+   Click one (or Tab to it and press Enter) and you rummage.
+
+   Which ones you have already searched is kept in state.searched,
+   so restarting the game forgets them all.
+
+   There is nothing to find yet. M3 hides the junk in here.
+   ------------------------------------------------------------ */
+
+const spots = [];
+
+function slug(words) {
+  return words.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function makeSpot(g, roomId, name) {
+  const id = `${roomId}-${slug(name)}`;
+  g.classList.add('spot');
+  g.setAttribute('data-room', roomId);
+  g.setAttribute('data-spot', id);
+  g.setAttribute('role', 'button');
+  g.setAttribute('tabindex', '-1');
+  g.setAttribute('aria-label', `Search: ${name}`);
+  spots.push({ id, room: roomId, name, node: g });
+
+  const point = () => {
+    if (!g.classList.contains('is-here')) return;
+    view.hud.note.textContent = state.searched.includes(id)
+      ? `${name}. You already looked here.`
+      : name;
+  };
+  /* Moving off puts the room's note back, unless you just searched
+     it, in which case the answer stays up so you can read it. */
+  const leave = () => {
+    const room = findRoom(roomId);
+    const said = view.hud.note.textContent;
+    if (room && g.classList.contains('is-here') && !said.includes('Nothing in here')) {
+      view.hud.note.textContent = room.note || '';
+    }
+  };
+  const look = (event) => {
+    if (!g.classList.contains('is-here')) return;
+    event.stopPropagation();
+    search(id, name, g);
+  };
+
+  g.addEventListener('mouseenter', point);
+  g.addEventListener('focus', point);
+  g.addEventListener('mouseleave', leave);
+  g.addEventListener('blur', leave);
+  g.addEventListener('click', look);
+  g.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); look(event); }
+  });
+}
+
+function search(id, name, g) {
+  g.classList.remove('is-rummaging');
+  void g.getBBox();                       // restart the wiggle if you click twice
+  g.classList.add('is-rummaging');
+  setTimeout(() => g.classList.remove('is-rummaging'), 650);
+  sfx.rummage();
+
+  if (!state.searched.includes(id)) state.searched.push(id);
+  g.classList.add('is-searched');
+  view.hud.note.textContent = `${name}. Nothing in here yet. The junk goes in at M3.`;
+  countSpots(g.dataset.room);
+}
+
+/* The line under the house: how many hiding places this room has,
+   and how many you have looked in. */
+function countSpots(roomId) {
+  if (!view.caption) return;
+  if (view.mode !== 'search') return;
+  if (!roomId) {
+    view.caption.textContent = 'Tap a room to go in and hunt for junk.';
+    return;
+  }
+  const here = spots.filter((spot) => spot.room === roomId);
+  const done = here.filter((spot) => state.searched.includes(spot.id)).length;
+  view.caption.textContent = here.length === 0
+    ? 'Nowhere to hide anything in here.'
+    : `Searched ${done} of ${here.length} hiding places in here.`;
+}
+
+/* Only the hiding places in the room you are in can be pointed at
+   or tabbed to. */
+function wakeSpots(roomId) {
+  const on = view.mode === 'search' ? roomId : null;
+  spots.forEach((spot) => {
+    const here = spot.room === on;
+    spot.node.classList.toggle('is-here', here);
+    spot.node.setAttribute('tabindex', here ? '0' : '-1');
+  });
+  countSpots(on);
+}
+
 /* --- THE LEGEND ----------------------------------------------
    Four little swatches saying what the colours mean. Built from
    the same MOUNTS list the anchors use, so it can never drift
@@ -530,7 +669,7 @@ function buildLegend(list) {
    ------------------------------------------------------------ */
 
 const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
-const view = { svg: null, box: null, hud: null, onRoom: null };
+const view = { svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search' };
 
 /* Grow a box until it has the same shape as the picture, so the
    room is not squashed, then keep it inside the picture. */
@@ -608,19 +747,58 @@ export function zoomToRoom(id) {
   if (!room || !view.svg) return;
   if (view.box) applyScale(view.box);
   view.svg.classList.add('is-zoomed');
-  view.svg.querySelectorAll('.room').forEach((r) => r.classList.toggle('is-open', r.dataset.room === id));
+  view.svg.querySelectorAll('.room').forEach((r) => {
+    const open = r.dataset.room === id;
+    r.classList.toggle('is-open', open);
+    /* once you are inside, the room is not a button any more, the
+       things in it are */
+    r.setAttribute('role', open ? 'group' : 'button');
+    r.setAttribute('tabindex', open ? '-1' : '0');
+    r.setAttribute('aria-label', open ? room.name : `Look inside the ${findRoom(r.dataset.room).name}`);
+  });
   glideTo(roomBox(room));
   showHud(room);
+  wakeSpots(id);
   if (view.onRoom) view.onRoom(id);
 }
 
 export function showWholeHouse(animate = true) {
   if (!view.svg) return;
   view.svg.classList.remove('is-zoomed');
-  view.svg.querySelectorAll('.room.is-open').forEach((r) => r.classList.remove('is-open'));
+  view.svg.querySelectorAll('.room').forEach((r) => {
+    r.classList.remove('is-open');
+    r.setAttribute('role', 'button');
+    r.setAttribute('tabindex', '0');
+    r.setAttribute('aria-label', `Look inside the ${findRoom(r.dataset.room).name}`);
+  });
   if (animate) glideTo(WHOLE()); else setBox(WHOLE());
   showHud(null);
+  wakeSpots(null);
   if (view.onRoom) view.onRoom(null);
+}
+
+/* SEARCH or RIG. Searching hides the trap spots so you hunt for
+   junk with nothing giving it away. Rigging shows the trap spots
+   and switches the hiding places off. */
+export function setHouseMode(mode) {
+  if (!view.svg) return;
+  view.mode = mode;
+  view.svg.dataset.mode = mode;
+  if (view.legend) view.legend.hidden = mode !== 'rig';
+  if (view.caption) {
+    view.caption.textContent = mode === 'rig'
+      ? 'Point at a glowing spot, or press Tab, to see what goes there.'
+      : '';
+  }
+  const open = view.svg.querySelector('.room.is-open');
+  wakeSpots(open ? open.dataset.room : null);
+}
+
+/* Restart: forget every search and go back to the whole house. */
+export function resetHouse() {
+  spots.forEach((spot) => spot.node.classList.remove('is-searched', 'is-rummaging'));
+  document.querySelectorAll('.anchor.is-live').forEach((a) => a.classList.remove('is-live'));
+  showWholeHouse(false);
 }
 
 /* Which room is next door? Left and right stay on the same floor.
@@ -678,10 +856,9 @@ export function buildHouse(container, caption, legend, hud, onRoom) {
   const rooms = ROOMS.map((room) => room.name).join(', ');
   const svg = make('svg', {
     viewBox: `0 0 ${PICTURE.w} ${PICTURE.h}`,
-    role: 'img',
+    role: 'group',
     'aria-label':
-      `A cut open view of the house. The rooms are: ${rooms}. ` +
-      `${ANCHORS.length} glowing spots show where traps can go.`
+      `A cut open view of the house. The rooms are: ${rooms}.`
   });
 
   drawDefs(svg);
@@ -695,8 +872,11 @@ export function buildHouse(container, caption, legend, hud, onRoom) {
 
   view.svg = svg;
   view.hud = hud;
+  view.caption = caption;
+  view.legend = legend;
   view.onRoom = onRoom || null;
   wireCamera(svg);
   if (hud) hud.out.addEventListener('click', () => showWholeHouse());
+  setHouseMode('search');
   showWholeHouse(false);
 }

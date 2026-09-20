@@ -14,7 +14,7 @@
 
 import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
-import { buildHouse, showWholeHouse } from './house.js';
+import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
@@ -81,6 +81,8 @@ function renderPhaseScreen(phase) {
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
 
   el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
+  /* Rigging shows the trap spots. Everything else is a hunt. */
+  setHouseMode(phase === 'rig' ? 'rig' : 'search');
 
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
@@ -111,13 +113,10 @@ function boot() {
   document.addEventListener('phasechange', (event) => {
     const phase = event.detail;
     if (phase === 'title') {
-      /* Put the house caption back to its starting line, so
-         restart really does leave nothing behind. */
-      el('house-caption').textContent =
-        'Point at a glowing spot, or press Tab, to see what goes there.';
-      document.querySelectorAll('.anchor.is-live')
-        .forEach((a) => a.classList.remove('is-live'));
-      showWholeHouse(false);
+      /* Forget every search and zoom out, so restart really
+         does leave nothing behind. */
+      resetHouse();
+      setHouseMode('search');
       showScreen('title');
     } else {
       renderPhaseScreen(phase);
@@ -130,6 +129,7 @@ function boot() {
   /* A door into the game from the browser console, so you can
      poke at it while it runs. Try: HOUSE.state */
   window.HOUSE = { state, setPhase, resetGame };
+  /* Want to see the trap spots before M5? Type: HOUSE.setPhase('rig') */
 }
 
 if (document.readyState === 'loading') {
