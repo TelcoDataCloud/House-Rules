@@ -69,8 +69,11 @@ would make you wince, it's out.
 One **night** = four phases. A full night runs 6-10 minutes.
 
 ### Phase 1 — SCAVENGE *(timed, length set by difficulty)*
-Hendrix controls the hero and moves around the house cross-section. The
-camera zooms into whichever room he is in, so that room fills the screen and
+Hendrix controls the hero and moves around the house cross-section: tap a
+room (or use the arrow keys) and the hero walks there, the shortest way,
+along the floors and up and down the stairs, cellar steps and loft ladder.
+Walking costs clock time. He can only search the room he is standing in. The
+camera follows him and zooms into whichever room he is in, so that room fills the screen and
 every cupboard and drawer is big enough to search; the whole house is the
 map he zooms back out to. Zoomed in, the room shows more than the whole
 house can: small things, and more places to look. **Some junk is lying
@@ -104,8 +107,10 @@ Two rules keep this from spiralling:
   two decent ones. That is a real decision, especially on Hard when the
   scavenge clock left you short.
 
-Discovered traps go into the **Recipe Notebook**, which persists for the
-whole session so he builds up knowledge across attempts. The notebook shows
+Two things on the bench bolt together straight away; there is no extra
+button to press. Discovered traps go into the **Recipe Notebook**, which
+persists for the whole session so he builds up knowledge across attempts
+(restart keeps it; closing the page clears it). The notebook shows
 upgrade paths as a little branch off the base trap, with unknown upgrades as
 silhouettes — that's the thing that will keep him experimenting.
 
@@ -431,7 +436,8 @@ js/
   ui.js             meters, notebook, buttons
   audio.js          WebAudio blips
 data/               <-- HENDRIX'S FOLDER
-  items.js          the 18 items
+  hero.js           the hero's name, start room, walk speed
+  items.js          the items and the scavenge dials
   recipes.js        base recipes + upgrades
   rooms.js          the house layout + anchors
   burglars.js       stats, routes, personality
@@ -479,8 +485,9 @@ in `data/difficulty.js` and see if he can still beat it.
 **M4 — The Workshop.** Drag two items together. Valid → trap discovered,
 notebook entry unlocked. Invalid → puff of smoke and a wisecrack. Then
 upgrades: feed a finished trap back in with a third item.
-→ *His turn:* invent a base recipe from his own item, then invent an upgrade
-for it. Both are copy-a-block-and-change-the-words in `data/recipes.js`.
+→ *His turn:* add his Glue Bomb upgrade (Flour Bomb + Water Balloon) to
+`data/recipes.js`, then invent a base recipe of his own for the Water
+Balloon. Both are copy-a-block-and-change-the-words.
 
 **M5 — Rigging.** Place discovered traps at anchors. Mount-type rules
 enforced. Remove and replace freely.
