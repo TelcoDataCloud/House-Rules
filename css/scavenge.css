@@ -1,0 +1,160 @@
+/* ===========================================================
+   SCAVENGE - the clock, your bag, and junk in the house
+
+   Every colour comes from tokens.css, like everywhere else.
+   =========================================================== */
+
+.scavenge-bar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  padding: var(--gap);
+  background: var(--panel);
+  border: var(--outline) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 var(--shadow-drop) 0 var(--ink);
+}
+.scavenge-bar[hidden], .scavenge-end[hidden] { display: none; }
+
+/* --- THE CLOCK ----------------------------------------------- */
+
+.clock {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 92px;
+  padding: 6px 12px;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+.clock[hidden] { display: none; }
+.clock-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.clock-time {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+/* The last ten seconds go red and shake a little. */
+.clock.is-urgent .clock-time { color: var(--danger); animation: clock-shake 0.5s ease-in-out infinite; }
+@keyframes clock-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* --- THE BAG ------------------------------------------------- */
+
+.bag-wrap { flex: 1; min-width: 0; }
+.bag-title {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.bag {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+}
+.bag-slot {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+}
+.bag-slot.is-full { border-style: solid; border-color: var(--ink); background: var(--bg); }
+.bag-slot.is-rare { box-shadow: 0 0 0 3px var(--rare); }
+.bag-slot.is-new { animation: bag-bounce 0.45s ease-out; }
+.bag-slot .item-picture { width: 70%; height: 70%; }
+.bag-name {
+  position: absolute;
+  bottom: 1px;
+  left: 2px;
+  right: 2px;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-dim);
+}
+@keyframes bag-bounce {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* --- TIME UP / DONE ------------------------------------------ */
+
+.scavenge-end {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+.scavenge-end-text {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0 0 var(--gap);
+}
+
+/* --- JUNK IN THE HOUSE --------------------------------------- */
+
+/* Loose junk has a soft shadow drawn under it (js/house.js), so
+   it reads as lying there, not painted on. */
+
+/* The thing that jumps out of a hiding place when you find it. */
+.item-pop-at { pointer-events: none; }
+.item-pop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: item-pop 1s ease-out forwards;
+}
+@keyframes item-pop {
+  0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+  20%  { transform: translateY(-8px) scale(1.7); opacity: 1; }
+  75%  { transform: translateY(-16px) scale(1.7); opacity: 1; }
+  100% { transform: translateY(-24px) scale(1.2); opacity: 0; }
+}
+
+.p-hose { stroke: var(--hose); stroke-width: 3.2; }
+
+/* --- SMALL SCREENS ------------------------------------------- */
+
+@media (max-width: 560px) {
+  .bag { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bag-slot { aspect-ratio: auto; height: 56px; }
+  .scavenge-bar .btn { width: 100%; }
+  .bag-title { padding-right: 104px; min-height: 40px; }   /* room for the day/night and sound buttons */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item-pop { animation: none; opacity: 0; }
+  .clock.is-urgent .clock-time { animation: none; }
+}
