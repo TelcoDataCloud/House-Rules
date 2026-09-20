@@ -1,14 +1,20 @@
 /* ===========================================================
    HERO ART - how Hendrix is drawn
 
-   Hendrix: this is you. Small, determined, a slight smirk, and
-   camouflage from head to foot. Stand him at x 0, y 0 and he is
-   drawn upwards from his feet, facing right.
+   Hendrix: this is you. A kid in stripy pyjamas and slippers,
+   out of bed when you should be asleep, with messy hair and a
+   slight smirk. Stand him at x 0, y 0 and he is drawn upwards
+   from his feet, facing right.
 
-   The camouflage is a pattern called pat-camo, made in
-   js/house.js out of four colours in css/tokens.css. The parts
-   that swing when you walk (legs, arms) have their own class
-   names, so css/hero.css can move them.
+   Kids are drawn with a BIG head and a small body. That is the
+   trick that makes a cartoon look young. Try making the head
+   radius (the 11 on the head circle) smaller and watch him turn
+   into a grown up.
+
+   The pyjama stripes are a pattern made from two colours in
+   css/tokens.css: --pj-a and --pj-b. The parts that swing when
+   you walk (legs, arms) have their own class names, so
+   css/hero.css can move them.
    =========================================================== */
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -20,65 +26,82 @@ function add(g, tag, attrs) {
   return node;
 }
 
-/* Draws Hendrix into g. Everything is inside, so move g to move him.
-   camo says which camouflage pattern to use. */
-export function drawHero(g, camo = 'url(#pat-camo)') {
-  const CAMO = camo;
-  /* shadow on the floor */
-  add(g, 'ellipse', { cx: 0, cy: 0, rx: 10, ry: 2, class: 'p-shadow' });
+/* The pyjama stripes, as a pattern you can paint with. js/hero.js
+   makes one called pat-pyjamas next to Hendrix in the house; the
+   workshop portrait makes its own copy with a different name. */
+export function pyjamaPattern(defs, id) {
+  const pat = add(defs, 'pattern', { id, width: 6, height: 6, patternUnits: 'userSpaceOnUse' });
+  add(pat, 'rect', { width: 6, height: 6, fill: 'var(--pj-a)' });
+  add(pat, 'rect', { x: 0, width: 2.2, height: 6, fill: 'var(--pj-b)' });
+}
 
-  /* back arm, back leg (drawn first so they are behind) */
+/* Draws Hendrix into g. Everything is inside, so move g to move him.
+   pj says which pyjama pattern to use. */
+export function drawHero(g, pj = 'url(#pat-pyjamas)') {
+  const PJ = pj;
+  /* shadow on the floor */
+  add(g, 'ellipse', { cx: 0, cy: 0, rx: 9, ry: 1.8, class: 'p-shadow' });
+
+  /* back arm and back leg, drawn first so they sit behind */
   const armBack = add(g, 'g', { class: 'hero-arm hero-arm-back' });
-  add(armBack, 'rect', { x: -2.5, y: -31, width: 5, height: 14, rx: 2.5, fill: CAMO, class: 'p-ink' });
-  add(armBack, 'circle', { cx: 0, cy: -16.5, r: 2.4, fill: 'var(--skin)', class: 'p-fine' });
+  add(armBack, 'rect', { x: -2.2, y: -24, width: 4.4, height: 10, rx: 2.2, fill: PJ, class: 'p-ink' });
+  add(armBack, 'circle', { cx: 0, cy: -13.5, r: 2.3, fill: 'var(--skin)', class: 'p-fine' });
 
   const legBack = add(g, 'g', { class: 'hero-leg hero-leg-back' });
-  add(legBack, 'rect', { x: -4, y: -17, width: 6, height: 15, rx: 2, fill: CAMO, class: 'p-ink' });
-  add(legBack, 'path', { d: 'M-4.5 -3 L3.5 -3 Q6 -3 6 0 L-4.5 0 Z', fill: 'var(--boots)', class: 'p-ink' });
+  add(legBack, 'rect', { x: -4, y: -13, width: 5.5, height: 11, rx: 2, fill: PJ, class: 'p-ink' });
+  add(legBack, 'path', { d: 'M-5 -2.6 Q-5 -4.2 -2.5 -4.2 L1.5 -4.2 Q5 -4 5.5 -1 L5.5 0 L-5 0 Z', fill: 'var(--slippers)', class: 'p-ink' });
 
-  /* body */
-  add(g, 'path', { d: 'M-7 -17 L-7.5 -30 Q-7 -34 -2 -34 L2 -34 Q7 -34 7.5 -30 L7 -17 Z', fill: CAMO, class: 'p-ink' });
-  add(g, 'path', { d: 'M-7 -20 L7 -20', class: 'p-fine' });                      // belt
-  add(g, 'rect', { x: 1, y: -29, width: 4, height: 4, rx: 0.8, fill: 'var(--camo-b)', class: 'p-fine' });   // pocket
+  /* pyjama top: short and a bit baggy, with a collar and buttons */
+  add(g, 'path', { d: 'M-6.5 -12 Q-7.5 -20 -6 -25 Q-5 -27 -2 -27 L2 -27 Q5 -27 6 -25 Q7.5 -20 6.5 -12 Q0 -10.5 -6.5 -12 Z', fill: PJ, class: 'p-ink' });
+  add(g, 'path', { d: 'M-3 -27 L0 -23.5 L3 -27', fill: 'var(--pj-b)', class: 'p-fine' });
+  add(g, 'circle', { cx: 1.5, cy: -20.5, r: 0.8, fill: 'var(--porcelain)', class: 'p-fine' });
+  add(g, 'circle', { cx: 1.5, cy: -16.5, r: 0.8, fill: 'var(--porcelain)', class: 'p-fine' });
 
   /* front leg */
   const legFront = add(g, 'g', { class: 'hero-leg hero-leg-front' });
-  add(legFront, 'rect', { x: -2, y: -17, width: 6, height: 15, rx: 2, fill: CAMO, class: 'p-ink' });
-  add(legFront, 'path', { d: 'M-2.5 -3 L5.5 -3 Q8 -3 8 0 L-2.5 0 Z', fill: 'var(--boots)', class: 'p-ink' });
+  add(legFront, 'rect', { x: -1.5, y: -13, width: 5.5, height: 11, rx: 2, fill: PJ, class: 'p-ink' });
+  add(legFront, 'path', { d: 'M-2.5 -2.6 Q-2.5 -4.2 0 -4.2 L4 -4.2 Q7.5 -4 8 -1 L8 0 L-2.5 0 Z', fill: 'var(--slippers)', class: 'p-ink' });
+  add(legFront, 'circle', { cx: 5.5, cy: -3.2, r: 1.1, fill: 'var(--porcelain)', class: 'p-fine' });    // pom pom
 
-  /* head */
-  add(g, 'circle', { cx: 0, cy: -41, r: 7.5, fill: 'var(--skin)', class: 'p-ink' });
-  add(g, 'path', { d: 'M-7 -42 Q-8 -47 -4 -47', fill: 'none', stroke: 'var(--hair)', 'stroke-width': 2.5, 'stroke-linecap': 'round' });
-  /* camo cap with the peak pointing forward */
-  add(g, 'path', { d: 'M-7.8 -43 Q-7 -50.5 0.5 -50.5 Q7 -50 7.6 -43 Z', fill: CAMO, class: 'p-ink' });
-  add(g, 'path', { d: 'M5 -44 L12 -43 Q11.5 -41.5 6 -42 Z', fill: 'var(--camo-b)', class: 'p-fine' });
-  /* face: eyes looking forward, camo paint stripes, and the smirk */
-  add(g, 'circle', { cx: 2.6, cy: -41, r: 1.1, class: 'p-ink-fill' });
-  add(g, 'circle', { cx: 5.8, cy: -41, r: 1.1, class: 'p-ink-fill' });
-  add(g, 'path', { d: 'M1 -38.6 L4.2 -38.6 M5 -38.6 L7 -38.6', stroke: 'var(--camo-b)', 'stroke-width': 1.3, 'stroke-linecap': 'round' });
-  add(g, 'path', { d: 'M2.4 -36 Q4.8 -35 6.6 -37', fill: 'none', class: 'p-fine' });
+  /* the big head */
+  add(g, 'circle', { cx: -9.8, cy: -36, r: 2.6, fill: 'var(--skin)', class: 'p-fine' });               // ear
+  add(g, 'circle', { cx: 0, cy: -37, r: 11, fill: 'var(--skin)', class: 'p-ink' });
+  /* messy hair, with a tuft sticking straight up from the pillow */
+  add(g, 'path', {
+    d: 'M-11 -37 Q-12 -46 -5 -48.5 Q-1 -52 3 -48.5 Q7 -50 9 -46 Q11.5 -43 10.5 -40 Q7 -43 3 -42.5 Q-1 -44 -4 -42 Q-6 -40 -8 -36 Q-10 -35 -11 -37 Z',
+    fill: 'var(--hair)', class: 'p-ink'
+  });
+  add(g, 'path', { d: 'M-1 -49 Q-2 -54 1.5 -55.5 Q0.5 -52 2 -49.5', fill: 'var(--hair)', class: 'p-fine' });
+  /* big eyes looking forward, with a shine in each */
+  add(g, 'ellipse', { cx: 2.2, cy: -36.5, rx: 2.3, ry: 2.9, fill: 'var(--porcelain)', class: 'p-fine' });
+  add(g, 'ellipse', { cx: 7.4, cy: -36.5, rx: 2.1, ry: 2.7, fill: 'var(--porcelain)', class: 'p-fine' });
+  add(g, 'circle', { cx: 3.2, cy: -36.2, r: 1.3, class: 'p-ink-fill' });
+  add(g, 'circle', { cx: 8.2, cy: -36.2, r: 1.2, class: 'p-ink-fill' });
+  add(g, 'circle', { cx: 3.6, cy: -36.8, r: 0.45, fill: 'var(--porcelain)' });
+  add(g, 'circle', { cx: 8.6, cy: -36.8, r: 0.45, fill: 'var(--porcelain)' });
+  /* eyebrows up to something, a pink cheek, freckles, and the smirk */
+  add(g, 'path', { d: 'M0.4 -40.8 Q2.2 -41.8 4 -40.9 M6 -40.6 Q7.6 -41.4 9.2 -40.3', fill: 'none', class: 'p-fine' });
+  add(g, 'ellipse', { cx: 6.8, cy: -32.4, rx: 2, ry: 1.2, fill: 'var(--cheek)' });
+  [[4.2, -33.6], [5.6, -34.1], [8.8, -33.8]].forEach(([x, y]) => add(g, 'circle', { cx: x, cy: y, r: 0.35, class: 'p-ink-fill' }));
+  add(g, 'path', { d: 'M3.4 -30.2 Q6 -29.2 8.4 -31.2', fill: 'none', class: 'p-fine' });
 
   /* front arm */
   const armFront = add(g, 'g', { class: 'hero-arm hero-arm-front' });
-  add(armFront, 'rect', { x: -2.5, y: -31, width: 5, height: 14, rx: 2.5, fill: CAMO, class: 'p-ink' });
-  add(armFront, 'circle', { cx: 0, cy: -16.5, r: 2.4, fill: 'var(--skin)', class: 'p-fine' });
+  add(armFront, 'rect', { x: -2.2, y: -24, width: 4.4, height: 10, rx: 2.2, fill: PJ, class: 'p-ink' });
+  add(armFront, 'circle', { cx: 0, cy: -13.5, r: 2.3, fill: 'var(--skin)', class: 'p-fine' });
 }
 
-/* A little picture of Hendrix on his own, for the workshop. The
-   camo pattern lives in the house picture, so this one brings its
-   own copy, with its own name so the two never get mixed up. */
+/* A little picture of Hendrix on his own, for the workshop. It
+   brings its own pyjama pattern, with its own name, so it never
+   depends on the house picture. */
 export function heroPicture() {
   const svg = document.createElementNS(NS, 'svg');
-  svg.setAttribute('viewBox', '-16 -54 32 56');
+  svg.setAttribute('viewBox', '-16 -58 32 60');
   svg.setAttribute('aria-hidden', 'true');
   svg.classList.add('hero-picture');
   const defs = add(svg, 'defs', {});
-  const pat = add(defs, 'pattern', { id: 'pat-camo-picture', width: 14, height: 14, patternUnits: 'userSpaceOnUse' });
-  add(pat, 'rect', { width: 14, height: 14, fill: 'var(--camo-a)' });
-  add(pat, 'path', { d: 'M1 2 Q4 0 6 3 Q5 6 2 5 Z M9 8 Q13 7 13 11 Q10 13 8 11 Z', fill: 'var(--camo-b)' });
-  add(pat, 'path', { d: 'M8 1 Q11 1 11 4 Q9 5 7 3 Z M1 9 Q4 8 5 11 Q3 13 1 12 Z', fill: 'var(--camo-c)' });
-  add(pat, 'path', { d: 'M5 6 Q7 6 7 8 Q6 9 5 8 Z M11 12 Q12 13 11 14 L10 13 Z', fill: 'var(--camo-d)' });
+  pyjamaPattern(defs, 'pat-pyjamas-picture');
   const g = add(svg, 'g', {});
-  drawHero(g, 'url(#pat-camo-picture)');
+  drawHero(g, 'url(#pat-pyjamas-picture)');
   return svg;
 }

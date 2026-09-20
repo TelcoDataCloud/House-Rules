@@ -108,13 +108,13 @@
   --skin: #f0c39b;
   --sack: #9d8760;
   --hero-top: #e0533f;
-  /* Hendrix's camouflage. a is the base, b c d are the blobs. */
-  --camo-a: #6b7f45;
-  --camo-b: #3f5130;
-  --camo-c: #9a8455;
-  --camo-d: #2a2a22;
-  --hair: #4a3222;
-  --boots: #2b2622;
+  /* Hendrix: stripy pyjamas (a is the main colour, b the stripes),
+     slippers, hair, and the pink in his cheeks. */
+  --pj-a: #8fc1f0;
+  --pj-b: #3f74c4;
+  --slippers: #d9534f;
+  --hair: #5a3a22;
+  --cheek: #f29a92;
 
   /* --- TRAP CATEGORIES (M4): one colour each --- */
   --cat-loud: #ffb13b;
@@ -256,12 +256,11 @@
   --skin: #f5cba7;
   --sack: #cbb083;
   --hero-top: #e0533f;
-  --camo-a: #7d9150;
-  --camo-b: #4d6139;
-  --camo-c: #a8925f;
-  --camo-d: #33332a;
-  --hair: #5a3d29;
-  --boots: #3a332d;
+  --pj-a: #a3cdf5;
+  --pj-b: #4a82d4;
+  --slippers: #e0605a;
+  --hair: #5a3a22;
+  --cheek: #f5a39b;
 
   --cat-loud: #f0a020;
   --cat-slippery: #3fb3d8;

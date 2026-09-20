@@ -1,8 +1,8 @@
 /* ===========================================================
    HERO - you
 
-   Hendrix: this is you, in the game. Dressed head to foot in
-   camouflage, because it is a mission, not a sleepover.
+   Hendrix: this is you, in the game. In your pyjamas and
+   slippers, because you are meant to be in bed.
 
    You walk from room to room. Tap a room, or use the arrow
    keys, and you set off. Walking takes time, and the scavenge
@@ -19,8 +19,9 @@
    to get to the shed. Then try 600. Then pick the number you
    think is fair and leave it there.
 
-   The colours of your camouflage are in css/tokens.css, called
-   --camo-a to --camo-d. Change them and you change your outfit.
+   The colours of your pyjamas are in css/tokens.css, called
+   --pj-a (the main colour) and --pj-b (the stripes). Your
+   slippers are --slippers. Change them and you change your outfit.
    =========================================================== */
 
 export const HERO = {

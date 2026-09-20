@@ -24,7 +24,7 @@ import {
   heroLayer, zoomToRoom, followHero, startFollowing, isFollowing,
   setRoomClickHandler, setArrowHandler, sayInHud, roomAt, floorLine
 } from './house.js';
-import { drawHero } from './hero-art.js';
+import { drawHero, pyjamaPattern } from './hero-art.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -130,6 +130,10 @@ function draw() {
 function build() {
   const layer = heroLayer();
   layer.innerHTML = '';
+  /* his pyjama stripes, made once, right next to him */
+  const defs = document.createElementNS(NS, 'defs');
+  pyjamaPattern(defs, 'pat-pyjamas');
+  layer.append(defs);
   /* Three groups, one inside the other: where he is, which way he
      faces, and the bob as he walks. The outer two are moved by
      this file, the inner one by css/hero.css. */

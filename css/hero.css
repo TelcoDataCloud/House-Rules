@@ -3,7 +3,7 @@
 
    js/hero.js slides him from place to place. This file only
    does the little bits: legs and arms swinging, a bob as he
-   walks. Colours are in tokens.css (--camo-a to --camo-d).
+   walks. His colours are in tokens.css (--pj-a, --pj-b, --slippers).
    =========================================================== */
 
 /* He never gets in the way of your clicks. */
@@ -30,7 +30,7 @@
 }
 
 /* The little portrait of him in the workshop. */
-.hero-picture { width: 64px; height: 112px; flex: none; }
+.hero-picture { width: 64px; height: 120px; flex: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero.is-walking .hero-leg-front,
