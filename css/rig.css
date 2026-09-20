@@ -1,0 +1,88 @@
+/* ===========================================================
+   RIG - the trap tray, and traps sitting on spots in the house
+
+   The mount colours (--mount-floor and friends) come from
+   tokens.css, the same ones the legend uses, so a doorway trap
+   in the tray is the same colour as the doorway spots.
+   =========================================================== */
+
+.rig-bar[hidden] { display: none; }
+.rig-bar { max-width: 900px; }
+
+.rig-head { padding-right: 110px; }          /* room for the day/night and sound buttons */
+.rig-head h2 { margin-bottom: 4px; }
+.rig-count { font-size: 14px; color: var(--text-dim); margin-left: 8px; }
+.rig-say { margin: 0 0 var(--gap); font-weight: 700; min-height: 26px; }
+
+.rig-tray {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: var(--gap);
+}
+.rig-card {
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-bottom-width: 7px;
+  border-radius: var(--radius);
+  transition: transform var(--anim-fast) ease;
+}
+.rig-card:hover { transform: translateY(-3px); }
+.rig-card .item-picture { width: 40px; height: 42px; }
+.rig-card-name { font-size: 14px; font-weight: 800; text-align: center; line-height: 1.2; }
+.rig-card-mount { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
+
+/* the bottom edge of each card is its mount colour */
+.rig-card[data-mount="FLOOR"]    { border-bottom-color: var(--mount-floor); }
+.rig-card[data-mount="DOORWAY"]  { border-bottom-color: var(--mount-doorway); }
+.rig-card[data-mount="OVERHEAD"] { border-bottom-color: var(--mount-overhead); }
+.rig-card[data-mount="STAIRS"]   { border-bottom-color: var(--mount-stairs); }
+.rig-card.is-picked { outline: 4px solid var(--btn); outline-offset: 2px; transform: translateY(-4px); }
+
+.rig-empty { grid-column: 1 / -1; color: var(--text-dim); font-style: italic; }
+
+.rig-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+  margin-top: var(--gap-lg);
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* --- IN THE HOUSE -------------------------------------------- */
+
+/* While you hold a trap, the spots it fits glow and the rest fade. */
+.anchors.is-choosing .anchor:not(.is-match) { opacity: 0.25; }
+.anchor.is-match .anchor-ring { opacity: 1; stroke-width: 6; stroke-dasharray: none; }
+.anchor.is-match[data-mount="FLOOR"]    .anchor-ring { stroke: var(--mount-floor); }
+.anchor.is-match[data-mount="DOORWAY"]  .anchor-ring { stroke: var(--mount-doorway); }
+.anchor.is-match[data-mount="OVERHEAD"] .anchor-ring { stroke: var(--mount-overhead); }
+.anchor.is-match[data-mount="STAIRS"]   .anchor-ring { stroke: var(--mount-stairs); }
+
+/* A spot with a trap on it: the dot is swapped for a badge. */
+.anchor.is-rigged .anchor-dot { display: none; }
+.anchor.is-rigged .anchor-ring { animation: none; stroke-dasharray: none; opacity: 1; }
+.anchor.is-rigged[data-mount="FLOOR"]    .anchor-ring { stroke: var(--mount-floor); }
+.anchor.is-rigged[data-mount="DOORWAY"]  .anchor-ring { stroke: var(--mount-doorway); }
+.anchor.is-rigged[data-mount="OVERHEAD"] .anchor-ring { stroke: var(--mount-overhead); }
+.anchor.is-rigged[data-mount="STAIRS"]   .anchor-ring { stroke: var(--mount-stairs); }
+.anchor-trap-back { fill: var(--trap-badge); stroke: var(--ink); stroke-width: 3; }
+
+@media (max-width: 560px) {
+  .rig-head { padding-right: 0; padding-top: 40px; }
+  .rig-buttons .btn { width: 100%; }
+}

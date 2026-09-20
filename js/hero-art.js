@@ -79,11 +79,16 @@ export function drawHero(g, pj = 'url(#pat-pyjamas)') {
   add(g, 'circle', { cx: 8.2, cy: -36.2, r: 1.2, class: 'p-ink-fill' });
   add(g, 'circle', { cx: 3.6, cy: -36.8, r: 0.45, fill: 'var(--porcelain)' });
   add(g, 'circle', { cx: 8.6, cy: -36.8, r: 0.45, fill: 'var(--porcelain)' });
-  /* eyebrows up to something, a pink cheek, freckles, and the smirk */
+  /* eyebrows up to something, a faint pink cheek, freckles */
   add(g, 'path', { d: 'M0.4 -40.8 Q2.2 -41.8 4 -40.9 M6 -40.6 Q7.6 -41.4 9.2 -40.3', fill: 'none', class: 'p-fine' });
-  add(g, 'ellipse', { cx: 6.8, cy: -32.4, rx: 2, ry: 1.2, fill: 'var(--cheek)' });
-  [[4.2, -33.6], [5.6, -34.1], [8.8, -33.8]].forEach(([x, y]) => add(g, 'circle', { cx: x, cy: y, r: 0.35, class: 'p-ink-fill' }));
-  add(g, 'path', { d: 'M3.4 -30.2 Q6 -29.2 8.4 -31.2', fill: 'none', class: 'p-fine' });
+  add(g, 'ellipse', { cx: 1.6, cy: -32.6, rx: 1.8, ry: 1, fill: 'var(--cheek)', opacity: 0.55 });
+  [[0.6, -33.6], [2.2, -34], [3.4, -33.2]].forEach(([x, y]) => add(g, 'circle', { cx: x, cy: y, r: 0.35, class: 'p-ink-fill' }));
+  /* the nose: a little button that sticks out past the face, with a
+     nostril, drawn in skin colour so it is part of him */
+  add(g, 'path', { d: 'M9 -34.8 Q12.8 -34.2 12.8 -31.8 Q12.6 -30.2 10.2 -30.4 Q8.8 -30.6 8.4 -31.6', fill: 'var(--skin)', class: 'p-fine' });
+  add(g, 'path', { d: 'M10 -31.4 Q10.7 -30.9 11.2 -31.4', fill: 'none', class: 'p-fine' });
+  /* and the smirk, pulled up at one side */
+  add(g, 'path', { d: 'M4.4 -28.8 Q6.8 -27.8 9.4 -29.4', fill: 'none', class: 'p-fine' });
 
   /* front arm */
   const armFront = add(g, 'g', { class: 'hero-arm hero-arm-front' });
