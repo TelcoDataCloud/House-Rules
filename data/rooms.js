@@ -47,13 +47,19 @@
    whole house they would be a few dots, so they only appear once
    you zoom into the room. Same kind, x and lift as a prop.
 
+   IN THE OPEN
+   Places where a bit of junk can be left lying about for anyone
+   to see: on the floor, a worktop, the top of the washing machine.
+   Each is an x and a lift, like a prop. Every night the game
+   picks a few of these and leaves something there. Easy grabs.
+
    HIDING PLACES
    Give any prop or close up thing a search, like
        search: 'Under your bed'
    and it becomes somewhere you can look. Point at it and it
-   lights up. Click it and you rummage. The words are what the
-   game says when you find it. No search means it is just
-   furniture.
+   lights up. Click it and you rummage. Most of the junk hides in
+   these. The words are what the game says when you look. No
+   search means it is just furniture.
 
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
@@ -82,6 +88,7 @@ export const ROOMS = [
   { id: 'attic',    name: 'Attic',         floor: 'attic', paint: 'wood',
     x: 250, y: 150, w: 340, h: 70,
     note: 'You watch the monitors from up here.',
+    inTheOpen: [ { x: 216 }, { x: 24, lift: 24 } ],
     props: [
       { kind: 'monitors', x: 110 },
       { kind: 'boxes',    x: 232, search: 'Boxes of old toys' },
@@ -98,6 +105,7 @@ export const ROOMS = [
     flooring: 'tile',
     x: 48,  y: 232, w: 124, h: 160,
     note: 'Nothing worth stealing. They check anyway.',
+    inTheOpen: [ { x: 40, lift: 39 }, { x: 104, lift: 92 } ],
     props: [
       { kind: 'bath',   x: 4,  search: 'Behind the bath panel' },
       { kind: 'toilet', x: 92, search: 'Toilet cistern' }
@@ -110,6 +118,7 @@ export const ROOMS = [
     flooring: 'carpet',
     x: 176, y: 232, w: 160, h: 160,
     note: 'The stairs come up here. The loft hatch is in the ceiling.',
+    inTheOpen: [ { x: 104 }, { x: 70, lift: 30 } ],
     props: [
       { kind: 'plant',    x: 2,  search: 'Plant pot' },
       { kind: 'airing',   x: 26, search: 'Airing cupboard' },
@@ -123,6 +132,7 @@ export const ROOMS = [
     flooring: 'carpet',
     x: 340, y: 232, w: 156, h: 160,
     note: 'The workbench lives in here.',
+    inTheOpen: [ { x: 78 }, { x: 120, lift: 42 } ],
     props: [
       { kind: 'window',    x: 46, colour: 'fabric-c' },
       { kind: 'bed',       x: 2,  colour: 'fabric-c', search: 'Under your bed' },
@@ -137,6 +147,7 @@ export const ROOMS = [
     flooring: 'carpet',
     x: 500, y: 232, w: 152, h: 160,
     note: 'Jewellery box. Sid goes straight here.',
+    inTheOpen: [ { x: 84 }, { x: 104, lift: 36 } ],
     props: [
       { kind: 'wardrobe', x: 2,  search: 'Wardrobe' },
       { kind: 'picture',  x: 86 },
@@ -149,6 +160,7 @@ export const ROOMS = [
   { id: 'box-room', name: 'Box room',      floor: 'upstairs',
     x: 656, y: 232, w: 136, h: 160,
     note: 'Nobody has opened some of these boxes in years.',
+    inTheOpen: [ { x: 64 }, { x: 114, lift: 92 } ],
     props: [
       { kind: 'boxes',     x: 6,  search: 'Pile of boxes' },
       { kind: 'bookshelf', x: 80, search: 'Behind the books' }
@@ -163,6 +175,7 @@ export const ROOMS = [
     flooring: 'tile',
     x: 48,  y: 402, w: 80,  h: 154,
     note: 'Wellies, coats, and the front door.',
+    inTheOpen: [ { x: 4 } ],
     props: [
       { kind: 'coats', x: 6,  search: 'Coat pockets' },
       { kind: 'plant', x: 56, search: 'Plant pot' }
@@ -185,6 +198,7 @@ export const ROOMS = [
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
     note: 'The telly, and the piano. Always check the piano.',
+    inTheOpen: [ { x: 20 }, { x: 100 } ],
     props: [
       { kind: 'window', x: 78 },
       { kind: 'rug',    x: 36, search: 'Under the rug' },
@@ -199,6 +213,7 @@ export const ROOMS = [
   { id: 'dining',   name: 'Dining room',   floor: 'ground',
     x: 456, y: 402, w: 124, h: 154,
     note: 'The cash tin is in the dresser drawer.',
+    inTheOpen: [ { x: 18, lift: 37 }, { x: 40 } ],
     props: [
       { kind: 'picture', x: 34 },
       { kind: 'table',   x: 2,  search: 'Under the tablecloth' },
@@ -212,6 +227,7 @@ export const ROOMS = [
     flooring: 'tile',
     x: 584, y: 402, w: 118, h: 154,
     note: 'Window, cupboards, and a lot of useful junk.',
+    inTheOpen: [ { x: 30, lift: 45 }, { x: 60 } ],
     props: [
       { kind: 'window',  x: 44, colour: 'fabric-b' },
       { kind: 'counter', x: 2,  search: 'Kitchen cupboards' },
@@ -225,6 +241,7 @@ export const ROOMS = [
     flooring: 'tile',
     x: 706, y: 402, w: 86,  h: 154,
     note: 'Back door. Steps down to the cellar.',
+    inTheOpen: [ { x: 8, lift: 40 }, { x: 66 } ],
     props: [
       { kind: 'washer', x: 4,  search: 'Washing machine' },
       { kind: 'boiler', x: 48, search: 'Behind the boiler' },
@@ -238,6 +255,7 @@ export const ROOMS = [
   { id: 'cellar',   name: 'Cellar',        floor: 'cellar',
     x: 456, y: 572, w: 336, h: 128,
     note: 'Dark, far away, and the best junk in the house.',
+    inTheOpen: [ { x: 100 }, { x: 184, lift: 38 }, { x: 150 } ],
     props: [
       { kind: 'shelves', x: 8,   search: 'Metal shelves' },
       { kind: 'boxes',   x: 72,  search: 'Old boxes' },
@@ -253,6 +271,7 @@ export const ROOMS = [
   { id: 'garage',   name: 'Garage',        floor: 'outside',
     x: 812, y: 460, w: 120, h: 96,
     note: 'Tools, paint, a garden hose.',
+    inTheOpen: [ { x: 46 } ],
     props: [
       { kind: 'pegboard', x: 30, lift: -6, search: 'Tool wall' },
       { kind: 'car',      x: 10, search: 'Car boot' }
@@ -263,6 +282,7 @@ export const ROOMS = [
   { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
     x: 948, y: 476, w: 84,  h: 80,
     note: 'A long walk. Worth it.',
+    inTheOpen: [ { x: 20 } ],
     props: [
       { kind: 'pegboard',  x: 22, lift: -26, search: 'Shed wall' },
       { kind: 'lawnmower', x: 2,  search: 'Grass box' },
