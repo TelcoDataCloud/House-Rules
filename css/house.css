@@ -16,6 +16,8 @@
   align-items: center;
 }
 
+.house-wrap[hidden] { display: none; }
+
 .house-scene {
   width: 100%;
   border: var(--outline) solid var(--ink);

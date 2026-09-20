@@ -16,8 +16,8 @@
 
 import { PICTURE, ROOMS, STAIRS, ANCHORS, MOUNTS } from '../data/rooms.js';
 import { drawProp } from './props.js';
+import { drawItem } from './item-art.js';
 import { state } from './state.js';
-import { sfx } from './audio.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -435,6 +435,11 @@ function drawRooms(svg) {
     (room.closeUp || []).forEach((thing) => placeThing(closeUp, room, thing, floorY));
     inside.append(closeUp);
 
+    /* junk left lying about goes in here, each night (js/scavenge.js) */
+    const loose = make('g', { class: 'loose-items' });
+    inside.append(loose);
+    looseLayers[room.id] = { g: loose, room, floorY };
+
     drawLamp(inside, room);
 
     /* shadow under the ceiling, so the room has depth */
@@ -538,28 +543,34 @@ function drawAnchors(svg, caption) {
    Which ones you have already searched is kept in state.searched,
    so restarting the game forgets them all.
 
-   There is nothing to find yet. M3 hides the junk in here.
+   Junk left lying about in the open works the same way, except
+   clicking it picks it straight up.
    ------------------------------------------------------------ */
 
 const spots = [];
+const looseLayers = {};
 
 function slug(words) {
   return words.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-function makeSpot(g, roomId, name) {
-  const id = `${roomId}-${slug(name)}`;
+/* kind is 'hide' for a hiding place, or 'loose' for a bit of junk
+   lying in the open. Both glow when you point at them. */
+function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`) {
+  const spot = { id, room: roomId, name, node: g, kind };
   g.classList.add('spot');
+  if (kind === 'loose') g.classList.add('loose-item');
   g.setAttribute('data-room', roomId);
   g.setAttribute('data-spot', id);
   g.setAttribute('role', 'button');
   g.setAttribute('tabindex', '-1');
-  g.setAttribute('aria-label', `Search: ${name}`);
-  spots.push({ id, room: roomId, name, node: g });
+  g.setAttribute('aria-label', kind === 'loose' ? `Pick up: ${name}` : `Search: ${name}`);
+  spots.push(spot);
 
   const point = () => {
     if (!g.classList.contains('is-here')) return;
-    view.hud.note.textContent = state.searched.includes(id)
+    if (kind === 'loose') view.hud.note.textContent = `${name}, just lying there.`;
+    else view.hud.note.textContent = state.searched.includes(id)
       ? `${name}. You already looked here.`
       : name;
   };
@@ -567,19 +578,18 @@ function makeSpot(g, roomId, name) {
      it, in which case the answer stays up so you can read it. */
   const leave = () => {
     const room = findRoom(roomId);
-    const said = view.hud.note.textContent;
-    if (room && g.classList.contains('is-here') && !said.includes('Nothing in here')) {
+    if (room && g.classList.contains('is-here') && !view.answered) {
       view.hud.note.textContent = room.note || '';
     }
   };
   const look = (event) => {
     if (!g.classList.contains('is-here')) return;
     event.stopPropagation();
-    search(id, name, g);
+    search(spot);
   };
 
-  g.addEventListener('mouseenter', point);
-  g.addEventListener('focus', point);
+  g.addEventListener('mouseenter', () => { view.answered = false; point(); });
+  g.addEventListener('focus', () => { view.answered = false; point(); });
   g.addEventListener('mouseleave', leave);
   g.addEventListener('blur', leave);
   g.addEventListener('click', look);
@@ -588,17 +598,75 @@ function makeSpot(g, roomId, name) {
   });
 }
 
-function search(id, name, g) {
+/* Look in a hiding place, or pick up something lying about.
+   js/scavenge.js decides what is there (view.onLook). This part
+   only does the wiggle, the pop and the words. */
+function search(spot) {
+  const g = spot.node;
+  const answer = view.onLook
+    ? view.onLook(spot)
+    : { message: `${spot.name}. Nothing in here.` };
+  view.answered = true;
+  view.hud.note.textContent = answer.message;
+  if (answer.blocked) return;             // bag full, time up: nothing happens
+
+  if (spot.kind === 'loose') {
+    spots.splice(spots.indexOf(spot), 1);
+    g.remove();
+    return;
+  }
+
   g.classList.remove('is-rummaging');
   void g.getBBox();                       // restart the wiggle if you click twice
   g.classList.add('is-rummaging');
   setTimeout(() => g.classList.remove('is-rummaging'), 650);
-  sfx.rummage();
-
-  if (!state.searched.includes(id)) state.searched.push(id);
+  if (!state.searched.includes(spot.id)) state.searched.push(spot.id);
   g.classList.add('is-searched');
-  view.hud.note.textContent = `${name}. Nothing in here yet. The junk goes in at M3.`;
-  countSpots(g.dataset.room);
+  if (answer.item) popItem(g, answer.item);
+  countSpots(spot.room);
+}
+
+/* Something jumps out of the hiding place, grows, and floats up
+   into your bag. */
+function popItem(g, item) {
+  const body = g.querySelector('.prop-body');
+  const b = body.getBBox();
+  const at = make('g', { class: 'item-pop-at', transform: `translate(${b.x + b.width / 2 - 8} ${b.y + Math.min(b.height, 18)})` });
+  const pop = make('g', { class: 'item-pop' });
+  drawItem(item, pop);
+  at.append(pop);
+  g.append(at);
+  setTimeout(() => at.remove(), 1100);
+}
+
+/* Leave a bit of junk lying in a room, in one of its inTheOpen
+   places from data/rooms.js. */
+export function placeLooseItem(roomId, place, item) {
+  const layer = looseLayers[roomId];
+  if (!layer) return;
+  const at = make('g', {
+    transform: `translate(${layer.room.x + place.x} ${layer.floorY - (place.lift || 0)})`
+  });
+  const body = make('g', { class: 'prop-body' });
+  body.append(make('ellipse', { cx: 8, cy: 0, rx: 8, ry: 1.6, class: 'p-shadow' }));
+  drawItem(item, body);
+  at.append(body);
+  makeSpot(at, roomId, item.name, 'loose', `${roomId}-loose-${item.id}`);
+  at.dataset.item = item.id;
+  layer.g.append(at);
+  const open = view.svg && view.svg.querySelector('.room.is-open');
+  wakeSpots(open ? open.dataset.room : null);
+}
+
+/* Every hiding place in the house, so js/scavenge.js can choose
+   where to hide things. */
+export function hidingPlaces() {
+  return spots.filter((spot) => spot.kind === 'hide').map((spot) => ({ id: spot.id, room: spot.room, name: spot.name }));
+}
+
+/* Who decides what is in a hiding place. js/scavenge.js sets this. */
+export function setLookHandler(fn) {
+  view.onLook = fn;
 }
 
 /* The line under the house: how many hiding places this room has,
@@ -610,7 +678,7 @@ function countSpots(roomId) {
     view.caption.textContent = 'Tap a room to go in and hunt for junk.';
     return;
   }
-  const here = spots.filter((spot) => spot.room === roomId);
+  const here = spots.filter((spot) => spot.room === roomId && spot.kind === 'hide');
   const done = here.filter((spot) => state.searched.includes(spot.id)).length;
   view.caption.textContent = here.length === 0
     ? 'Nowhere to hide anything in here.'
@@ -669,7 +737,7 @@ function buildLegend(list) {
    ------------------------------------------------------------ */
 
 const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
-const view = { svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search' };
+const view = { svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search', onLook: null, answered: false };
 
 /* Grow a box until it has the same shape as the picture, so the
    room is not squashed, then keep it inside the picture. */
@@ -757,6 +825,7 @@ export function zoomToRoom(id) {
     r.setAttribute('aria-label', open ? room.name : `Look inside the ${findRoom(r.dataset.room).name}`);
   });
   glideTo(roomBox(room));
+  view.answered = false;
   showHud(room);
   wakeSpots(id);
   if (view.onRoom) view.onRoom(id);
@@ -794,8 +863,12 @@ export function setHouseMode(mode) {
   wakeSpots(open ? open.dataset.room : null);
 }
 
-/* Restart: forget every search and go back to the whole house. */
+/* Restart: forget every search, clear away any junk left lying
+   about, and go back to the whole house. */
 export function resetHouse() {
+  for (let i = spots.length - 1; i >= 0; i -= 1) {
+    if (spots[i].kind === 'loose') { spots[i].node.remove(); spots.splice(i, 1); }
+  }
   spots.forEach((spot) => spot.node.classList.remove('is-searched', 'is-rummaging'));
   document.querySelectorAll('.anchor.is-live').forEach((a) => a.classList.remove('is-live'));
   showWholeHouse(false);
