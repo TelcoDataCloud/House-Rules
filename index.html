@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/house.css">
 <link rel="stylesheet" href="css/scavenge.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/workshop.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -265,6 +267,42 @@
   <div class="scavenge-end panel" id="scavenge-end" hidden>
     <p class="scavenge-end-text" id="scavenge-end-text" aria-live="assertive"></p>
     <button type="button" class="btn" id="to-workshop">Take it to the workbench</button>
+  </div>
+
+  <!-- THE WORKSHOP (M4). js/workshop.js fills it in from your bag
+       and data/recipes.js. -->
+  <div class="workshop" id="workshop" hidden>
+    <div class="panel ws-top">
+      <div class="ws-talk">
+        <div class="ws-face" id="ws-face"></div>
+        <p class="ws-bubble" id="ws-say" aria-live="polite"></p>
+      </div>
+      <div class="ws-bench" id="ws-bench">
+        <button type="button" class="ws-slot" id="ws-slot-a"></button>
+        <span class="ws-plus" aria-hidden="true">+</span>
+        <button type="button" class="ws-slot" id="ws-slot-b"></button>
+        <span class="ws-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="ws-result" id="ws-result" aria-live="polite"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Your junk</h2>
+      <p class="panel-hint">Tap two things, or drag them onto the bench.</p>
+      <ul class="ws-cards" id="ws-items"></ul>
+      <h2>Your traps</h2>
+      <p class="panel-hint">Put a trap back on the bench with one more thing to upgrade it.</p>
+      <ul class="ws-cards" id="ws-traps"></ul>
+      <div class="start-row">
+        <button type="button" class="btn btn-big" id="to-rig" hidden>Take the traps downstairs</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Recipe notebook</h2>
+      <p class="panel-hint" id="ws-found"></p>
+      <ul class="notebook" id="notebook"></ul>
+    </div>
   </div>
 
   <!-- THE HOUSE. Built by js/house.js out of data/rooms.js.

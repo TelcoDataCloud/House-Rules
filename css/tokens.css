@@ -108,6 +108,24 @@
   --skin: #f0c39b;
   --sack: #9d8760;
   --hero-top: #e0533f;
+  /* Hendrix's camouflage. a is the base, b c d are the blobs. */
+  --camo-a: #6b7f45;
+  --camo-b: #3f5130;
+  --camo-c: #9a8455;
+  --camo-d: #2a2a22;
+  --hair: #4a3222;
+  --boots: #2b2622;
+
+  /* --- TRAP CATEGORIES (M4): one colour each --- */
+  --cat-loud: #ffb13b;
+  --cat-slippery: #5cc8e8;
+  --cat-sticky: #e8a33b;
+  --cat-messy: #e6e1d6;
+  --cat-startle: #ff6f7d;
+  --cat-tangle: #a98ce0;
+  --bench-top: #b07a4a;      /* the workbench */
+  --bench-edge: #7a5134;
+  --smoke: #cfc9d6;
 
   /* --- PAGE and PANELS --- */
   --bg: #171526;
@@ -238,6 +256,22 @@
   --skin: #f5cba7;
   --sack: #cbb083;
   --hero-top: #e0533f;
+  --camo-a: #7d9150;
+  --camo-b: #4d6139;
+  --camo-c: #a8925f;
+  --camo-d: #33332a;
+  --hair: #5a3d29;
+  --boots: #3a332d;
+
+  --cat-loud: #f0a020;
+  --cat-slippery: #3fb3d8;
+  --cat-sticky: #d98d20;
+  --cat-messy: #d8d2c4;
+  --cat-startle: #f05565;
+  --cat-tangle: #9373d8;
+  --bench-top: #c8925e;
+  --bench-edge: #8a5c3a;
+  --smoke: #b8b2c2;
 
   --bg: #fdf4e3;
   --bg-2: #f7e8cd;

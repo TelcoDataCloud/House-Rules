@@ -298,14 +298,20 @@ export const ROOMS = [
    starts on and top is the floor it arrives at, so they line up
    with the floors of the rooms. handrail: false leaves the
    banister off. cupboard: true puts a cupboard under the stairs,
-   and search makes its door a hiding place in that room. */
+   and search makes its door a hiding place in that room.
+
+   joins says which two rooms the stairs connect: the room at the
+   bottom first, then the room at the top. That is how you get
+   from one floor to another. Steps always climb from left to
+   right. */
 export const STAIRS = [
-  { id: 'main',   name: 'The stairs',  kind: 'steps',
+  { id: 'main',   name: 'The stairs',  kind: 'steps', joins: ['hall', 'landing'],
     cupboard: true, room: 'hall', search: 'Cupboard under the stairs',
     left: 140, right: 286, bottom: 544, top: 380, steps: 9 },
-  { id: 'cellar', name: 'Cellar steps', kind: 'steps', handrail: false,
+  { id: 'cellar', name: 'Cellar steps', kind: 'steps', joins: ['cellar', 'utility'],
+    handrail: false,
     left: 712, right: 790, bottom: 688, top: 544, steps: 7 },
-  { id: 'loft',   name: 'Loft ladder',  kind: 'ladder',
+  { id: 'loft',   name: 'Loft ladder',  kind: 'ladder', joins: ['landing', 'attic'],
     left: 306, right: 330, bottom: 380, top: 208, steps: 6 }
 ];
 

@@ -63,5 +63,7 @@ export const sfx = {
   rare()    { [660, 830, 990, 1320].forEach((f, i) => setTimeout(() => blip(f, 90, 'square'), i * 70)); },
   full()    { blip(140, 160, 'sawtooth', 0.05); },
   timeUp()  { blip(520, 160, 'square'); setTimeout(() => blip(390, 160, 'square'), 170); setTimeout(() => blip(260, 320, 'square'), 340); },
+  craft()   { [392, 523, 659, 784].forEach((f, i) => setTimeout(() => blip(f, 110, 'square'), i * 90)); },
+  nope()    { blip(110, 260, 'sawtooth', 0.05); setTimeout(() => blip(90, 200, 'sawtooth', 0.05), 150); },
   rummage() { blip(180, 60, 'sawtooth', 0.04); setTimeout(() => blip(150, 60, 'sawtooth', 0.04), 90); setTimeout(() => blip(210, 70, 'sawtooth', 0.04), 180); }
 };

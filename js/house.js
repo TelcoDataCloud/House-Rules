@@ -94,6 +94,13 @@ function drawDefs(svg) {
     ['rect', { width: 8, height: 8, fill: 'var(--floor-carpet)' }],
     ['circle', { cx: 2, cy: 2, r: 0.8, fill: 'var(--ink)', 'fill-opacity': 0.12 }]
   ]);
+  /* Hendrix's camouflage: a green base with blobs on it. */
+  pattern(defs, 'pat-camo', 14, 14, [
+    ['rect', { width: 14, height: 14, fill: 'var(--camo-a)' }],
+    ['path', { d: 'M1 2 Q4 0 6 3 Q5 6 2 5 Z M9 8 Q13 7 13 11 Q10 13 8 11 Z', fill: 'var(--camo-b)' }],
+    ['path', { d: 'M8 1 Q11 1 11 4 Q9 5 7 3 Z M1 9 Q4 8 5 11 Q3 13 1 12 Z', fill: 'var(--camo-c)' }],
+    ['path', { d: 'M5 6 Q7 6 7 8 Q6 9 5 8 Z M11 12 Q12 13 11 14 L10 13 Z', fill: 'var(--camo-d)' }]
+  ]);
   pattern(defs, 'pat-floor-concrete', 20, 12, [
     ['rect', { width: 20, height: 12, fill: 'var(--floor-concrete)' }],
     ['circle', { cx: 5, cy: 4, r: 0.9, fill: 'var(--ink)', 'fill-opacity': 0.2 }],
@@ -737,7 +744,11 @@ function buildLegend(list) {
    ------------------------------------------------------------ */
 
 const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
-const view = { svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search', onLook: null, answered: false };
+const view = {
+  svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search',
+  onLook: null, answered: false,
+  onRoomClick: null, onArrow: null, follow: false, heroLayer: null, glideId: 0
+};
 
 /* Grow a box until it has the same shape as the picture, so the
    room is not squashed, then keep it inside the picture. */
@@ -780,10 +791,12 @@ function glideTo(target) {
   const from = view.box || WHOLE();
   const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (still) { setBox(target); return; }
+  const id = ++view.glideId;               // a newer glide cancels this one
   const start = performance.now();
   const time = 520;
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const step = (now) => {
+    if (id !== view.glideId) return;
     const t = Math.min(1, (now - start) / time);
     const k = ease(t);
     setBox({
@@ -833,6 +846,7 @@ export function zoomToRoom(id) {
 
 export function showWholeHouse(animate = true) {
   if (!view.svg) return;
+  view.follow = false;
   view.svg.classList.remove('is-zoomed');
   view.svg.querySelectorAll('.room').forEach((r) => {
     r.classList.remove('is-open');
@@ -842,8 +856,67 @@ export function showWholeHouse(animate = true) {
   });
   if (animate) glideTo(WHOLE()); else setBox(WHOLE());
   showHud(null);
+  if (view.onRoomClick) view.hud.note.textContent = 'Tap a room to walk there.';
   wakeSpots(null);
   if (view.onRoom) view.onRoom(null);
+}
+
+/* --- FOLLOWING THE HERO ---------------------------------------
+   js/hero.js calls these while Hendrix walks. The camera drifts
+   after him, a little every frame, so it feels like it is
+   following rather than jumping.
+   ------------------------------------------------------------ */
+
+export function setRoomClickHandler(fn) { view.onRoomClick = fn; }
+export function setArrowHandler(fn) { view.onArrow = fn; }
+
+/* The layer the hero is drawn in: on top of the stairs, so he can
+   climb them, and under the trap spots. */
+export function heroLayer() { return view.heroLayer; }
+
+/* Which room is this point in? Used to know where Hendrix is. */
+export function roomAt(x, y) {
+  const room = ROOMS.find((r) => x >= r.x && x <= r.x + r.w && y - 6 >= r.y && y - 6 <= r.y + r.h);
+  return room ? room.id : null;
+}
+
+export function startFollowing() { view.follow = true; }
+
+/* The height of a room's floor, where feet go. */
+export function floorLine(roomId) {
+  const room = findRoom(roomId);
+  return room ? room.y + room.h - FLOOR_DEPTH : 0;
+}
+
+export function followHero(x, y, roomId) {
+  if (!view.svg || !view.follow) return;
+  const room = findRoom(roomId);
+  if (!room) return;
+  /* light up the room he is in, so its close up things show, but
+     keep the hiding places asleep until he stops walking */
+  view.svg.classList.add('is-zoomed');
+  view.svg.querySelectorAll('.room').forEach((r) => r.classList.toggle('is-open', r.dataset.room === roomId));
+  wakeSpots(null);
+  view.glideId += 1;                       // stop any glide that is running
+  const target = roomBox(room);
+  const from = view.box || WHOLE();
+  const k = 0.12;
+  setBox({
+    x: from.x + (target.x - from.x) * k,
+    y: from.y + (target.y - from.y) * k,
+    w: from.w + (target.w - from.w) * k,
+    h: from.h + (target.h - from.h) * k
+  });
+}
+
+export function isFollowing() { return view.follow; }
+
+/* Put words in the bar above the house. */
+export function sayInHud(name, note) {
+  if (!view.hud) return;
+  view.hud.name.textContent = name;
+  view.hud.note.textContent = note;
+  view.hud.out.hidden = false;
 }
 
 /* SEARCH or RIG. Searching hides the trap spots so you hunt for
@@ -897,7 +970,9 @@ function neighbour(id, dir) {
 
 function wireCamera(svg) {
   svg.querySelectorAll('.room').forEach((g) => {
-    const open = () => zoomToRoom(g.dataset.room);
+    /* In the scavenge, tapping a room sends Hendrix walking there
+       (js/hero.js takes over). The rest of the time it just zooms. */
+    const open = () => (view.onRoomClick ? view.onRoomClick(g.dataset.room) : zoomToRoom(g.dataset.room));
     g.addEventListener('click', open);
     g.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
@@ -908,6 +983,7 @@ function wireCamera(svg) {
   svg.addEventListener('keydown', (event) => {
     const open = svg.querySelector('.room.is-open');
     if (event.key === 'Escape' && open) { event.preventDefault(); showWholeHouse(); return; }
+    if (keys[event.key] && view.onArrow) { event.preventDefault(); view.onArrow(keys[event.key]); return; }
     if (!open || !keys[event.key]) return;
     const next = neighbour(open.dataset.room, keys[event.key]);
     event.preventDefault();
@@ -938,6 +1014,8 @@ export function buildHouse(container, caption, legend, hud, onRoom) {
   drawShell(svg);
   drawRooms(svg);
   drawStairs(svg);
+  view.heroLayer = make('g', { class: 'hero-layer' });
+  svg.append(view.heroLayer);
   drawAnchors(svg, caption);
 
   container.append(svg);

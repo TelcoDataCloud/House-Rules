@@ -23,6 +23,7 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { placeLooseItem, setLookHandler, hidingPlaces } from './house.js';
 import { itemPicture } from './item-art.js';
 import { sfx } from './audio.js';
+import { startHero, stopWalking, hideHero } from './hero.js';
 
 let clock = null;
 const ui = {};
@@ -165,6 +166,7 @@ function finish(why) {
   state.scavenging = false;
   clearInterval(clock);
   clock = null;
+  stopWalking();
   if (why === 'time') sfx.timeUp();
   const n = state.inventory.length;
   ui.endText.textContent = (why === 'time' ? 'Time is up! ' : 'Done! ') +
@@ -198,17 +200,8 @@ export function startNight() {
   ui.end.hidden = true;
   drawBag();
   showTime();
+  startHero();
   clock = setInterval(tick, 1000);
-}
-
-/* After the scavenge: the clock goes, the bag stays. */
-export function showBagOnly() {
-  stopNight();
-  ui.bar.hidden = false;
-  ui.clock.hidden = true;
-  ui.done.hidden = true;
-  ui.end.hidden = true;
-  drawBag();
 }
 
 export function stopNight() {
@@ -219,6 +212,7 @@ export function stopNight() {
 
 export function hideScavenge() {
   stopNight();
+  hideHero();
   ui.bar.hidden = true;
   ui.end.hidden = true;
 }

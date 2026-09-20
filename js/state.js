@@ -37,6 +37,11 @@ export function freshState() {
     /* Which room the camera is zoomed into. null is the whole house. */
     room: null,
 
+    /* The hero (M2). Which room Hendrix is standing in, and whether
+       he is on the move. */
+    heroRoom: null,
+    walking: false,
+
     /* Hiding places you have already looked in, like 'lounge-inside-the-piano'. */
     searched: [],
 
@@ -50,7 +55,7 @@ export function freshState() {
     /* These are empty until the milestones that fill them. */
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor
-    notebook: [],       // M4: recipes discovered so far
+    notebook: [],       // M4: recipes discovered so far (kept on restart)
     burglars: [],       // M6: Sid and Bruno, once they exist
     noticed: 0          // M9: the neighbours noticed meter
   };
@@ -75,6 +80,9 @@ export function resetGame() {
   /* Keep the two settings that belong to the person, not the game. */
   fresh.theme = state.theme;
   fresh.soundOn = state.soundOn;
+  /* The recipe notebook is yours for the whole visit, so you learn
+     more every night. Refresh the page and it starts empty. */
+  fresh.notebook = state.notebook;
   Object.keys(state).forEach((key) => delete state[key]);
   Object.assign(state, fresh);
   setPhase('title');

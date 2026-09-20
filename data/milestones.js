@@ -12,9 +12,9 @@
 export const MILESTONES = [
   { code: 'M0',  name: 'Hello, House',  done: true  },
   { code: 'M1',  name: 'The House',     done: true  },
-  { code: 'M2',  name: 'The Hero',      done: false },
+  { code: 'M2',  name: 'The Hero',      done: true  },
   { code: 'M3',  name: 'Collectables',  done: true  },
-  { code: 'M4',  name: 'The Workshop',  done: false },
+  { code: 'M4',  name: 'The Workshop',  done: true  },
   { code: 'M5',  name: 'Rigging',       done: false },
   { code: 'M6',  name: 'The Burglars',  done: false },
   { code: 'M7',  name: 'Traps Fire',    done: false },

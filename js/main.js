@@ -16,7 +16,8 @@ import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
 import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
-import { setupScavenge, startNight, showBagOnly, hideScavenge } from './scavenge.js';
+import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
+import { setupWorkshop, showWorkshop, hideWorkshop } from './workshop.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
 /* What each phase is called on screen, and what it will do
@@ -24,13 +25,13 @@ import { DIFFICULTY } from '../data/difficulty.js';
 const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
-    line: 'Raid your own house for junk before the clock runs out. Some of it is lying about. Most of it is hidden.',
-    milestone: 'M2 puts you in the house. For now, tap a room to go in.'
+    line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Some junk is lying about. Most of it is hidden.',
+    milestone: 'Arrow keys walk you left and right, and up and down the stairs.'
   },
   workshop: {
     title: 'Workshop',
-    line: 'Bolt two bits of junk together and see what you get. Here is what you carried.',
-    milestone: 'M4 builds this one.'
+    line: 'Bolt two bits of junk together and see what you get.',
+    milestone: 'Every trap you build goes in the notebook, and stays there until you close the page.'
   },
   rig: {
     title: 'Rig',
@@ -106,6 +107,13 @@ function boot() {
     end: el('scavenge-end'), endText: el('scavenge-end-text'), toWorkshop: el('to-workshop')
   });
 
+  setupWorkshop({
+    panel: el('workshop'), face: el('ws-face'), say: el('ws-say'), bench: el('ws-bench'),
+    slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), result: el('ws-result'),
+    items: el('ws-items'), traps: el('ws-traps'), toRig: el('to-rig'),
+    notebook: el('notebook'), found: el('ws-found')
+  });
+
   el('start-btn').addEventListener('click', () => {
     sfx.start();
     setPhase('scavenge');
@@ -123,16 +131,18 @@ function boot() {
       /* Forget every search and zoom out, so restart really
          does leave nothing behind. */
       hideScavenge();
+      hideWorkshop();
       resetHouse();
       setHouseMode('search');
       showScreen('title');
     } else {
       renderPhaseScreen(phase);
       showScreen('phase');
-      /* the scavenge starts the clock; after it, the bag stays */
+      /* switch everything off, then switch on what this phase needs */
+      hideScavenge();
+      hideWorkshop();
       if (phase === 'scavenge') startNight();
-      else if (phase === 'workshop') showBagOnly();
-      else hideScavenge();
+      else if (phase === 'workshop') showWorkshop();
     }
   });
 
