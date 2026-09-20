@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 24 August 2026
+Last updated: 20 September 2026 (M5 done). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -365,4 +365,56 @@ clean, keyboard works in the workshop. M2 and M4 dots lit: M0 to M4 all on.
 **Hendrix's turns owing:** M2 walk speed; M3 Water Balloon and Hard
 timer; M4 Glue Bomb (needs the Water Balloon first).
 
-**Next:** M5 — Rigging.
+**Hero redraw, 20 Sep.** Asa: make him look more like a kid, and pyjamas
+are a better outfit than camouflage. Redrawn in `js/hero-art.js` with kid
+proportions (head radius 11 on a body about 27 tall), messy hair with a
+pillow tuft, big eyes with shines, freckles, pink cheek, stripy pyjamas
+(`pat-pyjamas`, tokens `--pj-a`, `--pj-b`), slippers with pom poms
+(`--slippers`), `--cheek`. Camo tokens removed. The pattern now lives next
+to him in the hero layer (js/hero.js), so house.js did not change.
+
+**Nose, 20 Sep.** Asa: the nose looked like a pink splodge. It was the cheek
+ellipse sitting where a nose would be. Now there is a proper button nose that
+sticks out past the face, skin coloured with a nostril, and the cheek is a
+small faint blush further back.
+
+## M5 — Rigging. Done 20 Sep 2026
+
+After the workbench, "Take the traps downstairs" goes to the rig phase:
+a tray of your traps above the house (`#rig`, `js/rig.js`, `css/rig.css`).
+
+- Pick a trap card: every anchor with the same mount glows in the mount
+  colour, the rest fade (`highlightMount` in house.js). Tap the card again to
+  put it down.
+- Tap a glowing spot: the trap leaves the tray and sits on the spot as a
+  badge (a picture of its first ingredient on a `--trap-badge` circle,
+  `showTrapOnAnchor`).
+- Wrong mount: "Flour Bomb will not go on the kitchen floor. It needs a
+  doorway spot." and the nope sound.
+- Spot already rigged: swap, old trap back to the tray. Nothing picked and a
+  rigged spot tapped: the trap comes off.
+- Hover or Tab on a spot says what is on it.
+- State: `state.rigged = { anchorId: trapId }`; placing removes the trap from
+  `state.traps`. Back to the workbench and return keeps everything
+  (`drawRigged`). Restart clears it (`resetHouse` calls `clearAnchorTraps`).
+- "Let them in" is disabled until one trap is set, then goes to the night
+  placeholder, which shows the rigged badges.
+- house.js does the drawing only; rig.js makes every decision.
+- Also removed the unused camo pattern from house.js.
+
+Verified headless (/tmp/m5.py): 11 doorway matches for Flour Bomb, wrong
+mount, place, swap, take off, keyboard Enter, workbench round trip, night,
+restart, phone width with no sideways scroll, both themes, console clean.
+
+**Hendrix's M5 turn:** add a trap spot to his own bedroom floor. The exact
+line is in the header of `data/rooms.js`:
+
+    { id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 420, y: 372 },
+
+Then build Ballbearing Boulevard (Cooking Oil + Marbles) and set it there.
+
+**Turns still owing:** name the game (M0), `walkSpeed` in data/hero.js (M2),
+Water Balloon and the Hard timer (M3), Glue Bomb (M4), my-floor (M5).
+
+**Next:** M6 — The Burglars. Sid and Bruno walk their fixed routes through
+the rigged house during the night phase.

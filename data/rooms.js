@@ -78,7 +78,12 @@
 
    Your room, Mum and Dad's room and the box room only have an
    anchor on the door. Nothing inside. Adding one is your job in
-   M5.
+   M5. Copy this line into the upstairs part of ANCHORS:
+
+   { id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 420, y: 372 },
+
+   Save, refresh, build a floor trap (Cooking Oil + Marbles), and
+   set it in your own room. Then try moving it with x and y.
    =========================================================== */
 
 export const PICTURE = { w: 1040, h: 740 };
