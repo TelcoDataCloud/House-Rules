@@ -318,4 +318,51 @@ cupboards and drawers. He chose to build M3 before M2.
 **Hendrix's M3 turn:** add Water Balloon to `data/items.js`, then change
 the Hard timer in `data/difficulty.js`.
 
-**Next:** M2 — The Hero: Hendrix, in camouflage.
+## M2 — The Hero, and M4 — The Workshop. Done 20 Sep 2026
+
+Asa: "continue with build, get next two steps done". M3 was already done,
+so the next two were M2 and M4.
+
+**M2 — The Hero**
+- `data/hero.js` (new, Hendrix's): name, `startRoom` ('my-room'),
+  `walkSpeed` (160), `size`. His M2 turn is the walk speed.
+- `js/hero-art.js` (new): Hendrix drawn in SVG, camo cap, camo face paint,
+  smirk, camo from a `pat-camo` pattern (tokens `--camo-a` to `--camo-d`,
+  `--hair`, `--boots`). `heroPicture()` makes a portrait with its own
+  pattern id (`pat-camo-picture`) so it never depends on the hidden house.
+- `js/hero.js` (new): rooms joined along each floor (outside counts as
+  ground) plus `STAIRS[].joins` in `data/rooms.js`; breadth first search
+  for the way; walks floors and climbs stairs/ladder; camera follows by
+  easing the viewBox each frame. Tap a room or arrow keys (up/down only
+  where there are stairs, "No way up from here." otherwise). Tapping
+  while walking queues the next room. On arrival the room opens and its
+  hiding places wake, so you can only search where you stand.
+- `js/house.js`: `setRoomClickHandler`, `setArrowHandler`, `followHero`,
+  `startFollowing`, `floorLine`, `roomAt`, `sayInHud`, a hero layer above
+  the stairs; glides can now be cancelled (`glideId`).
+- `css/hero.css`: legs and arms swing, bob; off for reduced motion.
+- State: `heroRoom`, `walking`. Time up freezes him. Restart removes him.
+- My room to the cellar takes about 10 seconds of a 200 second Easy night.
+
+**M4 — The Workshop**
+- `data/recipes.js` (new, Hendrix's): 19 `TRAPS`, 7 `UPGRADES` (no Glue
+  Bomb yet, that is his M4 turn), each with `cat`, `nerve`, `mount`,
+  `line`; plus `NOPE` wisecracks. On-screen lines rewritten without dashes.
+- `js/workshop.js` (new): tap or drag two cards onto the bench, it bolts
+  after a beat. Match: both used up, trap on the shelf, notebook updated,
+  a result card (pictures, kinds, where it goes, stars for scare). No
+  match or two traps: smoke puff, a random NOPE line, both go back.
+  Upgrades are a trap card plus an item card and use the trap up.
+- Notebook: every base trap, upgrades hanging off as branches; unknown ones
+  are ??? with a clue (an upgrade names its trap only once you know it).
+  Kept on restart (resetGame copies it), cleared by closing the page.
+- "Take the traps downstairs" goes to the Rig placeholder (M5).
+- Tokens: `--cat-*` per trap kind, `--bench-top`, `--bench-edge`, `--smoke`.
+
+Verified headless desktop and phone, both themes, console clean, restart
+clean, keyboard works in the workshop. M2 and M4 dots lit: M0 to M4 all on.
+
+**Hendrix's turns owing:** M2 walk speed; M3 Water Balloon and Hard
+timer; M4 Glue Bomb (needs the Water Balloon first).
+
+**Next:** M5 — Rigging.
