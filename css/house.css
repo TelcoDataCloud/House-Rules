@@ -193,6 +193,10 @@
 /* Searching is a hunt, so the trap spots stay hidden until you
    are rigging. */
 .house-scene svg[data-mode="search"] .anchors { display: none; }
+/* At night you only see the spots with a trap on them, and you
+   cannot move them any more. */
+.house-scene svg[data-mode="night"] .anchor:not(.is-rigged) { display: none; }
+.house-scene svg[data-mode="night"] .anchors { pointer-events: none; }
 .legend[hidden] { display: none; }
 
 /* --- STAIRS -------------------------------------------------- */

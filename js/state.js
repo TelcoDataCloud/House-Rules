@@ -56,7 +56,8 @@ export function freshState() {
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor
     notebook: [],       // M4: recipes discovered so far (kept on restart)
-    burglars: [],       // M6: Sid and Bruno, once they exist
+    burglars: [],       // M6: Sid and Bruno at night: where they are, what they carry
+    taken: {},          // M6: which loot has gone, like { telly: 'bruno' }
     noticed: 0          // M9: the neighbours noticed meter
   };
 }
