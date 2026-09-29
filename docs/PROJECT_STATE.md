@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 20 September 2026 (M5 done). The newest sections are at the bottom; read those first.
+Last updated: 29 September 2026 (M6 done). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -416,5 +416,56 @@ Then build Ballbearing Boulevard (Cooking Oil + Marbles) and set it there.
 **Turns still owing:** name the game (M0), `walkSpeed` in data/hero.js (M2),
 Water Balloon and the Hard timer (M3), Glue Bomb (M4), my-floor (M5).
 
-**Next:** M6 — The Burglars. Sid and Bruno walk their fixed routes through
-the rigged house during the night phase.
+## M6 — The Burglars. Done 29 Sep 2026
+
+Let them in and the night runs (`js/night.js`, `css/night.css`).
+- `data/burglars.js` (new, Hendrix's): `BURGLARS` with name, look, speed,
+  comesIn (left = front door, right = round the back past the shed),
+  waitsFirst, pause, a `route` of `{ room, says }` stops, and `grabs`,
+  `tooLate`, `leaving` lines. Plus `LOOT`: telly, games console (lounge),
+  laptop (Hendrix's bed), jewellery box (their bed), cash tin (dresser),
+  guitar (box room), each with room, x, lift, look.
+- Nerve and weaknesses are NOT in the data yet on purpose (brief: he finds
+  them by playing). They arrive in M7.
+- `js/paths.js` (new): the way-finding, moved out of hero.js so Hendrix
+  and the burglars share it.
+- `js/burglar-art.js` (new): Sid (tall, stripy jumper, worried) and Bruno
+  (wide, bored), beanie and mask, swinging limbs, a sack that grows with
+  each thing taken. `js/loot-art.js` + `js/loot.js`: loot drawn in the
+  rooms from boot (visible in scavenge and rig too), hidden when taken,
+  back on restart. The tv prop is now just the cabinet; the telly is loot.
+- The night: Hendrix stands by the attic monitors. Sid enters from the
+  right, Bruno from the left 3s later. Each walks to his stops, says the
+  line in a speech bubble, takes any loot in a stop room ("tooLate" if the
+  other got there first), then walks back out. Rigged spots flash when
+  someone walks past, with "Sid walks right past your Flour Bomb. Nothing
+  happens." Empty spots are hidden at night (house mode 'night').
+- Monitors panel under the house: Whole house / Follow Sid / Follow
+  Bruno, Faster (2.5x), a log, and what each one has. The newest log line
+  also shows right under the house. Tap a room to watch just that room.
+- End: "They got away with ..." plus Move your traps (back to rig, traps
+  kept, loot back) and Watch it again.
+- State: `state.burglars` (live room, carrying, gone), `state.taken`.
+- Sounds: `creak`, `grab`.
+- Real time about 50s, 20s on Faster.
+
+Verified headless desktop, phone and day theme, on the live site too:
+loot drawn, 2 burglars plus Hendrix, only rigged spots showing, follow
+cameras, all 6 loot taken, tooLate line, end text, watch again resets
+loot, back to rig keeps traps, restart mid-night clears everything,
+scavenge walking still works after the paths.js move, console clean.
+
+Pushed in three commits: new files first (not loaded), then colours,
+sounds and state, then the switch-on in one call. The site never broke.
+
+**Hendrix's M6 turn:** rename a burglar and rewrite one of his lines,
+both in `data/burglars.js`. Change `name: 'Sid'` to anything, then change
+any `says:` line.
+
+**Turns still owing:** `walkSpeed` (M2), Water Balloon and the Hard timer
+(M3), Glue Bomb (M4), my-floor (M5), rename a burglar (M6). The M0 name
+is done: the page title and the tab both say Trap House.
+
+**Next:** M7 — Traps Fire. Collision at the spots they already detect,
+nerve and weaknesses in data/burglars.js, nerve damage, meters,
+placeholder effects, fleeing. The game becomes playable end to end.
