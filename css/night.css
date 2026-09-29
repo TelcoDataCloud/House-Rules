@@ -1,0 +1,124 @@
+/* ===========================================================
+   NIGHT - the burglars, their speech bubbles, the loot, and the
+   security monitors panel under the house
+
+   Colours come from tokens.css: --burglar-a (Sid), --burglar-b
+   (Bruno), --burglar-mask, --sack, --bubble, --bubble-text.
+   =========================================================== */
+
+/* --- THE BURGLARS -------------------------------------------- */
+
+/* They never get in the way of your clicks. */
+.burglar { pointer-events: none; }
+.burglar[hidden], .bubble[hidden] { display: none; }
+
+.b-stripe { stroke: var(--stripe); stroke-width: 2.4; opacity: 0.4; }
+
+/* Legs and arms swing from the top, like Hendrix's do. */
+.b-limb { transform-box: fill-box; transform-origin: 50% 0; }
+
+/* Sid scurries. Bruno plods. */
+.burglar-sid.is-walking   { --stride: 0.26s; --swing: 26deg; }
+.burglar-bruno.is-walking { --stride: 0.46s; --swing: 16deg; }
+
+.burglar.is-walking .b-leg-front { animation: b-swing var(--stride) ease-in-out infinite alternate; }
+.burglar.is-walking .b-leg-back  { animation: b-swing var(--stride) ease-in-out infinite alternate-reverse; }
+.burglar.is-walking .b-arm-front { animation: b-swing var(--stride) ease-in-out infinite alternate-reverse; }
+.burglar.is-walking .b-arm-back  { animation: b-swing var(--stride) ease-in-out infinite alternate; }
+.burglar.is-walking .burglar-body { animation: b-bob calc(var(--stride) / 2) ease-in-out infinite alternate; }
+
+@keyframes b-swing {
+  from { transform: rotate(calc(var(--swing) * -1)); }
+  to   { transform: rotate(var(--swing)); }
+}
+@keyframes b-bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2px); }
+}
+
+/* --- SPEECH BUBBLES ------------------------------------------ */
+
+.bubble-back, .bubble-tail { fill: var(--bubble); stroke: var(--ink); stroke-width: 1.6; }
+.bubble-tail { stroke-linejoin: round; }
+.bubble-text {
+  fill: var(--bubble-text);
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+/* --- LOOT ---------------------------------------------------- */
+
+.loot-item.is-taken { display: none; }
+
+/* A trap spot flashes when somebody walks straight past it. */
+.anchor.is-passed .anchor-trap-back { animation: trap-ping 0.4s ease-in-out 3; }
+@keyframes trap-ping {
+  50% { fill: var(--btn); }
+}
+
+/* --- THE MONITORS PANEL -------------------------------------- */
+
+.night-bar[hidden] { display: none; }
+.night-bar { max-width: 900px; }
+
+.night-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+.night-head h2 { margin: 0; }
+#night-fast[aria-pressed="true"] { background: var(--btn); color: var(--btn-text); }
+
+.night-cams {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: var(--gap) 0;
+}
+.night-cam[aria-pressed="true"] { background: var(--btn); color: var(--btn-text); }
+
+.night-log {
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  max-height: 11.5em;
+  overflow-y: auto;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.night-line + .night-line { margin-top: 4px; }
+.night-line.is-talk { color: var(--text); }
+.night-line:not(.is-talk) { color: var(--text-dim); }
+
+.night-haul { font-weight: 700; margin: var(--gap) 0 0; }
+
+.night-end[hidden] { display: none; }
+.night-end {
+  margin-top: var(--gap-lg);
+  padding-top: var(--gap);
+  border-top: 3px dashed var(--text-dim);
+}
+.night-end-text { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
+.night-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-top: var(--gap);
+}
+
+@media (max-width: 560px) {
+  .night-cams .btn, .night-buttons .btn { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burglar.is-walking .b-limb,
+  .burglar.is-walking .burglar-body,
+  .anchor.is-passed .anchor-trap-back { animation: none; }
+}

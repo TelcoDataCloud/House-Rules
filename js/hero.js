@@ -1,12 +1,10 @@
 /* ===========================================================
    HERO - walking Hendrix round the house
 
-   Tap a room and Hendrix works out the way there, then walks it.
-   Rooms next to each other on the same floor are joined. The
-   stairs, the cellar steps and the loft ladder join floors
-   together (STAIRS in data/rooms.js says which rooms each one
-   joins). So getting from your room to the cellar means: along
-   the landing, down the stairs, through the ground floor to the
+   Tap a room and Hendrix works out the way there, then walks
+   it. (js/paths.js does the working out. The burglars use it
+   too.) Getting from your room to the cellar means: along the
+   landing, down the stairs, through the ground floor to the
    utility, and down the cellar steps. Every step of it costs
    time off the clock.
 
@@ -17,13 +15,14 @@
    How fast he walks, and where he starts, is in data/hero.js.
    =========================================================== */
 
-import { ROOMS, STAIRS } from '../data/rooms.js';
+import { ROOMS } from '../data/rooms.js';
 import { HERO } from '../data/hero.js';
 import { state } from './state.js';
 import {
   heroLayer, zoomToRoom, followHero, startFollowing, isFollowing,
-  setRoomClickHandler, setArrowHandler, sayInHud, roomAt, floorLine
+  setRoomClickHandler, setArrowHandler, sayInHud, roomAt
 } from './house.js';
+import { findRoom, level, standAt, neighbours, findWay, pointsFor } from './paths.js';
 import { drawHero, pyjamaPattern } from './hero-art.js';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -39,86 +38,6 @@ const me = {
   last: 0,
   node: null, face: null
 };
-
-function findRoom(id) {
-  return ROOMS.find((room) => room.id === id);
-}
-
-/* The garage and the shed are on the ground floor, just outside. */
-function level(room) {
-  return room.floor === 'outside' ? 'ground' : room.floor;
-}
-
-/* Where he stands in a room: in the middle, on the floor. */
-function standAt(roomId) {
-  const room = findRoom(roomId);
-  return { x: room.x + (room.stand ?? room.w / 2), y: floorLine(roomId) };
-}
-
-/* --- FINDING THE WAY ------------------------------------------
-   Every room knows its neighbours: the rooms either side on the
-   same floor, plus any stairs. To find the way, we spread out
-   from where he is, one room at a time, until we reach the
-   target. That always finds the shortest way in rooms. (It is
-   called a breadth first search, if you ever want to look it up.)
-   ------------------------------------------------------------ */
-
-function neighbours(roomId) {
-  const here = findRoom(roomId);
-  const row = ROOMS.filter((r) => level(r) === level(here)).sort((a, b) => a.x - b.x);
-  const i = row.indexOf(here);
-  const out = [];
-  if (row[i - 1]) out.push({ to: row[i - 1].id });
-  if (row[i + 1]) out.push({ to: row[i + 1].id });
-  STAIRS.forEach((stairs) => {
-    if (!stairs.joins) return;
-    const [bottom, top] = stairs.joins;
-    if (bottom === roomId) out.push({ to: top, stairs, up: true });
-    if (top === roomId) out.push({ to: bottom, stairs, up: false });
-  });
-  return out;
-}
-
-function findWay(from, to) {
-  const came = { [from]: null };
-  const queue = [from];
-  while (queue.length) {
-    const room = queue.shift();
-    if (room === to) break;
-    neighbours(room).forEach((step) => {
-      if (step.to in came) return;
-      came[step.to] = { from: room, step };
-      queue.push(step.to);
-    });
-  }
-  if (!(to in came)) return null;
-  const steps = [];
-  for (let at = to; came[at]; at = came[at].from) steps.unshift(came[at].step);
-  return steps;
-}
-
-/* Turn the list of rooms into points to walk to. Along a floor he
-   just walks; for stairs he walks to the bottom (or top), climbs,
-   and carries on from the other end. */
-function stairEnds(stairs) {
-  if (stairs.kind === 'ladder') {
-    const mid = (stairs.left + stairs.right) / 2;
-    return { low: { x: mid, y: stairs.bottom }, high: { x: mid, y: stairs.top } };
-  }
-  return { low: { x: stairs.left, y: stairs.bottom }, high: { x: stairs.right, y: stairs.top } };
-}
-
-function pointsFor(steps, goal) {
-  const points = [];
-  steps.forEach((step) => {
-    if (!step.stairs) return;
-    const ends = stairEnds(step.stairs);
-    if (step.up) points.push(ends.low, ends.high);
-    else points.push(ends.high, ends.low);
-  });
-  points.push(standAt(goal));
-  return points;
-}
 
 /* --- DRAWING HIM --------------------------------------------- */
 
