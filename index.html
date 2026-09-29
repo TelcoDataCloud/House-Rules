@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/workshop.css">
 <link rel="stylesheet" href="css/rig.css">
+<link rel="stylesheet" href="css/night.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -335,6 +336,27 @@
     <div class="house-scene" id="house"></div>
     <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot, or press Tab, to see what goes there.</p>
     <ul class="legend" id="legend" aria-label="What the glowing spots mean"></ul>
+  </div>
+
+  <!-- THE NIGHT (M6). The security monitors: what they say, what
+       they have taken, and which of them you are watching.
+       js/night.js fills it in. -->
+  <div class="night-bar panel" id="night" hidden>
+    <div class="night-head">
+      <h2>Security monitors</h2>
+      <button type="button" class="btn btn-quiet" id="night-fast" aria-pressed="false">Faster</button>
+    </div>
+    <div class="night-cams" id="night-cams" role="group" aria-label="What the monitors show"></div>
+    <ol class="night-log" id="night-log" aria-label="What the monitors saw"></ol>
+    <p class="night-haul" id="night-haul"></p>
+    <div class="night-end" id="night-end" hidden>
+      <p class="night-end-text" id="night-end-text" aria-live="assertive"></p>
+      <p>Your traps did not go off. That comes in M7.</p>
+      <div class="night-buttons">
+        <button type="button" class="btn btn-quiet" id="night-move">Move your traps</button>
+        <button type="button" class="btn btn-big" id="night-again">Watch it again</button>
+      </div>
+    </div>
   </div>
 
   <div class="panel phase-card">

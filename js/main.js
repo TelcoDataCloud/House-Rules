@@ -19,6 +19,8 @@ import { sfx } from './audio.js';
 import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
 import { setupWorkshop, showWorkshop, hideWorkshop } from './workshop.js';
 import { setupRig, showRig, hideRig, drawRigged } from './rig.js';
+import { setupNight, startBreakIn, stopBreakIn } from './night.js';
+import { setupLoot } from './loot.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
 /* What each phase is called on screen, and what it will do
@@ -42,7 +44,7 @@ const PHASE_INFO = {
   night: {
     title: 'Night',
     line: 'Hide in the attic and watch it all go wrong for them.',
-    milestone: 'M6 and M7 build this one.'
+    milestone: 'Your traps do not go off yet. That comes in M7. Tonight you just watch.'
   },
   result: {
     title: 'Result',
@@ -84,8 +86,9 @@ function renderPhaseScreen(phase) {
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
 
   el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
-  /* Rigging and the night show the trap spots. The scavenge is a hunt. */
-  setHouseMode(phase === 'rig' || phase === 'night' ? 'rig' : 'search');
+  /* Rigging shows the trap spots, the night shows your traps, and
+     the scavenge is a hunt. */
+  setHouseMode(phase === 'rig' || phase === 'night' ? phase : 'search');
 
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
@@ -101,6 +104,7 @@ function boot() {
   buildHouse(el('house'), el('house-caption'), el('legend'),
     { name: el('room-hud-name'), note: el('room-hud-note'), out: el('zoom-out') },
     (room) => { state.room = room; });
+  setupLoot();
 
   setupScavenge({
     bar: el('scavenge-bar'), clock: el('clock'), time: el('clock-time'),
@@ -118,6 +122,12 @@ function boot() {
   setupRig({
     panel: el('rig'), tray: el('rig-tray'), say: el('rig-say'), count: el('rig-count'),
     back: el('rig-back'), letIn: el('let-in')
+  });
+
+  setupNight({
+    panel: el('night'), cams: el('night-cams'), log: el('night-log'), haul: el('night-haul'),
+    fast: el('night-fast'), end: el('night-end'), endText: el('night-end-text'),
+    again: el('night-again'), move: el('night-move')
   });
 
   el('start-btn').addEventListener('click', () => {
@@ -139,6 +149,7 @@ function boot() {
       hideScavenge();
       hideWorkshop();
       hideRig();
+      stopBreakIn();
       resetHouse();
       setHouseMode('search');
       showScreen('title');
@@ -149,10 +160,11 @@ function boot() {
       hideScavenge();
       hideWorkshop();
       hideRig();
+      stopBreakIn();
       if (phase === 'scavenge') startNight();
       else if (phase === 'workshop') showWorkshop();
       else if (phase === 'rig') showRig();
-      else if (phase === 'night') drawRigged();
+      else if (phase === 'night') { drawRigged(); startBreakIn(); }
     }
   });
 

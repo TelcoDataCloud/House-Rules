@@ -236,17 +236,14 @@ export const PROPS = {
     box(g, 31, -8, 4, 8, 'wood-dark', THIN, 1);
   },
 
-  /* The telly. Bruno walks straight to this. */
+  /* The TV cabinet. The telly on top is loot, so it is drawn
+     from data/burglars.js instead, and it can be carried off. */
   tv(g) {
-    glow(g, 28, -46, 34, 26, 'screen');
     box(g, 0, -22, 56, 22, 'wood-dark');
     line(g, 28, -20, 28, -3);
     ball(g, 24, -11, 1.6, 'metal', THIN);
     ball(g, 32, -11, 1.6, 'metal', THIN);
     box(g, 24, -28, 8, 6, 'worktop', THIN, 1);
-    box(g, 3, -64, 50, 36, 'worktop', THICK, 3);
-    box(g, 7, -60, 42, 28, 'screen', 'none', 1);
-    shine(g, 'M9 -58 L22 -58 L9 -41 Z');
   },
 
   /* The piano. Hendrix says this is the best hiding place in the

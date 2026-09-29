@@ -435,6 +435,11 @@ function drawRooms(svg) {
     (room.closeUp || []).forEach((thing) => placeThing(closeUp, room, thing, floorY));
     inside.append(closeUp);
 
+    /* the good stuff the burglars are after (js/loot.js) */
+    const loot = make('g', { class: 'loot' });
+    inside.append(loot);
+    lootLayers[room.id] = { g: loot, room, floorY };
+
     /* junk left lying about goes in here, each night (js/scavenge.js) */
     const loose = make('g', { class: 'loose-items' });
     inside.append(loose);
@@ -591,6 +596,16 @@ export function showTrapOnAnchor(anchorId, item, name) {
   g.setAttribute('aria-label', `${where} Rigged with ${name}.`);
 }
 
+/* Make a spot flash, when somebody walks past it at night. */
+export function pingAnchor(anchorId) {
+  const g = anchorNodes[anchorId];
+  if (!g) return;
+  g.classList.remove('is-passed');
+  void g.getBBox();                       // restart the flash if it is already going
+  g.classList.add('is-passed');
+  setTimeout(() => g.classList.remove('is-passed'), 1200);
+}
+
 export function clearAnchorTraps() {
   Object.keys(anchorNodes).forEach((id) => showTrapOnAnchor(id, null));
   highlightMount(null);
@@ -611,6 +626,7 @@ export function clearAnchorTraps() {
 
 const spots = [];
 const looseLayers = {};
+const lootLayers = {};
 
 function slug(words) {
   return words.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -720,6 +736,16 @@ export function placeLooseItem(roomId, place, item) {
   wakeSpots(open ? open.dataset.room : null);
 }
 
+/* Make a spot in a room to draw something in, x in from the left
+   wall and lift up off the floor. js/loot.js puts the loot here. */
+export function placeInRoom(roomId, x, lift = 0) {
+  const layer = lootLayers[roomId];
+  if (!layer) return null;
+  const at = make('g', { transform: `translate(${layer.room.x + x} ${layer.floorY - lift})` });
+  layer.g.append(at);
+  return at;
+}
+
 /* Every hiding place in the house, so js/scavenge.js can choose
    where to hide things. */
 export function hidingPlaces() {
@@ -802,7 +828,7 @@ const FLOOR_ORDER = ['attic', 'upstairs', 'ground', 'cellar'];
 const view = {
   svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search',
   onLook: null, answered: false,
-  onRoomClick: null, onArrow: null, follow: false, heroLayer: null, glideId: 0,
+  onRoomClick: null, roomNote: '', onArrow: null, follow: false, heroLayer: null, glideId: 0,
   onAnchor: null, describeAnchor: null, anchorLayer: null
 };
 
@@ -912,7 +938,7 @@ export function showWholeHouse(animate = true) {
   });
   if (animate) glideTo(WHOLE()); else setBox(WHOLE());
   showHud(null);
-  if (view.onRoomClick) view.hud.note.textContent = 'Tap a room to walk there.';
+  if (view.onRoomClick) view.hud.note.textContent = view.roomNote;
   wakeSpots(null);
   if (view.onRoom) view.onRoom(null);
 }
@@ -923,7 +949,12 @@ export function showWholeHouse(animate = true) {
    following rather than jumping.
    ------------------------------------------------------------ */
 
-export function setRoomClickHandler(fn) { view.onRoomClick = fn; }
+/* note is what the bar above the house says on the whole house
+   view, so it can say walk in the scavenge and watch at night. */
+export function setRoomClickHandler(fn, note = 'Tap a room to walk there.') {
+  view.onRoomClick = fn;
+  view.roomNote = note;
+}
 export function setArrowHandler(fn) { view.onArrow = fn; }
 
 /* The layer the hero is drawn in: on top of the stairs, so he can
@@ -937,6 +968,7 @@ export function roomAt(x, y) {
 }
 
 export function startFollowing() { view.follow = true; }
+export function stopFollowing() { view.follow = false; }
 
 /* The height of a room's floor, where feet go. */
 export function floorLine(roomId) {
@@ -975,9 +1007,15 @@ export function sayInHud(name, note) {
   view.hud.out.hidden = false;
 }
 
-/* SEARCH or RIG. Searching hides the trap spots so you hunt for
-   junk with nothing giving it away. Rigging shows the trap spots
-   and switches the hiding places off. */
+/* Put words in the line under the house. */
+export function sayUnderHouse(words) {
+  if (view.caption) view.caption.textContent = words;
+}
+
+/* SEARCH, RIG or NIGHT. Searching hides the trap spots so you hunt
+   for junk with nothing giving it away. Rigging shows the trap
+   spots and switches the hiding places off. At night only the
+   spots with a trap on them show, and you cannot touch them. */
 export function setHouseMode(mode) {
   if (!view.svg) return;
   view.mode = mode;
