@@ -82,7 +82,25 @@ you can even spot from the whole house. **The rest is hidden** in cupboards,
 drawers, under beds and inside the piano. There are no markers: hiding places
 light up when he points at them, so finding them is the hunt. Everything is
 shuffled fresh every night. He grabs what he can before the clock runs out.
-Carry limit: **8 items**; when the bag is full it is full.
+
+**Things hide where they belong** (M11): every item has `foundIn` rooms in
+`data/items.js`, so flour turns up in the kitchen, rope in the garage, loo
+roll in the bathroom. You learn which rooms are worth the walk.
+
+Carry limit: **15 items** (M11, was 8). Tap anything in the bag to drop it
+on the floor where you stand; you can pick it up again. Find something with
+a full bag and it spills onto the floor so you can swap.
+
+**Three locks with puzzles** (M11), set in `data/puzzles.js`, new answers
+every night, each hiding something rare:
+- **Mum and Dad's wall safe**: a three digit code. Dad hides a note
+  downstairs with the code written as sums (*3 + 2, then 0 + 4...*).
+- **The piano lid**: coloured music on the stand; play the coloured keys in
+  order.
+- **The shed padlock** (the whole room is locked): a riddle on the tag and
+  jumbled letter tiles; spell the answer.
+The clock keeps running while he thinks. `HOUSE.state.puzzles` in the
+console shows tonight's answers.
 
 The timer is the whole tension of this phase. On Hard he will not get
 everything, and that is the point — it makes the crafting phase a real
@@ -108,7 +126,25 @@ Two rules keep this from spiralling:
   scavenge clock left you short.
 
 Two things on the bench bolt together straight away; there is no extra
-button to press. Discovered traps go into the **Recipe Notebook**, which
+button to press. **Except** (M11): if the two things make a trap that can be
+upgraded, a glowing **third box** opens. Put a third thing in to build the
+upgrade in one go, or press *Build it as it is*. The old way (a finished
+trap back on the bench plus one item) still works.
+
+**Stand ins** (M11): some items can do another's job (`worksAs` in
+`data/items.js`). String works as rope; duct tape as string or rope; loo
+roll as string; alarm clock and bell for each other; toy car and roller
+skate for each other; custard for paint or honey and back; bucket for sack;
+tin cans for a bell. The real ingredient always wins if both would fit.
+
+**Hints in Hendrix's voice** (M11): put one thing on the bench and the hero
+drops a cryptic clue about what it goes with, pitched at an eight year old
+(*"Marbles... I bet they would love something slippy that lives next to the
+cooker"*). Never the answer. Riddles live on the items and traps
+(`riddle`), sentences in `data/hints.js`. *Any ideas?* hints at the whole
+bag; two wrong guesses in a row earn a free clue. Every line is read aloud
+by the browser's speech voice, pitched up to sound like a kid
+(`VOICE` in `data/hints.js`), and goes quiet with the sound button. Discovered traps go into the **Recipe Notebook**, which
 persists for the whole session so he builds up knowledge across attempts
 (restart keeps it; closing the page clears it). The notebook shows
 upgrade paths as a little branch off the base trap, with unknown upgrades as
@@ -140,6 +176,12 @@ At each anchor:
 - **Trap** → the route pauses, the trap animation plays, nerve drops, the
   burglar reacts, and then either continues or **breaks and runs for the
   exit**.
+
+Since M11: the camera jumps into the room whenever a trap goes off (unless
+you are following someone or watching a room you picked; *Zoom in on traps*
+switches it off), and each burglar's nerve meter, sack count and the
+Neighbours meter are pinned right under the house so they never scroll out
+of sight.
 
 ### Resolution
 - **Both burglars flee with nothing** → WIN
@@ -226,11 +268,16 @@ Found around the house. Big, chunky, instantly recognisable icons.
 String · **Rope** · **Sack** · Duct Tape · Tin Cans · Bag of Flour · Toy Car ·
 Hair Dryer · Bell · Paint Tin · Jar of Honey · Roller Skate
 
+**Added in M11:** Banana · Whoopee Cushion · Tin of Custard · Alarm Clock ·
+Rubber Chicken · Loo Roll. That makes 22 common, so a 15 slot bag is still a
+choice.
+
 String and Rope are deliberately different tools: **String** is for
 trip-lines and tangles, **Rope** is for hanging things overhead. Most
 upgrades that move a trap up to the ceiling want Rope.
 
-**Rare (one or two per night, hidden in awkward places):** Christmas Lights ·
+**Rare (three per night since M11: one in the safe, one in the piano, one in
+an awkward place):** Christmas Lights ·
 Garden Hose · Blender · Glitter Cannon
 
 The rare items exist to make the scavenge phase worth exploring properly and
@@ -284,6 +331,37 @@ burglar who shrugs off your favourite trick.
 | Marble Avalanche + Cooking Oil | **Greased Avalanche** | SLIPPERY | 5 | No grip, no marbles-free floor, no dignity |
 | Rattlesnake Line + Christmas Lights | **Rave Snare** | LOUD · STARTLE | 4 | Cans, strobe, chaos. Neighbours definitely noticed. |
 | Flour Bomb + Water Balloon | **Glue Bomb** *(Hendrix's)* | STICKY · MESSY | 5 | Flour first, water straight after, and now it is glue. Hangs overhead and swings like the Swinging Flour Bomb. Bruno's worst nightmare. |
+
+### Added in M11
+
+| Ingredients | Trap | Cat. | Nerve | Payoff |
+|---|---|---|---|---|
+| Banana + Cooking Oil | **Banana Rama** | SLIPPERY | 3 | The oldest trick there is |
+| Whoopee Cushion + Duct Tape | **Rude Awakening** | STARTLE | 2 | PFFFRRT. Everybody hears. |
+| Tin of Custard + Bucket | **Custard Shower** | MESSY | 3 | A bucket of custard on the head |
+| Alarm Clock + Tin Cans | **Wake Up Call** | LOUD | 3 | BRRRING, right in his ear |
+| Rubber Chicken + Rope | **Chicken Swing** | STARTLE | 3 | The chicken swings out of the dark. SQUEAK. |
+| Loo Roll + String | **Mummy Maker** | TANGLE | 2 | He comes out wrapped like a mummy |
+| Banana + Roller Skate | **Banana Boarder** | SLIPPERY | 3 | Stairs. See you at the bottom. |
+| Rubber Chicken + Hair Dryer | **Flying Chicken** | STARTLE | 3 | Blown right at him |
+| Feather Pillow + Flour | **Pillow Fight** | MESSY | 2 | Flour and feathers |
+| Tin Cans + Marbles | **Maraca Mayhem** | LOUD | 2 | Rattles like a mad band |
+| Blender + Custard | **Custard Cannon** | MESSY | 4 | A custard volcano |
+| Garden Hose + Cooking Oil | **Slip and Slide** | SLIPPERY | 4 | A water park on the stairs |
+| Glitter Cannon + Hair Dryer | **Glitter Blizzard** | MESSY | 3 | Disco ball burglar |
+
+| Upgrade | Trap | Cat. | Nerve |
+|---|---|---|---|
+| Banana Rama + Custard | **Banana Split** | SLIPPERY · MESSY | 5 |
+| Custard Shower + Feather Pillow | **Custard Chicken** | MESSY · STICKY | 5 |
+| The Doorbell + Alarm Clock | **Burglar Alarm** | LOUD · STARTLE | 4 |
+| Mummy Maker + Honey | **Sticky Mummy** | TANGLE · STICKY | 4 |
+| Chicken Swing + Feather Pillow | **Chicken Run** | STARTLE · MESSY | 5 |
+| Rude Awakening + Flour | **Puff Cushion** | STARTLE · MESSY | 4 |
+| Banana Boarder + Cooking Oil | **Banana Bobsleigh** | SLIPPERY | 5 |
+
+32 base traps and 14 upgrades in all (Glue Bomb is still Hendrix's to add).
+A trap's `mess` can now be two things, like custard **and** feathers.
 
 When a trap has two categories, nerve damage uses whichever the burglar is
 **weaker** to. That is the point of upgrading — a two-category trap always
@@ -515,6 +593,16 @@ sirens, arrests, win/lose screens, S-C grading.
 
 **M10 — Polish.** Sound, dark mode, reduced motion, tablet layout, title art,
 intro cutscene. Ship it and send the link to his friends.
+
+**M11 — Locks and Hints** *(added after v1, Asa's call, 1 Oct 2026).*
+15 slot bag with drop and swap; items hide in the rooms they belong in;
+the safe, piano and shed puzzles; stand in ingredients; 20 more recipes;
+the third upgrade box; cryptic hints read aloud in a kid's voice; much
+bigger slapstick (flips, spins, dust, sweat, #@!% clouds, camera shake,
+dizzy wobbles, a cartoon wind up before he bolts); the camera jumps in on
+every trap; nerve meters pinned under the house; a trap list on the result
+screen.
+→ *His turn:* add his own riddle to the shed padlock in `data/puzzles.js`.
 
 ---
 

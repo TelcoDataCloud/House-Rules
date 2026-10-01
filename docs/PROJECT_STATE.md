@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 1 October 2026 (M0 to M10 done, the game is finished and playable). The newest sections are at the bottom; read those first.
+Last updated: 1 October 2026 (M0 to M11 done: the game is finished, plus locks, hints and more traps). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -546,3 +546,103 @@ an fx too), my-floor (M5), rename a burglar (M6).
 **What could come next (phase 2, ask Asa first):** the brief's wishlist:
 roaming burglars, Hendrix movable at night, escalating nights, a trap
 editor.
+
+## M11 — Locks and Hints. Done 1 Oct 2026
+
+Asa, after playing: bigger bag (15) with dropping; cryptic workshop clues
+an 8 year old could get, in a kid's voice; a few simple puzzles (a safe
+combination, a word puzzle) that unlock places with items; burglars should
+really lean into slapstick; nerve meters pinned under the house; then, mid
+build: hiding places should match their items, string should stand in for
+rope (tape too), more creative combos, and a third box on the bench when a
+two item trap can be upgraded. Plus "go through the overall and see what
+else you can improve". All in one session on his say so.
+
+**Scavenge**
+- `CARRY_LIMIT` 15. Tap anything in the bag to drop it where you stand
+  (`putDown` in house.js); pick it up again like any loose junk. Find
+  something with a full bag and it spills on the floor (`spillFrom`).
+- Six new items (Banana, Whoopee Cushion, Tin of Custard, Alarm Clock,
+  Rubber Chicken, Loo Roll), 26 in all; `OUT_IN_THE_OPEN` 7,
+  `RARE_EACH_NIGHT` 3.
+- Every item has `foundIn` rooms; `scatter()` in js/scavenge.js hides each
+  thing in its own rooms when it can (lying-about ones too).
+- **Locks** (`lock:` in data/rooms.js, puzzles in data/puzzles.js,
+  js/puzzles.js, css/puzzles.css, a `<dialog>`):
+  - Wall safe in Mum and Dad's room (new `safe` prop): 3 digit code. Dad's
+    note hides in a downstairs hiding place (`state.noteSpot`), code
+    written as sums. The note shows under the bag once found.
+  - Piano lid: play the coloured music on 5 coloured keys (`sfx.note`).
+  - Shed padlock: whole room locked (chains and padlock drawn over it).
+    Hero walks to the garage, the riddle and jumbled letter tiles pop up.
+  - The safe and piano always hold a rare thing. New answers every night
+    in `state.puzzles` (the console cheat is in the data header).
+  - Hero gate: `setGate` in hero.js stops him at a locked room's door.
+- Verified: wrong answers shake, right answers CLICK and stay open, Escape
+  and Leave it close, the clock keeps running, time up closes the box.
+
+**Workshop**
+- Stand ins: `worksAs` on items (string as rope, tape as string or rope,
+  loo roll as string, bell and alarm clock, toy car and roller skate,
+  custard with paint and honey, bucket as sack, tin cans as bell). The
+  real ingredient wins (`recipeFor` tries exact first). Notebook shows
+  "Rope (or String or Duct Tape)".
+- 13 new base traps, 7 new upgrades: 32 base + 14 upgrades = 46 (Glue
+  Bomb still his). `mess` can be two things.
+- Third box: two items making an upgradable trap open a glowing upgrade
+  box plus "Build X as it is". Old trap plus item upgrade still works.
+- Hints: put one thing on the bench and Hendrix (top left) says a riddle
+  for its partner (`riddle` on items and on upgradable traps, sentences in
+  new data/hints.js). Any ideas? button; two wrong guesses gives a free
+  clue. Spoken with speechSynthesis (new js/voice.js), pitch 1.7, British
+  voice preferred, silenced by the sound button. Face bobs while talking.
+- Bench and bubble stick to the top of the screen on bigger screens; on a
+  phone the bench scrolls back into view when something happens.
+
+**Night**
+- Slapstick roughly doubled: slip is a full flip and flat landing with
+  kicking legs; swing spins him like a top (and swings the actual
+  ingredient, the chicken, the sack); bucket leaves him walking blind;
+  stuck boots stretch and boing; noise makes him jump 80px with legs
+  running in mid air; plus house camera shake, dust puffs, sweat drops, a
+  #@!% cloud on every hit, bigger comic words, dizzy wobble afterwards, and
+  a cartoon wind up (legs spinning, ZOOM) before he bolts. New sounds:
+  whistle, boing, thud, zoom.
+- Camera jumps into the trap's room for each hit, then back out (not when
+  following someone or watching a room you picked). "Zoom in on traps"
+  toggle on the monitors panel.
+- Meters pinned under the house (`position: sticky`): face, nerve bar and
+  word, sack count; Neighbours. They jolt when hit. Phone: names and bars
+  only. The house shrinks a little at night so it all fits.
+
+**Everything else**
+- Result screen lists every trap that went off, who it got and how much
+  he minded. Intro has a beat about the locks. New tips on the phase card.
+  M11 dot on the progress strip. More yelps for both burglars. Headings
+  focused for screen readers no longer show a focus ring. Banana, chicken
+  and custard drawings redrawn so they read at small sizes.
+
+Verified headless: real UI scavenge of 8 rooms, workshop builds with stand
+ins and the third box, rig, night, result (NEARLY!, B); all three puzzles
+by mouse and the piano by keyboard; drop and re-pick; full bag spill;
+Play again and Back to the title reset locks, notes, puzzles and junk;
+reduced motion night; day theme; phone 390 and tablet 820 with no
+sideways scroll; console clean throughout. Pushed in batches (new files
+first, then the switch-on in one call, `682dcb3`) so the site never broke;
+every test re-run against the live site after the deploy, console clean.
+
+**Hendrix's turn for M11:** add his own riddle to the shed padlock in
+`data/puzzles.js`. Copy a line in `SHED.riddles`, e.g.
+`{ riddle: 'I am Hendrix\'s favourite food.', word: 'PIZZA' },`
+(capitals, 3 to 5 letters), then keep restarting until it comes up.
+Second, easy one: change `pitch` in `VOICE` in `data/hints.js` to 2 and
+hear himself as a chipmunk.
+
+**Turns still owing:** `walkSpeed` (M2), Water Balloon and the Hard timer
+(M3), Glue Bomb (M4), my-floor (M5), rename a burglar (M6), and the M7 to
+M10 ones (Doorbell nerve, a trap word, callPoliceAt, the tagline).
+
+**Ideas parked for later (ask Asa):** record Hendrix's real voice for the
+hints instead of the computer voice; per hiding place item matching (flour
+in the cupboard, not the fridge); a fourth puzzle (fuse box in the cellar).
+
