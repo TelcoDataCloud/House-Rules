@@ -299,7 +299,8 @@ function drawStairs(svg) {
       box(body, doorX, doorTop, doorW, 64, 'var(--door)', 'ink-thin', { rx: 2 });
       body.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
       door.append(body);
-      if (flight.search && flight.room) makeSpot(door, flight.room, flight.search);
+      const home = findRoom(flight.room);
+      if (flight.search && home) makeSpot(door, flight.room, flight.search, 'hide', undefined, { x: doorX - home.x });
       g.append(door);
     }
 
@@ -385,7 +386,7 @@ function placeThing(layer, room, thing, floorY) {
   const body = make('g', { class: 'prop-body' });
   drawProp(thing.kind, body, thing);
   at.append(body);
-  if (thing.search) makeSpot(at, room.id, thing.search);
+  if (thing.search) makeSpot(at, room.id, thing.search, 'hide', undefined, { lock: thing.lock, x: thing.x });
   layer.append(at);
 }
 
@@ -456,6 +457,9 @@ function drawRooms(svg) {
       x: room.x, y: room.y, width: room.w, height: room.h, rx: 4,
       fill: 'none', class: 'ink-thin room-box'
     }));
+    /* a locked room (data/puzzles.js) gets chains and a padlock */
+    if (room.lock) g.append(drawRoomLock(room));
+
     const tag = make('g', { class: 'room-tag' });
     const label = make('text', { x: room.x + 10, y: room.y + 17, class: 'room-name' });
     label.textContent = room.name;
@@ -468,6 +472,32 @@ function drawRooms(svg) {
   });
 
   svg.append(layer);
+}
+
+/* --- LOCKS ---------------------------------------------------
+   A padlock shape, used on locked rooms and locked hiding places.
+   js/puzzles.js decides what opens them. This only draws.
+   ------------------------------------------------------------ */
+
+function padlock(parent, x, y, size = 1) {
+  const at = make('g', { transform: `translate(${x} ${y}) scale(${size})` });
+  at.append(make('path', { d: 'M-6 -4 L-6 -10 Q-6 -17 0 -17 Q6 -17 6 -10 L6 -4', class: 'lock-shackle' }));
+  at.append(make('rect', { x: -9, y: -5, width: 18, height: 15, rx: 3, class: 'lock-body' }));
+  at.append(make('circle', { cx: 0, cy: 1.5, r: 2.2, class: 'lock-hole' }));
+  at.append(make('rect', { x: -0.9, y: 2.5, width: 1.8, height: 4, class: 'lock-hole' }));
+  parent.append(at);
+  return at;
+}
+
+function drawRoomLock(room) {
+  const g = make('g', { class: 'room-lock', 'data-lock': room.lock });
+  g.append(make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, rx: 4, class: 'room-lock-shade' }));
+  g.append(make('path', {
+    d: `M${room.x + 6} ${room.y + 10} L${room.x + room.w - 6} ${room.y + room.h - 16} M${room.x + room.w - 6} ${room.y + 10} L${room.x + 6} ${room.y + room.h - 16}`,
+    class: 'room-lock-chain'
+  }));
+  padlock(g, room.x + room.w / 2, room.y + room.h / 2 + 2, 1.5);
+  return g;
 }
 
 /* --- THE ANCHOR POINTS ---------------------------------------
@@ -634,8 +664,9 @@ function slug(words) {
 
 /* kind is 'hide' for a hiding place, or 'loose' for a bit of junk
    lying in the open. Both glow when you point at them. */
-function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`) {
-  const spot = { id, room: roomId, name, node: g, kind };
+function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`, extra = {}) {
+  const spot = { id, room: roomId, name, node: g, kind, lock: extra.lock || null, x: extra.x || 0 };
+  if (spot.lock) g.dataset.lock = spot.lock;
   g.classList.add('spot');
   if (kind === 'loose') g.classList.add('loose-item');
   g.setAttribute('data-room', roomId);
@@ -648,6 +679,7 @@ function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`
   const point = () => {
     if (!g.classList.contains('is-here')) return;
     if (kind === 'loose') view.hud.note.textContent = `${name}, just lying there.`;
+    else if (lockedSpot(spot)) view.hud.note.textContent = `${name}. Locked!`;
     else view.hud.note.textContent = state.searched.includes(id)
       ? `${name}. You already looked here.`
       : name;
@@ -681,6 +713,17 @@ function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`
    only does the wiggle, the pop and the words. */
 function search(spot) {
   const g = spot.node;
+  /* locked: rattle it, and let js/scavenge.js open the puzzle */
+  if (lockedSpot(spot)) {
+    g.classList.remove('is-rummaging');
+    void g.getBBox();
+    g.classList.add('is-rummaging');
+    setTimeout(() => g.classList.remove('is-rummaging'), 650);
+    view.answered = true;
+    view.hud.note.textContent = `${spot.name}. Locked!`;
+    if (view.lockGate) view.lockGate.onLocked(spot.lock, spot);
+    return;
+  }
   const answer = view.onLook
     ? view.onLook(spot)
     : { message: `${spot.name}. Nothing in here.` };
@@ -734,6 +777,69 @@ export function placeLooseItem(roomId, place, item) {
   layer.g.append(at);
   const open = view.svg && view.svg.querySelector('.room.is-open');
   wakeSpots(open ? open.dataset.room : null);
+  return at;
+}
+
+/* Put something down on the floor of a room, near x (measured on
+   the whole house picture). Used when you drop something out of
+   your bag, or find something when your bag is already full. */
+export function putDown(roomId, x, item) {
+  const layer = looseLayers[roomId];
+  if (!layer) return;
+  const inRoom = Math.max(4, Math.min(layer.room.w - 20, x - layer.room.x - 8 + (Math.random() * 16 - 8)));
+  const at = placeLooseItem(roomId, { x: inRoom }, item);
+  if (at) {
+    at.classList.add('is-dropped');
+    setTimeout(() => at.classList.remove('is-dropped'), 600);
+  }
+}
+
+/* Spill something out of a hiding place onto the floor in front
+   of it. */
+export function spillFrom(spotId, item) {
+  const spot = spots.find((one) => one.id === spotId);
+  const room = spot && findRoom(spot.room);
+  if (!room) return;
+  putDown(room.id, room.x + spot.x + 14, item);
+}
+
+/* Who decides what is locked, and what happens when you try a
+   lock. js/scavenge.js sets this: isLocked(lock) and
+   onLocked(lock, spot). */
+export function setLockGate(gate) {
+  view.lockGate = gate;
+  refreshLocks();
+}
+
+function lockedSpot(spot) {
+  return Boolean(spot.lock && view.lockGate && view.lockGate.isLocked(spot.lock));
+}
+
+/* Show or hide every padlock to match what is locked right now.
+   The little padlock on a hiding place is placed by measuring the
+   drawing, which only works once it is on screen, so it tries
+   again on the next frame if it has to. */
+export function refreshLocks(tries = 0) {
+  if (!view.svg) return;
+  const locked = (lock) => Boolean(lock && view.lockGate && view.lockGate.isLocked(lock));
+  view.svg.querySelectorAll('.room-lock').forEach((g) => {
+    g.classList.toggle('is-open', !locked(g.dataset.lock));
+  });
+  let again = false;
+  spots.filter((spot) => spot.lock).forEach((spot) => {
+    const on = locked(spot.lock);
+    spot.node.classList.toggle('is-locked', on);
+    spot.node.setAttribute('aria-label', on ? `Locked: ${spot.name}` : `Search: ${spot.name}`);
+    let badge = spot.node.querySelector('.spot-lock');
+    if (on && !badge) {
+      const b = spot.node.querySelector('.prop-body').getBBox();
+      if (!b.width) { again = true; return; }
+      badge = padlock(spot.node, b.x + b.width - 2, b.y + 6, 0.8);
+      badge.classList.add('spot-lock');
+    }
+    if (badge) badge.classList.toggle('is-open', !on);
+  });
+  if (again && tries < 60) requestAnimationFrame(() => refreshLocks(tries + 1));
 }
 
 /* Make a spot in a room to draw something in, x in from the left
@@ -749,7 +855,7 @@ export function placeInRoom(roomId, x, lift = 0) {
 /* Every hiding place in the house, so js/scavenge.js can choose
    where to hide things. */
 export function hidingPlaces() {
-  return spots.filter((spot) => spot.kind === 'hide').map((spot) => ({ id: spot.id, room: spot.room, name: spot.name }));
+  return spots.filter((spot) => spot.kind === 'hide').map((spot) => ({ id: spot.id, room: spot.room, name: spot.name, lock: spot.lock }));
 }
 
 /* Who decides what is in a hiding place. js/scavenge.js sets this. */
@@ -829,7 +935,7 @@ const view = {
   svg: null, box: null, hud: null, onRoom: null, caption: null, mode: 'search',
   onLook: null, answered: false,
   onRoomClick: null, roomNote: '', onArrow: null, follow: false, heroLayer: null, glideId: 0,
-  onAnchor: null, describeAnchor: null, anchorLayer: null
+  onAnchor: null, describeAnchor: null, anchorLayer: null, lockGate: null
 };
 
 /* Grow a box until it has the same shape as the picture, so the
@@ -1039,6 +1145,7 @@ export function resetHouse() {
   spots.forEach((spot) => spot.node.classList.remove('is-searched', 'is-rummaging'));
   document.querySelectorAll('.anchor.is-live').forEach((a) => a.classList.remove('is-live'));
   clearAnchorTraps();
+  refreshLocks();
   showWholeHouse(false);
 }
 
