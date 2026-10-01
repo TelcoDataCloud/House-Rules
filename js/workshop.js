@@ -118,7 +118,11 @@ function drawLists() {
   ui.traps.innerHTML = '';
   state.traps.forEach((id, i) => { if (!onBench('trap', i)) ui.traps.append(card('trap', id, i)); });
   if (!ui.traps.children.length) ui.traps.append(empty('No traps yet. Bolt something together.'));
-  ui.toRig.hidden = state.traps.length === 0;
+  /* No traps? You can still go down. It will just be a long night. */
+  ui.toRig.hidden = false;
+  ui.toRig.textContent = state.traps.length || Object.keys(state.rigged).length
+    ? 'Take the traps downstairs'
+    : 'Go downstairs with no traps';
 }
 
 function empty(words) {

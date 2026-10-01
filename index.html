@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="css/workshop.css">
 <link rel="stylesheet" href="css/rig.css">
 <link rel="stylesheet" href="css/night.css">
+<link rel="stylesheet" href="css/fx.css">
+<link rel="stylesheet" href="css/result.css">
+<link rel="stylesheet" href="css/intro.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -247,9 +250,30 @@
 
 
 <!-- =========================================================
-     SCREEN 2: A PHASE THAT IS NOT BUILT YET
-     Every phase lands here for now. It is honest, and it means
-     the machine that switches phases is real from day one.
+     SCREEN 2: THE INTRO
+     A little comic strip before the night. js/intro.js draws the
+     picture and moves through the words.
+     ========================================================= -->
+<section class="screen" data-screen="intro">
+  <div class="panel intro">
+    <h2 class="intro-title">Before midnight</h2>
+    <svg class="intro-stage" id="intro-stage" viewBox="0 0 600 260" role="img"
+         aria-label="Two burglars outside the front of the house at night."></svg>
+    <p class="intro-words" id="intro-words" aria-live="polite"></p>
+    <div class="intro-buttons">
+      <button type="button" class="btn btn-quiet" id="intro-skip">Skip</button>
+      <span class="intro-count" id="intro-count"></span>
+      <button type="button" class="btn btn-big" id="intro-next">Next</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SCREEN 3: THE NIGHT ITSELF
+     Scavenge, workshop, rig, night and the result all happen on
+     this one screen. Each phase shows its own panel and hides
+     the rest. js/main.js decides which.
      ========================================================= -->
 <section class="screen" data-screen="phase">
 
@@ -317,7 +341,7 @@
     <ul class="rig-tray" id="rig-tray" aria-label="Your traps"></ul>
     <div class="rig-buttons">
       <button type="button" class="btn btn-quiet" id="rig-back">Back to the workbench</button>
-      <button type="button" class="btn btn-big" id="let-in" disabled>Let them in</button>
+      <button type="button" class="btn btn-big" id="let-in">Let them in</button>
     </div>
   </div>
 
@@ -347,15 +371,27 @@
       <button type="button" class="btn btn-quiet" id="night-fast" aria-pressed="false">Faster</button>
     </div>
     <div class="night-cams" id="night-cams" role="group" aria-label="What the monitors show"></div>
+    <div class="night-meters" id="night-meters"></div>
     <ol class="night-log" id="night-log" aria-label="What the monitors saw"></ol>
     <p class="night-haul" id="night-haul"></p>
-    <div class="night-end" id="night-end" hidden>
-      <p class="night-end-text" id="night-end-text" aria-live="assertive"></p>
-      <p>Your traps did not go off. That comes in M7.</p>
-      <div class="night-buttons">
-        <button type="button" class="btn btn-quiet" id="night-move">Move your traps</button>
-        <button type="button" class="btn btn-big" id="night-again">Watch it again</button>
+  </div>
+
+  <!-- THE RESULT (M9). How the night went, and your grade.
+       js/result.js fills it in. -->
+  <div class="result panel" id="result" hidden>
+    <div class="result-top">
+      <div>
+        <h2 class="result-title" id="result-title">YOU WIN!</h2>
+        <p class="result-line" id="result-line"></p>
       </div>
+      <p class="result-grade" id="result-grade">S</p>
+    </div>
+    <div class="result-burglars" id="result-burglars"></div>
+    <dl class="result-stats" id="result-stats"></dl>
+    <p class="result-tip" id="result-tip"></p>
+    <div class="result-buttons">
+      <button type="button" class="btn btn-quiet" id="result-title-btn">Back to the title</button>
+      <button type="button" class="btn btn-big" id="result-again">Play again</button>
     </div>
   </div>
 
@@ -363,7 +399,7 @@
     <p class="phase-name" id="phase-name">Scavenge</p>
     <p id="phase-line">Raid your own house for junk before the clock runs out.</p>
     <p id="phase-difficulty"></p>
-    <p><strong id="phase-milestone">M3 builds this one.</strong></p>
+    <p><strong id="phase-milestone"></strong></p>
     <button type="button" id="back-btn" class="btn btn-quiet">Back to the title</button>
   </div>
 </section>

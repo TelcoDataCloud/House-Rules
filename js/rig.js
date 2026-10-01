@@ -17,7 +17,8 @@
    and data/rooms.js (each spot's mount). This file only checks
    that the two match.
 
-   When at least one trap is set, LET THEM IN goes live.
+   LET THEM IN starts the night. With no traps set it says
+   Let them in anyway, because that is what you are doing.
    =========================================================== */
 
 import { state, setPhase } from './state.js';
@@ -94,7 +95,8 @@ function drawTray() {
   }
   const set = Object.keys(state.rigged).length;
   ui.count.textContent = set === 1 ? '1 trap set' : `${set} traps set`;
-  ui.letIn.disabled = set === 0;
+  /* You can let them in with no traps at all. Brave. */
+  ui.letIn.textContent = set ? 'Let them in' : 'Let them in anyway';
 }
 
 function pick(i) {
@@ -163,9 +165,7 @@ function describe(anchor) {
 export function setupRig(els) {
   Object.assign(ui, els);
   ui.back.addEventListener('click', () => setPhase('workshop'));
-  ui.letIn.addEventListener('click', () => {
-    if (Object.keys(state.rigged).length) setPhase('night');
-  });
+  ui.letIn.addEventListener('click', () => setPhase('night'));
 }
 
 /* Put every trap in state.rigged back on its spot. Used when you

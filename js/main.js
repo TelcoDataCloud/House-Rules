@@ -1,15 +1,14 @@
 /* ===========================================================
    MAIN - starts the game and decides which screen you see
 
-   The game is one HTML page with several <section class="screen">
-   blocks inside it. Only one of them has the class "is-active"
-   at a time, and that is the one you can see. Switching screens
-   is nothing more exciting than moving that class around.
+   The game is one HTML page with a few <section class="screen">
+   blocks inside it: the title, the intro, and the screen where
+   the night happens. Only one of them has the class "is-active"
+   at a time, and that is the one you can see.
 
-   Right now only the title screen has anything in it. The other
-   phases show a placeholder that says which milestone builds it.
-   That is honest, and it means the phase machine is real from
-   day one instead of being bolted on later.
+   A night goes: title -> intro -> scavenge -> workshop -> rig ->
+   night -> result. Each phase has its own file in js/ and its
+   own panel in index.html. This file switches them on and off.
    =========================================================== */
 
 import { state, setPhase, resetGame } from './state.js';
@@ -21,10 +20,12 @@ import { setupWorkshop, showWorkshop, hideWorkshop } from './workshop.js';
 import { setupRig, showRig, hideRig, drawRigged } from './rig.js';
 import { setupNight, startBreakIn, stopBreakIn } from './night.js';
 import { setupLoot } from './loot.js';
+import { setupResult, showResult, hideResult } from './result.js';
+import { setupIntro, startIntro } from './intro.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
-/* What each phase is called on screen, and what it will do
-   once we have built it. */
+/* What each phase is called on screen, what you do in it, and a
+   tip. */
 const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
@@ -44,12 +45,12 @@ const PHASE_INFO = {
   night: {
     title: 'Night',
     line: 'Hide in the attic and watch it all go wrong for them.',
-    milestone: 'Your traps do not go off yet. That comes in M7. Tonight you just watch.'
+    milestone: 'Watch who yells loudest at what. Sid and Bruno do not hate the same things.'
   },
   result: {
     title: 'Result',
     line: 'Did they get the telly?',
-    milestone: 'M9 builds this one.'
+    milestone: 'Play again and beat your grade. Your recipe notebook comes with you.'
   }
 };
 
@@ -66,7 +67,8 @@ function showScreen(name, moveFocus = true) {
      using a keyboard or a screen reader do not get left behind. */
   const active = document.querySelector('.screen.is-active');
   if (active && moveFocus) {
-    const heading = active.querySelector('h1, h2, .phase-name');
+    /* the first heading you can actually see */
+    const heading = [...active.querySelectorAll('h1, h2, .phase-name')].find((h) => h.offsetParent !== null);
     if (heading) {
       heading.setAttribute('tabindex', '-1');
       heading.focus({ preventScroll: true });
@@ -86,6 +88,7 @@ function renderPhaseScreen(phase) {
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
 
   el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
+  document.querySelector('.phase-card').hidden = phase === 'result';
   /* Rigging shows the trap spots, the night shows your traps, and
      the scavenge is a hunt. */
   setHouseMode(phase === 'rig' || phase === 'night' ? phase : 'search');
@@ -126,13 +129,23 @@ function boot() {
 
   setupNight({
     panel: el('night'), cams: el('night-cams'), log: el('night-log'), haul: el('night-haul'),
-    fast: el('night-fast'), end: el('night-end'), endText: el('night-end-text'),
-    again: el('night-again'), move: el('night-move')
+    fast: el('night-fast'), meters: el('night-meters')
+  });
+
+  setupResult({
+    panel: el('result'), heading: el('result-title'), line: el('result-line'),
+    grade: el('result-grade'), stats: el('result-stats'), tip: el('result-tip'),
+    burglars: el('result-burglars'), again: el('result-again'), title: el('result-title-btn')
+  });
+
+  setupIntro({
+    svg: el('intro-stage'), words: el('intro-words'), next: el('intro-next'),
+    skip: el('intro-skip'), count: el('intro-count')
   });
 
   el('start-btn').addEventListener('click', () => {
     sfx.start();
-    setPhase('scavenge');
+    setPhase('intro');
   });
 
   el('back-btn').addEventListener('click', () => {
@@ -150,21 +163,27 @@ function boot() {
       hideWorkshop();
       hideRig();
       stopBreakIn();
+      hideResult();
       resetHouse();
       setHouseMode('search');
       showScreen('title');
+    } else if (phase === 'intro') {
+      showScreen('intro');
+      startIntro();
     } else {
       renderPhaseScreen(phase);
-      showScreen('phase');
       /* switch everything off, then switch on what this phase needs */
       hideScavenge();
       hideWorkshop();
       hideRig();
       stopBreakIn();
+      hideResult();
       if (phase === 'scavenge') startNight();
       else if (phase === 'workshop') showWorkshop();
       else if (phase === 'rig') showRig();
       else if (phase === 'night') { drawRigged(); startBreakIn(); }
+      else if (phase === 'result') showResult();
+      showScreen('phase');
     }
   });
 

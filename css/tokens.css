@@ -133,6 +133,34 @@
   --bubble-text: #14121c;
   --stripe: #14121c;         /* the stripes on Sid's jumper */
 
+  /* --- THE SLAPSTICK (M8) and THE ENDING (M9) --- */
+  --word: #ffd166;           /* the burst behind CLONG! */
+  --word-text: #14121c;
+  --mess-flour: #ffffff;
+  --mess-feather: #fbf7ee;
+  --mess-paint: #3fbf6a;     /* green paint, so you can see it on him */
+  --mess-honey: #f2a516;
+  --mess-water: #6fc3f2;
+  --glitter-a: #ff7ad9;
+  --glitter-b: #7fe3ff;
+  --glitter-c: #ffe066;
+  --tape: #c3cad3;
+  --rope: #c9a46a;
+  --disco-a: #ff4fd8;
+  --disco-b: #4fe3ff;
+  --disco-c: #ffe14f;
+  --police-red: #ff3b3b;
+  --police-blue: #3b7bff;
+  --meter-back: #171526;
+  --meter-nerve: #ff8a5c;
+  --meter-noise: #7fb3ff;
+  --grade-s: #ffd166;
+  --grade-a: #6fcf97;
+  --grade-b: #7fb3ff;
+  --grade-c: #b9b1c9;
+  --win: #6fcf97;
+  --lose: #ff8a7a;
+
   /* --- PAGE and PANELS --- */
   --bg: #171526;
   --bg-2: #221f38;
@@ -281,6 +309,32 @@
   --bubble: #ffffff;
   --bubble-text: #14121c;
   --stripe: #14121c;
+  --word: #ffd166;
+  --word-text: #14121c;
+  --mess-flour: #ffffff;
+  --mess-feather: #fbf7ee;
+  --mess-paint: #2fae5a;
+  --mess-honey: #e8980a;
+  --mess-water: #4fb0e8;
+  --glitter-a: #e0359f;
+  --glitter-b: #1fa6d8;
+  --glitter-c: #f0b400;
+  --tape: #aab2bd;
+  --rope: #b08a50;
+  --disco-a: #ff4fd8;
+  --disco-b: #4fe3ff;
+  --disco-c: #ffe14f;
+  --police-red: #ff3b3b;
+  --police-blue: #3b7bff;
+  --meter-back: #efe0c4;
+  --meter-nerve: #e0603a;
+  --meter-noise: #2f6bbf;
+  --grade-s: #e8a020;
+  --grade-a: #2e9e63;
+  --grade-b: #2f6bbf;
+  --grade-c: #8f889c;
+  --win: #2e9e63;
+  --lose: #cf3f2c;
 
   --bg: #fdf4e3;
   --bg-2: #f7e8cd;
