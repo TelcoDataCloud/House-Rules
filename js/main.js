@@ -22,6 +22,7 @@ import { setupNight, startBreakIn, stopBreakIn } from './night.js';
 import { setupLoot } from './loot.js';
 import { setupResult, showResult, hideResult } from './result.js';
 import { setupIntro, startIntro } from './intro.js';
+import { setupPuzzles } from './puzzles.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 
 /* What each phase is called on screen, what you do in it, and a
@@ -29,13 +30,13 @@ import { DIFFICULTY } from '../data/difficulty.js';
 const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
-    line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Some junk is lying about. Most of it is hidden.',
-    milestone: 'Arrow keys walk you left and right, and up and down the stairs.'
+    line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Things hide where they belong: flour in the kitchen, rope in the garage.',
+    milestone: 'Three things are locked: the safe, the piano and the shed. Solve the puzzle and the best junk is yours.'
   },
   workshop: {
     title: 'Workshop',
-    line: 'Bolt two bits of junk together and see what you get.',
-    milestone: 'Every trap you build goes in the notebook, and stays there until you close the page.'
+    line: 'Bolt two bits of junk together and see what you get. Put one thing on the bench and listen for a clue.',
+    milestone: 'If two things make a trap that can be upgraded, a third box opens. Add one more thing to upgrade it.'
   },
   rig: {
     title: 'Rig',
@@ -88,6 +89,9 @@ function renderPhaseScreen(phase) {
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
 
   el('house-wrap').hidden = !PHASES_WITH_HOUSE.includes(phase);
+  /* at night the house shrinks a little so it all fits on screen
+     with the meters under it */
+  el('house-wrap').classList.toggle('is-night', phase === 'night');
   document.querySelector('.phase-card').hidden = phase === 'result';
   /* Rigging shows the trap spots, the night shows your traps, and
      the scavenge is a hunt. */
@@ -109,17 +113,23 @@ function boot() {
     (room) => { state.room = room; });
   setupLoot();
 
+  setupPuzzles({
+    dialog: el('puzzle'), title: el('puzzle-title'), time: el('puzzle-time'), clue: el('puzzle-clue'),
+    body: el('puzzle-body'), say: el('puzzle-say'), leave: el('puzzle-leave')
+  });
+
   setupScavenge({
-    bar: el('scavenge-bar'), clock: el('clock'), time: el('clock-time'),
+    bar: el('scavenge-bar'), clock: el('clock'), time: el('clock-time'), notes: el('notes'),
     bag: el('bag'), count: el('bag-count'), done: el('done-btn'),
     end: el('scavenge-end'), endText: el('scavenge-end-text'), toWorkshop: el('to-workshop')
   });
 
   setupWorkshop({
     panel: el('workshop'), face: el('ws-face'), say: el('ws-say'), bench: el('ws-bench'),
-    slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), result: el('ws-result'),
+    slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), slotC: el('ws-slot-c'), plusC: el('ws-plus-c'),
+    buildNow: el('ws-build-now'), result: el('ws-result'),
     items: el('ws-items'), traps: el('ws-traps'), toRig: el('to-rig'),
-    notebook: el('notebook'), found: el('ws-found')
+    notebook: el('notebook'), found: el('ws-found'), ideas: el('ws-ideas')
   });
 
   setupRig({
@@ -129,13 +139,14 @@ function boot() {
 
   setupNight({
     panel: el('night'), cams: el('night-cams'), log: el('night-log'), haul: el('night-haul'),
-    fast: el('night-fast'), meters: el('night-meters')
+    fast: el('night-fast'), zoom: el('night-zoom'), meters: el('night-meters')
   });
 
   setupResult({
     panel: el('result'), heading: el('result-title'), line: el('result-line'),
     grade: el('result-grade'), stats: el('result-stats'), tip: el('result-tip'),
-    burglars: el('result-burglars'), again: el('result-again'), title: el('result-title-btn')
+    burglars: el('result-burglars'), traps: el('result-traps'),
+    again: el('result-again'), title: el('result-title-btn')
   });
 
   setupIntro({

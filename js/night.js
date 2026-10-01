@@ -45,7 +45,7 @@ import { findRoom, level, findWay, pointsFor } from './paths.js';
 import { drawBurglar, HEIGHT } from './burglar-art.js';
 import { drawHero, pyjamaPattern } from './hero-art.js';
 import { lootIn, takeLoot, dropLoot, resetLoot } from './loot.js';
-import { playFx, policeLights, sign, lessMotion } from './fx.js';
+import { playFx, policeLights, sign, lessMotion, windUp } from './fx.js';
 import { sfx } from './audio.js';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -58,6 +58,9 @@ const run = {
   crew: [], watch: null, fast: false, over: false,
   fxLayer: null, hero: null,
   gen: 0,                          // which night this is, so old timers know to stop
+  zoomIn: true,                    // the camera jumps in when a trap goes off
+  peekRoom: null, peekUntil: 0,    // the room it jumped into, and until when
+  userRoom: null,                  // a room you tapped to watch yourself
   police: null,                    // null, or the night time they arrive
   policeHere: false,
   timers: []
@@ -127,7 +130,11 @@ export function listOf(things) {
   return `${things.slice(0, -1).join(', ')} and ${things[things.length - 1]}`;
 }
 
-/* --- THE METERS ---------------------------------------------- */
+/* --- THE METERS ----------------------------------------------
+   Pinned right under the house, so you can see them while you
+   watch: each burglar's face, how much nerve he has left, and
+   how many things are in his sack. Then the neighbours.
+   ------------------------------------------------------------ */
 
 /* Words instead of numbers, so you work out who is tough by
    watching, not by reading. */
@@ -142,49 +149,68 @@ function mood(b) {
   return 'Calm';
 }
 
-function buildMeters() {
-  ui.meters.innerHTML = '';
-  run.crew.forEach((b) => {
-    const row = document.createElement('div');
-    row.className = 'meter';
-    const label = document.createElement('span');
-    label.className = 'meter-name';
-    label.textContent = `${b.data.name}'s nerve`;
-    const bar = document.createElement('span');
-    bar.className = `meter-bar meter-${b.data.look}`;
-    bar.setAttribute('role', 'meter');
-    bar.setAttribute('aria-label', `${b.data.name}'s nerve`);
-    bar.setAttribute('aria-valuemin', '0');
-    bar.setAttribute('aria-valuemax', '100');
-    const fill = document.createElement('span');
-    fill.className = 'meter-fill';
-    bar.append(fill);
-    const word = document.createElement('span');
-    word.className = 'meter-word';
-    row.append(label, bar, word);
-    ui.meters.append(row);
-    b.meter = { bar, fill, word };
-  });
+/* A little picture of just his head, for the meter. */
+function face(look) {
+  const svg = make('svg', { viewBox: look === 'bruno' ? '-13 -88 28 34' : '-12 -84 26 32', 'aria-hidden': 'true', class: 'pin-face' });
+  const g = make('g');
+  drawBurglar(g, look);
+  svg.append(g);
+  return svg;
+}
 
-  const row = document.createElement('div');
-  row.className = 'meter meter-noise';
-  const label = document.createElement('span');
-  label.className = 'meter-name';
-  label.textContent = 'Neighbours noticed';
+function meterBar(label) {
   const bar = document.createElement('span');
   bar.className = 'meter-bar';
   bar.setAttribute('role', 'meter');
-  bar.setAttribute('aria-label', 'How much the neighbours have noticed');
+  bar.setAttribute('aria-label', label);
   bar.setAttribute('aria-valuemin', '0');
   bar.setAttribute('aria-valuemax', '100');
   const fill = document.createElement('span');
   fill.className = 'meter-fill';
   bar.append(fill);
+  return { bar, fill };
+}
+
+function buildMeters() {
+  ui.meters.innerHTML = '';
+  run.crew.forEach((b) => {
+    const card = document.createElement('div');
+    card.className = `pin pin-${b.data.look}`;
+    const info = document.createElement('div');
+    info.className = 'pin-info';
+    const top = document.createElement('span');
+    top.className = 'pin-top';
+    const name = document.createElement('strong');
+    name.textContent = b.data.name;
+    const word = document.createElement('span');
+    word.className = 'pin-word';
+    top.append(name, word);
+    const { bar, fill } = meterBar(`${b.data.name}'s nerve`);
+    info.append(top, bar);
+    const sack = document.createElement('span');
+    sack.className = 'pin-sack';
+    sack.title = 'How many things he has in his sack';
+    card.append(face(b.data.look), info, sack);
+    ui.meters.append(card);
+    b.meter = { card, bar, fill, word, sack };
+  });
+
+  const card = document.createElement('div');
+  card.className = 'pin pin-noise';
+  const info = document.createElement('div');
+  info.className = 'pin-info';
+  const top = document.createElement('span');
+  top.className = 'pin-top';
+  const name = document.createElement('strong');
+  name.textContent = 'Neighbours';
   const word = document.createElement('span');
-  word.className = 'meter-word';
-  row.append(label, bar, word);
-  ui.meters.append(row);
-  run.noiseMeter = { bar, fill, word };
+  word.className = 'pin-word';
+  top.append(name, word);
+  const { bar, fill } = meterBar('How much the neighbours have noticed');
+  info.append(top, bar);
+  card.append(info);
+  ui.meters.append(card);
+  run.noiseMeter = { card, bar, fill, word };
   drawMeters();
 }
 
@@ -195,6 +221,11 @@ function drawMeters() {
     b.meter.bar.setAttribute('aria-valuenow', String(pct));
     b.meter.bar.setAttribute('aria-valuetext', mood(b));
     b.meter.word.textContent = mood(b);
+    b.meter.card.classList.toggle('is-low', pct < 35);
+    b.meter.card.classList.toggle('is-out', ['arrested', 'fled', 'escaped'].includes(b.info.status));
+    const n = b.info.carrying.length;
+    b.meter.sack.textContent = n ? `Sack: ${n}` : 'Sack: 0';
+    b.meter.sack.classList.toggle('has-loot', n > 0);
   });
   const pct = Math.min(100, Math.round((state.noticed / NEIGHBOURS.callPoliceAt) * 100));
   const words = run.policeHere ? 'Police are here' : run.police !== null ? 'Police on the way'
@@ -203,6 +234,14 @@ function drawMeters() {
   run.noiseMeter.bar.setAttribute('aria-valuenow', String(pct));
   run.noiseMeter.bar.setAttribute('aria-valuetext', words);
   run.noiseMeter.word.textContent = words;
+}
+
+/* A jolt on his meter when a trap gets him. */
+function bumpMeter(b) {
+  if (!b.meter) return;
+  b.meter.card.classList.remove('is-hit');
+  void b.meter.card.offsetWidth;
+  b.meter.card.classList.add('is-hit');
 }
 
 /* --- DRAWING THEM -------------------------------------------- */
@@ -358,6 +397,7 @@ function arrive(b) {
     log(`${b.data.name} takes ${listOf(loot.map((l) => l.name))}.`, null, 'is-bad');
     sfx.grab();
     showHaul();
+    drawMeters();
   }
 }
 
@@ -406,16 +446,43 @@ function fire(b, anchor, trap) {
     onImpact: () => {
       if (!run.on || gen !== run.gen) return;
       b.info.nerve -= amount;
-      if (trap.mess && !b.info.mess.includes(trap.mess)) b.info.mess.push(trap.mess);
+      [].concat(trap.mess || []).forEach((m) => { if (!b.info.mess.includes(m)) b.info.mess.push(m); });
       cheer();
       sfx.yelp();
       say(b, times === 2 ? pick(b.data.hates) : times < 1 ? pick(b.data.meh) : pick(b.data.ouch));
       log(times === 2 ? `${b.data.name} HATED that.` : times < 1 ? `${b.data.name} barely noticed.` : `${b.data.name} did not like that.`, null, 'is-note');
       if (trap.cat.includes('LOUD')) makeNoise(trap.nerve);
       drawMeters();
+      bumpMeter(b);
     }
   });
   b.hitUntil = performance.now() + length;
+  peek(anchor.room || b.info.room, length + 600);
+}
+
+/* --- THE CAMERA JUMPS IN -------------------------------------
+   When a trap goes off and you are looking at the whole house,
+   the camera zooms into that room so you can see the slapstick
+   properly, then zooms back out. Not if you are following someone
+   or looking at a room you picked yourself.
+   ------------------------------------------------------------ */
+
+function peek(roomId, ms) {
+  if (!run.zoomIn || run.watch || run.userRoom || !roomId) return;
+  run.peekUntil = performance.now() + ms;
+  if (run.peekRoom !== roomId) {
+    run.peekRoom = roomId;
+    zoomToRoom(roomId);
+    sayInHud('Trap!', `In the ${findRoom(roomId).name}.`);
+  }
+}
+
+function endPeek(now) {
+  if (!run.peekRoom) return;
+  if (state.room !== run.peekRoom) { run.peekRoom = null; return; }  // you moved the camera yourself
+  if (now < run.peekUntil) return;
+  run.peekRoom = null;
+  showWholeHouse();
 }
 
 /* Hendrix does a little jump up in the attic. */
@@ -438,6 +505,10 @@ function recover(b) {
 function panic(b) {
   sfx.panic();
   say(b, b.data.panic);
+  /* legs spin on the spot first, then he is off */
+  b.info.status = 'hit';
+  b.windUp = true;
+  b.hitUntil = performance.now() + windUp(b, run.fxLayer);
   if (b.info.carrying.length) {
     b.info.carrying.forEach((thing) => dropLoot(thing.id));
     log(`${b.data.name} drops ${listOf(b.info.carrying.map((l) => l.name))} and runs!`, null, 'is-good');
@@ -447,10 +518,15 @@ function panic(b) {
   } else {
     log(`${b.data.name} has had enough. He runs!`, null, 'is-good');
   }
-  /* the nearest way out: left or right side of the picture */
+  drawMeters();
+}
+
+/* After the wind up: the nearest way out, left or right side of
+   the picture, as fast as his legs will go. */
+function bolt(b) {
+  b.windUp = false;
   const side = b.x < PICTURE.w * 0.55 ? 'left' : 'right';
   headOut(b, side, 'fleeing');
-  drawMeters();
 }
 
 /* --- THE NEIGHBOURS AND THE POLICE --------------------------- */
@@ -540,7 +616,7 @@ function tick(now) {
       if (b.grabAt && run.t >= b.grabAt) { b.grabAt = 0; say(b, b.data.grabs); }
       if (run.t >= b.until) nextStop(b);
     } else if (s === 'hit') {
-      if (now >= b.hitUntil) recover(b);
+      if (now >= b.hitUntil) { if (b.windUp) bolt(b); else recover(b); }
     }
     if (b.bubbleUntil && run.t >= b.bubbleUntil) {
       b.bubbleUntil = 0;
@@ -551,6 +627,8 @@ function tick(now) {
 
   if (run.police !== null && !run.policeHere && run.t >= run.police) policeArrive();
 
+  if (state.room === null) run.userRoom = null;     // you pressed Whole house
+  endPeek(now);
   follow();
 
   const done = (b) => ['fled', 'escaped', 'arrested'].includes(b.info.status);
@@ -573,6 +651,8 @@ function follow() {
 
 function setWatch(id, move = true) {
   run.watch = id;
+  run.peekRoom = null;
+  if (!id) run.userRoom = null;
   ui.cams.querySelectorAll('button').forEach((btn) => {
     btn.setAttribute('aria-pressed', String((btn.dataset.watch || null) === id));
   });
@@ -630,6 +710,11 @@ export function setupNight(els) {
     ui.fast.setAttribute('aria-pressed', String(run.fast));
     sfx.toggle();
   });
+  ui.zoom.addEventListener('click', () => {
+    run.zoomIn = !run.zoomIn;
+    ui.zoom.setAttribute('aria-pressed', String(run.zoomIn));
+    sfx.toggle();
+  });
 }
 
 export function startBreakIn() {
@@ -643,8 +728,12 @@ export function startBreakIn() {
   state.fired = [];
   state.noticed = 0;
   ui.panel.hidden = false;
+  ui.meters.hidden = false;
   ui.log.innerHTML = '';
   ui.fast.setAttribute('aria-pressed', String(run.fast));
+  ui.zoom.setAttribute('aria-pressed', String(run.zoomIn));
+  run.peekRoom = null;
+  run.userRoom = null;
 
   const layer = heroLayer();
   layer.innerHTML = '';
@@ -679,6 +768,8 @@ export function startBreakIn() {
   setRoomClickHandler((roomId) => {           // tap a room to look at it on its own
     setWatch(null, false);
     stopFollowing();
+    run.peekRoom = null;
+    run.userRoom = roomId;
     zoomToRoom(roomId);
   }, 'Tap a room to watch it.');
   setWatch(null);
@@ -701,6 +792,8 @@ export function stopBreakIn() {
   run.hero = null;
   state.burglars = [];
   if (ui.panel) ui.panel.hidden = true;
+  if (ui.meters) ui.meters.hidden = true;
+  run.peekRoom = null;
   setRoomClickHandler(null);
   stopFollowing();
   const layer = heroLayer();

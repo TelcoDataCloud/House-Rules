@@ -71,9 +71,17 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
   gap: 6px;
 }
+/* the bag shouts at you when it is full */
+.bag.is-shouting { animation: bag-shout 0.45s ease-in-out; }
+@keyframes bag-shout {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.bag.is-full .bag-slot.is-full { border-color: var(--danger); }
 .bag-slot {
   position: relative;
   aspect-ratio: 1;
@@ -87,9 +95,47 @@
   background: var(--bg-2);
 }
 .bag-slot.is-full { border-style: solid; border-color: var(--ink); background: var(--bg); }
+/* everything in the bag is a button: tap it to drop it */
+.bag-drop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 8px;
+  background: none;
+  border: 0;
+  border-radius: calc(var(--radius) - 3px);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.bag-drop .item-picture { width: 70%; height: 70%; }
+.bag-drop:hover:not([disabled]) { background: var(--bg-2); }
+.bag-drop:hover:not([disabled])::after {
+  content: 'drop';
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--danger);
+}
+.bag-tip { margin: 6px 0 0; font-size: 13px; color: var(--text-dim); }
+.notes {
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--note-ink);
+  background: var(--note-paper);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+}
+.notes[hidden] { display: none; }
 .bag-slot.is-rare { box-shadow: 0 0 0 3px var(--rare); }
 .bag-slot.is-new { animation: bag-bounce 0.45s ease-out; }
-.bag-slot .item-picture { width: 70%; height: 70%; }
+
 .bag-name {
   position: absolute;
   bottom: 1px;
@@ -148,7 +194,7 @@
 /* --- SMALL SCREENS ------------------------------------------- */
 
 @media (max-width: 560px) {
-  .bag { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bag { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .bag-slot { aspect-ratio: auto; height: 56px; }
   .scavenge-bar .btn { width: 100%; }
   .bag-title { padding-right: 104px; min-height: 40px; }   /* room for the day/night and sound buttons */
@@ -156,5 +202,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .item-pop { animation: none; opacity: 0; }
-  .clock.is-urgent .clock-time { animation: none; }
+  .clock.is-urgent .clock-time, .bag.is-shouting { animation: none; }
 }

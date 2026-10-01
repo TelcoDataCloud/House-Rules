@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/fx.css">
 <link rel="stylesheet" href="css/result.css">
 <link rel="stylesheet" href="css/intro.css">
+<link rel="stylesheet" href="css/puzzles.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127968;</text></svg>">
 </head>
 <body>
@@ -242,7 +243,7 @@
   <!-- MILESTONE STRIP -->
   <div class="panel">
     <h2>Build progress</h2>
-    <p class="panel-hint">Ten steps from an empty page to a finished game. A dot goes green when the step is really done.</p>
+    <p class="panel-hint">Every step from an empty page to the game you are playing. A dot goes green when the step is really done.</p>
     <ul class="milestones" id="milestones"></ul>
   </div>
 
@@ -286,7 +287,9 @@
     </p>
     <div class="bag-wrap">
       <p class="bag-title">Your bag <span id="bag-count"></span></p>
-      <ul class="bag" id="bag" aria-label="Your bag"></ul>
+      <ul class="bag" id="bag" aria-label="Your bag. Tap something to drop it."></ul>
+      <p class="bag-tip">Tap something in your bag to drop it.</p>
+      <p class="notes" id="notes" hidden></p>
     </div>
     <button type="button" class="btn btn-quiet" id="done-btn">I'm done</button>
   </div>
@@ -295,26 +298,51 @@
     <button type="button" class="btn" id="to-workshop">Take it to the workbench</button>
   </div>
 
+  <!-- THE PUZZLES. One box that pops up over the house when you
+       try a lock. js/puzzles.js fills it in. -->
+  <dialog class="puzzle panel" id="puzzle" aria-labelledby="puzzle-title">
+    <div class="pz-head">
+      <h2 id="puzzle-title">Locked</h2>
+      <p class="pz-time">Time <span id="puzzle-time">0:00</span></p>
+    </div>
+    <p class="pz-clue" id="puzzle-clue"></p>
+    <div class="pz-body" id="puzzle-body"></div>
+    <p class="pz-say" id="puzzle-say" aria-live="polite"></p>
+    <div class="start-row">
+      <button type="button" class="btn btn-quiet" id="puzzle-leave">Leave it</button>
+    </div>
+  </dialog>
+
   <!-- THE WORKSHOP (M4). js/workshop.js fills it in from your bag
        and data/recipes.js. -->
   <div class="workshop" id="workshop" hidden>
     <div class="panel ws-top">
       <div class="ws-talk">
         <div class="ws-face" id="ws-face"></div>
-        <p class="ws-bubble" id="ws-say" aria-live="polite"></p>
+        <div class="ws-said">
+          <p class="ws-bubble" id="ws-say" aria-live="polite"></p>
+          <button type="button" class="btn btn-quiet ws-ideas" id="ws-ideas">Any ideas?</button>
+        </div>
       </div>
       <div class="ws-bench" id="ws-bench">
         <button type="button" class="ws-slot" id="ws-slot-a"></button>
         <span class="ws-plus" aria-hidden="true">+</span>
         <button type="button" class="ws-slot" id="ws-slot-b"></button>
+        <!-- The third box only opens when the first two make a trap
+             that can be upgraded. -->
+        <span class="ws-plus ws-plus-c" id="ws-plus-c" aria-hidden="true" hidden>+</span>
+        <button type="button" class="ws-slot ws-slot-c" id="ws-slot-c" hidden></button>
         <span class="ws-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="start-row">
+        <button type="button" class="btn ws-build-now" id="ws-build-now" hidden>Build it as it is</button>
       </div>
       <div class="ws-result" id="ws-result" aria-live="polite"></div>
     </div>
 
     <div class="panel">
       <h2>Your junk</h2>
-      <p class="panel-hint">Tap two things, or drag them onto the bench.</p>
+      <p class="panel-hint">Tap two things, or drag them onto the bench. Put one on and listen for a clue.</p>
       <ul class="ws-cards" id="ws-items"></ul>
       <h2>Your traps</h2>
       <p class="panel-hint">Put a trap back on the bench with one more thing to upgrade it.</p>
@@ -358,6 +386,9 @@
       <button type="button" class="btn btn-quiet" id="zoom-out" hidden>Whole house</button>
     </div>
     <div class="house-scene" id="house"></div>
+    <!-- At night: each burglar's nerve, pinned under the house so it
+         is always in sight. js/night.js fills it in. -->
+    <div class="night-meters" id="night-meters" hidden></div>
     <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot, or press Tab, to see what goes there.</p>
     <ul class="legend" id="legend" aria-label="What the glowing spots mean"></ul>
   </div>
@@ -368,10 +399,12 @@
   <div class="night-bar panel" id="night" hidden>
     <div class="night-head">
       <h2>Security monitors</h2>
-      <button type="button" class="btn btn-quiet" id="night-fast" aria-pressed="false">Faster</button>
+      <div class="night-toggles">
+        <button type="button" class="btn btn-quiet" id="night-zoom" aria-pressed="true">Zoom in on traps</button>
+        <button type="button" class="btn btn-quiet" id="night-fast" aria-pressed="false">Faster</button>
+      </div>
     </div>
     <div class="night-cams" id="night-cams" role="group" aria-label="What the monitors show"></div>
-    <div class="night-meters" id="night-meters"></div>
     <ol class="night-log" id="night-log" aria-label="What the monitors saw"></ol>
     <p class="night-haul" id="night-haul"></p>
   </div>
@@ -388,6 +421,7 @@
     </div>
     <div class="result-burglars" id="result-burglars"></div>
     <dl class="result-stats" id="result-stats"></dl>
+    <ul class="result-traps" id="result-traps" aria-label="Every trap that went off"></ul>
     <p class="result-tip" id="result-tip"></p>
     <div class="result-buttons">
       <button type="button" class="btn btn-quiet" id="result-title-btn">Back to the title</button>

@@ -156,6 +156,19 @@ export function showResult() {
   ui.burglars.innerHTML = '';
   night.burglars.forEach((b) => ui.burglars.append(portrait(b)));
 
+  /* Every trap that went off, who it got, and how much he minded.
+     This is how you learn who hates what. */
+  ui.traps.innerHTML = '';
+  night.fired.forEach((f) => {
+    const who = night.burglars.find((b) => b.id === f.who);
+    const li = document.createElement('li');
+    li.className = `result-trap is-x${String(f.times).replace('.', '')}`;
+    const how = f.times === 2 ? 'HATED it' : f.times < 1 ? 'barely noticed' : 'did not like it';
+    li.textContent = `${f.name} got ${who ? who.name : 'someone'}. He ${how}.`;
+    ui.traps.append(li);
+  });
+  ui.traps.hidden = !night.fired.length;
+
   if (r.taken.length) sfx.lose(); else sfx.win();
 }
 
