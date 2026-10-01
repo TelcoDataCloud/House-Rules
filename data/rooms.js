@@ -61,6 +61,13 @@
    these. The words are what the game says when you look. No
    search means it is just furniture.
 
+   LOCKS
+   Give a hiding place a lock, like
+       lock: 'piano'
+   and you cannot look inside until you solve its puzzle. Give a
+   whole ROOM a lock and you cannot even go in. The puzzles are in
+   data/puzzles.js: 'safe', 'shed' and 'piano'.
+
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
 
@@ -151,10 +158,11 @@ export const ROOMS = [
   { id: 'big-room', name: "Mum and Dad's", floor: 'upstairs',
     flooring: 'carpet',
     x: 500, y: 232, w: 152, h: 160,
-    note: 'Jewellery box. Sid goes straight here.',
+    note: 'Jewellery box, and a safe on the wall. What is in the safe?',
     inTheOpen: [ { x: 84 }, { x: 104, lift: 36 } ],
     props: [
       { kind: 'wardrobe', x: 2,  search: 'Wardrobe' },
+      { kind: 'safe',     x: 58, search: 'Wall safe', lock: 'safe' },
       { kind: 'picture',  x: 86 },
       { kind: 'bed',      x: 54, colour: 'fabric-a', search: 'Under their bed' }
     ],
@@ -202,12 +210,12 @@ export const ROOMS = [
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 296, y: 402, w: 156, h: 154,
-    note: 'The telly, and the piano. Always check the piano.',
+    note: 'The telly, and the piano. The piano lid is locked.',
     inTheOpen: [ { x: 20 }, { x: 100 } ],
     props: [
       { kind: 'window', x: 78 },
       { kind: 'rug',    x: 36, search: 'Under the rug' },
-      { kind: 'piano',  x: 2,  search: 'Inside the piano' },
+      { kind: 'piano',  x: 2,  search: 'Inside the piano', lock: 'piano' },
       { kind: 'tv',     x: 72, search: 'TV cabinet' },
       { kind: 'lamp',   x: 132 }
     ],
@@ -285,8 +293,8 @@ export const ROOMS = [
       { kind: 'hosereel', x: 98, search: 'Hose reel' }
     ] },
   { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
-    x: 948, y: 476, w: 84,  h: 80,
-    note: 'A long walk. Worth it.',
+    x: 948, y: 476, w: 84,  h: 80, lock: 'shed',
+    note: 'A long walk, and a padlock. Worth it.',
     inTheOpen: [ { x: 20 } ],
     props: [
       { kind: 'pegboard',  x: 22, lift: -26, search: 'Shed wall' },

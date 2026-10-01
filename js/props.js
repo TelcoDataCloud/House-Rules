@@ -383,6 +383,17 @@ export const PROPS = {
 
   /* --- ON THE WALLS ----------------------------------------- */
 
+  /* A safe in the wall, with a dial. js/house.js puts a padlock
+     on it while it is locked. */
+  safe(g) {
+    box(g, 0, -106, 26, 26, 'metal', THICK, 2);
+    box(g, 3, -103, 20, 20, 'worktop', THIN, 1.5);
+    ball(g, 11, -93, 4.5, 'metal', THIN);
+    line(g, 11, -93, 11, -96.5);
+    box(g, 18.5, -97, 2.5, 8, 'metal', THIN, 1);
+    shine(g, 'M4 -102 L6 -102 L6 -85 L4 -85 Z');
+  },
+
   picture(g) {
     box(g, 0, -106, 30, 24, 'wood-light');
     box(g, 4, -102, 22, 16, 'glass', 'none', 0);
