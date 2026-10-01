@@ -3,7 +3,8 @@
 
    Puts every bit of loot from data/burglars.js into its room when
    the game starts. At night a burglar can take one (it vanishes
-   from the room). Restart puts everything back.
+   from the room). If he panics he drops it, and it pops back.
+   Restart puts everything back.
 
    Who has what lives in state.taken, like { telly: 'bruno' }.
    =========================================================== */
@@ -36,8 +37,19 @@ export function takeLoot(lootId, burglarId) {
   if (nodes[lootId]) nodes[lootId].classList.add('is-taken');
 }
 
+/* A burglar who panics drops what he is carrying, and it is
+   back where it belongs. It pops back in so you notice. */
+export function dropLoot(lootId) {
+  delete state.taken[lootId];
+  const node = nodes[lootId];
+  if (!node) return;
+  node.classList.remove('is-taken', 'is-dropped');
+  void node.getBBox();
+  node.classList.add('is-dropped');
+}
+
 /* Everything back where it was. */
 export function resetLoot() {
   state.taken = {};
-  Object.values(nodes).forEach((node) => node.classList.remove('is-taken'));
+  Object.values(nodes).forEach((node) => node.classList.remove('is-taken', 'is-dropped'));
 }

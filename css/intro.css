@@ -1,0 +1,88 @@
+/* ===========================================================
+   INTRO - the little comic strip before the night
+   =========================================================== */
+
+.intro { max-width: 900px; width: 100%; }
+.intro-title { margin-bottom: var(--gap); }
+.intro-stage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--outline) solid var(--ink);
+  border-radius: var(--radius-lg);
+  background: var(--house-sky);
+}
+.intro-sky { fill: var(--sky-top); }
+.intro-moon { fill: var(--moon); stroke: var(--ink); stroke-width: 2.5; }
+.intro-star { fill: var(--star); }
+.intro-ground { fill: var(--ground); }
+.intro-wall { fill: var(--wall); }
+.intro-roof { fill: var(--roof); }
+.intro-window { fill: var(--window-glass); }
+.intro-door { fill: var(--door); }
+.intro-knob { fill: var(--btn); }
+.intro-mat { fill: var(--chimney); }
+.intro-jam { fill: var(--fabric-a); stroke: var(--ink); stroke-width: 0.6; opacity: 0; }
+.intro-creak {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 14px;
+  fill: var(--word);
+  opacity: 0;
+}
+
+/* the two of them fade in when the words say so */
+.intro-pos { opacity: 0; transition: opacity 0.5s ease; }
+.intro-pos.is-on { opacity: 1; }
+
+.intro-actor { transform-box: fill-box; transform-origin: 50% 100%; }
+
+.intro-stage.sid-jump .intro-sid { animation: intro-jump 0.9s ease-out; }
+.intro-stage.sid-jump .intro-creak { animation: intro-creak 1.4s ease-out; }
+@keyframes intro-jump {
+  0%   { transform: none; }
+  25%  { transform: translateY(-26px) scale(0.92, 1.14); }
+  50%  { transform: none; }
+  65%  { transform: translateX(-3px); }
+  80%  { transform: translateX(3px); }
+  100% { transform: none; }
+}
+@keyframes intro-creak {
+  0%   { opacity: 0; }
+  20%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.intro-stage[data-beat="3"] .intro-jam,
+.intro-stage[data-beat="4"] .intro-jam { opacity: 1; }
+.intro-stage.bruno-wipe .intro-bruno { animation: intro-wipe 0.4s ease-in-out 4; }
+@keyframes intro-wipe {
+  0%, 100% { transform: none; }
+  50% { transform: translateX(6px) rotate(3deg); }
+}
+
+.intro-words {
+  min-height: 3.2em;
+  margin: var(--gap) 0 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+.intro-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-top: var(--gap);
+}
+.intro-count { color: var(--text-dim); font-weight: 700; }
+
+@media (max-width: 560px) {
+  .intro-words { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-pos { transition: none; }
+  .intro-stage.sid-jump .intro-sid,
+  .intro-stage.bruno-wipe .intro-bruno,
+  .intro-stage.sid-jump .intro-creak { animation: none; }
+  .intro-stage.sid-jump .intro-creak { opacity: 1; }
+}

@@ -1,0 +1,281 @@
+/* ===========================================================
+   FX - the slapstick, as animations
+
+   js/fx.js puts the shapes in place and adds a class. Everything
+   that moves is in here. Every colour is from tokens.css.
+
+   Remember the trap from M0: a CSS transform on an SVG group
+   wipes out its transform attribute. So the group that is moved
+   into place never gets a class from this file. Its child does.
+   =========================================================== */
+
+/* --- THE BURGLAR'S OWN WOBBLES ------------------------------ */
+
+.burglar-fx { transform-box: fill-box; transform-origin: 50% 100%; }
+
+/* feet out, flat on his back, back up again */
+.burglar-fx.fx-slip { animation: fx-slip 2.6s ease-in-out; }
+@keyframes fx-slip {
+  0%   { transform: none; }
+  10%  { transform: translate(4px, -14px) rotate(-28deg); }
+  24%  { transform: translate(10px, -6px) rotate(-82deg); }
+  30%  { transform: translate(12px, 0) rotate(-90deg); }
+  66%  { transform: translate(12px, 0) rotate(-90deg); }
+  80%  { transform: translate(6px, -4px) rotate(-30deg); }
+  100% { transform: none; }
+}
+
+/* knocked back by something swinging */
+.burglar-fx.fx-knock { animation: fx-knock 1.4s ease-out; }
+@keyframes fx-knock {
+  0%   { transform: none; }
+  12%  { transform: rotate(-18deg) translateX(-4px); }
+  40%  { transform: rotate(8deg); }
+  60%  { transform: rotate(-4deg); }
+  100% { transform: none; }
+}
+
+/* squashed by something landing on his head */
+.burglar-fx.fx-squash { animation: fx-squash 2.4s ease-out; }
+@keyframes fx-squash {
+  0%, 22% { transform: none; }
+  28%     { transform: scale(1.18, 0.78); }
+  40%     { transform: scale(0.94, 1.06); }
+  52%     { transform: none; }
+  60%, 80% { transform: rotate(-3deg); }
+  70%     { transform: rotate(3deg); }
+  100%    { transform: none; }
+}
+
+/* coughing and flapping in a cloud */
+.burglar-fx.fx-shake { animation: fx-shake 0.18s linear 10; }
+@keyframes fx-shake {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-2px) rotate(-3deg); }
+  75% { transform: translateX(2px) rotate(3deg); }
+}
+
+/* boots stuck, the rest of him trying to go */
+.burglar-fx.fx-wobble { animation: fx-wobble 0.5s ease-in-out 5; }
+@keyframes fx-wobble {
+  0%, 100% { transform: none; }
+  30% { transform: rotate(-12deg); }
+  70% { transform: rotate(12deg); }
+}
+
+/* stuck in the web, wriggling */
+.burglar-fx.fx-wiggle { animation: fx-wiggle 0.3s linear 8; }
+@keyframes fx-wiggle {
+  0%, 100% { transform: none; }
+  50% { transform: scale(0.95, 1.04) rotate(4deg); }
+}
+
+/* jumps out of his skin */
+.burglar-fx.fx-jump { animation: fx-jump 1.6s ease-out; }
+@keyframes fx-jump {
+  0%   { transform: none; }
+  12%  { transform: translateY(-30px) scale(0.95, 1.12); }
+  26%  { transform: translateY(0) scale(1.1, 0.9); }
+  34%  { transform: none; }
+  40%, 60% { transform: translateX(-2px); }
+  50%, 70% { transform: translateX(2px); }
+  100% { transform: none; }
+}
+
+/* spun round by the lights */
+.burglar-fx.fx-spin { animation: fx-spin 0.4s linear 5; }
+@keyframes fx-spin {
+  0%, 100% { transform: none; }
+  50% { transform: scaleX(-1); }
+}
+
+/* --- THE THINGS THAT HIT HIM -------------------------------- */
+
+.fx-layer, .fx-layer * { pointer-events: none; }
+
+.fx-swinger { animation: fx-swing 2.4s ease-in-out forwards; }
+@keyframes fx-swing {
+  0%   { transform: rotate(var(--from)); opacity: 0; }
+  8%   { opacity: 1; }
+  33%  { transform: rotate(0deg); }
+  50%  { transform: rotate(calc(var(--from) * -0.25)); }
+  68%  { transform: rotate(calc(var(--from) * 0.1)); }
+  85%  { transform: rotate(0deg); opacity: 1; }
+  100% { transform: rotate(0deg); opacity: 0; }
+}
+.fx-rope { stroke: var(--rope); stroke-width: 2.4; }
+.fx-tin { fill: var(--metal); stroke: var(--ink); stroke-width: 1.6; }
+.fx-tin-lid { fill: var(--mess-paint); }
+.fx-sack { fill: var(--sack); stroke: var(--ink); stroke-width: 1.6; }
+
+.fx-dropper { animation: fx-drop 2.6s ease-in forwards; }
+@keyframes fx-drop {
+  0%   { transform: translateY(-150px); opacity: 0; }
+  5%   { opacity: 1; }
+  23%  { transform: translateY(0); }
+  30%  { transform: translateY(-5px); }
+  36%  { transform: translateY(0); }
+  82%  { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(40px) rotate(40deg); opacity: 0; }
+}
+.fx-bucket { fill: var(--metal); stroke: var(--ink); stroke-width: 1.8; stroke-linejoin: round; }
+.fx-bucket-rim { stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+
+.fx-puff {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  stroke: var(--ink);
+  stroke-width: 0.8;
+  animation: fx-puff 1.6s ease-out forwards;
+}
+@keyframes fx-puff {
+  0%   { opacity: 0; transform: scale(0.2); }
+  20%  { opacity: 0.95; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5) translateY(-10px); }
+}
+
+.fx-stream { opacity: 0.9; animation: fx-pour 2.2s ease-in forwards; stroke: var(--ink); stroke-width: 1.2; }
+@keyframes fx-pour {
+  0%   { transform: scaleY(0); }
+  25%  { transform: scaleY(1); }
+  70%  { transform: scaleY(1); opacity: 0.9; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+.fx-splash { opacity: 0; animation: fx-splash 0.9s ease-out forwards; transform-box: fill-box; transform-origin: center; }
+@keyframes fx-splash {
+  0%   { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(0, -18px) scale(0.5); }
+}
+
+.fx-puddle {
+  opacity: 0.9;
+  stroke: var(--ink);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fx-grow 2.6s ease-out forwards;
+}
+@keyframes fx-grow {
+  0%   { transform: scaleX(0.1); opacity: 0.9; }
+  20%  { transform: scaleX(1); }
+  85%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+.fx-tape {
+  fill: none;
+  stroke: var(--tape);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: fx-tape 2.4s ease-out forwards;
+}
+@keyframes fx-tape {
+  0%   { stroke-dashoffset: 80; opacity: 1; }
+  20%  { stroke-dashoffset: 0; }
+  80%  { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.fx-ring {
+  fill: none;
+  stroke: var(--word);
+  stroke-width: 3;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fx-ring 1.2s ease-out forwards;
+}
+@keyframes fx-ring {
+  0%   { opacity: 1; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(4); }
+}
+
+.fx-strobe { opacity: 0.5; mix-blend-mode: screen; animation: fx-strobe 0.24s steps(1) 9 forwards; }
+@keyframes fx-strobe {
+  0%   { fill: var(--disco-a); }
+  33%  { fill: var(--disco-b); }
+  66%  { fill: var(--disco-c); }
+  100% { fill: transparent; }
+}
+
+.fx-skid { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: 0.5; stroke-dasharray: 4 3; }
+
+/* --- THE BIG WORD and THE STARS ------------------------------ */
+
+.fx-word { animation: fx-word 1.3s ease-out forwards; transform-box: fill-box; transform-origin: center; }
+@keyframes fx-word {
+  0%   { transform: scale(0.2) rotate(-12deg); opacity: 0; }
+  14%  { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  24%  { transform: scale(1) rotate(-3deg); }
+  80%  { opacity: 1; }
+  100% { transform: scale(1.05) translateY(-8px); opacity: 0; }
+}
+.fx-sign .fx-word { animation-duration: 2.6s; }
+.fx-word-back { fill: var(--word); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.fx-word-text {
+  fill: var(--word-text);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.fx-stars { animation: fx-stars 0.9s linear infinite; }
+@keyframes fx-stars {
+  from { transform: rotate(0deg) scaleY(0.6); }
+  to   { transform: rotate(360deg) scaleY(0.6); }
+}
+.fx-star { fill: var(--word); stroke: var(--ink); stroke-width: 0.8; }
+
+/* --- POLICE ------------------------------------------------- */
+
+.fx-police-red, .fx-police-blue { opacity: 0; mix-blend-mode: screen; }
+.fx-police-red { fill: var(--police-red); animation: fx-flash 0.6s steps(1) infinite; }
+.fx-police-blue { fill: var(--police-blue); animation: fx-flash 0.6s steps(1) infinite 0.3s; }
+@keyframes fx-flash {
+  0%   { opacity: 0.32; }
+  50%  { opacity: 0; }
+}
+
+/* --- THE MESS HE IS LEFT WEARING ---------------------------- */
+
+.coat .mess-fill { stroke: var(--ink); stroke-width: 0.6; }
+.coat-flour .mess-fill { fill: var(--mess-flour); }
+.coat-feathers .mess-fill { fill: var(--mess-feather); }
+.coat-paint .mess-fill { fill: var(--mess-paint); }
+.coat-honey .mess-fill { fill: var(--mess-honey); }
+.coat-water .mess-fill { fill: var(--mess-water); opacity: 0.85; }
+.mess-drip { fill: none; stroke-width: 2; stroke-linecap: round; }
+.coat-paint .mess-drip { stroke: var(--mess-paint); }
+.coat-honey .mess-drip { stroke: var(--mess-honey); }
+.coat-water .mess-drip { stroke: var(--mess-water); }
+.glitter { stroke: none; }
+.glitter-0 { fill: var(--glitter-a); }
+.glitter-1 { fill: var(--glitter-b); }
+.glitter-2 { fill: var(--glitter-c); }
+
+/* the puffs and streams take the same colours */
+.mess-flour { fill: var(--mess-flour); }
+.mess-feathers { fill: var(--mess-feather); }
+.mess-paint { fill: var(--mess-paint); }
+.mess-honey { fill: var(--mess-honey); }
+.mess-water { fill: var(--mess-water); }
+.mess-glitter { fill: var(--glitter-a); }
+
+/* --- LESS MOTION ---------------------------------------------
+   Nothing flies about. The word, the mess and the stars still
+   appear, so you can still see what happened.
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .burglar-fx, .fx-swinger, .fx-dropper, .fx-puff, .fx-stream, .fx-splash,
+  .fx-puddle, .fx-tape, .fx-ring, .fx-strobe, .fx-word, .fx-stars,
+  .fx-police-red, .fx-police-blue { animation: none !important; }
+  .fx-puff, .fx-splash, .fx-ring { opacity: 0.8; }
+  .fx-strobe { fill: var(--disco-a); opacity: 0.25; }
+  .fx-tape { stroke-dashoffset: 0; }
+  .fx-police-red { opacity: 0.2; }
+}

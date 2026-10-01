@@ -140,3 +140,11 @@ export function drawBurglar(g, look) {
 
 /* How tall each one is, so a speech bubble sits over his head. */
 export const HEIGHT = { sid: 82, bruno: 86 };
+
+/* Where things are on each of them, for js/fx.js: the middle of
+   his head, how wide he is from the middle, and the top of his
+   hat. A bucket lands on head, flour covers the rest. */
+export const BODY = {
+  sid:   { head: [1, -70], half: 10, top: -82 },
+  bruno: { head: [1, -67], half: 16, top: -86 }
+};

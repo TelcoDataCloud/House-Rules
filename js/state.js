@@ -17,6 +17,7 @@ import { DEFAULT_DIFFICULTY } from '../data/difficulty.js';
    'title' and 'result' are the bookends. */
 export const PHASES = [
   'title',
+  'intro',
   'scavenge',
   'workshop',
   'rig',
@@ -52,13 +53,15 @@ export function freshState() {
     timeLeft: 0,        // seconds left on the scavenge clock
     scavenging: false,  // true while the clock is running
 
-    /* These are empty until the milestones that fill them. */
+    /* The traps, the night, and how it all went. */
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor
     notebook: [],       // M4: recipes discovered so far (kept on restart)
     burglars: [],       // M6: Sid and Bruno at night: where they are, what they carry
     taken: {},          // M6: which loot has gone, like { telly: 'bruno' }
-    noticed: 0          // M9: the neighbours noticed meter
+    fired: [],          // M7: every trap that went off tonight, and who it got
+    noticed: 0,         // M9: the neighbours noticed meter
+    night: null         // M9: how the night ended, for the result screen
   };
 }
 
