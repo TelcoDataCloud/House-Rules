@@ -12,6 +12,9 @@
    its hiding places wake up. You can only search the room you
    are actually standing in.
 
+   A locked room (the shed) stops him at the door: he walks to the
+   room next to it and js/scavenge.js shows the padlock puzzle.
+
    How fast he walks, and where he starts, is in data/hero.js.
    =========================================================== */
 
@@ -27,6 +30,11 @@ import { drawHero, pyjamaPattern } from './hero-art.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
+/* Who says a room is locked, and what to do at its door.
+   js/scavenge.js sets it: { blocked(roomId), onBlocked(roomId) } */
+let gate = null;
+export function setGate(g) { gate = g; }
+
 const me = {
   on: false,          // true during the scavenge
   x: 0, y: 0,         // where his feet are, on the house picture
@@ -34,6 +42,7 @@ const me = {
   path: [],           // the points he still has to walk to
   goal: null,         // the room he is walking to
   next: null,         // a room you tapped while he was still walking
+  then: null,         // a locked room he is standing outside of
   frame: null,        // the animation that moves him
   last: 0,
   node: null, face: null
@@ -113,6 +122,11 @@ function arrive() {
   }
   me.next = null;
   if (isFollowing()) zoomToRoom(me.goal);
+  if (me.then && gate) {
+    const locked = me.then;
+    me.then = null;
+    gate.onBlocked(locked);
+  }
 }
 
 export function walkTo(roomId) {
@@ -121,6 +135,16 @@ export function walkTo(roomId) {
     me.next = roomId;
     sayInHud('On the way', `Then the ${findRoom(roomId).name}.`);
     return;
+  }
+  me.then = null;
+  /* locked? walk to the room next to it instead, then try the lock */
+  if (gate && gate.blocked(roomId)) {
+    const way = findWay(state.heroRoom, roomId);
+    if (!way) return;
+    const door = way.length > 1 ? way[way.length - 2].to : state.heroRoom;
+    if (door === state.heroRoom) { zoomToRoom(door); gate.onBlocked(roomId); return; }
+    me.then = roomId;
+    roomId = door;
   }
   if (roomId === state.heroRoom) {            // already there, just look
     zoomToRoom(roomId);
@@ -172,12 +196,18 @@ export function startHero() {
   zoomToRoom(HERO.startRoom);
 }
 
+/* Where his feet are, on the house picture. */
+export function heroSpot() {
+  return { x: me.x, y: me.y };
+}
+
 /* Freeze where he is (time up). He stays on screen. */
 export function stopWalking() {
   if (me.frame) cancelAnimationFrame(me.frame);
   me.frame = null;
   me.path = [];
   me.next = null;
+  me.then = null;
   state.walking = false;
   if (me.node) me.node.classList.remove('is-walking');
 }
