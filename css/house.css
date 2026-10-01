@@ -17,6 +17,8 @@
 }
 
 .house-wrap[hidden] { display: none; }
+/* 1.405 is how wide the house picture is for its height (1040 by 740) */
+.house-wrap.is-night { max-width: min(900px, calc((100vh - 250px) * 1.405)); min-width: min(100%, 520px); }
 
 .house-scene {
   width: 100%;
