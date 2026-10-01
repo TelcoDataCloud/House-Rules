@@ -17,9 +17,10 @@
 /* Legs and arms swing from the top, like Hendrix's do. */
 .b-limb { transform-box: fill-box; transform-origin: 50% 0; }
 
-/* Sid scurries. Bruno plods. */
+/* Sid scurries. Bruno plods. Running away, they both pelt it. */
 .burglar-sid.is-walking   { --stride: 0.26s; --swing: 26deg; }
 .burglar-bruno.is-walking { --stride: 0.46s; --swing: 16deg; }
+.burglar.is-fleeing       { --stride: 0.14s; --swing: 38deg; }
 
 .burglar.is-walking .b-leg-front { animation: b-swing var(--stride) ease-in-out infinite alternate; }
 .burglar.is-walking .b-leg-back  { animation: b-swing var(--stride) ease-in-out infinite alternate-reverse; }
@@ -50,6 +51,23 @@
 /* --- LOOT ---------------------------------------------------- */
 
 .loot-item.is-taken { display: none; }
+
+/* Dropped by a burglar in a panic: it blinks back in. (Only the
+   see-through changes, because this group has a position.) */
+.loot-item.is-dropped { animation: loot-back 0.25s steps(1) 6; }
+@keyframes loot-back {
+  50% { opacity: 0.2; }
+}
+
+/* Hendrix, up in the attic, jumps when a trap goes off. */
+.hero-cheer { transform-box: fill-box; transform-origin: 50% 100%; }
+.hero-cheer.is-cheering { animation: hero-cheer 0.7s ease-out; }
+@keyframes hero-cheer {
+  0%, 100% { transform: none; }
+  35% { transform: translateY(-10px) scale(1, 1.06); }
+  60% { transform: none; }
+  75% { transform: translateY(-4px); }
+}
 
 /* A trap spot flashes when somebody walks straight past it. */
 .anchor.is-passed .anchor-trap-back { animation: trap-ping 0.4s ease-in-out 3; }
@@ -98,13 +116,41 @@
 
 .night-haul { font-weight: 700; margin: var(--gap) 0 0; }
 
-.night-end[hidden] { display: none; }
-.night-end {
-  margin-top: var(--gap-lg);
-  padding-top: var(--gap);
-  border-top: 3px dashed var(--text-dim);
+.night-line.is-good { color: var(--win); font-weight: 700; }
+.night-line.is-bad { color: var(--lose); font-weight: 700; }
+.night-line.is-note { color: var(--text); font-style: italic; }
+
+/* --- THE METERS ---------------------------------------------- */
+
+.night-meters {
+  display: grid;
+  gap: 8px;
+  margin-bottom: var(--gap);
 }
-.night-end-text { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
+.meter {
+  display: grid;
+  grid-template-columns: 11em 1fr 9em;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+.meter-bar {
+  height: 18px;
+  background: var(--meter-back);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.meter-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--meter-nerve);
+  transition: width 0.6s ease;
+}
+.meter-noise .meter-fill { background: var(--meter-noise); }
+.meter-word { color: var(--text-dim); font-size: 14px; }
+
 .night-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -115,10 +161,15 @@
 
 @media (max-width: 560px) {
   .night-cams .btn, .night-buttons .btn { flex: 1 1 100%; }
+  .meter { grid-template-columns: 1fr 7em; }
+  .meter-bar { grid-column: 1 / -1; grid-row: 2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .burglar.is-walking .b-limb,
   .burglar.is-walking .burglar-body,
-  .anchor.is-passed .anchor-trap-back { animation: none; }
+  .anchor.is-passed .anchor-trap-back,
+  .loot-item.is-dropped,
+  .hero-cheer.is-cheering { animation: none; }
+  .meter-fill { transition: none; }
 }
