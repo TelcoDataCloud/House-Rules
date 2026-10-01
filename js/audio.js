@@ -125,5 +125,14 @@ export const sfx = {
   siren()   { for (let i = 0; i < 6; i += 1) later(i * 420, () => slide(i % 2 ? 950 : 650, i % 2 ? 650 : 950, 400, 'sine', 0.05)); },
   win()     { [523, 659, 784, 1047, 784, 1047].forEach((f, i) => later(i * 120, () => blip(f, 140, 'square'))); },
   lose()    { [392, 370, 349, 262].forEach((f, i) => later(i * 260, () => slide(f, f * 0.94, 240, 'triangle', 0.08))); },
+  /* --- the puzzles --- */
+  note(k)   { blip([523, 587, 659, 784, 880][k % 5], 260, 'triangle', 0.1); },
+  unlock()  { blip(180, 60, 'square'); later(80, () => blip(140, 90, 'square')); later(220, () => [784, 1047, 1319].forEach((f, i) => later(i * 90, () => blip(f, 120, 'square')))); },
+  putDown() { slide(500, 220, 160, 'triangle', 0.06); },
+  /* --- extra slapstick --- */
+  boing()   { slide(180, 520, 120, 'sine', 0.09); later(110, () => slide(520, 160, 260, 'sine', 0.07)); },
+  whistle() { slide(1600, 400, 700, 'sine', 0.05); },
+  thud()    { hiss(160, 220, 0.35); blip(70, 160, 'sine', 0.12); },
+  zoom()    { slide(300, 1400, 380, 'sawtooth', 0.04); },
   rummage() { blip(180, 60, 'sawtooth', 0.04); setTimeout(() => blip(150, 60, 'sawtooth', 0.04), 90); setTimeout(() => blip(210, 70, 'sawtooth', 0.04), 180); }
 };

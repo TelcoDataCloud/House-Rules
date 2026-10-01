@@ -16,6 +16,7 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { MILESTONES } from '../data/milestones.js';
 import { state } from './state.js';
 import { sfx } from './audio.js';
+import { hush } from './voice.js';
 
 /* --- DIFFICULTY PICKER -------------------------------------- */
 
@@ -105,7 +106,7 @@ export function setupToggles(themeBtn, soundBtn) {
   soundBtn.addEventListener('click', () => {
     state.soundOn = !state.soundOn;
     applySound(soundBtn);
-    if (state.soundOn) sfx.toggle();
+    if (state.soundOn) sfx.toggle(); else hush();
   });
 }
 

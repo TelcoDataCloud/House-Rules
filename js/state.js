@@ -53,6 +53,13 @@ export function freshState() {
     timeLeft: 0,        // seconds left on the scavenge clock
     scavenging: false,  // true while the clock is running
 
+    /* The puzzles (js/puzzles.js). Tonight's answers are in
+       puzzles. Type HOUSE.state.puzzles in the console to cheat. */
+    puzzles: null,      // { safe: { code, sums }, shed: { riddle, word }, piano: { tune } }
+    unlocked: [],       // locks you have opened, like 'safe'
+    notes: [],          // clues you have found, like Dad's note for 'safe'
+    noteSpot: null,     // the hiding place Dad's note is in
+
     /* The traps, the night, and how it all went. */
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor

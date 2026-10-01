@@ -159,6 +159,50 @@ export const ITEM_ART = {
     shape(g, 'M7 -2 L9 -2 L8 0 Z', c || 'fabric-b', THIN);
     shine(g, 'M5 -12 Q5 -14 7 -14.5 L6.5 -11 Z');
   },
+  banana(g, c) {
+    shape(g, 'M1 -11 Q1 -1 9 -1 Q15 -1 16 -6 Q13 -4.5 9 -5 Q4 -6 4.5 -12 Z', c || 'lamp-shade', THIN);
+    shape(g, 'M4.5 -12 L4 -14.5 L2 -14 L1 -11 Z', 'wood-dark', THIN);
+    shape(g, 'M3 -8 Q5 -3.5 11 -3', 'none', THIN);
+    ball(g, 16, -6, 0.9, 'wood-dark', 'none');
+  },
+  cushion(g, c) {
+    add(g, 'ellipse', { cx: 8, cy: -5, rx: 8, ry: 4.5, fill: paint(c || 'paint-pink'), class: THICK });
+    shape(g, 'M14 -3 L18 -1 L17 1 L13 -1 Z', c || 'paint-pink', THIN);
+    shape(g, 'M3 -6 Q8 -9 13 -6', 'none', THIN);
+    shine(g, 'M4 -7 Q6 -8.5 8 -8.5 L8 -7.5 Q6 -7.5 4.5 -6.5 Z');
+  },
+  custard(g, c) {
+    box(g, 2, -14, 12, 14, 'metal', THICK, 1);
+    box(g, 2, -11, 12, 7, c || 'lamp-shade', 'none', 0);
+    shape(g, 'M5 -9 Q8 -12 11 -9 Q8 -6 5 -9 Z', 'porcelain', 'none');
+    shape(g, 'M2 -14 Q4 -10 6 -14 Z', c || 'lamp-shade', 'none');
+  },
+  alarm(g, c) {
+    ball(g, 8, -7, 6.5, c || 'fabric-a');
+    ball(g, 8, -7, 4.6, 'porcelain', THIN);
+    line(g, 8, -7, 8, -10);
+    line(g, 8, -7, 10.5, -6);
+    ball(g, 3, -13, 2.4, 'paint-yellow', THIN);
+    ball(g, 13, -13, 2.4, 'paint-yellow', THIN);
+    line(g, 4, -1, 2.5, 1, THIN);
+    line(g, 12, -1, 13.5, 1, THIN);
+  },
+  chicken(g, c) {
+    add(g, 'ellipse', { cx: 7, cy: -6, rx: 6.5, ry: 4.5, fill: paint(c || 'lamp-shade'), class: THIN });
+    shape(g, 'M10 -8 L12 -14 Q12 -17 14 -17 Q16 -17 16 -15 L14 -8 Z', c || 'lamp-shade', THIN);
+    shape(g, 'M16 -16 L18.5 -15 L16 -14 Z', 'fabric-a', THIN);
+    shape(g, 'M13 -17 Q13.5 -19.5 15 -17.5 Z', 'fabric-a', THIN);
+    ball(g, 14.4, -15.4, 0.7, 'wood-dark', 'none');
+    shape(g, 'M1 -7 L-1 -10 L2 -8 Z', c || 'lamp-shade', THIN);
+    line(g, 5, -2, 4, 0);
+    line(g, 9, -2, 10, 0);
+  },
+  loo(g, c) {
+    box(g, 2, -14, 12, 14, c || 'porcelain', THICK, 3);
+    add(g, 'ellipse', { cx: 8, cy: -14, rx: 6, ry: 1.8, fill: paint('porcelain'), class: THIN });
+    add(g, 'ellipse', { cx: 8, cy: -14, rx: 2, ry: 0.8, fill: paint('wood-light'), class: THIN });
+    shape(g, 'M14 -8 Q17 -5 16 0 L13 0', c || 'porcelain', THIN);
+  },
   parcel(g, c) {
     box(g, 1, -12, 14, 12, c || 'cardboard');
     line(g, 8, -12, 8, 0);

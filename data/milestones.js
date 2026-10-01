@@ -1,7 +1,7 @@
 /* ===========================================================
    MILESTONES - the build progress strip on the title screen
 
-   Hendrix: this is the list of ten steps it takes to finish the
+   Hendrix: this is the list of steps it took to build the
    game. Every time we finish one, we change its done from
    false to true and a dot lights up green on the title screen.
 
@@ -20,5 +20,7 @@ export const MILESTONES = [
   { code: 'M7',  name: 'Traps Fire',    done: true  },
   { code: 'M8',  name: 'Slapstick',     done: true  },
   { code: 'M9',  name: 'Consequences',  done: true  },
-  { code: 'M10', name: 'Polish',        done: true  }
+  { code: 'M10', name: 'Polish',        done: true  },
+  /* The game was finished at M10. Then we kept going. */
+  { code: 'M11', name: 'Locks and Hints', done: true }
 ];

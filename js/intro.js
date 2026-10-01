@@ -24,6 +24,7 @@ const BEATS = [
   { words: 'Two burglars have been watching this house all week.', show: ['sid', 'bruno'] },
   { who: 'sid', words: 'Did that step just CREAK? I hate creaks. And bangs. And surprises.', show: ['sid', 'bruno'], act: 'sid-jump', sound: 'yelp' },
   { who: 'bruno', words: 'Ugh. Is that JAM on my boot? I hate sticky.', show: ['sid', 'bruno'], act: 'bruno-wipe', sound: 'stick' },
+  { words: 'The best junk is locked up: in the safe, the piano and the shed. Crack the puzzles to get it.' },
   { words: 'They come in at midnight. Raid the house for junk, bolt it into traps, and rig every door.', show: ['sid', 'bruno'], last: true }
 ];
 
