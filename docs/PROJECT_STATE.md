@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 29 September 2026 (M6 done). The newest sections are at the bottom; read those first.
+Last updated: 1 October 2026 (M0 to M10 done, the game is finished and playable). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -466,6 +466,83 @@ any `says:` line.
 (M3), Glue Bomb (M4), my-floor (M5), rename a burglar (M6). The M0 name
 is done: the page title and the tab both say Trap House.
 
-**Next:** M7 — Traps Fire. Collision at the spots they already detect,
-nerve and weaknesses in data/burglars.js, nerve damage, meters,
-placeholder effects, fleeing. The game becomes playable end to end.
+## M7 to M10 — the game is finished. Done 1 Oct 2026
+
+Asa: "Finish the game, get it as polished as possible and playable." So
+the last four milestones went in one session, on his say so.
+
+**M7 — Traps Fire** (`js/night.js`)
+- A trap goes off on the first burglar who walks past its spot, once,
+  then the spot is empty. Damage = trap `nerve` x 2 (a kind he hates),
+  x 0.5 (a kind he shrugs off) or x 1. Two kinds: the one that hurts more.
+- `data/burglars.js` now has `nerve` (Sid 8, Bruno 14), `weakTo`,
+  `shrugsOff`, and shout lines `ouch`, `hates`, `meh`, `panic`, `caught`.
+- Nerve meters on the monitors panel use words (Calm, Twitchy, Shaking,
+  Running for it), never numbers, per the brief. The log says "Sid HATED
+  that." or "Bruno barely noticed." so the weaknesses are learned by play.
+- Nerve gone: he panics, drops everything (it blinks back into its room),
+  and runs for the nearest side. Traps leave a running burglar alone.
+- `state.fired` records every hit.
+
+**M8 — Slapstick** (`js/fx.js`, `css/fx.css`)
+- Every recipe in `data/recipes.js` now has `fx` (slip, swing, drop,
+  cloud, pour, stick, tangle, noise, flash), an optional `mess` (flour,
+  feathers, paint, honey, glitter, water) and a `word` (CLONG! etc.).
+- Beat: trigger, chaos, big comic word beside his head, a yelp in his
+  speech bubble, then he gets up. Stars for slips, swings and drops.
+- The mess stays on him for the rest of the night and on the result
+  screen. Hendrix jumps up in the attic each time a trap lands.
+- A sound for each kind (audio.js now has `slide` and `hiss` helpers).
+- Reduced motion: nothing flies, but the word, mess and stars appear.
+
+**M9 — Consequences** (`js/result.js`, `css/result.css`)
+- LOUD traps add their nerve number to the Neighbours noticed meter.
+  `NEIGHBOURS` in `data/difficulty.js`: `callPoliceAt: 6`,
+  `policeTake: 9` seconds. Police arrive with flashing lights; anyone
+  still inside is BUSTED (loot saved); anyone not yet in never comes in.
+- Endings: BUSTED! (arrest, nothing taken), YOU WIN! (both ran, nothing
+  taken), NEARLY! (one sorted, some loot gone), THEY GOT AWAY ("They took
+  the telly. Rebuild. Rig harder.").
+- Grade S/A/B/C from points: loot saved 10 each, arrest 15, ran off 5,
+  trap fired 3, trap they hated +2. S 85, A 65, B 45. Both in POINTS
+  and GRADES at the top of js/result.js.
+- Result screen: big grade badge, the two burglars still wearing their
+  mess (arrested one behind bars), stats, one useful tip, Play again
+  (same difficulty, straight into the scavenge, notebook kept) and Back
+  to the title.
+
+**M10 — Polish**
+- Intro (`js/intro.js`, `css/intro.css`): a five beat comic strip
+  before the scavenge. Sid jumps at a creak (loud, startle), Bruno finds
+  jam on his boot (sticky). Next and Skip. New phase 'intro'.
+- No dead ends: the workbench always offers "Go downstairs", and rig
+  always offers "Let them in" (or "Let them in anyway" with no traps).
+- Phase cards now hold tips instead of milestone notes. The help card
+  hides on the result screen.
+- Checked: desktop, phone 390px, tablet 820px, day and night themes,
+  reduced motion, keyboard start and intro, console clean everywhere.
+
+Verified headless with whole nights: no traps (C, they got away),
+four strong traps (S, both ran), loud traps (S, BUSTED), a real UI
+playthrough of scavenge, workbench, rig and night with 8 items (B,
+NEARLY!), Play again resets everything but the notebook, Back to the
+title, restart mid-night. Re-run against the live site after the deploy
+of `1c10851`: same results, console clean.
+
+**Hendrix's turns for M7 to M10:**
+- M7: in `data/recipes.js`, change The Doorbell's `nerve` from 1 to 5.
+  Play, and see if it is overpowered. Then put it back.
+- M8: change a trap's `word` (try the Pendulum's CLONG!) or its `fx`
+  (make the Doorbell `fx: 'slip'` and watch what happens).
+- M9: in `data/difficulty.js`, set `callPoliceAt` to 2, play, and see
+  the police every time. Then pick the number he thinks is fair.
+- M10: change the tagline under the title in `index.html`, then send
+  the link to his friends.
+
+**Turns still owing from before:** `walkSpeed` (M2), Water Balloon and
+the Hard timer (M3), Glue Bomb (M4, the header in recipes.js now gives it
+an fx too), my-floor (M5), rename a burglar (M6).
+
+**What could come next (phase 2, ask Asa first):** the brief's wishlist:
+roaming burglars, Hendrix movable at night, escalating nights, a trap
+editor.
