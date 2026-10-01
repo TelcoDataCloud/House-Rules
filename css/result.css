@@ -83,6 +83,26 @@
 .result-stats dt { font-size: 13px; color: var(--text-dim); font-weight: 700; }
 .result-stats dd { margin: 2px 0 0; font-size: 26px; font-weight: 900; font-family: var(--font-display); }
 
+.result-traps {
+  list-style: none;
+  margin: var(--gap-lg) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.result-traps[hidden] { display: none; }
+.result-trap {
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--bg-2);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+}
+.result-trap.is-x2 { border-color: var(--win); color: var(--win); }
+.result-trap.is-x05 { color: var(--text-dim); }
+
 .result-tip {
   margin: var(--gap-lg) 0 0;
   padding: var(--gap);

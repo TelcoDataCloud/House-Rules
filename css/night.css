@@ -120,22 +120,63 @@
 .night-line.is-bad { color: var(--lose); font-weight: 700; }
 .night-line.is-note { color: var(--text); font-style: italic; }
 
-/* --- THE METERS ---------------------------------------------- */
+/* --- THE METERS ----------------------------------------------
+   Pinned under the house. position: sticky keeps them stuck to
+   the bottom of the screen whenever the house is in view, so you
+   never have to scroll down to see how they are doing.
+   ------------------------------------------------------------ */
 
 .night-meters {
+  position: sticky;
+  bottom: 8px;
+  z-index: 5;
+  width: 100%;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  margin-bottom: var(--gap);
+  padding: 8px;
+  background: var(--pin-back);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 0 var(--ink);
 }
-.meter {
-  display: grid;
-  grid-template-columns: 11em 1fr 9em;
+.night-meters[hidden] { display: none; }
+
+.pin {
+  display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 700;
+  gap: 8px;
+  min-width: 0;
+  padding: 4px 8px;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
 }
+.pin-face {
+  flex: none;
+  width: 40px;
+  height: 46px;
+  background: var(--meter-back);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+.pin-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pin-top { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 6px; font-size: 14px; line-height: 1.2; }
+.pin-word { color: var(--text-dim); font-weight: 700; }
+.pin-sack {
+  flex: none;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dim);
+  padding: 2px 6px;
+  border: 2px solid var(--ink-soft);
+  border-radius: 999px;
+}
+.pin-sack.has-loot { color: var(--lose); border-color: var(--lose); }
+
 .meter-bar {
-  height: 18px;
+  display: block;
+  height: 14px;
   background: var(--meter-back);
   border: 3px solid var(--ink);
   border-radius: 999px;
@@ -148,8 +189,22 @@
   background: var(--meter-nerve);
   transition: width 0.6s ease;
 }
-.meter-noise .meter-fill { background: var(--meter-noise); }
-.meter-word { color: var(--text-dim); font-size: 14px; }
+.pin.is-low .meter-fill { background: var(--meter-low); }
+.pin.is-low .pin-word { color: var(--lose); }
+.pin.is-out { opacity: 0.55; }
+.pin-noise .meter-fill { background: var(--meter-noise); }
+
+/* the meter jumps when a trap gets him */
+.pin.is-hit { animation: pin-hit 0.5s ease-out; }
+@keyframes pin-hit {
+  0%, 100% { transform: none; }
+  20% { transform: translateY(-4px) scale(1.04); }
+  40% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+}
+
+.night-toggles { display: flex; flex-wrap: wrap; gap: var(--gap); }
+#night-zoom[aria-pressed="true"] { background: var(--btn); color: var(--btn-text); }
 
 .night-buttons {
   display: flex;
@@ -160,9 +215,14 @@
 }
 
 @media (max-width: 560px) {
-  .night-cams .btn, .night-buttons .btn { flex: 1 1 100%; }
-  .meter { grid-template-columns: 1fr 7em; }
-  .meter-bar { grid-column: 1 / -1; grid-row: 2; }
+  .night-cams .btn, .night-buttons .btn, .night-toggles .btn { flex: 1 1 100%; }
+  .night-toggles { width: 100%; }
+  /* on a phone: just names and bars, side by side, so the house
+     stays in view */
+  .night-meters { gap: 4px; padding: 4px; bottom: 4px; }
+  .pin { padding: 4px 6px; }
+  .pin-face, .pin-sack, .pin-word { display: none; }
+  .pin-top { font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -172,4 +232,5 @@
   .loot-item.is-dropped,
   .hero-cheer.is-cheering { animation: none; }
   .meter-fill { transition: none; }
+  .pin.is-hit { animation: none; }
 }

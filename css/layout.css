@@ -32,6 +32,9 @@ body {
   outline-offset: 3px;
   border-radius: 6px;
 }
+/* Headings the game moves you to (so screen readers keep up) are
+   not buttons, so they do not need the ring. */
+[tabindex="-1"]:focus { outline: none; }
 
 /* --- SCREENS -------------------------------------------------
    The game is one page. Only one screen is ever shown.

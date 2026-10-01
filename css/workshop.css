@@ -14,6 +14,13 @@
 }
 .workshop[hidden] { display: none; }
 
+/* The bench and what you are saying stay stuck to the top of the
+   screen while you scroll down through your junk, so you can
+   always see the bench and hear the hint. */
+@media (min-height: 760px) and (min-width: 561px) {
+  .ws-top { position: sticky; top: 4px; z-index: 5; }
+}
+
 /* --- YOU, TALKING -------------------------------------------- */
 
 .ws-talk {
@@ -23,10 +30,26 @@
   margin-bottom: var(--gap);
   padding-right: 110px;        /* room for the day/night and sound buttons */
 }
-.ws-face { display: flex; }
+.ws-face { display: flex; transform-origin: 50% 100%; }
+/* your face bobs while you are talking */
+.ws-face.is-talking { animation: ws-talk 0.32s ease-in-out infinite alternate; }
+@keyframes ws-talk {
+  from { transform: none; }
+  to   { transform: translateY(-3px) scale(1.03, 0.97); }
+}
+.ws-said {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.ws-ideas { font-size: 15px; }
 .ws-bubble {
   position: relative;
-  margin: 0 0 30px;
+  margin: 0;
   padding: 12px 16px;
   font-weight: 700;
   font-size: 18px;
@@ -83,7 +106,18 @@
 }
 .ws-slot.is-full { border-style: solid; background: var(--panel); }
 .ws-slot.is-over { outline: 4px solid var(--focus); }
-.ws-slot-hint { font-size: 14px; font-weight: 700; color: var(--text-dim); }
+.ws-slot-hint { font-size: 14px; font-weight: 700; color: var(--text-dim); text-align: center; }
+.ws-slot[hidden], .ws-plus[hidden], .ws-build-now[hidden] { display: none; }
+
+/* The upgrade box: it glows so you notice it has opened. */
+.ws-slot-c { border-color: var(--rare); animation: ws-glow 1.2s ease-in-out infinite alternate; }
+.ws-slot-c.is-full { animation: none; }
+@keyframes ws-glow {
+  from { box-shadow: 0 0 0 0 var(--rare); }
+  to   { box-shadow: 0 0 0 6px var(--rare); }
+}
+.ws-plus-c { color: var(--rare); }
+.ws-bench.has-third .ws-slot { width: 128px; }
 .ws-slot .ws-pic { height: 64px; }
 
 /* the puff of smoke when two things do not go */
@@ -242,8 +276,27 @@
 /* --- SMALL SCREENS ------------------------------------------- */
 
 @media (max-width: 560px) {
-  .ws-talk { padding-right: 0; padding-top: 40px; }
-  .ws-slot { width: 112px; min-height: 110px; }
+  .ws-talk { padding-right: 0; padding-top: 40px; margin-bottom: 8px; }
+  .ws-top { padding: 10px; }
+  .ws-face svg { width: 44px; height: auto; }
+  .ws-bench { padding: 10px; }
+  .ws-slot { width: 104px; min-height: 92px; }
+  .ws-slot .ws-pic { height: 44px; }
+
   .ws-plus { font-size: 30px; }
   .ws-bubble { font-size: 16px; }
+  .ws-ideas { width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .ws-bench { flex-wrap: wrap; gap: 8px; }
+  .ws-bench.has-third .ws-slot { width: 80px; min-height: 92px; }
+  .ws-bench.has-third .ws-slot .ws-pic { height: 44px; }
+  .ws-bench.has-third .ws-plus { font-size: 24px; }
+  .ws-build-now { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-face.is-talking, .ws-slot-c { animation: none; }
+  .ws-slot-c { box-shadow: 0 0 0 4px var(--rare); }
 }

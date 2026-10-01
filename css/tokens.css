@@ -161,6 +161,25 @@
   --win: #6fcf97;
   --lose: #ff8a7a;
 
+  /* --- PUZZLES, MESS AND METERS (the big update) --- */
+  --mess-custard: #ffd34d;
+  --mess-paper: #f4f1ea;
+  --lock: #e8b84a;           /* a padlock */
+  --safe-face: #59606b;
+  --safe-digit: #7dffb0;
+  --note-paper: #fff6c8;     /* Dad's note, and the piano music */
+  --note-ink: #2b2410;
+  --backdrop: rgba(10, 8, 20, 0.7);
+  --key-red: #ff5b5b;
+  --key-yellow: #ffd34d;
+  --key-green: #4fd17f;
+  --key-blue: #4f9bff;
+  --key-pink: #ff7ad9;
+  --sweat: #8fd4ff;
+  --dust: #c9bfae;
+  --meter-low: #ff4f4f;
+  --pin-back: rgba(23, 21, 38, 0.94);
+
   /* --- PAGE and PANELS --- */
   --bg: #171526;
   --bg-2: #221f38;
@@ -335,6 +354,25 @@
   --grade-c: #8f889c;
   --win: #2e9e63;
   --lose: #cf3f2c;
+
+  /* --- PUZZLES, MESS AND METERS (the big update) --- */
+  --mess-custard: #f5c21c;
+  --mess-paper: #ffffff;
+  --lock: #d9a22b;
+  --safe-face: #8b929c;
+  --safe-digit: #1d8a4a;
+  --note-paper: #fff3b0;
+  --note-ink: #2b2410;
+  --backdrop: rgba(40, 30, 10, 0.45);
+  --key-red: #f24848;
+  --key-yellow: #f5c21c;
+  --key-green: #2fae5a;
+  --key-blue: #2f7be0;
+  --key-pink: #e75bbf;
+  --sweat: #4fb0e8;
+  --dust: #b8ab92;
+  --meter-low: #d6322a;
+  --pin-back: rgba(255, 248, 232, 0.95);
 
   --bg: #fdf4e3;
   --bg-2: #f7e8cd;

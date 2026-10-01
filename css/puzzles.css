@@ -1,0 +1,167 @@
+/* ===========================================================
+   PUZZLES - the box that pops up when you try a lock, and the
+   padlocks drawn on the house
+
+   Every colour comes from tokens.css, like everywhere else.
+   =========================================================== */
+
+/* --- THE BOX ------------------------------------------------- */
+
+.puzzle {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  color: var(--text);
+  padding: var(--gap-lg) var(--gap);
+}
+.puzzle::backdrop { background: var(--backdrop); }
+.puzzle.is-solved { box-shadow: 0 0 0 6px var(--win), 0 var(--shadow-drop) 0 var(--ink); }
+
+.pz-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+.pz-head h2 { margin: 0; }
+.pz-time { margin: 0; font-weight: 800; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+.pz-clue {
+  margin: var(--gap) 0;
+  padding: 10px 14px;
+  font-weight: 700;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+/* Dad's note looks like a bit of paper */
+.pz-clue.is-note { background: var(--note-paper); color: var(--note-ink); transform: rotate(-1deg); }
+
+.pz-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}
+.pz-body.is-wrong { animation: pz-shake 0.4s ease-in-out; }
+@keyframes pz-shake {
+  0%, 100% { transform: none; }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.pz-say { min-height: 1.5em; margin: var(--gap) 0 0; text-align: center; font-weight: 800; }
+.pz-say.is-good { color: var(--win); }
+.pz-say.is-bad { color: var(--lose); }
+
+/* --- THE SAFE: three dials ----------------------------------- */
+
+.pz-dials { display: flex; gap: var(--gap); }
+.pz-dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: var(--safe-face);
+  border: 4px solid var(--ink);
+  border-radius: var(--radius);
+}
+.pz-turn { min-width: var(--tap); min-height: var(--tap); padding: 0; font-size: 20px; }
+.pz-digit {
+  display: block;
+  width: 60px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--safe-digit);
+  background: var(--meter-back);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+}
+
+/* --- THE SHED: letter tiles ---------------------------------- */
+
+.pz-slots, .pz-tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pz-slot, .pz-tile {
+  min-width: 56px;
+  min-height: 56px;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+}
+.pz-slot { background: var(--bg-2); color: var(--text); border-style: dashed; }
+.pz-tile[disabled] { opacity: 0.25; }
+
+/* --- THE PIANO: coloured keys -------------------------------- */
+
+.pz-music {
+  list-style: none;
+  margin: 0;
+  padding: 10px 14px;
+  display: flex;
+  gap: 10px;
+  background: var(--note-paper);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+.pz-note {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+}
+.pz-note.is-played { outline: 4px solid var(--win); outline-offset: 2px; }
+.pz-keys { display: flex; gap: 6px; }
+.pz-key {
+  width: 58px;
+  min-height: 120px;
+  padding: 0;
+  border-radius: 0 0 10px 10px;
+}
+.pz-key:active { transform: translateY(4px); }
+.key-red    { background: var(--key-red); }
+.key-yellow { background: var(--key-yellow); }
+.key-green  { background: var(--key-green); }
+.key-blue   { background: var(--key-blue); }
+.key-pink   { background: var(--key-pink); }
+
+/* --- PADLOCKS ON THE HOUSE ----------------------------------- */
+
+.lock-shackle { fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; }
+.lock-body { fill: var(--lock); stroke: var(--ink); stroke-width: 2; }
+.lock-hole { fill: var(--ink); }
+
+.room-lock { pointer-events: none; transition: opacity 0.6s ease; }
+.room-lock-shade { fill: var(--ink); opacity: 0.45; }
+.room-lock-chain { fill: none; stroke: var(--metal); stroke-width: 4; stroke-dasharray: 6 3; stroke-linecap: round; }
+.room-lock.is-open { opacity: 0; }
+
+.spot-lock { pointer-events: none; transition: opacity 0.4s ease; }
+.spot-lock.is-open { opacity: 0; }
+
+/* the new thing you dropped bounces as it lands */
+.loose-item.is-dropped .prop-body { animation: drop-in 0.5s ease-out; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes drop-in {
+  0%   { transform: translateY(-18px); }
+  60%  { transform: translateY(0) scale(1.2, 0.8); }
+  100% { transform: none; }
+}
+
+@media (max-width: 560px) {
+  .pz-digit { width: 48px; font-size: 36px; }
+  .pz-key { width: 48px; min-height: 100px; }
+  .pz-slot, .pz-tile { min-width: 52px; min-height: 52px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-body.is-wrong, .loose-item.is-dropped .prop-body { animation: none; }
+  .room-lock, .spot-lock { transition: none; }
+}
