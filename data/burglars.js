@@ -37,8 +37,26 @@
    Try this: change Sid's name to something worse. Then rewrite
    one of the things he says. Save, refresh, let them in.
 
-   The rest of what makes them tick (how brave they are, what
-   scares them) arrives in M7, when your traps start going off.
+   WHAT MAKES THEM TICK
+
+       nerve       how brave he is. Every trap knocks some off.
+                   When it gets to nothing, he runs for it and
+                   drops everything he is carrying.
+       weakTo      kinds of trap he HATES. They hurt his nerve
+                   twice as much.
+       shrugsOff   kinds of trap he barely notices. Half as much.
+
+   The kinds are the cat of each trap in data/recipes.js:
+   LOUD, SLIPPERY, STICKY, MESSY, STARTLE, TANGLE.
+
+   WHAT HE SHOUTS
+       ouch        when a trap gets him (one is picked at random)
+       hates       when it is a trap he is weak to
+       meh         when it is a trap he shrugs off
+       panic       when his nerve goes and he runs
+       caught      when the police get him
+
+   Cartoon swearing is #@!% and nothing worse. Keep it funny.
    =========================================================== */
 
 export const BURGLARS = [
@@ -50,6 +68,9 @@ export const BURGLARS = [
     comesIn: 'right',
     waitsFirst: 0,
     pause: 1.6,
+    nerve: 8,
+    weakTo: ['LOUD', 'STARTLE'],
+    shrugsOff: ['MESSY'],
     route: [
       { room: 'utility',  says: 'Back door. Nobody locks the back door.' },
       { room: 'landing',  says: 'Did that stair just creak at me?' },
@@ -60,7 +81,12 @@ export const BURGLARS = [
     ],
     grabs: 'Mine now.',
     tooLate: 'Bruno! That was mine!',
-    leaving: 'Easy. Too easy. I hate it when it is easy.'
+    leaving: 'Easy. Too easy. I hate it when it is easy.',
+    ouch: ['#@!%!', 'OW! My everything!', 'Who DOES that?', 'Not the face!'],
+    hates: ['AAAARGH! My nerves!', 'I nearly jumped out of my socks!', 'Too LOUD! Too LOUD!'],
+    meh: ['Pfft. I have been dirtier.', 'Is that it?'],
+    panic: 'That is IT. This house is haunted! I am OUT!',
+    caught: 'It was Bruno\'s idea!'
   },
   {
     id: 'bruno',
@@ -70,6 +96,9 @@ export const BURGLARS = [
     comesIn: 'left',
     waitsFirst: 3,
     pause: 2.2,
+    nerve: 14,
+    weakTo: ['STICKY', 'MESSY'],
+    shrugsOff: ['LOUD'],
     route: [
       { room: 'porch',    says: 'Wipe your feet, Bruno.' },
       { room: 'hall',     says: 'Quiet house. I like a quiet house.' },
@@ -80,7 +109,12 @@ export const BURGLARS = [
     ],
     grabs: 'That can come with me.',
     tooLate: 'Sid had it. Course he did.',
-    leaving: 'Right. Home. Kettle on.'
+    leaving: 'Right. Home. Kettle on.',
+    ouch: ['Oof.', '#@!%!', 'That was rude.', 'Right. Now I am cross.'],
+    hates: ['EURGH! It is all over me!', 'NOT my good jumper!', 'Sticky! STICKY!'],
+    meh: ['What? Did somebody say something?', 'Huh. Noisy house.'],
+    panic: 'Nope. Nope nope nope. I am going home.',
+    caught: 'I only came for the telly.'
   }
 ];
 
