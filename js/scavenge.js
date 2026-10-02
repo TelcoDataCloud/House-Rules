@@ -11,8 +11,9 @@
      4. leaves a few common things lying about in plain sight
      5. hides everything else, each thing in the rooms it belongs
         in (foundIn in data/items.js) and in a place that suits it
-        (kind and holds): flour in the kitchen cupboards, a banana
-        in the fridge, rope on the tool wall
+        (kind and holds): flour in a cupboard, never the fridge.
+        Things usually turn up in their own rooms, but anywhere
+        that makes sense can happen, so no two nights are the same
      6. starts the clock
 
    Every night is shuffled differently, so you cannot learn
@@ -40,6 +41,7 @@ import { state, setPhase } from './state.js';
 import { ITEMS, CARRY_LIMIT, OUT_IN_THE_OPEN, RARE_EACH_NIGHT, RARE_HIDEOUTS } from '../data/items.js';
 import { ROOMS } from '../data/rooms.js';
 import { SAFE } from '../data/puzzles.js';
+import { FOUND_LINES, EMPTY_LINES } from '../data/hints.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import {
   placeLooseItem, setLookHandler, hidingPlaces, putDown, spillFrom, setLockGate, refreshLocks
@@ -66,6 +68,10 @@ function shuffle(list) {
   return deck;
 }
 
+function pick(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
 /* Which room is locked with this lock? */
 function lockedRoom(roomId) {
   const room = ROOMS.find((r) => r.id === roomId);
@@ -81,14 +87,18 @@ function scatter() {
   /* Does this thing belong in this hiding place? A place with no
      holds list takes anything. */
   const fits = (spot, item) => !spot.holds || spot.holds.includes(item.kind);
-  /* The best free place for a thing: its own room AND the right
-     sort of place, then the right sort of place anywhere, then its
-     own room, then anywhere at all. */
-  const bestFor = (item, from) =>
-    from.find((s) => homes(item).includes(s.room) && fits(s, item)) ||
-    from.find((s) => fits(s, item)) ||
-    from.find((s) => homes(item).includes(s.room)) ||
-    from[0];
+  /* A good free place for a thing. It always has to be the right
+     sort of place (no flour in the fridge). Its own rooms are
+     twice as likely as anywhere else, but anywhere that makes sense
+     can happen, so the house is different every night. */
+  const bestFor = (item, from) => {
+    const sensible = from.filter((s) => fits(s, item));
+    if (sensible.length) {
+      const pool = [...sensible, ...sensible.filter((s) => homes(item).includes(s.room))];
+      return pick(pool);
+    }
+    return from.find((s) => homes(item).includes(s.room)) || from[0];
+  };
 
   let free = shuffle(hidingPlaces());
   const take = (spot, item) => {
@@ -119,8 +129,7 @@ function scatter() {
      space, then the awkward places, then anywhere. */
   rare.forEach((item) => {
     const awkward = free.filter((s) => RARE_HIDEOUTS.includes(s.room) || RARE_HIDEOUTS.includes(s.id));
-    const spot = free.find((s) => homes(item).includes(s.room) && fits(s, item)) ||
-      (awkward.length ? bestFor(item, awkward) : bestFor(item, free));
+    const spot = awkward.length ? bestFor(item, awkward) : bestFor(item, free);
     if (spot) take(spot, item);
   });
 
@@ -130,7 +139,7 @@ function scatter() {
     (room.inTheOpen || []).map((place) => ({ room: room.id, place }))));
   const lying = common.slice(0, Math.min(OUT_IN_THE_OPEN, places.length));
   lying.forEach((item) => {
-    const spot = places.find((p) => homes(item).includes(p.room)) || places[0];
+    const spot = (Math.random() < 0.5 && places.find((p) => homes(item).includes(p.room))) || places[0];
     places = places.filter((p) => p !== spot);
     placeLooseItem(spot.room, spot.place, item);
     state.lying.push(item.id);
@@ -164,7 +173,7 @@ function look(spot) {
     }
     take(item);
     state.lying = state.lying.filter((id) => id !== item.id);
-    return { item, message: `Got it: ${item.name}!` };
+    return { item, message: `${pick(FOUND_LINES)} ${item.name}.` };
   }
 
   /* Dad's note? */
@@ -179,7 +188,7 @@ function look(spot) {
   const itemId = state.hidden[spot.id];
   if (!itemId) {
     if (!note) sfx.rummage();
-    return { message: `${spot.name}.${note || ' Nothing in here.'}` };
+    return { message: `${spot.name}.${note || ` ${pick(EMPTY_LINES)}`}` };
   }
   const item = findItem(itemId);
   delete state.hidden[spot.id];
@@ -196,7 +205,7 @@ function look(spot) {
     item,
     message: (item.rare
       ? `${spot.name}: ${item.name}! That is a rare one.`
-      : `${spot.name}: ${item.name}!`) + note
+      : `${spot.name}: ${item.name}! ${pick(FOUND_LINES)}`) + note
   };
 }
 

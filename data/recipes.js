@@ -48,19 +48,19 @@
    uses up the trap, so you get one great trap instead of two
    okay ones.
 
-   YOUR TURN (M4)
-   Your Glue Bomb is not in the book yet. It is an upgrade:
-   a Flour Bomb, plus your Water Balloon. Copy this into the
-   UPGRADES list, at the end, before the ] :
+   YOUR GLUE BOMB (M4)
+   It is in! It is the last thing in the UPGRADES list: a Flour
+   Bomb, plus your Water Balloon. This is the block that added it:
 
    { id: 'glue-bomb', name: 'Glue Bomb', needs: ['flour-bomb', 'water-balloon'],
      cat: ['STICKY', 'MESSY'], nerve: 5, mount: 'OVERHEAD',
      fx: 'pour', mess: 'flour', word: 'GLOOP!',
      line: 'Flour first, then water. Now it is glue.' },
 
-   It only works once your Water Balloon is in data/items.js
-   (your M3 turn). Then find a sack, some flour and a balloon in
-   one night, and build it.
+   Find a sack, some flour and a water balloon in one night, and
+   build it. Your balloon has a trap of its own too: the Splash
+   Line (Water Balloon + String). Got a better idea for the
+   balloon? Copy the Splash Line block and change the words.
    =========================================================== */
 
 export const TRAPS = [
@@ -74,7 +74,7 @@ export const TRAPS = [
     line: 'A paint tin swings out of the dark. CLONG.' },
   { id: 'rattlesnake-line', name: 'Rattlesnake Line', needs: ['string', 'tin-cans'],
     cat: ['LOUD'], nerve: 2, mount: 'DOORWAY',
-    fx: 'noise', word: 'CLATTER!', riddle: 'the rattly trap on a string',
+    fx: 'noise', word: 'CLATTERBANG!', riddle: 'the rattly trap on a string',
     line: 'A tripline drags a chain of cans across the floor.' },
   { id: 'chicken-blizzard', name: 'Chicken Blizzard', needs: ['hair-dryer', 'pillow'],
     cat: ['MESSY'], nerve: 2, mount: 'DOORWAY',
@@ -105,7 +105,7 @@ export const TRAPS = [
     fx: 'slip', word: 'RATTLE!', riddle: 'the bucket of rolly things on the stairs',
     line: 'A whole bucket of marbles down the stairs.' },
   { id: 'doorbell', name: 'The Doorbell', needs: ['bell', 'string'],
-    cat: ['LOUD'], nerve: 1, mount: 'DOORWAY',
+    cat: ['LOUD'], nerve: 2, mount: 'DOORWAY',
     fx: 'noise', word: 'DING DONG!', riddle: 'the trap that rings when you walk through it',
     line: 'Cheap, simple, very loud.' },
   { id: 'sticky-situation', name: 'Sticky Situation', needs: ['honey', 'marbles'],
@@ -191,7 +191,12 @@ export const TRAPS = [
   { id: 'glitter-blizzard', name: 'Glitter Blizzard', needs: ['glitter-cannon', 'hair-dryer'],
     cat: ['MESSY'], nerve: 3, mount: 'DOORWAY',
     fx: 'cloud', mess: 'glitter', word: 'TWINKLE!',
-    line: 'A hot wind full of glitter. He sparkles like a disco ball.' }
+    line: 'A hot wind full of glitter. He sparkles like a disco ball.' },
+  /* Hendrix's balloon gets a trap of its own */
+  { id: 'splash-line', name: 'Splash Line', needs: ['water-balloon', 'string'],
+    cat: ['MESSY'], nerve: 2, mount: 'DOORWAY',
+    fx: 'pour', mess: 'water', word: 'SPLOSH!',
+    line: 'Trip the string and a water balloon bursts on his head.' }
 ];
 
 export const UPGRADES = [
@@ -250,7 +255,12 @@ export const UPGRADES = [
   { id: 'banana-bobsleigh', name: 'Banana Bobsleigh', needs: ['banana-boarder', 'cooking-oil'],
     cat: ['SLIPPERY'], nerve: 5, mount: 'STAIRS',
     fx: 'slip', word: 'WHEEEEEEE!',
-    line: 'An oily banana on a skate. He does a lap of the house.' }
+    line: 'An oily banana on a skate. He does a lap of the house.' },
+  /* Hendrix's own trap, from the very start */
+  { id: 'glue-bomb', name: 'Glue Bomb', needs: ['flour-bomb', 'water-balloon'],
+    cat: ['STICKY', 'MESSY'], nerve: 5, mount: 'OVERHEAD',
+    fx: 'pour', mess: ['flour', 'water'], word: 'GLOOP!',
+    line: 'Flour first, then water. Now it is glue.' }
 ];
 
 /* What you say when two things do not go together. One is picked

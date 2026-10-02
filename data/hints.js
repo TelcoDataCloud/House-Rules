@@ -35,7 +35,8 @@ export const HINT_LINES = [
 export const MISSING_LINES = [
   'If I had {that}, {this} would be AMAZING. Next time.',
   '{this} needs {that}. I have not got one. Yet.',
-  'Rats. {this} goes with {that}, and I left it in the house.'
+  'Rats. {this} goes with {that}, and I left it in the house.',
+  '{this} wants {that}. Is there time to go back out and look?'
 ];
 
 /* When a trap is on the bench and it cannot be upgraded. */
@@ -60,3 +61,22 @@ export const VOICE = {
   pitch: 1.7,
   rate: 1.05
 };
+
+/* ===========================================================
+   WHAT YOU SAY WHILE YOU SEARCH
+   One of these is picked at random every time you find
+   something, or find nothing. Add your own.
+   =========================================================== */
+
+/* When you find something. */
+export const FOUND_LINES = [
+  'Got it!', 'Yes!', 'Ooh.', 'Mine now.', 'Perfect.', 'That will do nicely.',
+  'Score!', 'Into the bag.', 'Oh, hello.', 'I can use that.'
+];
+
+/* When a hiding place is empty. */
+export const EMPTY_LINES = [
+  'Nothing in here.', 'Just fluff.', 'Empty. Rats.', 'Only dust.',
+  'One sock. Not useful.', 'A spider. Hello, spider. Bye.', 'Nope.',
+  'Old crisps. Gross.', 'Nothing but a button.'
+];

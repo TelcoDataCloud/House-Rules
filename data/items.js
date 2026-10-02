@@ -42,11 +42,13 @@
    Anything else gets a brown parcel, so a typo never breaks
    the game. It just looks like a parcel.
 
-   YOUR TURN (M3)
-   Add your Water Balloon to the end of the common list:
+   YOUR WATER BALLOON (M3)
+   It is in! It is the last thing in the common list. This is the
+   line that added it:
        { id: 'water-balloon', name: 'Water Balloon', look: 'balloon', colour: 'fabric-b', kind: 'toys',
          riddle: 'a squidgy rubber thing full of water', foundIn: ['bathroom', 'kitchen'] },
-   Save, refresh, start a night, and go and find it.
+   Find it in the bathroom or the kitchen. It makes the Splash
+   Line, and it turns a Flour Bomb into your Glue Bomb.
    =========================================================== */
 
 export const ITEMS = [
@@ -117,6 +119,8 @@ export const ITEMS = [
   { id: 'loo-roll',     name: 'Loo Roll',       look: 'loo', kind: 'washing',
     riddle: 'paper on a roll that lives in the bathroom',
     foundIn: ['bathroom', 'landing', 'utility'], worksAs: ['string'] },
+  { id: 'water-balloon', name: 'Water Balloon', look: 'balloon', colour: 'fabric-b', kind: 'toys',
+    riddle: 'a squidgy rubber thing full of water', foundIn: ['bathroom', 'kitchen'] },
 
   /* --- RARE: only a few of these turn up each night --- */
   { id: 'lights',         name: 'Christmas Lights', look: 'lights', kind: 'stuff',  rare: true,
