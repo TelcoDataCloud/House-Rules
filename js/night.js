@@ -82,6 +82,16 @@ function pick(list) {
   return Array.isArray(list) ? list[Math.floor(Math.random() * list.length)] : list;
 }
 
+/* Like pick, but never the same mutter twice in a night if there
+   is another one left to say. */
+function pickNew(b, list) {
+  if (!list || !list.length) return '';
+  const fresh = list.filter((line) => !b.said.includes(line));
+  const line = pick(fresh.length ? fresh : list);
+  b.said.push(line);
+  return line;
+}
+
 function findTrap(id) {
   return [...TRAPS, ...UPGRADES].find((t) => t.id === id);
 }
@@ -362,7 +372,7 @@ function nextStop(b) {
   if (stop && findRoom(stop.room)) {
     headFor(b, stop.room);
   } else {
-    say(b, b.data.leaving);
+    say(b, pick(b.data.leaving));
     headOut(b, b.data.comesIn, 'leaving');
   }
 }
@@ -385,7 +395,7 @@ function arrive(b) {
   /* the other one got here first and took it all */
   const beaten = !loot.length && b.data.tooLate &&
     LOOT.some((l) => l.room === stop.room && state.taken[l.id] && state.taken[l.id] !== b.data.id);
-  say(b, beaten ? b.data.tooLate : stop.says);
+  say(b, pick(beaten ? b.data.tooLate : stop.says));
   if (loot.length) {
     loot.forEach((thing) => {
       takeLoot(thing.id, b.data.id);
@@ -504,7 +514,7 @@ function recover(b) {
 
 function panic(b) {
   sfx.panic();
-  say(b, b.data.panic);
+  say(b, pick(b.data.panic));
   /* legs spin on the spot first, then he is off */
   b.info.status = 'hit';
   b.windUp = true;
@@ -558,7 +568,7 @@ function policeArrive() {
     b.info.carrying.forEach((thing) => dropLoot(thing.id));
     b.info.carrying = [];
     growSack(b);
-    say(b, b.data.caught);
+    say(b, pick(b.data.caught));
     sign(run.fxLayer, b.x, b.y - (HEIGHT[b.data.look] || 80) - 6, 'BUSTED!', 2600);
     log(`${b.data.name} is arrested.`, null, 'is-good');
     after(2600, () => { if (b.node) b.node.setAttribute('hidden', ''); });
@@ -613,7 +623,7 @@ function tick(now) {
     } else if (s === 'walking' || s === 'leaving' || s === 'fleeing') {
       walk(b, dt);
     } else if (s === 'stopped') {
-      if (b.grabAt && run.t >= b.grabAt) { b.grabAt = 0; say(b, b.data.grabs); }
+      if (b.grabAt && run.t >= b.grabAt) { b.grabAt = 0; say(b, pick(b.data.grabs)); }
       if (run.t >= b.until) nextStop(b);
     } else if (s === 'hit') {
       if (now >= b.hitUntil) { if (b.windUp) bolt(b); else recover(b); }
@@ -621,6 +631,11 @@ function tick(now) {
     if (b.bubbleUntil && run.t >= b.bubbleUntil) {
       b.bubbleUntil = 0;
       b.bubble.setAttribute('hidden', '');
+    }
+    /* now and then he mutters to himself as he creeps about */
+    if ((s === 'walking' || s === 'leaving') && !b.bubbleUntil && run.t >= b.muttersAt) {
+      b.muttersAt = run.t + 7 + Math.random() * 7;
+      say(b, pickNew(b, b.data.mutters));
     }
     if (b.node) place(b);
   });
@@ -746,6 +761,7 @@ export function startBreakIn() {
       facing: data.comesIn === 'right' ? -1 : 1,
       path: [], stop: -1, until: data.waitsFirst || 0,
       bubbleUntil: 0, grabAt: 0, hitUntil: 0, messCount: i * 10,
+      muttersAt: 5 + i * 3 + Math.random() * 4, said: [],
       info: {
         id: data.id, name: data.name, room: edge.id, status: 'waiting',
         nerve: data.nerve, carrying: [], mess: []
