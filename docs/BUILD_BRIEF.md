@@ -304,7 +304,7 @@ say-so. It unlocks his Glue Bomb and the Splash Line.
 
 ---
 
-## 6. Recipes — 19 base + 8 upgrades
+## 6. Recipes — 33 base + 15 upgrades (19 + 8 in the first version)
 
 ### Base traps — two items each
 Order never matters (normalise by sorting ingredient IDs).
@@ -362,15 +362,6 @@ burglar who shrugs off your favourite trick.
 | Rubber Chicken + Hair Dryer | **Flying Chicken** | STARTLE | 3 | Blown right at him |
 | Feather Pillow + Flour | **Pillow Fight** | MESSY | 2 | Flour and feathers |
 | Tin Cans + Marbles | **Maraca Mayhem** | LOUD | 2 | Rattles like a mad band |
-
-### Added in M13
-
-| Ingredients | Trap | Cat. | Nerve | Payoff |
-|---|---|---|---|---|
-| Water Balloon + String | **Splash Line** | MESSY | 2 | Doorway. SPLOSH! Soaked. |
-
-The Glue Bomb upgrade (above) went in at the same time. The Doorbell's
-nerve went to 2 and the Rattlesnake Line's word is now CLATTERBANG!.
 | Blender + Custard | **Custard Cannon** | MESSY | 4 | A custard volcano |
 | Garden Hose + Cooking Oil | **Slip and Slide** | SLIPPERY | 4 | A water park on the stairs |
 | Glitter Cannon + Hair Dryer | **Glitter Blizzard** | MESSY | 3 | Disco ball burglar |
@@ -385,8 +376,18 @@ nerve went to 2 and the Rattlesnake Line's word is now CLATTERBANG!.
 | Rude Awakening + Flour | **Puff Cushion** | STARTLE · MESSY | 4 |
 | Banana Boarder + Cooking Oil | **Banana Bobsleigh** | SLIPPERY | 5 |
 
-32 base traps and 14 upgrades in all (Glue Bomb is still Hendrix's to add).
 A trap's `mess` can now be two things, like custard **and** feathers.
+
+### Added in M13
+
+| Ingredients | Trap | Cat. | Nerve | Payoff |
+|---|---|---|---|---|
+| Water Balloon + String | **Splash Line** | MESSY | 2 | Doorway. SPLOSH! Soaked. |
+
+The Glue Bomb upgrade (above) went in at the same time. The Doorbell's
+nerve went to 2 and the Rattlesnake Line's word is now CLATTERBANG!.
+
+33 base traps and 15 upgrades in all.
 
 When a trap has two categories, nerve damage uses whichever the burglar is
 **weaker** to. That is the point of upgrading — a two-category trap always
