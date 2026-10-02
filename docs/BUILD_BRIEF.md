@@ -85,20 +85,32 @@ shuffled fresh every night. He grabs what he can before the clock runs out.
 
 **Things hide where they belong** (M11): every item has `foundIn` rooms in
 `data/items.js`, so flour turns up in the kitchen, rope in the garage, loo
-roll in the bathroom. You learn which rooms are worth the walk.
+roll in the bathroom. You learn which rooms are worth the walk. Since M12
+every item also has a `kind` (food, fresh, tools, toys, washing, stuff) and
+every hiding place says what it `holds`, so flour goes in the cupboard, not
+the fridge, and rope hangs on the tool wall.
+
+**Pause** (M12): *Pause: build traps* stops the clock and goes to the
+workbench. Build, even rig, then *Back out searching* returns to the house
+with the time that was left, the same bag, the same junk and the same open
+locks. The scavenge only ends when the clock hits zero.
 
 Carry limit: **15 items** (M11, was 8). Tap anything in the bag to drop it
 on the floor where you stand; you can pick it up again. Find something with
 a full bag and it spills onto the floor so you can swap.
 
-**Three locks with puzzles** (M11), set in `data/puzzles.js`, new answers
-every night, each hiding something rare:
+**Four locks with puzzles** (three in M11, the fuse box in M12), set in
+`data/puzzles.js`, new answers every night, each hiding something rare:
 - **Mum and Dad's wall safe**: a three digit code. Dad hides a note
   downstairs with the code written as sums (*3 + 2, then 0 + 4...*).
 - **The piano lid**: coloured music on the stand; play the coloured keys in
   order.
 - **The shed padlock** (the whole room is locked): a riddle on the tag and
-  jumbled letter tiles; spell the answer.
+  jumbled letter tiles; spell the answer. Hendrix's own riddle is in
+  the list: *I am Hendrix's favourite food* (CANDY).
+- **The fuse box** in the utility room: the cellar is pitch black (LIGHTS
+  OUT) until you flip on numbered fuses that add up to the label and pull
+  the big switch. Too much: POP. Too little: fzzt.
 The clock keeps running while he thinks. `HOUSE.state.puzzles` in the
 console shows tonight's answers.
 
@@ -199,9 +211,9 @@ nothing else in v1 — one dial, easy to explain, easy to tune.
 
 | | Scavenge time |
 |---|---|
-| **Easy** | 200 seconds |
-| **Medium** | 150 seconds |
-| **Hard** | 100 seconds |
+| **Easy** | 300 seconds (200 before M12) |
+| **Medium** | 200 seconds (150 before M12) |
+| **Hard** | 125 seconds (100 before M12) |
 
 Default to **Easy** for a first play. Show the setting on the title screen as
 three big buttons, not a dropdown, and keep the chosen level visible during
@@ -276,8 +288,8 @@ String and Rope are deliberately different tools: **String** is for
 trip-lines and tangles, **Rope** is for hanging things overhead. Most
 upgrades that move a trap up to the ceiling want Rope.
 
-**Rare (three per night since M11: one in the safe, one in the piano, one in
-an awkward place):** Christmas Lights ·
+**Rare (all four every night since M12: one in the safe, one in the piano,
+one in the shed, one in the dark cellar):** Christmas Lights ·
 Garden Hose · Blender · Glitter Cannon
 
 The rare items exist to make the scavenge phase worth exploring properly and
@@ -603,6 +615,14 @@ dizzy wobbles, a cartoon wind up before he bolts); the camera jumps in on
 every trap; nerve meters pinned under the house; a trap list on the result
 screen.
 → *His turn:* add his own riddle to the shed padlock in `data/puzzles.js`.
+*(Done: CANDY, his favourite food.)*
+
+**M12 — Lights Out** *(Asa's call, 2 Oct 2026).* Scavenge clocks raised to
+300 / 200 / 125 seconds; pause the scavenge to build and rig, then go back
+out with the time left; the fuse box puzzle and the dark cellar; every
+hiding place matched to the kinds of thing it holds; a rare thing behind
+every lock.
+→ *His turn:* make the fuse box even numbers only in `data/puzzles.js`.
 
 ---
 
