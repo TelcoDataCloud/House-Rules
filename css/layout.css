@@ -286,6 +286,8 @@ body {
 
 .start-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
   justify-content: center;
   margin-top: var(--gap-lg);
 }

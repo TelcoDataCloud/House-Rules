@@ -12,8 +12,9 @@
    its hiding places wake up. You can only search the room you
    are actually standing in.
 
-   A locked room (the shed) stops him at the door: he walks to the
-   room next to it and js/scavenge.js shows the padlock puzzle.
+   A locked room (the shed, the dark cellar) stops him at the door:
+   he walks to the room next to it and js/scavenge.js shows its
+   puzzle.
 
    How fast he walks, and where he starts, is in data/hero.js.
    =========================================================== */
@@ -181,19 +182,21 @@ function arrow(dir) {
 
 /* --- START AND STOP ------------------------------------------ */
 
-export function startHero() {
+/* Put him in the house: in his room at the start of the night,
+   or back where he was when he went to the workbench. */
+export function startHero(room = HERO.startRoom) {
   stopWalking();
   me.on = true;
   build();
-  state.heroRoom = HERO.startRoom;
+  state.heroRoom = room;
   state.walking = false;
-  const spot = standAt(HERO.startRoom);
+  const spot = standAt(room);
   me.x = spot.x; me.y = spot.y; me.facing = 1;
   draw();
   setRoomClickHandler(walkTo);
   setArrowHandler(arrow);
   startFollowing();
-  zoomToRoom(HERO.startRoom);
+  zoomToRoom(room);
 }
 
 /* Where his feet are, on the house picture. */

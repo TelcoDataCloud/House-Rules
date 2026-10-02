@@ -6,7 +6,9 @@
    game, and the game reads the list.
 
    The first dial here is how many seconds the scavenge phase
-   lasts. Change a number, save, refresh, play. The second one,
+   lasts. The clock stops while you are at the workbench, so you
+   can build some traps, see what you are missing, and go back out
+   for more. Change a number, save, refresh, play. The second one,
    at the bottom, is how easily the neighbours call the police.
 
    Try setting hard to 20 and see if you can still win.
@@ -16,19 +18,19 @@ export const DIFFICULTY = [
   {
     id: 'easy',
     name: 'Easy',
-    seconds: 200,
+    seconds: 300,
     note: 'Plenty of time. Grab everything.'
   },
   {
     id: 'medium',
     name: 'Medium',
-    seconds: 150,
+    seconds: 200,
     note: 'You will miss a room. Choose which one.'
   },
   {
     id: 'hard',
     name: 'Hard',
-    seconds: 100,
+    seconds: 125,
     note: 'Run. Do not think. Regret it later.'
   }
 ];

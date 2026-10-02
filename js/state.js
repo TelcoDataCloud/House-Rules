@@ -52,6 +52,7 @@ export function freshState() {
     lying: [],          // ids of things left lying about in plain sight
     timeLeft: 0,        // seconds left on the scavenge clock
     scavenging: false,  // true while the clock is running
+    scavengeBegun: false, // true once tonight's junk is hidden, so going back out does not hide it all again
 
     /* The puzzles (js/puzzles.js). Tonight's answers are in
        puzzles. Type HOUSE.state.puzzles in the console to cheat. */
