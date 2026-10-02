@@ -357,6 +357,14 @@ export const PROPS = {
     ball(g, 15, -88, 3, 'fabric-a', THIN);
   },
 
+  /* the fuse box, high on the wall, that runs the cellar lights */
+  fusebox(g) {
+    box(g, 0, -126, 28, 32, 'metal', THICK, 2);
+    box(g, 4, -121, 20, 10, 'screen', THIN, 1);
+    [6, 12, 18].forEach((x, i) => box(g, x, -106, 4, 8, i === 1 ? 'fabric-a' : 'porcelain', THIN, 1));
+    shadow(g, 'M23 -126 L28 -126 L28 -94 L23 -94 Z');
+  },
+
   bucket(g) {
     shape(g, 'M0 -18 L20 -18 L17 0 L3 0 Z', 'metal');
     shape(g, 'M1 -18 Q10 -30 19 -18', 'none', THIN);

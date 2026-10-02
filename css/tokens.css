@@ -165,6 +165,9 @@
   --mess-custard: #ffd34d;
   --mess-paper: #f4f1ea;
   --lock: #e8b84a;           /* a padlock */
+  --dark-room: #07060c;      /* a room with the lights out */
+  --bulb-off: #4a4658;       /* a light bulb that is off */
+  --dark-words: #8f88a6;     /* LIGHTS OUT */
   --safe-face: #59606b;
   --safe-digit: #7dffb0;
   --note-paper: #fff6c8;     /* Dad's note, and the piano music */
@@ -359,6 +362,9 @@
   --mess-custard: #f5c21c;
   --mess-paper: #ffffff;
   --lock: #d9a22b;
+  --dark-room: #121018;
+  --bulb-off: #6b6680;
+  --dark-words: #b3acc8;
   --safe-face: #8b929c;
   --safe-digit: #1d8a4a;
   --note-paper: #fff3b0;

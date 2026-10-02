@@ -133,6 +133,35 @@
 .key-blue   { background: var(--key-blue); }
 .key-pink   { background: var(--key-pink); }
 
+/* --- THE FUSE BOX: numbered switches ------------------------ */
+
+.pz-fuses {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: var(--metal);
+  border: 4px solid var(--ink);
+  border-radius: var(--radius);
+}
+.pz-fuse {
+  min-width: 56px;
+  min-height: 84px;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  background: var(--meter-back);
+  color: var(--text-dim);
+  border-radius: 8px;
+  /* the switch is down when it is off */
+  box-shadow: inset 0 -28px 0 var(--bulb-off);
+}
+.pz-fuse.is-on {
+  background: var(--win);
+  color: var(--ink);
+  box-shadow: inset 0 28px 0 var(--lock);
+}
+
 /* --- PADLOCKS ON THE HOUSE ----------------------------------- */
 
 .lock-shackle { fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; }
@@ -143,6 +172,12 @@
 .room-lock-shade { fill: var(--ink); opacity: 0.45; }
 .room-lock-chain { fill: none; stroke: var(--metal); stroke-width: 4; stroke-dasharray: 6 3; stroke-linecap: round; }
 .room-lock.is-open { opacity: 0; }
+/* a room with the lights out (the cellar) */
+.room-dark-shade { fill: var(--dark-room); opacity: 0.92; }
+.room-dark-flex { stroke: var(--ink); stroke-width: 2; }
+.room-dark-bulb { fill: var(--bulb-off); stroke: var(--ink); stroke-width: 2; }
+.room-dark-cap { fill: var(--metal); stroke: var(--ink); stroke-width: 1.5; }
+.room-dark-words { fill: var(--dark-words); font-family: var(--font-display); font-weight: 900; font-size: 18px; letter-spacing: 3px; }
 
 .spot-lock { pointer-events: none; transition: opacity 0.4s ease; }
 .spot-lock.is-open { opacity: 0; }
