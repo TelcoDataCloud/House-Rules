@@ -1,5 +1,10 @@
 /* ===========================================================
-   INTRO - the little comic strip before the night
+   INTRO - the comic strip before the night
+
+   js/intro.js draws the street once and then sets data-beat on
+   the picture to "0", "1" or "2". Everything below that starts
+   with [data-beat="..."] is what changes in that beat. Colours
+   come from tokens.css, like everywhere else.
    =========================================================== */
 
 .intro { max-width: 900px; width: 100%; }
@@ -11,55 +16,127 @@
   border: var(--outline) solid var(--ink);
   border-radius: var(--radius-lg);
   background: var(--house-sky);
+  box-shadow: 0 var(--shadow-drop) 0 var(--ink);
 }
-.intro-sky { fill: var(--sky-top); }
-.intro-moon { fill: var(--moon); stroke: var(--ink); stroke-width: 2.5; }
+
+/* --- THE STREET ---------------------------------------------- */
+
 .intro-star { fill: var(--star); }
+.intro-moon { fill: var(--moon); stroke: var(--ink); stroke-width: 2.5; }
+.intro-crater { fill: var(--ink); opacity: 0.12; }
+.intro-cloud { fill: var(--cloud); opacity: 0.8; }
+.intro-clouds { animation: intro-drift 40s linear infinite alternate; }
+@keyframes intro-drift { from { transform: translateX(-20px); } to { transform: translateX(30px); } }
+.intro-far { fill: var(--far-houses); }
+.intro-far-window { fill: var(--window-glass); opacity: 0.55; }
 .intro-ground { fill: var(--ground); }
-.intro-wall { fill: var(--wall); }
-.intro-roof { fill: var(--roof); }
-.intro-window { fill: var(--window-glass); }
+.intro-pavement { fill: var(--pavement); }
+.intro-road { fill: var(--road); }
+.intro-road-line { fill: var(--road-line); }
+.intro-path { fill: var(--pavement); stroke: var(--ink); stroke-width: 1.5; }
+.intro-mortar { fill: none; stroke: var(--mortar); stroke-width: 1.2; }
+.intro-tile-line { fill: none; stroke: var(--ink); stroke-width: 1.3; opacity: 0.4; }
+.intro-chimney-top { fill: var(--wall-shadow); }
+.intro-fascia { fill: var(--wood-dark); }
+.intro-window-dark { fill: var(--window-dark); }
+.intro-bars { fill: none; stroke: var(--ink); stroke-width: 2; }
+.intro-sill { fill: var(--porcelain); }
 .intro-door { fill: var(--door); }
-.intro-knob { fill: var(--btn); }
-.intro-mat { fill: var(--chimney); }
-.intro-jam { fill: var(--fabric-a); stroke: var(--ink); stroke-width: 0.6; opacity: 0; }
+.intro-door-glass { fill: var(--window-glass); opacity: 0.7; }
+.intro-knob { fill: var(--btn); stroke: var(--ink); stroke-width: 1.5; }
+.intro-step { fill: var(--porcelain); }
+.intro-number { font-family: var(--font-display); font-weight: 900; font-size: 11px; fill: var(--porcelain); }
+.intro-porch-light { fill: var(--lamp-shade); }
+.intro-hedge { fill: var(--hedge); }
+.intro-fence-rail, .intro-fence-post { fill: var(--fence); }
+.intro-lamp-post, .intro-lamp-head { fill: var(--worktop); }
+.intro-lamp-glow { opacity: 0.8; }
+
+.intro-van-body { fill: var(--van-body); }
+.intro-van-glass { fill: var(--glass); }
+.intro-van-stripe { fill: var(--van-stripe); }
+.intro-van-words { font-family: var(--font-display); font-weight: 900; font-size: 8px; letter-spacing: 0.5px; fill: var(--ink); }
+.intro-wheel { fill: var(--ink); }
+.intro-hub { fill: var(--metal); }
+
+/* the attic window: dark until the last beat, then you pop up */
+.intro-attic-glass { fill: var(--window-dark); transition: fill 0.6s ease; }
+.intro-attic-rim { fill: none; stroke: var(--ink); stroke-width: 4; }
+.intro-hendrix { transform: translateY(34px); transition: transform 0.6s cubic-bezier(.3, 1.6, .5, 1); }
+
+/* --- SID AND BRUNO ------------------------------------------- */
+
+.intro-actor { transform-box: fill-box; transform-origin: 50% 100%; }
+.intro-walk { transition: transform 1.2s ease-in-out; }
+.intro-jam { fill: var(--fabric-a); stroke: var(--ink); stroke-width: 0.6; opacity: 0; transition: opacity 0.3s; }
 .intro-creak {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 14px;
+  font-size: 16px;
   fill: var(--word);
+  stroke: var(--ink);
+  stroke-width: 1;
   opacity: 0;
 }
 
-/* the two of them fade in when the words say so */
-.intro-pos { opacity: 0; transition: opacity 0.5s ease; }
-.intro-pos.is-on { opacity: 1; }
+/* speech and thought bubbles */
+.intro-bubble, .intro-think { opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; transform: translateY(6px); }
+.intro-bubble-back { fill: var(--bubble); stroke: var(--ink); stroke-width: 2.5; }
+.intro-bubble-hide { fill: var(--bubble); }
+.intro-bubble-text { font-family: var(--font-display); font-weight: 900; font-size: 13px; fill: var(--bubble-text); }
+.intro-think-words { font-family: var(--font-display); font-weight: 900; font-size: 12px; fill: var(--bubble-text); }
 
-.intro-actor { transform-box: fill-box; transform-origin: 50% 100%; }
+/* --- BEAT 1: they creep up from the van ---------------------- */
 
-.intro-stage.sid-jump .intro-sid { animation: intro-jump 0.9s ease-out; }
-.intro-stage.sid-jump .intro-creak { animation: intro-creak 1.4s ease-out; }
+.intro-stage[data-beat="0"] .intro-walk-sid { transform: translate(-190px, 24px); animation: intro-creep-sid 2.2s ease-out; }
+.intro-stage[data-beat="0"] .intro-walk-bruno { transform: translate(-236px, 24px); animation: intro-creep-bruno 2.6s ease-out; }
+.intro-stage[data-beat="0"] .intro-actor { animation: intro-tiptoe 0.5s ease-in-out 5; }
+@keyframes intro-creep-sid { from { transform: translate(-300px, 24px); } to { transform: translate(-190px, 24px); } }
+@keyframes intro-creep-bruno { from { transform: translate(-340px, 24px); } to { transform: translate(-236px, 24px); } }
+@keyframes intro-tiptoe {
+  0%, 100% { transform: none; }
+  50% { transform: translateY(-4px) rotate(-3deg); }
+}
+.intro-stage[data-beat="0"] .intro-van { animation: intro-park 0.6s ease-out; }
+@keyframes intro-park {
+  0% { transform: translateX(-60px); }
+  80% { transform: translateX(4px); }
+  100% { transform: none; }
+}
+
+/* --- BEAT 2: at the door, they give themselves away ---------- */
+
+.intro-stage[data-beat="1"] .intro-bubble { opacity: 1; transform: none; }
+.intro-stage[data-beat="1"] .intro-say-bruno { transition-delay: 1.4s; }
+.intro-stage[data-beat="1"] .intro-sid { animation: intro-jump 0.9s ease-out 1.2s; }
+.intro-stage[data-beat="1"] .intro-creak { animation: intro-creak 1.6s ease-out 1.1s; }
+.intro-stage[data-beat="1"] .intro-jam { opacity: 1; }
+.intro-stage[data-beat="1"] .intro-bruno { animation: intro-wipe 0.4s ease-in-out 1.6s 4; }
 @keyframes intro-jump {
   0%   { transform: none; }
-  25%  { transform: translateY(-26px) scale(0.92, 1.14); }
+  25%  { transform: translateY(-30px) scale(0.9, 1.16); }
   50%  { transform: none; }
   65%  { transform: translateX(-3px); }
   80%  { transform: translateX(3px); }
   100% { transform: none; }
 }
 @keyframes intro-creak {
-  0%   { opacity: 0; }
-  20%, 70% { opacity: 1; }
-  100% { opacity: 0; }
+  0%   { opacity: 0; transform: none; }
+  20%, 70% { opacity: 1; transform: translateY(-6px); }
+  100% { opacity: 0; transform: translateY(-10px); }
 }
-
-.intro-stage[data-beat="3"] .intro-jam,
-.intro-stage[data-beat="4"] .intro-jam { opacity: 1; }
-.intro-stage.bruno-wipe .intro-bruno { animation: intro-wipe 0.4s ease-in-out 4; }
 @keyframes intro-wipe {
   0%, 100% { transform: none; }
   50% { transform: translateX(6px) rotate(3deg); }
 }
+
+/* --- BEAT 3: you, in the attic, with a plan ------------------ */
+
+.intro-stage[data-beat="2"] .intro-attic-glass { fill: var(--window-glass); }
+.intro-stage[data-beat="2"] .intro-hendrix { transform: none; }
+.intro-stage[data-beat="2"] .intro-think { opacity: 1; transform: none; transition-delay: 0.5s; }
+
+/* --- THE WORDS AND BUTTONS ----------------------------------- */
 
 .intro-words {
   min-height: 3.2em;
@@ -74,15 +151,14 @@
   gap: var(--gap);
   margin-top: var(--gap);
 }
-.intro-count { color: var(--text-dim); font-weight: 700; }
+.intro-count { color: var(--text-dim); font-weight: 700; white-space: nowrap; }
 
 @media (max-width: 560px) {
   .intro-words { font-size: 17px; }
+  .intro-buttons .btn-big { padding: 14px 18px; font-size: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .intro-pos { transition: none; }
-  .intro-stage.sid-jump .intro-sid,
-  .intro-stage.bruno-wipe .intro-bruno,
-  .intro-stage.sid-jump .intro-creak { animation: none; }
-  .intro-stage.sid-jump .intro-creak { opacity: 1; }
+  .intro-clouds, .intro-stage .intro-walk, .intro-stage .intro-actor,
+  .intro-stage .intro-van, .intro-stage .intro-creak { animation: none !important; }
+  .intro-walk, .intro-hendrix, .intro-bubble, .intro-think { transition: none; }
 }
