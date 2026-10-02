@@ -22,5 +22,6 @@ export const MILESTONES = [
   { code: 'M9',  name: 'Consequences',  done: true  },
   { code: 'M10', name: 'Polish',        done: true  },
   /* The game was finished at M10. Then we kept going. */
-  { code: 'M11', name: 'Locks and Hints', done: true }
+  { code: 'M11', name: 'Locks and Hints', done: true },
+  { code: 'M12', name: 'Lights Out',    done: true }
 ];

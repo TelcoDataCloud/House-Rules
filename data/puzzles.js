@@ -1,17 +1,17 @@
 /* ===========================================================
    PUZZLES - the locked places in the house
 
-   Hendrix: three things in the house are locked. Each one has a
+   Hendrix: four things in the house are locked. Each one has a
    simple puzzle, and each one has something good inside (the
    rare junk loves a locked place). Solve it before the clock
    runs out and it stays open for the rest of the night.
 
    Which prop or room is locked is set in data/rooms.js, with
-   lock: 'safe', lock: 'piano' or lock: 'shed'. This file says
-   what the puzzle for each one is.
+   lock: 'safe', lock: 'piano', lock: 'shed' or lock: 'fuse'.
+   This file says what the puzzle for each one is.
 
-   Every night the game picks a new code, a new word and a new
-   tune, so you cannot just remember the answer.
+   Every night the game picks a new code, a new word, a new tune
+   and a new fuse number, so you cannot just remember the answer.
 
    Want to cheat? Open the console and type
        HOUSE.state.puzzles
@@ -44,7 +44,8 @@ export const SHED = {
     { riddle: 'I am cold and white and you make men out of me.', word: 'SNOW' },
     { riddle: 'Cats chase me.', word: 'MOUSE' },
     { riddle: 'I go woof.', word: 'DOG' },
-    { riddle: 'You kick me into a goal.', word: 'BALL' }
+    { riddle: 'You kick me into a goal.', word: 'BALL' },
+    { riddle: 'I am Hendrix\'s favourite food.', word: 'CANDY' }
   ]
 };
 
@@ -56,4 +57,24 @@ export const PIANO = {
   name: 'Piano lid',
   keys: ['red', 'yellow', 'green', 'blue', 'pink'],
   tuneLength: 4
+};
+
+/* THE FUSE BOX in the utility room runs the cellar lights. Until
+   you fix it the cellar is pitch black and you cannot go down.
+   Each fuse has a number on it. Flip on the fuses that add up to
+   the number on the label, then pull the big switch.
+   fuses is the numbers on the fuses, left to right.
+   targets is the numbers the label might ask for. Every one of
+   them must be possible to make out of the fuses.
+
+   YOUR TURN (M12)
+   Make it harder: only even numbers. Change fuses to
+       fuses: [2, 4, 6, 8, 10],
+   and targets to
+       targets: [10, 12, 14, 16, 18],
+   Save, refresh, go to the cellar. Can you still do it in time? */
+export const FUSE = {
+  name: 'Fuse box',
+  fuses: [1, 2, 3, 4, 5],
+  targets: [6, 7, 8, 9, 10, 11, 12]
 };

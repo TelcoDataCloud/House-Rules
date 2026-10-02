@@ -55,18 +55,26 @@
 
    HIDING PLACES
    Give any prop or close up thing a search, like
-       search: 'Under your bed'
+       search: 'Under your bed', holds: ['toys', 'stuff']
    and it becomes somewhere you can look. Point at it and it
    lights up. Click it and you rummage. Most of the junk hides in
    these. The words are what the game says when you look. No
    search means it is just furniture.
+
+   holds says what sort of thing fits in there: food, fresh,
+   tools, toys, washing or stuff (every item has a kind in
+   data/items.js). The game puts flour in the kitchen cupboards,
+   not the fridge, because the fridge only holds fresh things.
+   Leave holds off and anything can go in.
 
    LOCKS
    Give a hiding place a lock, like
        lock: 'piano'
    and you cannot look inside until you solve its puzzle. Give a
    whole ROOM a lock and you cannot even go in. The puzzles are in
-   data/puzzles.js: 'safe', 'shed' and 'piano'.
+   data/puzzles.js: 'safe', 'shed', 'piano' and 'fuse'.
+   A locked room with dark: true has its lights out instead of
+   chains, like the cellar until you fix the fuse box.
 
    Try this: find the lounge, change its w from 156 to 240, save,
    refresh. It eats the dining room. Change it back.
@@ -103,12 +111,12 @@ export const ROOMS = [
     inTheOpen: [ { x: 216 }, { x: 24, lift: 24 } ],
     props: [
       { kind: 'monitors', x: 110 },
-      { kind: 'boxes',    x: 232, search: 'Boxes of old toys' },
+      { kind: 'boxes',    x: 232, search: 'Boxes of old toys', holds: ['toys'] },
       { kind: 'porthole', x: 302 }
     ],
     closeUp: [
-      { kind: 'trunk',    x: 20, search: 'Old trunk' },
-      { kind: 'suitcase', x: 66, search: 'Dusty suitcase', colour: 'fabric-a' },
+      { kind: 'trunk',    x: 20, search: 'Old trunk', holds: ['toys', 'stuff'] },
+      { kind: 'suitcase', x: 66, search: 'Dusty suitcase', holds: ['stuff', 'toys'], colour: 'fabric-a' },
       { kind: 'teddy',    x: 240, lift: 50 }
     ] },
 
@@ -119,12 +127,12 @@ export const ROOMS = [
     note: 'Nothing worth stealing. They check anyway.',
     inTheOpen: [ { x: 40, lift: 39 }, { x: 104, lift: 92 } ],
     props: [
-      { kind: 'bath',   x: 4,  search: 'Behind the bath panel' },
-      { kind: 'toilet', x: 92, search: 'Toilet cistern' }
+      { kind: 'bath',   x: 4,  search: 'Behind the bath panel', holds: ['washing'] },
+      { kind: 'toilet', x: 92, search: 'Toilet cistern', holds: ['washing'] }
     ],
     closeUp: [
       { kind: 'towel',   x: 30, colour: 'fabric-b' },
-      { kind: 'cabinet', x: 93, search: 'Bathroom cabinet' }
+      { kind: 'cabinet', x: 93, search: 'Bathroom cabinet', holds: ['washing'] }
     ] },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
     flooring: 'carpet',
@@ -132,10 +140,10 @@ export const ROOMS = [
     note: 'The stairs come up here. The loft hatch is in the ceiling.',
     inTheOpen: [ { x: 104 }, { x: 70, lift: 30 } ],
     props: [
-      { kind: 'plant',    x: 2,  search: 'Plant pot' },
-      { kind: 'airing',   x: 26, search: 'Airing cupboard' },
+      { kind: 'plant',    x: 2,  search: 'Plant pot', holds: ['tools', 'stuff'] },
+      { kind: 'airing',   x: 26, search: 'Airing cupboard', holds: ['washing', 'stuff'] },
       { kind: 'picture',  x: 68 },
-      { kind: 'radiator', x: 64, search: 'Behind the radiator' }
+      { kind: 'radiator', x: 64, search: 'Behind the radiator', holds: ['toys', 'stuff'] }
     ],
     closeUp: [
       { kind: 'socket', x: 106 }
@@ -147,11 +155,11 @@ export const ROOMS = [
     inTheOpen: [ { x: 78 }, { x: 120, lift: 42 } ],
     props: [
       { kind: 'window',    x: 46, colour: 'fabric-c' },
-      { kind: 'bed',       x: 2,  colour: 'fabric-c', search: 'Under your bed' },
-      { kind: 'workbench', x: 98, search: 'Under the workbench' }
+      { kind: 'bed',       x: 2,  colour: 'fabric-c', search: 'Under your bed', holds: ['toys', 'stuff'] },
+      { kind: 'workbench', x: 98, search: 'Under the workbench', holds: ['tools', 'toys'] }
     ],
     closeUp: [
-      { kind: 'trophyshelf', x: 2, search: 'Your shelf' },
+      { kind: 'trophyshelf', x: 2, search: 'Your shelf', holds: ['toys'] },
       { kind: 'football',    x: 60 },
       { kind: 'socket',      x: 88 }
     ] },
@@ -161,13 +169,13 @@ export const ROOMS = [
     note: 'Jewellery box, and a safe on the wall. What is in the safe?',
     inTheOpen: [ { x: 84 }, { x: 104, lift: 36 } ],
     props: [
-      { kind: 'wardrobe', x: 2,  search: 'Wardrobe' },
+      { kind: 'wardrobe', x: 2,  search: 'Wardrobe', holds: ['stuff', 'washing'] },
       { kind: 'safe',     x: 58, search: 'Wall safe', lock: 'safe' },
       { kind: 'picture',  x: 86 },
-      { kind: 'bed',      x: 54, colour: 'fabric-a', search: 'Under their bed' }
+      { kind: 'bed',      x: 54, colour: 'fabric-a', search: 'Under their bed', holds: ['stuff', 'toys'] }
     ],
     closeUp: [
-      { kind: 'hatbox',   x: 12, lift: 104, search: 'Box on the wardrobe' },
+      { kind: 'hatbox',   x: 12, lift: 104, search: 'Box on the wardrobe', holds: ['stuff'] },
       { kind: 'slippers', x: 58 }
     ] },
   { id: 'box-room', name: 'Box room',      floor: 'upstairs',
@@ -175,11 +183,11 @@ export const ROOMS = [
     note: 'Nobody has opened some of these boxes in years.',
     inTheOpen: [ { x: 64 }, { x: 114, lift: 92 } ],
     props: [
-      { kind: 'boxes',     x: 6,  search: 'Pile of boxes' },
-      { kind: 'bookshelf', x: 80, search: 'Behind the books' }
+      { kind: 'boxes',     x: 6,  search: 'Pile of boxes', holds: ['toys', 'stuff', 'tools'] },
+      { kind: 'bookshelf', x: 80, search: 'Behind the books', holds: ['toys', 'stuff'] }
     ],
     closeUp: [
-      { kind: 'suitcase', x: 12, lift: 50, search: 'Old suitcase' },
+      { kind: 'suitcase', x: 12, lift: 50, search: 'Old suitcase', holds: ['stuff', 'toys'] },
       { kind: 'teddy',    x: 94, lift: 92 }
     ] },
 
@@ -190,22 +198,22 @@ export const ROOMS = [
     note: 'Wellies, coats, and the front door.',
     inTheOpen: [ { x: 4 } ],
     props: [
-      { kind: 'coats', x: 6,  search: 'Coat pockets' },
-      { kind: 'plant', x: 56, search: 'Plant pot' }
+      { kind: 'coats', x: 6,  search: 'Coat pockets', holds: ['toys', 'stuff'] },
+      { kind: 'plant', x: 56, search: 'Plant pot', holds: ['tools', 'stuff'] }
     ],
     closeUp: [
       { kind: 'mat',       x: 2 },
-      { kind: 'umbrellas', x: 41, search: 'Umbrella stand' }
+      { kind: 'umbrellas', x: 41, search: 'Umbrella stand', holds: ['toys', 'stuff'] }
     ] },
   { id: 'hall',     name: 'Hall',          floor: 'ground',
     x: 132, y: 402, w: 160, h: 154,
     note: 'Both of them come through here. Both.',
     props: [
       { kind: 'clock',   x: 2 },
-      { kind: 'picture', x: 30, lift: 22, search: 'Behind the picture' }
+      { kind: 'picture', x: 30, lift: 22, search: 'Behind the picture', holds: ['stuff'] }
     ],
     closeUp: [
-      { kind: 'keys', x: 4, search: 'Key hooks' },
+      { kind: 'keys', x: 4, search: 'Key hooks', holds: ['stuff'] },
       { kind: 'post', x: 0 }
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
@@ -214,9 +222,9 @@ export const ROOMS = [
     inTheOpen: [ { x: 20 }, { x: 100 } ],
     props: [
       { kind: 'window', x: 78 },
-      { kind: 'rug',    x: 36, search: 'Under the rug' },
+      { kind: 'rug',    x: 36, search: 'Under the rug', holds: ['toys'] },
       { kind: 'piano',  x: 2,  search: 'Inside the piano', lock: 'piano' },
-      { kind: 'tv',     x: 72, search: 'TV cabinet' },
+      { kind: 'tv',     x: 72, search: 'TV cabinet', holds: ['toys', 'stuff'] },
       { kind: 'lamp',   x: 132 }
     ],
     closeUp: [
@@ -229,11 +237,11 @@ export const ROOMS = [
     inTheOpen: [ { x: 18, lift: 37 }, { x: 40 } ],
     props: [
       { kind: 'picture', x: 34 },
-      { kind: 'table',   x: 2,  search: 'Under the tablecloth' },
-      { kind: 'dresser', x: 96, search: 'Dresser drawers' }
+      { kind: 'table',   x: 2,  search: 'Under the tablecloth', holds: ['food', 'stuff'] },
+      { kind: 'dresser', x: 96, search: 'Dresser drawers', holds: ['stuff', 'food'] }
     ],
     closeUp: [
-      { kind: 'vase',   x: 100, lift: 86, search: 'Big vase' },
+      { kind: 'vase',   x: 100, lift: 86, search: 'Big vase', holds: ['stuff'] },
       { kind: 'teapot', x: 64,  lift: 37 }
     ] },
   { id: 'kitchen',  name: 'Kitchen',       floor: 'ground', paint: 'yellow',
@@ -243,12 +251,12 @@ export const ROOMS = [
     inTheOpen: [ { x: 30, lift: 45 }, { x: 60 } ],
     props: [
       { kind: 'window',  x: 44, colour: 'fabric-b' },
-      { kind: 'counter', x: 2,  search: 'Kitchen cupboards' },
-      { kind: 'fridge',  x: 84, search: 'Fridge' }
+      { kind: 'counter', x: 2,  search: 'Kitchen cupboards', holds: ['food', 'washing'] },
+      { kind: 'fridge',  x: 84, search: 'Fridge', holds: ['fresh'] }
     ],
     closeUp: [
-      { kind: 'wallcupboard', x: 2,  search: 'Top cupboard' },
-      { kind: 'cereal',       x: 88, lift: 84, search: 'On top of the fridge' }
+      { kind: 'wallcupboard', x: 2,  search: 'Top cupboard', holds: ['food'] },
+      { kind: 'cereal',       x: 88, lift: 84, search: 'On top of the fridge', holds: ['food', 'fresh'] }
     ] },
   { id: 'utility',  name: 'Utility',       floor: 'ground',
     flooring: 'tile',
@@ -256,27 +264,28 @@ export const ROOMS = [
     note: 'Back door. Steps down to the cellar.',
     inTheOpen: [ { x: 8, lift: 40 }, { x: 66 } ],
     props: [
-      { kind: 'washer', x: 4,  search: 'Washing machine' },
-      { kind: 'boiler', x: 48, search: 'Behind the boiler' },
-      { kind: 'bucket', x: 44, search: 'Mop bucket' }
+      { kind: 'washer', x: 4,  search: 'Washing machine', holds: ['washing'] },
+      { kind: 'fusebox', x: 12 },
+      { kind: 'boiler', x: 48, search: 'Behind the boiler', holds: ['tools', 'washing'] },
+      { kind: 'bucket', x: 44, search: 'Mop bucket', holds: ['washing'] }
     ],
     closeUp: [
-      { kind: 'bottleshelf', x: 2, search: 'Shelf of bottles' }
+      { kind: 'bottleshelf', x: 2, search: 'Shelf of bottles', holds: ['food', 'washing'] }
     ] },
 
   /* --- THE CELLAR, under the ground --- */
   { id: 'cellar',   name: 'Cellar',        floor: 'cellar',
-    x: 456, y: 572, w: 336, h: 128,
+    x: 456, y: 572, w: 336, h: 128, lock: 'fuse', dark: true,
     note: 'Dark, far away, and the best junk in the house.',
     inTheOpen: [ { x: 100 }, { x: 184, lift: 38 }, { x: 150 } ],
     props: [
-      { kind: 'shelves', x: 8,   search: 'Metal shelves' },
-      { kind: 'boxes',   x: 72,  search: 'Old boxes' },
-      { kind: 'freezer', x: 142, search: 'Chest freezer' },
-      { kind: 'shelves', x: 200, search: 'Back shelves' }
+      { kind: 'shelves', x: 8,   search: 'Metal shelves', holds: ['tools', 'food'] },
+      { kind: 'boxes',   x: 72,  search: 'Old boxes', holds: ['stuff', 'toys'] },
+      { kind: 'freezer', x: 142, search: 'Chest freezer', holds: ['fresh'] },
+      { kind: 'shelves', x: 200, search: 'Back shelves', holds: ['tools', 'food'] }
     ],
     closeUp: [
-      { kind: 'toolbox', x: 150, lift: 38, search: 'Toolbox on the freezer' },
+      { kind: 'toolbox', x: 150, lift: 38, search: 'Toolbox on the freezer', holds: ['tools'] },
       { kind: 'tins',    x: 60 }
     ] },
 
@@ -286,23 +295,23 @@ export const ROOMS = [
     note: 'Tools, paint, a garden hose.',
     inTheOpen: [ { x: 46 } ],
     props: [
-      { kind: 'pegboard', x: 30, lift: -6, search: 'Tool wall' },
-      { kind: 'car',      x: 10, search: 'Car boot' }
+      { kind: 'pegboard', x: 30, lift: -6, search: 'Tool wall', holds: ['tools'] },
+      { kind: 'car',      x: 10, search: 'Car boot', holds: ['tools', 'stuff'] }
     ],
     closeUp: [
-      { kind: 'hosereel', x: 98, search: 'Hose reel' }
+      { kind: 'hosereel', x: 98, search: 'Hose reel', holds: ['tools'] }
     ] },
   { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
     x: 948, y: 476, w: 84,  h: 80, lock: 'shed',
     note: 'A long walk, and a padlock. Worth it.',
     inTheOpen: [ { x: 20 } ],
     props: [
-      { kind: 'pegboard',  x: 22, lift: -26, search: 'Shed wall' },
-      { kind: 'lawnmower', x: 2,  search: 'Grass box' },
+      { kind: 'pegboard',  x: 22, lift: -26, search: 'Shed wall', holds: ['tools', 'stuff', 'toys'] },
+      { kind: 'lawnmower', x: 2,  search: 'Grass box', holds: ['tools'] },
       { kind: 'bucket',    x: 60 }
     ],
     closeUp: [
-      { kind: 'flowerpots', x: 44, search: 'Stack of flower pots' }
+      { kind: 'flowerpots', x: 44, search: 'Stack of flower pots', holds: ['tools', 'fresh'] }
     ] }
 ];
 
@@ -319,7 +328,7 @@ export const ROOMS = [
    right. */
 export const STAIRS = [
   { id: 'main',   name: 'The stairs',  kind: 'steps', joins: ['hall', 'landing'],
-    cupboard: true, room: 'hall', search: 'Cupboard under the stairs',
+    cupboard: true, room: 'hall', search: 'Cupboard under the stairs', holds: ['tools', 'stuff', 'washing'],
     left: 140, right: 286, bottom: 544, top: 380, steps: 9 },
   { id: 'cellar', name: 'Cellar steps', kind: 'steps', joins: ['cellar', 'utility'],
     handrail: false,

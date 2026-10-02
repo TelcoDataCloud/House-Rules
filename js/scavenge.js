@@ -4,13 +4,15 @@
 
    At the start of every night this file:
      1. picks which rare things turn up tonight
-     2. locks the safe, the piano and the shed, with new puzzles
-        (js/puzzles.js), and puts something rare behind the locks
+     2. locks the safe, the piano, the shed and the cellar lights,
+        with new puzzles (js/puzzles.js), and puts something rare
+        behind each lock
      3. hides Dad's note with the safe code somewhere
      4. leaves a few common things lying about in plain sight
      5. hides everything else, each thing in the rooms it belongs
-        in (foundIn in data/items.js): flour in the kitchen, rope
-        in the garage
+        in (foundIn in data/items.js) and in a place that suits it
+        (kind and holds): flour in the kitchen cupboards, a banana
+        in the fridge, rope on the tool wall
      6. starts the clock
 
    Every night is shuffled differently, so you cannot learn
@@ -21,6 +23,13 @@
    it on the floor where you are standing (you can pick it up
    again). Find something with a full bag and it spills out onto
    the floor, so you can swap.
+
+   PAUSE
+   The clock stops while you go to the workbench. Build a few
+   traps, see what you still need, then go back out with the time
+   you had left. Your bag, the junk you left lying about and the
+   locks you opened are all still there. Only when the clock hits
+   zero is the scavenge really over.
 
    The rules (how many, how big your bag is, where things go) all
    live in data/items.js. The clock lives in data/difficulty.js.
@@ -69,6 +78,17 @@ function scatter() {
   const common = shuffle(ITEMS.filter((item) => !item.rare));
   const rare = shuffle(ITEMS.filter((item) => item.rare)).slice(0, RARE_EACH_NIGHT);
   const homes = (item) => item.foundIn || [];
+  /* Does this thing belong in this hiding place? A place with no
+     holds list takes anything. */
+  const fits = (spot, item) => !spot.holds || spot.holds.includes(item.kind);
+  /* The best free place for a thing: its own room AND the right
+     sort of place, then the right sort of place anywhere, then its
+     own room, then anywhere at all. */
+  const bestFor = (item, from) =>
+    from.find((s) => homes(item).includes(s.room) && fits(s, item)) ||
+    from.find((s) => fits(s, item)) ||
+    from.find((s) => homes(item).includes(s.room)) ||
+    from[0];
 
   let free = shuffle(hidingPlaces());
   const take = (spot, item) => {
@@ -83,6 +103,13 @@ function scatter() {
     if (item) take(spot, item);
   });
 
+  /* And one in every locked room (the shed, the dark cellar). */
+  ROOMS.filter((room) => room.lock).forEach((room) => {
+    const inside = free.filter((s) => s.room === room.id);
+    const item = inside.length ? rare.shift() : null;
+    if (item) take(bestFor(item, inside), item);
+  });
+
   /* Dad's note with the safe code, in one of his rooms. It can
      share a hiding place with a bit of junk. */
   const noteSpots = free.filter((s) => SAFE.noteRooms.includes(s.room));
@@ -91,9 +118,9 @@ function scatter() {
   /* The rest of the rare things: in their own rooms if there is
      space, then the awkward places, then anywhere. */
   rare.forEach((item) => {
-    const spot = free.find((s) => homes(item).includes(s.room)) ||
-      free.find((s) => RARE_HIDEOUTS.includes(s.room) || RARE_HIDEOUTS.includes(s.id)) ||
-      free[0];
+    const awkward = free.filter((s) => RARE_HIDEOUTS.includes(s.room) || RARE_HIDEOUTS.includes(s.id));
+    const spot = free.find((s) => homes(item).includes(s.room) && fits(s, item)) ||
+      (awkward.length ? bestFor(item, awkward) : bestFor(item, free));
     if (spot) take(spot, item);
   });
 
@@ -111,7 +138,7 @@ function scatter() {
 
   /* Everything else hides in its own rooms if it can. */
   common.slice(lying.length).forEach((item) => {
-    const spot = free.find((s) => homes(item).includes(s.room)) || free[0];
+    const spot = bestFor(item, free);
     if (spot) take(spot, item);
   });
 }
@@ -244,9 +271,12 @@ function showNotes() {
 
 /* --- THE LOCKS ----------------------------------------------- */
 
+/* A locked room (the shed, the dark cellar) opens and you walk
+   straight in. */
 function unlocked(lock) {
   refreshLocks();
-  if (lock === 'shed') walkTo('shed');
+  const room = ROOMS.find((r) => r.lock === lock);
+  if (room) walkTo(room.id);
 }
 
 const gate = {
@@ -287,6 +317,14 @@ function finish(why) {
   ui.toWorkshop.focus({ preventScroll: true });
 }
 
+/* Stop the clock and go to the workbench. You can come back. */
+function pause() {
+  if (!state.scavenging) return;
+  sfx.select();
+  stopNight();
+  setPhase('workshop');
+}
+
 /* --- START AND STOP ------------------------------------------ */
 
 export function setupScavenge(els) {
@@ -297,18 +335,22 @@ export function setupScavenge(els) {
     blocked: (roomId) => Boolean(lockedRoom(roomId)),
     onBlocked: (roomId) => gate.onLocked(lockedRoom(roomId))
   });
-  ui.done.addEventListener('click', () => finish('done'));
+  ui.done.addEventListener('click', pause);
   ui.toWorkshop.addEventListener('click', () => setPhase('workshop'));
 }
 
+/* The scavenge starts, or carries on if you paused it to go to
+   the workbench and still have time left. */
 export function startNight() {
   stopNight();
+  if (state.scavengeBegun && state.timeLeft > 0) { carryOn(); return; }
   const level = DIFFICULTY.find((d) => d.id === state.difficulty);
   state.inventory = [];
   state.hidden = {};
   state.lying = [];
   state.timeLeft = level.seconds;
   state.scavenging = true;
+  state.scavengeBegun = true;
   newPuzzles();
   refreshLocks();
   scatter();
@@ -320,6 +362,22 @@ export function startNight() {
   showNotes();
   showTime();
   startHero();
+  clock = setInterval(tick, 1000);
+}
+
+/* Back out of the workshop: same junk, same locks, same bag, and
+   the clock carries on from where it stopped. */
+function carryOn() {
+  state.scavenging = true;
+  refreshLocks();
+  ui.bar.hidden = false;
+  ui.clock.hidden = false;
+  ui.done.hidden = false;
+  ui.end.hidden = true;
+  drawBag();
+  showNotes();
+  showTime();
+  startHero(state.heroRoom || undefined);
   clock = setInterval(tick, 1000);
 }
 

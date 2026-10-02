@@ -30,12 +30,12 @@ import { DIFFICULTY } from '../data/difficulty.js';
 const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
-    line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Things hide where they belong: flour in the kitchen, rope in the garage.',
-    milestone: 'Three things are locked: the safe, the piano and the shed. Solve the puzzle and the best junk is yours.'
+    line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Things hide where they belong: flour in the kitchen cupboards, rope on the tool wall. Pause any time to build traps, then come back for more.',
+    milestone: 'Four things are locked: the safe, the piano, the shed and the cellar lights (the fuse box is in the utility room). Solve the puzzle and the best junk is yours.'
   },
   workshop: {
     title: 'Workshop',
-    line: 'Bolt two bits of junk together and see what you get. Put one thing on the bench and listen for a clue.',
+    line: 'Bolt two bits of junk together and see what you get. Put one thing on the bench and listen for a clue. Still time on the clock? Go back out for more.',
     milestone: 'If two things make a trap that can be upgraded, a third box opens. Add one more thing to upgrade it.'
   },
   rig: {
@@ -129,7 +129,7 @@ function boot() {
     slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), slotC: el('ws-slot-c'), plusC: el('ws-plus-c'),
     buildNow: el('ws-build-now'), result: el('ws-result'),
     items: el('ws-items'), traps: el('ws-traps'), toRig: el('to-rig'),
-    notebook: el('notebook'), found: el('ws-found'), ideas: el('ws-ideas')
+    notebook: el('notebook'), found: el('ws-found'), ideas: el('ws-ideas'), backOut: el('ws-back-out')
   });
 
   setupRig({

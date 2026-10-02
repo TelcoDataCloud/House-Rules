@@ -291,7 +291,7 @@
       <p class="bag-tip">Tap something in your bag to drop it.</p>
       <p class="notes" id="notes" hidden></p>
     </div>
-    <button type="button" class="btn btn-quiet" id="done-btn">I'm done</button>
+    <button type="button" class="btn btn-quiet" id="done-btn">Pause: build traps</button>
   </div>
   <div class="scavenge-end panel" id="scavenge-end" hidden>
     <p class="scavenge-end-text" id="scavenge-end-text" aria-live="assertive"></p>
@@ -348,6 +348,8 @@
       <p class="panel-hint">Put a trap back on the bench with one more thing to upgrade it.</p>
       <ul class="ws-cards" id="ws-traps"></ul>
       <div class="start-row">
+        <!-- Only there while the scavenge clock still has time on it. -->
+        <button type="button" class="btn btn-quiet" id="ws-back-out" hidden>Back out searching</button>
         <button type="button" class="btn btn-big" id="to-rig" hidden>Take the traps downstairs</button>
       </div>
     </div>

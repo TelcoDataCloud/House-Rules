@@ -31,6 +31,10 @@
    ideas? asks for a hint about the whole bag. The game reads
    every line out loud (js/voice.js).
 
+   GOING BACK OUT
+   If the scavenge clock still has time on it, Back out searching
+   takes you back to the house to find more junk.
+
    This file never says "Flour Bomb". It only reads the lists.
    =========================================================== */
 
@@ -247,6 +251,10 @@ function drawLists() {
   ui.traps.innerHTML = '';
   state.traps.forEach((id, i) => { if (!onBench('trap', i)) ui.traps.append(card('trap', id, i)); });
   if (!ui.traps.children.length) ui.traps.append(empty('No traps yet. Bolt something together.'));
+  /* Time left on the scavenge clock? You can go back out for more. */
+  const t = state.scavengeBegun ? state.timeLeft : 0;
+  ui.backOut.hidden = t <= 0;
+  ui.backOut.textContent = `Back out searching (${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} left)`;
   /* No traps? You can still go down. It will just be a long night. */
   ui.toRig.hidden = false;
   ui.toRig.textContent = state.traps.length || Object.keys(state.rigged).length
@@ -534,6 +542,7 @@ export function setupWorkshop(els) {
     build(waiting, [bench[0], bench[1]]);
   });
   ui.toRig.addEventListener('click', () => setPhase('rig'));
+  ui.backOut.addEventListener('click', () => { sfx.start(); setPhase('scavenge'); });
   ui.ideas.addEventListener('click', () => { sfx.tick(); say(bagHint()); });
 }
 
@@ -545,9 +554,12 @@ export function showWorkshop() {
   lastHint = '';
   ui.panel.hidden = false;
   ui.result.innerHTML = '';
+  const timeLeft = state.scavengeBegun && state.timeLeft > 0;
   say(state.inventory.length
     ? 'Right. Put something on the bench and I will have a think.'
-    : 'My bag is empty. Not much to build with. It is going to be a long night.');
+    : timeLeft
+      ? 'My bag is empty. Better go back out and grab some junk.'
+      : 'My bag is empty. Not much to build with. It is going to be a long night.');
   drawBench();
   drawLists();
   drawNotebook();

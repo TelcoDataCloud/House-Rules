@@ -1,7 +1,8 @@
 /* ===========================================================
-   PUZZLES - the safe, the shed padlock and the piano lid
+   PUZZLES - the safe, the shed padlock, the piano lid and the
+   fuse box
 
-   Three things in the house are locked (data/rooms.js says which,
+   Four things in the house are locked (data/rooms.js says which,
    with lock: 'safe' and so on). Try to open one and a little
    puzzle pops up over the house. The clock keeps running while
    you think, so be quick.
@@ -11,14 +12,16 @@
        shed   a padlock with letters on it. Read the riddle on the
               tag and spell the answer.
        piano  music on the stand, in colours. Play it.
+       fuse   the cellar lights are out. Flip on fuses that add up
+              to the number on the label, then pull the big switch.
 
-   Every night gets a new code, word and tune (newPuzzles below),
-   kept in state.puzzles. data/puzzles.js has the riddles, the
-   colours and how long things are.
+   Every night gets a new code, word, tune and fuse number
+   (newPuzzles below), kept in state.puzzles. data/puzzles.js has
+   the riddles, the colours, the fuses and how long things are.
    =========================================================== */
 
 import { state } from './state.js';
-import { SAFE, SHED, PIANO } from '../data/puzzles.js';
+import { SAFE, SHED, PIANO, FUSE } from '../data/puzzles.js';
 import { sfx } from './audio.js';
 
 const ui = {};
@@ -62,7 +65,8 @@ export function newPuzzles() {
   state.puzzles = {
     safe: { code, sums },
     shed: { riddle: pick.riddle, word: pick.word, letters },
-    piano: { tune: tune.map((k) => PIANO.keys[k]) }
+    piano: { tune: tune.map((k) => PIANO.keys[k]) },
+    fuse: { target: FUSE.targets[roll(FUSE.targets.length)] }
   };
   state.unlocked = [];
   state.notes = [];
@@ -73,7 +77,7 @@ export function isLocked(lock) {
 }
 
 export function lockName(lock) {
-  return { safe: SAFE.name, shed: SHED.name, piano: PIANO.name }[lock] || 'Lock';
+  return { safe: SAFE.name, shed: SHED.name, piano: PIANO.name, fuse: FUSE.name }[lock] || 'Lock';
 }
 
 /* What Dad's note says, once you have found it. */
@@ -115,7 +119,7 @@ function solved() {
   const { lock, onSolved } = current;
   if (!state.unlocked.includes(lock)) state.unlocked.push(lock);
   sfx.unlock();
-  say('CLICK! It is open!', 'is-good');
+  say(lock === 'fuse' ? 'CLUNK! The lights are on!' : 'CLICK! It is open!', 'is-good');
   ui.dialog.classList.add('is-solved');
   ui.body.querySelectorAll('button').forEach((b) => { b.disabled = true; });
   if (onSolved) onSolved(lock);
@@ -244,7 +248,39 @@ function buildPiano() {
   ui.body.append(music, keys);
 }
 
-const BUILDERS = { safe: buildSafe, shed: buildShed, piano: buildPiano };
+/* The fuse box: flip fuses on until they add up to the label,
+   then pull the big switch. Any fuses that add up will do. */
+function buildFuse() {
+  const p = state.puzzles.fuse;
+  ui.clue.textContent = `The cellar lights are out. The label on the fuse box says: NEEDS ${p.target}. Flip on fuses that add up to ${p.target}, then pull the big switch.`;
+  ui.clue.classList.add('is-note');
+  const on = FUSE.fuses.map(() => false);
+  const row = el('div', 'pz-fuses');
+  FUSE.fuses.forEach((n, i) => {
+    const b = button('pz-fuse', String(n), `Fuse ${n}: off`, () => {
+      on[i] = !on[i];
+      b.classList.toggle('is-on', on[i]);
+      b.setAttribute('aria-pressed', String(on[i]));
+      b.setAttribute('aria-label', `Fuse ${n}: ${on[i] ? 'on' : 'off'}`);
+      sfx.tick();
+      say('');
+    });
+    b.setAttribute('aria-pressed', 'false');
+    row.append(b);
+  });
+  const pull = button('btn-big pz-go', 'Pull the big switch', null, () => {
+    const total = FUSE.fuses.reduce((sum, n, i) => sum + (on[i] ? n : 0), 0);
+    if (total === p.target) { solved(); return; }
+    sfx.nope();
+    shake();
+    say(total > p.target
+      ? `POP! That was ${total}. Too much!`
+      : `Fzzt. That was ${total}. Not enough.`, 'is-bad');
+  });
+  ui.body.append(row, pull);
+}
+
+const BUILDERS = { safe: buildSafe, shed: buildShed, piano: buildPiano, fuse: buildFuse };
 
 /* Open the puzzle for a lock. onSolved is called once it opens. */
 export function openPuzzle(lock, onSolved) {
