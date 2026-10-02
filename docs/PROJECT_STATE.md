@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 1 October 2026 (M0 to M11 done: the game is finished, plus locks, hints and more traps). The newest sections are at the bottom; read those first.
+Last updated: 2 October 2026 (M0 to M12 done: the game is finished, plus locks, hints, more traps, the fuse box and pause). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -646,3 +646,52 @@ M10 ones (Doorbell nerve, a trap word, callPoliceAt, the tagline).
 hints instead of the computer voice; per hiding place item matching (flour
 in the cupboard, not the fridge); a fourth puzzle (fuse box in the cellar).
 
+## M12 — Lights Out. Done 2 Oct 2026
+
+Asa answered the parked questions: keep the computer voice; yes to
+matching items to hiding places; yes to a fuse box puzzle. Hendrix's
+favourite food is CANDY. Then, mid build: scavenge clocks to 300 / 200 /
+125, and be able to pause the clock, go and make traps, then go back out.
+
+- **Hendrix's riddle:** `{ riddle: 'I am Hendrix\'s favourite food.', word: 'CANDY' }`
+  is in `SHED.riddles` (his M11 turn, done through Asa).
+- **Hiding places match:** every item has a `kind` (food, fresh, tools,
+  toys, washing, stuff); every hiding place has `holds`. `scatter()` picks
+  own room plus right sort of place, then right sort anywhere, then own
+  room, then anywhere. Over 6 test nights 113 of 114 hidden things landed in
+  a place that suits them (the odd one: a rare in a locked room).
+- **Fuse box:** `lock: 'fuse', dark: true` on the cellar. Dark rooms draw
+  LIGHTS OUT with a dead bulb instead of chains (`drawLightsOut` in
+  house.js, tokens `--dark-room`, `--bulb-off`, `--dark-words`). A
+  `fusebox` prop on the utility wall. Puzzle: five numbered fuses (FUSE in
+  data/puzzles.js), flip on ones that add up to tonight's target, pull the
+  big switch; POP if too much, fzzt if not enough, both say the total.
+  Solving any locked room now walks you straight in.
+- **Rares:** `RARE_EACH_NIGHT` 4, one behind every lock (safe, piano, shed,
+  cellar).
+- **Clocks:** Easy 300, Medium 200, Hard 125.
+- **Pause:** the scavenge button is now *Pause: build traps*. It stops the
+  clock and goes to the workbench. The workbench shows *Back out searching
+  (m:ss left)* while time remains; it puts Hendrix back in the room he left,
+  with the same bag, junk, searched marks and open locks
+  (`state.scavengeBegun`, `carryOn()` in scavenge.js, `startHero(room)`).
+  Works after rigging too. Time up hides the button. Restart clears it.
+
+Verified locally and on the live site after deploy (`91fb319`): fuse
+wrong and right, cellar lit and searchable, pause keeps the clock still,
+back out resumes the clock and keeps everything, build and rig between
+trips, time up, restart, all earlier tests (puzzles, workshop, night,
+full playthrough), phone and tablet with no sideways scroll, day theme,
+console clean throughout. Pushed in four commits, compatible files first,
+switch-on last, so the live site never broke.
+
+**Hendrix's turn for M12:** in `data/puzzles.js`, make the fuse box even
+numbers only: `fuses: [2, 4, 6, 8, 10],` and `targets: [10, 12, 14, 16, 18],`.
+
+**Turns still owing:** `walkSpeed` (M2), Water Balloon and the Hard timer
+(M3), Glue Bomb (M4), my-floor (M5), rename a burglar (M6), Doorbell nerve
+(M7), a trap word (M8), callPoliceAt (M9), the tagline (M10), voice pitch
+(M11 bonus), even fuses (M12).
+
+**Decided, not doing:** recording Hendrix's real voice (Asa: keep the
+computer voice).
