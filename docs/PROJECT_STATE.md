@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 2 October 2026 (M0 to M12 done: the game is finished, plus locks, hints, more traps, the fuse box and pause). The newest sections are at the bottom; read those first.
+Last updated: 2 October 2026 (M0 to M13 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, and fresh nights). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -112,7 +112,7 @@ service.
 
 | Idea | Ingredients | Status |
 |---|---|---|
-| **Glue Bomb** (19 Sep): the swinging flour bomb, then a water bomb straight after, so the flour turns to glue | Flour Bomb + Water Balloon (a new item he adds in M3). Swings overhead like the Swinging Flour Bomb. STICKY and MESSY, which is exactly Bruno's weakness. | **Agreed 19 Sep.** In the brief's upgrade table. Water Balloon goes in at M3 (his item), Glue Bomb at M4. |
+| **Glue Bomb** (19 Sep): the swinging flour bomb, then a water bomb straight after, so the flour turns to glue | Flour Bomb + Water Balloon (a new item he adds in M3). Swings overhead like the Swinging Flour Bomb. STICKY and MESSY, which is exactly Bruno's weakness. | **Built in M13** (2 Oct). Water Balloon is in `data/items.js`, Glue Bomb in `data/recipes.js`, plus a Splash Line (Water Balloon + String). |
 
 ---
 
@@ -695,3 +695,47 @@ numbers only: `fuses: [2, 4, 6, 8, 10],` and `targets: [10, 12, 14, 16, 18],`.
 
 **Decided, not doing:** recording Hendrix's real voice (Asa: keep the
 computer voice).
+
+---
+
+## M13 — Fresh Nights. Done 2 Oct 2026
+
+Asa: Hendrix is enjoying it; keep it fresh with more dialogue, mix up where
+things are (unless they belong somewhere), cut the 5 or 6 intro lines, and
+make the intro look better. Also: "you decide" on every owed turn.
+
+**What changed**
+- **Burglar chatter.** Every `says` line and grabs, tooLate, leaving, panic
+  and caught in `data/burglars.js` is now a list; one is picked at random.
+  New `mutters` lists: each burglar talks to himself every 7 to 14 seconds
+  while walking or leaving, never the same mutter twice in a night. About 27
+  lines a night, different every night.
+- **Searching.** `FOUND_LINES` and `EMPTY_LINES` in `data/hints.js`.
+- **Placement.** Junk goes to a random sensible spot (its `holds` fit), with
+  its own rooms weighted double; loose items prefer their own room only half
+  the time. Fit 116 to 118 of 120 over six nights; own room about 50 to 80 of
+  120, so the same cupboard is not the answer every night.
+- **Intro.** Three beats instead of five or six, over a drawn street scene
+  (sky, moon, clouds, far houses, brick house with number 12, attic window,
+  fence, lamp, a van that says NOT A GETAWAY VAN). Beat 1 the burglars creep
+  from the van; beat 2 they give away what they hate in speech bubbles; beat
+  3 the attic light comes on and Hendrix pops up with a plan. Reduced motion
+  respected, fits a phone.
+- **Tagline** (his M10 turn): "Two burglars. One night. One kid in pyjamas
+  and a house full of traps."
+
+**Owed turns, decided by Claude on Asa's say-so**
+- Walk speed 180 (M2). Water Balloon (M3). Glue Bomb plus a Splash Line (M4).
+  Bedroom floor anchor `my-floor` (M5): 25 anchors now. Doorbell nerve 2
+  (M7). Rattlesnake word CLATTERBANG! (M8). callPoliceAt 7 (M9). Tagline
+  (M10). Fuse hard mode left as an optional note in `data/puzzles.js` (M12).
+- Left for Hendrix if he wants them: rename a burglar, voice pitch, the box
+  room anchor, the Hard timer. Each file's header still says how.
+
+**Verified** locally and live (`954c8ae`): intro in both themes and on a
+phone, chatter differs between nights, Glue Bomb and Splash Line build and
+fire, my-floor fires on Sid, every earlier test (puzzles, pause, workshop,
+night, full playthrough), no sideways scroll, console clean.
+
+**Hendrix's turn for M13:** in `data/burglars.js`, find a `mutters` list and
+add his own line, e.g. `'I smell pizza.',`. Save, refresh, listen for it.

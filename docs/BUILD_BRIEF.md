@@ -163,7 +163,7 @@ upgrade paths as a little branch off the base trap, with unknown upgrades as
 silhouettes — that's the thing that will keep him experimenting.
 
 ### Phase 3 — RIG *(untimed)*
-The house shows **24 anchor points**, one trap each. They are listed in
+The house shows **25 anchor points**, one trap each. They are listed in
 full in §7a. Every anchor is a real place in the house: a door frame, a
 staircase, a ceiling, a stretch of floor.
 
@@ -259,6 +259,9 @@ This makes noisy traps strategically valuable even against half-deaf Bruno,
 and it wires the systems together so choices actually trade off against each
 other.
 
+The bar fills at `callPoliceAt` in `data/difficulty.js`: 7 since M13
+(it was 6; there are more LOUD traps now).
+
 ### Loot
 Six loot items sit around the house (TV, console, laptop, jewellery box, cash
 tin, guitar). Each burglar grabs what they pass. Loot carried out = lost.
@@ -295,8 +298,9 @@ Garden Hose · Blender · Glitter Cannon
 The rare items exist to make the scavenge phase worth exploring properly and
 to give the recipe notebook something to chase.
 
-**Hendrix's item:** **Water Balloon**, common. He adds it himself in M3, and
-it unlocks his Glue Bomb in M4.
+**Hendrix's item:** **Water Balloon**, common (kind: toys, found in the
+bathroom or kitchen). It was his M3 turn; Claude added it in M13 on Asa's
+say-so. It unlocks his Glue Bomb and the Splash Line.
 
 ---
 
@@ -358,6 +362,15 @@ burglar who shrugs off your favourite trick.
 | Rubber Chicken + Hair Dryer | **Flying Chicken** | STARTLE | 3 | Blown right at him |
 | Feather Pillow + Flour | **Pillow Fight** | MESSY | 2 | Flour and feathers |
 | Tin Cans + Marbles | **Maraca Mayhem** | LOUD | 2 | Rattles like a mad band |
+
+### Added in M13
+
+| Ingredients | Trap | Cat. | Nerve | Payoff |
+|---|---|---|---|---|
+| Water Balloon + String | **Splash Line** | MESSY | 2 | Doorway. SPLOSH! Soaked. |
+
+The Glue Bomb upgrade (above) went in at the same time. The Doorbell's
+nerve went to 2 and the Rattlesnake Line's word is now CLATTERBANG!.
 | Blender + Custard | **Custard Cannon** | MESSY | 4 | A custard volcano |
 | Garden Hose + Cooking Oil | **Slip and Slide** | SLIPPERY | 4 | A water park on the stairs |
 | Glitter Cannon + Hair Dryer | **Glitter Blizzard** | MESSY | 3 | Disco ball burglar |
@@ -467,7 +480,7 @@ you a chunk of the clock.
 are painted; Hendrix's room is light green. Paint is a word on each room in
 `data/rooms.js` that points at a colour in `css/tokens.css`.
 
-### Rig: the 24 anchor points
+### Rig: the 25 anchor points
 
 Grouped by mount type. Mount type is what decides whether a trap fits.
 
@@ -476,11 +489,12 @@ Grouped by mount type. Mount type is what decides whether a trap fits.
   door, their room door, box room door
 - **OVERHEAD** (6) — porch ceiling, hall ceiling, lounge ceiling, bathroom
   ceiling, upstairs hall, loft hatch
-- **FLOOR** (4) — landing floor, dining floor, kitchen floor, cellar floor
+- **FLOOR** (5) — landing floor, his bedroom floor, dining floor, kitchen
+  floor, cellar floor
 - **STAIRS** (3) — bottom of stairs, top of stairs, cellar steps
 
-The positions live in `data/rooms.js`. Hendrix's room, Mum and Dad's and
-the box room only have a door anchor; adding one inside is his M5 turn.
+The positions live in `data/rooms.js`. Mum and Dad's and the box room only
+have a door anchor. His bedroom floor anchor was his M5 turn, added in M13.
 
 ### Why the routes work
 
@@ -623,6 +637,20 @@ out with the time left; the fuse box puzzle and the dark cellar; every
 hiding place matched to the kinds of thing it holds; a rare thing behind
 every lock.
 → *His turn:* make the fuse box even numbers only in `data/puzzles.js`.
+*(Asa: "you decide". Kept at 1 to 5; hard mode left as an optional note.)*
+
+**M13 — Fresh Nights** *(Asa's call, 2 Oct 2026, after Hendrix had played a
+lot).* Every burglar line is now a list with one picked at random, and each
+burglar mutters to himself every 7 to 14 seconds without repeating. Finds
+and empty searches have their own random lines. Junk is placed at random
+among the hiding places that make sense for it, so the same room is not the
+answer every night. The intro is three short beats over a drawn street
+scene: the van, the burglars at the door giving away what they hate, and
+Hendrix in the attic window with a plan. The owed turns (Water Balloon,
+Glue Bomb, bedroom anchor, walk speed 180, police at 7) were done by Claude
+on Asa's say-so.
+→ *His turn:* add his own line to a burglar's `mutters` list in
+`data/burglars.js`.
 
 ---
 
