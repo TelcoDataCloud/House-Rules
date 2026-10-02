@@ -300,7 +300,7 @@ function drawStairs(svg) {
       body.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
       door.append(body);
       const home = findRoom(flight.room);
-      if (flight.search && home) makeSpot(door, flight.room, flight.search, 'hide', undefined, { x: doorX - home.x });
+      if (flight.search && home) makeSpot(door, flight.room, flight.search, 'hide', undefined, { x: doorX - home.x, holds: flight.holds });
       g.append(door);
     }
 
@@ -386,7 +386,7 @@ function placeThing(layer, room, thing, floorY) {
   const body = make('g', { class: 'prop-body' });
   drawProp(thing.kind, body, thing);
   at.append(body);
-  if (thing.search) makeSpot(at, room.id, thing.search, 'hide', undefined, { lock: thing.lock, x: thing.x });
+  if (thing.search) makeSpot(at, room.id, thing.search, 'hide', undefined, { lock: thing.lock, x: thing.x, holds: thing.holds });
   layer.append(at);
 }
 
@@ -490,6 +490,7 @@ function padlock(parent, x, y, size = 1) {
 }
 
 function drawRoomLock(room) {
+  if (room.dark) return drawLightsOut(room);
   const g = make('g', { class: 'room-lock', 'data-lock': room.lock });
   g.append(make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, rx: 4, class: 'room-lock-shade' }));
   g.append(make('path', {
@@ -497,6 +498,22 @@ function drawRoomLock(room) {
     class: 'room-lock-chain'
   }));
   padlock(g, room.x + room.w / 2, room.y + room.h / 2 + 2, 1.5);
+  return g;
+}
+
+/* A room with its lights out: nearly black, with a bulb that is
+   off and the words LIGHTS OUT. Fix the fuse box and it fades. */
+function drawLightsOut(room) {
+  const g = make('g', { class: 'room-lock is-dark', 'data-lock': room.lock });
+  g.append(make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, rx: 4, class: 'room-dark-shade' }));
+  const cx = room.x + room.w / 2;
+  const cy = room.y + room.h / 2 - 8;
+  g.append(make('path', { d: `M${cx} ${room.y} L${cx} ${cy - 16}`, class: 'room-dark-flex' }));
+  g.append(make('circle', { cx, cy: cy - 4, r: 11, class: 'room-dark-bulb' }));
+  g.append(make('rect', { x: cx - 5, y: cy - 20, width: 10, height: 6, rx: 1, class: 'room-dark-cap' }));
+  const words = make('text', { x: cx, y: cy + 30, 'text-anchor': 'middle', class: 'room-dark-words' });
+  words.textContent = 'LIGHTS OUT';
+  g.append(words);
   return g;
 }
 
@@ -665,7 +682,7 @@ function slug(words) {
 /* kind is 'hide' for a hiding place, or 'loose' for a bit of junk
    lying in the open. Both glow when you point at them. */
 function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`, extra = {}) {
-  const spot = { id, room: roomId, name, node: g, kind, lock: extra.lock || null, x: extra.x || 0 };
+  const spot = { id, room: roomId, name, node: g, kind, lock: extra.lock || null, x: extra.x || 0, holds: extra.holds || null };
   if (spot.lock) g.dataset.lock = spot.lock;
   g.classList.add('spot');
   if (kind === 'loose') g.classList.add('loose-item');
@@ -855,7 +872,7 @@ export function placeInRoom(roomId, x, lift = 0) {
 /* Every hiding place in the house, so js/scavenge.js can choose
    where to hide things. */
 export function hidingPlaces() {
-  return spots.filter((spot) => spot.kind === 'hide').map((spot) => ({ id: spot.id, room: spot.room, name: spot.name, lock: spot.lock }));
+  return spots.filter((spot) => spot.kind === 'hide').map((spot) => ({ id: spot.id, room: spot.room, name: spot.name, lock: spot.lock, holds: spot.holds }));
 }
 
 /* Who decides what is in a hiding place. js/scavenge.js sets this. */
