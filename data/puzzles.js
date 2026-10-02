@@ -67,8 +67,9 @@ export const PIANO = {
    targets is the numbers the label might ask for. Every one of
    them must be possible to make out of the fuses.
 
-   YOUR TURN (M12)
-   Make it harder: only even numbers. Change fuses to
+   HARD MODE (if you want it)
+   We kept the fuses at 1 to 5 so it is quick. For a harder
+   puzzle, make it even numbers only. Change fuses to
        fuses: [2, 4, 6, 8, 10],
    and targets to
        targets: [10, 12, 14, 16, 18],

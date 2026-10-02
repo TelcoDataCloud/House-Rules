@@ -91,14 +91,15 @@
    In M5 a trap will only fit an anchor with the same mount, so a
    swinging paint tin needs OVERHEAD and marbles need FLOOR.
 
-   Your room, Mum and Dad's room and the box room only have an
-   anchor on the door. Nothing inside. Adding one is your job in
-   M5. Copy this line into the upstairs part of ANCHORS:
+   Mum and Dad's room and the box room only have an anchor on the
+   door. Your room has one on the floor too (M5): Sid always comes
+   in to look at the laptop, so it is a good place for a trap.
+   This is the line that added it:
 
    { id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 420, y: 372 },
 
-   Save, refresh, build a floor trap (Cooking Oil + Marbles), and
-   set it in your own room. Then try moving it with x and y.
+   Try one in the box room: copy it, change the id, name and room,
+   and move it with x and y.
    =========================================================== */
 
 export const PICTURE = { w: 1040, h: 740 };
@@ -337,7 +338,7 @@ export const STAIRS = [
     left: 306, right: 330, bottom: 380, top: 208, steps: 6 }
 ];
 
-/* Twenty four anchor points. One trap each, later on. */
+/* Twenty five anchor points. One trap each. */
 export const ANCHORS = [
   /* upstairs */
   { id: 'loft-hatch',    name: 'Loft hatch',       room: 'landing',  mount: 'OVERHEAD', x: 318, y: 244 },
@@ -347,6 +348,7 @@ export const ANCHORS = [
   { id: 'landing-floor', name: 'Landing floor',    room: 'landing',  mount: 'FLOOR',    x: 206, y: 372 },
   { id: 'stairs-top',    name: 'Top of stairs',    room: 'landing',  mount: 'STAIRS',   x: 282, y: 372 },
   { id: 'my-door',       name: 'Your bedroom door', room: 'my-room', mount: 'DOORWAY',  x: 338, y: 360 },
+  { id: 'my-floor',      name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR',    x: 420, y: 372 },
   { id: 'big-door',      name: 'Their room door',  room: 'big-room', mount: 'DOORWAY',  x: 498, y: 360 },
   { id: 'box-door',      name: 'Box room door',    room: 'box-room', mount: 'DOORWAY',  x: 654, y: 360 },
 

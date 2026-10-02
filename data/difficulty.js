@@ -51,10 +51,11 @@ export const DEFAULT_DIFFICULTY = 'easy';
    the door gets away.
 
    Make callPoliceAt small and the police come all the time.
-   Make it big and you will hardly ever see them.
+   Make it big and you will hardly ever see them. It was 6. There
+   are more LOUD traps now, so it went up to 7.
    =========================================================== */
 
 export const NEIGHBOURS = {
-  callPoliceAt: 6,
+  callPoliceAt: 7,
   policeTake: 9
 };

@@ -14,10 +14,12 @@
        walkSpeed   how fast you walk. Bigger is faster.
        size        how big you are drawn. 1 is normal.
 
-   YOUR TURN (M2)
+   PLAY WITH IT (M2)
    Change walkSpeed to 50. Save, refresh, start a night and try
    to get to the shed. Then try 600. Then pick the number you
    think is fair and leave it there.
+   (Dad said: you decide, Claude. Claude picked 180, a bit quicker
+   than 160, because the house has more to grab now.)
 
    The colours of your pyjamas are in css/tokens.css, called
    --pj-a (the main colour) and --pj-b (the stripes). Your
@@ -27,6 +29,6 @@
 export const HERO = {
   name: 'Hendrix',
   startRoom: 'my-room',
-  walkSpeed: 160,
+  walkSpeed: 180,
   size: 1
 };
