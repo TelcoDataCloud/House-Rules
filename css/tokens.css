@@ -183,6 +183,16 @@
   --meter-low: #ff4f4f;
   --pin-back: rgba(23, 21, 38, 0.94);
 
+  /* --- THE INTRO STREET (js/intro.js) --- */
+  --cloud: #3a3560;
+  --far-houses: #231f3d;
+  --pavement: #6e6a74;
+  --road: #2b2a33;
+  --road-line: #d9cfa0;
+  --fence: #e8e1d0;
+  --van-body: #e9e2cf;
+  --van-stripe: #c0504a;
+
   /* --- PAGE and PANELS --- */
   --bg: #171526;
   --bg-2: #221f38;
@@ -379,6 +389,15 @@
   --dust: #b8ab92;
   --meter-low: #d6322a;
   --pin-back: rgba(255, 248, 232, 0.95);
+
+  --cloud: #ffffff;
+  --far-houses: #a9c3d3;
+  --pavement: #c9c3b6;
+  --road: #6f6c74;
+  --road-line: #fff3b0;
+  --fence: #ffffff;
+  --van-body: #ffffff;
+  --van-stripe: #d45d55;
 
   --bg: #fdf4e3;
   --bg-2: #f7e8cd;
