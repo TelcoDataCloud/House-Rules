@@ -12,6 +12,11 @@
    at the bottom, is how easily the neighbours call the police.
 
    Try setting hard to 20 and see if you can still win.
+
+   puzzleClock is what the clock does while a puzzle is open:
+       'stop'   it stops, so you can think as long as you like
+       'slow'   it runs at half speed
+       'run'    it keeps going like normal. Brave.
    =========================================================== */
 
 export const DIFFICULTY = [
@@ -19,18 +24,21 @@ export const DIFFICULTY = [
     id: 'easy',
     name: 'Easy',
     seconds: 300,
+    puzzleClock: 'stop',
     note: 'Plenty of time. Grab everything.'
   },
   {
     id: 'medium',
     name: 'Medium',
     seconds: 200,
+    puzzleClock: 'stop',
     note: 'You will miss a room. Choose which one.'
   },
   {
     id: 'hard',
     name: 'Hard',
     seconds: 125,
+    puzzleClock: 'slow',
     note: 'Run. Do not think. Regret it later.'
   }
 ];

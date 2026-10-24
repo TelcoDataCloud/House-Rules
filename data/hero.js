@@ -18,8 +18,8 @@
    Change walkSpeed to 50. Save, refresh, start a night and try
    to get to the shed. Then try 600. Then pick the number you
    think is fair and leave it there.
-   (Dad said: you decide, Claude. Claude picked 180, a bit quicker
-   than 160, because the house has more to grab now.)
+   (Dad said: you decide, Claude. Claude picked 180. Then the rooms
+   got half as wide again, so it went up to 250 to keep up.)
 
    The colours of your pyjamas are in css/tokens.css, called
    --pj-a (the main colour) and --pj-b (the stripes). Your
@@ -29,6 +29,6 @@
 export const HERO = {
   name: 'Hendrix',
   startRoom: 'my-room',
-  walkSpeed: 180,
+  walkSpeed: 250,
   size: 1
 };

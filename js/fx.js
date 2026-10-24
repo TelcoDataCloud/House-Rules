@@ -9,7 +9,8 @@
 
    Which payoff a trap gets is its fx in data/recipes.js:
    slip, swing, drop, cloud, pour, stick, tangle, noise or flash.
-   Its mess (flour, feathers, paint, honey, glitter, water) is
+   Its mess (flour, feathers, paint, honey, glitter, water, and
+   since M14 foam, egg, slime and mustard) is
    what he is covered in afterwards, and it STAYS on him for the
    rest of the night. Its word is the big comic word.
 
@@ -79,7 +80,7 @@ export function addMess(body, look, mess, seed = 1) {
   const anywhere = () => [(roll() * 2 - 1) * w, shape.top + 6 + roll() * (-shape.top - 12)];
   const onHead = () => [hx + (roll() * 2 - 1) * 8, hy - 6 + roll() * 10];
 
-  if (mess === 'flour') {
+  if (mess === 'flour' || mess === 'foam') {
     make('path', { d: `M${hx - 10} ${hy - 4} Q${hx} ${hy - 18} ${hx + 11} ${hy - 4} Q${hx + 4} ${hy - 7} ${hx} ${hy - 3} Q${hx - 5} ${hy - 7} ${hx - 10} ${hy - 4} Z`, class: 'mess-fill' }, g);
     for (let i = 0; i < 16; i += 1) {
       const [x, y] = anywhere();
@@ -90,7 +91,7 @@ export function addMess(body, look, mess, seed = 1) {
       const [x, y] = i < 4 ? onHead() : anywhere();
       make('ellipse', { cx: 0, cy: 0, rx: 4, ry: 1.6, class: 'mess-fill feather', transform: `translate(${x} ${y}) rotate(${Math.round(roll() * 180)})` }, g);
     }
-  } else if (mess === 'paint') {
+  } else if (mess === 'paint' || mess === 'egg') {
     for (let i = 0; i < 5; i += 1) {
       const [x, y] = i < 3 ? onHead() : anywhere();
       const r = 2.5 + roll() * 3;
@@ -104,7 +105,7 @@ export function addMess(body, look, mess, seed = 1) {
       make('path', { d: `M${-w - 2} ${y} Q0 ${y + 5 + roll() * 3} ${w + 2} ${y - 2} L${w + 2} ${y + 2.5} Q0 ${y + 9} ${-w - 2} ${y + 3.5} Z`, class: 'mess-fill' }, g);
     }
     make('path', { d: `M${w} ${shape.top + 30} Q${w + 8} ${shape.top + 40} ${w + 4} ${shape.top + 52}`, class: 'mess-tail' }, g);
-  } else if (mess === 'honey' || mess === 'water' || mess === 'custard') {
+  } else if (['honey', 'water', 'custard', 'slime', 'mustard'].includes(mess)) {
     make('path', { d: `M${hx - 10} ${hy - 6} Q${hx} ${hy - 16} ${hx + 11} ${hy - 6} L${hx + 11} ${hy - 2} Q${hx + 8} ${hy + 4} ${hx + 6} ${hy - 2} Q${hx + 2} ${hy + 8} ${hx - 2} ${hy - 1} Q${hx - 6} ${hy + 6} ${hx - 8} ${hy - 2} Z`, class: 'mess-fill' }, g);
     for (let i = 0; i < 7; i += 1) {
       const [x, y] = anywhere();

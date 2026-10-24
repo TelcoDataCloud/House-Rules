@@ -715,6 +715,75 @@ export const PROPS = {
     shape(g, 'M3 0 L13 -2 L14 0 Z', 'paint-yellow', THIN);
   },
 
+  /* --- ADDED WHEN THE ROOMS GOT BIGGER (M14) ---------------- */
+
+  /* A toy box with the lid not quite shut, because it never is. */
+  toybox(g, o) {
+    const colour = o.colour || 'fabric-b';
+    box(g, 0, -28, 44, 28, colour);
+    box(g, 4, -22, 36, 4, 'paint-yellow', THIN, 1);
+    shape(g, 'M-2 -28 L46 -28 L44 -36 L0 -33 Z', colour);
+    ball(g, 12, -32, 5, 'fabric-a', THIN);                 // a ball poking out
+    box(g, 26, -40, 5, 12, 'metal', THIN, 1);               // a rocket fin
+    shape(g, 'M26 -40 L28.5 -46 L31 -40 Z', 'fabric-a', THIN);
+    shadow(g, 'M38 -28 L44 -28 L44 0 L38 0 Z');
+  },
+
+  /* A little cupboard by the bed. Things go on top of it. */
+  bedside(g) {
+    box(g, 0, -30, 24, 30, 'wood');
+    box(g, 3, -27, 18, 9, 'wood-light', THIN, 1);
+    ball(g, 12, -22.5, 1.8, 'metal', THIN);
+    box(g, 3, -15, 18, 12, 'wood-light', THIN, 1);
+    shadow(g, 'M19 -30 L24 -30 L24 0 L19 0 Z');
+  },
+
+  /* Two shelves of shoes and wellies. */
+  shoerack(g) {
+    box(g, 0, -28, 40, 3, 'wood-dark', THIN, 1);
+    box(g, 0, -14, 40, 3, 'wood-dark', THIN, 1);
+    box(g, 0, -28, 3, 28, 'wood-dark', THIN, 1);
+    box(g, 37, -28, 3, 28, 'wood-dark', THIN, 1);
+    shape(g, 'M5 -14 L5 -22 Q5 -25 9 -25 L12 -25 L12 -19 L18 -17 L18 -14 Z', 'fabric-a', THIN);
+    shape(g, 'M21 -14 L21 -22 Q21 -25 25 -25 L28 -25 L28 -19 L34 -17 L34 -14 Z', 'fabric-a', THIN);
+    shape(g, 'M5 0 L5 -9 L11 -9 L11 -4 L17 -3 L17 0 Z', 'hedge', THIN);
+    shape(g, 'M21 0 L21 -9 L27 -9 L27 -4 L33 -3 L33 0 Z', 'hedge', THIN);
+  },
+
+  /* The cooker: an oven with a window, and the hob on top. */
+  cooker(g) {
+    box(g, 0, -46, 40, 46, 'porcelain');
+    box(g, 4, -36, 32, 22, 'window-dark', THIN, 3);        // oven door window
+    shine(g, 'M7 -33 L14 -33 L9 -18 L6 -18 Z');
+    box(g, 6, -40, 28, 2, 'metal', 'none', 1);              // handle
+    box(g, 4, -10, 32, 6, 'metal', THIN, 1);                // drawer at the bottom
+    box(g, -1, -48, 42, 4, 'ink', 'none', 1);               // hob
+    ball(g, 10, -49, 4, 'metal', THIN);
+    ball(g, 28, -49, 5, 'metal', THIN);
+    box(g, 0, -60, 40, 12, 'porcelain', THIN, 1);           // knobs at the back
+    [7, 15, 23, 31].forEach((x) => ball(g, x, -54, 2, 'ink', 'none'));
+    shadow(g, 'M34 -46 L40 -46 L40 0 L34 0 Z');
+  },
+
+  /* A key safe on the wall by the front door. It beeps. */
+  keysafe(g) {
+    box(g, 0, -98, 22, 28, 'metal');
+    box(g, 3, -95, 16, 6, 'screen', THIN, 1);
+    [0, 1, 2].forEach((row) => [0, 1, 2].forEach((col) =>
+      box(g, 4 + col * 5, -87 + row * 5, 3.5, 3.5, 'porcelain', 'none', 0.5)));
+    ball(g, 18, -74, 1.5, 'key-red', 'none');
+  },
+
+  /* The robot hoover, asleep on its charger. */
+  hoover(g) {
+    box(g, 26, -16, 10, 16, 'metal', THIN, 2);              // charger
+    ball(g, 31, -12, 1.5, 'key-green', 'none');
+    shape(g, 'M0 0 L0 -5 Q0 -9 13 -9 Q26 -9 26 -5 L26 0 Z', 'units');
+    box(g, 9, -10, 8, 2, 'screen', 'none', 1);
+    ball(g, 5, 0, 2, 'ink', 'none');
+    ball(g, 21, 0, 2, 'ink', 'none');
+  },
+
   /* A plug socket, low on the wall. Nothing hides in it. */
   socket(g) {
     box(g, 0, -20, 10, 8, 'porcelain', THIN, 1);

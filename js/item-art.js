@@ -203,6 +203,92 @@ export const ITEM_ART = {
     add(g, 'ellipse', { cx: 8, cy: -14, rx: 2, ry: 0.8, fill: paint('wood-light'), class: THIN });
     shape(g, 'M14 -8 Q17 -5 16 0 L13 0', c || 'porcelain', THIN);
   },
+  /* --- ADDED IN M14 ------------------------------------------ */
+  soap(g, c) {
+    box(g, 1, -7, 14, 7, c || 'key-pink', THICK, 3);
+    shine(g, 'M3 -6 L8 -6 L7 -5 L3 -5 Z');
+    ball(g, 4, -10, 2, 'porcelain', THIN);
+    ball(g, 9, -12, 2.6, 'porcelain', THIN);
+    ball(g, 13, -9, 1.6, 'porcelain', THIN);
+  },
+  eggs(g, c) {
+    box(g, 0, -6, 16, 6, c || 'cardboard', THICK, 1);
+    [3, 8, 13].forEach((x) => add(g, 'ellipse', { cx: x, cy: -8, rx: 2.4, ry: 3, fill: paint('porcelain'), class: THIN }));
+    line(g, 5.5, -6, 5.5, 0);
+    line(g, 10.5, -6, 10.5, 0);
+  },
+  mustard(g, c) {
+    shape(g, 'M4 0 L4 -10 Q4 -12 8 -12 Q12 -12 12 -10 L12 0 Z', c || 'mess-mustard');
+    shape(g, 'M6.5 -12 L9.5 -12 L8.6 -17 L7.4 -17 Z', 'fabric-a', THIN);
+    box(g, 5, -8, 6, 4, 'porcelain', 'none', 0.5);
+  },
+  bubblewrap(g, c) {
+    box(g, 0, -12, 16, 12, c || 'glass', THICK, 1);
+    [-9, -4].forEach((y) => [3, 8, 13].forEach((x) => ball(g, x, y, 1.8, 'porcelain', THIN)));
+  },
+  glue(g, c) {
+    box(g, 3, -11, 10, 11, c || 'porcelain', THICK, 2);
+    box(g, 4, -14, 8, 3, 'fabric-a', THIN, 1);
+    box(g, 5, -8, 6, 4, 'paint-yellow', 'none', 0.5);
+    shape(g, 'M11 -11 Q14 -9 13 -6', 'none', THIN);
+  },
+  horn(g, c) {
+    box(g, 1, -12, 5, 12, c || 'fabric-a', THICK, 1.5);
+    shape(g, 'M6 -10 L15 -14 L15 -2 L6 -6 Z', 'paint-yellow');
+    box(g, 1, -14, 5, 2.5, 'ink', 'none', 0.5);
+  },
+  skateboard(g, c) {
+    shape(g, 'M0 -6 Q0 -8 2 -8 L14 -8 Q16 -8 16 -6 L15 -5 L1 -5 Z', c || 'fabric-b');
+    ball(g, 4, -2.5, 2.2, 'ink', 'none');
+    ball(g, 12, -2.5, 2.2, 'ink', 'none');
+    line(g, 4, -5, 4, -3);
+    line(g, 12, -5, 12, -3);
+  },
+  ice(g, c) {
+    shape(g, 'M2 0 Q0 -8 4 -12 L12 -12 Q16 -8 14 0 Z', c || 'glass');
+    box(g, 4, -8, 4, 4, 'porcelain', THIN, 0.5);
+    box(g, 8, -5, 4, 4, 'porcelain', THIN, 0.5);
+    box(g, 6, -12, 4, 4, 'porcelain', THIN, 0.5);
+    box(g, 3, -14, 10, 2.5, 'key-blue', THIN, 1);
+  },
+  bubbles(g, c) {
+    box(g, 1, -9, 12, 9, c || 'key-blue', THICK, 2);
+    ball(g, 7, -4.5, 2.5, 'ink', 'none');
+    ball(g, 13, -12, 3, 'glass', THIN);
+    ball(g, 9, -15, 2, 'glass', THIN);
+    ball(g, 15, -16, 1.4, 'glass', THIN);
+  },
+  blower(g, c) {
+    box(g, 0, -11, 9, 9, c || 'key-green', THICK, 3);
+    box(g, 8, -9, 8, 4, 'metal', THICK, 1);
+    box(g, 2, -14, 5, 3, 'ink', 'none', 1);
+    line(g, 16, -7, 16, -7);
+    shape(g, 'M2 -2 L4 0 L7 0 L8 -2', 'none', THIN);
+  },
+  slime(g, c) {
+    box(g, 2, -9, 12, 9, c || 'porcelain', THICK, 2);
+    shape(g, 'M2 -9 Q5 -15 8 -11 Q11 -16 14 -9 L14 -6 Q12 -3 11 -6 Q8 -2 6 -6 Q4 -4 2 -6 Z', 'mess-slime');
+  },
+  magnet(g, c) {
+    shape(g, 'M2 -2 L2 -9 Q2 -16 8 -16 Q14 -16 14 -9 L14 -2 L10 -2 L10 -9 Q10 -12 8 -12 Q6 -12 6 -9 L6 -2 Z', c || 'key-red');
+    box(g, 2, -3, 4, 3, 'metal', THIN, 0.5);
+    box(g, 10, -3, 4, 3, 'metal', THIN, 0.5);
+  },
+  rccar(g, c) {
+    shape(g, 'M0 -4 L1 -8 L5 -8 L7 -11 L12 -11 L14 -8 L16 -7 L16 -4 Z', c || 'key-red');
+    ball(g, 4, -3, 2.4, 'ink', 'none');
+    ball(g, 12, -3, 2.4, 'ink', 'none');
+    line(g, 13, -11, 15, -16);
+    ball(g, 15, -16, 1, 'ink', 'none');
+  },
+  fog(g, c) {
+    box(g, 0, -8, 11, 8, c || 'metal', THICK, 1.5);
+    box(g, 10, -6, 3, 3, 'ink', 'none', 0.5);
+    ball(g, 3, -4, 1.2, 'key-red', 'none');
+    ball(g, 15, -8, 3, 'smoke', THIN);
+    ball(g, 13, -12, 3.4, 'smoke', THIN);
+    ball(g, 9, -14, 2.4, 'smoke', THIN);
+  },
   parcel(g, c) {
     box(g, 1, -12, 14, 12, c || 'cardboard');
     line(g, 8, -12, 8, 0);
