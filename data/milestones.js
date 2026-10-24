@@ -24,5 +24,8 @@ export const MILESTONES = [
   /* The game was finished at M10. Then we kept going. */
   { code: 'M11', name: 'Locks and Hints', done: true },
   { code: 'M12', name: 'Lights Out',    done: true },
-  { code: 'M13', name: 'Fresh Nights',  done: true }
+  { code: 'M13', name: 'Fresh Nights',  done: true },
+  { code: 'M14', name: 'Thinking Time', done: true },
+  { code: 'M15', name: 'Bigger House',  done: true },
+  { code: 'M16', name: 'Robot Hoover',  done: true }
 ];

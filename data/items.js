@@ -14,9 +14,8 @@
        look    which drawing to use, from the list below.
        colour  optional. A colour name from css/tokens.css, like
                'fabric-b'. Changes the main colour of the drawing.
-       rare    true for the special ones. Only a few turn up
-               each night, and only in awkward places (the safe,
-               the piano, the shed, the cellar).
+       rare    true for the special ones. They hide behind the
+               locks: solve a puzzle, get a rare thing.
        kind    what sort of thing it is, so it hides somewhere that
                makes sense: food, fresh, tools, toys, washing or
                stuff. Food goes in cupboards, fresh things in the
@@ -39,6 +38,8 @@
        cans  flour  toycar  hairdryer  bell  tin  jar  skate
        lights  hose  blender  glitter  balloon
        banana  cushion  custard  alarm  chicken  loo
+       soap  eggs  mustard  bubblewrap  glue  horn  skateboard
+       ice  bubbles  blower  slime  magnet  rccar  fog
    Anything else gets a brown parcel, so a typo never breaks
    the game. It just looks like a parcel.
 
@@ -122,6 +123,32 @@ export const ITEMS = [
   { id: 'water-balloon', name: 'Water Balloon', look: 'balloon', colour: 'fabric-b', kind: 'toys',
     riddle: 'a squidgy rubber thing full of water', foundIn: ['bathroom', 'kitchen'] },
 
+  /* Added in M14, when the house got bigger */
+  { id: 'soap',         name: 'Bar of Soap',     look: 'soap', kind: 'washing',
+    riddle: 'something slippy that makes bubbles in the bath',
+    foundIn: ['bathroom', 'utility'], worksAs: ['cooking-oil'] },
+  { id: 'eggs',         name: 'Box of Eggs',     look: 'eggs', kind: 'fresh',
+    riddle: 'something chickens lay',
+    foundIn: ['kitchen'] },
+  { id: 'mustard',      name: 'Squeezy Mustard', look: 'mustard', kind: 'food',
+    riddle: 'a yellow sauce in a squeezy bottle, for hot dogs',
+    foundIn: ['kitchen', 'dining'], worksAs: ['custard'] },
+  { id: 'bubble-wrap',  name: 'Bubble Wrap',     look: 'bubblewrap', kind: 'stuff',
+    riddle: 'plastic full of little pops',
+    foundIn: ['box-room', 'attic', 'landing'] },
+  { id: 'glue',         name: 'Pot of Glue',     look: 'glue', kind: 'tools',
+    riddle: 'something sticky in a pot, for making things',
+    foundIn: ['my-room', 'box-room', 'cellar'], worksAs: ['honey'] },
+  { id: 'air-horn',     name: 'Air Horn',        look: 'horn', kind: 'stuff',
+    riddle: 'something that goes PAAARP at the football',
+    foundIn: ['attic', 'porch', 'hall'], worksAs: ['bell'] },
+  { id: 'skateboard',   name: 'Skateboard',      look: 'skateboard', kind: 'toys',
+    riddle: 'a plank with four wheels',
+    foundIn: ['my-room', 'porch', 'box-room'], worksAs: ['roller-skate', 'toy-car'] },
+  { id: 'ice',          name: 'Bag of Ice',      look: 'ice', kind: 'fresh',
+    riddle: 'frozen water in little cubes',
+    foundIn: ['kitchen', 'cellar'] },
+
   /* --- RARE: only a few of these turn up each night --- */
   { id: 'lights',         name: 'Christmas Lights', look: 'lights', kind: 'stuff',  rare: true,
     riddle: 'something twinkly that comes out at Christmas',
@@ -134,22 +161,40 @@ export const ITEMS = [
     foundIn: ['kitchen', 'cellar'] },
   { id: 'glitter-cannon', name: 'Glitter Cannon',   look: 'glitter', kind: 'toys', rare: true,
     riddle: 'something sparkly that goes BOOM',
-    foundIn: ['my-room', 'box-room', 'attic'] }
+    foundIn: ['my-room', 'box-room', 'attic'] },
+  { id: 'bubble-machine', name: 'Bubble Machine',   look: 'bubbles', kind: 'toys', rare: true,
+    riddle: 'a box that blows a thousand bubbles',
+    foundIn: ['attic', 'box-room'] },
+  { id: 'leaf-blower',    name: 'Leaf Blower',      look: 'blower', kind: 'tools', rare: true,
+    riddle: 'a giant hair dryer for the garden',
+    foundIn: ['garage', 'shed'], worksAs: ['hair-dryer'] },
+  { id: 'slime',          name: 'Tub of Slime',     look: 'slime', kind: 'toys', rare: true,
+    riddle: 'green gloop in a tub',
+    foundIn: ['my-room', 'box-room'], worksAs: ['honey'] },
+  { id: 'magnet',         name: 'Giant Magnet',     look: 'magnet', kind: 'tools', rare: true,
+    riddle: 'a big red horseshoe that grabs metal',
+    foundIn: ['garage', 'cellar'] },
+  { id: 'rc-car',         name: 'Remote Control Car', look: 'rccar', kind: 'toys', rare: true,
+    riddle: 'a car you drive with a controller',
+    foundIn: ['my-room', 'attic'], worksAs: ['toy-car'] },
+  { id: 'fog-machine',    name: 'Fog Machine',      look: 'fog', kind: 'stuff', rare: true,
+    riddle: 'a box that makes clouds, for discos',
+    foundIn: ['attic', 'cellar'] }
 ];
 
 /* How many things you can carry. When your bag is full, tap
    something in your bag to drop it, then grab the better thing. */
-export const CARRY_LIMIT = 15;
+export const CARRY_LIMIT = 18;
 
 /* How many of the common things are left lying about in plain
    sight each night. The rest are hidden. Make it 22 and nothing
    is hidden at all. Make it 0 and you have to search for the lot. */
-export const OUT_IN_THE_OPEN = 7;
+export const OUT_IN_THE_OPEN = 8;
 
-/* How many rare things turn up each night. The locked places in
-   data/puzzles.js (the safe, the piano, the shed, the dark cellar)
-   get one each, in that order, until they run out. */
-export const RARE_EACH_NIGHT = 4;
+/* How many rare things turn up each night. Every locked place in
+   the house (there are ten) gets one each, until they run out. Ten
+   rare things, ten locks: solve them all and you get them all. */
+export const RARE_EACH_NIGHT = 10;
 
 /* Where the rare things are allowed to hide. A room name means any
    hiding place in that room. A hiding place's full name, like
