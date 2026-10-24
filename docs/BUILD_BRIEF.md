@@ -223,6 +223,18 @@ Later, if it needs more range, difficulty is the natural place to hang other
 dials — burglar nerve, how many rare items spawn, how fast the routes tick.
 Keep it to the clock for now.
 
+**Since M14** each difficulty also says what the clock does while a puzzle
+is open (`puzzleClock`): Easy and Medium **stop**, Hard runs at **half
+speed**. The choice persists across restarts, as does the puzzle level.
+
+### Puzzle level *(M14)*
+A second picker on the title screen: **Easy**, **Tricky** (default) or
+**Brainbuster**. Every lock has three versions in `data/puzzles.js`. Hendrix
+is strong at adding, taking and times tables, so Tricky and Brainbuster lean
+on those: two-step sums like `7 × 8 - 49`, binary fuses (1, 2, 4, 8, 16, 32),
+squares, doubling and add-the-two-before patterns. Every puzzle has a
+**Hint** button: 10 seconds off the clock, two per lock.
+
 ### Nerve
 Each burglar has a **Nerve** meter. Traps reduce it. At zero, they turn and
 run.
@@ -387,7 +399,46 @@ A trap's `mess` can now be two things, like custard **and** feathers.
 The Glue Bomb upgrade (above) went in at the same time. The Doorbell's
 nerve went to 2 and the Rattlesnake Line's word is now CLATTERBANG!.
 
-33 base traps and 15 upgrades in all.
+### Added in M15 (new junk)
+
+| Ingredients | Trap | Cat. | Nerve |
+|---|---|---|---|
+| Soap + Bucket | **Suds Slide** | SLIPPERY | 3 |
+| Eggs + Bucket | **Egg Drop** | MESSY | 3 |
+| Mustard + Hair Dryer | **Mustard Gust** | MESSY | 2 |
+| Bubble Wrap + Duct Tape | **Pop Carpet** | LOUD | 2 |
+| Glue + Loo Roll | **Papier Mache Man** | STICKY | 3 |
+| Air Horn + String | **Foghorn Tripwire** | LOUD | 3 |
+| Skateboard + Marbles | **Runaway Board** | SLIPPERY | 3 |
+| Ice + Bucket | **Ice Bucket** | STARTLE | 3 |
+| Ice + Hair Dryer | **Puddle Trouble** | SLIPPERY | 2 |
+| Bubble Machine + Soap | **Bubble Trouble** | STARTLE | 3 |
+| Leaf Blower + Flour | **Flour Hurricane** | MESSY | 4 |
+| Slime + Bucket | **Slime Time** | STICKY | 4 |
+| Giant Magnet + Tin Cans | **Clang Magnet** | LOUD | 3 |
+| Remote Control Car + String | **Remote Trip** | TANGLE | 3 |
+| Fog Machine + Duct Tape | **Pea Souper** | STARTLE | 3 |
+
+| Upgrade | Trap | Cat. | Nerve |
+|---|---|---|---|
+| Suds Slide + Bubble Machine | **Foam Party** | SLIPPERY · STARTLE | 5 |
+| Egg Drop + Flour | **Cake Mix** | MESSY · STICKY | 5 |
+| Pop Carpet + Air Horn | **Party Floor** | LOUD · STARTLE | 5 |
+| Slime Time + Glitter Cannon | **Sparkle Slime** | STICKY · MESSY | 5 |
+| Puddle Trouble + Ice | **Ice Rink** | SLIPPERY | 5 |
+| Foghorn Tripwire + Fog Machine | **Lost at Sea** | LOUD · STARTLE | 5 |
+
+New mess: foam, egg (yolk yellow, never red), slime, mustard.
+
+48 base traps and 21 upgrades in all.
+
+### Blueprints *(M15)*
+Every build asks one maths question from `data/blueprints.js`, themed on the
+trap's category (numbers scale with the puzzle level). Right answer: a
+**PERFECT** build with a gold tag, which scares a burglar one extra (times
+his weakness). Wrong or skipped: the trap still works. Under it, **Peek at
+the code** shows the trap's exact entry in `data/recipes.js`. Perfect counts
+live in `state.perfect`, and on the house in `state.perfectAt`.
 
 When a trap has two categories, nerve damage uses whichever the burglar is
 **weaker** to. That is the point of upgrading — a two-category trap always
@@ -458,7 +509,13 @@ Three ways between levels, and all three are riggable: the **main staircase**
 (hall to landing), the **cellar steps** (utility to cellar), and the **loft
 hatch** (landing to attic).
 
-### Scavenge: 49 hiding places
+**M15: the rooms got half as wide again** (every x and w times 1.5, the
+picture is now 1560 wide) and filled up: sofa, cooker, sink, toy boxes,
+bedside drawer, shoe rack, sideboard, landing drawers, an old workbench in
+the cellar, a key safe in the porch. Hero walk speed 250, Sid 150, Bruno
+105, so the night's timing is the same as before.
+
+### Scavenge: 49 hiding places (about 60 since M15)
 
 Items hide *in* things, not on the floor. Under the bed, down the back of the
 sofa, behind the boiler, in the airing cupboard, in the chest freezer, on the
@@ -481,7 +538,11 @@ you a chunk of the clock.
 are painted; Hendrix's room is light green. Paint is a word on each room in
 `data/rooms.js` that points at a colour in `css/tokens.css`.
 
-### Rig: the 25 anchor points
+### Rig: the 32 anchor points
+
+M15 added seven: their bedroom floor and ceiling, box room floor, hall floor,
+lounge floor, dining ceiling, kitchen ceiling. The list below is the
+original 25.
 
 Grouped by mount type. Mount type is what decides whether a trap fits.
 
@@ -652,6 +713,30 @@ Glue Bomb, bedroom anchor, walk speed 180, police at 7) were done by Claude
 on Asa's say-so.
 → *His turn:* add his own line to a burglar's `mutters` list in
 `data/burglars.js`.
+
+**M14 — Thinking Time** *(Asa's call, 24 Oct 2026: "harder puzzles and offer
+hints", stop the timer while working them out).* Clock stops on puzzles
+(Easy, Medium), half speed on Hard; puzzle level picker; Hint button;
+three levels of every puzzle.
+→ *His turn:* see M16.
+
+**M15 — Bigger House** *(same day).* Six new locks, each with a rare thing
+behind it: **garage keypad** (logic clues, only one code fits), **TV
+cabinet** (what comes next in the pattern), **bathroom mirror** (a maths
+question written backwards in the steam, upside down on Brainbuster), **key
+safe** (Morse code with a chart, beeps out loud), **bookshelf** (sums on the
+spines, pull them out smallest first). Ten locks, ten rare things a night.
+Rooms 1.5 times wider and fuller, 14 new things to find, 21 new traps, 32
+anchors, blueprint maths and Peek at the code at the workbench.
+
+**M16 — Robot Hoover.** The cupboard under the stairs. Write a program
+(`forward 3`, `left`, `right`, `repeat 2` ... `end`) and press Run; the
+hoover does exactly what it says, line by line, highlighting the line it is
+on. Tricky and Brainbuster cap the number of lines so you have to use
+`repeat`. Maps are drawn as text in `data/puzzles.js` and checked in the
+console on load.
+→ *His turn:* draw his own hoover map in `data/puzzles.js` (copy one, move
+the letters, write a `best` program that works).
 
 ---
 

@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 2 October 2026 (M0 to M13 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, and fresh nights). The newest sections are at the bottom; read those first.
+Last updated: 24 October 2026 (M0 to M16 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, fresh nights, thinking time, a bigger house and the robot hoover). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -739,3 +739,67 @@ night, full playthrough), no sideways scroll, console clean.
 
 **Hendrix's turn for M13:** in `data/burglars.js`, find a `mutters` list and
 add his own line, e.g. `'I smell pizza.',`. Save, refresh, listen for it.
+
+---
+
+## M14 to M16 — Thinking Time, Bigger House, Robot Hoover. Done 24 Oct 2026
+
+Asa: "Do all three. He is advanced at maths, particularly addition,
+subtraction and multiplication. So do harder puzzles and offer hints. Also
+make rooms bigger. More traps and trap combinations and things around the
+house. Make some puzzles in trap creation too." (After asking how to make it
+better: stop the timer while puzzles are worked out, many more puzzles,
+harder.)
+
+**M14 Thinking Time**
+- `puzzleClock` per difficulty in `data/difficulty.js`: Easy and Medium stop,
+  Hard half speed. The box says which.
+- Puzzle level picker on the title screen (Easy, Tricky default,
+  Brainbuster), from `PUZZLE_LEVELS` in `data/puzzles.js`. Difficulty and
+  puzzle level now survive Restart (they are the player's settings).
+- Hint button: `HINTS = { cost: 10, most: 2 }`. Hints you paid for come back
+  if you leave and reopen.
+- Harder versions: safe sums `take`, `times-take`, `square-take`,
+  `two-times`, 4 digits on Brainbuster; shed spare letters and longer words;
+  piano 4/6/8 notes and the music blows away after 6 s on Brainbuster; fuses
+  1-5, 3/4/6/7/9/11, binary 1-32.
+
+**M15 Bigger House**
+- Rooms 1.5 times wider (`PICTURE.w` 1560). Walk speeds scaled to match.
+- New furniture drawings in `js/props.js`: toybox, bedside, shoerack, cooker,
+  keysafe, hoover. Sofa, sink and drawers now used. About 60 hiding places.
+- New locks: keypad (garage room), telly (TV cabinet), mirror (bathroom
+  cabinet), morse (porch key safe), books (box room bookshelf), hoover
+  (cupboard under the stairs, `lock` now passes through on STAIRS).
+  Ten locks, `RARE_EACH_NIGHT` 10, one rare behind each.
+- 8 new common items, 6 new rare (bubble machine, leaf blower, slime, giant
+  magnet, RC car, fog machine), 14 drawings in `js/item-art.js`. Bag 18.
+- 15 new traps, 6 new upgrades, mess foam/egg/slime/mustard. 32 anchors.
+- Blueprint maths on every build (`data/blueprints.js`): PERFECT build adds
+  one nerve hit. Peek at the code shows the recipe entry.
+- Code: `js/puzzles.js` (box, kit, hints, safe/shed/piano/fuse),
+  `js/puzzles-more.js` (keypad/telly/mirror/morse/books),
+  `js/puzzle-maths.js` (makes every night's answers), `js/hoover.js`.
+
+**M16 Robot Hoover**: program with forward/left/right/repeat/end, line limit
+on Tricky and Brainbuster forces repeat. Maps checked by `checkMaps()` on load.
+
+**Verified** locally and live (`aff2022`): all 10 puzzles solved through
+the UI at all 3 levels (30 of 30), hints and cost, clock stop and half speed,
+keypad opens the garage and walks you in, hoover bonk then success, perfect
+build fires at night with the bonus, restart keeps settings and clears
+puzzles, phone 390 px no sideways scroll, both themes, console clean. Old
+suite (loop, night, play, turns, talk, ws, full2, intro, a11y) passes.
+`m12.py` is retired (fuse numbers now vary); `solve14.py`, `m14.py`,
+`pz14.py` and `phone14.py` replace it.
+
+**Push note:** went up in seven `push_files` commits, compatible files
+first. One big six-file batch was cut off mid-call, so the rest went in
+smaller batches. The live site was briefly running the new puzzle engine
+with the old workbench (fine, no errors) for a few minutes.
+
+**Hendrix's turn for M14 to M16:** draw his own robot hoover map in
+`data/puzzles.js` under `HOOVER`, `easy`, `maps`. Copy one map, move the
+letters about (# wall, . floor, H start, C charger, b s l obstacles), and
+write a `best` program that gets home. If `best` does not work, the console
+says so.
