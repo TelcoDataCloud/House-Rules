@@ -235,6 +235,7 @@ body {
 
 /* --- DIFFICULTY PICKER --------------------------------------- */
 
+.picker-head { margin: var(--gap-lg) 0 var(--gap); font-size: 18px; }
 .difficulty {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

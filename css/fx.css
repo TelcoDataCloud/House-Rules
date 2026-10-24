@@ -365,6 +365,13 @@
 .coat-water .mess-fill { fill: var(--mess-water); opacity: 0.85; }
 .coat-custard .mess-fill { fill: var(--mess-custard); }
 .coat-paper .mess-fill { fill: var(--mess-paper); }
+.coat-foam .mess-fill { fill: var(--mess-foam); }
+.coat-egg .mess-fill { fill: var(--mess-egg); }
+.coat-slime .mess-fill { fill: var(--mess-slime); }
+.coat-mustard .mess-fill { fill: var(--mess-mustard); }
+.coat-egg .mess-drip { stroke: var(--mess-egg); }
+.coat-slime .mess-drip { stroke: var(--mess-slime); }
+.coat-mustard .mess-drip { stroke: var(--mess-mustard); }
 .mess-tail { fill: none; stroke: var(--mess-paper); stroke-width: 3; stroke-linecap: round; }
 .coat-custard .mess-drip { stroke: var(--mess-custard); }
 .mess-drip { fill: none; stroke-width: 2; stroke-linecap: round; }
@@ -385,6 +392,10 @@
 .mess-glitter { fill: var(--glitter-a); }
 .mess-custard { fill: var(--mess-custard); }
 .mess-paper { fill: var(--mess-paper); }
+.mess-foam { fill: var(--mess-foam); }
+.mess-egg { fill: var(--mess-egg); }
+.mess-slime { fill: var(--mess-slime); }
+.mess-mustard { fill: var(--mess-mustard); }
 
 /* --- THE EXTRAS: dust, sweat, swearing ---------------------- */
 

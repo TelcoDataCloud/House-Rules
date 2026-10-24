@@ -162,6 +162,207 @@
   box-shadow: inset 0 28px 0 var(--lock);
 }
 
+/* --- HINTS AND THE CLOCK ------------------------------------- */
+
+.pz-foot { justify-content: space-between; }
+.pz-hints {
+  margin: var(--gap) 0 0;
+  padding: 10px 14px 10px 34px;
+  background: var(--note-paper);
+  color: var(--note-ink);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+.pz-hint-line + .pz-hint-line { margin-top: 6px; }
+.pz-mode { margin: 8px 0 0; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-dim); }
+.pz-total { margin: 0; font-weight: 800; color: var(--text-dim); }
+
+/* the music blows away on brainbuster */
+.pz-music { transition: opacity 0.4s ease; }
+.pz-music.is-gone { opacity: 0.08; }
+
+/* --- A NUMBER PAD (keypad, telly, mirror) -------------------- */
+
+.pz-pad-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pz-pad-show {
+  display: block;
+  min-width: 160px;
+  min-height: 52px;
+  padding: 4px 12px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  font-variant-numeric: tabular-nums;
+  color: var(--safe-digit);
+  background: var(--meter-back);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+}
+.pz-pad { display: grid; grid-template-columns: repeat(3, var(--tap)); gap: 8px; }
+.pz-pad .btn { min-width: var(--tap); min-height: var(--tap); padding: 0; font-size: 22px; font-weight: 900; }
+.pz-key-ok { background: var(--win); color: var(--ink); }
+
+/* --- THE KEYPAD CLUES ---------------------------------------- */
+
+.pz-clues {
+  margin: 0;
+  padding: 10px 14px 10px 34px;
+  background: var(--note-paper);
+  color: var(--note-ink);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  font-weight: 700;
+  transform: rotate(1deg);
+}
+.pz-clues li + li { margin-top: 4px; }
+
+/* --- THE TELLY ----------------------------------------------- */
+
+.pz-screen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--screen);
+  border: 6px solid var(--ink);
+  border-radius: 14px;
+}
+.pz-screen-num { font-family: var(--font-display); font-size: 30px; font-weight: 900; color: var(--ink); }
+.pz-screen-num.is-what { color: var(--danger); }
+
+/* --- THE MIRROR ---------------------------------------------- */
+
+.pz-mirror {
+  width: 100%;
+  padding: 18px 12px;
+  background: var(--glass);
+  border: 6px solid var(--metal);
+  border-radius: 16px;
+  box-shadow: inset 0 0 30px var(--porcelain);
+}
+.pz-mirror-words {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.3;
+  color: var(--ink);
+  opacity: 0.75;
+  transform: scaleX(-1);
+}
+.pz-mirror-words.is-upside-down { transform: rotate(180deg); }
+
+/* --- MORSE --------------------------------------------------- */
+
+.pz-morse { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+.pz-morse-group, .pz-chart-code { display: inline-flex; align-items: center; gap: 5px; }
+.pz-dot, .pz-dash { display: inline-block; height: 12px; background: var(--ink-soft); border-radius: 6px; }
+.pz-morse .pz-dot, .pz-morse .pz-dash { background: var(--text); }
+.pz-dot { width: 12px; }
+.pz-dash { width: 32px; }
+.pz-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; width: 100%; }
+.pz-chart-key { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: var(--tap); padding: 4px 8px; }
+.pz-chart-letter { font-family: var(--font-display); font-size: 22px; font-weight: 900; }
+.pz-chart-key .pz-chart-code { gap: 3px; }
+.pz-chart-key .pz-dot { width: 7px; height: 7px; }
+.pz-chart-key .pz-dash { width: 15px; height: 7px; }
+.pz-slot-show { display: inline-flex; align-items: center; justify-content: center; border: 3px dashed var(--ink); border-radius: 8px; }
+.pz-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+/* --- THE BOOKSHELF ------------------------------------------- */
+
+.pz-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 10px 10px 0;
+  background: var(--wood-dark);
+  border: 4px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: inset 0 -10px 0 var(--wood);
+}
+.pz-book {
+  min-width: var(--tap);
+  min-height: 130px;
+  padding: 6px 2px;
+  writing-mode: vertical-rl;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--ink);
+  border-radius: 6px 6px 0 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.pz-book.is-out { transform: translateY(-18px); opacity: 0.35; }
+.book-fabric-a { background: var(--fabric-a); }
+.book-fabric-b { background: var(--fabric-b); }
+.book-fabric-c { background: var(--fabric-c); }
+.book-paint-yellow { background: var(--paint-yellow); }
+.book-key-green { background: var(--key-green); }
+.book-key-pink { background: var(--key-pink); }
+.book-key-blue { background: var(--key-blue); }
+
+/* --- THE ROBOT HOOVER ---------------------------------------- */
+
+.puzzle[data-lock="hoover"], .puzzle[data-lock="morse"] { width: min(820px, calc(100vw - 32px)); }
+.hv-both { display: flex; flex-wrap: wrap; gap: var(--gap); justify-content: center; align-items: flex-start; width: 100%; }
+.hv-left, .hv-right { flex: 1 1 300px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hv-floor {
+  --cell: min(40px, calc((100vw - 90px) / var(--cols)));
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-template-rows: repeat(var(--rows), var(--cell));
+  background: var(--floor-tile);
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+}
+.hv-cell { border: 1px solid var(--grout); }
+.hv-cell.is-wall { background: var(--wood-dark); }
+.hv-cell svg, .hv-bot svg { display: block; width: 100%; height: 100%; }
+.hv-bot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--cell);
+  height: var(--cell);
+  transform: translate(calc(var(--x) * var(--cell)), calc(var(--y) * var(--cell))) rotate(var(--turn));
+  transition: transform 0.22s ease;
+}
+.hv-bot.is-bump { animation: hv-bump 0.4s ease; }
+@keyframes hv-bump { 50% { filter: drop-shadow(0 0 6px var(--danger)); } }
+.hv-code {
+  width: 100%;
+  min-height: 120px;
+  margin: 0;
+  padding: 8px 8px 8px 40px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+.hv-line { display: flex; align-items: center; gap: 8px; padding: 2px 0 2px calc(var(--indent, 0) * 22px); border-radius: 6px; }
+.hv-line.is-now { background: var(--accent); color: var(--ink); }
+.hv-words { flex: 0 0 auto; }
+.hv-num, .hv-del { min-width: 44px; min-height: 44px; padding: 0 8px; font-family: inherit; font-size: 17px; }
+.hv-del { margin-left: auto; }
+.hv-empty { list-style: none; color: var(--text-dim); font-family: var(--font-body); font-weight: 600; }
+.hv-count { margin: 0; font-weight: 800; color: var(--text-dim); }
+.hv-count.is-over { color: var(--lose); }
+.hv-palette { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.hv-add { min-height: var(--tap); font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 800; }
+.hv-add-loop { background: var(--accent); color: var(--ink); }
+.hv-go { display: flex; gap: 8px; }
+
 /* --- PADLOCKS ON THE HOUSE ----------------------------------- */
 
 .lock-shackle { fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; }
@@ -197,6 +398,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pz-body.is-wrong, .loose-item.is-dropped .prop-body { animation: none; }
+  .pz-body.is-wrong, .loose-item.is-dropped .prop-body, .hv-bot.is-bump { animation: none; }
+  .hv-bot, .pz-book, .pz-music { transition: none; }
   .room-lock, .spot-lock { transition: none; }
 }

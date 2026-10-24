@@ -98,6 +98,7 @@ const later = (ms, fn) => setTimeout(fn, ms);
    Add your own here and call sfx.whatever() from anywhere. */
 export const sfx = {
   tick()    { blip(520, 70, 'square'); },
+  beep(ms)  { blip(700, ms, 'sine', 0.07); },
   select()  { blip(660, 90, 'square'); blip(880, 90, 'square'); },
   start()   { blip(440, 120, 'square'); setTimeout(() => blip(660, 160, 'square'), 110); },
   back()    { blip(330, 110, 'sine'); },

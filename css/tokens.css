@@ -164,6 +164,10 @@
   /* --- PUZZLES, MESS AND METERS (the big update) --- */
   --mess-custard: #ffd34d;
   --mess-paper: #f4f1ea;
+  --mess-foam: #eaf6ff;
+  --mess-egg: #ffcf3a;       /* yolk */
+  --mess-slime: #8be04a;
+  --mess-mustard: #e8c21a;
   --lock: #e8b84a;           /* a padlock */
   --dark-room: #07060c;      /* a room with the lights out */
   --bulb-off: #4a4658;       /* a light bulb that is off */
@@ -371,6 +375,10 @@
   /* --- PUZZLES, MESS AND METERS (the big update) --- */
   --mess-custard: #f5c21c;
   --mess-paper: #ffffff;
+  --mess-foam: #f2faff;
+  --mess-egg: #f7bd16;
+  --mess-slime: #6fcc2e;
+  --mess-mustard: #d9b000;
   --lock: #d9a22b;
   --dark-room: #121018;
   --bulb-off: #6b6680;
