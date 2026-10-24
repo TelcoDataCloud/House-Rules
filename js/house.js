@@ -300,7 +300,7 @@ function drawStairs(svg) {
       body.append(make('circle', { cx: doorX + doorW - 7, cy: bottom - 30, r: 2.2, fill: 'var(--metal)', class: 'ink-thin' }));
       door.append(body);
       const home = findRoom(flight.room);
-      if (flight.search && home) makeSpot(door, flight.room, flight.search, 'hide', undefined, { x: doorX - home.x, holds: flight.holds });
+      if (flight.search && home) makeSpot(door, flight.room, flight.search, 'hide', undefined, { x: doorX - home.x, holds: flight.holds, lock: flight.lock });
       g.append(door);
     }
 

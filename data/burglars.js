@@ -11,7 +11,7 @@
        name        what the game calls him
        look        which drawing to use (in js/burglar-art.js).
                    'sid' is tall and thin, 'bruno' is big and wide.
-       speed       how fast he walks. Hendrix walks at 160.
+       speed       how fast he walks. Hendrix walks at 250.
        comesIn     which side of the picture he walks in from:
                    'left' (the front door) or 'right' (round the
                    back, past the shed)
@@ -69,7 +69,7 @@ export const BURGLARS = [
     id: 'sid',
     name: 'Sid',
     look: 'sid',
-    speed: 100,
+    speed: 150,
     comesIn: 'right',
     waitsFirst: 0,
     pause: 1.6,
@@ -98,7 +98,7 @@ export const BURGLARS = [
     id: 'bruno',
     name: 'Bruno',
     look: 'bruno',
-    speed: 70,
+    speed: 105,
     comesIn: 'left',
     waitsFirst: 3,
     pause: 2.2,
@@ -139,10 +139,10 @@ export const BURGLARS = [
    =========================================================== */
 
 export const LOOT = [
-  { id: 'telly',     name: 'the telly',          room: 'lounge',   look: 'telly',     x: 72,  lift: 28 },
-  { id: 'console',   name: 'the games console',  room: 'lounge',   look: 'console',   x: 42,  lift: 0 },
-  { id: 'laptop',    name: 'the laptop',         room: 'my-room',  look: 'laptop',    x: 52,  lift: 38 },
-  { id: 'jewellery', name: 'the jewellery box',  room: 'big-room', look: 'jewellery', x: 118, lift: 36 },
-  { id: 'cash',      name: 'the cash tin',       room: 'dining',   look: 'cashtin',   x: 99,  lift: 44 },
-  { id: 'guitar',    name: 'the guitar',         room: 'box-room', look: 'guitar',    x: 60,  lift: 0 }
+  { id: 'telly',     name: 'the telly',          room: 'lounge',   look: 'telly',     x: 176,  lift: 28 },
+  { id: 'console',   name: 'the games console',  room: 'lounge',   look: 'console',   x: 120,  lift: 0 },
+  { id: 'laptop',    name: 'the laptop',         room: 'my-room',  look: 'laptop',    x: 54,  lift: 38 },
+  { id: 'jewellery', name: 'the jewellery box',  room: 'big-room', look: 'jewellery', x: 198, lift: 30 },
+  { id: 'cash',      name: 'the cash tin',       room: 'dining',   look: 'cashtin',   x: 157,  lift: 44 },
+  { id: 'guitar',    name: 'the guitar',         room: 'box-room', look: 'guitar',    x: 76,  lift: 0 }
 ];
