@@ -28,6 +28,7 @@ import { ANCHORS, MOUNTS } from '../data/rooms.js';
 import { itemPicture } from './item-art.js';
 import { setAnchorHandler, highlightMount, showTrapOnAnchor, clearAnchorTraps } from './house.js';
 import { sfx } from './audio.js';
+import { isPerfectAt } from './workshop.js';
 
 const ALL = [...TRAPS, ...UPGRADES];
 const ui = {};
@@ -81,6 +82,10 @@ function drawTray() {
     where.className = 'rig-card-mount';
     where.textContent = mountName(trap.mount);
     btn.append(name, where);
+    if (isPerfectAt(i)) {
+      btn.classList.add('is-perfect');
+      btn.append(Object.assign(document.createElement('span'), { className: 'ws-star', textContent: 'Perfect' }));
+    }
     btn.addEventListener('click', () => pick(i));
     li.append(btn);
     ui.tray.append(li);
@@ -124,9 +129,18 @@ function place(anchor) {
     say(`${trap.name} will not go on ${spot(anchor)}. It needs a ${mountName(trap.mount)} spot.`);
     return;
   }
+  const perfect = isPerfectAt(picked);
   state.traps.splice(picked, 1);
   const old = state.rigged[anchor.id];
-  if (old) state.traps.push(old);           // swap: the old one goes back
+  if (old) {                                // swap: the old one goes back
+    state.traps.push(old);
+    if (state.perfectAt[anchor.id]) state.perfect[old] = (state.perfect[old] || 0) + 1;
+  }
+  delete state.perfectAt[anchor.id];
+  if (perfect) {
+    state.perfect[trapId] -= 1;
+    state.perfectAt[anchor.id] = true;
+  }
   state.rigged[anchor.id] = trapId;
   showTrapOnAnchor(anchor.id, firstItem(trapId), trap.name);
   picked = null;
@@ -142,6 +156,10 @@ function takeOff(anchor) {
   const trapId = state.rigged[anchor.id];
   delete state.rigged[anchor.id];
   state.traps.push(trapId);
+  if (state.perfectAt[anchor.id]) {
+    state.perfect[trapId] = (state.perfect[trapId] || 0) + 1;
+    delete state.perfectAt[anchor.id];
+  }
   showTrapOnAnchor(anchor.id, null);
   sfx.back();
   say(`${findTrap(trapId).name} is back in your tray.`);

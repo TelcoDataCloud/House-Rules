@@ -31,6 +31,13 @@
    ideas? asks for a hint about the whole bag. The game reads
    every line out loud (js/voice.js).
 
+   BLUEPRINTS
+   Every trap you build comes with a quick maths question
+   (data/blueprints.js). Right answer: a PERFECT build, with a gold
+   star, that scares a burglar one more than usual. Wrong: it still
+   works. Under it is Peek at the code, which shows you the exact
+   line in data/recipes.js that made the trap.
+
    GOING BACK OUT
    If the scavenge clock still has time on it, Back out searching
    takes you back to the house to find more junk.
@@ -46,6 +53,8 @@ import { itemPicture } from './item-art.js';
 import { heroPicture } from './hero-art.js';
 import { sfx } from './audio.js';
 import { speak, hush } from './voice.js';
+import { BLUEPRINTS, NUMBERS, TRIES } from '../data/blueprints.js';
+import { workOut, between, pick as pickFrom } from './puzzle-maths.js';
 
 const ALL = [...TRAPS, ...UPGRADES];
 const ui = {};
@@ -199,6 +208,21 @@ function pictureOf(kind, id) {
   return box;
 }
 
+/* Is the trap at this place on your shelf one of your PERFECT
+   builds? state.perfect counts them for each kind of trap, and the
+   first ones on the shelf get the stars. */
+export function isPerfectAt(index) {
+  const id = state.traps[index];
+  const before = state.traps.slice(0, index).filter((x) => x === id).length;
+  return before < (state.perfect[id] || 0);
+}
+
+/* Never more perfect ones than you actually have. */
+function keepPerfectHonest(id) {
+  const have = state.traps.filter((x) => x === id).length;
+  if ((state.perfect[id] || 0) > have) state.perfect[id] = have;
+}
+
 function chips(trap) {
   const row = document.createElement('span');
   row.className = 'cat-chips';
@@ -229,7 +253,12 @@ function card(kind, id, index) {
   name.textContent = nameOf(id);
   btn.append(name);
   if (kind === 'trap' && findTrap(id)) btn.append(chips(findTrap(id)));
-  btn.setAttribute('aria-label', `Put ${nameOf(id)} on the bench`);
+  const perfect = kind === 'trap' && isPerfectAt(index);
+  if (perfect) {
+    btn.classList.add('is-perfect');
+    btn.append(Object.assign(document.createElement('span'), { className: 'ws-star', textContent: 'Perfect' }));
+  }
+  btn.setAttribute('aria-label', `Put ${nameOf(id)}${perfect ? ', a perfect build,' : ''} on the bench`);
   btn.addEventListener('click', () => place({ kind, id, index }));
   btn.addEventListener('dragstart', (event) => {
     event.dataTransfer.setData('text/plain', JSON.stringify({ kind, id, index }));
@@ -406,6 +435,7 @@ function build(recipe, things) {
     const list = thing.kind === 'trap' ? state.traps : state.inventory;
     list.splice(thing.index, 1);
   });
+  things.filter((thing) => thing.kind === 'trap').forEach((thing) => keepPerfectHonest(thing.id));
   state.traps.push(recipe.id);
 
   fails = 0;
@@ -413,7 +443,7 @@ function build(recipe, things) {
   if (isNew) state.notebook.push(recipe.id);
   sfx.craft();
   say(`${recipe.name}! ${recipe.line}`);
-  showResult(recipe, isNew);
+  showResult(recipe, isNew, things.some((thing) => thing.kind === 'trap') || things.length === 3);
   showBench();
 
   bench.fill(null);
@@ -448,7 +478,123 @@ function fail() {
   }, 700);
 }
 
-function showResult(trap, isNew) {
+/* --- THE BLUEPRINT QUESTION ---------------------------------- */
+
+function blueprintFor(trap, isUpgrade) {
+  const list = isUpgrade ? BLUEPRINTS.UPGRADE : (BLUEPRINTS[trap.cat[0]] || BLUEPRINTS.UPGRADE);
+  const range = NUMBERS[state.puzzleLevel] || NUMBERS.tricky;
+  for (let tries = 0; tries < 40; tries += 1) {
+    const q = pickFrom(list);
+    const n = {};
+    ['a', 'b', 'c'].forEach((k) => { n[k] = between(range[k][0], range[k][1]); });
+    const fill = (words) => words.replace(/\b([abc])\b/g, (m, k) => String(n[k]));
+    const answer = workOut(fill(q.answer));
+    if (answer >= 0) return { ask: fill(q.ask), answer };
+  }
+  return { ask: 'What is 6 times 7?', answer: 42 };
+}
+
+function blueprintBox(trap, isUpgrade) {
+  const q = blueprintFor(trap, isUpgrade);
+  const box = document.createElement('div');
+  box.className = 'ws-blueprint';
+  const head = document.createElement('p');
+  head.className = 'ws-blueprint-head';
+  head.textContent = 'Blueprint check. Get it right for a PERFECT build.';
+  const ask = document.createElement('p');
+  ask.className = 'ws-blueprint-ask';
+  ask.textContent = q.ask;
+  const said = document.createElement('p');
+  said.className = 'ws-blueprint-said';
+  said.setAttribute('aria-live', 'polite');
+  let left = TRIES;
+  /* a small box to type the answer in. On a phone it brings up
+     the number keyboard. */
+  const row = document.createElement('form');
+  row.className = 'ws-blueprint-row';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.inputMode = 'numeric';
+  input.pattern = '[0-9]*';
+  input.maxLength = 4;
+  input.className = 'ws-blueprint-input';
+  input.setAttribute('aria-label', `Your answer: ${q.ask}`);
+  input.autocomplete = 'off';
+  const ok = document.createElement('button');
+  ok.type = 'submit';
+  ok.className = 'btn ws-blueprint-ok';
+  ok.textContent = 'OK';
+  row.append(input, ok);
+  const finish = () => box.querySelectorAll('button, input').forEach((b) => { b.disabled = true; });
+  const answer = (typed) => {
+    if (Number(typed) === q.answer) {
+      state.perfect[trap.id] = (state.perfect[trap.id] || 0) + 1;
+      keepPerfectHonest(trap.id);
+      sfx.rare();
+      box.classList.add('is-done', 'is-perfect');
+      said.textContent = `${q.answer}. PERFECT BUILD! It scares them one more.`;
+      finish();
+      drawLists();
+      return;
+    }
+    left -= 1;
+    sfx.nope();
+    if (left <= 0) {
+      box.classList.add('is-done');
+      said.textContent = `It was ${q.answer}. A bit wonky, but it still works.`;
+      finish();
+      return;
+    }
+    said.textContent = `${typed}? Not quite. One more go.`;
+    input.value = '';
+    input.focus();
+  };
+  row.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const typed = input.value.replace(/\D/g, '');
+    if (typed) answer(typed);
+  });
+  const skip = document.createElement('button');
+  skip.type = 'button';
+  skip.className = 'btn btn-quiet ws-blueprint-skip';
+  skip.textContent = 'Skip it';
+  skip.addEventListener('click', () => {
+    box.classList.add('is-done');
+    said.textContent = 'Skipped. It still works.';
+    finish();
+  });
+  row.append(skip);
+  box.append(head, ask, row, said);
+  return box;
+}
+
+/* Peek at the code: the exact line in data/recipes.js. */
+function codeOf(trap) {
+  const list = (xs) => `[${[].concat(xs).map((x) => `'${x}'`).join(', ')}]`;
+  const bits = [
+    `{ id: '${trap.id}', name: '${trap.name}', needs: ${list(trap.needs)},`,
+    `  cat: ${list(trap.cat)}, nerve: ${trap.nerve}, mount: '${trap.mount}',`,
+    `  fx: '${trap.fx}',${trap.mess ? ` mess: ${Array.isArray(trap.mess) ? list(trap.mess) : `'${trap.mess}'`},` : ''} word: '${trap.word}' }`
+  ];
+  return bits.join('\n');
+}
+
+function peekBox(trap) {
+  const box = document.createElement('details');
+  box.className = 'ws-peek';
+  const summary = document.createElement('summary');
+  summary.textContent = 'Peek at the code';
+  const where = document.createElement('p');
+  where.textContent = `This trap is these lines in data/recipes.js${UPGRADES.includes(trap) ? ' (in UPGRADES)' : ''}. Change nerve and it gets scarier. Change word and it says something else.`;
+  const pre = document.createElement('pre');
+  const code = document.createElement('code');
+  code.textContent = codeOf(trap);
+  pre.append(code);
+  box.append(summary, where, pre);
+  return box;
+}
+
+function showResult(trap, isNew, isUpgrade = false) {
   ui.result.innerHTML = '';
   const box = document.createElement('div');
   box.className = 'ws-made';
@@ -462,7 +608,10 @@ function showResult(trap, isNew) {
   where.className = 'ws-made-where';
   where.textContent = `Goes on: ${trap.mount.toLowerCase()}. Scare: ${'★'.repeat(trap.nerve)}`;
   box.append(pictureOf('trap', trap.id), title, chips(trap), line, where);
-  ui.result.append(box);
+  ui.result.append(box, blueprintBox(trap, isUpgrade));
+  ui.extra.innerHTML = '';
+  ui.extra.append(peekBox(trap));
+  ui.extra.hidden = false;
 }
 
 /* --- THE NOTEBOOK ---------------------------------------------
@@ -554,6 +703,8 @@ export function showWorkshop() {
   lastHint = '';
   ui.panel.hidden = false;
   ui.result.innerHTML = '';
+  ui.extra.innerHTML = '';
+  ui.extra.hidden = true;
   const timeLeft = state.scavengeBegun && state.timeLeft > 0;
   say(state.inventory.length
     ? 'Right. Put something on the bench and I will have a think.'
