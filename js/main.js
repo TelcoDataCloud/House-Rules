@@ -12,7 +12,7 @@
    =========================================================== */
 
 import { state, setPhase, resetGame } from './state.js';
-import { buildDifficulty, buildMilestones, setupToggles } from './ui.js';
+import { buildDifficulty, buildPuzzleLevel, buildMilestones, setupToggles } from './ui.js';
 import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
 import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
@@ -24,6 +24,7 @@ import { setupResult, showResult, hideResult } from './result.js';
 import { setupIntro, startIntro } from './intro.js';
 import { setupPuzzles } from './puzzles.js';
 import { DIFFICULTY } from '../data/difficulty.js';
+import { PUZZLE_LEVELS } from '../data/puzzles.js';
 
 /* What each phase is called on screen, what you do in it, and a
    tip. */
@@ -31,12 +32,12 @@ const PHASE_INFO = {
   scavenge: {
     title: 'Scavenge',
     line: 'Raid your own house for junk before the clock runs out. Tap a room to walk there. Things hide where they belong: flour in the kitchen cupboards, rope on the tool wall. Pause any time to build traps, then come back for more.',
-    milestone: 'Four things are locked: the safe, the piano, the shed and the cellar lights (the fuse box is in the utility room). Solve the puzzle and the best junk is yours.'
+    milestone: 'Ten things are locked, and every one has a rare bit of junk behind it: the safe, the piano, the TV cabinet, the bathroom mirror, the key safe, the bookshelf, the cupboard under the stairs, the garage, the shed and the cellar lights. On Easy and Medium the clock stops while you think. Stuck? Hint costs 10 seconds.'
   },
   workshop: {
     title: 'Workshop',
     line: 'Bolt two bits of junk together and see what you get. Put one thing on the bench and listen for a clue. Still time on the clock? Go back out for more.',
-    milestone: 'If two things make a trap that can be upgraded, a third box opens. Add one more thing to upgrade it.'
+    milestone: 'If two things make a trap that can be upgraded, a third box opens. Every build has a blueprint question: get it right for a PERFECT trap that scares them one more.'
   },
   rig: {
     title: 'Rig',
@@ -100,12 +101,14 @@ function renderPhaseScreen(phase) {
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
   el('phase-milestone').textContent = info.milestone;
+  const puzzles = PUZZLE_LEVELS.find((p) => p.id === state.puzzleLevel);
   el('phase-difficulty').textContent =
-    'Difficulty: ' + level.name + ', ' + level.seconds + ' seconds to scavenge.';
+    'Difficulty: ' + level.name + ', ' + level.seconds + ' seconds to scavenge. Puzzles: ' + puzzles.name + '.';
 }
 
 function boot() {
   buildDifficulty(el('difficulty'));
+  buildPuzzleLevel(el('puzzle-level'));
   buildMilestones(el('milestones'));
   setupToggles(el('theme-toggle'), el('sound-toggle'));
   buildHouse(el('house'), el('house-caption'), el('legend'),
@@ -115,7 +118,8 @@ function boot() {
 
   setupPuzzles({
     dialog: el('puzzle'), title: el('puzzle-title'), time: el('puzzle-time'), clue: el('puzzle-clue'),
-    body: el('puzzle-body'), say: el('puzzle-say'), leave: el('puzzle-leave')
+    body: el('puzzle-body'), say: el('puzzle-say'), leave: el('puzzle-leave'),
+    hint: el('puzzle-hint'), hints: el('puzzle-hints'), mode: el('puzzle-mode')
   });
 
   setupScavenge({
@@ -127,7 +131,7 @@ function boot() {
   setupWorkshop({
     panel: el('workshop'), face: el('ws-face'), say: el('ws-say'), bench: el('ws-bench'),
     slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), slotC: el('ws-slot-c'), plusC: el('ws-plus-c'),
-    buildNow: el('ws-build-now'), result: el('ws-result'),
+    buildNow: el('ws-build-now'), result: el('ws-result'), extra: el('ws-extra'),
     items: el('ws-items'), traps: el('ws-traps'), toRig: el('to-rig'),
     notebook: el('notebook'), found: el('ws-found'), ideas: el('ws-ideas'), backOut: el('ws-back-out')
   });

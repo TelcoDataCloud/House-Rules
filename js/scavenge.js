@@ -49,7 +49,10 @@ import {
 import { itemPicture } from './item-art.js';
 import { sfx } from './audio.js';
 import { startHero, stopWalking, hideHero, setGate, heroSpot, walkTo } from './hero.js';
-import { newPuzzles, isLocked, openPuzzle, closePuzzle, noteText, showTime as showPuzzleTime } from './puzzles.js';
+import {
+  newPuzzles, isLocked, openPuzzle, closePuzzle, noteText, puzzleOpen,
+  showTime as showPuzzleTime, showClockMode, setPuzzleTimeListener
+} from './puzzles.js';
 
 let clock = null;
 const ui = {};
@@ -290,7 +293,11 @@ function unlocked(lock) {
 
 const gate = {
   isLocked,
-  onLocked: (lock) => { if (state.scavenging) openPuzzle(lock, unlocked); }
+  onLocked: (lock) => {
+    if (!state.scavenging) return;
+    showClockMode(clockMode());
+    openPuzzle(lock, unlocked);
+  }
 };
 
 /* --- THE CLOCK ----------------------------------------------- */
@@ -302,7 +309,22 @@ function showTime() {
   showPuzzleTime();
 }
 
+/* What the clock does while a puzzle is open (data/difficulty.js). */
+function clockMode() {
+  const level = DIFFICULTY.find((d) => d.id === state.difficulty);
+  return (level && level.puzzleClock) || 'run';
+}
+
+let halfTick = false;
 function tick() {
+  if (puzzleOpen()) {
+    const mode = clockMode();
+    if (mode === 'stop') return;
+    if (mode === 'slow') {
+      halfTick = !halfTick;
+      if (halfTick) return;
+    }
+  }
   state.timeLeft -= 1;
   showTime();
   if (state.timeLeft <= 10 && state.timeLeft > 0) sfx.tick();
@@ -345,6 +367,11 @@ export function setupScavenge(els) {
     onBlocked: (roomId) => gate.onLocked(lockedRoom(roomId))
   });
   ui.done.addEventListener('click', pause);
+  /* a hint costs time, so show the new time straight away */
+  setPuzzleTimeListener(() => {
+    showTime();
+    if (state.timeLeft <= 0) finish('time');
+  });
   ui.toWorkshop.addEventListener('click', () => setPhase('workshop'));
 }
 

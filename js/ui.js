@@ -2,7 +2,8 @@
    UI - the bits of the title screen you can click
 
    Three jobs in this file:
-     1. Build the three difficulty buttons from data/difficulty.js
+     1. Build the difficulty buttons from data/difficulty.js, and
+        the puzzle buttons from data/puzzles.js
      2. Build the milestone strip from data/milestones.js
      3. Run the two little toggles in the top right corner
 
@@ -13,6 +14,7 @@
    =========================================================== */
 
 import { DIFFICULTY } from '../data/difficulty.js';
+import { PUZZLE_LEVELS } from '../data/puzzles.js';
 import { MILESTONES } from '../data/milestones.js';
 import { state } from './state.js';
 import { sfx } from './audio.js';
@@ -56,6 +58,35 @@ export function buildDifficulty(container) {
 function refreshDifficulty(container) {
   container.querySelectorAll('.diff-btn').forEach((btn) => {
     btn.setAttribute('aria-pressed', String(btn.dataset.id === state.difficulty));
+  });
+}
+
+/* --- HOW HARD THE PUZZLES ARE ------------------------------
+   Same idea as the difficulty buttons, but for the locks. */
+
+export function buildPuzzleLevel(container) {
+  container.innerHTML = '';
+  PUZZLE_LEVELS.forEach((level) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'diff-btn';
+    btn.dataset.id = level.id;
+    btn.setAttribute('aria-pressed', String(level.id === state.puzzleLevel));
+    const name = document.createElement('span');
+    name.className = 'diff-name';
+    name.textContent = level.name;
+    const note = document.createElement('span');
+    note.className = 'diff-note';
+    note.textContent = level.note;
+    btn.append(name, note);
+    btn.addEventListener('click', () => {
+      state.puzzleLevel = level.id;
+      sfx.select();
+      container.querySelectorAll('.diff-btn').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b.dataset.id === state.puzzleLevel));
+      });
+    });
+    container.append(btn);
   });
 }
 

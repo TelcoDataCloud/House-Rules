@@ -234,6 +234,8 @@
     <h2>Pick your night</h2>
     <p class="panel-hint">This sets one thing: how long you get to raid the house before the burglars arrive.</p>
     <div class="difficulty" id="difficulty" role="group" aria-label="Difficulty"></div>
+    <h3 class="picker-head">How hard are the puzzles?</h3>
+    <div class="difficulty" id="puzzle-level" role="group" aria-label="How hard the puzzles are"></div>
     <div class="start-row">
       <button type="button" id="start-btn" class="btn btn-big">Start the night</button>
     </div>
@@ -308,9 +310,12 @@
     <p class="pz-clue" id="puzzle-clue"></p>
     <div class="pz-body" id="puzzle-body"></div>
     <p class="pz-say" id="puzzle-say" aria-live="polite"></p>
-    <div class="start-row">
+    <ol class="pz-hints" id="puzzle-hints" aria-live="polite" hidden></ol>
+    <div class="start-row pz-foot">
       <button type="button" class="btn btn-quiet" id="puzzle-leave">Leave it</button>
+      <button type="button" class="btn btn-quiet" id="puzzle-hint">Hint</button>
     </div>
+    <p class="pz-mode" id="puzzle-mode"></p>
   </dialog>
 
   <!-- THE WORKSHOP (M4). js/workshop.js fills it in from your bag
@@ -337,7 +342,14 @@
       <div class="start-row">
         <button type="button" class="btn ws-build-now" id="ws-build-now" hidden>Build it as it is</button>
       </div>
+    </div>
+
+    <!-- What you just built, its blueprint question, and Peek at
+         the code. Not in the sticky bit at the top, so it never
+         covers your junk. -->
+    <div class="panel ws-made-panel">
       <div class="ws-result" id="ws-result" aria-live="polite"></div>
+      <div class="ws-extra" id="ws-extra" hidden></div>
     </div>
 
     <div class="panel">

@@ -12,6 +12,7 @@
    =========================================================== */
 
 import { DEFAULT_DIFFICULTY } from '../data/difficulty.js';
+import { DEFAULT_PUZZLE_LEVEL } from '../data/puzzles.js';
 
 /* The phases of one night, in the order they happen.
    'title' and 'result' are the bookends. */
@@ -32,6 +33,7 @@ export function freshState() {
   return {
     phase: 'title',
     difficulty: DEFAULT_DIFFICULTY,
+    puzzleLevel: DEFAULT_PUZZLE_LEVEL,  // how hard the puzzles are (data/puzzles.js)
     theme: 'night',
     soundOn: true,
 
@@ -56,14 +58,17 @@ export function freshState() {
 
     /* The puzzles (js/puzzles.js). Tonight's answers are in
        puzzles. Type HOUSE.state.puzzles in the console to cheat. */
-    puzzles: null,      // { safe: { code, sums }, shed: { riddle, word }, piano: { tune } }
+    puzzles: null,      // { safe: { code, sums }, shed: { riddle, word }, ... one for every lock }
     unlocked: [],       // locks you have opened, like 'safe'
     notes: [],          // clues you have found, like Dad's note for 'safe'
     noteSpot: null,     // the hiding place Dad's note is in
+    hintsUsed: {},      // how many hints you have had on each lock, like { safe: 1 }
 
     /* The traps, the night, and how it all went. */
     traps: [],          // M4: traps built at the workbench
     rigged: {},         // M5: which trap is at which anchor
+    perfect: {},        // M14: how many PERFECT builds of each trap are on your shelf, like { 'egg-drop': 1 }
+    perfectAt: {},      // M14: which anchors have a perfect trap on them
     notebook: [],       // M4: recipes discovered so far (kept on restart)
     burglars: [],       // M6: Sid and Bruno at night: where they are, what they carry
     taken: {},          // M6: which loot has gone, like { telly: 'bruno' }
@@ -89,9 +94,12 @@ export function setPhase(next) {
    page. Test this at every milestone that adds anything. */
 export function resetGame() {
   const fresh = freshState();
-  /* Keep the two settings that belong to the person, not the game. */
+  /* Keep the settings that belong to the person, not the game:
+     day or night, sound, and how hard they like it. */
   fresh.theme = state.theme;
   fresh.soundOn = state.soundOn;
+  fresh.difficulty = state.difficulty;
+  fresh.puzzleLevel = state.puzzleLevel;
   /* The recipe notebook is yours for the whole visit, so you learn
      more every night. Refresh the page and it starts empty. */
   fresh.notebook = state.notebook;
