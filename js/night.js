@@ -445,7 +445,12 @@ function fire(b, anchor, trap) {
   const before = b.info.status;
   b.info.status = 'hit';
   b.resume = before;
-  const { amount, times } = hurt(trap, b.data);
+  const hit = hurt(trap, b.data);
+  const { times } = hit;
+  /* a PERFECT build (the blueprint question) scares them one more */
+  const perfect = Boolean(state.perfectAt[anchor.id]);
+  delete state.perfectAt[anchor.id];
+  const amount = hit.amount + (perfect ? times : 0);
   const record = { trap: trap.id, name: trap.name, anchor: anchor.id, who: b.data.id, amount, times };
   state.fired.push(record);
   log(`${b.data.name} sets off your ${trapName(trap)}!`, null, 'is-good');
