@@ -16,8 +16,9 @@
    =========================================================== */
 
 import {
-  SAFE, SHED, PIANO, FUSE, KEYPAD, TELLY, MIRROR, MORSE, BOOKS, HOOVER
+  SAFE, SHED, PIANO, FUSE, KEYPAD, TELLY, MIRROR, MORSE, BOOKS, HOOVER, BUGS
 } from '../data/puzzles.js';
+import { readProgram, runProgram, lineWords } from './hoover.js';
 
 /* --- LITTLE HELPERS ----------------------------------------- */
 
@@ -321,6 +322,62 @@ function makeHoover(level) {
   return { map: chosen.map, most: chosen.most, best: chosen.best, repeat: rules.repeat };
 }
 
+/* --- DAD'S COMPUTER: a bug to hunt ---------------------------
+   A data bug comes straight from the SNIPPETS list. A program bug
+   is a hoover program that works, with one line broken. We break
+   it, check it really does crash now, and offer the right line
+   back alongside two other broken ones.
+   ------------------------------------------------------------ */
+
+function breakLine(line) {
+  const out = [];
+  if (line.op === 'forward') {
+    out.push({ op: 'forward', n: line.n + 1 });
+    if (line.n > 1) out.push({ op: 'forward', n: line.n - 1 });
+    out.push({ op: 'forward', n: line.n + 2 });
+  } else if (line.op === 'left' || line.op === 'right') {
+    out.push({ op: line.op === 'left' ? 'right' : 'left' });
+    out.push({ op: 'forward', n: 1 });
+  } else if (line.op === 'repeat') {
+    out.push({ op: 'repeat', n: line.n + 1 });
+    if (line.n > 1) out.push({ op: 'repeat', n: line.n - 1 });
+  }
+  return out;
+}
+
+function programBug() {
+  const maps = Object.values(HOOVER.levels).flatMap((l) => l.maps);
+  for (let tries = 0; tries < 80; tries += 1) {
+    const m = pick(maps);
+    const good = readProgram(m.best);
+    const at = roll(good.length);
+    const fails = breakLine(good[at]).filter((bad) => {
+      const test = good.map((l, i) => (i === at ? bad : l));
+      return runProgram(m.map, test).ending !== 'home';
+    });
+    if (fails.length < 2) continue;
+    const [bad, ...others] = shuffle(fails);
+    const lines = good.map((l, i) => lineWords(i === at ? bad : l));
+    return {
+      kind: 'program', map: m.map, lines, bug: at,
+      right: lineWords(good[at]),
+      fixes: shuffle([lineWords(good[at]), ...others.slice(0, 2).map(lineWords)]),
+      why: `It said ${lineWords(bad)}. It should say ${lineWords(good[at])}.`
+    };
+  }
+  return null;
+}
+
+function makeBugs(level) {
+  const rules = BUGS.levels[level];
+  if (pick(rules.kinds) === 'program') {
+    const bug = programBug();
+    if (bug) return bug;
+  }
+  const s = pick(BUGS.SNIPPETS.filter((x) => rules.snippets.includes(x.level)));
+  return { kind: 'data', lines: s.lines, bug: s.bug, right: s.fixes[0], fixes: shuffle(s.fixes), why: s.why };
+}
+
 /* --- ALL OF THEM AT ONCE ------------------------------------- */
 
 export function makeAll(level) {
@@ -335,6 +392,7 @@ export function makeAll(level) {
     mirror: makeMirror(level),
     morse: makeMorse(level),
     books: makeBooks(level),
-    hoover: makeHoover(level)
+    hoover: makeHoover(level),
+    bugs: makeBugs(level)
   };
 }

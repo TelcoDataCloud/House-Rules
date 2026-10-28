@@ -348,3 +348,83 @@ export const HOOVER = {
     }
   }
 };
+
+/* ===========================================================
+   DAD'S OLD COMPUTER, in the attic, has a BUG. A bug is a
+   mistake in code. One line is wrong. Tap the line with the bug,
+   then pick the fix.
+
+   Two sorts of bug:
+       data      a bit of game data (like the files in data/)
+                 with a mistake in it. These are below, in
+                 SNIPPETS. Write your own!
+       program   a robot hoover program that crashes. The game
+                 makes these itself from the hoover maps above,
+                 by breaking one line of a program that works.
+
+   HOW A SNIPPET WORKS
+       level   easy, tricky or hard
+       lines   the code, one line each
+       bug     which line is wrong. The first line is 0.
+       fixes   what the line should say FIRST, then two wrong
+               ideas. The game shuffles them.
+       why     what was wrong, shown when you fix it
+   =========================================================== */
+export const BUGS = {
+  name: "Dad's old computer",
+  levels: {
+    easy:        { kinds: ['data'], snippets: ['easy'] },
+    tricky:      { kinds: ['data', 'program'], snippets: ['easy', 'tricky'] },
+    brainbuster: { kinds: ['program', 'data'], snippets: ['tricky', 'hard'] }
+  },
+  SNIPPETS: [
+    { level: 'easy', bug: 1,
+      lines: ["{ id: 'egg-drop', name: 'Egg Drop',", "  needs: ['eggs', 'bukket'],", "  nerve: 3, mount: 'OVERHEAD' }"],
+      fixes: ["  needs: ['eggs', 'bucket'],", "  needs: ['eggs', 'buckets'],", "  needs: ['egg', 'bukket'],"],
+      why: 'There is no item called bukket. The id is bucket, spelled exactly right.' },
+    { level: 'easy', bug: 2,
+      lines: ['export const HERO = {', "  name: 'Hendrix',", '  walkSpeed: fast,', '  size: 1', '};'],
+      fixes: ['  walkSpeed: 250,', "  walkSpeed: 'fast',", '  walk speed: 250,'],
+      why: 'walkSpeed has to be a number. The game cannot do sums with the word fast.' },
+    { level: 'easy', bug: 1,
+      lines: ['props: [', "  { kind: 'sofa' x: 84 },", "  { kind: 'lamp', x: 96 }", ']'],
+      fixes: ["  { kind: 'sofa', x: 84 },", "  { kind: sofa, x: 84 },", "  { kind: 'sofa'. x: 84 },"],
+      why: 'Every bit needs a comma before the next bit. Computers are very fussy about commas.' },
+    { level: 'easy', bug: 1,
+      lines: ["{ code: 'M16', name: 'Robot Hoover', done: true },", "{ code: 'M17', name: 'Gardens', done: yes }"],
+      fixes: ["{ code: 'M17', name: 'Gardens', done: true }", "{ code: 'M17', name: 'Gardens', done: 'yes' }", "{ code: 'M17', name: 'Gardens', done: YES }"],
+      why: 'Code says yes and no as true and false.' },
+    { level: 'tricky', bug: 2,
+      lines: ["{ id: 'pendulum', name: 'The Pendulum',", "  cat: ['STARTLE'], nerve: 3,", "  mount: 'CEILING' }"],
+      fixes: ["  mount: 'OVERHEAD' }", "  mount: 'ceiling' }", "  mount: 'UP' }"],
+      why: 'The mounts are FLOOR, DOORWAY, OVERHEAD, STAIRS and GARDEN. CEILING is not one of them.' },
+    { level: 'tricky', bug: 2,
+      lines: ["{ id: 'sid', name: 'Sid',", '  nerve: 8,', "  weakTo: ['loud', 'startle'],"],
+      fixes: ["  weakTo: ['LOUD', 'STARTLE'],", '  weakTo: [LOUD, STARTLE],', "  weakTo: 'LOUD STARTLE',"],
+      why: 'Trap kinds are in CAPITALS. To a computer, loud and LOUD are different words.' },
+    { level: 'tricky', bug: 1,
+      lines: ["{ id: 'easy', name: 'Easy',", '  seconds: -300,', "  puzzleClock: 'stop' }"],
+      fixes: ['  seconds: 300,', '  seconds: 3:00,', "  seconds: '300 seconds',"],
+      why: 'Minus 300 seconds would mean the clock ran out before you started.' },
+    { level: 'tricky', bug: 1,
+      lines: ['riddles: [', "  { riddle: 'Bees make me.', word: 'honey' },", "  { riddle: 'I go moo.', word: 'COW' }", ']'],
+      fixes: ["  { riddle: 'Bees make me.', word: 'HONEY' },", "  { riddle: 'Bees make me.', word: HONEY },", "  { riddle: 'Bees make me.', word: 'Honey' },"],
+      why: 'Shed answers must be in CAPITALS, like the letters on the padlock.' },
+    { level: 'hard', bug: 1,
+      lines: ['brainbuster: {', '  fuses: [2, 4, 6],', '  pick: 4', '}'],
+      fixes: ['  fuses: [2, 4, 6, 8],', '  fuses: [2, 4, 6, 4],', '  fuses: [2, 4],'],
+      why: 'You cannot pick 4 different fuses when there are only 3. Add a fourth fuse.' },
+    { level: 'hard', bug: 1,
+      lines: ["{ id: 'glue-bomb', name: 'Glue Bomb',", "  needs: ['water-balloon', 'flour-bomb'],", "  cat: ['STICKY', 'MESSY'], nerve: 5 }"],
+      fixes: ["  needs: ['flour-bomb', 'water-balloon'],", "  needs: ['flour-bomb' + 'water-balloon'],", "  needs: ['glue-bomb', 'water-balloon'],"],
+      why: 'An upgrade starts with the trap you already built, then the extra thing.' },
+    { level: 'hard', bug: 2,
+      lines: ['route: [', "  { room: 'kitchen', says: 'Toast!' },", "  { room: 'livingroom', says: 'Telly!' }", ']'],
+      fixes: ["  { room: 'lounge', says: 'Telly!' }", "  { room: 'living room', says: 'Telly!' }", "  { room: 'Lounge', says: 'Telly!' }"],
+      why: 'There is no room called livingroom. In data/rooms.js it is lounge, all small letters.' },
+    { level: 'hard', bug: 0,
+      lines: ["{ id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 790, y: 9000 },"],
+      fixes: ["{ id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 790, y: 372 },", "{ id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 790 },", "{ id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 9000, y: 9000 },"],
+      why: 'y 9000 is miles below the bottom of the house. Nobody would ever walk past it.' }
+  ]
+};

@@ -15,6 +15,8 @@
        morse   the key safe beeps a word in dots and dashes
        books   pull the books out smallest to biggest
        hoover  write a program to drive the robot hoover home
+       bugs    Dad's old computer: find the bug in the code and
+               fix it (js/bughunt.js)
 
    The first four are in this file. The next five are in
    js/puzzles-more.js and the hoover has its own file, js/hoover.js.
@@ -38,6 +40,7 @@ import { hidingPlaces } from './house.js';
 import { makeAll } from './puzzle-maths.js';
 import { MORE } from './puzzles-more.js';
 import { buildHoover, checkMaps } from './hoover.js';
+import { buildBugs } from './bughunt.js';
 
 const ui = {};
 let current = null;          // { lock, onSolved, helper, hints } while a puzzle is open
@@ -56,7 +59,8 @@ export function newPuzzles() {
 const NAMES = {
   safe: SAFE.name, shed: 'Shed padlock', piano: PIANO.name, fuse: 'Fuse box',
   keypad: 'Garage keypad', telly: 'TV cabinet', mirror: 'Bathroom cabinet',
-  morse: 'Key safe', books: 'Bookshelf', hoover: 'Cupboard under the stairs'
+  morse: 'Key safe', books: 'Bookshelf', hoover: 'Cupboard under the stairs',
+  bugs: "Dad's old computer"
 };
 
 export function isLocked(lock) {
@@ -169,7 +173,7 @@ function solved() {
   const { lock, onSolved } = current;
   if (!state.unlocked.includes(lock)) state.unlocked.push(lock);
   sfx.unlock();
-  const words = { fuse: 'CLUNK! The lights are on!', keypad: 'BEEP BEEP! The garage door rolls up!', hoover: 'Docked! The cupboard pops open!' };
+  const words = { fuse: 'CLUNK! The lights are on!', keypad: 'BEEP BEEP! The garage door rolls up!', hoover: 'Docked! The cupboard pops open!', bugs: 'BING! The computer starts, and a drawer pops open!' };
   say(words[lock] || 'CLICK! It is open!', 'is-good');
   ui.dialog.classList.add('is-solved');
   ui.body.querySelectorAll('button').forEach((b) => { b.disabled = true; });
@@ -383,7 +387,8 @@ function buildFuse(k, p) {
 const BUILDERS = {
   safe: buildSafe, shed: buildShed, piano: buildPiano, fuse: buildFuse,
   ...MORE,
-  hoover: buildHoover
+  hoover: buildHoover,
+  bugs: buildBugs
 };
 
 /* --- HINTS --------------------------------------------------- */

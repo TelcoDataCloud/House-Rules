@@ -143,15 +143,9 @@ const OBSTACLE_ART = {
 };
 const BOT_ART = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="var(--units)" stroke="var(--ink)" stroke-width="3"/><circle cx="20" cy="20" r="6" fill="var(--screen)" stroke="var(--ink)" stroke-width="2"/><path d="M29 20 L37 20 M33 16 L37 20 L33 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-export function buildHoover(kit, p) {
-  const { el, button, say, shake, solved } = kit;
-  const map = p.map;
-  const lines = [];
-  let running = false;
-
-  kit.clue(`The robot hoover has jammed the cupboard door. Write it a program to drive home to its charger. It starts facing right.${p.most ? ` Your program can be ${p.most} lines long at most.` : ''}`);
-
-  /* the floor, as a grid of squares */
+/* The floor, as a grid of squares, with the hoover on it. The bug
+   hunt on Dad's computer uses this too. */
+export function drawFloor(el, map) {
   const floor = el('div', 'hv-floor');
   floor.style.setProperty('--cols', map[0].length);
   floor.style.setProperty('--rows', map.length);
@@ -173,6 +167,33 @@ export function buildHoover(kit, p) {
     bot.classList.toggle('is-bump', bump);
   };
   place(start.x, start.y, 0);
+  return { floor, place, start };
+}
+
+/* Play a run on the floor, one step at a time, then call done. */
+export function playRun(kit, drawn, result, onLine, done) {
+  let i = 0;
+  const next = () => {
+    const step = result.steps[i];
+    if (onLine) onLine(step ? step.line : -1);
+    if (!step) { done(); return; }
+    drawn.place(step.x, step.y, step.dir, step.bump);
+    if (!step.bump) sfx.tick();
+    i += 1;
+    kit.later(next, kit.calm ? 60 : 260);
+  };
+  next();
+}
+
+export function buildHoover(kit, p) {
+  const { el, button, say, shake, solved } = kit;
+  const map = p.map;
+  const lines = [];
+  let running = false;
+
+  kit.clue(`The robot hoover has jammed the cupboard door. Write it a program to drive home to its charger. It starts facing right.${p.most ? ` Your program can be ${p.most} lines long at most.` : ''}`);
+
+  const { floor, place, start } = drawFloor(el, map);
 
   /* the program you are writing */
   const code = el('ol', 'hv-code');
