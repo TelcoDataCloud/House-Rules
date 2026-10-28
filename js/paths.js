@@ -26,7 +26,7 @@ export function findRoom(id) {
 }
 
 export function level(room) {
-  return room.floor === 'outside' ? 'ground' : room.floor;
+  return room.floor === 'outside' || room.floor === 'garden' ? 'ground' : room.floor;
 }
 
 /* Where somebody stands in a room: in the middle, on the floor.

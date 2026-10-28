@@ -163,7 +163,7 @@ function drawSky(shell, W, H) {
   const night = make('g', { class: 'night-only' });
   night.append(make('circle', { cx: W - 90, cy: 70, r: 32, fill: 'var(--moon)', class: 'ink-thin' }));
   night.append(make('circle', { cx: W - 100, cy: 62, r: 6, fill: 'var(--sky-top)', opacity: 0.25 }));
-  [[70, 60], [150, 110], [880, 150], [960, 210], [40, 190], [720, 40]].forEach(([x, y], i) =>
+  [[70, 60], [150, 110], [880, 150], [960, 210], [40, 190], [720, 40], [1300, 60], [1480, 130], [1640, 90], [1180, 200]].forEach(([x, y], i) =>
     night.append(make('circle', { cx: x, cy: y, r: i % 2 ? 2 : 2.8, fill: 'var(--star)', class: i % 2 ? 'twinkle' : 'twinkle-b' })));
   shell.append(night);
   const day = make('g', { class: 'day-only' });
@@ -173,7 +173,7 @@ function drawSky(shell, W, H) {
 
 function drawGround(shell, W, H, grass) {
   path(shell, `M0 ${grass} L${W} ${grass} L${W} ${H} L0 ${H} Z`, 'var(--earth)');
-  [[60, 640], [180, 700], [330, 612], [420, 690], [880, 620], [960, 690], [980, 600], [120, 600]]
+  [[60, 640], [180, 700], [330, 612], [420, 690], [880, 620], [960, 690], [980, 600], [120, 600], [1450, 650], [1600, 700], [1780, 620]]
     .forEach(([x, y], i) => shell.append(make('ellipse', {
       cx: x, cy: y, rx: 7 + (i % 3) * 3, ry: 4 + (i % 2) * 2, fill: 'var(--ink)', 'fill-opacity': 0.18
     })));
@@ -345,6 +345,7 @@ function wallFill(room) {
   if (room.walls === 'planks') return 'url(#pat-planks)';
   if (room.floor === 'cellar') return 'url(#pat-stone)';
   if (room.floor === 'outside') return 'var(--room-outside)';
+  if (room.floor === 'garden') return 'none';
   return `var(--paint-${room.paint || 'white'})`;
 }
 
@@ -407,6 +408,7 @@ function drawRooms(svg) {
     const inside = make('g', { 'clip-path': `url(#${clipId})` });
     const floorY = room.y + room.h - FLOOR_DEPTH;
     const indoor = room.floor === 'upstairs' || room.floor === 'ground';
+    const garden = room.floor === 'garden';
     const floorType = flooring(room);
 
     /* the back wall, and a pattern on it */
@@ -422,13 +424,18 @@ function drawRooms(svg) {
       }
     }
 
-    /* floor and skirting board */
-    box(inside, room.x, floorY, room.w, FLOOR_DEPTH, `url(#pat-floor-${floorType})`, 'ink-thin');
+    /* floor and skirting board (a garden has grass and a path) */
+    if (garden) {
+      box(inside, room.x, floorY, room.w, FLOOR_DEPTH, 'var(--ground)', '');
+      box(inside, room.x, floorY + 3, room.w, 6, 'var(--pavement)', 'ink-thin', { rx: 3 });
+    } else {
+      box(inside, room.x, floorY, room.w, FLOOR_DEPTH, `url(#pat-floor-${floorType})`, 'ink-thin');
+    }
     if (indoor) box(inside, room.x, floorY - 5, room.w, 5, 'var(--porcelain)', 'ink-thin');
 
     /* light from the lamp, then the furniture, then the lamp
        itself so it hangs in front of whatever is on the wall */
-    drawGlow(inside, room);
+    if (!garden) drawGlow(inside, room);
     (room.props || []).forEach((prop) => placeThing(inside, room, prop, floorY));
 
     /* the small stuff, which only shows once you zoom in */
@@ -446,16 +453,17 @@ function drawRooms(svg) {
     inside.append(loose);
     looseLayers[room.id] = { g: loose, room, floorY };
 
-    drawLamp(inside, room);
-
-    /* shadow under the ceiling, so the room has depth */
-    box(inside, room.x, room.y, room.w, 22, 'url(#grad-ceiling)', '');
+    if (!garden) {
+      drawLamp(inside, room);
+      /* shadow under the ceiling, so the room has depth */
+      box(inside, room.x, room.y, room.w, 22, 'url(#grad-ceiling)', '');
+    }
     g.append(inside);
 
     /* the outline, and the name tag */
     g.append(make('rect', {
       x: room.x, y: room.y, width: room.w, height: room.h, rx: 4,
-      fill: 'none', class: 'ink-thin room-box'
+      fill: 'none', class: `ink-thin room-box${garden ? ' is-garden' : ''}`
     }));
     /* a locked room (data/puzzles.js) gets chains and a padlock */
     if (room.lock) g.append(drawRoomLock(room));
@@ -541,6 +549,7 @@ function drawAnchors(svg, caption) {
     const g = make('g', {
       class: 'anchor',
       'data-mount': anchor.mount,
+      'data-anchor': anchor.id,
       transform: `translate(${anchor.x} ${anchor.y})`,
       tabindex: '0',
       role: 'button',
@@ -1171,7 +1180,7 @@ export function resetHouse() {
    The garage and shed count as the ground floor. */
 function neighbour(id, dir) {
   const here = findRoom(id);
-  const level = (r) => (r.floor === 'outside' ? 'ground' : r.floor);
+  const level = (r) => (r.floor === 'outside' || r.floor === 'garden' ? 'ground' : r.floor);
   if (dir === 'left' || dir === 'right') {
     const row = ROOMS.filter((r) => level(r) === level(here)).sort((a, b) => a.x - b.x);
     const i = row.indexOf(here) + (dir === 'right' ? 1 : -1);

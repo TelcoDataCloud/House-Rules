@@ -7,7 +7,7 @@
    the rooms below, so nothing in js/ ever needs touching.
 
    THE PICTURE
-   The whole house is drawn on a picture 1560 wide and 740 tall.
+   The whole house is drawn on a picture 1890 wide and 740 tall.
    Every number below is a position on that picture.
 
    HOW A ROOM WORKS
@@ -22,8 +22,9 @@
    have done it twice.
 
    Every room also says which floor it is on: attic, upstairs,
-   ground, cellar, or outside. Outside ones get their own little
-   roof.
+   ground, cellar, outside or garden. Outside ones (the garage and
+   the shed) get their own little roof. Gardens are open to the
+   sky: no walls, no ceiling, grass underfoot.
 
    PAINT
    Rooms are white unless they say otherwise. To repaint one, give
@@ -88,6 +89,7 @@
        DOORWAY   something across a gap they walk through
        OVERHEAD  something hanging above their head
        STAIRS    something on the stairs
+       GARDEN    something outside, in the front or back garden
 
    In M5 a trap will only fit an anchor with the same mount, so a
    swinging paint tin needs OVERHEAD and marbles need FLOOR.
@@ -97,36 +99,37 @@
    in to look at the laptop, so it is a good place for a trap.
    This is the line that added it:
 
-   { id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 630, y: 372 },
+   { id: 'my-floor', name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR', x: 790, y: 372 },
 
    Try one in the box room: copy it, change the id, name and room,
    and move it with x and y.
    =========================================================== */
 
-export const PICTURE = { w: 1560, h: 740 };
+export const PICTURE = { w: 1890, h: 740 };
 
 export const ROOMS = [
   /* --- THE ATTIC, up in the roof, where you hide --- */
   { id: 'attic',    name: 'Attic',         floor: 'attic', paint: 'wood',
-    x: 375, y: 150, w: 510, h: 70,
-    note: 'You watch the monitors from up here.',
+    x: 535, y: 150, w: 510, h: 70,
+    note: 'You watch the monitors from up here. Dad\'s old computer has a bug.',
     inTheOpen: [ { x: 170 }, { x: 36, lift: 24 }, { x: 440 } ],
     props: [
       { kind: 'monitors', x: 210 },
       { kind: 'toybox',   x: 110, colour: 'fabric-c', search: 'Old toy box', holds: ['toys'] },
-      { kind: 'boxes',    x: 360, search: 'Boxes of old toys', holds: ['toys', 'stuff'] },
-      { kind: 'porthole', x: 462 }
+      { kind: 'boxes',    x: 340, search: 'Boxes of old toys', holds: ['toys', 'stuff'] },
+      { kind: 'computer', x: 412, search: "Dad's old computer", lock: 'bugs' },
+      { kind: 'porthole', x: 470 }
     ],
     closeUp: [
       { kind: 'trunk',    x: 20, search: 'Old trunk', holds: ['toys', 'stuff'] },
       { kind: 'suitcase', x: 64, search: 'Dusty suitcase', holds: ['stuff', 'toys'], colour: 'fabric-a' },
-      { kind: 'teddy',    x: 380, lift: 50 }
+      { kind: 'teddy',    x: 360, lift: 50 }
     ] },
 
   /* --- UPSTAIRS --- */
   { id: 'bathroom', name: 'Bathroom',      floor: 'upstairs', paint: 'blue',
     flooring: 'tile',
-    x: 72,  y: 232, w: 186, h: 160,
+    x: 232,  y: 232, w: 186, h: 160,
     note: 'The cabinet has a steamed up mirror. Somebody wrote on it.',
     inTheOpen: [ { x: 56, lift: 39 }, { x: 136 } ],
     props: [
@@ -140,7 +143,7 @@ export const ROOMS = [
     ] },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
     flooring: 'carpet',
-    x: 264, y: 232, w: 240, h: 160,
+    x: 424, y: 232, w: 240, h: 160,
     note: 'The stairs come up here. The loft hatch is in the ceiling.',
     inTheOpen: [ { x: 176 }, { x: 108, lift: 30 } ],
     props: [
@@ -155,7 +158,7 @@ export const ROOMS = [
     ] },
   { id: 'my-room',  name: "Hendrix's room", floor: 'upstairs', paint: 'green',
     flooring: 'carpet',
-    x: 510, y: 232, w: 234, h: 160,
+    x: 670, y: 232, w: 234, h: 160,
     note: 'The workbench lives in here.',
     inTheOpen: [ { x: 158 }, { x: 192, lift: 42 } ],
     props: [
@@ -171,7 +174,7 @@ export const ROOMS = [
     ] },
   { id: 'big-room', name: "Mum and Dad's", floor: 'upstairs',
     flooring: 'carpet',
-    x: 750, y: 232, w: 228, h: 160,
+    x: 910, y: 232, w: 228, h: 160,
     note: 'Jewellery box, and a safe on the wall. What is in the safe?',
     inTheOpen: [ { x: 66 }, { x: 140, lift: 36 } ],
     props: [
@@ -186,7 +189,7 @@ export const ROOMS = [
       { kind: 'slippers', x: 70 }
     ] },
   { id: 'box-room', name: 'Box room',      floor: 'upstairs',
-    x: 984, y: 232, w: 204, h: 160,
+    x: 1144, y: 232, w: 204, h: 160,
     note: 'Nobody has opened some of these boxes in years. The books are in a funny order.',
     inTheOpen: [ { x: 116, lift: 27 }, { x: 146 } ],
     props: [
@@ -199,10 +202,22 @@ export const ROOMS = [
       { kind: 'teddy',    x: 166, lift: 92 }
     ] },
 
+  /* --- THE FRONT GARDEN, outside the front door --- */
+  { id: 'front-garden', name: 'Front garden', floor: 'garden',
+    x: 10, y: 402, w: 196, h: 154,
+    note: 'The front path. Anyone coming to the front door walks past here.',
+    inTheOpen: [ { x: 104 }, { x: 186 } ],
+    props: [
+      { kind: 'tree',       x: 4,   search: 'Up the tree', holds: ['toys'] },
+      { kind: 'flowerbed',  x: 66,  search: 'Flower bed', holds: ['tools'] },
+      { kind: 'gnome',      x: 126, search: 'Garden gnome', holds: ['stuff', 'toys'] },
+      { kind: 'wheeliebin', x: 148, search: 'Wheelie bin', holds: ['food', 'stuff'] }
+    ] },
+
   /* --- GROUND FLOOR --- */
   { id: 'porch',    name: 'Porch',         floor: 'ground',
     flooring: 'tile',
-    x: 72,  y: 402, w: 120, h: 154,
+    x: 232,  y: 402, w: 120, h: 154,
     note: 'Wellies, coats, and a key safe that beeps.',
     inTheOpen: [ { x: 6 }, { x: 70, lift: 28 } ],
     props: [
@@ -216,7 +231,7 @@ export const ROOMS = [
       { kind: 'umbrellas', x: 46, search: 'Umbrella stand', holds: ['toys', 'stuff'] }
     ] },
   { id: 'hall',     name: 'Hall',          floor: 'ground',
-    x: 198, y: 402, w: 240, h: 154,
+    x: 358, y: 402, w: 240, h: 154,
     note: 'Both of them come through here. Both. The robot hoover lives under the stairs.',
     props: [
       { kind: 'clock',   x: 4 },
@@ -227,7 +242,7 @@ export const ROOMS = [
       { kind: 'post', x: 0 }
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
-    x: 444, y: 402, w: 234, h: 154,
+    x: 604, y: 402, w: 234, h: 154,
     note: 'The telly, the sofa and the piano. The piano lid and the TV cabinet are locked.',
     inTheOpen: [ { x: 60 }, { x: 150, lift: 22 } ],
     props: [
@@ -243,7 +258,7 @@ export const ROOMS = [
       { kind: 'socket', x: 220 }
     ] },
   { id: 'dining',   name: 'Dining room',   floor: 'ground',
-    x: 684, y: 402, w: 186, h: 154,
+    x: 844, y: 402, w: 186, h: 154,
     note: 'The cash tin is on the dresser.',
     inTheOpen: [ { x: 30, lift: 37 }, { x: 116, lift: 84 } ],
     props: [
@@ -258,7 +273,7 @@ export const ROOMS = [
     ] },
   { id: 'kitchen',  name: 'Kitchen',       floor: 'ground', paint: 'yellow',
     flooring: 'tile',
-    x: 876, y: 402, w: 177, h: 154,
+    x: 1036, y: 402, w: 177, h: 154,
     note: 'Window, cupboards, the cooker, and a lot of useful junk.',
     inTheOpen: [ { x: 40, lift: 45 }, { x: 104, lift: 48 } ],
     props: [
@@ -273,7 +288,7 @@ export const ROOMS = [
     ] },
   { id: 'utility',  name: 'Utility',       floor: 'ground',
     flooring: 'tile',
-    x: 1059, y: 402, w: 129, h: 154,
+    x: 1219, y: 402, w: 129, h: 154,
     note: 'Back door. Steps down to the cellar.',
     inTheOpen: [ { x: 12, lift: 40 }, { x: 52 } ],
     props: [
@@ -286,9 +301,20 @@ export const ROOMS = [
       { kind: 'bottleshelf', x: 54, search: 'Shelf of bottles', holds: ['food', 'washing'] }
     ] },
 
+  /* --- THE BACK GARDEN, between the back door and the garage --- */
+  { id: 'back-garden', name: 'Back garden', floor: 'garden',
+    x: 1368, y: 402, w: 156, h: 154,
+    note: 'Washing on the line, a trampoline, and the way in round the back.',
+    inTheOpen: [ { x: 44 }, { x: 128 } ],
+    props: [
+      { kind: 'trampoline',  x: 4,   search: 'Under the trampoline', holds: ['toys', 'tools'] },
+      { kind: 'washingline', x: 78,  search: 'Washing line', holds: ['washing'] },
+      { kind: 'gnome',       x: 138, search: 'Gnome by the door', holds: ['stuff', 'tools'] }
+    ] },
+
   /* --- THE CELLAR, under the ground --- */
   { id: 'cellar',   name: 'Cellar',        floor: 'cellar',
-    x: 684, y: 572, w: 504, h: 128, lock: 'fuse', dark: true,
+    x: 844, y: 572, w: 504, h: 128, lock: 'fuse', dark: true,
     note: 'Dark, far away, and the best junk in the house.',
     inTheOpen: [ { x: 160 }, { x: 222, lift: 38 }, { x: 372 } ],
     props: [
@@ -305,7 +331,7 @@ export const ROOMS = [
 
   /* --- OUTSIDE --- */
   { id: 'garage',   name: 'Garage',        floor: 'outside',
-    x: 1218, y: 460, w: 180, h: 96, lock: 'keypad',
+    x: 1548, y: 460, w: 180, h: 96, lock: 'keypad',
     note: 'Tools, paint, a garden hose. The door has a keypad.',
     inTheOpen: [ { x: 128 } ],
     props: [
@@ -316,7 +342,7 @@ export const ROOMS = [
       { kind: 'hosereel', x: 156, search: 'Hose reel', holds: ['tools'] }
     ] },
   { id: 'shed',     name: 'Shed',          floor: 'outside', walls: 'planks',
-    x: 1422, y: 476, w: 126, h: 80, lock: 'shed',
+    x: 1752, y: 476, w: 126, h: 80, lock: 'shed',
     note: 'A long walk, and a padlock. Worth it.',
     inTheOpen: [ { x: 60 } ],
     props: [
@@ -343,53 +369,60 @@ export const ROOMS = [
 export const STAIRS = [
   { id: 'main',   name: 'The stairs',  kind: 'steps', joins: ['hall', 'landing'],
     cupboard: true, room: 'hall', search: 'Cupboard under the stairs', lock: 'hoover',
-    left: 210, right: 429, bottom: 544, top: 380, steps: 9 },
+    left: 370, right: 589, bottom: 544, top: 380, steps: 9 },
   { id: 'cellar', name: 'Cellar steps', kind: 'steps', joins: ['cellar', 'utility'],
     handrail: false,
-    left: 1068, right: 1185, bottom: 688, top: 544, steps: 7 },
+    left: 1228, right: 1345, bottom: 688, top: 544, steps: 7 },
   { id: 'loft',   name: 'Loft ladder',  kind: 'ladder', joins: ['landing', 'attic'],
-    left: 459, right: 495, bottom: 380, top: 208, steps: 6 }
+    left: 619, right: 655, bottom: 380, top: 208, steps: 6 }
 ];
 
-/* Thirty two anchor points. One trap each. */
+/* Thirty seven anchor points. One trap each. */
 export const ANCHORS = [
   /* upstairs */
-  { id: 'loft-hatch',    name: 'Loft hatch',       room: 'landing',  mount: 'OVERHEAD', x: 477, y: 244 },
-  { id: 'bath-ceiling',  name: 'Bathroom ceiling', room: 'bathroom', mount: 'OVERHEAD', x: 165, y: 290 },
-  { id: 'bath-door',     name: 'Bathroom door',    room: 'bathroom', mount: 'DOORWAY',  x: 261, y: 360 },
-  { id: 'upstairs-hall', name: 'Upstairs hall',    room: 'landing',  mount: 'OVERHEAD', x: 330, y: 290 },
-  { id: 'landing-floor', name: 'Landing floor',    room: 'landing',  mount: 'FLOOR',    x: 309, y: 372 },
-  { id: 'stairs-top',    name: 'Top of stairs',    room: 'landing',  mount: 'STAIRS',   x: 423, y: 372 },
-  { id: 'my-door',       name: 'Your bedroom door', room: 'my-room', mount: 'DOORWAY',  x: 507, y: 360 },
-  { id: 'my-floor',      name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR',    x: 630, y: 372 },
-  { id: 'big-door',      name: 'Their room door',  room: 'big-room', mount: 'DOORWAY',  x: 747, y: 360 },
-  { id: 'box-door',      name: 'Box room door',    room: 'box-room', mount: 'DOORWAY',  x: 981, y: 360 },
-  { id: 'big-floor',     name: 'Their bedroom floor', room: 'big-room', mount: 'FLOOR', x: 830, y: 372 },
-  { id: 'big-ceiling',   name: 'Their bedroom ceiling', room: 'big-room', mount: 'OVERHEAD', x: 920, y: 290 },
-  { id: 'box-floor',     name: 'Box room floor',   room: 'box-room', mount: 'FLOOR',    x: 1070, y: 372 },
+  { id: 'loft-hatch',    name: 'Loft hatch',       room: 'landing',  mount: 'OVERHEAD', x: 637, y: 244 },
+  { id: 'bath-ceiling',  name: 'Bathroom ceiling', room: 'bathroom', mount: 'OVERHEAD', x: 325, y: 290 },
+  { id: 'bath-door',     name: 'Bathroom door',    room: 'bathroom', mount: 'DOORWAY',  x: 421, y: 360 },
+  { id: 'upstairs-hall', name: 'Upstairs hall',    room: 'landing',  mount: 'OVERHEAD', x: 490, y: 290 },
+  { id: 'landing-floor', name: 'Landing floor',    room: 'landing',  mount: 'FLOOR',    x: 469, y: 372 },
+  { id: 'stairs-top',    name: 'Top of stairs',    room: 'landing',  mount: 'STAIRS',   x: 583, y: 372 },
+  { id: 'my-door',       name: 'Your bedroom door', room: 'my-room', mount: 'DOORWAY',  x: 667, y: 360 },
+  { id: 'my-floor',      name: 'Your bedroom floor', room: 'my-room', mount: 'FLOOR',    x: 790, y: 372 },
+  { id: 'big-door',      name: 'Their room door',  room: 'big-room', mount: 'DOORWAY',  x: 907, y: 360 },
+  { id: 'box-door',      name: 'Box room door',    room: 'box-room', mount: 'DOORWAY',  x: 1141, y: 360 },
+  { id: 'big-floor',     name: 'Their bedroom floor', room: 'big-room', mount: 'FLOOR', x: 990, y: 372 },
+  { id: 'big-ceiling',   name: 'Their bedroom ceiling', room: 'big-room', mount: 'OVERHEAD', x: 1080, y: 290 },
+  { id: 'box-floor',     name: 'Box room floor',   room: 'box-room', mount: 'FLOOR',    x: 1230, y: 372 },
 
   /* ground floor */
-  { id: 'front-door',    name: 'Front door',       room: 'porch',    mount: 'DOORWAY',  x: 69,  y: 522 },
-  { id: 'porch-ceiling', name: 'Porch ceiling',    room: 'porch',    mount: 'OVERHEAD', x: 132,  y: 460 },
-  { id: 'stairs-bottom', name: 'Bottom of stairs', room: 'hall',     mount: 'STAIRS',   x: 228, y: 540 },
-  { id: 'hall-ceiling',  name: 'Hall ceiling',     room: 'hall',     mount: 'OVERHEAD', x: 279, y: 460 },
-  { id: 'hall-floor',    name: 'Hall floor',       room: 'hall',     mount: 'FLOOR',    x: 380, y: 536 },
-  { id: 'lounge-door',   name: 'Lounge door',      room: 'lounge',   mount: 'DOORWAY',  x: 441, y: 522 },
-  { id: 'lounge-ceiling',name: 'Lounge ceiling',   room: 'lounge',   mount: 'OVERHEAD', x: 561, y: 460 },
-  { id: 'lounge-floor',  name: 'Lounge floor',     room: 'lounge',   mount: 'FLOOR',    x: 514, y: 536 },
-  { id: 'dining-door',   name: 'Dining door',      room: 'dining',   mount: 'DOORWAY',  x: 681, y: 522 },
-  { id: 'dining-floor',  name: 'Dining floor',     room: 'dining',   mount: 'FLOOR',    x: 777, y: 536 },
-  { id: 'dining-ceiling',name: 'Dining ceiling',   room: 'dining',   mount: 'OVERHEAD', x: 774, y: 460 },
-  { id: 'kitchen-door',  name: 'Kitchen door',     room: 'kitchen',  mount: 'DOORWAY',  x: 873, y: 522 },
-  { id: 'kitchen-window',name: 'Kitchen window',   room: 'kitchen',  mount: 'DOORWAY',  x: 966, y: 470 },
-  { id: 'kitchen-floor', name: 'Kitchen floor',    room: 'kitchen',  mount: 'FLOOR',    x: 966, y: 536 },
-  { id: 'kitchen-ceiling',name: 'Kitchen ceiling', room: 'kitchen',  mount: 'OVERHEAD', x: 996, y: 460 },
-  { id: 'utility-door',  name: 'Utility door',     room: 'utility',  mount: 'DOORWAY',  x: 1056, y: 522 },
-  { id: 'back-door',     name: 'Back door',        room: 'utility',  mount: 'DOORWAY',  x: 1191, y: 470 },
+  { id: 'front-door',    name: 'Front door',       room: 'porch',    mount: 'DOORWAY',  x: 229,  y: 522 },
+  { id: 'porch-ceiling', name: 'Porch ceiling',    room: 'porch',    mount: 'OVERHEAD', x: 292,  y: 460 },
+  { id: 'stairs-bottom', name: 'Bottom of stairs', room: 'hall',     mount: 'STAIRS',   x: 388, y: 540 },
+  { id: 'hall-ceiling',  name: 'Hall ceiling',     room: 'hall',     mount: 'OVERHEAD', x: 439, y: 460 },
+  { id: 'hall-floor',    name: 'Hall floor',       room: 'hall',     mount: 'FLOOR',    x: 540, y: 536 },
+  { id: 'lounge-door',   name: 'Lounge door',      room: 'lounge',   mount: 'DOORWAY',  x: 601, y: 522 },
+  { id: 'lounge-ceiling',name: 'Lounge ceiling',   room: 'lounge',   mount: 'OVERHEAD', x: 721, y: 460 },
+  { id: 'lounge-floor',  name: 'Lounge floor',     room: 'lounge',   mount: 'FLOOR',    x: 674, y: 536 },
+  { id: 'dining-door',   name: 'Dining door',      room: 'dining',   mount: 'DOORWAY',  x: 841, y: 522 },
+  { id: 'dining-floor',  name: 'Dining floor',     room: 'dining',   mount: 'FLOOR',    x: 937, y: 536 },
+  { id: 'dining-ceiling',name: 'Dining ceiling',   room: 'dining',   mount: 'OVERHEAD', x: 934, y: 460 },
+  { id: 'kitchen-door',  name: 'Kitchen door',     room: 'kitchen',  mount: 'DOORWAY',  x: 1033, y: 522 },
+  { id: 'kitchen-window',name: 'Kitchen window',   room: 'kitchen',  mount: 'DOORWAY',  x: 1126, y: 470 },
+  { id: 'kitchen-floor', name: 'Kitchen floor',    room: 'kitchen',  mount: 'FLOOR',    x: 1126, y: 536 },
+  { id: 'kitchen-ceiling',name: 'Kitchen ceiling', room: 'kitchen',  mount: 'OVERHEAD', x: 1156, y: 460 },
+  { id: 'utility-door',  name: 'Utility door',     room: 'utility',  mount: 'DOORWAY',  x: 1216, y: 522 },
+  { id: 'back-door',     name: 'Back door',        room: 'utility',  mount: 'DOORWAY',  x: 1351, y: 470 },
+
+  /* outside (GARDEN traps only go here) */
+  { id: 'front-gate',    name: 'Front gate',       room: 'front-garden', mount: 'GARDEN', x: 40,  y: 536 },
+  { id: 'front-path',    name: 'Front path',       room: 'front-garden', mount: 'GARDEN', x: 112, y: 536 },
+  { id: 'back-lawn',     name: 'Back lawn',        room: 'back-garden',  mount: 'GARDEN', x: 1420, y: 536 },
+  { id: 'back-path',     name: 'Back path',        room: 'back-garden',  mount: 'GARDEN', x: 1500, y: 536 },
+  { id: 'garage-floor',  name: 'Garage floor',     room: 'garage',       mount: 'FLOOR',  x: 1640, y: 524 },
 
   /* the cellar */
-  { id: 'cellar-steps',  name: 'Cellar steps',     room: 'cellar',   mount: 'STAIRS',   x: 1122, y: 630 },
-  { id: 'cellar-floor',  name: 'Cellar floor',     room: 'cellar',   mount: 'FLOOR',    x: 840, y: 682 }
+  { id: 'cellar-steps',  name: 'Cellar steps',     room: 'cellar',   mount: 'STAIRS',   x: 1282, y: 630 },
+  { id: 'cellar-floor',  name: 'Cellar floor',     room: 'cellar',   mount: 'FLOOR',    x: 1000, y: 682 }
 ];
 
 /* What each mount type means, in words the game shows on screen.
@@ -398,5 +431,6 @@ export const MOUNTS = {
   FLOOR:    { name: 'Floor',    line: 'Something on the ground for them to step in.' },
   DOORWAY:  { name: 'Doorway',  line: 'Something across a gap they walk through.' },
   OVERHEAD: { name: 'Overhead', line: 'Something hanging above their head.' },
-  STAIRS:   { name: 'Stairs',   line: 'Something on the stairs. The classic.' }
+  STAIRS:   { name: 'Stairs',   line: 'Something on the stairs. The classic.' },
+  GARDEN:   { name: 'Garden',   line: 'Something outside, on the path or the lawn.' }
 };
