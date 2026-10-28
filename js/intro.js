@@ -4,7 +4,8 @@
    Three pictures, like a comic strip. Press Next to move on, or
    Skip to get straight into the house.
 
-     1. Midnight. A van pulls up. Two burglars creep up the path.
+     1. Midnight. A van pulls up. Tonight's burglars creep up the
+        path (js/crew.js picks who comes, so it changes).
      2. At the front door, each of them gives something away
         about what he cannot stand. Listen carefully.
      3. Up in the attic window: you. You are home, and you have a
@@ -18,7 +19,7 @@
    =========================================================== */
 
 import { setPhase } from './state.js';
-import { BURGLARS } from '../data/burglars.js';
+import { tonight, thisNight } from './crew.js';
 import { ITEMS } from '../data/items.js';
 import { drawBurglar } from './burglar-art.js';
 import { drawHero, pyjamaPattern } from './hero-art.js';
@@ -161,20 +162,9 @@ function buildStage(svg) {
     make('circle', { cx: x, cy: 302, r: 4, class: 'intro-hub' }, van);
   });
 
-  /* Sid and Bruno. The outer group says where they stand at the
-     door; the inner one is what css/intro.css slides about. */
-  BURGLARS.forEach((data, i) => {
-    const pos = make('g', { transform: `translate(${i === 0 ? 384 : 476} 272) scale(1.05)` }, svg);
-    const move = make('g', { class: `intro-walk intro-walk-${data.look}` }, pos);
-    const act = make('g', { class: `intro-actor intro-${data.look}` }, move);
-    drawBurglar(act, data.look);
-    if (data.look === 'bruno') make('ellipse', { cx: 9, cy: -1, rx: 6, ry: 2, class: 'intro-jam' }, act);
-  });
+  /* tonight's burglars go in here (drawCrew, every night) */
+  make('g', { class: 'intro-crew' }, svg);
   make('text', { x: 360, y: 240, 'text-anchor': 'middle', class: 'intro-creak' }, svg).textContent = 'CREAK';
-
-  /* what they say at the door (beat 2) */
-  bubble(svg, 214, 112, 160, ['Was that a CREAK?', 'I hate surprises!'], 368, 'intro-say-sid');
-  bubble(svg, 488, 140, 150, ['Jam on my boot?!', 'I hate STICKY.'], 500, 'intro-say-bruno');
 
   /* your plan, in a thought bubble (beat 3) */
   const think = make('g', { class: 'intro-think' }, svg);
@@ -189,13 +179,41 @@ function buildStage(svg) {
   make('text', { x: 330, y: 24, 'text-anchor': 'middle', class: 'intro-think-words' }, think).textContent = 'I have a plan.';
 }
 
+/* Tonight's burglars at the door. The outer group says where they
+   stand; the inner one is what css/intro.css slides about. The
+   first two say what they hate, in speech bubbles. */
+const SPOTS = [384, 476, 338, 524];
+function drawCrew(svg) {
+  const g = svg.querySelector('.intro-crew');
+  g.innerHTML = '';
+  const crew = tonight();
+  crew.slice(0, SPOTS.length).forEach((data, i) => {
+    const pos = make('g', { transform: `translate(${SPOTS[i]} 272) scale(1.05)` }, g);
+    const move = make('g', { class: `intro-walk intro-walk-${i}` }, pos);
+    const act = make('g', { class: `intro-actor intro-actor-${i}` }, move);
+    drawBurglar(act, data.look);
+    if (i === 1) make('ellipse', { cx: 9, cy: -1, rx: 6, ry: 2, class: 'intro-jam' }, act);
+  });
+  const lines = (data) => data.intro || ['...', `I hate ${(data.weakTo || ['TRAPS'])[0]}!`];
+  if (crew[0]) bubble(g, 214, 112, 160, lines(crew[0]), 368, 'intro-say-0');
+  if (crew[1]) bubble(g, 488, 140, 150, lines(crew[1]), 500, 'intro-say-1');
+}
+
+function words(beat) {
+  if (at !== 0) return beat.words;
+  const n = tonight().length;
+  const night = thisNight();
+  const count = ['No', 'One', 'Two', 'Three', 'Four', 'Five'][n] || String(n);
+  return `${night ? `${night.name}. ` : ''}Midnight. Mum and Dad are out. ${count} burglar${n === 1 ? '' : 's'} think the house is empty.`;
+}
+
 /* --- MOVING THROUGH THE BEATS -------------------------------- */
 
 function show() {
   const beat = BEATS[at];
   ui.svg.dataset.beat = String(at);
   if (beat.sound && sfx[beat.sound]) sfx[beat.sound]();
-  ui.words.textContent = beat.words;
+  ui.words.textContent = words(beat);
   ui.next.textContent = beat.last ? 'Raid the house' : 'Next';
   ui.count.textContent = `${at + 1} of ${BEATS.length}`;
 }
@@ -219,5 +237,6 @@ export function setupIntro(els) {
 
 export function startIntro() {
   at = 0;
+  drawCrew(ui.svg);
   show();
 }

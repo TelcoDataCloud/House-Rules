@@ -1,9 +1,9 @@
 /* ===========================================================
    NIGHT - phase 4: they come in
 
-   You are up in the attic with the security monitors. Sid and
-   Bruno let themselves in and walk their routes from
-   data/burglars.js, one stop at a time:
+   You are up in the attic with the security monitors. Tonight's
+   burglars (js/crew.js picks them) let themselves in and walk
+   their routes from data/burglars.js, one stop at a time:
 
      wait  ->  walk to the next stop  ->  stop, say something,
      take any loot  ->  walk to the next stop  ->  ...  ->  walk
@@ -28,12 +28,26 @@
    called (the numbers are in data/difficulty.js). When they
    arrive, anybody still in the house gets arrested.
 
+   TIMED TRAPS (M17)
+   A trap with timer: true is not set off by walking into it. It
+   waits for the night clock (state.timers says when) and then
+   goes off on everybody in its room. Nobody there? Wasted.
+
+   GADGETS (M17)
+   Three buttons up in the attic (data/gadgets.js), each one good
+   once a night: a dog bark for everyone, lights out in one room,
+   and spring the nearest trap on someone you are following.
+
    Everything runs on one night clock (run.t, in seconds). The
-   Faster button makes that clock tick faster.
+   Faster button makes that clock tick faster. The clock is pinned
+   under the house, and every line in the log says the time, so you
+   can learn when they get where.
    =========================================================== */
 
 import { state, setPhase } from './state.js';
-import { BURGLARS, LOOT } from '../data/burglars.js';
+import { LOOT } from '../data/burglars.js';
+import { tonight, braveness, pronoun } from './crew.js';
+import { GADGETS, GADGET_USES } from '../data/gadgets.js';
 import { NEIGHBOURS } from '../data/difficulty.js';
 import { ROOMS, ANCHORS, PICTURE } from '../data/rooms.js';
 import { TRAPS, UPGRADES } from '../data/recipes.js';
@@ -111,12 +125,22 @@ function edgeRoom(side) {
 
 /* --- THE MONITOR LOG ----------------------------------------- */
 
+function clock(seconds) {
+  const t = Math.max(0, Math.floor(seconds));
+  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+}
+
 function log(words, who, kind = '') {
   const li = document.createElement('li');
+  const when = document.createElement('span');
+  when.className = 'night-time';
+  when.textContent = clock(run.t);
+  li.append(when, ' ');
   if (who) {
     const name = document.createElement('strong');
     name.textContent = `${who}: `;
     li.append(name, document.createTextNode(`"${words}"`));
+    sayUnderHouse(`${who}: "${words}"`);
     li.className = 'night-line is-talk';
   } else {
     li.textContent = words;
@@ -124,7 +148,7 @@ function log(words, who, kind = '') {
   }
   ui.log.append(li);
   ui.log.scrollTop = ui.log.scrollHeight;
-  sayUnderHouse(li.textContent);         // the newest line also goes right under the house
+  if (!who) sayUnderHouse(words);        // the newest line also goes right under the house
 }
 
 function showHaul() {
@@ -149,7 +173,7 @@ export function listOf(things) {
 /* Words instead of numbers, so you work out who is tough by
    watching, not by reading. */
 function mood(b) {
-  const left = Math.max(0, b.info.nerve) / b.data.nerve;
+  const left = Math.max(0, b.info.nerve) / b.max;
   if (b.info.status === 'arrested') return 'Arrested';
   if (b.info.status === 'fled') return 'Ran away';
   if (b.info.status === 'escaped') return 'Got away';
@@ -161,7 +185,8 @@ function mood(b) {
 
 /* A little picture of just his head, for the meter. */
 function face(look) {
-  const svg = make('svg', { viewBox: look === 'bruno' ? '-13 -88 28 34' : '-12 -84 26 32', 'aria-hidden': 'true', class: 'pin-face' });
+  const top = HEIGHT[look] || 82;
+  const svg = make('svg', { viewBox: `-14 ${-top - 3} 30 ${look === 'twiggy' ? 28 : 34}`, 'aria-hidden': 'true', class: 'pin-face' });
   const g = make('g');
   drawBurglar(g, look);
   svg.append(g);
@@ -221,12 +246,24 @@ function buildMeters() {
   card.append(info);
   ui.meters.append(card);
   run.noiseMeter = { card, bar, fill, word };
+
+  /* the night clock, for timing your timed traps */
+  const tick = document.createElement('div');
+  tick.className = 'pin pin-clock';
+  const label = document.createElement('strong');
+  label.textContent = 'Night clock';
+  const time = document.createElement('span');
+  time.className = 'pin-clock-time';
+  time.setAttribute('aria-live', 'off');
+  tick.append(label, time);
+  ui.meters.append(tick);
+  run.clockShow = time;
   drawMeters();
 }
 
 function drawMeters() {
   run.crew.forEach((b) => {
-    const pct = Math.round((Math.max(0, b.info.nerve) / b.data.nerve) * 100);
+    const pct = Math.round((Math.max(0, b.info.nerve) / b.max) * 100);
     b.meter.fill.style.width = `${pct}%`;
     b.meter.bar.setAttribute('aria-valuenow', String(pct));
     b.meter.bar.setAttribute('aria-valuetext', mood(b));
@@ -244,6 +281,7 @@ function drawMeters() {
   run.noiseMeter.bar.setAttribute('aria-valuenow', String(pct));
   run.noiseMeter.bar.setAttribute('aria-valuetext', words);
   run.noiseMeter.word.textContent = words;
+  if (run.clockShow) run.clockShow.textContent = clock(run.t);
 }
 
 /* A jolt on his meter when a trap gets him. */
@@ -315,6 +353,11 @@ function wrap(words, width = 22) {
 
 function say(b, words) {
   if (!words) return;
+  /* {friend} is one of the others out tonight */
+  if (words.includes('{friend}')) {
+    const others = run.crew.filter((one) => one !== b);
+    words = words.replace(/\{friend\}/g, others.length ? pick(others).data.name : 'the boss');
+  }
   const lines = wrap(words);
   const w = Math.max(...lines.map((l) => l.length)) * 5.1 + 14;
   const h = lines.length * 11 + 8;
@@ -349,7 +392,7 @@ function keepBubbleInside(b) {
 
 /* Two burglars in one room stand a little apart. */
 function nudge(b) {
-  return b.i === 0 ? -14 : 14;
+  return (b.i - (run.crew.length - 1) / 2) * 12;
 }
 
 function headFor(b, roomId, status = 'walking') {
@@ -430,6 +473,8 @@ function checkTraps(b) {
   for (const [anchorId, trapId] of Object.entries(state.rigged)) {
     const a = ANCHORS.find((one) => one.id === anchorId);
     if (!a) continue;
+    const trap = findTrap(trapId);
+    if (trap && trap.timer) continue;              // timed traps wait for the clock
     const below = b.y - a.y;
     if (Math.abs(b.x - a.x) < 18 && below > -12 && below < 145) {
       fire(b, a, findTrap(trapId));
@@ -473,6 +518,128 @@ function fire(b, anchor, trap) {
   });
   b.hitUntil = performance.now() + length;
   peek(anchor.room || b.info.room, length + 600);
+}
+
+/* A timed trap's time has come: it goes off on everybody in its
+   room who is still about. */
+function checkTimers() {
+  Object.entries(state.rigged).forEach(([anchorId, trapId]) => {
+    const trap = findTrap(trapId);
+    if (!trap || !trap.timer) return;
+    if (run.t < ((state.timers || {})[anchorId] ?? Infinity)) return;
+    const anchor = ANCHORS.find((one) => one.id === anchorId);
+    if (!anchor) return;
+    const here = run.crew.filter((b) => b.info.room === anchor.room &&
+      ['walking', 'stopped', 'leaving'].includes(b.info.status));
+    if (!here.length) {
+      delete state.rigged[anchorId];
+      showTrapOnAnchor(anchorId, null);
+      sign(run.fxLayer, anchor.x, anchor.y - 30, trap.word.split(' ')[0], 1600);
+      log(`DING! Your ${trapName(trap)} went off in the ${findRoom(anchor.room).name}. Nobody there!`, null, 'is-note');
+      state.fired.push({ trap: trap.id, name: trap.name, anchor: anchorId, who: null, amount: 0, times: 0 });
+      return;
+    }
+    log(`DING! Your ${trapName(trap)} goes off in the ${findRoom(anchor.room).name}!`, null, 'is-good');
+    here.forEach((b) => fire(b, anchor, trap));
+  });
+}
+
+/* --- GADGETS: you, pressing buttons in the attic ------------- */
+
+const AWAKE = ['walking', 'stopped', 'leaving'];
+
+/* A gadget gets one burglar: like a trap, but from the attic. */
+function zap(b, gadget) {
+  const { amount, times } = hurt(gadget, b.data);
+  b.info.nerve -= amount;
+  state.fired.push({ trap: gadget.id, name: gadget.name, anchor: null, who: b.data.id, amount, times, gadget: true });
+  sign(run.fxLayer, b.x, b.y - (HEIGHT[b.data.look] || 80) - 18, gadget.word, 1400);
+  cheer();
+  sfx.yelp();
+  say(b, times === 2 ? pick(b.data.hates) : times < 1 ? pick(b.data.meh) : pick(b.data.ouch));
+  bumpMeter(b);
+  if (b.info.nerve <= 0 && AWAKE.includes(b.info.status)) {
+    b.resume = b.info.status;
+    panic(b);
+  }
+}
+
+/* Who are you looking at? The burglar you follow, or the room you
+   tapped, or the room the camera is in. */
+function watchedRoom() {
+  if (run.watch) {
+    const b = run.crew.find((one) => one.data.id === run.watch);
+    return b ? b.info.room : null;
+  }
+  return run.userRoom || state.room || null;
+}
+
+function useGadget(gadget, button) {
+  if (!run.on || run.over) return;
+  const left = (run.gadgets[gadget.id] || 0);
+  if (left <= 0) return;
+  if (gadget.who === 'everyone') {
+    const here = run.crew.filter((b) => AWAKE.includes(b.info.status));
+    if (!here.length) { sayUnderHouse('Nobody is in the house yet. Save it.'); sfx.nope(); return; }
+    log(`You press ${gadget.name}. ${gadget.word}`, null, 'is-good');
+    here.forEach((b) => zap(b, gadget));
+    if (gadget.cat.includes('LOUD')) makeNoise(gadget.nerve);
+  } else if (gadget.who === 'room') {
+    const room = watchedRoom();
+    if (!room) { sayUnderHouse('Follow somebody or tap a room first, so it knows which room.'); sfx.nope(); return; }
+    const here = run.crew.filter((b) => b.info.room === room && AWAKE.includes(b.info.status));
+    blackout(room);
+    log(`You press ${gadget.name} in the ${findRoom(room).name}.${here.length ? '' : ' Nobody there!'}`, null, here.length ? 'is-good' : 'is-note');
+    here.forEach((b) => zap(b, gadget));
+  } else if (gadget.who === 'trap') {
+    const b = run.crew.find((one) => one.data.id === run.watch);
+    if (!b) { sayUnderHouse('Follow somebody first, then press it.'); sfx.nope(); return; }
+    let best = null;
+    Object.entries(state.rigged).forEach(([anchorId, trapId]) => {
+      const a = ANCHORS.find((one) => one.id === anchorId);
+      const trap = findTrap(trapId);
+      if (!a || !trap) return;
+      const far = Math.hypot(a.x - b.x, (a.y - b.y) * 2);
+      if (far < 260 && (!best || far < best.far)) best = { a, trap, far };
+    });
+    if (!best || !AWAKE.includes(b.info.status)) { sayUnderHouse(`No trap near ${b.data.name}.`); sfx.nope(); return; }
+    log(`You spring your ${trapName(best.trap)} on ${b.data.name}!`, null, 'is-good');
+    fire(b, best.a, best.trap);
+  }
+  run.gadgets[gadget.id] = left - 1;
+  drawMeters();
+  drawGadgets();
+}
+
+/* the lights go off in a room for a moment */
+function blackout(roomId) {
+  const room = findRoom(roomId);
+  if (!room) return;
+  const shade = make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, class: 'fx-blackout' });
+  run.fxLayer.append(shade);
+  after(lessMotion() ? 600 : 1600, () => shade.remove());
+}
+
+function drawGadgets() {
+  if (!ui.gadgets) return;
+  ui.gadgets.innerHTML = '';
+  const head = document.createElement('span');
+  head.className = 'night-gadgets-head';
+  head.textContent = 'Your gadgets:';
+  ui.gadgets.append(head);
+  GADGETS.forEach((gadget) => {
+    const left = run.gadgets[gadget.id] || 0;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'btn night-gadget';
+    b.dataset.gadget = gadget.id;
+    b.textContent = left > 0 ? gadget.name : `${gadget.name} (used)`;
+    b.title = gadget.line;
+    b.setAttribute('aria-label', `${gadget.name}. ${gadget.line}${left > 0 ? '' : ' Already used tonight.'}`);
+    b.disabled = left <= 0;
+    b.addEventListener('click', () => useGadget(gadget, b));
+    ui.gadgets.append(b);
+  });
 }
 
 /* --- THE CAMERA JUMPS IN -------------------------------------
@@ -531,7 +698,7 @@ function panic(b) {
     growSack(b);
     showHaul();
   } else {
-    log(`${b.data.name} has had enough. He runs!`, null, 'is-good');
+    log(`${b.data.name} has had enough. ${pronoun(b.data, true)} runs!`, null, 'is-good');
   }
   drawMeters();
 }
@@ -645,7 +812,9 @@ function tick(now) {
     if (b.node) place(b);
   });
 
+  checkTimers();
   if (run.police !== null && !run.policeHere && run.t >= run.police) policeArrive();
+  if (run.clockShow && Math.floor(run.t) !== run.shownT) { run.shownT = Math.floor(run.t); run.clockShow.textContent = clock(run.t); }
 
   if (state.room === null) run.userRoom = null;     // you pressed Whole house
   endPeek(now);
@@ -699,7 +868,7 @@ function buildCams() {
     ui.cams.append(btn);
   };
   add('Whole house', null);
-  BURGLARS.forEach((data) => add(`Follow ${data.name}`, data.id));
+  run.crew.forEach((b) => add(`Follow ${b.data.name}`, b.data.id));
 }
 
 /* --- START AND STOP ------------------------------------------ */
@@ -712,7 +881,8 @@ function finish() {
     burglars: run.crew.map((b) => ({
       id: b.data.id, name: b.data.name, look: b.data.look,
       status: b.info.status, carrying: b.info.carrying.map((l) => l.name),
-      nerveLeft: Math.max(0, b.info.nerve), nerve: b.data.nerve, mess: [...b.info.mess]
+      nerveLeft: Math.max(0, b.info.nerve), nerve: b.max, mess: [...b.info.mess],
+      pronoun: pronoun(b.data)
     })),
     fired: [...state.fired],
     unfired: Object.values(state.rigged).length,
@@ -759,17 +929,21 @@ export function startBreakIn() {
   layer.innerHTML = '';
   drawHendrix(layer);
 
-  run.crew = BURGLARS.map((data, i) => {
+  const crew = tonight();
+  const brave = braveness();
+  const first = Math.min(...crew.map((data) => data.waitsFirst || 0));
+  run.crew = crew.map((data, i) => {
     const edge = edgeRoom(data.comesIn);
     const b = {
       data, i, edge,
+      max: Math.round(data.nerve * brave * 10) / 10,
       facing: data.comesIn === 'right' ? -1 : 1,
-      path: [], stop: -1, until: data.waitsFirst || 0,
+      path: [], stop: -1, until: (data.waitsFirst || 0) - first,
       bubbleUntil: 0, grabAt: 0, hitUntil: 0, messCount: i * 10,
       muttersAt: 5 + i * 3 + Math.random() * 4, said: [],
       info: {
         id: data.id, name: data.name, room: edge.id, status: 'waiting',
-        nerve: data.nerve, carrying: [], mess: []
+        nerve: Math.round(data.nerve * brave * 10) / 10, carrying: [], mess: []
       }
     };
     b.x = data.comesIn === 'right' ? PICTURE.w + 40 : -40;
@@ -786,6 +960,8 @@ export function startBreakIn() {
 
   buildCams();
   buildMeters();
+  run.gadgets = Object.fromEntries(GADGETS.map((g) => [g.id, GADGET_USES]));
+  drawGadgets();
   setRoomClickHandler((roomId) => {           // tap a room to look at it on its own
     setWatch(null, false);
     stopFollowing();
