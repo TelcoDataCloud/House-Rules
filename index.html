@@ -21,12 +21,24 @@
 </head>
 <body>
 
-<!-- The two little round buttons in the top right corner. -->
+<!-- The little round buttons in the top right corner. -->
 <div class="toolbar">
+  <button type="button" id="inspect-toggle" class="toggle" aria-pressed="false" aria-label="Inspect mode: tap anything to see the code behind it" title="Inspect: tap anything to see its code">&#128269;</button>
   <button type="button" id="theme-toggle" class="toggle" aria-label="Switch theme">&#9728;&#65039;</button>
   <button type="button" id="sound-toggle" class="toggle" aria-label="Turn sound off">&#128266;</button>
 </div>
 
+
+<!-- INSPECT MODE (M17). js/inspect.js fills it in. -->
+<p class="inspect-banner" id="inspect-banner" hidden>Inspect mode: tap anything to see the code behind it.</p>
+<div class="inspect-card panel" id="inspect-card" role="dialog" aria-labelledby="inspect-what" aria-live="polite" hidden>
+  <h2 id="inspect-what">Inspect</h2>
+  <p class="inspect-where" id="inspect-where"></p>
+  <pre class="inspect-code"><code id="inspect-code"></code></pre>
+  <p class="inspect-tip" id="inspect-tip"></p>
+  <p class="inspect-also" id="inspect-also"></p>
+  <button type="button" class="btn btn-quiet" id="inspect-close">Close</button>
+</div>
 
 <!-- =========================================================
      SCREEN 1: THE TITLE
@@ -236,6 +248,8 @@
     <div class="difficulty" id="difficulty" role="group" aria-label="Difficulty"></div>
     <h3 class="picker-head">How hard are the puzzles?</h3>
     <div class="difficulty" id="puzzle-level" role="group" aria-label="How hard the puzzles are"></div>
+    <h3 class="picker-head">One night, or a whole week?</h3>
+    <div class="difficulty" id="play-mode" role="group" aria-label="One night or a whole week"></div>
     <div class="start-row">
       <button type="button" id="start-btn" class="btn btn-big">Start the night</button>
     </div>
@@ -381,6 +395,7 @@
       <p class="rig-say" id="rig-say" aria-live="polite"></p>
     </div>
     <ul class="rig-tray" id="rig-tray" aria-label="Your traps"></ul>
+    <div class="rig-timers" id="rig-timers" hidden></div>
     <div class="rig-buttons">
       <button type="button" class="btn btn-quiet" id="rig-back">Back to the workbench</button>
       <button type="button" class="btn btn-big" id="let-in">Let them in</button>
@@ -419,6 +434,7 @@
       </div>
     </div>
     <div class="night-cams" id="night-cams" role="group" aria-label="What the monitors show"></div>
+    <div class="night-gadgets" id="night-gadgets" role="group" aria-label="Your gadgets"></div>
     <ol class="night-log" id="night-log" aria-label="What the monitors saw"></ol>
     <p class="night-haul" id="night-haul"></p>
   </div>
@@ -437,9 +453,11 @@
     <dl class="result-stats" id="result-stats"></dl>
     <ul class="result-traps" id="result-traps" aria-label="Every trap that went off"></ul>
     <p class="result-tip" id="result-tip"></p>
+    <div class="result-week" id="result-week" hidden></div>
     <div class="result-buttons">
       <button type="button" class="btn btn-quiet" id="result-title-btn">Back to the title</button>
       <button type="button" class="btn btn-big" id="result-again">Play again</button>
+      <button type="button" class="btn btn-big" id="result-next" hidden>Next night</button>
     </div>
   </div>
 

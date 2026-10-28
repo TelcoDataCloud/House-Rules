@@ -27,5 +27,11 @@ export const MILESTONES = [
   { code: 'M13', name: 'Fresh Nights',  done: true },
   { code: 'M14', name: 'Thinking Time', done: true },
   { code: 'M15', name: 'Bigger House',  done: true },
-  { code: 'M16', name: 'Robot Hoover',  done: true }
+  { code: 'M16', name: 'Robot Hoover',  done: true },
+  { code: 'M17', name: 'Gardens and Timers', done: true },
+  { code: 'M18', name: 'The Gang of Five', done: true },
+  { code: 'M19', name: 'Night Gadgets', done: true },
+  { code: 'M20', name: 'A Week of Nights', done: true },
+  { code: 'M21', name: 'Inspect Mode', done: true },
+  { code: 'M22', name: 'Bug Hunt', done: true }
 ];

@@ -17,6 +17,12 @@
    and data/rooms.js (each spot's mount). This file only checks
    that the two match.
 
+   TIMED TRAPS (M17)
+   A trap with timer: true in data/recipes.js does not wait to be
+   walked into. Under the tray you set the time it goes off, in
+   night seconds (state.timers). When the night clock gets there
+   it goes off on everybody in that room.
+
    LET THEM IN starts the night. With no traps set it says
    Let them in anyway, because that is what you are doing.
    =========================================================== */
@@ -56,6 +62,53 @@ function spot(anchor) {
   return name.startsWith('your ') ? name : `the ${name}`;
 }
 
+/* 25 seconds is 0:25. */
+export function clock(seconds) {
+  const t = Math.max(0, Math.floor(seconds));
+  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+}
+
+const FIRST_TIME = 20;          // a new timed trap goes off at 0:20 to start with
+const SHORTEST = 5;
+const LONGEST = 180;
+
+/* The timers box: one row for every timed trap you have set. */
+function drawTimers() {
+  if (!ui.timers) return;
+  ui.timers.innerHTML = '';
+  const timed = Object.entries(state.rigged).filter(([, id]) => findTrap(id) && findTrap(id).timer);
+  ui.timers.hidden = !timed.length;
+  if (!timed.length) return;
+  const head = document.createElement('p');
+  head.className = 'rig-timers-head';
+  head.textContent = 'Timers. Each one goes off at that time on the night clock, on everybody in the room.';
+  ui.timers.append(head);
+  timed.forEach(([anchorId, trapId]) => {
+    const anchor = findAnchor(anchorId);
+    const row = document.createElement('div');
+    row.className = 'rig-timer';
+    const words = document.createElement('span');
+    words.className = 'rig-timer-words';
+    const show = () => { words.textContent = `${findTrap(trapId).name}, ${spot(anchor)}: goes off at ${clock(state.timers[anchorId])}`; };
+    const step = (by) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn-quiet rig-timer-step';
+      b.textContent = by > 0 ? `+${by}` : `${by}`;
+      b.setAttribute('aria-label', `${by > 0 ? 'Later' : 'Sooner'} by ${Math.abs(by)} seconds: ${findTrap(trapId).name}`);
+      b.addEventListener('click', () => {
+        state.timers[anchorId] = Math.min(LONGEST, Math.max(SHORTEST, state.timers[anchorId] + by));
+        sfx.tick();
+        show();
+      });
+      return b;
+    };
+    show();
+    row.append(step(-5), words, step(5));
+    ui.timers.append(row);
+  });
+}
+
 function say(words) {
   ui.say.textContent = words;
 }
@@ -80,7 +133,7 @@ function drawTray() {
     name.textContent = trap.name;
     const where = document.createElement('span');
     where.className = 'rig-card-mount';
-    where.textContent = mountName(trap.mount);
+    where.textContent = mountName(trap.mount) + (trap.timer ? ', timed' : '');
     btn.append(name, where);
     if (isPerfectAt(i)) {
       btn.classList.add('is-perfect');
@@ -142,14 +195,17 @@ function place(anchor) {
     state.perfectAt[anchor.id] = true;
   }
   state.rigged[anchor.id] = trapId;
+  if (trap.timer) state.timers[anchor.id] = state.timers[anchor.id] || FIRST_TIME;
+  else delete state.timers[anchor.id];
   showTrapOnAnchor(anchor.id, firstItem(trapId), trap.name);
   picked = null;
   highlightMount(null);
   sfx.craft();
-  say(old
+  say((old
     ? `${trap.name} on ${spot(anchor)}. ${findTrap(old).name} is back in your tray.`
-    : `${trap.name} set on ${spot(anchor)}.`);
+    : `${trap.name} set on ${spot(anchor)}.`) + (trap.timer ? ' It is on a timer: set the time below.' : ''));
   drawTray();
+  drawTimers();
 }
 
 function takeOff(anchor) {
@@ -160,10 +216,12 @@ function takeOff(anchor) {
     state.perfect[trapId] = (state.perfect[trapId] || 0) + 1;
     delete state.perfectAt[anchor.id];
   }
+  delete state.timers[anchor.id];
   showTrapOnAnchor(anchor.id, null);
   sfx.back();
   say(`${findTrap(trapId).name} is back in your tray.`);
   drawTray();
+  drawTimers();
 }
 
 function onAnchor(anchor) {
@@ -174,7 +232,10 @@ function onAnchor(anchor) {
 
 function describe(anchor) {
   const rigged = state.rigged[anchor.id];
-  if (rigged) return `${anchor.name}: ${findTrap(rigged).name}. Tap to take it off.`;
+  if (rigged) {
+    const timed = findTrap(rigged).timer ? ` Goes off at ${clock(state.timers[anchor.id])}.` : '';
+    return `${anchor.name}: ${findTrap(rigged).name}.${timed} Tap to take it off.`;
+  }
   return `${anchor.name}. ${MOUNTS[anchor.mount].line}`;
 }
 
@@ -204,6 +265,7 @@ export function showRig() {
     ? 'Pick a trap, then tap a glowing spot in the house.'
     : 'Nothing to set. Build some traps first.');
   drawTray();
+  drawTimers();
 }
 
 export function hideRig() {

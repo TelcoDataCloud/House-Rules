@@ -250,6 +250,7 @@ function drawBag(bounce = false) {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'bag-drop';
+      btn.dataset.item = item.id;
       btn.title = `Drop the ${item.name} here`;
       btn.setAttribute('aria-label', `${item.name}. Tap to drop it here.`);
       btn.append(itemPicture(item));

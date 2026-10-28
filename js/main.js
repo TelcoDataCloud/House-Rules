@@ -12,7 +12,7 @@
    =========================================================== */
 
 import { state, setPhase, resetGame } from './state.js';
-import { buildDifficulty, buildPuzzleLevel, buildMilestones, setupToggles } from './ui.js';
+import { buildDifficulty, buildPuzzleLevel, buildMode, buildMilestones, setupToggles } from './ui.js';
 import { buildHouse, setHouseMode, resetHouse } from './house.js';
 import { sfx } from './audio.js';
 import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
@@ -23,8 +23,10 @@ import { setupLoot } from './loot.js';
 import { setupResult, showResult, hideResult } from './result.js';
 import { setupIntro, startIntro } from './intro.js';
 import { setupPuzzles } from './puzzles.js';
+import { setupInspect, inspecting } from './inspect.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { PUZZLE_LEVELS } from '../data/puzzles.js';
+import { WEEK } from '../data/nights.js';
 
 /* What each phase is called on screen, what you do in it, and a
    tip. */
@@ -102,13 +104,19 @@ function renderPhaseScreen(phase) {
   el('phase-line').textContent = info.line;
   el('phase-milestone').textContent = info.milestone;
   const puzzles = PUZZLE_LEVELS.find((p) => p.id === state.puzzleLevel);
-  el('phase-difficulty').textContent =
+  const week = state.week ? WEEK[state.week.night] : null;
+  el('phase-difficulty').textContent = (week ? `${week.name}, night ${state.week.night + 1} of ${WEEK.length}. ` : '') +
     'Difficulty: ' + level.name + ', ' + level.seconds + ' seconds to scavenge. Puzzles: ' + puzzles.name + '.';
 }
 
 function boot() {
+  setupInspect({
+    toggle: el('inspect-toggle'), banner: el('inspect-banner'), card: el('inspect-card'), what: el('inspect-what'),
+    where: el('inspect-where'), code: el('inspect-code'), tip: el('inspect-tip'), also: el('inspect-also'), close: el('inspect-close')
+  });
   buildDifficulty(el('difficulty'));
   buildPuzzleLevel(el('puzzle-level'));
+  buildMode(el('play-mode'));
   buildMilestones(el('milestones'));
   setupToggles(el('theme-toggle'), el('sound-toggle'));
   buildHouse(el('house'), el('house-caption'), el('legend'),
@@ -138,19 +146,19 @@ function boot() {
 
   setupRig({
     panel: el('rig'), tray: el('rig-tray'), say: el('rig-say'), count: el('rig-count'),
-    back: el('rig-back'), letIn: el('let-in')
+    back: el('rig-back'), letIn: el('let-in'), timers: el('rig-timers')
   });
 
   setupNight({
     panel: el('night'), cams: el('night-cams'), log: el('night-log'), haul: el('night-haul'),
-    fast: el('night-fast'), zoom: el('night-zoom'), meters: el('night-meters')
+    fast: el('night-fast'), zoom: el('night-zoom'), meters: el('night-meters'), gadgets: el('night-gadgets')
   });
 
   setupResult({
     panel: el('result'), heading: el('result-title'), line: el('result-line'),
     grade: el('result-grade'), stats: el('result-stats'), tip: el('result-tip'),
     burglars: el('result-burglars'), traps: el('result-traps'),
-    again: el('result-again'), title: el('result-title-btn')
+    again: el('result-again'), title: el('result-title-btn'), next: el('result-next'), week: el('result-week')
   });
 
   setupIntro({
@@ -160,6 +168,8 @@ function boot() {
 
   el('start-btn').addEventListener('click', () => {
     sfx.start();
+    state.week = state.mode === 'week' ? { night: 0, results: [] } : null;
+    state.crew = [];
     setPhase('intro');
   });
 
@@ -183,6 +193,14 @@ function boot() {
       setHouseMode('search');
       showScreen('title');
     } else if (phase === 'intro') {
+      /* a new night (or the next night of a week): clear the house */
+      hideScavenge();
+      hideWorkshop();
+      hideRig();
+      stopBreakIn();
+      hideResult();
+      resetHouse();
+      setHouseMode('search');
       showScreen('intro');
       startIntro();
     } else {
@@ -206,7 +224,7 @@ function boot() {
 
   /* A door into the game from the browser console, so you can
      poke at it while it runs. Try: HOUSE.state */
-  window.HOUSE = { state, setPhase, resetGame };
+  window.HOUSE = { state, setPhase, resetGame, inspect: inspecting };
 }
 
 if (document.readyState === 'loading') {

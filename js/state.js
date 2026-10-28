@@ -33,6 +33,7 @@ export function freshState() {
   return {
     phase: 'title',
     difficulty: DEFAULT_DIFFICULTY,
+    mode: 'night',      // 'night' for one night, 'week' for five in a row (data/nights.js)
     puzzleLevel: DEFAULT_PUZZLE_LEVEL,  // how hard the puzzles are (data/puzzles.js)
     theme: 'night',
     soundOn: true,
@@ -69,8 +70,11 @@ export function freshState() {
     rigged: {},         // M5: which trap is at which anchor
     perfect: {},        // M14: how many PERFECT builds of each trap are on your shelf, like { 'egg-drop': 1 }
     perfectAt: {},      // M14: which anchors have a perfect trap on them
+    timers: {},         // M17: when each TIMED trap goes off, in night seconds, like { 'back-lawn': 25 }
     notebook: [],       // M4: recipes discovered so far (kept on restart)
-    burglars: [],       // M6: Sid and Bruno at night: where they are, what they carry
+    burglars: [],       // M6: the burglars at night: where they are, what they carry
+    crew: [],           // M17: who is coming tonight, like ['sid', 'dolores'] (js/crew.js)
+    week: null,         // M17: playing a week? { night: 0, results: [] } (data/nights.js)
     taken: {},          // M6: which loot has gone, like { telly: 'bruno' }
     fired: [],          // M7: every trap that went off tonight, and who it got
     noticed: 0,         // M9: the neighbours noticed meter
@@ -90,6 +94,25 @@ export function setPhase(next) {
   document.dispatchEvent(new CustomEvent('phasechange', { detail: next }));
 }
 
+/* The next night of a week (data/nights.js). Everything about
+   the house starts fresh, but you keep your settings, your
+   notebook, the week so far, and any traps you did not use
+   (including ones still set that never went off). */
+export function nextNight() {
+  const fresh = freshState();
+  ['theme', 'soundOn', 'difficulty', 'puzzleLevel', 'mode', 'notebook', 'week'].forEach((k) => { fresh[k] = state[k]; });
+  fresh.traps = [...state.traps, ...Object.values(state.rigged)];
+  fresh.perfect = { ...state.perfect };
+  Object.entries(state.perfectAt).forEach(([anchorId]) => {
+    const id = state.rigged[anchorId];
+    if (id) fresh.perfect[id] = (fresh.perfect[id] || 0) + 1;
+  });
+  fresh.week.night += 1;
+  Object.keys(state).forEach((key) => delete state[key]);
+  Object.assign(state, fresh);
+  setPhase('intro');
+}
+
 /* Wipe the state back to a fresh night without reloading the
    page. Test this at every milestone that adds anything. */
 export function resetGame() {
@@ -103,6 +126,7 @@ export function resetGame() {
   /* The recipe notebook is yours for the whole visit, so you learn
      more every night. Refresh the page and it starts empty. */
   fresh.notebook = state.notebook;
+  fresh.mode = state.mode;
   Object.keys(state).forEach((key) => delete state[key]);
   Object.assign(state, fresh);
   setPhase('title');

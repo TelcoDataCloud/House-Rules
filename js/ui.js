@@ -90,6 +90,38 @@ export function buildPuzzleLevel(container) {
   });
 }
 
+/* --- ONE NIGHT OR A WEEK (M17) ------------------------------ */
+
+const MODES = [
+  { id: 'night', name: 'One night', note: 'Two burglars, picked at random.' },
+  { id: 'week', name: 'A week', note: 'Monday to Friday. More burglars, braver every night.' }
+];
+
+export function buildMode(container) {
+  container.innerHTML = '';
+  container.classList.add('is-two');
+  MODES.forEach((mode) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'diff-btn';
+    btn.dataset.id = mode.id;
+    btn.setAttribute('aria-pressed', String(mode.id === state.mode));
+    const name = document.createElement('span');
+    name.className = 'diff-name';
+    name.textContent = mode.name;
+    const note = document.createElement('span');
+    note.className = 'diff-note';
+    note.textContent = mode.note;
+    btn.append(name, note);
+    btn.addEventListener('click', () => {
+      state.mode = mode.id;
+      sfx.select();
+      container.querySelectorAll('.diff-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === state.mode)));
+    });
+    container.append(btn);
+  });
+}
+
 /* --- MILESTONE STRIP ----------------------------------------
    Hendrix's progress bar. A dot goes green when a milestone is
    really finished, and not one second before.

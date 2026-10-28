@@ -20,7 +20,8 @@
    easy or too hard.
    =========================================================== */
 
-import { state, setPhase, resetGame } from './state.js';
+import { state, setPhase, resetGame, nextNight } from './state.js';
+import { WEEK } from '../data/nights.js';
 import { LOOT } from '../data/burglars.js';
 import { drawBurglar } from './burglar-art.js';
 import { addMess } from './fx.js';
@@ -46,7 +47,7 @@ export function score(night) {
   const saved = LOOT.length - taken.length;
   const arrests = night.burglars.filter((b) => b.status === 'arrested').length;
   const ran = night.burglars.filter((b) => b.status === 'fled').length;
-  const fired = night.fired.length;
+  const fired = night.fired.filter((f) => f.who).length;
   const hated = night.fired.filter((f) => f.times === 2).length;
   const points = saved * POINTS.loot + arrests * POINTS.arrest + ran * POINTS.ran
     + fired * POINTS.trap + hated * POINTS.hated;
@@ -73,7 +74,7 @@ export function score(night) {
   const shrugged = night.fired.filter((f) => f.times < 1).length;
   const close = night.burglars.find((b) => b.status === 'escaped' && b.nerveLeft < b.nerve);
   if (!fired) tip = 'None of your traps went off. Watch where they walk, then put traps there.';
-  else if (close) tip = `${close.name} was rattled but still got away. One more trap on his way would have done it.`;
+  else if (close) tip = `${close.name} was rattled but still got away. One more trap on the way would have done it.`;
   else if (night.unfired) tip = `${night.unfired === 1 ? 'One of your traps' : `${night.unfired} of your traps`} never went off. Watch where they walk.`;
   else if (shrugged) tip = 'Some of your traps hardly bothered them. Watch who yells loudest at what.';
   else if (!arrests && !night.police) tip = 'LOUD traps wake the neighbours. Enough noise and the police come.';
@@ -112,10 +113,13 @@ export function setupResult(els) {
   Object.assign(ui, els);
   ui.again.addEventListener('click', () => {
     sfx.start();
-    const level = state.difficulty;
     resetGame();
-    state.difficulty = level;
-    setPhase('scavenge');
+    if (state.mode === 'week') state.week = { night: 0, results: [] };
+    setPhase(state.week ? 'intro' : 'scavenge');
+  });
+  ui.next.addEventListener('click', () => {
+    sfx.start();
+    nextNight();
   });
   ui.title.addEventListener('click', () => {
     sfx.back();
@@ -164,12 +168,61 @@ export function showResult() {
     const li = document.createElement('li');
     li.className = `result-trap is-x${String(f.times).replace('.', '')}`;
     const how = f.times === 2 ? 'HATED it' : f.times < 1 ? 'barely noticed' : 'did not like it';
-    li.textContent = `${f.name} got ${who ? who.name : 'someone'}. He ${how}.`;
+    const p = who && who.pronoun === 'she' ? 'She' : 'He';
+    li.textContent = who ? `${f.name} got ${who.name}. ${p} ${how}.` : `${f.name} went off in an empty room.`;
     ui.traps.append(li);
   });
   ui.traps.hidden = !night.fired.length;
 
+  showWeek(r);
   if (r.taken.length) sfx.lose(); else sfx.win();
+}
+
+/* --- A WEEK OF NIGHTS (M17) ---------------------------------- */
+
+function gradeFor(points) {
+  return GRADES.find(([, min]) => points >= min)[0];
+}
+
+function showWeek(r) {
+  const week = state.week;
+  ui.week.innerHTML = '';
+  ui.week.hidden = !week;
+  ui.next.hidden = true;
+  ui.again.textContent = week ? 'Start the week again' : 'Play again';
+  if (!week) return;
+  const night = WEEK[week.night];
+  week.results[week.night] = { name: night.name, grade: r.grade, points: r.points, title: r.title };
+  const last = week.night >= WEEK.length - 1;
+
+  const head = document.createElement('h3');
+  head.textContent = last ? 'Your week' : `${night.name} is done. ${WEEK.length - week.night - 1} to go.`;
+  const list = document.createElement('ol');
+  list.className = 'result-week-list';
+  WEEK.forEach((n, i) => {
+    const li = document.createElement('li');
+    const done = week.results[i];
+    li.className = done ? 'is-done' : '';
+    li.textContent = done ? `${n.name}: ${done.grade} (${done.points} points)` : `${n.name}: ${n.burglars} burglars. ${n.note}`;
+    list.append(li);
+  });
+  ui.week.append(head, list);
+  if (last) {
+    const avg = week.results.reduce((sum, x) => sum + x.points, 0) / week.results.length;
+    const grade = gradeFor(avg);
+    const big = document.createElement('p');
+    big.className = 'result-week-grade';
+    big.textContent = `Week grade: ${grade}. ${grade === 'S' ? 'The burglars are telling everyone to stay away from this house.' : 'Try the week again and beat it.'}`;
+    ui.week.append(big);
+  } else {
+    const next = WEEK[week.night + 1];
+    ui.next.hidden = false;
+    ui.next.textContent = `Next night: ${next.name}`;
+    const carry = state.traps.length + Object.keys(state.rigged).length;
+    const note = document.createElement('p');
+    note.textContent = carry ? `${carry} unused ${carry === 1 ? 'trap comes' : 'traps come'} with you.` : 'You have no traps left over. Start from scratch.';
+    ui.week.append(note);
+  }
 }
 
 export function hideResult() {
