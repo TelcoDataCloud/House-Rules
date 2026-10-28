@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 24 October 2026 (M0 to M16 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, fresh nights, thinking time, a bigger house and the robot hoover). The newest sections are at the bottom; read those first.
+Last updated: 28 October 2026 (M0 to M22 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, fresh nights, thinking time, a bigger house and the robot hoover). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -803,3 +803,51 @@ with the old workbench (fine, no errors) for a few minutes.
 letters about (# wall, . floor, H start, C charger, b s l obstacles), and
 write a `best` program that gets home. If `best` does not work, the console
 says so.
+
+---
+
+## M17 to M22 — Gardens, Gang of Five, Gadgets, Week, Inspect, Bug Hunt. Done 28 Oct 2026
+
+Asa: "Do 1, 2, 7 and 8 [Inspect mode, Bug Hunt locks, act at night, more
+than one night]. Make 3 more robbers and randomise which ones enter on any
+given night. Do some outside traps too. Timed traps. More combos." Then:
+"Build til done." Three scope holds lifted by Asa (more burglars, multiple
+nights, acting at night); the brief's section 10 says so.
+
+- **Gardens:** front and back garden rooms (`floor: 'garden'`, open sky,
+  dashed outline), house shifted right 160, garage and shed a further 170.
+  GARDEN mount, 4 garden anchors + garage floor = 37. New props in
+  `js/props.js`: tree, flowerbed, gnome, wheeliebin, trampoline,
+  washingline, computer.
+- **Timed traps:** `timer: true` in recipes. Rig shows a Timers box with
+  -5/+5 (5 to 180 s, starts at 0:20), `state.timers`. Night: `checkTimers()`
+  fires on everyone in the anchor's room, or logs a wasted DING. Night clock
+  pin, timestamps in the log.
+- **Junk and traps:** 7 new items (one rare, megaphone), 17 traps, 6
+  upgrades. Mud mess. Alarm clock works as a kitchen timer.
+- **Burglars:** Twiggy, Dolores, Big Norm (drawings in
+  `js/burglar-art.js`, colours `--burglar-c/d/e`). `js/crew.js` picks
+  `PER_NIGHT`. `{friend}` placeholder. `pronoun` field. Nudge spreads any
+  number of burglars. Intro draws tonight's crew (first two speak).
+- **Gadgets:** `data/gadgets.js`, buttons under the cams. A gadget with
+  nobody in the house is not used up.
+- **Week:** title picker One night / A week. `state.week`, `nextNight()` in
+  `js/state.js` keeps notebook, settings and unused traps (and their
+  perfect stars). Result screen shows the week and Next night.
+- **Inspect:** `js/inspect.js`, capture-phase click handler, fetches the
+  data file and finds the line. Banner sits below the buttons and ignores
+  taps, so the toggle always works.
+- **Bug Hunt:** lock `bugs` on Dad's computer in the attic,
+  `js/bughunt.js`, `makeBugs()` in `js/puzzle-maths.js`. 11 locks, 11 rares.
+
+**Verified locally:** every test passes with a clean console (30 of 30
+puzzles, bug hunt at every level, inspect on furniture, spots, rooms and
+anchors without triggering walking or locks, a week night with garden and
+timed traps, gadgets, next night, all five burglars in the intro, night and
+result, phone 390 px with no sideways scroll, day theme).
+
+**Hendrix's turn for M17 to M22:** write his own bug for Dad's computer in
+`data/puzzles.js`, at the end of `BUGS.SNIPPETS`. Copy one block, change a
+line to have a mistake in it, set `bug` to that line's number (the first line
+is 0), put the right version first in `fixes`, then two wrong ones, and a
+`why`. Set `level: 'easy'` and play with puzzles on Easy until it comes up.

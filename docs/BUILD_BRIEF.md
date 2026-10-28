@@ -738,6 +738,42 @@ console on load.
 → *His turn:* draw his own hoover map in `data/puzzles.js` (copy one, move
 the letters, write a `best` program that works).
 
+**M17 — Gardens and Timers** *(Asa, 28 Oct 2026: "outside traps too, timed
+traps, more combos").* A front garden and a back garden either side of the
+house (picture now 1890 wide, house shifted right 160). New mount
+**GARDEN** with four garden anchors plus a garage floor spot (37 anchors).
+Garden props: tree, flower bed, gnomes, wheelie bin, trampoline, washing
+line. New junk: rake, watering can, paddling pool, sprinkler, compost,
+kitchen timer, and a rare megaphone. **Timed traps** (`timer: true`): set a
+time in the rig phase; at that time on the night clock the trap goes off on
+everybody in its room, or on nobody. The night clock is pinned under the
+house and every log line has a time. 17 new traps, 6 new upgrades (65 base,
+27 upgrades), new mess: mud.
+
+**M18 — The Gang of Five.** Twiggy (tiny, fast, hates SLIPPERY and TANGLE),
+Dolores (posh, hates MESSY and LOUD, shrugs off SLIPPERY), Big Norm (huge,
+hates STICKY and TANGLE, shrugs off LOUD and STARTLE) join Sid and Bruno.
+`PER_NIGHT` (2) are picked at random each night (`js/crew.js`). The intro
+shows tonight's crew, and lines with `{friend}` name one of the others.
+
+**M19 — Night Gadgets** (`data/gadgets.js`): Dog bark (everyone), Lights
+out (the room you watch), Spring a trap (nearest trap to who you follow).
+Once each per night.
+
+**M20 — A Week of Nights** (`data/nights.js`): Monday to Friday, 2, 2, 3, 3, 4
+burglars, braver each night (nerve times 1 to 1.4). Unused traps carry over.
+Week grade from the average points.
+
+**M21 — Inspect Mode.** A magnifying glass by the theme button. Tap anything:
+it shows the file and line that makes it (found live by searching the file),
+the line itself, and one thing to try.
+
+**M22 — Bug Hunt.** Dad's old computer in the attic, the eleventh lock. Find
+the line with the bug, then pick the fix. Data bugs are written in
+`data/puzzles.js` (`BUGS.SNIPPETS`); program bugs are made by breaking one
+line of a hoover program that works.
+→ *His turn:* write his own bug in `BUGS.SNIPPETS`.
+
 ---
 
 ## 10. Explicitly out of scope for v1
@@ -751,6 +787,13 @@ burglars.
 decision rules; the hero moveable during the night phase with a risk of being
 spotted; escalating nights where burglars bring counters to your favourite
 traps; a trap editor.
+
+**Changed by Asa, 28 Oct 2026:** three of these holds are lifted. There are
+now **five burglars** (two picked at random a night), a **week of nights**
+(Monday to Friday, within one session, nothing saved), and Hendrix can **act
+during the night** with three one-shot gadgets from the attic. Still out:
+roaming AI, physics, 3D, multiplayer, saves, accounts, procedural houses,
+moving the hero at night.
 
 ---
 
