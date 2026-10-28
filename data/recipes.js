@@ -16,7 +16,13 @@
                Play and watch who yells loudest.
        nerve   how much it scares a burglar. 1 is a bit, 5 is a lot.
        mount   where it can go in the house: FLOOR, DOORWAY,
-               OVERHEAD or STAIRS (see data/rooms.js)
+               OVERHEAD, STAIRS, or GARDEN for outside
+               (see data/rooms.js)
+       timer   true for a TIMED trap (M17). It does not wait for
+               somebody to walk into it. You set a time when you
+               rig it, and when the night clock gets there it goes
+               off, on everybody in that room. Nobody there? Wasted.
+               Watch the night clock to learn when they arrive.
        line    what happens, in a few words
 
    WHAT IT LOOKS LIKE WHEN IT GOES OFF
@@ -258,7 +264,81 @@ export const TRAPS = [
   { id: 'pea-souper', name: 'Pea Souper', needs: ['fog-machine', 'duct-tape'],
     cat: ['STARTLE'], nerve: 3, mount: 'DOORWAY',
     fx: 'cloud', word: 'WHERE AM I?',
-    line: 'Thick fog. He walks into the wall. Twice.' }
+    line: 'Thick fog. He walks into the wall. Twice.' },
+
+  /* --- M17: OUTSIDE TRAPS (mount GARDEN) --- */
+  { id: 'rake-surprise', name: 'Rake Surprise', needs: ['rake', 'duct-tape'],
+    cat: ['STARTLE'], nerve: 3, mount: 'GARDEN',
+    fx: 'swing', word: 'THWACK!', riddle: 'the garden tool that jumps up at you',
+    line: 'He steps on the rake. The handle says hello.' },
+  { id: 'splash-pool', name: 'Splash Pool', needs: ['paddling-pool', 'watering-can'],
+    cat: ['SLIPPERY'], nerve: 3, mount: 'GARDEN',
+    fx: 'slip', mess: 'water', word: 'SPLOSH!', riddle: 'the tiny pool on the path',
+    line: 'A paddling pool hidden on the path. He goes in feet first.' },
+  { id: 'mud-pit', name: 'Mud Pit', needs: ['compost', 'watering-can'],
+    cat: ['STICKY'], nerve: 3, mount: 'GARDEN',
+    fx: 'stick', mess: 'mud', word: 'SQUELCH!', riddle: 'the squelchy brown patch',
+    line: 'Wet compost on the lawn. His boots stay behind.' },
+  { id: 'sprinkler-wire', name: 'Sprinkler Tripwire', needs: ['sprinkler', 'string'],
+    cat: ['MESSY'], nerve: 2, mount: 'GARDEN',
+    fx: 'pour', mess: 'water', word: 'TSSSSS!',
+    line: 'Trip the string and the sprinkler gets him right in the face.' },
+  { id: 'gnome-alone', name: 'Gnome Alone', needs: ['rake', 'lights'],
+    cat: ['STARTLE'], nerve: 4, mount: 'GARDEN',
+    fx: 'flash', word: 'GNOMES!',
+    line: 'Every gnome in the garden lights up at once. He screams.' },
+
+  /* --- M17: TIMED TRAPS (you pick when they go off) --- */
+  { id: 'sprinkler-surprise', name: 'Sprinkler Surprise', needs: ['sprinkler', 'kitchen-timer'],
+    cat: ['MESSY'], nerve: 4, mount: 'GARDEN', timer: true,
+    fx: 'pour', mess: 'water', word: 'DING! TSSSS!',
+    line: 'When the timer dings, the sprinklers come on. Everyone in the garden gets soaked.' },
+  { id: 'wake-up-horn', name: 'Wake Up Horn', needs: ['air-horn', 'kitchen-timer'],
+    cat: ['LOUD'], nerve: 4, mount: 'DOORWAY', timer: true,
+    fx: 'noise', word: 'DING! PAAARP!',
+    line: 'A horn on a timer. Whoever is in that room jumps out of their skin.' },
+  { id: 'bubble-oclock', name: "Bubble O'Clock", needs: ['bubble-machine', 'kitchen-timer'],
+    cat: ['STARTLE'], nerve: 4, mount: 'OVERHEAD', timer: true,
+    fx: 'cloud', mess: 'foam', word: 'DING! BLOOP!',
+    line: 'On the dot, the whole room fills with bubbles.' },
+  { id: 'tick-tock-poof', name: 'Tick Tock Poof', needs: ['flour', 'kitchen-timer'],
+    cat: ['MESSY'], nerve: 4, mount: 'OVERHEAD', timer: true, riddle: 'the flour cloud that waits for the ding',
+    fx: 'cloud', mess: 'flour', word: 'DING! POOF!',
+    line: 'The timer dings and a flour cloud drops on the whole room.' },
+
+  /* --- M17: MORE COMBOS --- */
+  { id: 'scrambler', name: 'The Scrambler', needs: ['eggs', 'hair-dryer'],
+    cat: ['MESSY'], nerve: 2, mount: 'DOORWAY',
+    fx: 'cloud', mess: 'egg', word: 'SCRAMBLED!',
+    line: 'A hot blast full of egg. Breakfast, the hard way.' },
+  { id: 'black-ice', name: 'Black Ice', needs: ['ice', 'cooking-oil'],
+    cat: ['SLIPPERY'], nerve: 4, mount: 'FLOOR',
+    fx: 'slip', mess: 'water', word: 'WHEEEE!', riddle: 'the icy oily floor',
+    line: 'Oily ice cubes. He does the splits, then the rest.' },
+  { id: 'bucket-blaster', name: 'Bucket Blaster', needs: ['air-horn', 'bucket'],
+    cat: ['LOUD'], nerve: 3, mount: 'OVERHEAD',
+    fx: 'drop', word: 'PAAARP!',
+    line: 'A bucket with a horn in it lands on his head. It echoes.' },
+  { id: 'pop-and-roll', name: 'Pop and Roll', needs: ['bubble-wrap', 'marbles'],
+    cat: ['SLIPPERY'], nerve: 3, mount: 'FLOOR',
+    fx: 'slip', word: 'POP WHOOPS!',
+    line: 'Marbles under bubble wrap. Pop, roll, flat on his back.' },
+  { id: 'rude-orchestra', name: 'Rude Orchestra', needs: ['whoopee', 'air-horn'],
+    cat: ['LOUD'], nerve: 3, mount: 'FLOOR',
+    fx: 'noise', word: 'PFFT PAAARP!', riddle: 'the very rude noisy trap',
+    line: 'A whoopee cushion and a horn. The worst band in the world.' },
+  { id: 'skate-swing', name: 'Skate Swing', needs: ['skateboard', 'rope'],
+    cat: ['STARTLE'], nerve: 3, mount: 'OVERHEAD',
+    fx: 'swing', word: 'CLONK!',
+    line: 'A skateboard on a rope swings out of the dark.' },
+  { id: 'mud-shower', name: 'Mud Shower', needs: ['compost', 'bucket'],
+    cat: ['MESSY'], nerve: 3, mount: 'OVERHEAD',
+    fx: 'pour', mess: 'mud', word: 'SPLODGE!',
+    line: 'A bucket of wet compost. He smells like a flower bed.' },
+  { id: 'megaphone-mayhem', name: 'Megaphone Mayhem', needs: ['megaphone', 'alarm-clock'],
+    cat: ['LOUD', 'STARTLE'], nerve: 4, mount: 'DOORWAY',
+    fx: 'noise', word: 'BRRRRING!!!',
+    line: 'An alarm clock into a megaphone. The whole street sits up.' }
 ];
 
 export const UPGRADES = [
@@ -348,7 +428,33 @@ export const UPGRADES = [
   { id: 'lost-at-sea', name: 'Lost at Sea', needs: ['foghorn-tripwire', 'fog-machine'],
     cat: ['LOUD', 'STARTLE'], nerve: 5, mount: 'DOORWAY',
     fx: 'noise', word: 'PAAARP!',
-    line: 'Fog and a foghorn. He thinks he is a ship.' }
+    line: 'Fog and a foghorn. He thinks he is a ship.' },
+
+  /* Added in M17 */
+  { id: 'gnome-launch', name: 'Rake Rocket', needs: ['rake-surprise', 'paddling-pool'],
+    cat: ['STARTLE', 'SLIPPERY'], nerve: 5, mount: 'GARDEN',
+    fx: 'slip', mess: 'water', word: 'THWACK SPLOSH!',
+    line: 'The rake gets him, then he sits down in a paddling pool.' },
+  { id: 'bubble-bath', name: 'Bubble Bath', needs: ['splash-pool', 'soap'],
+    cat: ['SLIPPERY', 'MESSY'], nerve: 5, mount: 'GARDEN',
+    fx: 'slip', mess: 'foam', word: 'BLUB BLUB!',
+    line: 'A soapy paddling pool. He has a bath whether he likes it or not.' },
+  { id: 'swamp-chicken', name: 'Swamp Chicken', needs: ['mud-pit', 'pillow'],
+    cat: ['STICKY', 'MESSY'], nerve: 5, mount: 'GARDEN',
+    fx: 'stick', mess: ['mud', 'feathers'], word: 'SQUELCH FWUMP!',
+    line: 'Stuck in the mud, then covered in feathers. A swamp chicken.' },
+  { id: 'ice-age', name: 'Ice Age', needs: ['black-ice', 'banana'],
+    cat: ['SLIPPERY'], nerve: 5, mount: 'FLOOR',
+    fx: 'slip', word: 'WHEEEEEE!',
+    line: 'Oily ice and a banana. He slides into next week.' },
+  { id: 'rude-megamix', name: 'Rude Megamix', needs: ['rude-orchestra', 'megaphone'],
+    cat: ['LOUD', 'STARTLE'], nerve: 5, mount: 'FLOOR',
+    fx: 'noise', word: 'PFFFFFRRRRT!!!',
+    line: 'The rudest noise ever made, through a megaphone.' },
+  { id: 'big-ding-poof', name: 'Big Ding Poof', needs: ['tick-tock-poof', 'pillow'],
+    cat: ['MESSY', 'STARTLE'], nerve: 5, mount: 'OVERHEAD', timer: true,
+    fx: 'cloud', mess: ['flour', 'feathers'], word: 'DING! FLUMP!',
+    line: 'On the ding: flour AND feathers on the whole room.' }
 ];
 
 /* What you say when two things do not go together. One is picked

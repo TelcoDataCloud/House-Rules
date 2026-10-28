@@ -91,7 +91,7 @@ export function addMess(body, look, mess, seed = 1) {
       const [x, y] = i < 4 ? onHead() : anywhere();
       make('ellipse', { cx: 0, cy: 0, rx: 4, ry: 1.6, class: 'mess-fill feather', transform: `translate(${x} ${y}) rotate(${Math.round(roll() * 180)})` }, g);
     }
-  } else if (mess === 'paint' || mess === 'egg') {
+  } else if (mess === 'paint' || mess === 'egg' || mess === 'mud') {
     for (let i = 0; i < 5; i += 1) {
       const [x, y] = i < 3 ? onHead() : anywhere();
       const r = 2.5 + roll() * 3;

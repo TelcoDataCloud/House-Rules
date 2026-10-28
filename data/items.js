@@ -40,6 +40,7 @@
        banana  cushion  custard  alarm  chicken  loo
        soap  eggs  mustard  bubblewrap  glue  horn  skateboard
        ice  bubbles  blower  slime  magnet  rccar  fog
+       rake  wateringcan  pool  sprinkler  compost  timer  megaphone
    Anything else gets a brown parcel, so a typo never breaks
    the game. It just looks like a parcel.
 
@@ -113,7 +114,7 @@ export const ITEMS = [
     foundIn: ['kitchen', 'cellar', 'dining'], worksAs: ['paint-tin', 'honey'] },
   { id: 'alarm-clock',  name: 'Alarm Clock',    look: 'alarm', kind: 'stuff',
     riddle: 'something that goes BRRRING in the morning',
-    foundIn: ['big-room', 'my-room', 'landing'], worksAs: ['bell'] },
+    foundIn: ['big-room', 'my-room', 'landing'], worksAs: ['bell', 'kitchen-timer'] },
   { id: 'rubber-chicken', name: 'Rubber Chicken', look: 'chicken', kind: 'toys',
     riddle: 'a bird that is not real and goes squeak',
     foundIn: ['box-room', 'attic', 'my-room'] },
@@ -149,6 +150,26 @@ export const ITEMS = [
     riddle: 'frozen water in little cubes',
     foundIn: ['kitchen', 'cellar'] },
 
+  /* Added in M17: the garden, and a timer */
+  { id: 'rake',         name: 'Garden Rake',     look: 'rake', kind: 'tools',
+    riddle: 'a long stick with teeth, for leaves',
+    foundIn: ['front-garden', 'back-garden', 'shed'] },
+  { id: 'watering-can', name: 'Watering Can',    look: 'wateringcan', kind: 'tools',
+    riddle: 'a can with a spout, for thirsty flowers',
+    foundIn: ['front-garden', 'back-garden', 'shed'], worksAs: ['bucket'] },
+  { id: 'paddling-pool', name: 'Paddling Pool',  look: 'pool', kind: 'toys',
+    riddle: 'a tiny swimming pool you blow up',
+    foundIn: ['back-garden', 'garage', 'attic'] },
+  { id: 'sprinkler',    name: 'Sprinkler',       look: 'sprinkler', kind: 'tools',
+    riddle: 'a thing that sprays the lawn round and round',
+    foundIn: ['back-garden', 'shed', 'garage'] },
+  { id: 'compost',      name: 'Bag of Compost',  look: 'compost', kind: 'tools',
+    riddle: 'smelly brown stuff that flowers love',
+    foundIn: ['front-garden', 'shed', 'back-garden'] },
+  { id: 'kitchen-timer', name: 'Kitchen Timer',  look: 'timer', kind: 'food',
+    riddle: 'a thing that goes DING when the cake is ready',
+    foundIn: ['kitchen', 'dining'] },
+
   /* --- RARE: only a few of these turn up each night --- */
   { id: 'lights',         name: 'Christmas Lights', look: 'lights', kind: 'stuff',  rare: true,
     riddle: 'something twinkly that comes out at Christmas',
@@ -179,7 +200,10 @@ export const ITEMS = [
     foundIn: ['my-room', 'attic'], worksAs: ['toy-car'] },
   { id: 'fog-machine',    name: 'Fog Machine',      look: 'fog', kind: 'stuff', rare: true,
     riddle: 'a box that makes clouds, for discos',
-    foundIn: ['attic', 'cellar'] }
+    foundIn: ['attic', 'cellar'] },
+  { id: 'megaphone',      name: 'Megaphone',        look: 'megaphone', kind: 'stuff', rare: true,
+    riddle: 'a cone that makes your voice HUGE',
+    foundIn: ['attic', 'garage'], worksAs: ['air-horn'] }
 ];
 
 /* How many things you can carry. When your bag is full, tap
@@ -193,8 +217,9 @@ export const OUT_IN_THE_OPEN = 8;
 
 /* How many rare things turn up each night. Every locked place in
    the house (there are ten) gets one each, until they run out. Ten
-   rare things, ten locks: solve them all and you get them all. */
-export const RARE_EACH_NIGHT = 10;
+   rare things, ten locks: solve them all and you get them all.
+   (Eleven since M17, with Dad's old computer.) */
+export const RARE_EACH_NIGHT = 11;
 
 /* Where the rare things are allowed to hide. A room name means any
    hiding place in that room. A hiding place's full name, like
