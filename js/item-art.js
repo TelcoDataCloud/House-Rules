@@ -289,6 +289,44 @@ export const ITEM_ART = {
     ball(g, 13, -12, 3.4, 'smoke', THIN);
     ball(g, 9, -14, 2.4, 'smoke', THIN);
   },
+  /* --- ADDED IN M17: the garden and the timer --------------- */
+  rake(g, c) {
+    line(g, 1, -1, 15, -15, THICK);
+    box(g, 11, -18, 8, 3, c || 'metal', THIN, 0.5);
+    [12, 14, 16, 18].forEach((x) => line(g, x, -15, x, -12));
+  },
+  wateringcan(g, c) {
+    shape(g, 'M3 0 L3 -10 L12 -10 L12 0 Z', c || 'key-green');
+    shape(g, 'M12 -6 L17 -13 L18 -12 L13 -3 Z', c || 'key-green', THIN);
+    shape(g, 'M5 -10 Q7.5 -15 10 -10', 'none', THIN);
+  },
+  pool(g, c) {
+    add(g, 'ellipse', { cx: 8, cy: -4, rx: 8, ry: 4, fill: paint(c || 'key-blue'), class: THICK });
+    add(g, 'ellipse', { cx: 8, cy: -5, rx: 5.5, ry: 2, fill: paint('glass'), class: THIN });
+    ball(g, 3, -7, 1.2, 'key-yellow', 'none');
+  },
+  sprinkler(g, c) {
+    box(g, 6, -6, 4, 6, c || 'metal', THIN, 1);
+    ball(g, 8, -8, 3, 'key-yellow', THIN);
+    shape(g, 'M8 -11 Q3 -16 0 -12 M8 -11 Q13 -16 16 -12 M8 -11 L8 -16', 'none', THIN);
+  },
+  compost(g, c) {
+    shape(g, 'M2 0 Q0 -8 4 -12 L12 -12 Q16 -8 14 0 Z', c || 'hedge');
+    box(g, 4, -14, 8, 3, 'mess-mud', THIN, 1);
+    box(g, 5, -8, 6, 4, 'cardboard', 'none', 0.5);
+  },
+  timer(g, c) {
+    ball(g, 8, -7, 7, c || 'key-red');
+    ball(g, 8, -7, 4.5, 'porcelain', THIN);
+    line(g, 8, -7, 8, -10);
+    line(g, 8, -7, 10, -7);
+    box(g, 6.5, -15.5, 3, 2.5, 'ink', 'none', 0.5);
+  },
+  megaphone(g, c) {
+    shape(g, 'M2 -10 L10 -14 L16 -16 L16 0 L10 -2 L2 -6 Z', c || 'key-yellow');
+    box(g, 4, -6, 3, 6, 'ink', 'none', 1);
+    shape(g, 'M10 -14 L10 -2', 'none', THIN);
+  },
   parcel(g, c) {
     box(g, 1, -12, 14, 12, c || 'cardboard');
     line(g, 8, -12, 8, 0);

@@ -74,6 +74,7 @@
 
 /* Rooms can be tapped. A light outline shows which one you are on. */
 .room { cursor: zoom-in; outline: none; }
+.room-box.is-garden { stroke-dasharray: 6 6; opacity: 0.55; }
 .room:hover .room-box,
 .room:focus-visible .room-box { stroke: var(--btn); stroke-width: calc(5px * var(--line, 1)); }
 .is-zoomed .room { cursor: pointer; }
@@ -259,6 +260,7 @@
 .anchor[data-mount="DOORWAY"]  .anchor-dot { fill: var(--mount-doorway); }
 .anchor[data-mount="OVERHEAD"] .anchor-dot { fill: var(--mount-overhead); }
 .anchor[data-mount="STAIRS"]   .anchor-dot { fill: var(--mount-stairs); }
+.anchor[data-mount="GARDEN"]   .anchor-dot { fill: var(--mount-garden); }
 
 .anchor[data-mount="FLOOR"]:hover    .anchor-ring,
 .anchor[data-mount="FLOOR"].is-live    .anchor-ring { stroke: var(--mount-floor); }
@@ -268,6 +270,7 @@
 .anchor[data-mount="OVERHEAD"].is-live .anchor-ring { stroke: var(--mount-overhead); }
 .anchor[data-mount="STAIRS"]:hover   .anchor-ring,
 .anchor[data-mount="STAIRS"].is-live   .anchor-ring { stroke: var(--mount-stairs); }
+.anchor[data-mount="GARDEN"].is-live   .anchor-ring { stroke: var(--mount-garden); }
 
 .anchor:hover .anchor-ring,
 .anchor.is-live .anchor-ring {
@@ -344,6 +347,7 @@
 .legend-item[data-mount="DOORWAY"]  .legend-dot { background: var(--mount-doorway); }
 .legend-item[data-mount="OVERHEAD"] .legend-dot { background: var(--mount-overhead); }
 .legend-item[data-mount="STAIRS"]   .legend-dot { background: var(--mount-stairs); }
+.legend-item[data-mount="GARDEN"]   .legend-dot { background: var(--mount-garden); }
 
 /* --- SMALL SCREENS -------------------------------------------- */
 

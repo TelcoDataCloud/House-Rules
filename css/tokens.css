@@ -90,6 +90,7 @@
   --mount-doorway: #ffd166;
   --mount-overhead: #7fb3ff;
   --mount-stairs: #e0533f;
+  --mount-garden: #7bd389;
 
   /* --- HIDING PLACES: the glow when you point at one --- */
   --hud-name: #ffd166;       /* the room name above the house */
@@ -105,6 +106,10 @@
   --burglar-a: #4d5b7c;   /* Sid, wiry and twitchy */
   --burglar-b: #6b5140;   /* Bruno, enormous and slow */
   --burglar-mask: #1d1b26;
+  --burglar-c: #3f8a6e;   /* Twiggy, small and speedy */
+  --burglar-d: #8c4f8a;   /* Dolores, very posh */
+  --burglar-e: #b5753a;   /* Big Norm, enormous */
+  --pearl: #f4efe6;
   --skin: #f0c39b;
   --sack: #9d8760;
   --hero-top: #e0533f;
@@ -168,6 +173,7 @@
   --mess-egg: #ffcf3a;       /* yolk */
   --mess-slime: #8be04a;
   --mess-mustard: #e8c21a;
+  --mess-mud: #7a5230;
   --lock: #e8b84a;           /* a padlock */
   --dark-room: #07060c;      /* a room with the lights out */
   --bulb-off: #4a4658;       /* a light bulb that is off */
@@ -313,6 +319,7 @@
   --mount-doorway: #c07800;
   --mount-overhead: #2f6bbf;
   --mount-stairs: #cf3f2c;
+  --mount-garden: #3f9e52;
 
   --hud-name: #9a5a00;
   --spot-glow: #ffb703;
@@ -323,6 +330,10 @@
   --burglar-a: #6478a1;
   --burglar-b: #8a6a52;
   --burglar-mask: #2b2833;
+  --burglar-c: #4fa383;
+  --burglar-d: #a8669f;
+  --burglar-e: #c98a4c;
+  --pearl: #fffaf0;
   --skin: #f5cba7;
   --sack: #cbb083;
   --hero-top: #e0533f;
@@ -379,6 +390,7 @@
   --mess-egg: #f7bd16;
   --mess-slime: #6fcc2e;
   --mess-mustard: #d9b000;
+  --mess-mud: #6b4423;
   --lock: #d9a22b;
   --dark-room: #121018;
   --bulb-off: #6b6680;

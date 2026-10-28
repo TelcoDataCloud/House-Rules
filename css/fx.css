@@ -369,6 +369,8 @@
 .coat-egg .mess-fill { fill: var(--mess-egg); }
 .coat-slime .mess-fill { fill: var(--mess-slime); }
 .coat-mustard .mess-fill { fill: var(--mess-mustard); }
+.coat-mud .mess-fill { fill: var(--mess-mud); }
+.coat-mud .mess-drip { stroke: var(--mess-mud); }
 .coat-egg .mess-drip { stroke: var(--mess-egg); }
 .coat-slime .mess-drip { stroke: var(--mess-slime); }
 .coat-mustard .mess-drip { stroke: var(--mess-mustard); }
@@ -396,6 +398,7 @@
 .mess-egg { fill: var(--mess-egg); }
 .mess-slime { fill: var(--mess-slime); }
 .mess-mustard { fill: var(--mess-mustard); }
+.mess-mud { fill: var(--mess-mud); }
 
 /* --- THE EXTRAS: dust, sweat, swearing ---------------------- */
 

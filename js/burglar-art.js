@@ -8,6 +8,11 @@
    Bruno is short, wide and bored. Both wear a beanie and the eye
    mask, because they are burglars in a cartoon.
 
+   Since M17 there are three more:
+   Twiggy is tiny and fast, in a hoodie with the hood up.
+   Dolores is very posh: a headscarf, pearls, and a long coat.
+   Big Norm is enormous, slow, and wears a flat cap.
+
    Each one carries a sack over his shoulder. js/night.js makes
    the sack fatter every time he takes something, so you can see
    how badly your night is going.
@@ -131,7 +136,92 @@ function bruno(g) {
   return bag;
 }
 
-const LOOKS = { sid, bruno };
+/* Two legs and two arms that swing, the same for everybody. */
+function legs(g, x1, x2, top, w, h, shoe) {
+  const back = limb(g, 'b-leg b-leg-back');
+  add(back, 'rect', { x: x1, y: top, width: w, height: h, rx: 2, fill: 'var(--burglar-mask)', class: 'p-ink' });
+  add(back, 'path', { d: `M${x1 - 2} 0 L${x1 - 2} -3 Q${x1 - 2} -5 ${x1 + 0.5} -5 L${x1 + w + shoe} -5 Q${x1 + w + shoe + 3} -4.5 ${x1 + w + shoe + 3} -1.5 L${x1 + w + shoe + 3} 0 Z`, fill: 'var(--ink-soft)', class: 'p-ink' });
+  return () => {
+    const front = limb(g, 'b-leg b-leg-front');
+    add(front, 'rect', { x: x2, y: top, width: w, height: h, rx: 2, fill: 'var(--burglar-mask)', class: 'p-ink' });
+    add(front, 'path', { d: `M${x2 - 2} 0 L${x2 - 2} -3 Q${x2 - 2} -5 ${x2 + 0.5} -5 L${x2 + w + shoe} -5 Q${x2 + w + shoe + 3} -4.5 ${x2 + w + shoe + 3} -1.5 L${x2 + w + shoe + 3} 0 Z`, fill: 'var(--ink-soft)', class: 'p-ink' });
+  };
+}
+function arm(g, cls, x, top, w, h, colour) {
+  const a = limb(g, `b-arm ${cls}`);
+  add(a, 'rect', { x, y: top, width: w, height: h, rx: w / 2, fill: colour, class: 'p-ink' });
+  add(a, 'circle', { cx: x + w / 2, cy: top + h, r: w * 0.6, fill: 'var(--skin)', class: 'p-fine' });
+}
+/* the eye mask and two eyes, looking right */
+function eyes(g, x, y, r = 2.2) {
+  add(g, 'rect', { x: x - 6, y: y - 3, width: 18, height: 5.5, rx: 2, fill: 'var(--burglar-mask)' });
+  add(g, 'circle', { cx: x, cy: y, r, fill: 'var(--porcelain)', class: 'p-fine' });
+  add(g, 'circle', { cx: x + 5, cy: y, r, fill: 'var(--porcelain)', class: 'p-fine' });
+  add(g, 'circle', { cx: x + 0.6, cy: y - 0.2, r: 0.95, class: 'p-ink-fill' });
+  add(g, 'circle', { cx: x + 5.6, cy: y - 0.2, r: 0.95, class: 'p-ink-fill' });
+}
+
+/* Twiggy: small, quick, hood up, never stops fidgeting. */
+function twiggy(g) {
+  add(g, 'ellipse', { cx: 0, cy: 0, rx: 9, ry: 1.8, class: 'p-shadow' });
+  const bag = sack(g, -5, -44);
+  arm(g, 'b-arm-back', -2, -44, 4.5, 18, 'var(--burglar-c)');
+  const front = legs(g, -4.5, -0.5, -24, 4.5, 21, 2);
+  add(g, 'path', { d: 'M-7 -22 Q-8 -36 -6 -44 Q-4 -47 0 -47 Q5 -47 6.5 -44 Q8 -36 7 -22 Z', fill: 'var(--burglar-c)', class: 'p-ink' });
+  add(g, 'path', { d: 'M-4 -30 L5 -30', fill: 'none', class: 'p-fine' });          // hoodie pocket
+  front();
+  /* head in a hood */
+  add(g, 'circle', { cx: 1, cy: -55, r: 9.5, fill: 'var(--burglar-c)', class: 'p-ink' });
+  add(g, 'circle', { cx: 2.5, cy: -54, r: 6.8, fill: 'var(--skin)', class: 'p-fine' });
+  eyes(g, 2, -55, 2);
+  add(g, 'path', { d: 'M3 -50.5 Q5 -49 7 -50.5', fill: 'none', class: 'p-fine' });
+  add(g, 'path', { d: 'M-4 -64 Q1 -66 6 -63', fill: 'none', class: 'p-fine' });     // hood string
+  arm(g, 'b-arm-front', -0.5, -44, 4.5, 18, 'var(--burglar-c)');
+  return bag;
+}
+
+/* Dolores: very posh, very rude, a headscarf and pearls. */
+function dolores(g) {
+  add(g, 'ellipse', { cx: 0, cy: 0, rx: 12, ry: 2, class: 'p-shadow' });
+  const bag = sack(g, -8, -54);
+  arm(g, 'b-arm-back', -2.5, -54, 5, 22, 'var(--burglar-d)');
+  const front = legs(g, -5, -0.5, -20, 4.5, 17, 1);
+  /* a long coat, flared at the bottom */
+  add(g, 'path', { d: 'M-8 -56 Q-12 -40 -13 -18 L13 -18 Q12 -40 8 -56 Q4 -59 0 -59 Q-4 -59 -8 -56 Z', fill: 'var(--burglar-d)', class: 'p-ink' });
+  add(g, 'path', { d: 'M0 -58 L0 -18', fill: 'none', class: 'p-fine' });
+  [-50, -42, -34].forEach((y) => add(g, 'circle', { cx: 2.5, cy: y, r: 1, fill: 'var(--lamp-shade)', class: 'p-fine' }));
+  front();
+  /* pearls, a neck, a head, a headscarf tied under the chin */
+  [-5, -2.5, 0, 2.5, 5].forEach((x, i) => add(g, 'circle', { cx: x, cy: -58.5 + Math.abs(i - 2) * -0.6, r: 1.3, fill: 'var(--pearl)', class: 'p-fine' }));
+  add(g, 'circle', { cx: 1, cy: -68, r: 8.5, fill: 'var(--skin)', class: 'p-ink' });
+  add(g, 'path', { d: 'M-8.5 -66 Q-9 -79 1 -79 Q11 -79 10.5 -66 L8 -63 L8 -69 Q1 -76 -6 -69 L-6 -62 Z', fill: 'var(--fabric-a)', class: 'p-ink' });
+  eyes(g, 3, -68, 2.1);
+  add(g, 'path', { d: 'M9.5 -66 L12 -64 L9.5 -63', fill: 'var(--skin)', class: 'p-fine' });   // a nose in the air
+  add(g, 'path', { d: 'M3.5 -62.5 L7.5 -62.8', fill: 'none', class: 'p-fine' });
+  arm(g, 'b-arm-front', 0, -54, 5, 22, 'var(--burglar-d)');
+  return bag;
+}
+
+/* Big Norm: huge, slow, flat cap, does not scare easily. */
+function norm(g) {
+  add(g, 'ellipse', { cx: 0, cy: 0, rx: 19, ry: 2.6, class: 'p-shadow' });
+  const bag = sack(g, -14, -64);
+  arm(g, 'b-arm-back', -4.5, -64, 9, 30, 'var(--burglar-e)');
+  const front = legs(g, -12, 2, -32, 10, 28, 3);
+  add(g, 'path', { d: 'M-17 -30 Q-21 -50 -17 -64 Q-13 -70 0 -70 Q13 -70 17 -64 Q21 -50 17 -30 Q0 -26 -17 -30 Z', fill: 'var(--burglar-e)', class: 'p-ink' });
+  add(g, 'path', { d: 'M-8 -68 L-8 -44 L8 -44 L8 -68', fill: 'none', class: 'p-fine' });   // dungarees bib
+  front();
+  add(g, 'rect', { x: -10, y: -92, width: 22, height: 23, rx: 6, fill: 'var(--skin)', class: 'p-ink' });
+  add(g, 'path', { d: 'M-11 -88 Q-10 -98 2 -98 Q13 -98 13 -90 L20 -88 Q20 -85 13 -86 L-11 -86 Z', fill: 'var(--wood-dark)', class: 'p-ink' });  // flat cap
+  eyes(g, 3, -81, 2.4);
+  add(g, 'ellipse', { cx: 12.5, cy: -77, rx: 2.6, ry: 2, fill: 'var(--skin)', class: 'p-fine' });
+  add(g, 'path', { d: 'M1 -72.5 Q6 -71 10 -72.5', fill: 'none', class: 'p-fine' });
+  add(g, 'path', { d: 'M-2 -75 Q5 -73 11 -75', fill: 'var(--hair)', class: 'p-fine' });           // a moustache
+  arm(g, 'b-arm-front', 3, -64, 9, 30, 'var(--burglar-e)');
+  return bag;
+}
+
+const LOOKS = { sid, bruno, twiggy, dolores, norm };
 
 /* Draw a burglar into g. Hands back his sack, so it can grow. */
 export function drawBurglar(g, look) {
@@ -139,12 +229,15 @@ export function drawBurglar(g, look) {
 }
 
 /* How tall each one is, so a speech bubble sits over his head. */
-export const HEIGHT = { sid: 82, bruno: 86 };
+export const HEIGHT = { sid: 82, bruno: 86, twiggy: 66, dolores: 80, norm: 99 };
 
 /* Where things are on each of them, for js/fx.js: the middle of
    his head, how wide he is from the middle, and the top of his
    hat. A bucket lands on head, flour covers the rest. */
 export const BODY = {
-  sid:   { head: [1, -70], half: 10, top: -82 },
-  bruno: { head: [1, -67], half: 16, top: -86 }
+  sid:     { head: [1, -70], half: 10, top: -82 },
+  bruno:   { head: [1, -67], half: 16, top: -86 },
+  twiggy:  { head: [2, -55], half: 8,  top: -66 },
+  dolores: { head: [1, -68], half: 12, top: -80 },
+  norm:    { head: [1, -81], half: 18, top: -99 }
 };

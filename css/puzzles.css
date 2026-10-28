@@ -363,6 +363,32 @@
 .hv-add-loop { background: var(--accent); color: var(--ink); }
 .hv-go { display: flex; gap: 8px; }
 
+/* --- BUG HUNT (M17) ----------------------------------------- */
+
+.puzzle[data-lock="bugs"] { width: min(760px, calc(100vw - 32px)); }
+.bug-code { width: 100%; margin: 0; padding: 8px 8px 8px 44px; background: var(--bg-2); border: 3px solid var(--ink); border-radius: var(--radius); }
+.bug-line { padding: 2px 0; }
+.bug-pick, .bug-fix {
+  width: 100%;
+  min-height: 44px;
+  justify-content: flex-start;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: pre-wrap;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--meter-back);
+  color: var(--text);
+  box-shadow: none;
+}
+.bug-line.is-picked .bug-pick { outline: 4px solid var(--danger); }
+.bug-line.is-fixed .bug-pick { outline: 4px solid var(--win); }
+.bug-line.is-now .bug-pick { background: var(--accent); color: var(--ink); }
+.bug-fixes { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.bug-fix { background: var(--note-paper); color: var(--note-ink); border: 3px dashed var(--ink); }
+
 /* --- PADLOCKS ON THE HOUSE ----------------------------------- */
 
 .lock-shackle { fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; }

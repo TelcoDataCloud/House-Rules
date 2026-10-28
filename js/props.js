@@ -784,6 +784,71 @@ export const PROPS = {
     ball(g, 21, 0, 2, 'ink', 'none');
   },
 
+  /* --- THE GARDENS (M17) ----------------------------------- */
+
+  tree(g) {
+    box(g, 24, -70, 12, 70, 'wood-dark');
+    shape(g, 'M30 -40 L16 -58', 'none');
+    ball(g, 30, -100, 30, 'hedge');
+    ball(g, 12, -84, 18, 'hedge');
+    ball(g, 48, -82, 18, 'hedge');
+    ball(g, 30, -124, 16, 'leaf');
+    shadow(g, 'M34 -70 L36 -70 L36 0 L34 0 Z');
+    ball(g, 20, -96, 3, 'key-red', THIN);                    // apples
+    ball(g, 42, -108, 3, 'key-red', THIN);
+  },
+
+  flowerbed(g) {
+    shape(g, 'M0 0 Q2 -10 24 -10 Q46 -10 48 0 Z', 'earth');
+    [[8, 'key-pink'], [17, 'key-yellow'], [26, 'key-red'], [35, 'key-blue'], [43, 'key-yellow']].forEach(([x, c]) => {
+      line(g, x, -8, x, -20);
+      ball(g, x, -22, 3.5, c, THIN);
+    });
+  },
+
+  /* a garden gnome with a fishing rod. He has seen things. */
+  gnome(g) {
+    shape(g, 'M2 0 L4 -12 L12 -12 L14 0 Z', 'key-blue');
+    ball(g, 8, -15, 4, 'skin', THIN);
+    shape(g, 'M3 -16 Q8 -32 13 -16 Z', 'key-red');
+    shape(g, 'M4 -12 Q8 -6 12 -12', 'porcelain', THIN);      // beard
+    line(g, 13, -10, 22, -26);
+  },
+
+  wheeliebin(g) {
+    box(g, 0, -42, 28, 40, 'hedge');
+    box(g, -2, -46, 32, 6, 'hedge', THICK, 2);
+    ball(g, 5, -2, 3, 'ink', 'none');
+    ball(g, 23, -2, 3, 'ink', 'none');
+    box(g, 9, -32, 10, 3, 'porcelain', THIN, 1);
+    shadow(g, 'M22 -42 L28 -42 L28 -2 L22 -2 Z');
+  },
+
+  trampoline(g) {
+    add(g, 'ellipse', { cx: 34, cy: -24, rx: 34, ry: 6, fill: paint('ink'), class: THICK });
+    add(g, 'ellipse', { cx: 34, cy: -24, rx: 28, ry: 4, fill: paint('fabric-b'), class: THIN });
+    [6, 26, 42, 62].forEach((x) => line(g, x, -21, x + (x < 34 ? -2 : 2), 0, THICK));
+  },
+
+  washingline(g) {
+    box(g, 0, -100, 4, 100, 'metal', THIN, 1);
+    box(g, 66, -100, 4, 100, 'metal', THIN, 1);
+    shape(g, 'M2 -96 Q35 -86 68 -96', 'none', THIN);
+    shape(g, 'M10 -93 L24 -91 L23 -70 L11 -72 Z', 'fabric-a', THIN);    // a shirt
+    shape(g, 'M30 -90 L40 -90 L41 -74 L36 -76 L35 -82 L34 -76 L29 -74 Z', 'key-blue', THIN);  // pants
+    box(g, 48, -92, 12, 16, 'fabric-c', THIN, 1);                       // a towel
+  },
+
+  /* Dad's old computer, in the attic. It has a bug. */
+  computer(g) {
+    box(g, 0, -12, 40, 12, 'porcelain');
+    box(g, 6, -42, 30, 26, 'porcelain');
+    box(g, 9, -39, 24, 18, 'screen', THIN, 1);
+    shape(g, 'M12 -34 L18 -34 M12 -30 L26 -30 M12 -26 L20 -26', 'none', THIN);
+    box(g, 16, -16, 10, 4, 'porcelain', THIN, 1);
+    box(g, 4, -6, 30, 3, 'metal', 'none', 1);
+  },
+
   /* A plug socket, low on the wall. Nothing hides in it. */
   socket(g) {
     box(g, 0, -20, 10, 8, 'porcelain', THIN, 1);

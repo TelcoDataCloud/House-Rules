@@ -20,6 +20,9 @@
 /* Sid scurries. Bruno plods. Running away, they both pelt it. */
 .burglar-sid.is-walking   { --stride: 0.26s; --swing: 26deg; }
 .burglar-bruno.is-walking { --stride: 0.46s; --swing: 16deg; }
+.burglar-twiggy.is-walking  { --stride: 0.2s; --swing: 30deg; }
+.burglar-dolores.is-walking { --stride: 0.36s; --swing: 18deg; }
+.burglar-norm.is-walking    { --stride: 0.55s; --swing: 14deg; }
 .burglar.is-fleeing       { --stride: 0.14s; --swing: 38deg; }
 
 .burglar.is-walking .b-leg-front { animation: b-swing var(--stride) ease-in-out infinite alternate; }
@@ -234,3 +237,13 @@
   .meter-fill { transition: none; }
   .pin.is-hit { animation: none; }
 }
+
+/* --- GADGETS (M17) ------------------------------------------- */
+.night-gadgets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: var(--gap); }
+.night-gadgets-head { font-weight: 800; color: var(--text-dim); }
+.night-gadget { min-height: var(--tap); background: var(--accent); color: var(--ink); }
+.night-gadget[disabled] { opacity: 0.45; }
+.fx-blackout { fill: var(--dark-room); opacity: 0.85; pointer-events: none; }
+.pin-clock { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; }
+.pin-clock-time { font-family: var(--font-display); font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.night-time { display: inline-block; min-width: 3.2em; color: var(--text-dim); font-variant-numeric: tabular-nums; font-weight: 700; }

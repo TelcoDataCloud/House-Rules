@@ -49,6 +49,7 @@
 .rig-card[data-mount="DOORWAY"]  { border-bottom-color: var(--mount-doorway); }
 .rig-card[data-mount="OVERHEAD"] { border-bottom-color: var(--mount-overhead); }
 .rig-card[data-mount="STAIRS"]   { border-bottom-color: var(--mount-stairs); }
+.rig-card[data-mount="GARDEN"]   { border-bottom-color: var(--mount-garden); }
 .rig-card.is-picked { outline: 4px solid var(--btn); outline-offset: 2px; transform: translateY(-4px); }
 
 .rig-empty { grid-column: 1 / -1; color: var(--text-dim); font-style: italic; }
@@ -72,6 +73,7 @@
 .anchor.is-match[data-mount="DOORWAY"]  .anchor-ring { stroke: var(--mount-doorway); }
 .anchor.is-match[data-mount="OVERHEAD"] .anchor-ring { stroke: var(--mount-overhead); }
 .anchor.is-match[data-mount="STAIRS"]   .anchor-ring { stroke: var(--mount-stairs); }
+.anchor.is-match[data-mount="GARDEN"]   .anchor-ring { stroke: var(--mount-garden); }
 
 /* A spot with a trap on it: the dot is swapped for a badge. */
 .anchor.is-rigged .anchor-dot { display: none; }
@@ -80,9 +82,18 @@
 .anchor.is-rigged[data-mount="DOORWAY"]  .anchor-ring { stroke: var(--mount-doorway); }
 .anchor.is-rigged[data-mount="OVERHEAD"] .anchor-ring { stroke: var(--mount-overhead); }
 .anchor.is-rigged[data-mount="STAIRS"]   .anchor-ring { stroke: var(--mount-stairs); }
+.anchor.is-rigged[data-mount="GARDEN"]   .anchor-ring { stroke: var(--mount-garden); }
 .anchor-trap-back { fill: var(--trap-badge); stroke: var(--ink); stroke-width: 3; }
 
 @media (max-width: 560px) {
   .rig-head { padding-right: 0; padding-top: 40px; }
   .rig-buttons .btn { width: 100%; }
 }
+
+/* --- TIMED TRAPS (M17) --------------------------------------- */
+.rig-timers { margin-top: var(--gap); padding: 10px 12px; background: var(--bg-2); border: 3px solid var(--ink); border-radius: var(--radius); }
+.rig-timers-head { margin: 0 0 8px; font-weight: 800; color: var(--text-dim); }
+.rig-timer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.rig-timer + .rig-timer { margin-top: 6px; }
+.rig-timer-words { flex: 1 1 200px; font-weight: 800; }
+.rig-timer-step { min-width: var(--tap); min-height: var(--tap); padding: 0 10px; }

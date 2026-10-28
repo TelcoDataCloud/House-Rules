@@ -235,6 +235,7 @@ body {
 
 /* --- DIFFICULTY PICKER --------------------------------------- */
 
+.difficulty.is-two { grid-template-columns: repeat(2, 1fr); }
 .picker-head { margin: var(--gap-lg) 0 var(--gap); font-size: 18px; }
 .difficulty {
   display: grid;
@@ -374,3 +375,22 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* --- INSPECT MODE (M17) -------------------------------------- */
+.inspect-banner {
+  position: fixed; left: 50%; top: 68px; transform: translateX(-50%); z-index: 60; margin: 0;
+  padding: 8px 16px; font-weight: 800; color: var(--ink); background: var(--accent);
+  border: 3px solid var(--ink); border-radius: 999px; max-width: calc(100vw - 32px); text-align: center;
+  pointer-events: none;
+}
+.inspect-card {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 640px; margin: 0 auto;
+  max-height: 60vh; overflow-y: auto;
+}
+.inspect-card h2 { margin: 0 0 4px; }
+.inspect-where { margin: 0 0 8px; font-weight: 800; color: var(--accent); font-family: ui-monospace, Menlo, Consolas, monospace; }
+.inspect-code { margin: 0; padding: 10px; overflow-x: auto; font-size: 13px; line-height: 1.5; color: var(--text); background: var(--meter-back); border-radius: 8px; }
+.inspect-tip { font-weight: 700; }
+.inspect-also { color: var(--text-dim); margin-top: 0; }
+body.is-inspecting #app, body.is-inspecting main { cursor: help; }
+#inspect-toggle[aria-pressed="true"] { background: var(--accent); color: var(--ink); }
