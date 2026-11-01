@@ -84,7 +84,7 @@ function helper(track) {
 function fire() {
   const s = state.ship;
   const g = gunNow();
-  const look = s.gun === 'laser' ? g.look : s.gunLevel === MAX_LEVEL ? 'gold' : '';
+  const look = s.gun === 'laser' ? g.look : s.gunLevel >= 5 ? 'gold' : '';
   for (const shot of g.shots) {
     const a = (shot.angle * Math.PI) / 180;
     addShot(s.x + shot.x, s.y - 18, Math.sin(a) * SHIP.shotSpeed, -Math.cos(a) * SHIP.shotSpeed,
@@ -98,12 +98,17 @@ function fireRail() {
   const s = state.ship;
   const g = gunNow();
   const top = -20;
-  for (const t of targets()) {
-    if (t.y < s.y - 20 && t.y > top && Math.abs(t.x - s.x) < t.r + 7) t.onHit(g.damage);
+  // A twin railgun fires two lines, a little apart. Still straight ahead.
+  const lines = g.twin ? [-7, 7] : [0];
+  for (const off of lines) {
+    const x = s.x + off;
+    for (const t of targets()) {
+      if (t.y < s.y - 20 && t.y > top && Math.abs(t.x - x) < t.r + 7) t.onHit(g.twin ? g.damage / 2 : g.damage);
+    }
+    // Shots in the way that can be shot down pop too.
+    for (const b of state.foes) if (b.hp > 0 && b.y < s.y && Math.abs(b.x - x) < 14) { b.dead = true; fx.pop(b.x, b.y, b.colour); }
+    fx.rail(x, s.y - NOSE, s.gunLevel);
   }
-  // Orbs in the way pop too.
-  for (const b of state.foes) if (b.hp > 0 && b.y < s.y && Math.abs(b.x - s.x) < 14) { b.dead = true; fx.pop(b.x, b.y, b.colour); }
-  fx.rail(s.x, s.y - NOSE, s.gunLevel);
   sound.rail();
   return g.every;
 }
@@ -249,7 +254,7 @@ function partLevels() {
   const s = state.ship;
   const lv = s.gunLevel;
   return {
-    spread: s.gun === 'blaster' ? lv - 1 : 0,
+    spread: s.gun === 'blaster' ? Math.min(3, lv - 1) : 0,
     beam: s.gun === 'beam' ? Math.min(3, lv) : 0,
     rail: s.gun === 'rail' ? 1 : 0,
     rapid: Math.min(3, lv - 1),
@@ -281,7 +286,7 @@ export function drawShip() {
   put(box, s.x, s.y, SHIP_W, SHIP_H);
   box.classList.toggle('blinking', s.invuln > 0 && s.dead <= 0);
   shieldEl.hidden = !s.shield;
-  for (const f of flames) f.style.height = `${12 + (s.gunLevel - 1) * 4}px`;
+  for (const f of flames) f.style.height = `${12 + Math.min(4, s.gunLevel - 1) * 3}px`;
 
   droneEls.forEach((el, i) => {
     const d = s.droneList && s.droneList[i];

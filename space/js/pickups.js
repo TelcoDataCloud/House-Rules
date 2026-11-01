@@ -12,13 +12,16 @@ import { POWER_BAR, BANK } from '../data/weapons.js';
 import { sound } from './audio.js';
 import { floatText, banner } from './fx.js';
 
+const NAMES = { P: 'Power', B: 'Bomb', S: 'Shield', '1UP': 'Extra ship' };
+
 export function drop(type, x, y) {
+  // A floating capsule (art/capsule.svg). Its glow colour says what is inside.
   const el = document.createElement('div');
-  el.className = 'pickup';
-  el.innerHTML = `<span class="token token-${type}">${type}</span>`;
+  el.className = `pickup capsule cap-${type}`;
+  el.setAttribute('aria-label', NAMES[type] || type);
+  el.innerHTML = `<div class="cap-body"><svg aria-hidden="true"><use href="#art-capsule" width="100%" height="100%"/></svg><span class="cap-letter">${type}</span></div>`;
   layer('pickups').appendChild(el);
-  const size = type === '1UP' ? 34 : 30;
-  state.pickups.push({ type, x, y, r: 14, el, w: size, h: size, vx: (Math.random() - 0.5) * 40 });
+  state.pickups.push({ type, x, y, r: 16, el, w: 34, h: 44, vx: (Math.random() - 0.5) * 40 });
 }
 
 export function updatePickups(dt) {
