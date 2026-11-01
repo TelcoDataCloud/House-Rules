@@ -138,19 +138,63 @@ const KINDS = {
 
   nuke(lv) {
     fx.flash();
-    show('nuke-flash', W / 2, H / 2, W * 2.2, W * 2.2, [
-      { transform: `translate(${W / 2 - W * 1.1}px, ${H / 2 - W * 1.1}px) scale(0.05)`, opacity: 1 },
-      { transform: `translate(${W / 2 - W * 1.1}px, ${H / 2 - W * 1.1}px) scale(1)`, opacity: 0 },
-    ], 1100);
+    mushroom();
     fx.shake(true);
     sound.bomb();
     after(0.35, () => {
       sound.bomb();
+      fx.shake(true);
       for (const t of targets()) { t.onHit(lv.damage, 'bomb'); }
-      for (let i = 0; i < 6; i++) fx.boom(40 + Math.random() * (W - 80), 60 + Math.random() * (H - 300), 120, 10, '#4dff7c');
     });
   },
 };
+
+// The nuke: one huge mushroom cloud that rises up the middle of the
+// screen. A fireball climbs on a column of smoke, then cools to grey.
+function mushroom() {
+  const w = 420;
+  const h = 520;
+  const el = document.createElement('div');
+  el.className = 'nuke';
+  el.style.width = `${w}px`;
+  el.style.height = `${h}px`;
+  el.style.transform = `translate(${W / 2 - w / 2}px, ${H - 70 - h}px)`;
+  el.innerHTML = `<svg viewBox="0 0 420 520" aria-hidden="true">
+    <defs>
+      <radialGradient id="nk-fire" cx="0.5" cy="0.55" r="0.6"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#fff2a8"/><stop offset="0.5" stop-color="#ff9a2a"/><stop offset="0.8" stop-color="#c2301a"/><stop offset="1" stop-color="#5a1a12"/></radialGradient>
+      <radialGradient id="nk-smoke" cx="0.45" cy="0.35" r="0.7"><stop offset="0" stop-color="#b8a89a"/><stop offset="0.6" stop-color="#6a5a52"/><stop offset="1" stop-color="#2a2226"/></radialGradient>
+      <linearGradient id="nk-stem" x1="0" x2="1"><stop offset="0" stop-color="#4a3a36"/><stop offset="0.35" stop-color="#ff8a2a"/><stop offset="0.5" stop-color="#fff2a8"/><stop offset="0.65" stop-color="#ff8a2a"/><stop offset="1" stop-color="#4a3a36"/></linearGradient>
+    </defs>
+    <g class="nk-base"><ellipse cx="210" cy="485" rx="200" ry="34" fill="url(#nk-smoke)"/><ellipse cx="210" cy="480" rx="120" ry="18" fill="#ff9a2a" opacity="0.7"/></g>
+    <g class="nk-stem"><path d="M178 490 C186 400 190 300 192 215 L228 215 C230 300 234 400 242 490 Z" fill="url(#nk-stem)"/></g>
+    <g class="nk-cap">
+      <ellipse cx="210" cy="232" rx="165" ry="30" fill="url(#nk-smoke)" opacity="0.85"/>
+      <circle cx="130" cy="180" r="62" fill="url(#nk-smoke)"/><circle cx="290" cy="180" r="62" fill="url(#nk-smoke)"/>
+      <circle cx="170" cy="130" r="72" fill="url(#nk-smoke)"/><circle cx="250" cy="130" r="72" fill="url(#nk-smoke)"/>
+      <circle cx="210" cy="110" r="80" fill="url(#nk-smoke)"/>
+      <g class="nk-glow">
+        <circle cx="140" cy="182" r="50" fill="url(#nk-fire)"/><circle cx="280" cy="182" r="50" fill="url(#nk-fire)"/>
+        <circle cx="175" cy="135" r="60" fill="url(#nk-fire)"/><circle cx="245" cy="135" r="60" fill="url(#nk-fire)"/>
+        <circle cx="210" cy="118" r="68" fill="url(#nk-fire)"/>
+      </g>
+    </g>
+  </svg>`;
+  layer('fx').appendChild(el);
+  const ms = 3400;
+  const part = (sel) => el.querySelector(sel);
+  if (!calm.matches) {
+    part('.nk-stem').animate([{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(1.05)' }], { duration: ms, easing: 'ease-out', fill: 'forwards' });
+    part('.nk-cap').animate([
+      { transform: 'translateY(300px) scale(0.15)' },
+      { transform: 'translateY(0) scale(1)', offset: 0.35 },
+      { transform: 'translateY(-20px) scale(1.12)' },
+    ], { duration: ms, easing: 'ease-out', fill: 'forwards' });
+    part('.nk-base').animate([{ transform: 'scaleX(0.2)', opacity: 1 }, { transform: 'scaleX(1.3)', opacity: 0.8 }], { duration: ms, easing: 'ease-out', fill: 'forwards' });
+  }
+  part('.nk-glow').animate([{ opacity: 1 }, { opacity: 0.9, offset: 0.3 }, { opacity: 0 }], { duration: ms * 0.75, fill: 'forwards' });
+  el.animate([{ opacity: 1 }, { opacity: 1, offset: 0.7 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
+  setTimeout(() => el.remove(), ms + 50);
+}
 
 export function fireBomb(kind, level) {
   const s = state.ship;

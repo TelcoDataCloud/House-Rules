@@ -9,8 +9,8 @@
 import { state, W, H, hardness } from './state.js';
 import { put, layer } from './art.js';
 import { targets } from './collide.js';
-import { trail } from './fx.js';
-import { FOE_SHOTS } from '../data/foeshots.js';
+import { trail, smokePuff } from './fx.js';
+import { FOE_SHOTS, ROCKET_START, ROCKET_TOP, MINE_WAKE, MINE_FUSE } from '../data/foeshots.js';
 
 const CAP = 200;
 
@@ -53,11 +53,15 @@ export function addFoe(x, y, angle, speed, colour = 'pink') {
   if (count() >= CAP) return;
   const sp = speed * hardness().bulletSpeed;
   const rad = (angle * Math.PI) / 180;
-  const red = colour === 'red';
-  const b = make(`foe ${colour}`, 'foes', red ? 8 : 20, red ? 30 : 20);
-  // Orbs can be shot down (look in data/foeshots.js). Lasers can't.
-  const kind = FOE_SHOTS[colour] || {};
-  Object.assign(b, { x, y, vx: Math.sin(rad) * sp, vy: Math.cos(rad) * sp, r: 6, colour, hp: kind.canShoot ? kind.hits : 0, points: kind.points || 0 });
+  // What kind of shot it is, and how it moves: data/foeshots.js.
+  const kind = FOE_SHOTS[colour] || FOE_SHOTS.pink;
+  const b = make(`foe ${colour}`, 'foes', kind.size[0], kind.size[1]);
+  const start = kind.move === 'speedup' ? ROCKET_START : kind.move === 'mine' ? 0.45 : 1;
+  Object.assign(b, {
+    x, y, dx: Math.sin(rad), dy: Math.cos(rad), speed: sp, vx: Math.sin(rad) * sp * start, vy: Math.cos(rad) * sp * start,
+    r: kind.hitSize, colour, move: kind.move, t: 0,
+    hp: kind.canShoot ? kind.hits : 0, points: kind.points || 0,
+  });
   state.foes.push(b);
 }
 
@@ -86,12 +90,38 @@ function steer(m, dt) {
 }
 
 export function updateBullets(dt) {
-  for (const list of [state.shots, state.foes]) {
-    for (const b of list) {
-      b.x += b.vx * dt;
-      b.y += b.vy * dt;
-      if (gone(b)) b.dead = true;
+  for (const b of state.shots) {
+    b.x += b.vx * dt;
+    b.y += b.vy * dt;
+    if (gone(b)) b.dead = true;
+  }
+  for (const b of state.foes) {
+    b.t += dt;
+    if (b.move === 'speedup') {
+      // A rocket: slow at first, then faster and faster, with smoke.
+      const k = Math.min(ROCKET_TOP, ROCKET_START + b.t * 1.1);
+      b.vx = b.dx * b.speed * k;
+      b.vy = b.dy * b.speed * k;
+      b.puff = (b.puff || 0) - dt;
+      if (b.puff <= 0) { b.puff = 0.06; smokePuff(b.x - b.dx * 16, b.y - b.dy * 16); }
+    } else if (b.move === 'mine') {
+      // A mine: drifts, slows down, wakes up when you are close.
+      b.vx *= 1 - dt * 0.6;
+      b.vy = Math.max(45, b.vy * (1 - dt * 0.6));
+      const s = state.ship;
+      if (!b.armed && s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_WAKE) {
+        b.armed = MINE_FUSE;
+        b.el.classList.add('armed');
+      }
+      if (b.armed) {
+        b.armed -= dt;
+        b.vy *= 0.9;
+        if (b.armed <= 0) b.blow = true;     // js/loop.js does the bang
+      }
     }
+    b.x += b.vx * dt;
+    b.y += b.vy * dt;
+    if (gone(b)) b.dead = true;
   }
   for (const m of state.missiles) {
     steer(m, dt);
@@ -114,7 +144,8 @@ export function drawBullets() {
   for (const b of state.shots) aim(b);
   for (const b of state.missiles) aim(b);
   for (const b of state.foes) {
-    if (b.colour === 'red' && b.vx) aim(b);     // a laser points the way it flies
+    // Lasers, bullets and rockets point the way they fly.
+    if ((b.colour === 'red' || b.colour === 'bullet' || b.colour === 'rocket') && b.vx) aim(b);
     else put(b.el, b.x, b.y, b.w, b.h);
   }
 }

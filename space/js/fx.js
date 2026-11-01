@@ -49,6 +49,16 @@ export function spark(x, y) {
   add('spark', x, y, 16, 16, 160).style.transform = `translate(${x - 8}px, ${y - 8}px)`;
 }
 
+// The edge of a mine's bang, so you can see how far it reached.
+export function mineRing(x, y, r) {
+  add('mine-ring', x, y, r * 2, r * 2, 450);
+}
+
+// A grey puff of smoke behind an enemy rocket.
+export function smokePuff(x, y) {
+  add('rocket-smoke', x, y, 12, 12, 500);
+}
+
 // A little pink puff behind a homing missile.
 export function trail(x, y) {
   add('trail', x, y, 10, 10, 320);

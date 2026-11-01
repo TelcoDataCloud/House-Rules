@@ -14,7 +14,7 @@ import { clearLayers } from './art.js';
 import { makeShip } from './ship.js';
 import { resetHud } from './hud.js';
 import { clearFx } from './fx.js';
-import { show, showTitleBest } from './screens.js';
+import { show, showTitleBest, showWin } from './screens.js';
 import { applyWorld } from './world.js';
 import { playCut } from './cutscene.js';
 import { wakeAudio } from './audio.js';
@@ -52,6 +52,19 @@ export function levelClear() {
     state.levelIndex++;
     startLevel();
     beginLevel();
+  });
+}
+
+// The last boss is down: the big ending film, then YOU WIN.
+export function gameWon() {
+  const end = level().ending;
+  if (!end) { showWin(); return; }
+  state.mode = 'cut';
+  clearLayers();
+  show('cut');
+  playCut(end, end.lines, () => {
+    state.mode = 'win';
+    showWin();
   });
 }
 

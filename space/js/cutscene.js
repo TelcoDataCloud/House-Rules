@@ -7,6 +7,10 @@
                    hot as it hits the air, then clouds rush past
      'dive'        dive down through the clouds until the red
                    ground comes up underneath
+     'factory'     fly low over the planet towards a city of robots
+     'crater'      dive into the mouth of the volcano
+     'finale'      the ending: the volcano blows up and you escape
+                   up through the sky into space
 
    The words come from the level's intro in data/level2.js and
    data/level3.js, one after another, and are read out loud.
@@ -57,7 +61,9 @@ export function playCut(intro, lines, onDone) {
   $('cut-skip').focus();
 
   // Each line gets an equal share of the film.
-  const gap = (LENGTH - 0.5) / lines.length;
+  const length = intro.length || LENGTH;
+  stage.style.setProperty('--film', `${length}s`);
+  const gap = (length - 0.5) / lines.length;
   lines.forEach((line, i) => {
     timers.push(setTimeout(() => {
       words.textContent = line;
@@ -66,9 +72,11 @@ export function playCut(intro, lines, onDone) {
       words.classList.add('show');
       say(line);
       if (i === 1) sound.whoosh();
+      if (intro.scene === 'finale' && (i === 1 || i === 2)) sound.bomb();
+      if (intro.scene === 'finale' && i === 4) sound.win();
     }, (0.3 + i * gap) * 1000));
   });
-  timers.push(setTimeout(done, LENGTH * 1000));
+  timers.push(setTimeout(done, length * 1000));
   window.addEventListener('keydown', onKey, true);
 }
 

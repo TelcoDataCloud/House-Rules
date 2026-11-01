@@ -153,7 +153,7 @@ export function updateBases(dt) {
       if (part.fireWait <= 0) { part.fireWait = part.spec.fireEvery; part.burst = 3; part.burstWait = 0; }
       if (part.burst > 0) {
         part.burstWait -= dt;
-        if (part.burstWait <= 0) { part.burst--; part.burstWait = 0.35; addFoe(part.x, part.y + 30, 0, 115, 'red'); }
+        if (part.burstWait <= 0) { part.burst--; part.burstWait = 0.5; addFoe(part.x, part.y + 30, (part.burst - 1) * 10, 150, 'rocket'); }
       }
     }
 
