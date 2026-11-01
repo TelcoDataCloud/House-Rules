@@ -1,22 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 60">
-  <!-- WEAVER. Pink flying wing with a glass dome. Wiggles side to side. -->
+  <!-- WEAVER. Pink fighter with curved blade wings. Wiggles side to side.
+       The blade tips point down at you. The engines glow at the top.
+       Hendrix: every fill is a colour. Change one and refresh. -->
   <defs>
-    <radialGradient id="glow-pink"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ff5fc0"/><stop offset="1" stop-color="#ff2a9a" stop-opacity="0"/></radialGradient>
-    <linearGradient id="wv-wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb3dc"/><stop offset="0.35" stop-color="#ff3fa4"/><stop offset="0.75" stop-color="#a3206a"/><stop offset="1" stop-color="#4a0a2e"/></linearGradient>
-    <radialGradient id="wv-dome" cx="0.4" cy="0.35"><stop offset="0" stop-color="#e6feff"/><stop offset="0.4" stop-color="#4de3ff"/><stop offset="1" stop-color="#0a3f5e"/></radialGradient>
-    <linearGradient id="wv-pod" x1="0" x2="1"><stop offset="0" stop-color="#8a2a5e"/><stop offset="1" stop-color="#2a0a1e"/></linearGradient>
+    <linearGradient id="wv-hull" gradientUnits="userSpaceOnUse" x1="12" y1="6" x2="56" y2="58"><stop offset="0" stop-color="#c6c3d4"/><stop offset="0.35" stop-color="#6b6880"/><stop offset="0.7" stop-color="#2f2c3c"/><stop offset="1" stop-color="#15131c"/></linearGradient>
+    <linearGradient id="wv-blade" gradientUnits="userSpaceOnUse" x1="2" y1="10" x2="66" y2="54"><stop offset="0" stop-color="#9a96ac"/><stop offset="0.45" stop-color="#4a4660"/><stop offset="1" stop-color="#1a1822"/></linearGradient>
+    <radialGradient id="wv-fire" cy="0.6"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#ffb3dc"/><stop offset="0.6" stop-color="#ff3fa4"/><stop offset="1" stop-color="#ff3fa4" stop-opacity="0"/></radialGradient>
+    <linearGradient id="wv-glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd6ec"/><stop offset="0.5" stop-color="#ff3fa4"/><stop offset="1" stop-color="#4a0a2e"/></linearGradient>
+    <linearGradient id="wv-gun" x1="0" x2="1"><stop offset="0" stop-color="#d6dbe4"/><stop offset="1" stop-color="#2a2e38"/></linearGradient>
   </defs>
-  <circle cx="22" cy="10" r="8" fill="url(#glow-pink)"/>
-  <circle cx="46" cy="10" r="8" fill="url(#glow-pink)"/>
-  <path d="M34 56 L3 26 L10 14 L24 18 L34 12 L44 18 L58 14 L65 26 Z" fill="url(#wv-wing)" stroke="#2a0a1e" stroke-width="2.2" stroke-linejoin="round"/>
-  <path d="M30 46 L9 26 L13 19 L24 23 L30 20 Z" fill="#ffffff" opacity="0.28"/>
-  <path d="M12 28 L56 28 M18 36 L50 36 M26 44 L42 44" stroke="#2a0a1e" stroke-width="1.2" opacity="0.45"/>
-  <g fill="#2a0a1e" opacity="0.5"><circle cx="16" cy="32" r="0.8"/><circle cx="52" cy="32" r="0.8"/><circle cx="24" cy="40" r="0.8"/><circle cx="44" cy="40" r="0.8"/></g>
-  <rect x="17" y="10" width="10" height="10" rx="3" fill="url(#wv-pod)" stroke="#2a0a1e" stroke-width="1.8"/>
-  <rect x="41" y="10" width="10" height="10" rx="3" fill="url(#wv-pod)" stroke="#2a0a1e" stroke-width="1.8"/>
-  <circle cx="5.5" cy="26" r="2.4" fill="#ff3b3b"/>
-  <circle cx="62.5" cy="26" r="2.4" fill="#4dff7c"/>
-  <circle cx="34" cy="30" r="9.5" fill="#2a0a1e"/>
-  <circle cx="34" cy="30" r="7.5" fill="url(#wv-dome)"/>
-  <ellipse cx="31" cy="26.5" rx="2.6" ry="1.8" fill="#ffffff" opacity="0.95"/>
+  <!-- engine flames -->
+  <ellipse cx="29" cy="6" rx="3.8" ry="6.5" fill="url(#wv-fire)"/>
+  <ellipse cx="39" cy="6" rx="3.8" ry="6.5" fill="url(#wv-fire)"/>
+  <!-- curved blade wings, tips sweep forward and down -->
+  <path d="M28 16 C16 15 7 24 3 52 L10 44 C14 33 20 29 28 31 Z" fill="url(#wv-blade)" stroke="#06080d" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M40 16 C52 15 61 24 65 52 L58 44 C54 33 48 29 40 31 Z" fill="url(#wv-blade)" stroke="#06080d" stroke-width="1.6" stroke-linejoin="round"/>
+  <!-- pink blade edges -->
+  <path d="M3 52 L10 44 C14 33 20 29 28 31 L28 28.4 C19 26.5 12.5 31 8.4 42.6 Z" fill="#ff3fa4"/>
+  <path d="M65 52 L58 44 C54 33 48 29 40 31 L40 28.4 C49 26.5 55.5 31 59.6 42.6 Z" fill="#c42a7c"/>
+  <path d="M26 19 C17 19 11 26 8 38 M42 19 C51 19 57 26 60 38" stroke="#06080d" stroke-width="0.8" fill="none" opacity="0.6"/>
+  <path d="M14 22 L18 20 L19 23 L15 25 Z M54 22 L50 20 L49 23 L53 25 Z" fill="#ff3fa4"/>
+  <!-- blade tip guns -->
+  <rect x="11.2" y="36" width="1.8" height="12" fill="url(#wv-gun)" stroke="#06080d" stroke-width="0.6" transform="rotate(14 12 42)"/>
+  <rect x="55" y="36" width="1.8" height="12" fill="url(#wv-gun)" stroke="#06080d" stroke-width="0.6" transform="rotate(-14 56 42)"/>
+  <!-- engine nozzles -->
+  <path d="M25 9 L33 9 L32.5 16 L25.5 16 Z M35 9 L43 9 L42.5 16 L35.5 16 Z" fill="#1c2028" stroke="#06080d" stroke-width="1.2"/>
+  <rect x="26.5" y="9.6" width="5" height="1.6" fill="#ff8fd0"/>
+  <rect x="36.5" y="9.6" width="5" height="1.6" fill="#ff8fd0"/>
+  <!-- body -->
+  <path d="M34 58 L28.5 46 L27 30 L26 14 L42 14 L41 30 L39.5 46 Z" fill="url(#wv-hull)" stroke="#06080d" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M34 56 L29.3 45.5 L27.9 30 L27.1 15.5 L34 15.5 Z" fill="#ffffff" opacity="0.16"/>
+  <path d="M34 56 L38.7 45.5 L40.1 30 L40.9 15.5 L34 15.5 Z" fill="#000000" opacity="0.22"/>
+  <path d="M27 21 L41 21 M27.4 27 L40.6 27 M29 42 L39 42" stroke="#06080d" stroke-width="0.7" opacity="0.7"/>
+  <path d="M34 15 L34 33" stroke="#06080d" stroke-width="0.6" opacity="0.5"/>
+  <!-- pink chevron marking -->
+  <path d="M28.6 33 L34 37 L39.4 33 L39.3 35.6 L34 39.6 L28.7 35.6 Z" fill="#ff3fa4"/>
+  <!-- sensor slit -->
+  <path d="M30 45 L38 45 L36.6 48 L31.4 48 Z" fill="url(#wv-glass)" stroke="#06080d" stroke-width="0.7"/>
+  <g fill="#0a0c12" opacity="0.7"><circle cx="29" cy="18" r="0.5"/><circle cx="39" cy="18" r="0.5"/><circle cx="29.5" cy="24" r="0.5"/><circle cx="38.5" cy="24" r="0.5"/></g>
 </svg>

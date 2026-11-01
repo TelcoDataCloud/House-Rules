@@ -93,6 +93,27 @@ them, then it splits along the cracks and the pieces tumble away smoking
 
 For testing: `?level=2` starts on level 2.
 
+## Weapons, bombs and boss phases (1 Nov)
+
+**One main gun at a time** (data/weapons.js): Blaster (centre hits
+hardest, side guns weaker), Laser (goes through enemies), Beam (weak at
+first, splits at level 3 with weaker side beams), Railgun (straight ahead
+only, big hit, never splits). Level 1 to 4; a SWAP card changes gun and
+keeps your level. Helpers: Homing missiles (weak, they always hit) and
+Drones.
+
+**Bombs** (data/bombs.js, js/bombs.js): High Explosive, Cluster, Plasma,
+Laser and Nuke. You carry one kind, level 1 to 3. Every bomb clears the
+enemy shots; a boss only takes a little from each bomb (BOSS_SHARE).
+
+**Boss phases:** knock off the shell and the boss powers up, goes red,
+moves faster and brings out its cannon: a red line shows where it will
+fire, then a big laser comes down it. Core bosses get LAST STAND on
+Medium and Hard. Bosses are much tougher.
+
+**New art:** every enemy ship and boss redrawn in a darker, sharper
+warship style; new shots, missiles, plasma orbs and lasers.
+
 ## Next
 
 S10: level 4.

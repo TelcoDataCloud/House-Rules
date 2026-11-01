@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 120">
+  <!-- THE BIG CANNON. It slides out from under a boss when the boss
+       gets angry. The hot glow at the bottom is where it fires.
+       Hendrix: every fill is a colour. -->
+  <defs>
+    <linearGradient id="bc-house" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d0d6e2"/><stop offset="0.35" stop-color="#727a8c"/><stop offset="0.75" stop-color="#343946"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="bc-barrel" x1="0" x2="1"><stop offset="0" stop-color="#dfe3ea"/><stop offset="0.3" stop-color="#8a92a2"/><stop offset="0.7" stop-color="#3a3f4c"/><stop offset="1" stop-color="#121419"/></linearGradient>
+    <linearGradient id="bc-coil" x1="0" x2="1"><stop offset="0" stop-color="#ffd08a"/><stop offset="0.5" stop-color="#ff7a1a"/><stop offset="1" stop-color="#8a2a00"/></linearGradient>
+    <radialGradient id="bc-core"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#fff0b0"/><stop offset="0.6" stop-color="#ff9a2a"/><stop offset="1" stop-color="#ff4a00" stop-opacity="0"/></radialGradient>
+    <pattern id="bc-haz" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#14161b"/><rect width="4" height="8" fill="#f0b51c"/></pattern>
+  </defs>
+  <!-- the armoured housing at the top -->
+  <path d="M12 2 L78 2 L86 14 L84 40 L70 52 L20 52 L6 40 L4 14 Z" fill="url(#bc-house)" stroke="#0c0d12" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M14 6 L50 6 L48 11 L16 11 L9 18 L8 36 L6 34 L6 16 Z" fill="#ffffff" opacity="0.35"/>
+  <!-- hazard stripes -->
+  <rect x="6" y="16" width="78" height="7" fill="url(#bc-haz)" stroke="#0c0d12" stroke-width="1.2"/>
+  <!-- glowing heat vents -->
+  <g fill="#0a0b0f"><rect x="12" y="28" width="20" height="3"/><rect x="12" y="34" width="20" height="3"/><rect x="12" y="40" width="20" height="3"/><rect x="58" y="28" width="20" height="3"/><rect x="58" y="34" width="20" height="3"/><rect x="58" y="40" width="20" height="3"/></g>
+  <g fill="#ff8a2a"><rect x="14" y="29" width="16" height="1.2"/><rect x="14" y="35" width="16" height="1.2"/><rect x="14" y="41" width="16" height="1.2"/><rect x="60" y="29" width="16" height="1.2"/><rect x="60" y="35" width="16" height="1.2"/><rect x="60" y="41" width="16" height="1.2"/></g>
+  <rect x="38" y="27" width="14" height="18" rx="2" fill="#2a2e38" stroke="#0c0d12" stroke-width="1.2"/>
+  <rect x="41" y="30" width="8" height="3" fill="#ff3b3b"/>
+  <g fill="#c4cad8"><circle cx="10" cy="10" r="1.3"/><circle cx="80" cy="10" r="1.3"/><circle cx="12" cy="46" r="1.3"/><circle cx="78" cy="46" r="1.3"/></g>
+  <!-- the heavy barrel -->
+  <path d="M28 52 L62 52 L60 96 L30 96 Z" fill="url(#bc-barrel)" stroke="#0c0d12" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- glowing charge coils round the barrel -->
+  <rect x="25" y="58" width="40" height="7" rx="1.5" fill="#22252e" stroke="#0c0d12" stroke-width="1.4"/>
+  <rect x="25" y="70" width="40" height="7" rx="1.5" fill="#22252e" stroke="#0c0d12" stroke-width="1.4"/>
+  <rect x="26" y="82" width="38" height="7" rx="1.5" fill="#22252e" stroke="#0c0d12" stroke-width="1.4"/>
+  <rect x="28" y="60.5" width="34" height="2" fill="url(#bc-coil)"/>
+  <rect x="28" y="72.5" width="34" height="2" fill="url(#bc-coil)"/>
+  <rect x="29" y="84.5" width="32" height="2" fill="url(#bc-coil)"/>
+  <!-- the muzzle: three prongs round the hot core -->
+  <path d="M22 94 L68 94 L66 104 L58 106 L54 114 L36 114 L32 106 L24 104 Z" fill="url(#bc-house)" stroke="#0c0d12" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M24 104 L18 116 L28 112 Z M66 104 L72 116 L62 112 Z" fill="url(#bc-barrel)" stroke="#0c0d12" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle cx="45" cy="111" r="9" fill="url(#bc-core)"/>
+  <ellipse cx="45" cy="106" rx="8" ry="3" fill="#0c0d12"/>
+  <ellipse cx="45" cy="106" rx="5.5" ry="2" fill="#fff4c8"/>
+  <circle cx="45" cy="112" r="3.2" fill="#ffffff"/>
+</svg>

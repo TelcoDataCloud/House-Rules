@@ -1,14 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- The Core's pink eye. Shut until all four turrets are gone. -->
+  <!-- The boss's reactor core: its weak spot. An armoured ring with
+       metal shutter blades round a hot pink lens. It is shut and grey
+       until every gun is gone, then it glows and you can hit it.
+       Hendrix: every fill is a colour. -->
   <defs>
-    <radialGradient id="ce-iris" cx="0.5" cy="0.5"><stop offset="0" stop-color="#ffd6ee"/><stop offset="0.45" stop-color="#ff3fa4"/><stop offset="0.85" stop-color="#a3206a"/><stop offset="1" stop-color="#4a0a2e"/></radialGradient>
-    <radialGradient id="ce-pupil" cx="0.5" cy="0.5"><stop offset="0" stop-color="#000000"/><stop offset="0.7" stop-color="#2a0a1e"/><stop offset="1" stop-color="#6a1040"/></radialGradient>
+    <linearGradient id="ce-ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe4ee"/><stop offset="0.35" stop-color="#7c8496"/><stop offset="0.75" stop-color="#363b48"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="ce-blade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa2b4"/><stop offset="0.6" stop-color="#454b5a"/><stop offset="1" stop-color="#1e2129"/></linearGradient>
+    <radialGradient id="ce-lens"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#ffc2e2"/><stop offset="0.6" stop-color="#ff3fa4"/><stop offset="1" stop-color="#7a0a46"/></radialGradient>
+    <radialGradient id="ce-under"><stop offset="0" stop-color="#ff7ac4"/><stop offset="0.7" stop-color="#ff3fa4"/><stop offset="1" stop-color="#5a0832"/></radialGradient>
   </defs>
-  <circle cx="50" cy="50" r="43" fill="url(#ce-iris)"/>
-  <g stroke="#ffb3dc" stroke-width="1.5" opacity="0.5">
-    <path d="M50 14 L50 30 M50 70 L50 86 M14 50 L30 50 M70 50 L86 50 M25 25 L36 36 M64 64 L75 75 M75 25 L64 36 M25 75 L36 64"/>
+  <!-- outer armoured collar -->
+  <circle cx="50" cy="50" r="47" fill="url(#ce-ring)" stroke="#0c0d12" stroke-width="2.4"/>
+  <path d="M18 30 A38 38 0 0 1 46 8 L47 14 A32 32 0 0 0 24 33 Z" fill="#ffffff" opacity="0.35"/>
+  <!-- clamp blocks round the collar -->
+  <g fill="#2a2e38" stroke="#0c0d12" stroke-width="1.2">
+    <rect x="45" y="2" width="10" height="7"/><rect x="45" y="91" width="10" height="7"/>
+    <rect x="2" y="45" width="7" height="10"/><rect x="91" y="45" width="7" height="10"/>
   </g>
-  <circle cx="50" cy="50" r="15" fill="url(#ce-pupil)"/>
-  <ellipse cx="37" cy="34" rx="10" ry="7" fill="#ffffff" opacity="0.9"/>
-  <circle cx="60" cy="62" r="3" fill="#ffffff" opacity="0.6"/>
+  <g fill="#ff3fa4"><rect x="47" y="4" width="6" height="2"/><rect x="47" y="94" width="6" height="2"/><rect x="4" y="47" width="2" height="6"/><rect x="94" y="47" width="2" height="6"/></g>
+  <!-- the glowing chamber under the blades -->
+  <circle cx="50" cy="50" r="37" fill="url(#ce-under)" stroke="#0c0d12" stroke-width="2"/>
+  <!-- eight shutter blades, with glowing gaps between them -->
+  <g fill="url(#ce-blade)" stroke="#0c0d12" stroke-width="1.2" stroke-linejoin="round">
+    <path d="M42 14 L61 15 L56 32 L46 33 Z"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(45 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(90 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(135 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(180 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(225 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(270 50 50)"/>
+    <path d="M42 14 L61 15 L56 32 L46 33 Z" transform="rotate(315 50 50)"/>
+  </g>
+  <!-- the hot lens in the middle -->
+  <circle cx="50" cy="50" r="17" fill="#120208" stroke="#0c0d12" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="14" fill="url(#ce-lens)"/>
+  <path d="M50 38 L50 62 M38 50 L62 50" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="50" cy="50" r="9" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.6"/>
+  <g fill="#c9cfda"><circle cx="20" cy="20" r="1.4"/><circle cx="80" cy="20" r="1.4"/><circle cx="20" cy="80" r="1.4"/><circle cx="80" cy="80" r="1.4"/></g>
 </svg>
