@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- THE GOLIATH. The level 4 boss: a giant walking battle robot,
+       seen from above. This is its body and big shoulder armour. The
+       two legs are a separate picture (mech-leg.svg) drawn underneath,
+       and they step forward and back so it walks.
+       Its four guns and the reactor in the middle are separate
+       pictures too (core-turret.svg and core-eye.svg). Under each one
+       is an armoured mount that is left burnt when you shoot it.
+       Hendrix: every fill is a colour. Change one and refresh. -->
+  <defs>
+    <linearGradient id="gl-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a6aebd"/><stop offset="0.3" stop-color="#565e6e"/><stop offset="0.7" stop-color="#262a34"/><stop offset="1" stop-color="#0c0e12"/></linearGradient>
+    <linearGradient id="gl-pad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8bfcc"/><stop offset="0.4" stop-color="#5a6272"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="gl-slab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6e7586"/><stop offset="0.5" stop-color="#2e333e"/><stop offset="1" stop-color="#101216"/></linearGradient>
+    <linearGradient id="gl-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a0a8b8"/><stop offset="0.5" stop-color="#454b5a"/><stop offset="1" stop-color="#15171d"/></linearGradient>
+    <radialGradient id="gl-scorch"><stop offset="0" stop-color="#040405"/><stop offset="0.55" stop-color="#1a130c"/><stop offset="0.85" stop-color="#3a2a18"/><stop offset="1" stop-color="#22252c"/></radialGradient>
+    <radialGradient id="gl-socket"><stop offset="0.7" stop-color="#05060a"/><stop offset="0.9" stop-color="#2a1206"/><stop offset="1" stop-color="#8a3a0a"/></radialGradient>
+    <radialGradient id="gl-heat"><stop offset="0" stop-color="#fff1c8"/><stop offset="0.4" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gl-eye" x1="0" x2="1"><stop offset="0" stop-color="#ff8a7a"/><stop offset="0.5" stop-color="#ff3b3b"/><stop offset="1" stop-color="#8a0a0a"/></linearGradient>
+    <pattern id="gl-haz" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#14161b"/><rect width="5" height="10" fill="#ffb21a"/></pattern>
+  </defs>
+
+  <!-- heat from the back pack -->
+  <ellipse cx="128" cy="6" rx="12" ry="6" fill="url(#gl-heat)"/>
+  <ellipse cx="172" cy="6" rx="12" ry="6" fill="url(#gl-heat)"/>
+
+  <!-- the hip block: a wide armoured bar that the legs hang under -->
+  <path d="M30 94 L270 94 L282 122 L266 150 L34 150 L18 122 Z" fill="url(#gl-slab)" stroke="#06070a" stroke-width="2.6" stroke-linejoin="round"/>
+  <g fill="#1c1f26" stroke="#06070a" stroke-width="1.6"><circle cx="55" cy="122" r="17"/><circle cx="245" cy="122" r="17"/></g>
+  <g fill="none" stroke="#ff7a1a" stroke-width="1.4" opacity="0.8"><circle cx="55" cy="122" r="11"/><circle cx="245" cy="122" r="11"/></g>
+  <g fill="#3a3f4a" stroke="#06070a" stroke-width="1.2"><circle cx="55" cy="122" r="6"/><circle cx="245" cy="122" r="6"/></g>
+  <rect x="24" y="140" width="22" height="6" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1"/>
+  <rect x="254" y="140" width="22" height="6" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1"/>
+
+  <!-- the back pack at the top with two glowing exhausts -->
+  <path d="M106 2 L194 2 L204 22 L96 22 Z" fill="url(#gl-slab)" stroke="#06070a" stroke-width="2" stroke-linejoin="round"/>
+  <g fill="#06070a"><circle cx="128" cy="12" r="7"/><circle cx="172" cy="12" r="7"/></g>
+  <g fill="#ff7a1a"><circle cx="128" cy="12" r="4"/><circle cx="172" cy="12" r="4"/></g>
+  <g fill="#ffe0a8"><circle cx="128" cy="12" r="1.8"/><circle cx="172" cy="12" r="1.8"/></g>
+  <g fill="#06070a"><rect x="141" y="6" width="18" height="2"/><rect x="141" y="10" width="18" height="2"/><rect x="141" y="14" width="18" height="2"/></g>
+
+  <!-- the torso -->
+  <path d="M106 16 L194 16 L226 40 L232 118 L222 170 L190 196 L110 196 L78 170 L68 118 L74 40 Z" fill="url(#gl-hull)" stroke="#06070a" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M108 19 L160 19 L160 23 L111 23 L79 44 L73 116 L70.6 116 L76.4 41.6 Z" fill="#ffffff" opacity="0.26"/>
+  <path d="M222 44 L229 44 L229.4 118 L219.6 168.6 L210 176 L218 164 L226.6 118 Z" fill="#000000" opacity="0.3"/>
+  <!-- side vents on the torso -->
+  <g fill="#06070a"><rect x="76" y="64" width="14" height="2.4"/><rect x="76" y="70" width="14" height="2.4"/><rect x="76" y="76" width="14" height="2.4"/><rect x="210" y="64" width="14" height="2.4"/><rect x="210" y="70" width="14" height="2.4"/><rect x="210" y="76" width="14" height="2.4"/></g>
+  <g fill="#ff7a1a" opacity="0.8"><rect x="78" y="64.6" width="10" height="1.1"/><rect x="78" y="70.6" width="10" height="1.1"/><rect x="212" y="64.6" width="10" height="1.1"/><rect x="212" y="70.6" width="10" height="1.1"/></g>
+  <path d="M70 118 L104 132 M230 118 L196 132 M76 40 L96 46 M224 40 L204 46" stroke="#06070a" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- the chest prow at the front with a red sensor strip -->
+  <path d="M116 146 L184 146 L196 172 L182 190 L118 190 L104 172 Z" fill="url(#gl-slab)" stroke="#06070a" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M118 150 L182 150 L190 168 L110 168 Z" fill="#000000" opacity="0.2"/>
+  <rect x="122" y="160" width="56" height="7" rx="1.5" fill="#06070a"/>
+  <rect x="124" y="161.8" width="52" height="3.4" fill="url(#gl-eye)"/>
+  <rect x="128" y="174" width="44" height="8" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1"/>
+  <path d="M150 146 L150 158" stroke="#06070a" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- the great shoulder pauldrons -->
+  <path d="M10 46 L44 30 L86 38 L92 116 L70 144 L18 140 L2 98 Z" fill="url(#gl-pad)" stroke="#06070a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M290 46 L256 30 L214 38 L208 116 L230 144 L282 140 L298 98 Z" fill="url(#gl-pad)" stroke="#06070a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M12 48 L44 33 L84 40 L84 44 L45 37 L15 51 L5 96 L3.6 96 Z" fill="#ffffff" opacity="0.32"/>
+  <path d="M216 41 L255 33.4 L287 48 L287 52 L255 37.4 L218 44 Z" fill="#ffffff" opacity="0.18"/>
+  <path d="M206 118 L228 140 L280 136.6 L280 140 L230 143 Z" fill="#000000" opacity="0.3"/>
+  <!-- orange edge glow and hazard plates on the pauldrons -->
+  <path d="M4 100 L19 138 L68 141 M296 100 L281 138 L232 141" stroke="#ff7a1a" stroke-width="2" fill="none"/>
+  <path d="M14 50 L40 38 L42 46 L17 58 Z M286 50 L260 38 L258 46 L283 58 Z" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1"/>
+  <path d="M8 76 L72 64 M228 64 L292 76 M60 40 L66 122 M240 40 L234 122" stroke="#06070a" stroke-width="1.2" opacity="0.6"/>
+  <!-- a second layer of armour down the outside of each shoulder -->
+  <path d="M8 66 L16 64 L18 124 L22 136 L16 134 L6 100 Z M292 66 L284 64 L282 124 L278 136 L284 134 L294 100 Z" fill="url(#gl-slab)" stroke="#06070a" stroke-width="1.2" stroke-linejoin="round"/>
+  <g fill="#06070a"><rect x="9" y="84" width="6" height="1.6"/><rect x="9" y="88" width="6" height="1.6"/><rect x="9" y="92" width="6" height="1.6"/><rect x="285" y="84" width="6" height="1.6"/><rect x="285" y="88" width="6" height="1.6"/><rect x="285" y="92" width="6" height="1.6"/></g>
+  <path d="M66 124 L86 124 L84 132 L64 132 Z M234 124 L214 124 L216 132 L236 132 Z" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1"/>
+  <g fill="#06070a" opacity="0.8"><circle cx="20" cy="70" r="1.6"/><circle cx="280" cy="70" r="1.6"/><circle cx="80" cy="50" r="1.6"/><circle cx="220" cy="50" r="1.6"/><circle cx="82" cy="110" r="1.6"/><circle cx="218" cy="110" r="1.6"/><circle cx="20" cy="126" r="1.6"/><circle cx="280" cy="126" r="1.6"/></g>
+
+  <!-- the reactor socket (the core eye sits on top) -->
+  <circle cx="150" cy="80" r="58" fill="url(#gl-plate)" stroke="#06070a" stroke-width="2.4"/>
+  <path d="M100 52 A58 58 0 0 1 150 22 L150 27 A53 53 0 0 0 104 54 Z" fill="#ffffff" opacity="0.25"/>
+  <circle cx="150" cy="80" r="52" fill="url(#gl-haz)" stroke="#06070a" stroke-width="1.4"/>
+  <circle cx="150" cy="80" r="47" fill="url(#gl-socket)" stroke="#06070a" stroke-width="2"/>
+  <g fill="#2a2e38" stroke="#06070a" stroke-width="1.2"><rect x="144" y="20" width="12" height="9"/><rect x="144" y="131" width="12" height="9"/><rect x="90" y="74" width="9" height="12"/><rect x="201" y="74" width="9" height="12"/></g>
+  <g fill="#ff7a1a"><rect x="147" y="22" width="6" height="2"/><rect x="147" y="136" width="6" height="2"/></g>
+
+  <!-- gun mounts (the turrets sit on top of these) -->
+  <g transform="translate(40 90)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#gl-plate)" stroke="#06070a" stroke-width="2"/>
+    <circle r="15" fill="url(#gl-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad6"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(260 90)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#gl-plate)" stroke="#06070a" stroke-width="2"/>
+    <circle r="15" fill="url(#gl-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad6"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(90 155)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#gl-plate)" stroke="#06070a" stroke-width="2"/>
+    <circle r="15" fill="url(#gl-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad6"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(210 155)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#gl-plate)" stroke="#06070a" stroke-width="2"/>
+    <circle r="15" fill="url(#gl-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad6"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+</svg>

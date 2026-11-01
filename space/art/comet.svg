@@ -1,165 +1,203 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130">
-  <!-- THE COMET. Your ship.
+  <!-- THE COMET. Your ship. A stealth starfighter.
 
        Hendrix: the bits inside <g class="up" ...> are the upgrades.
        data-track says which upgrade, data-level says which step.
        They stay hidden until you pick that upgrade in the game.
 
-       The stripes use the trim colour. That colour changes when
-       you pick a Laser upgrade. Every other fill="#......" is a colour
-       you can change yourself. -->
+       Anything with var(trim) in it uses the trim colour. That colour
+       changes when you pick a new gun. Every other fill="#......" is a
+       colour you can change yourself. The light comes from the top
+       left, so the left side is brighter than the right. -->
   <defs>
     <linearGradient id="cm-hull" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#eef8ff"/><stop offset="0.35" stop-color="#a9cbe0"/>
-      <stop offset="0.7" stop-color="#557a96"/><stop offset="1" stop-color="#26384a"/>
+      <stop offset="0" stop-color="#f6f9fc"/><stop offset="0.45" stop-color="#c4ccd6"/>
+      <stop offset="0.75" stop-color="#8a95a3"/><stop offset="1" stop-color="#55606e"/>
     </linearGradient>
-    <linearGradient id="cm-wing" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#4c86c4"/><stop offset="0.5" stop-color="#27508a"/><stop offset="1" stop-color="#122649"/>
+    <linearGradient id="cm-base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b6573"/><stop offset="0.5" stop-color="#363e4a"/><stop offset="1" stop-color="#1b2028"/>
     </linearGradient>
-    <linearGradient id="cm-wing-r" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2e5c96"/><stop offset="0.5" stop-color="#1c3d6e"/><stop offset="1" stop-color="#0e1e3c"/>
+    <linearGradient id="cm-wingl" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfd6df"/><stop offset="0.6" stop-color="#939eab"/><stop offset="1" stop-color="#626d7b"/>
+    </linearGradient>
+    <linearGradient id="cm-wingr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7a8593"/><stop offset="0.6" stop-color="#535d6a"/><stop offset="1" stop-color="#363f4b"/>
     </linearGradient>
     <linearGradient id="cm-glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d4fcff"/><stop offset="0.45" stop-color="#3cc6e8"/><stop offset="1" stop-color="#0a3f5e"/>
+      <stop offset="0" stop-color="#c8f6ff"/><stop offset="0.3" stop-color="#3a8fb4"/><stop offset="1" stop-color="#08202e"/>
     </linearGradient>
     <linearGradient id="cm-gun" x1="0" x2="1">
-      <stop offset="0" stop-color="#8d9bb0"/><stop offset="0.5" stop-color="#3c4658"/><stop offset="1" stop-color="#1a202c"/>
+      <stop offset="0" stop-color="#b9c3cf"/><stop offset="0.5" stop-color="#4a5361"/><stop offset="1" stop-color="#1c222b"/>
     </linearGradient>
     <linearGradient id="cm-pod" x1="0" x2="1">
-      <stop offset="0" stop-color="#ffb3dc"/><stop offset="0.45" stop-color="#ff3fa4"/><stop offset="1" stop-color="#8a1050"/>
+      <stop offset="0" stop-color="#d4dbe3"/><stop offset="0.5" stop-color="#7d8896"/><stop offset="1" stop-color="#3a424e"/>
     </linearGradient>
-    <radialGradient id="cm-engine"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#b8fbff"/><stop offset="0.65" stop-color="#38f0ff" stop-opacity="0.6"/><stop offset="1" stop-color="#38f0ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cm-glow">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.35" style="stop-color: var(--trim, #38f0ff)" stop-opacity="0.7"/>
+      <stop offset="1" style="stop-color: var(--trim, #38f0ff)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cm-hot">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#fff1b8"/><stop offset="1" stop-color="#ff9a2a"/>
+    </radialGradient>
     <radialGradient id="cm-lens"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#ff9ad0"/><stop offset="1" stop-color="#c41a78"/></radialGradient>
   </defs>
 
-  <!-- engine glow -->
-  <circle cx="50" cy="118" r="10" fill="url(#cm-engine)"/>
-  <circle cx="70" cy="118" r="10" fill="url(#cm-engine)"/>
+  <!-- engine glow behind the nozzles -->
+  <circle cx="51" cy="116" r="8" fill="url(#cm-glow)"/>
+  <circle cx="69" cy="116" r="8" fill="url(#cm-glow)"/>
 
-  <!-- tail fins -->
-  <path d="M49 94 L38 114 L45 116 L52 104 Z" fill="url(#cm-wing)" stroke="#0a1424" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M71 94 L82 114 L75 116 L68 104 Z" fill="url(#cm-wing-r)" stroke="#0a1424" stroke-width="2" stroke-linejoin="round"/>
+  <!-- the whole body and wings in one dark shape, with a dark outline -->
+  <path d="M60 3 L62.8 11 L65.2 24 L67.6 36 L74 48 L106 80 L112 84 L112 96 L86 96 L79 101 L76 108 L74 114 L64 114 L60 110 L56 114 L46 114 L44 108 L41 101 L34 96 L8 96 L8 84 L14 80 L46 48 L52.4 36 L54.8 24 L57.2 11 Z" fill="url(#cm-base)" stroke="#06090e" stroke-width="2.4" stroke-linejoin="round"/>
 
-  <!-- wings -->
-  <path d="M50 50 L6 90 L9 101 L48 92 Z" fill="url(#cm-wing)" stroke="#0a1424" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M70 50 L114 90 L111 101 L72 92 Z" fill="url(#cm-wing-r)" stroke="#0a1424" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M47 58 L14 89 L18 91 L47 65 Z" fill="#8fc0f0" opacity="0.55"/>
-  <path d="M73 58 L106 89 L103 90 L73 64 Z" fill="#5d8cc4" opacity="0.35"/>
-  <path d="M44 70 L22 91 M41 80 L30 92 M76 70 L98 91 M79 80 L90 92" stroke="#0a1424" stroke-width="1.2" opacity="0.5"/>
-  <path d="M30 84 L13 97 L17 99 L33 88 Z" style="fill: var(--trim, #38f0ff)"/>
-  <path d="M90 84 L107 97 L103 99 L87 88 Z" style="fill: var(--trim, #38f0ff)"/>
-  <circle cx="10" cy="97" r="2.6" fill="#ff3b3b"/>
-  <circle cx="110" cy="97" r="2.6" fill="#4dff7c"/>
+  <!-- light wing panels -->
+  <path d="M47 52 L17 82 L17 89 L40 89 L52 77 L52 57 Z" fill="url(#cm-wingl)"/>
+  <path d="M73 52 L103 82 L103 89 L80 89 L68 77 L68 57 Z" fill="url(#cm-wingr)"/>
+  <!-- flaps at the back of the wings -->
+  <path d="M12 91 L36 91 L39 94 L12 94 Z M108 91 L84 91 L81 94 L108 94 Z" fill="#232932"/>
+  <!-- panel lines -->
+  <path d="M40 89 L46 95 M80 89 L74 95 M30 64 L36 70 L36 89 M90 64 L84 70 L84 89 M24 89 L24 94 M96 89 L96 94" stroke="#0c1118" stroke-width="0.9" fill="none" opacity="0.7"/>
+
+  <!-- leading edge light strips (trim colour) -->
+  <path d="M45 51.5 L16 80.5 L18.6 82.2 L46.6 54 Z" style="fill: var(--trim, #38f0ff)"/>
+  <path d="M75 51.5 L104 80.5 L101.4 82.2 L73.4 54 Z" style="fill: var(--trim, #38f0ff)"/>
+
+  <!-- canted tail fins -->
+  <path d="M47 82 L40 100 L35 112 L38.5 113 L45 103 L49 90 Z" fill="url(#cm-wingl)" stroke="#06090e" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M73 82 L80 100 L85 112 L81.5 113 L75 103 L71 90 Z" fill="url(#cm-wingr)" stroke="#06090e" stroke-width="1.6" stroke-linejoin="round"/>
 
   <!-- UPGRADE: bomb racks under the wings -->
   <g class="up" data-track="bay" data-level="1">
-    <ellipse cx="38" cy="86" rx="3.5" ry="7" fill="#ffd23f" stroke="#3a2a00" stroke-width="1.5"/>
-    <ellipse cx="82" cy="86" rx="3.5" ry="7" fill="#c9960a" stroke="#3a2a00" stroke-width="1.5"/>
+    <path d="M36 65 L38.2 69 L38.2 83 L36 85 L33.8 83 L33.8 69 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1"/>
+    <path d="M84 65 L86.2 69 L86.2 83 L84 85 L81.8 83 L81.8 69 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1"/>
+    <path d="M36 65 L38.2 69 L33.8 69 Z M84 65 L86.2 69 L81.8 69 Z" fill="#ffd23f"/>
+    <path d="M32.5 86 L36 82 L39.5 86 Z M80.5 86 L84 82 L87.5 86 Z" fill="#3a424e" stroke="#06090e" stroke-width="0.8"/>
   </g>
   <g class="up" data-track="bay" data-level="2">
-    <ellipse cx="31" cy="90" rx="3.5" ry="7" fill="#ffd23f" stroke="#3a2a00" stroke-width="1.5"/>
-    <ellipse cx="89" cy="90" rx="3.5" ry="7" fill="#c9960a" stroke="#3a2a00" stroke-width="1.5"/>
+    <path d="M28 70 L30.2 74 L30.2 87 L28 89 L25.8 87 L25.8 74 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1"/>
+    <path d="M92 70 L94.2 74 L94.2 87 L92 89 L89.8 87 L89.8 74 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1"/>
+    <path d="M28 70 L30.2 74 L25.8 74 Z M92 70 L94.2 74 L89.8 74 Z" fill="#ffd23f"/>
   </g>
   <g class="up" data-track="bay" data-level="3">
-    <rect x="34" y="80" width="8" height="3" fill="#ff3b3b"/><rect x="78" y="80" width="8" height="3" fill="#ff3b3b"/>
-    <rect x="27" y="84" width="8" height="3" fill="#ff3b3b"/><rect x="85" y="84" width="8" height="3" fill="#ff3b3b"/>
+    <rect x="33.8" y="75" width="4.4" height="2.4" fill="#ff3b3b"/><rect x="81.8" y="75" width="4.4" height="2.4" fill="#ff3b3b"/>
+    <rect x="25.8" y="80" width="4.4" height="2.4" fill="#ff3b3b"/><rect x="89.8" y="80" width="4.4" height="2.4" fill="#ff3b3b"/>
   </g>
 
   <!-- UPGRADE: homing missile pods -->
   <g class="up" data-track="homing" data-level="1">
-    <rect x="21" y="68" width="9" height="24" rx="4.5" fill="url(#cm-pod)" stroke="#2a0a1e" stroke-width="2"/>
-    <rect x="90" y="68" width="9" height="24" rx="4.5" fill="url(#cm-pod)" stroke="#2a0a1e" stroke-width="2"/>
+    <path d="M17.5 64 L24.5 64 L25.5 86 L16.5 86 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M95.5 64 L102.5 64 L103.5 86 L94.5 86 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M18 64 L19.5 59 L21 64 Z M21 64 L22.5 59 L24 64 Z M96 64 L97.5 59 L99 64 Z M99 64 L100.5 59 L102 64 Z" fill="#ff3fa4" stroke="#2a0a1e" stroke-width="0.7"/>
+    <path d="M17 78 L25 78 M95 78 L103 78" stroke="#06090e" stroke-width="0.9"/>
   </g>
   <g class="up" data-track="homing" data-level="2">
-    <rect x="14" y="76" width="8" height="19" rx="4" fill="url(#cm-pod)" stroke="#2a0a1e" stroke-width="2"/>
-    <rect x="98" y="76" width="8" height="19" rx="4" fill="url(#cm-pod)" stroke="#2a0a1e" stroke-width="2"/>
+    <path d="M10 72 L16 72 L17 92 L9 92 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M104 72 L110 72 L111 92 L103 92 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M10.5 72 L13 67 L15.5 72 Z M104.5 72 L107 67 L109.5 72 Z" fill="#ff3fa4" stroke="#2a0a1e" stroke-width="0.7"/>
   </g>
   <g class="up" data-track="homing" data-level="3">
-    <circle cx="25.5" cy="70" r="3.5" fill="#ff3b3b"/><circle cx="94.5" cy="70" r="3.5" fill="#ff3b3b"/>
-    <circle cx="18" cy="78" r="3" fill="#ff3b3b"/><circle cx="102" cy="78" r="3" fill="#ff3b3b"/>
+    <circle cx="21" cy="68" r="2.2" fill="#ff3b3b"/><circle cx="99" cy="68" r="2.2" fill="#ff3b3b"/>
+    <circle cx="13" cy="76" r="2" fill="#ff3b3b"/><circle cx="107" cy="76" r="2" fill="#ff3b3b"/>
   </g>
 
   <!-- UPGRADE: wing guns and wingtip guns -->
   <g class="up" data-track="spread" data-level="2">
-    <rect x="31" y="56" width="5" height="24" rx="2" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="84" y="56" width="5" height="24" rx="2" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <ellipse cx="33.5" cy="78" rx="6" ry="4.5" fill="url(#cm-hull)" stroke="#0a1424" stroke-width="1.5"/>
-    <ellipse cx="86.5" cy="78" rx="6" ry="4.5" fill="url(#cm-hull)" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="31" y="54" width="5" height="3" style="fill: var(--trim, #38f0ff)"/>
-    <rect x="84" y="54" width="5" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="30" y="52" width="3" height="22" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <rect x="87" y="52" width="3" height="22" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <path d="M28 66 L35 66 L36 80 L27 80 Z M85 66 L92 66 L93 80 L84 80 Z" fill="url(#cm-hull)" stroke="#06090e" stroke-width="1.2" stroke-linejoin="round"/>
+    <rect x="30" y="49.5" width="3" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="87" y="49.5" width="3" height="3" style="fill: var(--trim, #38f0ff)"/>
   </g>
   <g class="up" data-track="spread" data-level="3">
-    <rect x="13" y="72" width="5" height="22" rx="2" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="102" y="72" width="5" height="22" rx="2" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="13" y="70" width="5" height="3" style="fill: var(--trim, #38f0ff)"/>
-    <rect x="102" y="70" width="5" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="8.5" y="66" width="3" height="28" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <rect x="108.5" y="66" width="3" height="28" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <rect x="8.5" y="63.5" width="3" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="108.5" y="63.5" width="3" height="3" style="fill: var(--trim, #38f0ff)"/>
   </g>
 
-  <!-- engine pods -->
-  <rect x="42" y="90" width="15" height="26" rx="5" fill="url(#cm-hull)" stroke="#0a1424" stroke-width="2"/>
-  <rect x="63" y="90" width="15" height="26" rx="5" fill="url(#cm-hull)" stroke="#0a1424" stroke-width="2"/>
-  <rect x="44" y="112" width="11" height="6" rx="2" fill="#1a2230"/>
-  <rect x="65" y="112" width="11" height="6" rx="2" fill="#1a2230"/>
-
-  <!-- UPGRADE: bigger engines -->
-  <g class="up" data-track="rapid" data-level="1">
-    <rect x="43" y="110" width="13" height="3" fill="#ff9a2a"/>
-    <rect x="64" y="110" width="13" height="3" fill="#ff9a2a"/>
-  </g>
+  <!-- UPGRADE: extra afterburner engines -->
   <g class="up" data-track="rapid" data-level="2">
-    <rect x="35" y="96" width="7" height="18" rx="3" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="78" y="96" width="7" height="18" rx="3" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.5"/>
-    <circle cx="38.5" cy="118" r="5" fill="url(#cm-engine)"/>
-    <circle cx="81.5" cy="118" r="5" fill="url(#cm-engine)"/>
+    <circle cx="30" cy="111" r="5" fill="url(#cm-glow)"/>
+    <circle cx="90" cy="111" r="5" fill="url(#cm-glow)"/>
+    <path d="M26.5 88 L33.5 88 L34 108 L26 108 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M86.5 88 L93.5 88 L94 108 L86 108 Z" fill="url(#cm-pod)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+    <rect x="27" y="106" width="6" height="2.4" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="87" y="106" width="6" height="2.4" style="fill: var(--trim, #38f0ff)"/>
+  </g>
+
+  <!-- the two main engines: their flames come out here -->
+  <path d="M45 94 L57 94 L57.6 111 L44.4 111 Z" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M63 94 L75 94 L75.6 111 L62.4 111 Z" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1.4" stroke-linejoin="round"/>
+  <rect x="45" y="110" width="12" height="5" rx="1" fill="#10141a" stroke="#06090e" stroke-width="1"/>
+  <rect x="63" y="110" width="12" height="5" rx="1" fill="#10141a" stroke="#06090e" stroke-width="1"/>
+  <rect x="46.5" y="111.2" width="9" height="2.6" rx="1" style="fill: var(--trim, #38f0ff)"/>
+  <rect x="64.5" y="111.2" width="9" height="2.6" rx="1" style="fill: var(--trim, #38f0ff)"/>
+
+  <!-- UPGRADE: afterburner rings, then big hot nozzles -->
+  <g class="up" data-track="rapid" data-level="1">
+    <rect x="44.6" y="106" width="12.8" height="2.6" fill="#ff9a2a"/>
+    <rect x="62.6" y="106" width="12.8" height="2.6" fill="#ff9a2a"/>
   </g>
   <g class="up" data-track="rapid" data-level="3">
-    <rect x="42" y="90" width="15" height="9" rx="4" fill="#ffd23f" stroke="#0a1424" stroke-width="1.5"/>
-    <rect x="63" y="90" width="15" height="9" rx="4" fill="#ffd23f" stroke="#0a1424" stroke-width="1.5"/>
+    <path d="M43 108 L59 108 L58 117 L44 117 Z" fill="url(#cm-hot)" stroke="#06090e" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M61 108 L77 108 L76 117 L62 117 Z" fill="url(#cm-hot)" stroke="#06090e" stroke-width="1.2" stroke-linejoin="round"/>
   </g>
 
-  <!-- body -->
-  <path d="M60 4 C70 18 74 46 74 76 C74 92 70 104 60 108 C50 104 46 92 46 76 C46 46 50 18 60 4 Z" fill="url(#cm-hull)" stroke="#0a1424" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M56 14 C52 30 51 52 51 78 L54 78 C54 52 55 30 58 14 Z" fill="#ffffff" opacity="0.7"/>
-  <path d="M48 62 L72 62 M47 84 L73 84" stroke="#0a1424" stroke-width="1.2" opacity="0.45"/>
-  <rect x="48" y="54" width="4" height="12" rx="1.5" fill="#1a2230"/>
-  <rect x="68" y="54" width="4" height="12" rx="1.5" fill="#1a2230"/>
-  <g fill="#0a1424" opacity="0.5"><circle cx="52" cy="70" r="0.9"/><circle cx="68" cy="70" r="0.9"/><circle cx="52" cy="78" r="0.9"/><circle cx="68" cy="78" r="0.9"/><circle cx="55" cy="96" r="0.9"/><circle cx="65" cy="96" r="0.9"/></g>
-  <path d="M57.5 8 L62.5 8 L62 17 L58 17 Z" style="fill: var(--trim, #38f0ff)"/>
-  <path d="M54 68 L60 75 L66 68" stroke="#ffd23f" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <!-- the middle of the body: light grey spine -->
+  <path d="M60 5 L62.5 12 L64.6 24 L66 38 L66.6 60 L66 84 L64 96 L56 96 L54 84 L53.4 60 L54 38 L55.4 24 L57.5 12 Z" fill="url(#cm-hull)"/>
+  <path d="M54 46 L66 46 M53.6 70 L66.4 70 M54.4 86 L65.6 86" stroke="#0c1118" stroke-width="0.9" opacity="0.6"/>
+  <!-- air intakes beside the cockpit -->
+  <path d="M52.6 40 L50 53 L53.4 55 L55 42 Z" fill="#0b0f15" stroke="#e9eef4" stroke-width="0.7"/>
+  <path d="M67.4 40 L70 53 L66.6 55 L65 42 Z" fill="#0b0f15" stroke="#8a95a3" stroke-width="0.7"/>
+  <!-- light strip down the back (trim colour) -->
+  <rect x="58.8" y="50" width="2.4" height="17" rx="1" style="fill: var(--trim, #38f0ff)"/>
+  <rect x="58.8" y="74" width="2.4" height="8" rx="1" style="fill: var(--trim, #38f0ff)"/>
+  <!-- nose tip light (trim colour) -->
+  <path d="M59 6.5 L61 6.5 L61.8 11 L58.2 11 Z" style="fill: var(--trim, #38f0ff)"/>
+
+  <!-- bright edge where the light catches the left side -->
+  <path d="M57.2 11 L54.8 24 L52.4 36 L46 48 L14 80" stroke="#ffffff" stroke-width="1.1" fill="none" opacity="0.85" stroke-linejoin="round"/>
+  <path d="M8 84.5 L8 95.5 M112 84.5 L112 95.5" stroke="#dfe6ee" stroke-width="1" opacity="0.8"/>
+
+  <!-- nav lights: red on the left, green on the right, white on the fins -->
+  <circle cx="11" cy="89" r="2" fill="#ff3b3b" stroke="#06090e" stroke-width="0.6"/>
+  <circle cx="109" cy="89" r="2" fill="#4dff7c" stroke="#06090e" stroke-width="0.6"/>
+  <circle cx="37" cy="111" r="1.3" fill="#ffffff"/>
+  <circle cx="83" cy="111" r="1.3" fill="#ffffff"/>
 
   <!-- UPGRADE: twin nose guns -->
   <g class="up" data-track="spread" data-level="1">
-    <rect x="48" y="26" width="4" height="20" rx="1.5" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.2"/>
-    <rect x="68" y="26" width="4" height="20" rx="1.5" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1.2"/>
-    <rect x="48" y="24" width="4" height="3" style="fill: var(--trim, #38f0ff)"/>
-    <rect x="68" y="24" width="4" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="50.6" y="26" width="2.8" height="20" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <rect x="66.6" y="26" width="2.8" height="20" fill="url(#cm-gun)" stroke="#06090e" stroke-width="1"/>
+    <rect x="50.6" y="23.5" width="2.8" height="3" style="fill: var(--trim, #38f0ff)"/>
+    <rect x="66.6" y="23.5" width="2.8" height="3" style="fill: var(--trim, #38f0ff)"/>
   </g>
 
-  <!-- cockpit glass -->
-  <path d="M60 24 C66 30 67 40 66 50 L54 50 C53 40 54 30 60 24 Z" fill="url(#cm-glass)" stroke="#0a1424" stroke-width="2"/>
-  <path d="M57.5 30 C55.5 34 55.5 40 56 45 L58 45 C57.5 40 57.5 34 59.5 30 Z" fill="#ffffff" opacity="0.85"/>
-  <path d="M54 42 L66 42" stroke="#0a1424" stroke-width="1.2" opacity="0.6"/>
+  <!-- the cockpit: a slim tinted canopy -->
+  <path d="M60 17 L62.5 25 L63 37 L60 44 L57 37 L57.5 25 Z" fill="url(#cm-glass)" stroke="#06090e" stroke-width="1.3" stroke-linejoin="round"/>
+  <path d="M58.7 24 L58.4 35 L59.3 34 L59.5 24 Z" fill="#ffffff" opacity="0.85"/>
+  <path d="M57.4 33 L62.6 33" stroke="#06090e" stroke-width="0.8" opacity="0.7"/>
 
   <!-- UPGRADE: the railgun. Two long rails down the nose with glowing coils. -->
   <g class="up" data-track="rail" data-level="1">
-    <rect x="54.5" y="0" width="3" height="34" rx="1" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1"/>
-    <rect x="62.5" y="0" width="3" height="34" rx="1" fill="url(#cm-gun)" stroke="#0a1424" stroke-width="1"/>
-    <rect x="56" y="6" width="8" height="2" fill="#ffd23f"/>
-    <rect x="56" y="13" width="8" height="2" fill="#ffd23f"/>
-    <rect x="56" y="20" width="8" height="2" fill="#ffd23f"/>
-    <rect x="57.5" y="0" width="5" height="3" fill="#fff6c0"/>
+    <rect x="54.4" y="0" width="2.8" height="38" fill="url(#cm-gun)" stroke="#06090e" stroke-width="0.9"/>
+    <rect x="62.8" y="0" width="2.8" height="38" fill="url(#cm-gun)" stroke="#06090e" stroke-width="0.9"/>
+    <rect x="55" y="4" width="10" height="2" fill="#ffd23f"/>
+    <rect x="55" y="10" width="10" height="2" fill="#ffd23f"/>
+    <rect x="55" y="16" width="10" height="2" fill="#ffd23f"/>
+    <rect x="57.2" y="0" width="5.6" height="2.4" fill="#fff6c0"/>
   </g>
 
   <!-- UPGRADE: the beam lens on the nose -->
   <g class="up" data-track="beam" data-level="1">
-    <circle cx="60" cy="12" r="4.5" fill="url(#cm-lens)" stroke="#2a0a1e" stroke-width="1.5"/>
+    <circle cx="60" cy="11" r="4" fill="url(#cm-lens)" stroke="#2a0a1e" stroke-width="1.3"/>
   </g>
   <g class="up" data-track="beam" data-level="2">
-    <ellipse cx="60" cy="19" rx="7" ry="2" fill="none" stroke="#ff8ad0" stroke-width="2"/>
-    <ellipse cx="60" cy="24" rx="8" ry="2.2" fill="none" stroke="#ff8ad0" stroke-width="2"/>
+    <ellipse cx="60" cy="18" rx="6" ry="1.8" fill="none" stroke="#ff8ad0" stroke-width="1.8"/>
+    <ellipse cx="60" cy="23" rx="7.2" ry="2" fill="none" stroke="#ff8ad0" stroke-width="1.8"/>
   </g>
   <g class="up" data-track="beam" data-level="3">
-    <circle cx="60" cy="10" r="7" fill="url(#cm-lens)" stroke="#2a0a1e" stroke-width="1.5"/>
-    <path d="M52 12 L46 6 M68 12 L74 6" stroke="#ff8ad0" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M53 14 L47 5 M67 14 L73 5" stroke="#3a424e" stroke-width="3" stroke-linecap="round"/>
+    <path d="M53 14 L47 5 M67 14 L73 5" stroke="#ff8ad0" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="60" cy="9" r="6.5" fill="url(#cm-lens)" stroke="#2a0a1e" stroke-width="1.4"/>
   </g>
 </svg>
