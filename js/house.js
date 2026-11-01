@@ -467,12 +467,22 @@ function drawRooms(svg) {
     }));
     /* a locked room (data/puzzles.js) gets chains and a padlock */
     if (room.lock) g.append(drawRoomLock(room));
+    /* a room that is shut tonight gets a sign (setClosedRooms) */
+    const shut = make('g', { class: 'room-shut', 'aria-hidden': 'true' });
+    shut.append(make('rect', { x: room.x, y: room.y, width: room.w, height: room.h, rx: 4, class: 'room-shut-cover' }));
+    const sw = Math.min(room.w - 16, 132);
+    shut.append(make('rect', { x: room.x + room.w / 2 - sw / 2, y: room.y + room.h / 2 - 16, width: sw, height: 32, rx: 6, class: 'room-shut-sign' }));
+    const words = make('text', { x: room.x + room.w / 2, y: room.y + room.h / 2 + 6, class: 'room-shut-words' });
+    words.textContent = room.w < 140 ? 'SHUT' : 'NOT TONIGHT';
+    shut.append(words);
+    g.append(shut);
 
     const tag = make('g', { class: 'room-tag' });
-    const label = make('text', { x: room.x + 10, y: room.y + 17, class: 'room-name' });
+    /* big enough to read on the whole house map */
+    const label = make('text', { x: room.x + 11, y: room.y + 23, class: 'room-name' });
     label.textContent = room.name;
-    const tagW = room.name.length * 8.4 + 14;
-    tag.append(make('rect', { x: room.x + 4, y: room.y + 5, width: tagW, height: 17, rx: 8.5, class: 'room-tag-bg' }));
+    const tagW = Math.min(room.w - 8, room.name.length * 11.2 + 16);
+    tag.append(make('rect', { x: room.x + 4, y: room.y + 5, width: tagW, height: 25, rx: 12.5, class: 'room-tag-bg' }));
     tag.append(label);
     g.append(tag);
 
@@ -719,8 +729,16 @@ function makeSpot(g, roomId, name, kind = 'hide', id = `${roomId}-${slug(name)}`
     }
   };
   const look = (event) => {
-    if (!g.classList.contains('is-here')) return;
+    /* in another room? walk there, then look when you arrive */
+    if (!g.classList.contains('is-here')) {
+      if (view.mode !== 'search' || !view.onRoomClick || tooSoon()) return;
+      event.stopPropagation();
+      view.goingTo = spot;
+      view.onRoomClick(roomId);
+      return;
+    }
     event.stopPropagation();
+    if (tooSoon()) return;
     search(spot);
   };
 
@@ -845,6 +863,14 @@ function lockedSpot(spot) {
    The little padlock on a hiding place is placed by measuring the
    drawing, which only works once it is on screen, so it tries
    again on the next frame if it has to. */
+/* Look inside a hiding place as if you had tapped it. Used when a
+   puzzle opens something, so what is inside goes straight in your
+   bag without another tap. */
+export function searchLocked(lock) {
+  const spot = spots.find((s) => s.lock === lock);
+  if (spot) search(spot);
+}
+
 export function refreshLocks(tries = 0) {
   if (!view.svg) return;
   const locked = (lock) => Boolean(lock && view.lockGate && view.lockGate.isLocked(lock));
@@ -907,14 +933,39 @@ function countSpots(roomId) {
 
 /* Only the hiding places in the room you are in can be pointed at
    or tabbed to. */
+/* A little twinkle on a hiding place you have not looked in yet.
+   It goes when you have searched it (css/house.css). Drawn the first
+   time you go in the room, because that is when it can be measured. */
+function addSparkle(spot) {
+  if (spot.kind !== 'hide' || spot.node.querySelector('.spot-sparkle')) return;
+  let box;
+  try { box = spot.node.getBBox(); } catch (e) { return; }
+  if (!box.width) return;
+  const x = box.x + box.width - 4;
+  const y = box.y + 4;
+  const r = 7;
+  const star = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  star.setAttribute('class', 'spot-sparkle');
+  star.setAttribute('d', `M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r}Z`);
+  star.setAttribute('aria-hidden', 'true');
+  spot.node.append(star);
+}
+
 function wakeSpots(roomId) {
   const on = view.mode === 'search' ? roomId : null;
   spots.forEach((spot) => {
     const here = spot.room === on;
     spot.node.classList.toggle('is-here', here);
     spot.node.setAttribute('tabindex', here ? '0' : '-1');
+    if (here) addSparkle(spot);
   });
   countSpots(on);
+  /* you tapped a hiding place from the next room: look in it now */
+  const wanted = view.goingTo;
+  if (wanted && wanted.room === on && !state.walking) {
+    view.goingTo = null;
+    setTimeout(() => { if (state.scavenging) search(wanted); }, 250);
+  }
 }
 
 /* --- THE LEGEND ----------------------------------------------
@@ -1160,7 +1211,7 @@ export function setHouseMode(mode) {
   if (view.legend) view.legend.hidden = mode !== 'rig';
   if (view.caption) {
     view.caption.textContent = mode === 'rig'
-      ? 'Point at a glowing spot, or press Tab, to see what goes there.'
+      ? 'Point at a glowing spot to see what goes there.'
       : '';
   }
   const open = view.svg.querySelector('.room.is-open');
@@ -1201,12 +1252,41 @@ function neighbour(id, dir) {
   return row[0] || null;
 }
 
+/* Two things made taps land in the wrong place:
+   1. closing a pop up, and the same tap going through to the house
+   2. the picture sliding while your finger was coming down.
+   So: ignore the house for a moment after a pop up closes, and use
+   the room your finger first touched, not where it let go. */
+let quietUntil = 0;
+document.addEventListener('close', () => { quietUntil = performance.now() + 450; }, true);
+export function tooSoon() { return performance.now() < quietUntil; }
+
+/* Rooms shut tonight look shut. Pass [] to open them all again. */
+export function setClosedRooms(ids) {
+  if (!view.svg) return;
+  view.svg.querySelectorAll('.room').forEach((g) => {
+    const shut = ids.includes(g.dataset.room);
+    g.classList.toggle('is-closed', shut);
+    const cover = view.svg.querySelector(`.room-shut[data-room="${g.dataset.room}"]`);
+    if (cover) cover.classList.toggle('is-on', shut);
+    g.setAttribute('aria-label', shut ? `${findRoom(g.dataset.room).name}, shut tonight` : `Look inside the ${findRoom(g.dataset.room).name}`);
+  });
+}
+let touched = { room: null, at: 0 };
+
 function wireCamera(svg) {
   svg.querySelectorAll('.room').forEach((g) => {
     /* In the scavenge, tapping a room sends Hendrix walking there
        (js/hero.js takes over). The rest of the time it just zooms. */
-    const open = () => (view.onRoomClick ? view.onRoomClick(g.dataset.room) : zoomToRoom(g.dataset.room));
-    g.addEventListener('click', open);
+    const open = (id = g.dataset.room) => (view.onRoomClick ? view.onRoomClick(id) : zoomToRoom(id));
+    g.addEventListener('pointerdown', () => { touched = { room: g.dataset.room, at: performance.now() }; });
+    g.addEventListener('click', () => {
+      if (tooSoon()) return;
+      view.goingTo = null;
+      const fresh = touched.room && performance.now() - touched.at < 700;
+      open(fresh ? touched.room : g.dataset.room);
+      touched = { room: null, at: 0 };
+    });
     g.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
     });
@@ -1250,6 +1330,13 @@ export function buildHouse(container, caption, legend, hud, onRoom) {
   view.heroLayer = make('g', { class: 'hero-layer' });
   svg.append(view.heroLayer);
   drawAnchors(svg, caption);
+  /* the "not tonight" covers go on top of everything in the room */
+  const shutLayer = make('g', { class: 'shut-layer' });
+  svg.querySelectorAll('.room').forEach((g) => {
+    const shut = g.querySelector('.room-shut');
+    if (shut) { shut.dataset.room = g.dataset.room; shutLayer.append(shut); }
+  });
+  svg.append(shutLayer);
 
   container.append(svg);
   if (legend) buildLegend(legend);

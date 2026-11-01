@@ -294,6 +294,10 @@
      ========================================================= -->
 <section class="screen" data-screen="phase">
 
+  <!-- WANTED: who is coming tonight and what each one hates, as
+       pictures. js/wanted.js fills it in. -->
+  <aside class="wanted" id="wanted" aria-label="Tonight's burglars" hidden></aside>
+
   <!-- THE SCAVENGE BAR: the clock, your bag, and a way to stop
        early. js/scavenge.js fills it in. -->
   <div class="scavenge-bar" id="scavenge-bar" hidden>
@@ -319,6 +323,7 @@
   <dialog class="puzzle panel" id="puzzle" aria-labelledby="puzzle-title">
     <div class="pz-head">
       <h2 id="puzzle-title">Locked</h2>
+      <button type="button" class="btn btn-quiet pz-read" id="puzzle-read" aria-label="Read it to me">&#128266; Read it to me</button>
       <p class="pz-time">Time <span id="puzzle-time">0:00</span></p>
     </div>
     <p class="pz-clue" id="puzzle-clue"></p>
@@ -361,10 +366,15 @@
     <!-- What you just built, its blueprint question, and Peek at
          the code. Not in the sticky bit at the top, so it never
          covers your junk. -->
-    <div class="panel ws-made-panel">
+    <!-- What you just built pops up on top, with its blueprint
+         question and Peek at the code. -->
+    <dialog class="panel ws-made-dialog" id="ws-made-dialog" aria-label="Your new trap">
       <div class="ws-result" id="ws-result" aria-live="polite"></div>
       <div class="ws-extra" id="ws-extra" hidden></div>
-    </div>
+      <div class="start-row">
+        <button type="button" class="btn btn-big" id="ws-made-close">Back to the bench</button>
+      </div>
+    </dialog>
 
     <div class="panel">
       <h2>Your junk</h2>
@@ -412,13 +422,17 @@
         <strong id="room-hud-name">The whole house</strong>
         <span id="room-hud-note">Tap a room to look inside.</span>
       </p>
-      <button type="button" class="btn btn-quiet" id="zoom-out" hidden>Whole house</button>
+      <p class="hud-clock" id="hud-clock" role="timer" aria-label="Time left" hidden>0:00</p>
+      <button type="button" class="btn house-btn" id="zoom-out" hidden>Whole house</button>
     </div>
     <div class="house-scene" id="house"></div>
+    <div class="catch-burst" id="catch-burst" aria-hidden="true"></div>
     <!-- At night: each burglar's nerve, pinned under the house so it
          is always in sight. js/night.js fills it in. -->
     <div class="night-meters" id="night-meters" hidden></div>
-    <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot, or press Tab, to see what goes there.</p>
+    <!-- At night: three big gadget buttons, right by the house. -->
+    <div hidden class="night-gadgets" id="night-gadgets" role="group" aria-label="Your gadgets"></div>
+    <p class="house-caption" id="house-caption" aria-live="polite">Point at a glowing spot to see what goes there.</p>
     <ul class="legend" id="legend" aria-label="What the glowing spots mean"></ul>
   </div>
 
@@ -434,7 +448,6 @@
       </div>
     </div>
     <div class="night-cams" id="night-cams" role="group" aria-label="What the monitors show"></div>
-    <div class="night-gadgets" id="night-gadgets" role="group" aria-label="Your gadgets"></div>
     <ol class="night-log" id="night-log" aria-label="What the monitors saw"></ol>
     <p class="night-haul" id="night-haul"></p>
   </div>

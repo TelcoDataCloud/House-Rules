@@ -138,6 +138,11 @@ export function walkTo(roomId) {
     return;
   }
   me.then = null;
+  /* a room that is not open tonight (a smaller house with a clock) */
+  if (gate && gate.closed && gate.closed(roomId)) {
+    sayInHud('Not tonight', `The ${findRoom(roomId).name.toLowerCase()} is shut tonight. It opens on another night.`);
+    return;
+  }
   /* locked? walk to the room next to it instead, then try the lock */
   if (gate && gate.blocked(roomId)) {
     const way = findWay(state.heroRoom, roomId);
@@ -158,7 +163,8 @@ export function walkTo(roomId) {
   state.walking = true;
   me.node.classList.add('is-walking');
   startFollowing();
-  sayInHud('Walking', `To the ${findRoom(roomId).name}.`);
+  const name = findRoom(roomId).name;
+  sayInHud('Walking', /'s\b/.test(name) ? `To ${name}.` : `To the ${name.toLowerCase()}.`);
   me.last = performance.now();
   me.frame = requestAnimationFrame(step);
 }
