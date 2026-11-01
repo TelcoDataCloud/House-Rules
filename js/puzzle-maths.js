@@ -231,6 +231,10 @@ function makeKeypad(level) {
 /* --- THE TV PATTERN ------------------------------------------ */
 
 const PATTERNS = {
+  ones: () => { const s = between(1, 10); return (i) => s + i; },
+  twos: () => { const s = between(1, 5) * 2; return (i) => s + 2 * i; },
+  fives: () => { const s = between(1, 4) * 5; return (i) => s + 5 * i; },
+  tens: () => { const s = between(1, 4) * 10; return (i) => s + 10 * i; },
   up: () => { const s = between(2, 30); const k = between(2, 9); return (i) => s + k * i; },
   down: () => { const k = between(3, 9); const s = between(k * 6 + 5, 99); return (i) => s - k * i; },
   doubles: () => { const s = between(2, 7); return (i) => s * 2 ** i; },
@@ -267,7 +271,7 @@ function makeMirror(level) {
     const fill = (words) => words.replace(/\b([abc])\b/g, (m, k) => String(n[k]));
     const sum = fill(q.answer);
     const answer = workOut(sum);
-    if (answer >= 0) return { ask: `${fill(q.ask)}?`, answer, upsideDown: rules.upsideDown };
+    if (answer >= 0) return { ask: `${fill(q.ask)}${q.ask.endsWith('=') ? ' ?' : '?'}`, answer, upsideDown: rules.upsideDown };
   }
   return { ask: 'WHAT IS 2 + 2?', answer: 4, upsideDown: false };
 }
@@ -292,10 +296,11 @@ function makeMorse(level) {
 /* --- THE BOOKS ----------------------------------------------- */
 
 function bookFor(kind) {
-  if (kind === 'plain') { const v = between(3, 99); return { v, say: String(v) }; }
+  if (kind === 'small') { const v = between(1, 20); return { v, say: String(v) }; }
+  if (kind === 'plain') { const v = between(3, 60); return { v, say: String(v) }; }
   if (kind === 'add') { const a = between(10, 60); const b = between(5, 39); return { v: a + b, say: `${a} + ${b}` }; }
   if (kind === 'take') { const a = between(40, 99); const b = between(5, 39); return { v: a - b, say: `${a} - ${b}` }; }
-  if (kind === 'times') { const a = between(2, 12); const b = between(2, 12); return { v: a * b, say: `${a} ${X} ${b}` }; }
+  if (kind === 'times') { const a = between(2, 5); const b = between(2, 10); return { v: a * b, say: `${a} ${X} ${b}` }; }
   if (kind === 'times-take') {
     const a = between(4, 12); const b = between(4, 12); const c = between(2, 19);
     return { v: a * b - c, say: `${a} ${X} ${b} - ${c}` };

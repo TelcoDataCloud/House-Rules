@@ -14,7 +14,7 @@ import { MORSE_CODE } from './puzzle-maths.js';
 /* --- THE GARAGE KEYPAD: clues on a sticky note -------------- */
 
 function buildKeypad(k, p) {
-  k.clue(`Dad's sticky note on the garage door. No number is used twice. Every clue is true:`, true);
+  k.clue(`Dad's note says:`, true);
   const note = k.el('ol', 'pz-clues');
   p.clues.forEach((c) => note.append(k.el('li', '', c)));
   const pad = k.numberPad(p.code.length, (typed) => {
@@ -28,6 +28,7 @@ function buildKeypad(k, p) {
   });
   k.body.append(note, pad.node);
   return {
+    read: () => p.clues.join(' '),
     hint(n) { return `The ${['first', 'second', 'third', 'fourth'][n - 1]} number is ${p.code[n - 1]}.`; }
   };
 }
@@ -35,7 +36,7 @@ function buildKeypad(k, p) {
 /* --- THE TV CABINET: what comes next? ----------------------- */
 
 function buildTelly(k, p) {
-  k.clue('The TV cabinet has a parental lock. The telly shows a pattern. Type the number that comes next.');
+  k.clue('What number comes next?');
   const screen = k.el('div', 'pz-screen');
   screen.setAttribute('aria-label', `The pattern: ${p.shown.join(', ')}, then what?`);
   p.shown.forEach((n) => screen.append(k.el('span', 'pz-screen-num', String(n))));
@@ -50,6 +51,7 @@ function buildTelly(k, p) {
   k.body.append(screen, pad.node);
   const gaps = p.shown.slice(1).map((n, i) => n - p.shown[i]);
   return {
+    read: () => `${p.shown.join(', ')}, then what?`,
     hint(n) {
       if (n === 1) {
         const ratio = p.shown.slice(1).every((x, i) => x === p.shown[i] * 2) ? ' Look: each one is double the one before.' : '';
@@ -65,8 +67,8 @@ function buildTelly(k, p) {
 
 function buildMirror(k, p) {
   k.clue(p.upsideDown
-    ? 'Somebody wrote a question in the steam on the mirror. Back to front AND upside down. Read it, work it out, type the answer.'
-    : 'Somebody wrote a question in the steam on the mirror, back to front. Read it, work it out, type the answer.');
+    ? 'A sum on the steamy mirror. It is upside down! What is the answer?'
+    : 'A sum on the steamy mirror. It is back to front! What is the answer?');
   const glass = k.el('div', 'pz-mirror');
   const words = k.el('p', `pz-mirror-words${p.upsideDown ? ' is-upside-down' : ''}`, p.ask);
   glass.setAttribute('role', 'img');
@@ -82,6 +84,7 @@ function buildMirror(k, p) {
   });
   k.body.append(glass, pad.node);
   return {
+    read: () => p.ask,
     hint(n) {
       if (n === 1) return `The right way round it says: ${p.ask}`;
       const lo = Math.floor(p.answer / 10) * 10;
@@ -106,7 +109,7 @@ function beep(word, k) {
 }
 
 function buildMorse(k, p) {
-  k.clue('The key safe by the door beeps a word in Morse code. A dot is a short beep, a dash is a long one. Find each group in the chart and tap that letter.');
+  k.clue('Beep code! Find each box of dots and dashes in the chart. Tap that letter.');
   const tape = k.el('div', 'pz-morse');
   tape.setAttribute('aria-label', `The beeps: ${p.word.split('').map((l) => MORSE_CODE[l].replace(/\./g, 'dot ').replace(/-/g, 'dash ').trim()).join(', then ')}`);
   p.word.split('').forEach((letter) => {
@@ -161,7 +164,7 @@ function buildMorse(k, p) {
 /* --- THE BOOKSHELF: smallest to biggest --------------------- */
 
 function buildBooks(k, p) {
-  k.clue('The bookshelf has a secret drawer. Pull the books out from the SMALLEST number to the BIGGEST. Work out the sums first.');
+  k.clue('Tap the books from SMALLEST to BIGGEST.');
   const sorted = [...p.books].sort((a, b) => a.v - b.v);
   let next = 0;
   const shelf = k.el('div', 'pz-shelf');
@@ -188,6 +191,7 @@ function buildBooks(k, p) {
   });
   k.body.append(shelf);
   return {
+    read: () => `The books say: ${p.books.map((b) => b.say).join(', ')}.`,
     hint(n) {
       const from = next < sorted.length ? next : 0;
       const bit = sorted.slice(from, from + n);

@@ -36,6 +36,7 @@ import { state } from './state.js';
 import { SAFE, PIANO, HINTS } from '../data/puzzles.js';
 import { ROOMS } from '../data/rooms.js';
 import { sfx } from './audio.js';
+import { speak, hush } from './voice.js';
 import { hidingPlaces } from './house.js';
 import { makeAll } from './puzzle-maths.js';
 import { MORE } from './puzzles-more.js';
@@ -194,7 +195,7 @@ function buildSafe(k, p) {
   const found = () => state.notes.includes('safe');
   clue(found()
     ? `Dad's note says: "${noteText()}"`
-    : 'Locked. Dad can never remember codes, so he writes them down. Find his note. It is somewhere downstairs.', found());
+    : 'Locked! Dad wrote the code on a note. Find the note. It is downstairs.', found());
   const dials = el('div', 'pz-dials');
   const value = p.code.map(() => 0);
   value.forEach((_, i) => {
@@ -235,7 +236,7 @@ function buildSafe(k, p) {
 /* --- THE SHED: jumbled letters, tap them in order ----------- */
 
 function buildShed(k, p) {
-  clue(`The tag on the padlock says: "${p.riddle}"${p.spare.length ? ` (Watch out: ${p.spare.length === 1 ? 'one letter is' : 'two letters are'} not needed.)` : ''}`);
+  clue(`The tag says: "${p.riddle}" Spell the answer.${p.spare.length ? ` One letter is not needed.` : ''}`);
   const slots = el('div', 'pz-slots');
   const tiles = el('div', 'pz-tiles');
   const picked = [];                       // which tile is in each slot, in order
@@ -294,8 +295,8 @@ function buildShed(k, p) {
 
 function buildPiano(k, p) {
   clue(p.peek
-    ? `There is music on the stand, but the window is open. It will blow away in ${p.peek} seconds. Remember it, then play it.`
-    : 'The lid is locked. There is music on the stand. Play the colours in order.');
+    ? `Look at the music. It blows away in ${p.peek} seconds! Then play it.`
+    : 'Play the colours on the music, in order.');
   const music = el('ol', 'pz-music');
   music.setAttribute('aria-label', `The music: ${p.tune.join(', ')}`);
   const notes = p.tune.map((colour) => {
@@ -348,7 +349,7 @@ function buildPiano(k, p) {
 /* --- THE FUSE BOX: flip fuses that add up to the label ------ */
 
 function buildFuse(k, p) {
-  clue(`The cellar lights are out. The label on the fuse box says: NEEDS ${p.target}. Flip on fuses that add up to ${p.target}, then pull the big switch.`, true);
+  clue(`The lights are out! Turn on fuses that add up to ${p.target}. Then pull the big switch.`, true);
   const on = p.fuses.map(() => false);
   const row = el('div', 'pz-fuses');
   const total = el('p', 'pz-total', 'On: 0');
@@ -397,7 +398,7 @@ function drawHint() {
   const used = state.hintsUsed[current.lock] || 0;
   const left = HINTS.most - used;
   ui.hint.disabled = left <= 0 || !current.helper || state.unlocked.includes(current.lock);
-  ui.hint.textContent = left > 0 ? `Hint (costs ${HINTS.cost} seconds)` : 'No hints left';
+  ui.hint.textContent = left <= 0 ? 'No hints left' : state.untimed ? 'Hint' : `Hint (costs ${HINTS.cost} seconds)`;
 }
 
 function useHint() {
@@ -405,7 +406,7 @@ function useHint() {
   const used = (state.hintsUsed[current.lock] || 0) + 1;
   if (used > HINTS.most) return;
   state.hintsUsed[current.lock] = used;
-  state.timeLeft = Math.max(1, state.timeLeft - HINTS.cost);
+  if (!state.untimed) state.timeLeft = Math.max(1, state.timeLeft - HINTS.cost);
   showTime();
   onTime();
   sfx.select();
@@ -440,6 +441,8 @@ export function openPuzzle(lock, onSolved) {
   }
   drawHint();
   showTime();
+  /* on Easy, the game reads it out as soon as it opens */
+  if (state.puzzleLevel === 'easy' && state.soundOn) setTimeout(readAloud, 250);
   if (!ui.dialog.open) {
     if (ui.dialog.showModal) ui.dialog.showModal(); else ui.dialog.setAttribute('open', '');
   }
@@ -449,6 +452,7 @@ export function openPuzzle(lock, onSolved) {
 
 export function closePuzzle() {
   timers.splice(0).forEach(clearTimeout);
+  hush();
   current = null;
   if (ui.dialog && ui.dialog.open) {
     if (ui.dialog.close) ui.dialog.close(); else ui.dialog.removeAttribute('open');
@@ -464,6 +468,7 @@ export function puzzleOpen() {
 export function showTime() {
   if (!ui.time) return;
   const t = Math.max(0, state.timeLeft);
+  ui.time.parentElement.hidden = state.untimed;          // no clock, nothing to show
   ui.time.textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 }
 
@@ -475,8 +480,17 @@ export function showClockMode(mode) {
 
 export function setPuzzleTimeListener(fn) { onTime = fn; }
 
+/* Read the puzzle out loud, for anyone still learning to read.
+   A puzzle can add more words with a read() of its own. */
+function readAloud() {
+  if (!current) return;
+  const more = current.helper && current.helper.read ? ` ${current.helper.read()}` : '';
+  speak(`${ui.clue.textContent}${more}`.replace(/\bx\b/g, 'times').replace(/×/g, 'times').replace(/ - /g, ' take away '));
+}
+
 export function setupPuzzles(els) {
   Object.assign(ui, els);
+  if (ui.read) ui.read.addEventListener('click', () => { sfx.tick(); readAloud(); });
   ui.leave.addEventListener('click', () => { sfx.back(); closePuzzle(); });
   ui.hint.addEventListener('click', useHint);
   /* Escape closes it too (the browser does that for a dialog);

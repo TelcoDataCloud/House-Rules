@@ -26,13 +26,13 @@
    =========================================================== */
 
 export const PUZZLE_LEVELS = [
-  { id: 'easy',        name: 'Easy',         note: 'Small sums. A warm up.' },
-  { id: 'tricky',      name: 'Tricky',       note: 'Times tables, bigger sums, longer tunes.' },
-  { id: 'brainbuster', name: 'Brainbuster',  note: 'Proper hard. Two steps, no help.' }
+  { id: 'easy',        name: 'Easy',         note: 'Little sums. Short words.' },
+  { id: 'tricky',      name: 'Tricky',       note: 'Times tables and bigger sums.' },
+  { id: 'brainbuster', name: 'Brainbuster',  note: 'Two step sums. For grown ups.' }
 ];
 
 /* Which one is picked when the game starts. */
-export const DEFAULT_PUZZLE_LEVEL = 'tricky';
+export const DEFAULT_PUZZLE_LEVEL = 'easy';
 
 /* HINTS. Every puzzle has a Hint button. A hint costs seconds off
    your scavenge clock, so it is a trade. cost is how many seconds,
@@ -62,8 +62,8 @@ export const SAFE = {
   noteSays: 'Safe code. Do not tell the kids!',
   levels: {
     easy:        { digits: 3, kinds: ['add'] },
-    tricky:      { digits: 3, kinds: ['take', 'times-take'] },
-    brainbuster: { digits: 4, kinds: ['times-take', 'square-take', 'two-times'] }
+    tricky:      { digits: 3, kinds: ['add', 'times'] },
+    brainbuster: { digits: 3, kinds: ['take', 'times-take'] }
   }
 };
 
@@ -100,9 +100,9 @@ export const SHED = {
     { riddle: 'Nine of us go round the sun.', word: 'PLANETS' }
   ],
   levels: {
-    easy:        { shortest: 3, longest: 4, spare: 0 },
-    tricky:      { shortest: 4, longest: 5, spare: 1 },
-    brainbuster: { shortest: 5, longest: 7, spare: 2 }
+    easy:        { shortest: 3, longest: 3, spare: 0 },
+    tricky:      { shortest: 3, longest: 4, spare: 0 },
+    brainbuster: { shortest: 4, longest: 6, spare: 1 }
   }
 };
 
@@ -117,9 +117,9 @@ export const PIANO = {
   name: 'Piano lid',
   keys: ['red', 'yellow', 'green', 'blue', 'pink'],
   levels: {
-    easy:        { notes: 4, peek: 0 },
-    tricky:      { notes: 6, peek: 0 },
-    brainbuster: { notes: 8, peek: 6 }
+    easy:        { notes: 3, peek: 0 },
+    tricky:      { notes: 4, peek: 0 },
+    brainbuster: { notes: 6, peek: 8 }
   }
 };
 
@@ -141,8 +141,8 @@ export const FUSE = {
   name: 'Fuse box',
   levels: {
     easy:        { fuses: [1, 2, 3, 4, 5],         pick: 2 },
-    tricky:      { fuses: [3, 4, 6, 7, 9, 11],     pick: 3 },
-    brainbuster: { fuses: [1, 2, 4, 8, 16, 32],    pick: 4 }
+    tricky:      { fuses: [1, 2, 3, 4, 5, 6],      pick: 3 },
+    brainbuster: { fuses: [1, 2, 4, 8, 16, 32],    pick: 3 }
   }
 };
 
@@ -165,9 +165,9 @@ export const FUSE = {
 export const KEYPAD = {
   name: 'Garage keypad',
   levels: {
-    easy:        { digits: 3, clues: ['is', 'plus', 'odd'] },
-    tricky:      { digits: 3, clues: ['plus', 'double', 'total', 'odd', 'bigger'] },
-    brainbuster: { digits: 4, clues: ['times', 'double', 'total', 'apart', 'odd', 'bigger'] }
+    easy:        { digits: 3, clues: ['is'] },
+    tricky:      { digits: 3, clues: ['is', 'plus', 'double'] },
+    brainbuster: { digits: 3, clues: ['plus', 'double', 'total', 'odd', 'bigger'] }
   }
 };
 
@@ -176,6 +176,10 @@ export const KEYPAD = {
    of numbers. Type the next number and it opens.
 
    kinds is which patterns the game can use:
+       ones       counting                          4, 5, 6, 7
+       twos       counting in twos                  2, 4, 6, 8
+       fives      counting in fives                 5, 10, 15
+       tens       counting in tens                  10, 20, 30
        up         goes up the same each time        4, 7, 10, 13
        down       goes down the same each time      50, 44, 38
        doubles    doubles every time                3, 6, 12, 24
@@ -189,9 +193,9 @@ export const KEYPAD = {
 export const TELLY = {
   name: 'TV cabinet',
   levels: {
-    easy:        { kinds: ['up', 'down'] },
-    tricky:      { kinds: ['doubles', 'growing', 'squares', 'zigzag'] },
-    brainbuster: { kinds: ['times3', 'twoback', 'double-up', 'squares', 'zigzag'] }
+    easy:        { kinds: ['ones', 'twos', 'tens'] },
+    tricky:      { kinds: ['twos', 'fives', 'tens', 'up'] },
+    brainbuster: { kinds: ['down', 'doubles', 'growing', 'zigzag'] }
   }
 };
 
@@ -208,18 +212,16 @@ export const MIRROR = {
   name: 'Bathroom cabinet',
   levels: {
     easy: { upsideDown: false, questions: [
-      { ask: 'WHAT IS a + b', a: [5, 20], b: [5, 20], answer: 'a + b' },
-      { ask: 'WHAT IS a TAKE b', a: [20, 40], b: [2, 19], answer: 'a - b' }
+      { ask: 'a + b =', a: [1, 9], b: [1, 9], answer: 'a + b' },
+      { ask: 'a - b =', a: [6, 15], b: [1, 5], answer: 'a - b' }
     ] },
     tricky: { upsideDown: false, questions: [
-      { ask: 'WHAT IS a TIMES b', a: [6, 12], b: [6, 12], answer: 'a * b' },
-      { ask: 'a BAGS OF b SWEETS. HOW MANY SWEETS', a: [3, 9], b: [4, 12], answer: 'a * b' },
-      { ask: 'WHAT IS a TIMES b TAKE c', a: [5, 12], b: [3, 9], c: [1, 9], answer: 'a * b - c' }
+      { ask: 'a x b =', a: [2, 5], b: [1, 10], answer: 'a * b' },
+      { ask: 'a + b =', a: [10, 30], b: [5, 20], answer: 'a + b' }
     ] },
     brainbuster: { upsideDown: true, questions: [
-      { ask: 'a BAGS OF b SWEETS. DAD EATS c. HOW MANY LEFT', a: [4, 9], b: [6, 12], c: [3, 15], answer: 'a * b - c' },
-      { ask: 'WHAT IS a TIMES b PLUS c TIMES 2', a: [6, 12], b: [6, 12], c: [5, 25], answer: 'a * b + c * 2' },
-      { ask: 'a BURGLARS. b TRAPS EACH. c MISSED. HOW MANY HIT', a: [2, 9], b: [3, 9], c: [1, 6], answer: 'a * b - c' }
+      { ask: 'a x b - c =', a: [2, 10], b: [2, 10], c: [1, 9], answer: 'a * b - c' },
+      { ask: 'a x b + c =', a: [2, 10], b: [2, 10], c: [1, 9], answer: 'a * b + c' }
     ] }
   }
 };
@@ -235,9 +237,9 @@ export const MIRROR = {
 export const MORSE = {
   name: 'Key safe',
   levels: {
-    easy:        { chart: 10, words: ['SOS', 'CAT', 'DOG', 'HAT', 'BIN', 'MAT'] },
-    tricky:      { chart: 16, words: ['TRAP', 'BELL', 'KEYS', 'SAFE', 'JUMP', 'SLIP'] },
-    brainbuster: { chart: 26, words: ['BURGLAR', 'MARBLE', 'CUSTARD', 'PYJAMAS', 'HONEY', 'GOTCHA'] }
+    easy:        { chart: 6,  words: ['SOS', 'CAT', 'DOG', 'HAT', 'SUN', 'MUM', 'DAD'] },
+    tricky:      { chart: 10, words: ['CAT', 'DOG', 'BED', 'TRAP', 'BELL', 'JAM'] },
+    brainbuster: { chart: 26, words: ['TRAP', 'BELL', 'KEYS', 'HONEY', 'MARBLE'] }
   }
 };
 
@@ -247,15 +249,15 @@ export const MORSE = {
    numbers on the spines are sums, so work them out first.
 
    books is how many books. kinds is the sort of sum on each spine
-   (the same names as the safe, plus 'plain' for just a number and
-   'times' for a times table).
+   (the same names as the safe, plus 'small' for a number up to 20,
+   'plain' for a number up to 60, and 'times' for a times table).
    =========================================================== */
 export const BOOKS = {
   name: 'Bookshelf',
   levels: {
-    easy:        { books: 5, kinds: ['plain'] },
-    tricky:      { books: 6, kinds: ['add', 'take', 'times'] },
-    brainbuster: { books: 7, kinds: ['times', 'times-take', 'square-take', 'add'] }
+    easy:        { books: 4, kinds: ['small'] },
+    tricky:      { books: 5, kinds: ['plain', 'times'] },
+    brainbuster: { books: 6, kinds: ['times', 'add', 'take'] }
   }
 };
 
@@ -303,7 +305,7 @@ export const HOOVER = {
     tricky: {
       repeat: true,
       maps: [
-        { most: 6, best: 'repeat 3, forward 1, right, forward 1, left, end', map: [
+        { most: 0, best: 'repeat 3, forward 1, right, forward 1, left, end', map: [
           '########',
           '#H.s...#',
           '##..l..#',
@@ -311,7 +313,7 @@ export const HOOVER = {
           '#..#C..#',
           '########'
         ] },
-        { most: 6, best: 'repeat 3, forward 2, right, forward 1, left, end', map: [
+        { most: 0, best: 'repeat 3, forward 2, right, forward 1, left, end', map: [
           '#########',
           '#H..#sb.#',
           '#ll....l#',
