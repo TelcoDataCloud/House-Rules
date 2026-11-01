@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1600" viewBox="0 0 480 1600">
+  <!-- SPACE JUNK, a see through layer that slides over the stars a bit faster.
+       Hendrix: the lumpy grey things are asteroids (space rocks), the little bits are
+       broken ship parts, and the big dark shapes are pieces of old wrecked ships. -->
+<defs>
+<radialGradient id="bgd-rock" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#6e6672"/><stop offset="0.45" stop-color="#4a4350"/><stop offset="0.85" stop-color="#26212c"/><stop offset="1" stop-color="#17131c"/></radialGradient>
+<radialGradient id="bgd-rock2" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#6a5a50"/><stop offset="0.5" stop-color="#43372f"/><stop offset="1" stop-color="#18120f"/></radialGradient>
+<radialGradient id="bgd-crater" cx="0.65" cy="0.7" r="0.7"><stop offset="0" stop-color="#5a5260" stop-opacity="0.6"/><stop offset="0.6" stop-color="#1c1820" stop-opacity="0.85"/><stop offset="1" stop-color="#1c1820" stop-opacity="0"/></radialGradient>
+<linearGradient id="bgd-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a505c"/><stop offset="0.5" stop-color="#2c313a"/><stop offset="1" stop-color="#15181e"/></linearGradient>
+<linearGradient id="bgd-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a808c"/><stop offset="1" stop-color="#2a2e36"/></linearGradient>
+<filter id="bgd-pit" filterUnits="userSpaceOnUse" x="-40" y="-40" width="560" height="1680" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="3" seed="9" stitchTiles="stitch" x="0" y="0" width="480" height="1600" result="n0"/><feTile in="n0" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.06 0 0 0 -2.2 1.2"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+<filter id="bgd-shade" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<g transform="translate(150 360) rotate(18) scale(1.0)" opacity="0.7">
+<path d="M-70 -30L40 -38L62 -20L70 6L48 30L22 22L8 36L-30 30L-44 18L-62 22Z" fill="url(#bgd-hull)" stroke="#5a606c" stroke-width="1"/>
+<path d="M-50 -34V20" stroke="#14171c" stroke-width="1.2"/><path d="M-32 -34V23" stroke="#14171c" stroke-width="1.2"/><path d="M-14 -34V26" stroke="#14171c" stroke-width="1.2"/><path d="M4 -34V28" stroke="#14171c" stroke-width="1.2"/><path d="M22 -34V25" stroke="#14171c" stroke-width="1.2"/><path d="M40 -34V22" stroke="#14171c" stroke-width="1.2"/><path d="M58 -34V19" stroke="#14171c" stroke-width="1.2"/><path d="M-64 -4H62" stroke="#14171c" stroke-width="1.2"/>
+<path d="M-64 -5H62" stroke="#6a707c" stroke-width="0.6" opacity="0.6"/>
+<path d="M62 -24l11 4" stroke="#3a3f4a" stroke-width="2.4" stroke-linecap="round"/><path d="M62 -13l10 1" stroke="#3a3f4a" stroke-width="2.4" stroke-linecap="round"/><path d="M62 -2l17 3" stroke="#3a3f4a" stroke-width="2.4" stroke-linecap="round"/><path d="M62 9l18 -3" stroke="#3a3f4a" stroke-width="2.4" stroke-linecap="round"/><path d="M62 20l17 -4" stroke="#3a3f4a" stroke-width="2.4" stroke-linecap="round"/><rect x="-44" y="-26" width="7" height="5" rx="1" fill="#090b0e"/><rect x="-26" y="-26" width="7" height="5" rx="1" fill="#090b0e"/><rect x="-8" y="-26" width="7" height="5" rx="1" fill="#090b0e"/><rect x="10" y="-26" width="7" height="5" rx="1" fill="#090b0e"/><circle cx="-20" cy="14" r="7" fill="#1c1f26" stroke="#4e5460" stroke-width="1"/><path d="M10 4l18 -4l10 12l-14 10z" fill="#0b0c10" opacity="0.9"/>
+</g>
+<g transform="translate(370 1180) rotate(-14) scale(0.9)" opacity="0.65">
+<path d="M-40 -50L10 -56L36 -40L30 10L44 46L4 58L-18 40L-36 44L-30 0Z" fill="url(#bgd-hull)" stroke="#555b66" stroke-width="1"/>
+<path d="M-34 -30H30M-32 -8H32M-30 18H36M-20 38H30" stroke="#13161b" stroke-width="1.2"/>
+<path d="M-34 -31H30M-32 -9H32" stroke="#6a707c" stroke-width="0.5" opacity="0.5"/>
+<rect x="-14" y="-24" width="26" height="10" fill="#0a0b0f"/><path d="M-8 22h20v12h-20z" fill="#1a1d24" stroke="#4a505c" stroke-width="0.8"/>
+<path d="M36 -40l12 -6M30 10l12 2M44 46l8 6" stroke="#3a3f4a" stroke-width="2.2" stroke-linecap="round"/>
+</g>
+<g opacity="0.85">
+<path d="M413 117.5Q419.1 126.7 411.8 137.3Q404.5 147.9 399.2 154.1Q393.8 160.2 383.5 164Q373.2 167.7 368.8 159.8Q364.3 151.9 356 144.4Q347.7 136.8 351.4 128.9Q355 121 355.1 111.6Q355.2 102.1 363.5 96.1Q371.7 90.2 382.6 98.4Q393.4 106.6 400.2 107.4Q406.9 108.2 413 117.5Z" fill="url(#bgd-rock)"/>
+<path d="M413 117.5Q419.1 126.7 411.8 137.3Q404.5 147.9 399.2 154.1Q393.8 160.2 383.5 164Q373.2 167.7 368.8 159.8Q364.3 151.9 356 144.4Q347.7 136.8 351.4 128.9Q355 121 355.1 111.6Q355.2 102.1 363.5 96.1Q371.7 90.2 382.6 98.4Q393.4 106.6 400.2 107.4Q406.9 108.2 413 117.5Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="386.6" cy="127.3" r="3.8" fill="url(#bgd-crater)"/><path d="M389.2 130A3.8 3.8 0 0 0 384 130" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="379.5" cy="130.3" r="3.8" fill="url(#bgd-crater)"/><path d="M382.2 132.9A3.8 3.8 0 0 0 376.9 132.9" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="371.4" cy="133.5" r="3.8" fill="url(#bgd-crater)"/><path d="M374.1 136.2A3.8 3.8 0 0 0 368.7 136.2" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="380.5" cy="134.1" r="4.9" fill="url(#bgd-crater)"/><path d="M383.9 137.5A4.9 4.9 0 0 0 377.1 137.5" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M413 117.5Q419.1 126.7 411.8 137.3Q404.5 147.9 399.2 154.1Q393.8 160.2 383.5 164Q373.2 167.7 368.8 159.8Q364.3 151.9 356 144.4Q347.7 136.8 351.4 128.9Q355 121 355.1 111.6Q355.2 102.1 363.5 96.1Q371.7 90.2 382.6 98.4Q393.4 106.6 400.2 107.4Q406.9 108.2 413 117.5Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="74 306"/>
+</g>
+<g opacity="0.85">
+<path d="M89.9 605.9Q96.2 612.7 91.1 615.4Q86 618.1 82.2 625.5Q78.4 632.8 72.4 631.3Q66.4 629.8 60.4 628.4Q54.5 627 53.2 621Q52 614.9 50.9 609.7Q49.8 604.4 51.6 596.6Q53.5 588.9 61.3 588.2Q69.1 587.6 73.5 589.8Q78 591.9 80.8 595.5Q83.6 599.1 89.9 605.9Z" fill="url(#bgd-rock2)"/>
+<path d="M89.9 605.9Q96.2 612.7 91.1 615.4Q86 618.1 82.2 625.5Q78.4 632.8 72.4 631.3Q66.4 629.8 60.4 628.4Q54.5 627 53.2 621Q52 614.9 50.9 609.7Q49.8 604.4 51.6 596.6Q53.5 588.9 61.3 588.2Q69.1 587.6 73.5 589.8Q78 591.9 80.8 595.5Q83.6 599.1 89.9 605.9Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="66.2" cy="610.8" r="2.9" fill="url(#bgd-crater)"/><path d="M68.3 612.9A2.9 2.9 0 0 0 64.2 612.9" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="74.9" cy="606" r="3.5" fill="url(#bgd-crater)"/><path d="M77.4 608.4A3.5 3.5 0 0 0 72.5 608.4" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="70" cy="610.3" r="2.8" fill="url(#bgd-crater)"/><path d="M72 612.2A2.8 2.8 0 0 0 68.1 612.2" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M89.9 605.9Q96.2 612.7 91.1 615.4Q86 618.1 82.2 625.5Q78.4 632.8 72.4 631.3Q66.4 629.8 60.4 628.4Q54.5 627 53.2 621Q52 614.9 50.9 609.7Q49.8 604.4 51.6 596.6Q53.5 588.9 61.3 588.2Q69.1 587.6 73.5 589.8Q78 591.9 80.8 595.5Q83.6 599.1 89.9 605.9Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="48 198"/>
+</g>
+<g opacity="0.85">
+<path d="M339.4 749.2Q346.8 757.2 344 771Q341.2 784.8 327.8 789.5Q314.5 794.3 306.4 803.5Q298.3 812.8 286.7 802.5Q275.1 792.1 265.2 780Q255.3 767.8 256.4 755.8Q257.4 743.9 266.4 736.8Q275.5 729.8 284.7 718.3Q294 706.9 307.7 710.4Q321.4 713.8 326.7 727.5Q332 741.1 339.4 749.2Z" fill="url(#bgd-rock)"/>
+<path d="M339.4 749.2Q346.8 757.2 344 771Q341.2 784.8 327.8 789.5Q314.5 794.3 306.4 803.5Q298.3 812.8 286.7 802.5Q275.1 792.1 265.2 780Q255.3 767.8 256.4 755.8Q257.4 743.9 266.4 736.8Q275.5 729.8 284.7 718.3Q294 706.9 307.7 710.4Q321.4 713.8 326.7 727.5Q332 741.1 339.4 749.2Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="300.8" cy="745.1" r="5.6" fill="url(#bgd-crater)"/><path d="M304.7 749A5.6 5.6 0 0 0 296.8 749" stroke="#8a8290" stroke-width="0.7" fill="none" opacity="0.45"/>
+<circle cx="321.5" cy="764.2" r="6.7" fill="url(#bgd-crater)"/><path d="M326.2 768.9A6.7 6.7 0 0 0 316.8 768.9" stroke="#8a8290" stroke-width="0.8" fill="none" opacity="0.45"/>
+<circle cx="295.7" cy="738.2" r="8.3" fill="url(#bgd-crater)"/><path d="M301.5 744A8.3 8.3 0 0 0 289.9 744" stroke="#8a8290" stroke-width="1" fill="none" opacity="0.45"/>
+<circle cx="308.8" cy="755.2" r="8.8" fill="url(#bgd-crater)"/><path d="M315 761.4A8.8 8.8 0 0 0 302.6 761.4" stroke="#8a8290" stroke-width="1.1" fill="none" opacity="0.45"/>
+<circle cx="277.7" cy="768.1" r="9.3" fill="url(#bgd-crater)"/><path d="M284.3 774.6A9.3 9.3 0 0 0 271.2 774.6" stroke="#8a8290" stroke-width="1.1" fill="none" opacity="0.45"/>
+<circle cx="302.8" cy="762" r="5.1" fill="url(#bgd-crater)"/><path d="M306.4 765.5A5.1 5.1 0 0 0 299.3 765.5" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M339.4 749.2Q346.8 757.2 344 771Q341.2 784.8 327.8 789.5Q314.5 794.3 306.4 803.5Q298.3 812.8 286.7 802.5Q275.1 792.1 265.2 780Q255.3 767.8 256.4 755.8Q257.4 743.9 266.4 736.8Q275.5 729.8 284.7 718.3Q294 706.9 307.7 710.4Q321.4 713.8 326.7 727.5Q332 741.1 339.4 749.2Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="101 414"/>
+</g>
+<g opacity="0.85">
+<path d="M440.1 516Q439.9 519.4 439.3 522.4Q438.7 525.3 437.2 527.6Q435.8 529.9 431.3 531.6Q426.8 533.2 424.7 530.4Q422.6 527.5 421.1 525.2Q419.6 523 419.9 520.4Q420.3 517.9 420.1 513.9Q420 509.9 424.5 508.1Q429.1 506.4 432 508.6Q435 510.9 437.7 511.8Q440.4 512.7 440.1 516Z" fill="url(#bgd-rock2)"/>
+<path d="M440.1 516Q439.9 519.4 439.3 522.4Q438.7 525.3 437.2 527.6Q435.8 529.9 431.3 531.6Q426.8 533.2 424.7 530.4Q422.6 527.5 421.1 525.2Q419.6 523 419.9 520.4Q420.3 517.9 420.1 513.9Q420 509.9 424.5 508.1Q429.1 506.4 432 508.6Q435 510.9 437.7 511.8Q440.4 512.7 440.1 516Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="429.4" cy="514.4" r="2.4" fill="url(#bgd-crater)"/><path d="M431.1 516.1A2.4 2.4 0 0 0 427.7 516.1" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="433.4" cy="522.1" r="2.1" fill="url(#bgd-crater)"/><path d="M434.9 523.5A2.1 2.1 0 0 0 432 523.5" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M440.1 516Q439.9 519.4 439.3 522.4Q438.7 525.3 437.2 527.6Q435.8 529.9 431.3 531.6Q426.8 533.2 424.7 530.4Q422.6 527.5 421.1 525.2Q419.6 523 419.9 520.4Q420.3 517.9 420.1 513.9Q420 509.9 424.5 508.1Q429.1 506.4 432 508.6Q435 510.9 437.7 511.8Q440.4 512.7 440.1 516Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="26 108"/>
+</g>
+<g opacity="0.85">
+<path d="M124.8 1006.9Q127.7 1010.5 126.5 1015.9Q125.3 1021.4 121.1 1024.5Q116.9 1027.7 113.2 1026.7Q109.4 1025.7 103.5 1023.7Q97.6 1021.7 97.3 1017.1Q97 1012.6 96.7 1009.3Q96.3 1006.1 97.8 1001.7Q99.3 997.4 102.9 996.9Q106.5 996.4 111.7 994.4Q117 992.4 119.4 997.9Q121.9 1003.4 124.8 1006.9Z" fill="url(#bgd-rock)"/>
+<path d="M124.8 1006.9Q127.7 1010.5 126.5 1015.9Q125.3 1021.4 121.1 1024.5Q116.9 1027.7 113.2 1026.7Q109.4 1025.7 103.5 1023.7Q97.6 1021.7 97.3 1017.1Q97 1012.6 96.7 1009.3Q96.3 1006.1 97.8 1001.7Q99.3 997.4 102.9 996.9Q106.5 996.4 111.7 994.4Q117 992.4 119.4 997.9Q121.9 1003.4 124.8 1006.9Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="110.4" cy="1008.8" r="2.7" fill="url(#bgd-crater)"/><path d="M112.2 1010.7A2.7 2.7 0 0 0 108.5 1010.7" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="110" cy="1010" r="3.2" fill="url(#bgd-crater)"/><path d="M112.3 1012.3A3.2 3.2 0 0 0 107.7 1012.3" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M124.8 1006.9Q127.7 1010.5 126.5 1015.9Q125.3 1021.4 121.1 1024.5Q116.9 1027.7 113.2 1026.7Q109.4 1025.7 103.5 1023.7Q97.6 1021.7 97.3 1017.1Q97 1012.6 96.7 1009.3Q96.3 1006.1 97.8 1001.7Q99.3 997.4 102.9 996.9Q106.5 996.4 111.7 994.4Q117 992.4 119.4 997.9Q121.9 1003.4 124.8 1006.9Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="35 144"/>
+</g>
+<g opacity="0.85">
+<path d="M229.2 1423.8Q231.9 1432.1 226.5 1437.8Q221.1 1443.5 218.3 1449.6Q215.5 1455.7 205.6 1458.3Q195.8 1460.9 188 1457.6Q180.2 1454.3 175.1 1447.4Q170.1 1440.5 172.3 1430.8Q174.6 1421.1 177.5 1414Q180.4 1407 187.2 1404.5Q193.9 1402 203 1405Q212 1407.9 219.3 1411.7Q226.6 1415.4 229.2 1423.8Z" fill="url(#bgd-rock2)"/>
+<path d="M229.2 1423.8Q231.9 1432.1 226.5 1437.8Q221.1 1443.5 218.3 1449.6Q215.5 1455.7 205.6 1458.3Q195.8 1460.9 188 1457.6Q180.2 1454.3 175.1 1447.4Q170.1 1440.5 172.3 1430.8Q174.6 1421.1 177.5 1414Q180.4 1407 187.2 1404.5Q193.9 1402 203 1405Q212 1407.9 219.3 1411.7Q226.6 1415.4 229.2 1423.8Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="202.9" cy="1425.7" r="2.6" fill="url(#bgd-crater)"/><path d="M204.7 1427.5A2.6 2.6 0 0 0 201.1 1427.5" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="203.9" cy="1418.2" r="4" fill="url(#bgd-crater)"/><path d="M206.6 1421A4 4 0 0 0 201.1 1421" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="202.5" cy="1431.7" r="4.7" fill="url(#bgd-crater)"/><path d="M205.8 1435A4.7 4.7 0 0 0 199.2 1435" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="196.3" cy="1444.2" r="4.5" fill="url(#bgd-crater)"/><path d="M199.4 1447.3A4.5 4.5 0 0 0 193.1 1447.3" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M229.2 1423.8Q231.9 1432.1 226.5 1437.8Q221.1 1443.5 218.3 1449.6Q215.5 1455.7 205.6 1458.3Q195.8 1460.9 188 1457.6Q180.2 1454.3 175.1 1447.4Q170.1 1440.5 172.3 1430.8Q174.6 1421.1 177.5 1414Q180.4 1407 187.2 1404.5Q193.9 1402 203 1405Q212 1407.9 219.3 1411.7Q226.6 1415.4 229.2 1423.8Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="61 252"/>
+</g>
+<g opacity="0.85">
+<path d="M67 1268.2Q67.6 1269.7 66.8 1271.9Q66 1274.2 64.7 1275.9Q63.5 1277.7 61.5 1278.4Q59.6 1279 57.3 1278.1Q55 1277.2 54.1 1275Q53.2 1272.8 51.6 1270Q50.1 1267.3 52.2 1265.9Q54.3 1264.5 56.6 1261.9Q58.8 1259.3 61.2 1260.8Q63.7 1262.2 65.1 1264.5Q66.4 1266.8 67 1268.2Z" fill="url(#bgd-rock)"/>
+<path d="M67 1268.2Q67.6 1269.7 66.8 1271.9Q66 1274.2 64.7 1275.9Q63.5 1277.7 61.5 1278.4Q59.6 1279 57.3 1278.1Q55 1277.2 54.1 1275Q53.2 1272.8 51.6 1270Q50.1 1267.3 52.2 1265.9Q54.3 1264.5 56.6 1261.9Q58.8 1259.3 61.2 1260.8Q63.7 1262.2 65.1 1264.5Q66.4 1266.8 67 1268.2Z" fill="#fff" filter="url(#bgd-pit)" opacity="0.5"/>
+<circle cx="60.9" cy="1268.9" r="0.9" fill="url(#bgd-crater)"/><path d="M61.5 1269.5A0.9 0.9 0 0 0 60.3 1269.5" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<circle cx="61.1" cy="1271" r="1.7" fill="url(#bgd-crater)"/><path d="M62.4 1272.3A1.7 1.7 0 0 0 59.9 1272.3" stroke="#8a8290" stroke-width="0.6" fill="none" opacity="0.45"/>
+<path d="M67 1268.2Q67.6 1269.7 66.8 1271.9Q66 1274.2 64.7 1275.9Q63.5 1277.7 61.5 1278.4Q59.6 1279 57.3 1278.1Q55 1277.2 54.1 1275Q53.2 1272.8 51.6 1270Q50.1 1267.3 52.2 1265.9Q54.3 1264.5 56.6 1261.9Q58.8 1259.3 61.2 1260.8Q63.7 1262.2 65.1 1264.5Q66.4 1266.8 67 1268.2Z" fill="none" stroke="#9a92a0" stroke-width="1" opacity="0.25" stroke-dasharray="19 81"/>
+</g>
+<g transform="translate(250 220) rotate(30)" opacity="0.8"><path d="M-10 -5L9 -7L12 4L-6 7Z" fill="url(#bgd-metal)" stroke="#20242b" stroke-width="0.8"/><path d="M-4 -6L-1 6" stroke="#20242b" stroke-width="0.8"/></g>
+<g transform="translate(410 900) rotate(-40)" opacity="0.8"><rect x="-12" y="-3" width="24" height="6" rx="2" fill="url(#bgd-metal)"/><path d="M-6 -3v6M6 -3v6" stroke="#1d2027" stroke-width="1.2"/></g>
+<g transform="translate(60 840) rotate(70)" opacity="0.8"><path d="M-14 0H14M-14 0l7 -6l7 6l7 -6l7 6" stroke="#5a606c" stroke-width="1.6" fill="none"/></g>
+<g transform="translate(330 1530) rotate(15)" opacity="0.8"><rect x="-6" y="-6" width="12" height="12" fill="url(#bgd-metal)" stroke="#1d2027" stroke-width="0.8"/><path d="M-6 -6l12 12" stroke="#1d2027" stroke-width="0.8"/></g>
+<g transform="translate(230 1090) rotate(-20)" opacity="0.8"><path d="M-10 -5L9 -7L12 4L-6 7Z" fill="url(#bgd-metal)" stroke="#20242b" stroke-width="0.8"/><path d="M-4 -6L-1 6" stroke="#20242b" stroke-width="0.8"/></g>
+</svg>
