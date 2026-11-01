@@ -13,7 +13,7 @@
                through everything in a line. It never splits.
 
    When the power bar is full, press M (or 0). Three cards come
-   up. One might make your gun stronger (up to level 4). One might
+   up. One might make your gun stronger (up to level 6). One might
    swap you to a different gun. Swapping KEEPS your level.
 
    Helpers sit beside your main gun: homing missiles (weak, they
@@ -32,7 +32,7 @@ export const POWER_BAR = 6;
 export const BANK = 3;
 
 // The highest level for a main gun.
-export const MAX_LEVEL = 4;
+export const MAX_LEVEL = 6;
 
 // The gun you start with.
 export const START_GUN = 'blaster';
@@ -62,6 +62,26 @@ export const GUNS = {
         { x: -25, angle: -18, damage: 0.25 },
         { x: 25, angle: 18, damage: 0.25 },
       ] },
+      { say: 'Heavy blaster', rate: 6.5, shots: [
+        { x: -6, angle: 0, damage: 1.5 },
+        { x: 0, angle: 0, damage: 1.5 },
+        { x: 6, angle: 0, damage: 1.5 },
+        { x: -14, angle: -8, damage: 0.45 },
+        { x: 14, angle: 8, damage: 0.45 },
+        { x: -25, angle: -18, damage: 0.3 },
+        { x: 25, angle: 18, damage: 0.3 },
+      ] },
+      { say: 'Gold storm', rate: 7, shots: [
+        { x: -6, angle: 0, damage: 1.8 },
+        { x: 0, angle: 0, damage: 1.8 },
+        { x: 6, angle: 0, damage: 1.8 },
+        { x: -14, angle: -6, damage: 0.5 },
+        { x: 14, angle: 6, damage: 0.5 },
+        { x: -20, angle: -14, damage: 0.35 },
+        { x: 20, angle: 14, damage: 0.35 },
+        { x: -25, angle: -24, damage: 0.3 },
+        { x: 25, angle: 24, damage: 0.3 },
+      ] },
     ],
   },
 
@@ -73,6 +93,8 @@ export const GUNS = {
       { say: 'Hot laser', look: 'green', rate: 5, through: 2, shots: [{ x: 0, angle: 0, damage: 1.4 }] },
       { say: 'Red twin laser', look: 'red', rate: 5, through: 2, shots: [{ x: -4, angle: 0, damage: 1.3 }, { x: 4, angle: 0, damage: 1.3 }] },
       { say: 'Purple twin laser', look: 'purple', rate: 5.5, through: 3, shots: [{ x: -4, angle: 0, damage: 1.5 }, { x: 4, angle: 0, damage: 1.5 }] },
+      { say: 'Triple laser', look: 'purple', rate: 6, through: 3, shots: [{ x: -6, angle: 0, damage: 1.5 }, { x: 0, angle: 0, damage: 1.7 }, { x: 6, angle: 0, damage: 1.5 }] },
+      { say: 'Gold lance', look: 'gold', rate: 6.5, through: 5, shots: [{ x: -6, angle: 0, damage: 1.7 }, { x: 0, angle: 0, damage: 2 }, { x: 6, angle: 0, damage: 1.7 }] },
     ],
   },
 
@@ -85,6 +107,8 @@ export const GUNS = {
       { say: 'Strong beam', width: 11, power: 6 },
       { say: 'Beam splitter', width: 13, power: 8.5, split: { angle: 22, power: 1.5 } },
       { say: 'Mega beam', width: 16, power: 11, split: { angle: 22, power: 2.5 } },
+      { say: 'Hyper beam', width: 19, power: 13.5, split: { angle: 20, power: 3 } },
+      { say: 'Star beam', width: 22, power: 16, split: { angle: 18, power: 3.5 } },
     ],
   },
 
@@ -96,6 +120,8 @@ export const GUNS = {
       { say: 'Fast railgun', every: 0.85, damage: 8 },
       { say: 'Heavy railgun', every: 0.75, damage: 11 },
       { say: 'Super railgun', every: 0.65, damage: 14 },
+      { say: 'Twin railgun', every: 0.6, damage: 16, twin: true },
+      { say: 'Mega railgun', every: 0.5, damage: 19, twin: true },
     ],
   },
 };

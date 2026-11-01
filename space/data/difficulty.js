@@ -19,14 +19,14 @@
 export const DIFFICULTY = {
   easy: {
     name: 'Easy', cannonWarn: 1.7, lastStand: false, shield: true, shieldBack: 10, bulletSpeed: 1.0, tough: 0.75,
-    shooters: ['weaver', 'saucer'], shootMore: 1, aim: false, extraShips: true,
+    shooters: ['weaver', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1, aim: false, extraShips: true,
   },
   medium: {
     name: 'Medium', cannonWarn: 1.25, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.2, tough: 1,
-    shooters: ['weaver', 'diver', 'dart', 'saucer'], shootMore: 1.2, aim: false, extraShips: true,
+    shooters: ['weaver', 'diver', 'dart', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1.2, aim: false, extraShips: true,
   },
   hard: {
     name: 'Hard', cannonWarn: 0.95, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.45, tough: 1.5,
-    shooters: ['weaver', 'diver', 'dart', 'saucer'], shootMore: 1.8, aim: true, extraShips: false,
+    shooters: ['weaver', 'diver', 'dart', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1.8, aim: true, extraShips: false,
   },
 };

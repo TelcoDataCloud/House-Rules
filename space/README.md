@@ -114,6 +114,22 @@ Medium and Hard. Bosses are much tougher.
 **New art:** every enemy ship and boss redrawn in a darker, sharper
 warship style; new shots, missiles, plasma orbs and lasers.
 
-## Next
+## Levels 4 and 5, the ending (1 Nov)
 
-S10: level 4.
+**Level 4, Robot Base** (data/level4.js): robot tanks drive on the ground
+and aim their turrets at you; spider robots walk and drop mines. The
+Crusher (a giant robot tank) is the mini boss; GOLIATH, a walking robot,
+is the boss. **Level 5, Magma Core** (data/level5.js): lava rivers, fire
+drones that fire rockets, the Inferno mini boss, and OMEGA, the final
+boss: shoot its guns and its legs off and it takes off and FLIES. Then
+the ending film: the volcano blows, you escape to space, fireworks.
+
+**Enemy shots** (data/foeshots.js): orbs, lasers, bullet bursts, rockets
+that speed up, big slow plasma balls, and mines that blow up when you get
+close. Some can be shot down, some can't.
+
+**Also:** guns go to level 6, the Nuke is one big mushroom cloud, guns that
+sit still are much tougher, power ups are glowing capsules, a new sleeker
+ship, realistic base buildings, and painted backdrops for every world
+(art/bg-*.svg).
+

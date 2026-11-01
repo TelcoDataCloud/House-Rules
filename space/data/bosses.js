@@ -18,6 +18,10 @@
    LAST STAND, with even more firing and helper ships.
 
    stay          seconds before it gives up and flies away
+   legs          walking bosses: the leg picture, where the legs are,
+                 how far they step, and hits if they can be shot off
+   flies         true if it takes off and flies when its shell is gone
+   escort        the helper ships it calls in for its last stand
    cannonEvery   seconds between big cannon shots
    cannonWidth   how wide the big laser is
    =========================================================== */
@@ -84,5 +88,48 @@ export const BOSSES = {
     cannonEvery: 3.5, cannonWidth: 56,
     turretEvery: 1.8, turretShot: 'red', ringEvery: 2.3, ring: 12, double: true,
     turretPoints: 900, points: 12000,
+  },
+
+  // Level 4 mini boss: a giant robot tank. Shoot its two side guns, then its core.
+  crusher: {
+    kind: 'hauler', name: 'THE CRUSHER', art: 'crusher', size: [230, 150],
+    engineArt: 'crusher-gun', engineSize: [44, 64], engineAt: [62, 6],
+    engineHits: 50, bodyHits: 110, stay: 38, fireEvery: 1.2,
+    cannonEvery: 4, cannonWidth: 46,
+    points: 4000, drops: ['P', 'P', 'P', 'P', 'B'],
+  },
+
+  // Level 4 boss: a walking robot. Its legs stomp as it walks.
+  goliath: {
+    kind: 'core', name: 'GOLIATH', art: 'goliath', size: [300, 200],
+    turrets: [[-110, -10], [110, -10], [-60, 55], [60, 55]],
+    eye: [0, -20],
+    legs: { art: 'mech-leg', size: [70, 120], at: [[-100, 88], [100, 88]], stride: 18 },
+    turretHits: 48, eyeHits: 230, stay: 90,
+    turretEvery: 1.6, turretShot: 'rocket', ringEvery: 2.3, ring: 12, double: true,
+    cannonEvery: 3.6, cannonWidth: 54, escort: 'spider',
+    turretPoints: 1000, points: 15000,
+  },
+
+  // Level 5 mini boss: a ship made for flying through lava.
+  inferno: {
+    kind: 'hauler', name: 'INFERNO', art: 'inferno', size: [240, 130],
+    engineHits: 55, bodyHits: 120, stay: 40, fireEvery: 1.0,
+    cannonEvery: 3.6, cannonWidth: 48,
+    points: 5000, drops: ['P', 'P', 'P', 'P', 'B', 'S'],
+  },
+
+  // THE FINAL BOSS. It walks. Shoot its guns AND its legs off...
+  // then it takes off and FLIES.
+  omega: {
+    kind: 'core', name: 'OMEGA', art: 'omega', size: [420, 260],
+    turrets: [[-170, -20], [170, -20], [-110, 60], [110, 60], [-45, 95], [45, 95]],
+    eye: [0, -25],
+    legs: { art: 'omega-leg', size: [90, 160], at: [[-128, 130], [128, 130]], stride: 18, hits: 70 },
+    flies: true,
+    turretHits: 50, eyeHits: 320, stay: 140,
+    turretEvery: 1.5, turretShot: 'rocket', ringEvery: 2.1, ring: 14, double: true,
+    cannonEvery: 3.2, cannonWidth: 60, escort: 'firedrone',
+    turretPoints: 1200, points: 30000,
   },
 };

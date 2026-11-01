@@ -12,7 +12,8 @@
                 shoot: look at shooters in difficulty.js)
      fan        (hover ones only) how many shots in each fan
      shot       what it fires: 'pink' orbs (you can shoot them down)
-                or 'red' lasers (you can't, so dodge!)
+                or 'red' lasers (you can't, so dodge!). All the kinds
+                are in data/foeshots.js.
      pattern    how it flies. One of:
                   'straight'  straight down
                   'weave'     wiggles side to side
@@ -20,15 +21,23 @@
                   'dive'      stops, flashes, then dives
                   'hover'     comes down, floats, shoots a fan
                   'loop'      swoops across in a big curve
+                  'tank'      drives along the ground, turret aims at you
+                  'walk'      walks down the screen, swaying
+     ground     true if it is on the ground (you fly over it)
+     aims       true if it aims its shots at you
    =========================================================== */
 
 export const ENEMIES = {
   dart:    { art: 'dart',     size: 52, hits: 3,  speed: 120, points: 100, colour: '#ff7a1a', shotEvery: 3.5, pattern: 'straight' },
   weaver:  { art: 'weaver',   size: 60, hits: 4,  speed: 95,  points: 150, colour: '#ff3fa4', shotEvery: 2.6, pattern: 'weave' },
-  diver:   { art: 'diver',    size: 58, hits: 6,  speed: 110, points: 200, colour: '#ffd23f', shotEvery: 2.2, pattern: 'dive' },
-  bruiser: { art: 'bruiser',  size: 96, hits: 20, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2,   pattern: 'hover', fan: 3 },
+  diver:   { art: 'diver',    size: 58, hits: 6,  speed: 110, points: 200, colour: '#ffd23f', shotEvery: 2.2, pattern: 'dive', shot: 'bullet' },
+  bruiser: { art: 'bruiser',  size: 96, hits: 20, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2.6, pattern: 'hover', fan: 3, shot: 'plasma' },
   red:     { art: 'red-dart', size: 48, hits: 3,  speed: 0,   points: 100, colour: '#ff3b3b', shotEvery: 0,   pattern: 'loop' },
   saucer:  { art: 'saucer',   size: 58, hits: 5,  speed: 90,  points: 200, colour: '#38f0ff', shotEvery: 2.4, pattern: 'zigzag', shot: 'red' },
+  // Level 4 and 5.
+  tank:    { art: 'tank', turret: 'tank-turret', size: 64, h: 72, hits: 14, speed: 25, points: 400, colour: '#ff7a1a', shotEvery: 2.6, pattern: 'tank', ground: true, aims: true, shot: 'bullet' },
+  spider:  { art: 'spider',   size: 60, hits: 8,  speed: 70,  points: 300, colour: '#ff3b3b', shotEvery: 2.8, pattern: 'walk', ground: true, shot: 'mine' },
+  firedrone: { art: 'firedrone', size: 56, hits: 7, speed: 95, points: 300, colour: '#ff7a1a', shotEvery: 2.6, pattern: 'weave', shot: 'rocket' },
   gunship: { art: 'gunship',  size: 104, hits: 32, speed: 55, points: 800, colour: '#4dff7c', shotEvery: 1.8, pattern: 'hover', fan: 5, shot: 'red' },
 };
 
