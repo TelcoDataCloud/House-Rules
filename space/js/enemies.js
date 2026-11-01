@@ -10,7 +10,7 @@
    come straight at you.
    =========================================================== */
 
-import { state, W, H, hardness } from './state.js';
+import { state, W, H, hardness, after, level } from './state.js';
 import { sprite, put, layer } from './art.js';
 import { ENEMIES, DROP_EVERY } from '../data/enemies.js';
 import { addFoe } from './bullets.js';
@@ -51,18 +51,27 @@ export function spawnWave(line) {
   const hard = hardness();
   const shoots = spec.shotEvery > 0 && hard.shooters.includes(line.what);
   for (const p of group) {
-    const el = sprite(spec.art, spec.size, spec.size);
+    const el = sprite(spec.art, spec.size, spec.h || spec.size);
     el.hidden = true;
-    layer('air').appendChild(el);
+    // Things on the ground (tanks, walkers) go under everything that flies.
+    layer(spec.ground ? 'ground' : 'air').appendChild(el);
+    let turret = null;
+    if (spec.turret) {
+      // A tank's turret is its own picture, so it can turn to aim.
+      turret = sprite(spec.turret, 40, 56, 'turret-top');
+      turret.style.left = `${spec.size / 2 - 20}px`;
+      turret.style.top = `${(spec.h || spec.size) / 2 - 20}px`;
+      el.appendChild(turret);
+    }
     spawnCount++;
     const every = spec.shotEvery / hard.shootMore;
     state.enemies.push({
-      spec, el, flock, kind: line.what,
+      spec, el, turret, aim: 0, flock, kind: line.what,
       x: p.x ?? -100, y: p.y ?? -100, x0: p.x, ox: p.ox, oy: p.oy, dir: p.dir,
       wait: p.wait, t: 0, phase: 0,
       // Spread out the first shots so a group never fires all at once.
       shoots, shotWait: every * (0.5 + (spawnCount % 4) * 0.25), every,
-      hp: Math.ceil(spec.hits * hard.tough), r: spec.size * 0.36, w: spec.size, h: spec.size, flashT: 0,
+      hp: Math.ceil(spec.hits * hard.tough), r: spec.size * 0.36, w: spec.size, h: spec.h || spec.size, flashT: 0,
       onHit(n) { hurt(this, n); },
     });
   }
@@ -72,12 +81,22 @@ export function spawnWave(line) {
 function shoot(e) {
   if (e.y < 30 || e.y > state.ship.y - 170) return;
   let angle = 0;
-  if (hardness().aim && spawnCount % 2 === 0) {
+  if (e.spec.aims) angle = e.aimAt;                 // tanks aim with their turret
+  else if (hardness().aim && spawnCount % 2 === 0) {
     angle = (Math.atan2(state.ship.x - e.x, state.ship.y - e.y) * 180) / Math.PI;
   }
   spawnCount++;
-  addFoe(e.x, e.y + e.h * 0.35, angle, e.spec.shot === 'red' ? 170 : 120, e.spec.shot || 'pink');
+  const kind = e.spec.shot || 'pink';
+  if (kind === 'bullet') {
+    // Bullets come in a quick burst of three.
+    for (let i = 0; i < 3; i++) after(i * 0.12, () => { if (!e.dead) addFoe(e.x, e.y + e.h * 0.35, angle, SHOT_SPEED.bullet, 'bullet'); });
+  } else {
+    addFoe(e.x, e.y + e.h * 0.35, angle, SHOT_SPEED[kind] || 120, kind);
+  }
 }
+
+// How fast each kind of enemy shot flies.
+export const SHOT_SPEED = { pink: 120, green: 140, red: 170, bullet: 230, rocket: 150, plasma: 85, mine: 90 };
 
 // --- the patterns ---
 const PATTERNS = {
@@ -133,8 +152,26 @@ const PATTERNS = {
     if (e.shotWait <= 0 && e.y < H - 200) {
       e.shotWait = e.spec.shotEvery / hardness().shootMore;
       const n = e.spec.fan || 3;
-      for (let i = 0; i < n; i++) addFoe(e.x, e.y + 34, (i - (n - 1) / 2) * 16, 140, e.spec.shot || 'pink');
+      const kind = e.spec.shot || 'pink';
+      for (let i = 0; i < n; i++) addFoe(e.x, e.y + 34, (i - (n - 1) / 2) * 16, SHOT_SPEED[kind] || 140, kind);
     }
+  },
+
+  // A tank drives down the ground, a bit faster than it scrolls,
+  // and steers gently side to side. Its turret turns to aim at you.
+  tank(e, dt) {
+    e.y += (level().scroll + e.spec.speed) * dt;
+    e.x = e.x0 + Math.sin(e.t * 0.5) * 50;
+    const dx = state.ship.x - e.x;
+    const dy = Math.max(1, state.ship.y - e.y);
+    e.aimAt = (Math.atan2(dx, dy) * 180) / Math.PI;
+    e.aim += (e.aimAt - e.aim) * Math.min(1, dt * 3);
+  },
+
+  // A walker: steps down the screen, swaying, dropping mines.
+  walk(e, dt) {
+    e.y += e.spec.speed * dt;
+    e.x = e.x0 + Math.sin(e.t * 1.2) * 45;
   },
 
   // The red flock: one big swoop across the screen.
@@ -177,7 +214,11 @@ export function updateEnemies(dt) {
 }
 
 export function drawEnemies() {
-  for (const e of state.enemies) if (e.wait <= 0) put(e.el, e.x, e.y, e.w, e.h);
+  for (const e of state.enemies) {
+    if (e.wait > 0) continue;
+    put(e.el, e.x, e.y, e.w, e.h);
+    if (e.turret) e.turret.style.transform = `rotate(${(-e.aim).toFixed(1)}deg)`;
+  }
 }
 
 function hurt(e, n) {

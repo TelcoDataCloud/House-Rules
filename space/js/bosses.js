@@ -50,13 +50,18 @@ function part(boss, name, art, w, h, ox, oy, r, hits, open) {
 function makeHauler(cfg, name, cx) {
   const boss = { name, cfg, kind: 'hauler', t: 0, phase: 'enter', cx, x: cx, y: -160, parts: [], fireWait: 1.5, gun: 0, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: cx > W / 2 ? 2.2 : 0 };
   boss.title = cfg.name;
-  boss.w = 220; boss.h = 120;
+  // The Hauler kind: a body and two side parts (engines or guns) to shoot off.
+  const [w, h] = cfg.size || [220, 120];
+  const [ew, eh] = cfg.engineSize || [40, 70];
+  const [ex, ey] = cfg.engineAt || [56, 3];
+  boss.w = w; boss.h = h;
   boss.sway = cfg.twins ? 40 : 90;
-  boss.el = sprite('hauler', 220, 120);
+  boss.el = sprite(cfg.art || 'hauler', w, h);
   if (cfg.tint) boss.el.classList.add(`tint-${cfg.tint}`);
   layer('air').appendChild(boss.el);
-  boss.left = part(boss, 'left engine', 'hauler-engine', 40, 70, -56, 3, 22, cfg.engineHits, true);
-  boss.right = part(boss, 'right engine', 'hauler-engine', 40, 70, 56, 3, 22, cfg.engineHits, true);
+  const engine = cfg.engineArt || 'hauler-engine';
+  boss.left = part(boss, 'left engine', engine, ew, eh, -ex, ey, 22, cfg.engineHits, true);
+  boss.right = part(boss, 'right engine', engine, ew, eh, ex, ey, 22, cfg.engineHits, true);
   boss.body = part(boss, 'body', null, 0, 0, 0, -6, 40, cfg.bodyHits, false);
   state.bosses.push(boss);
 }
@@ -76,6 +81,19 @@ function makeCore(cfg, name) {
   const [ex, ey] = cfg.eye;
   boss.eye = part(boss, 'eye', 'core-eye', 92, 92, ex, ey, 40, cfg.eyeHits, false);
   boss.eye.el.classList.add('dark');
+  // Walking bosses have legs underneath. Some legs can be shot off.
+  boss.legs = [];
+  if (cfg.legs) {
+    const L = cfg.legs;
+    boss.legs = L.at.map(([lx, ly], i) => {
+      const leg = part(boss, 'leg', L.art, L.size[0], L.size[1], lx, ly, L.size[0] * 0.4, L.hits || 1, !!L.hits);
+      leg.el.classList.add('leg');
+      layer('air').insertBefore(leg.el, boss.el);   // under the body
+      leg.side = i === 0 ? -1 : 1;
+      leg.solid = !!L.hits;
+      return leg;
+    });
+  }
   state.bosses.push(boss);
 }
 
@@ -110,7 +128,9 @@ function hurt(boss, p, n, how) {
     die(boss);
   } else {
     fx.award(boss.cfg.turretPoints, p.x, p.y - 20);
-    if (boss.turrets.every((t) => !t.alive)) powerUp(boss);
+    if (p.name === 'leg') legOff(boss, p);
+    const shell = [...boss.turrets, ...boss.legs.filter((l) => l.solid)];
+    if (shell.every((t) => !t.alive)) powerUp(boss);
   }
 }
 
@@ -126,6 +146,15 @@ function checkLastStand(boss) {
   boss.escortWait = 2;
 }
 
+// A leg is shot off: it falls away, and the boss staggers.
+function legOff(boss, leg) {
+  leg.el.hidden = false;
+  leg.el.classList.add('leg-off');
+  fx.shake(true);
+  fx.banner('LEG DOWN!');
+  after(1.2, () => { leg.el.hidden = true; });
+}
+
 // Stage 2: the shell is gone. The boss can't be hurt for a moment
 // while it powers up and its cannon slides out.
 function powerUp(boss) {
@@ -135,6 +164,15 @@ function powerUp(boss) {
   fx.banner('POWERING UP!', 'warn');
   sound.powerUp();
   fx.shake(true);
+  // A flying boss: the legs drop off and the jets light up.
+  if (boss.cfg.flies) {
+    for (const leg of boss.legs) { leg.alive = false; leg.el.classList.add('leg-off'); }
+    after(1.2, () => { for (const leg of boss.legs) leg.el.hidden = true; });
+    boss.el.classList.add('flying');
+    boss.flying = true;
+    fx.banner('IT CAN FLY!', 'warn');
+    sound.whoosh();
+  }
   const c = sprite('boss-cannon', 90, 120);
   if (boss.cfg.tint) c.classList.add(`tint-${boss.cfg.tint}`);
   layer('air').insertBefore(c, boss.el);           // behind the body
@@ -321,9 +359,16 @@ function fight(boss, dt) {
     if (!angry && boss.t > cfg.stay) { boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
     return;
   }
-  // A small sway, so every gun stays on screen.
-  const sway = Math.max(8, Math.min(28, (W - boss.w) / 2 + 20));
-  boss.x = W / 2 + Math.sin(boss.swayT * 0.4) * sway;
+  if (boss.flying && boss.charging <= 0) {
+    // Flying: big loops across the screen, a figure of eight.
+    const k = boss.stage === 3 ? 1.35 : 1;
+    boss.x = W / 2 + Math.sin(boss.swayT * 0.55 * k) * 95;
+    boss.y += (200 + Math.sin(boss.swayT * 1.1 * k) * 55 - boss.y) * Math.min(1, dt * 2);
+  } else {
+    // A small sway, so every gun stays on screen.
+    const sway = Math.max(8, Math.min(28, (W - boss.w) / 2 + 20));
+    boss.x = W / 2 + Math.sin(boss.swayT * 0.4) * sway;
+  }
   for (const t of boss.turrets) {
     if (!t.alive) continue;
     t.fireWait -= dt;
@@ -341,7 +386,7 @@ function fight(boss, dt) {
   // Last stand: it calls in helper ships.
   if (boss.stage === 3) {
     boss.escortWait -= dt;
-    if (boss.escortWait <= 0) { boss.escortWait = 7; spawnWave({ what: 'dart', how: 'row', count: 2 }); }
+    if (boss.escortWait <= 0) { boss.escortWait = 7; spawnWave({ what: boss.cfg.escort || 'dart', how: 'row', count: 2 }); }
   }
   // A big boss gives up and flies away if you take too long.
   if (boss.t > (cfg.stay || 80)) {
@@ -373,9 +418,13 @@ export function updateBosses(dt) {
         if (boss.kind === 'core') { state.ending = isLastLevel() ? 'win' : 'clear'; state.endTimer = 1; }
       }
     }
+    // Walking: the legs step forward and back, one after the other.
+    const walking = boss.legs && boss.legs.length && !boss.flying && boss.phase !== 'dying' && boss.hold <= 0;
+    if (walking) boss.step = (boss.step || 0) + dt * 2.6;
     for (const p of boss.parts) {
       p.x = boss.x + p.ox;
       p.y = boss.y + p.oy;
+      if (p.name === 'leg' && boss.cfg.legs) p.y += Math.sin((boss.step || 0) + (p.side > 0 ? Math.PI : 0)) * boss.cfg.legs.stride;
       if (p.flashT > 0) { p.flashT -= dt; if (p.flashT <= 0 && p.el) p.el.classList.remove('hit'); }
     }
     if (boss.flashT > 0) { boss.flashT -= dt; if (boss.flashT <= 0) boss.el.classList.remove('hit'); }
