@@ -11,6 +11,8 @@ import { SHIP } from '../data/ship.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { loadBest } from './best.js';
 import { LEVELS } from '../data/levels.js';
+import { START_GUN } from '../data/weapons.js';
+import { START_BOMB } from '../data/bombs.js';
 
 // The play area, in dots. CSS scales it to fit the screen.
 export const W = 480;
@@ -38,8 +40,12 @@ export function newGame(startAt = 0) {
       x: W / 2, y: H + 60,
       lives: SHIP.lives, bombs: SHIP.bombs,
       power: 0,
-      // upgrade levels, 0 to 3 (see data/weapons.js)
-      spread: 0, laser: 0, beam: 0, homing: 0, rapid: 0, drones: 0, bay: 0,
+      // your main gun and its level, 1 to 4 (see data/weapons.js)
+      gun: START_GUN, gunLevel: 1,
+      // helpers, 0 to 3
+      homing: 0, drones: 0,
+      // your kind of bomb and its level, 1 to 3 (see data/bombs.js)
+      bomb: START_BOMB, bombLevel: 1,
       droneList: [],
       shield: hard.shield, shieldWait: 0,
       invuln: 0, dead: 0, entering: 1.2,

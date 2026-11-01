@@ -10,12 +10,23 @@
              middle. The eye opens when every turret is gone, then
              fires rings of bullets. The ring always has a gap on
              your side, so there is always a way through.
+
+   Phases: stage 1 is the shell (engines or turrets). When that is
+   gone the boss POWERS UP (stage 2): a moment where it can't be
+   hurt, then it moves faster and its big cannon slides out. The
+   cannon stops the boss, draws a red line where it will fire, then
+   fires a huge laser down that line. A core boss has a stage 3,
+   LAST STAND, when its eye is nearly done.
    =========================================================== */
 
-import { state, W, hardness, after, level, isLastLevel } from './state.js';
+import { state, W, H, hardness, after, level, isLastLevel } from './state.js';
 import { sprite, put, layer } from './art.js';
 import { BOSSES } from '../data/bosses.js';
+import { BOSS_SHARE } from '../data/bombs.js';
 import { addFoe } from './bullets.js';
+import { spawnWave } from './enemies.js';
+import { hitShip } from './ship.js';
+import { SHIP } from '../data/ship.js';
 import { drop } from './pickups.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
@@ -30,14 +41,14 @@ function part(boss, name, art, w, h, ox, oy, r, hits, open) {
   const hp = Math.ceil(hits * hardness().tough);
   const p = {
     name, el, w, h, ox, oy, r, hp, max: hp, alive: true, open, x: 0, y: -999, flashT: 0,
-    onHit(n) { hurt(boss, p, n); },
+    onHit(n, how) { hurt(boss, p, n, how); },
   };
   boss.parts.push(p);
   return p;
 }
 
 function makeHauler(cfg, name, cx) {
-  const boss = { name, cfg, kind: 'hauler', t: 0, phase: 'enter', cx, x: cx, y: -160, parts: [], fireWait: 1.5, gun: 0 };
+  const boss = { name, cfg, kind: 'hauler', t: 0, phase: 'enter', cx, x: cx, y: -160, parts: [], fireWait: 1.5, gun: 0, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: cx > W / 2 ? 2.2 : 0 };
   boss.title = cfg.name;
   boss.w = 220; boss.h = 120;
   boss.sway = cfg.twins ? 40 : 90;
@@ -52,7 +63,7 @@ function makeHauler(cfg, name, cx) {
 
 function makeCore(cfg, name) {
   const [w, h] = cfg.size;
-  const boss = { name, cfg, kind: 'core', t: 0, phase: 'enter', x: W / 2, y: -h, parts: [], fireWait: 1.5 };
+  const boss = { name, cfg, kind: 'core', t: 0, phase: 'enter', x: W / 2, y: -h, parts: [], fireWait: 1.5, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: 0 };
   boss.title = cfg.name;
   boss.w = w; boss.h = h;
   boss.el = sprite(cfg.art, w, h);
@@ -79,8 +90,10 @@ export function spawnBoss(name) {
   }
 }
 
-function hurt(boss, p, n) {
-  if (!p.alive || !p.open || boss.phase === 'dying') return;
+function hurt(boss, p, n, how) {
+  if (!p.alive || !p.open || boss.phase === 'dying' || boss.charging > 0) return;
+  // A bomb only takes a little bit off a boss.
+  if (how === 'bomb') n = Math.min(n, p.max * BOSS_SHARE);
   p.hp -= n;
   if (p.el) { p.el.classList.add('hit'); p.flashT = 0.06; }
   else { boss.el.classList.add('hit'); boss.flashT = 0.06; }
@@ -92,25 +105,145 @@ function hurt(boss, p, n) {
 
   if (boss.kind === 'hauler') {
     if (p === boss.body) die(boss);
-    else if (!boss.left.alive && !boss.right.alive) { boss.body.open = true; fx.banner('NOW THE BODY!'); }
+    else if (!boss.left.alive && !boss.right.alive) powerUp(boss);
   } else if (p === boss.eye) {
     die(boss);
   } else {
     fx.award(boss.cfg.turretPoints, p.x, p.y - 20);
-    if (boss.turrets.every((t) => !t.alive)) {
-      boss.eye.open = true;
-      boss.eye.el.classList.remove('dark');
-      boss.eye.el.classList.add('awake');
-      boss.fireWait = 1.2;
-      fx.banner('HIT THE EYE!');
+    if (boss.turrets.every((t) => !t.alive)) powerUp(boss);
+  }
+}
+
+// Watch the eye: nearly done means LAST STAND.
+function checkLastStand(boss) {
+  if (boss.kind !== 'core' || boss.stage !== 2 || !hardness().lastStand || boss.eye.hp > boss.eye.max * 0.4) return;
+  boss.stage = 3;
+  boss.charging = 1;
+  boss.el.classList.add('charging');
+  fx.banner('LAST STAND!', 'warn');
+  sound.powerUp();
+  fx.shake(true);
+  boss.escortWait = 2;
+}
+
+// Stage 2: the shell is gone. The boss can't be hurt for a moment
+// while it powers up and its cannon slides out.
+function powerUp(boss) {
+  boss.stage = 2;
+  boss.charging = 2;
+  boss.el.classList.add('angry', 'charging');
+  fx.banner('POWERING UP!', 'warn');
+  sound.powerUp();
+  fx.shake(true);
+  const c = sprite('boss-cannon', 90, 120);
+  if (boss.cfg.tint) c.classList.add(`tint-${boss.cfg.tint}`);
+  layer('air').insertBefore(c, boss.el);           // behind the body
+  const out = boss.kind === 'hauler' ? 62 : boss.h / 2 + 4;
+  boss.cannon = { el: c, from: out - 70, to: out, oy: out - 70, angle: 0 };
+  boss.cannonWait = 2.6 + boss.twinDelay;
+}
+
+// The end of powering up: open the weak spot.
+function awake(boss) {
+  boss.el.classList.remove('charging');
+  if (boss.stage === 3) return;
+  if (boss.kind === 'hauler') {
+    boss.body.open = true;
+    fx.banner('NOW THE BODY!');
+  } else {
+    boss.eye.open = true;
+    boss.eye.el.classList.remove('dark');
+    boss.eye.el.classList.add('awake');
+    boss.fireWait = 1.2;
+    fx.banner('HIT THE EYE!');
+  }
+}
+
+// --- the big cannon: red line first, then the laser ---
+function beamBox(cls) {
+  const el = document.createElement('div');
+  el.className = cls;
+  layer('foes').appendChild(el);
+  return el;
+}
+
+function placeBeam(el, shot, width) {
+  el.style.width = `${width}px`;
+  el.style.transformOrigin = '50% 0';
+  el.style.height = `${shot.len.toFixed(0)}px`;
+  el.style.transform = `translate(${(shot.x0 - width / 2).toFixed(1)}px, ${shot.y0.toFixed(1)}px) rotate(${shot.angle.toFixed(1)}deg)`;
+}
+
+function startCannon(boss) {
+  const c = boss.cannon;
+  // The cannon turns on its top hinge to aim where you are now.
+  const px = boss.x;
+  const py = boss.y + c.oy - 46;
+  const tx = state.ship.x;
+  const ty = H + 40;
+  const rad = Math.atan2(px - tx, ty - py);
+  const angle = (rad * 180) / Math.PI;
+  const x0 = px - Math.sin(rad) * 98;             // the end of the barrel
+  const y0 = py + Math.cos(rad) * 98;
+  const len = Math.hypot(tx - x0, ty - y0) + 60;
+  const warn = hardness().cannonWarn || 1.3;
+  boss.shot = { x0, y0, angle, len, t: 0, warn, fire: 0.9, el: beamBox('boss-warn') };
+  c.angle = angle;
+  boss.hold = warn + 1.1;                         // keep still while it fires
+  placeBeam(boss.shot.el, boss.shot, 6);
+  sound.charge();
+}
+
+function updateCannon(boss, dt) {
+  const c = boss.cannon;
+  if (!c) return;
+  c.oy += (c.to - c.oy) * Math.min(1, dt * 2);
+  if (boss.charging > 0 || boss.phase !== 'fight') return;
+  const sh = boss.shot;
+  if (!sh) {
+    boss.cannonWait -= dt;
+    if (boss.cannonWait <= 0) startCannon(boss);
+    return;
+  }
+  sh.t += dt;
+  if (sh.t >= sh.warn && !sh.firing) {
+    sh.firing = true;
+    sh.el.remove();
+    sh.el = beamBox('boss-beam');
+    placeBeam(sh.el, sh, boss.cfg.cannonWidth);
+    sound.bigLaser();
+    fx.shake();
+  }
+  if (sh.firing) {
+    // Does the laser touch the ship? Distance from the ship to the line.
+    const s = state.ship;
+    const rad = (sh.angle * Math.PI) / 180;
+    const dx = -Math.sin(rad);
+    const dy = Math.cos(rad);
+    const rx = s.x - sh.x0;
+    const ry = s.y - sh.y0;
+    const along = rx * dx + ry * dy;
+    const across = Math.abs(rx * dy - ry * dx);
+    if (along > 0 && across < boss.cfg.cannonWidth / 2 + SHIP.hitSize) hitShip();
+    if (sh.t >= sh.warn + sh.fire) {
+      sh.el.remove();
+      boss.shot = null;
+      c.angle = 0;
+      boss.cannonWait = boss.cfg.cannonEvery * (boss.stage === 3 ? 0.7 : 1);
     }
   }
+}
+
+function clearCannon(boss) {
+  if (boss.shot) { boss.shot.el.remove(); boss.shot = null; }
+  if (boss.cannon) { boss.cannon.el.remove(); boss.cannon = null; }
 }
 
 // The big moment: time slows right down, BOSS DOWN! Glowing cracks
 // spread over the boss and bangs go off along them. Then it splits
 // along the cracks and the pieces tumble away. (See js/breakup.js.)
 function die(boss) {
+  clearCannon(boss);
   boss.phase = 'dying';
   boss.t = 0;
   boss.el.classList.add('dying');
@@ -164,35 +297,55 @@ function fireRing(boss, turn = 0) {
 
 function fight(boss, dt) {
   const cfg = boss.cfg;
+  const angry = boss.stage >= 2;
+  if (boss.charging > 0) {
+    boss.charging -= dt;
+    if (boss.charging <= 0) awake(boss);
+  }
+  // Sway side to side, faster when angry. Stand still while the cannon fires.
+  if (boss.hold > 0) boss.hold -= dt;
+  else boss.swayT += dt * (angry ? (boss.kind === 'hauler' ? 1.7 : 2.2) : 1);
+  updateCannon(boss, dt);
+
   if (boss.kind === 'hauler') {
-    const wobble = boss.body.open ? Math.sin(boss.t * 14) * 5 : 0;
-    boss.x = boss.cx + Math.sin((boss.t - 2.5) * 0.9) * boss.sway + wobble;
+    boss.x = boss.cx + Math.sin((boss.swayT - 2.5) * 0.9) * boss.sway;
     boss.fireWait -= dt;
-    if (boss.fireWait <= 0) {
+    if (boss.fireWait <= 0 && boss.charging <= 0) {
       boss.fireWait = cfg.fireEvery / 2;
       boss.gun = 1 - boss.gun;
-      addFoe(boss.x + (boss.gun ? 25 : -25), boss.y + 30, 0, 140, 'pink');
+      const gx = boss.x + (boss.gun ? 25 : -25);
+      if (angry) for (const a of [-14, 0, 14]) addFoe(gx, boss.y + 30, a, 140, 'pink');
+      else addFoe(gx, boss.y + 30, 0, 140, 'pink');
     }
-    if (boss.t > cfg.stay) { boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
+    // It only gives up and flies away if you haven't made it angry yet.
+    if (!angry && boss.t > cfg.stay) { boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
     return;
   }
   // A small sway, so every gun stays on screen.
   const sway = Math.max(8, Math.min(28, (W - boss.w) / 2 + 20));
-  boss.x = W / 2 + Math.sin(boss.t * 0.4) * sway;
+  boss.x = W / 2 + Math.sin(boss.swayT * 0.4) * sway;
   for (const t of boss.turrets) {
     if (!t.alive) continue;
     t.fireWait -= dt;
     if (t.fireWait <= 0) { t.fireWait = cfg.turretEvery; addFoe(t.x, t.y + 30, 0, cfg.turretShot === 'red' ? 190 : 140, cfg.turretShot || 'green'); }
   }
-  if (boss.eye.open) {
+  if (boss.eye.open && boss.charging <= 0) {
     boss.fireWait -= dt;
     if (boss.fireWait <= 0) {
-      boss.fireWait = cfg.ringEvery;
+      boss.fireWait = cfg.ringEvery * (boss.stage === 3 ? 0.6 : 0.8);
       fireRing(boss);
-      if (cfg.double) after(0.5, () => { if (boss.phase === 'fight') fireRing(boss); });
+      if (cfg.double || boss.stage === 3) after(0.5, () => { if (boss.phase === 'fight') fireRing(boss, 12); });
     }
+    checkLastStand(boss);
   }
-  if (state.time > level().length) {
+  // Last stand: it calls in helper ships.
+  if (boss.stage === 3) {
+    boss.escortWait -= dt;
+    if (boss.escortWait <= 0) { boss.escortWait = 7; spawnWave({ what: 'dart', how: 'row', count: 2 }); }
+  }
+  // A big boss gives up and flies away if you take too long.
+  if (boss.t > (cfg.stay || 80)) {
+    clearCannon(boss);
     boss.phase = 'leave';
     state.stats.escaped = true;
     fx.banner('IT GOT AWAY');
@@ -208,6 +361,7 @@ export function updateBosses(dt) {
       if (boss.t > 2.5) {
         boss.phase = 'fight';
         boss.t = 2.5;
+        boss.swayT = 2.5;
         if (boss === state.bosses[0]) fx.banner(boss.kind === 'hauler' ? 'SHOOT THE ENGINES!' : 'SHOOT THE GUNS!');
       }
     } else if (boss.phase === 'fight') {
@@ -229,6 +383,7 @@ export function updateBosses(dt) {
   for (let i = state.bosses.length - 1; i >= 0; i--) {
     const boss = state.bosses[i];
     if (boss.gone) {
+      clearCannon(boss);
       boss.el.remove();
       for (const p of boss.parts) if (p.el) p.el.remove();
       state.bosses.splice(i, 1);
@@ -240,6 +395,12 @@ export function drawBosses() {
   for (const boss of state.bosses) {
     put(boss.el, boss.x, boss.y, boss.w, boss.h);
     for (const p of boss.parts) if (p.el) put(p.el, p.x, p.y, p.w, p.h);
+    const c = boss.cannon;
+    if (c) {
+      // The cannon hangs from its top and turns to aim.
+      c.el.style.transformOrigin = '50% 12%';
+      c.el.style.transform = `translate(${(boss.x - 45).toFixed(1)}px, ${(boss.y + c.oy - 60).toFixed(1)}px) rotate(${c.angle.toFixed(1)}deg)`;
+    }
   }
 }
 
