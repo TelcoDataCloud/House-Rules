@@ -1,18 +1,70 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 64">
-  <!-- MISSILE POD. Three slow red missiles, one after another. -->
+  <!-- MISSILE POD. A launcher box with six tubes. It fires three slow
+       red missiles, one after another.
+       Hendrix: the red circles are the missile tips. Change their colour! -->
   <defs>
-    <linearGradient id="mp-base" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8bdd0"/><stop offset="0.45" stop-color="#5c6078"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
-    <linearGradient id="mp-rocket" x1="0" x2="1"><stop offset="0" stop-color="#ffb3b3"/><stop offset="0.4" stop-color="#ff3b3b"/><stop offset="1" stop-color="#5a0808"/></linearGradient>
+    <filter id="mp-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.7"/></filter>
+    <linearGradient id="mp-pad" gradientUnits="userSpaceOnUse" x1="4" y1="4" x2="64" y2="60"><stop offset="0" stop-color="#9a9c94"/><stop offset="0.5" stop-color="#6a6c66"/><stop offset="1" stop-color="#3a3c3a"/></linearGradient>
+    <linearGradient id="mp-box" gradientUnits="userSpaceOnUse" x1="12" y1="12" x2="56" y2="50"><stop offset="0" stop-color="#9aa27e"/><stop offset="0.4" stop-color="#5c6448"/><stop offset="1" stop-color="#262a1e"/></linearGradient>
+    <radialGradient id="mp-tube" cx="0.6" cy="0.62" r="0.6"><stop offset="0" stop-color="#05070a"/><stop offset="0.75" stop-color="#1c2026"/><stop offset="1" stop-color="#4a5058"/></radialGradient>
+    <radialGradient id="mp-tip" cx="0.35" cy="0.32" r="0.7"><stop offset="0" stop-color="#ffd8cc"/><stop offset="0.3" stop-color="#ff4a32"/><stop offset="0.8" stop-color="#8a140a"/><stop offset="1" stop-color="#3a0604"/></radialGradient>
+    <radialGradient id="mp-grime" cx="0.5" cy="0.5" r="0.6"><stop offset="0.5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.35"/></radialGradient>
   </defs>
-  <rect x="6" y="6" width="56" height="30" rx="6" fill="url(#mp-base)" stroke="#1a1d2e" stroke-width="2.4"/>
-  <rect x="10" y="9" width="48" height="5" rx="2.5" fill="#ffffff" opacity="0.35"/>
-  <g stroke="#1a1d2e" stroke-width="1.8">
-    <rect x="14" y="30" width="12" height="28" rx="5" fill="url(#mp-rocket)"/>
-    <rect x="28" y="30" width="12" height="32" rx="5" fill="url(#mp-rocket)"/>
-    <rect x="42" y="30" width="12" height="28" rx="5" fill="url(#mp-rocket)"/>
+
+  <!-- shadow -->
+  <rect x="7" y="8" width="60" height="55" rx="5" fill="#000" opacity="0.5" filter="url(#mp-blur)"/>
+
+  <!-- concrete pad with corner bolts -->
+  <rect x="3" y="4" width="60" height="55" rx="4" fill="url(#mp-pad)" stroke="#07090d" stroke-width="1.8"/>
+  <rect x="3" y="4" width="60" height="55" rx="4" fill="url(#mp-grime)"/>
+  <path d="M4.6 57 L4.6 7 Q4.6 5.6 6 5.6 L61 5.6" fill="none" stroke="#e6e6dc" stroke-width="1" opacity="0.4"/>
+  <path d="M3 31 L9 31 M57 31 L63 31 M33 4 L33 9" stroke="#2a2c2a" stroke-width="0.7" opacity="0.7"/>
+  <g fill="#2a2c2e"><circle cx="7" cy="8" r="1"/><circle cx="59" cy="8" r="1"/><circle cx="7" cy="55" r="1"/><circle cx="59" cy="55" r="1"/></g>
+
+  <!-- hazard stripes along the front edge, where the missiles leave -->
+  <rect x="9" y="52" width="48" height="4" fill="#d9a520" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M11 56 L15 52 M17 56 L21 52 M23 56 L27 52 M29 56 L33 52 M35 56 L39 52 M41 56 L45 52 M47 56 L51 52 M53 56 L57 52" stroke="#141414" stroke-width="2.2"/>
+
+  <!-- shadow of the launcher box -->
+  <rect x="14" y="14" width="46" height="38" rx="3" fill="#000" opacity="0.45" filter="url(#mp-blur)"/>
+
+  <!-- the armoured launcher box -->
+  <rect x="10" y="10" width="46" height="38" rx="3" fill="url(#mp-box)" stroke="#07090d" stroke-width="1.6"/>
+  <path d="M11.4 46 L11.4 12.6 Q11.4 11.4 12.6 11.4 L54.6 11.4" fill="none" stroke="#e8edd0" stroke-width="0.9" opacity="0.45"/>
+  <!-- side armour skirts -->
+  <rect x="6.5" y="14" width="4" height="30" rx="1" fill="#3c4232" stroke="#07090d" stroke-width="1"/>
+  <rect x="55.5" y="14" width="4" height="30" rx="1" fill="#2a2e22" stroke="#07090d" stroke-width="1"/>
+  <path d="M6.5 22 L10.5 22 M6.5 30 L10.5 30 M6.5 38 L10.5 38 M55.5 22 L59.5 22 M55.5 30 L59.5 30 M55.5 38 L59.5 38" stroke="#07090d" stroke-width="0.7"/>
+
+  <!-- six launch tubes, three missiles still loaded -->
+  <g stroke="#07090d" stroke-width="1.1">
+    <circle cx="20" cy="21" r="6" fill="url(#mp-tube)"/>
+    <circle cx="33" cy="21" r="6" fill="url(#mp-tube)"/>
+    <circle cx="46" cy="21" r="6" fill="url(#mp-tube)"/>
+    <circle cx="20" cy="37" r="6" fill="url(#mp-tube)"/>
+    <circle cx="33" cy="37" r="6" fill="url(#mp-tube)"/>
+    <circle cx="46" cy="37" r="6" fill="url(#mp-tube)"/>
   </g>
-  <rect x="14" y="40" width="12" height="3" fill="#ffffff" opacity="0.8"/>
-  <rect x="28" y="42" width="12" height="3" fill="#ffffff" opacity="0.8"/>
-  <rect x="42" y="40" width="12" height="3" fill="#ffffff" opacity="0.8"/>
-  <path d="M10 30 L18 30 M50 30 L58 30" stroke="#ffd23f" stroke-width="3"/>
+  <g fill="none" stroke="#9aa0a8" stroke-width="0.7" opacity="0.6">
+    <path d="M15 18 A6 6 0 0 1 22 15.3"/><path d="M28 18 A6 6 0 0 1 35 15.3"/><path d="M41 18 A6 6 0 0 1 48 15.3"/>
+    <path d="M15 34 A6 6 0 0 1 22 31.3"/><path d="M28 34 A6 6 0 0 1 35 31.3"/><path d="M41 34 A6 6 0 0 1 48 31.3"/>
+  </g>
+  <g stroke="#07090d" stroke-width="0.8">
+    <circle cx="20" cy="37" r="4" fill="url(#mp-tip)"/>
+    <circle cx="33" cy="37" r="4" fill="url(#mp-tip)"/>
+    <circle cx="46" cy="37" r="4" fill="url(#mp-tip)"/>
+    <circle cx="33" cy="21" r="4" fill="url(#mp-tip)"/>
+  </g>
+  <g fill="#fff" opacity="0.75"><circle cx="18.8" cy="35.8" r="0.9"/><circle cx="31.8" cy="35.8" r="0.9"/><circle cx="44.8" cy="35.8" r="0.9"/><circle cx="31.8" cy="19.8" r="0.9"/></g>
+  <!-- empty tubes have a burnt ring -->
+  <circle cx="20" cy="21" r="3" fill="#000" opacity="0.6"/>
+  <circle cx="46" cy="21" r="3" fill="#000" opacity="0.6"/>
+
+  <!-- panel lines and the cable to the box -->
+  <path d="M10 29 L56 29 M26.5 10 L26.5 48 M39.5 10 L39.5 48" stroke="#07090d" stroke-width="0.8" opacity="0.55"/>
+  <path d="M56 44 Q61 46 61 52" fill="none" stroke="#1a1c1e" stroke-width="2"/>
+  <!-- warning lights -->
+  <circle cx="13.5" cy="45" r="1.2" fill="#ff3b2a"/>
+  <circle cx="52.5" cy="45" r="1.2" fill="#ff3b2a"/>
+  <circle cx="13.5" cy="13.5" r="1" fill="#ffb02a"/>
 </svg>

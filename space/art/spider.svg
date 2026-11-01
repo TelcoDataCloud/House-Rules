@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <!-- SPIDER BOT. A small robot walker with six legs and a round
+       armoured body. The red strip at the front is its sensor, and
+       the two little guns under it point down at you.
+       Hendrix: every fill and stroke is a colour. Change one. -->
+  <defs>
+    <linearGradient id="sp-body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c4cad6"/><stop offset="0.35" stop-color="#687082"/><stop offset="0.75" stop-color="#2c313c"/><stop offset="1" stop-color="#111318"/></linearGradient>
+    <linearGradient id="sp-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a92a2"/><stop offset="0.55" stop-color="#3a404c"/><stop offset="1" stop-color="#15171c"/></linearGradient>
+    <linearGradient id="sp-eye" x1="0" x2="1"><stop offset="0" stop-color="#ff8a7a"/><stop offset="0.5" stop-color="#ff3b3b"/><stop offset="1" stop-color="#8a0a0a"/></linearGradient>
+    <radialGradient id="sp-glow"><stop offset="0" stop-color="#ff3b3b" stop-opacity="0.6"/><stop offset="1" stop-color="#ff3b3b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- six legs: a dark outline, the metal, then a thin shine on top -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 23 L11 14 L6 4 M19 30 L8 27 L2 34 M22 37 L11 45 L8 56 M38 23 L49 14 L54 4 M41 30 L52 27 L58 34 M38 37 L49 45 L52 56" stroke="#08090c" stroke-width="5.6"/>
+    <path d="M22 23 L11 14 L6 4 M19 30 L8 27 L2 34 M22 37 L11 45 L8 56 M38 23 L49 14 L54 4 M41 30 L52 27 L58 34 M38 37 L49 45 L52 56" stroke="#4e5564" stroke-width="3.4"/>
+    <path d="M21.6 22 L11 13 M19 29 L8 26 M21.6 36 L11 44 M38.4 22 L49 13 M41 29 L52 26 M38.4 36 L49 44" stroke="#aeb6c6" stroke-width="1"/>
+  </g>
+  <!-- knee joints with a red pin -->
+  <g fill="#2a2e38" stroke="#08090c" stroke-width="1.1"><circle cx="11" cy="14" r="2.8"/><circle cx="8" cy="27" r="2.8"/><circle cx="11" cy="45" r="2.8"/><circle cx="49" cy="14" r="2.8"/><circle cx="52" cy="27" r="2.8"/><circle cx="49" cy="45" r="2.8"/></g>
+  <g fill="#ff3b3b"><circle cx="11" cy="14" r="0.9"/><circle cx="8" cy="27" r="0.9"/><circle cx="11" cy="45" r="0.9"/><circle cx="49" cy="14" r="0.9"/><circle cx="52" cy="27" r="0.9"/><circle cx="49" cy="45" r="0.9"/></g>
+  <!-- pointed feet -->
+  <g fill="#1c1f26" stroke="#08090c" stroke-width="0.9" stroke-linejoin="round"><path d="M4 2 L8.4 3.6 L6 7 Z"/><path d="M0.6 35.4 L3.4 31.6 L4.2 36 Z"/><path d="M6 58.6 L6.4 54 L10 56 Z"/><path d="M56 2 L51.6 3.6 L54 7 Z"/><path d="M59.4 35.4 L56.6 31.6 L55.8 36 Z"/><path d="M54 58.6 L53.6 54 L50 56 Z"/></g>
+  <!-- two little guns at the front -->
+  <rect x="24.4" y="40" width="3.2" height="10" fill="#6a7180" stroke="#08090c" stroke-width="1"/>
+  <rect x="32.4" y="40" width="3.2" height="10" fill="#6a7180" stroke="#08090c" stroke-width="1"/>
+  <g fill="#ff3b3b"><rect x="24.8" y="48" width="2.4" height="1.4"/><rect x="32.8" y="48" width="2.4" height="1.4"/></g>
+  <!-- the armoured body -->
+  <path d="M24 16 L36 16 L44 23 L45 34 L39 43 L21 43 L15 34 L16 23 Z" fill="url(#sp-body)" stroke="#08090c" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M25 17.6 L35 17.6 L34 19.4 L25.6 19.6 L18.4 25 L17.4 33 L16.6 33 L17.6 23.6 Z" fill="#ffffff" opacity="0.32"/>
+  <!-- back plate with vents -->
+  <path d="M24.6 19 L35.4 19 L38 24 L22 24 Z" fill="url(#sp-plate)" stroke="#08090c" stroke-width="1" stroke-linejoin="round"/>
+  <g fill="#08090c"><rect x="25" y="20.4" width="10" height="0.9"/><rect x="24.4" y="22.2" width="11.2" height="0.9"/></g>
+  <!-- middle dome plate -->
+  <path d="M21 26 L39 26 L40 33 L34 37 L26 37 L20 33 Z" fill="url(#sp-plate)" stroke="#08090c" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M30 26 L30 37 M20.4 30 L39.6 30" stroke="#08090c" stroke-width="0.8" opacity="0.55"/>
+  <!-- red sensor strip at the front -->
+  <circle cx="30" cy="40" r="7" fill="url(#sp-glow)"/>
+  <path d="M22.6 38.4 L37.4 38.4 L36 41.6 L24 41.6 Z" fill="#08090c"/>
+  <rect x="24" y="39.2" width="12" height="1.6" fill="url(#sp-eye)"/>
+  <g fill="#08090c" opacity="0.75"><circle cx="18.6" cy="27" r="0.7"/><circle cx="41.4" cy="27" r="0.7"/><circle cx="18" cy="33.6" r="0.7"/><circle cx="42" cy="33.6" r="0.7"/></g>
+</svg>

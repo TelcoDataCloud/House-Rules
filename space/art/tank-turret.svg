@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 56">
+  <!-- The tank's gun turret. It sits on the tank and spins round its
+       middle (the point 20, 20) so the long barrel can aim at you.
+       Hendrix: every fill is a colour. -->
+  <defs>
+    <linearGradient id="tt-house" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d0d6e0"/><stop offset="0.35" stop-color="#737b8c"/><stop offset="0.75" stop-color="#343946"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="tt-barrel" x1="0" x2="1"><stop offset="0" stop-color="#dde1e8"/><stop offset="0.45" stop-color="#6a7180"/><stop offset="1" stop-color="#16181e"/></linearGradient>
+    <radialGradient id="tt-muzzle"><stop offset="0" stop-color="#fff2d0"/><stop offset="0.45" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- long barrel with a muzzle brake -->
+  <rect x="17.4" y="30" width="5.2" height="20" fill="url(#tt-barrel)" stroke="#0b0c10" stroke-width="1.2"/>
+  <rect x="17" y="38" width="6" height="3" fill="#2a2e36" stroke="#0b0c10" stroke-width="0.8"/>
+  <path d="M15.6 47 L24.4 47 L24.4 53 L15.6 53 Z" fill="#2a2e36" stroke="#0b0c10" stroke-width="1.1"/>
+  <path d="M15.6 50 L24.4 50" stroke="#0b0c10" stroke-width="0.8"/>
+  <circle cx="20" cy="54" r="2.4" fill="url(#tt-muzzle)"/>
+  <!-- the armoured turret -->
+  <path d="M11 5 L29 5 L36 13 L35 27 L28 34 L12 34 L5 27 L4 13 Z" fill="url(#tt-house)" stroke="#0b0c10" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M12 7 L27 7 L25.6 9.4 L13 9.6 L7 15 L7 25 L5.8 24 L5.8 14 Z" fill="#ffffff" opacity="0.35"/>
+  <path d="M33 14 L34 26 L27.6 32.6 L26 31 L31.6 25 Z" fill="#000000" opacity="0.25"/>
+  <!-- gun mantlet -->
+  <path d="M13 27 L27 27 L25.6 35 L14.4 35 Z" fill="#2a2e38" stroke="#0b0c10" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- commander hatch and sensor slit -->
+  <circle cx="13.5" cy="17" r="4" fill="#3a404c" stroke="#0b0c10" stroke-width="1.1"/>
+  <circle cx="13.5" cy="17" r="1.4" fill="#0b0c10"/>
+  <rect x="20" y="14.5" width="11" height="3.4" rx="0.8" fill="#0b0c10"/>
+  <rect x="21" y="15.4" width="9" height="1.6" fill="#ff7a1a"/>
+  <path d="M4 13 L36 13 M20 5 L20 11" stroke="#0b0c10" stroke-width="0.9" opacity="0.55"/>
+  <g fill="#0b0c10" opacity="0.75"><circle cx="9" cy="29" r="0.9"/><circle cx="31" cy="29" r="0.9"/><circle cx="26" cy="9" r="0.9"/><circle cx="30" cy="22" r="0.9"/></g>
+</svg>

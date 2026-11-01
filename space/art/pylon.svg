@@ -1,13 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 76">
-  <!-- PYLON. Gives power to the turrets near it. Knock it out and they go dark. -->
+  <!-- PYLON. A tall power tower with a glowing coil on top. It gives
+       power to the turrets near it. Knock it out and they go dark.
+       Hendrix: the blue glow is the power. The long dark shape is
+       its shadow, because the tower is tall. -->
   <defs>
-    <linearGradient id="py-mast" x1="0" x2="1"><stop offset="0" stop-color="#e0e4f2"/><stop offset="0.5" stop-color="#8a90ad"/><stop offset="1" stop-color="#2a2e44"/></linearGradient>
-    <radialGradient id="py-orb" cx="0.4" cy="0.35"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ffd23f"/><stop offset="1" stop-color="#9a6e00"/></radialGradient>
+    <filter id="py-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <linearGradient id="py-base" gradientUnits="userSpaceOnUse" x1="6" y1="14" x2="54" y2="62"><stop offset="0" stop-color="#9c9c94"/><stop offset="0.5" stop-color="#6a6a64"/><stop offset="1" stop-color="#3a3a38"/></linearGradient>
+    <linearGradient id="py-leg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8bec6"/><stop offset="0.5" stop-color="#5a626c"/><stop offset="1" stop-color="#1e2228"/></linearGradient>
+    <radialGradient id="py-coil" cx="0.4" cy="0.38" r="0.65"><stop offset="0" stop-color="#8a929c"/><stop offset="0.7" stop-color="#3a4048"/><stop offset="1" stop-color="#14171c"/></radialGradient>
+    <radialGradient id="py-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#b8fbff"/><stop offset="0.55" stop-color="#38f0ff" stop-opacity="0.7"/><stop offset="1" stop-color="#38f0ff" stop-opacity="0"/></radialGradient>
   </defs>
-  <path d="M26 70 L34 70 L32 12 L28 12 Z" fill="url(#py-mast)" stroke="#1a1d2e" stroke-width="1.8"/>
-  <path d="M30 12 L16 32 M30 12 L44 32 M30 32 L16 52 M30 32 L44 52 M16 32 L44 32 M16 52 L44 52" stroke="#7a7f99" stroke-width="3" stroke-linecap="round"/>
-  <path d="M30 12 L16 32 M30 32 L16 52" stroke="#d8dcef" stroke-width="1" opacity="0.7"/>
-  <rect x="20" y="66" width="20" height="8" rx="2" fill="url(#py-mast)" stroke="#1a1d2e" stroke-width="1.8"/>
-  <circle cx="30" cy="9" r="11" fill="none" stroke="#ffd23f" stroke-width="2" opacity="0.5"/>
-  <circle cx="30" cy="9" r="6.5" fill="url(#py-orb)" stroke="#5a3e00" stroke-width="1.2"/>
+
+  <!-- shadow of the base -->
+  <rect x="9" y="17" width="48" height="48" rx="4" fill="#000" opacity="0.45" filter="url(#py-blur)"/>
+  <!-- concrete footing with four corner feet -->
+  <rect x="5" y="13" width="48" height="48" rx="4" fill="url(#py-base)" stroke="#07090d" stroke-width="1.8"/>
+  <path d="M6.6 59 L6.6 16 Q6.6 14.6 8 14.6 L51 14.6" fill="none" stroke="#e8e8e0" stroke-width="1" opacity="0.4"/>
+  <g fill="#4a4c4a" stroke="#07090d" stroke-width="0.9"><rect x="8" y="16" width="9" height="9" rx="1"/><rect x="41" y="16" width="9" height="9" rx="1"/><rect x="8" y="49" width="9" height="9" rx="1"/><rect x="41" y="49" width="9" height="9" rx="1"/></g>
+  <!-- yellow and black fence line round the footing -->
+  <rect x="5" y="13" width="48" height="48" rx="4" fill="none" stroke="#d9a520" stroke-width="1.2" stroke-dasharray="3 3" transform="translate(0 0)" opacity="0.9"/>
+
+  <!-- the long shadow the tall tower throws down and to the right -->
+  <path d="M24 34 L34 34 L55 68 L46 71 Z" fill="#000" opacity="0.45" filter="url(#py-blur)"/>
+  <circle cx="50" cy="68" r="5" fill="#000" opacity="0.4" filter="url(#py-blur)"/>
+
+  <!-- four legs of the lattice tower leaning in to the top -->
+  <g stroke="#07090d" stroke-width="3.6" stroke-linecap="round"><path d="M12.5 20.5 L25 32 M45.5 20.5 L33 32 M12.5 53.5 L25 44 M45.5 53.5 L33 44"/></g>
+  <g stroke="url(#py-leg)" stroke-width="2" stroke-linecap="round"><path d="M12.5 20.5 L25 32 M45.5 20.5 L33 32 M12.5 53.5 L25 44 M45.5 53.5 L33 44"/></g>
+  <!-- cross braces between the legs -->
+  <path d="M18 25.5 L40 25.5 M18 48.5 L40 48.5 M17.5 25.5 L17.5 48.5 M40.5 25.5 L40.5 48.5 M18 25.5 L40 48.5 M40 25.5 L18 48.5" stroke="#1a1d22" stroke-width="1" opacity="0.8"/>
+  <!-- power cables running off the edge -->
+  <path d="M29 38 L29 13 M29 38 L5 38" stroke="#07090d" stroke-width="1.4"/>
+  <path d="M29 26 L29 6 M17 38 L1 38" stroke="#1a1d22" stroke-width="1.2"/>
+  <g fill="#c8ccd2" stroke="#07090d" stroke-width="0.6"><rect x="27.4" y="18" width="3.2" height="3"/><rect x="8" y="36.4" width="3" height="3.2"/></g>
+
+  <!-- the top platform and the coil, glowing blue -->
+  <circle cx="29" cy="38" r="17" fill="url(#py-glow)" opacity="0.55"/>
+  <rect x="21" y="30" width="16" height="16" rx="2" fill="#2a2f36" stroke="#07090d" stroke-width="1.4"/>
+  <path d="M22.4 44 L22.4 31.4 L35.6 31.4" fill="none" stroke="#c8ccd2" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="29" cy="38" r="7.6" fill="url(#py-coil)" stroke="#07090d" stroke-width="1.2"/>
+  <g fill="none" stroke="#38f0ff" stroke-width="1"><circle cx="29" cy="38" r="5.8"/><circle cx="29" cy="38" r="3.8" opacity="0.8"/></g>
+  <circle cx="29" cy="38" r="3.2" fill="url(#py-glow)"/>
+  <circle cx="29" cy="38" r="1.5" fill="#ffffff"/>
+  <!-- warning light for planes and a status light -->
+  <circle cx="22.5" cy="31.5" r="1" fill="#ff3b2a"/>
+  <circle cx="35.5" cy="44.5" r="1" fill="#38f0ff"/>
 </svg>

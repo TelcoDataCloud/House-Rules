@@ -1,17 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 64">
-  <!-- TURRET on the moon. Its gun points down at your side of the screen
-       and fires straight down. Do not sit underneath it! -->
+  <!-- TURRET. A gun on a concrete pad. Its two barrels point down at
+       you and it fires straight down. Do not sit underneath it!
+       Hendrix: every fill is a colour. The red bits are its eye. -->
   <defs>
-    <linearGradient id="tu-base" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8bdd0"/><stop offset="0.45" stop-color="#5c6078"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
-    <radialGradient id="tu-dome" cx="0.35" cy="0.3"><stop offset="0" stop-color="#e0ffe8"/><stop offset="0.35" stop-color="#4dff7c"/><stop offset="0.8" stop-color="#1b8a44"/><stop offset="1" stop-color="#0a3a1a"/></radialGradient>
-    <linearGradient id="tu-barrel" x1="0" x2="1"><stop offset="0" stop-color="#c8cde0"/><stop offset="0.5" stop-color="#5c6078"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
+    <filter id="tu-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <linearGradient id="tu-pad" gradientUnits="userSpaceOnUse" x1="8" y1="8" x2="52" y2="56"><stop offset="0" stop-color="#9c9e9a"/><stop offset="0.5" stop-color="#6c6f6d"/><stop offset="1" stop-color="#3c3f40"/></linearGradient>
+    <radialGradient id="tu-grime" cx="0.5" cy="0.5" r="0.5"><stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.35"/></radialGradient>
+    <linearGradient id="tu-body" gradientUnits="userSpaceOnUse" x1="17" y1="18" x2="43" y2="44"><stop offset="0" stop-color="#a7afb8"/><stop offset="0.4" stop-color="#5a626c"/><stop offset="1" stop-color="#1f2329"/></linearGradient>
+    <linearGradient id="tu-barrel" x1="0" x2="1"><stop offset="0" stop-color="#c3c8cf"/><stop offset="0.45" stop-color="#5d636b"/><stop offset="1" stop-color="#16191d"/></linearGradient>
+    <radialGradient id="tu-eye"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#ff5a4a"/><stop offset="1" stop-color="#ff2a1a" stop-opacity="0"/></radialGradient>
   </defs>
-  <rect x="4" y="6" width="52" height="26" rx="6" fill="url(#tu-base)" stroke="#1a1d2e" stroke-width="2.4"/>
-  <rect x="8" y="9" width="44" height="5" rx="2.5" fill="#ffffff" opacity="0.35"/>
-  <path d="M8 26 L14 26 M46 26 L52 26" stroke="#ffd23f" stroke-width="3"/>
-  <rect x="25.5" y="30" width="9" height="30" rx="2" fill="url(#tu-barrel)" stroke="#1a1d2e" stroke-width="2"/>
-  <rect x="25.5" y="56" width="9" height="4" fill="#4dff7c"/>
-  <circle cx="30" cy="22" r="15" fill="url(#tu-dome)" stroke="#0a3a1a" stroke-width="2.4"/>
-  <ellipse cx="25" cy="16.5" rx="4.5" ry="3" fill="#ffffff" opacity="0.85"/>
-  <circle cx="30" cy="23" r="5" fill="#0a3a1a"/>
+
+  <!-- shadow the pad throws to the bottom right -->
+  <path d="M23 12 L43 12 L56 25 L56 45 L43 58 L23 58 L10 45 L10 25 Z" fill="#000" opacity="0.5" filter="url(#tu-blur)"/>
+
+  <!-- the eight sided concrete pad -->
+  <path d="M20 9 L40 9 L53 22 L53 42 L40 55 L20 55 L7 42 L7 22 Z" fill="url(#tu-pad)" stroke="#07090d" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M20 9 L40 9 L53 22 L53 42 L40 55 L20 55 L7 42 L7 22 Z" fill="url(#tu-grime)"/>
+  <path d="M8.6 41.4 L8.6 22.6 L20.6 10.6 L39.4 10.6" fill="none" stroke="#e4e6e0" stroke-width="1" opacity="0.45"/>
+  <path d="M51.4 22.6 L51.4 41.4 L39.4 53.4 L20.6 53.4" fill="none" stroke="#000" stroke-width="1" opacity="0.35"/>
+  <path d="M7 32 L13 32 M47 32 L53 32 M30 9 L30 13 M14 15 L18 19 M46 15 L42 19" stroke="#2a2d2f" stroke-width="0.7" opacity="0.7"/>
+  <g fill="#2a2d30"><circle cx="21" cy="12" r="0.9"/><circle cx="39" cy="12" r="0.9"/><circle cx="10" cy="23" r="0.9"/><circle cx="50" cy="23" r="0.9"/><circle cx="10" cy="41" r="0.9"/><circle cx="50" cy="41" r="0.9"/><circle cx="21" cy="52" r="0.9"/><circle cx="39" cy="52" r="0.9"/></g>
+
+  <!-- yellow and black stripes: the arc the gun can swing through -->
+  <path d="M12 38 A19 19 0 0 0 48 38" fill="none" stroke="#d9a520" stroke-width="2.6"/>
+  <path d="M12 38 A19 19 0 0 0 48 38" fill="none" stroke="#141414" stroke-width="2.6" stroke-dasharray="2.6 2.6"/>
+
+  <!-- the dark ring the gun spins on -->
+  <circle cx="30" cy="31" r="15.5" fill="#15181c" stroke="#07090d" stroke-width="1.2"/>
+  <circle cx="30" cy="31" r="15.5" fill="none" stroke="#000" stroke-width="3" opacity="0.4"/>
+
+  <!-- shadow of the barrels -->
+  <path d="M26.5 40 L26.5 64 L37 64 L37 40 Z" fill="#000" opacity="0.4" filter="url(#tu-blur)"/>
+
+  <!-- twin barrels with muzzle brakes at the end -->
+  <rect x="23.6" y="36" width="4" height="22" fill="url(#tu-barrel)" stroke="#07090d" stroke-width="0.9"/>
+  <rect x="32.4" y="36" width="4" height="22" fill="url(#tu-barrel)" stroke="#07090d" stroke-width="0.9"/>
+  <rect x="22.8" y="56" width="5.6" height="6" rx="0.8" fill="#3a3f46" stroke="#07090d" stroke-width="0.9"/>
+  <rect x="31.6" y="56" width="5.6" height="6" rx="0.8" fill="#3a3f46" stroke="#07090d" stroke-width="0.9"/>
+  <path d="M23 58.6 L28.2 58.6 M31.8 58.6 L37 58.6" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M24.4 37 L24.4 55 M33.2 37 L33.2 55" stroke="#e6e9ee" stroke-width="0.6" opacity="0.5"/>
+
+  <!-- the armoured gun house -->
+  <path d="M20 18 L40 18 L44.5 26 L43 40 L38 44 L22 44 L17 40 L15.5 26 Z" fill="url(#tu-body)" stroke="#07090d" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M21 19.5 L30 19.5 L30 27 L17.3 27 Z" fill="#fff" opacity="0.14"/>
+  <path d="M30 27 L42.9 27 L41.6 39.4 L37.4 42.6 L30 42.6 Z" fill="#000" opacity="0.2"/>
+  <path d="M17 27 L43 27 M22 44 L22 36 L38 36 L38 44 M30 18 L30 27" stroke="#07090d" stroke-width="0.8" opacity="0.7"/>
+  <!-- hatch and vent slots on top -->
+  <circle cx="24.5" cy="23" r="2.6" fill="#4a5058" stroke="#07090d" stroke-width="0.8"/>
+  <circle cx="24.1" cy="22.6" r="1.1" fill="#8d959e"/>
+  <g fill="#0d0f12"><rect x="33" y="21" width="6" height="1"/><rect x="33" y="23" width="6" height="1"/><rect x="33" y="25" width="6" height="1"/></g>
+  <!-- the gun's mantlet where the barrels go in -->
+  <rect x="21.5" y="36" width="17" height="6" rx="1" fill="#2a2f35" stroke="#07090d" stroke-width="0.9"/>
+
+  <!-- red sensor eye, looking at you -->
+  <circle cx="30" cy="31" r="5" fill="url(#tu-eye)" opacity="0.8"/>
+  <rect x="26.5" y="30" width="7" height="2.4" rx="1" fill="#ff3b2a" stroke="#07090d" stroke-width="0.6"/>
+  <rect x="27.3" y="30.4" width="2.2" height="0.8" fill="#ffd0c8"/>
+  <!-- status lights -->
+  <circle cx="46" cy="24" r="1.1" fill="#ff3b2a"/>
+  <circle cx="14" cy="24" r="1.1" fill="#ffb02a"/>
 </svg>
