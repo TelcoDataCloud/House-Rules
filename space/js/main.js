@@ -66,10 +66,13 @@ document.addEventListener('visibilitychange', () => {
 
 async function boot() {
   const names = [
-    SHIP.art, 'drone', 'hauler-engine', 'core-turret', 'core-eye', 'hauler', 'boss-cannon',
+    SHIP.art, 'drone', 'capsule', 'hauler-engine', 'core-turret', 'core-eye', 'hauler', 'boss-cannon',
     ...Object.values(ENEMIES).map((e) => e.art),
+    ...Object.values(ENEMIES).map((e) => e.turret).filter(Boolean),
     ...Object.values(PARTS).map((p) => p.art),
     ...Object.values(BOSSES).map((b) => b.art).filter(Boolean),
+    ...Object.values(BOSSES).map((b) => b.engineArt).filter(Boolean),
+    ...Object.values(BOSSES).map((b) => b.legs && b.legs.art).filter(Boolean),
   ];
   // Set up the screen straight away, but keep Play switched off
   // until every picture has arrived, or the ships would be invisible.

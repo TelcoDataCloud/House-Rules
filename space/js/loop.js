@@ -21,10 +21,11 @@ import { touching, targets } from './collide.js';
 import { drawHud } from './hud.js';
 import { openPick, pickByNumber, showOver, showWin, show } from './screens.js';
 import { SHIP } from '../data/ship.js';
+import { MINE_BLAST } from '../data/foeshots.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
 import { drawWorld } from './world.js';
-import { levelClear } from './flow.js';
+import { levelClear, gameWon } from './flow.js';
 
 
 function readLevel() {
@@ -45,7 +46,19 @@ function runLater() {
   }
 }
 
+// A mine goes BOOM. Anything close gets hit, you included.
+function blowMine(b) {
+  b.dead = true;
+  b.blow = false;
+  fx.boom(b.x, b.y, MINE_BLAST * 2, 12, '#ff3b3b');
+  fx.mineRing(b.x, b.y, MINE_BLAST);
+  sound.boom();
+  const s = state.ship;
+  if (s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_BLAST + SHIP.hitSize) hitShip();
+}
+
 function collisions() {
+  for (const b of state.foes) if (b.blow) blowMine(b);
   const list = targets();
   for (const shot of [...state.shots, ...state.missiles]) {
     if (shot.dead) continue;
@@ -70,7 +83,13 @@ function collisions() {
       if (b.hp > 0 && !b.dead && b.y > 0 && touching(shot, b, 4)) {
         b.hp -= shot.damage;
         fx.spark(b.x, b.y);
-        if (b.hp <= 0) { b.dead = true; fx.pop(b.x, b.y, b.colour); fx.award(b.points, b.x, b.y - 10); sound.ping(); }
+        if (b.hp <= 0) {
+          b.dead = true;
+          if (b.move === 'mine' || b.colour === 'rocket' || b.colour === 'plasma') fx.boom(b.x, b.y, 40, 6, '#ffd23f');
+          else fx.pop(b.x, b.y, b.colour);
+          fx.award(b.points, b.x, b.y - 10);
+          sound.ping();
+        }
         if (shot.through > 0) shot.through--; else shot.dead = true;
         break;
       }
@@ -81,10 +100,12 @@ function collisions() {
   if (s.dead > 0) return;
   const me = { x: s.x, y: s.y, r: SHIP.hitSize };
   for (const b of state.foes) {
-    if (touching(b, me)) { b.dead = true; hitShip(); }
+    if (b.blow) continue;
+    if (touching(b, me)) { b.dead = true; if (b.move === 'mine') blowMine(b); hitShip(); }
   }
   for (const e of state.enemies) {
-    if (!e.dead && e.wait <= 0 && touching(e, me, -e.r * 0.4)) { hitShip(); e.onHit(3); }
+    // Things on the ground can't crash into you: you fly over them.
+    if (!e.dead && !e.spec.ground && e.wait <= 0 && touching(e, me, -e.r * 0.4)) { hitShip(); e.onHit(3); }
   }
 }
 
@@ -148,7 +169,7 @@ function step(dt) {
       state.mode = end;
       if (end === 'over') showOver();
       else if (end === 'clear') levelClear();
-      else showWin();
+      else gameWon();
     }
   }
 }
