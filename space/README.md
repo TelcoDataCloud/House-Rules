@@ -68,6 +68,31 @@ cards come up at random. Spare power is saved: up to 3 extra full bars
 All the art got shading: metal, glass, nav lights, shadows under flying
 ships, textured moon rock, a far planet, glowing explosions.
 
+## Levels 2 and 3 (1 Nov)
+
+Three levels now, each harder than the last (data/level1.js, level2.js,
+level3.js): **Moonfall** in space, **Into the Clouds** in a sunset sky with
+bases on cloud islands, and **Planet Fall** over red planet ground. A short
+film plays between levels: flying into the planet and burning through the
+atmosphere, then diving under the clouds to the ground (js/cutscene.js;
+Enter or Skip skips it). New enemies: Saucer (zigzags, fires lasers) and
+Gunship (big, fires a fan of lasers). New bosses: Hauler Mk 2, Twin
+Haulers, Sky Fortress, The Overlord. Out of ships? Try the level again
+with the ship you started it with.
+
+Enemies take more hits, and more of them come late in each level. Every
+upgrade has its own sound. Drones fire amber shots. The ship is 20%
+smaller.
+
+**Shooting shots:** round orbs (pink, green) can be shot out of the air.
+Red lasers can't, so dodge them (data/foeshots.js).
+
+**Boss deaths:** glowing cracks spread over the boss, bangs go off along
+them, then it splits along the cracks and the pieces tumble away smoking
+(js/breakup.js).
+
+For testing: `?level=2` starts on level 2.
+
 ## Next
 
-S8: level 2, where aimed shots arrive on every level.
+S10: level 4.

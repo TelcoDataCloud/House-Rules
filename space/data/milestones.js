@@ -1,7 +1,7 @@
 /* ===========================================================
-   MILESTONES: the dots on the title screen
+   MILESTONES: the stars on the title screen
 
-   Hendrix: every time we finish a step, its dot lights up.
+   Hendrix: every time we finish a step, its star lights up.
    =========================================================== */
 
 export const MILESTONES = [
@@ -13,5 +13,7 @@ export const MILESTONES = [
   { id: 'S5', name: 'Boom',         done: true },
   { id: 'S6', name: 'The big base', done: true },
   { id: 'S7', name: 'Bosses',       done: true },
-  { id: 'S8', name: 'Level 2',      done: false },
+  { id: 'S8', name: 'Level 2',      done: true },
+  { id: 'S9', name: 'Level 3',      done: true },
+  { id: 'S10', name: 'Level 4',     done: false },
 ];

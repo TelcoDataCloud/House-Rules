@@ -10,20 +10,26 @@
      colour     the colour of the bits when it goes bang
      shotEvery  seconds between its shots (if it is allowed to
                 shoot: look at shooters in difficulty.js)
+     fan        (hover ones only) how many shots in each fan
+     shot       what it fires: 'pink' orbs (you can shoot them down)
+                or 'red' lasers (you can't, so dodge!)
      pattern    how it flies. One of:
                   'straight'  straight down
                   'weave'     wiggles side to side
+                  'zigzag'    bounces off the sides on the way down
                   'dive'      stops, flashes, then dives
                   'hover'     comes down, floats, shoots a fan
                   'loop'      swoops across in a big curve
    =========================================================== */
 
 export const ENEMIES = {
-  dart:    { art: 'dart',     size: 52, hits: 1, speed: 120, points: 100, colour: '#ff7a1a', shotEvery: 3.5, pattern: 'straight' },
-  weaver:  { art: 'weaver',   size: 60, hits: 1, speed: 95,  points: 150, colour: '#ff3fa4', shotEvery: 2.6, pattern: 'weave' },
-  diver:   { art: 'diver',    size: 58, hits: 2, speed: 110, points: 200, colour: '#ffd23f', shotEvery: 2.2, pattern: 'dive' },
-  bruiser: { art: 'bruiser',  size: 96, hits: 6, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2,   pattern: 'hover' },
-  red:     { art: 'red-dart', size: 48, hits: 1, speed: 0,   points: 100, colour: '#ff3b3b', shotEvery: 0,   pattern: 'loop' },
+  dart:    { art: 'dart',     size: 52, hits: 3,  speed: 120, points: 100, colour: '#ff7a1a', shotEvery: 3.5, pattern: 'straight' },
+  weaver:  { art: 'weaver',   size: 60, hits: 4,  speed: 95,  points: 150, colour: '#ff3fa4', shotEvery: 2.6, pattern: 'weave' },
+  diver:   { art: 'diver',    size: 58, hits: 6,  speed: 110, points: 200, colour: '#ffd23f', shotEvery: 2.2, pattern: 'dive' },
+  bruiser: { art: 'bruiser',  size: 96, hits: 20, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2,   pattern: 'hover', fan: 3 },
+  red:     { art: 'red-dart', size: 48, hits: 3,  speed: 0,   points: 100, colour: '#ff3b3b', shotEvery: 0,   pattern: 'loop' },
+  saucer:  { art: 'saucer',   size: 58, hits: 5,  speed: 90,  points: 200, colour: '#38f0ff', shotEvery: 2.4, pattern: 'zigzag', shot: 'red' },
+  gunship: { art: 'gunship',  size: 104, hits: 32, speed: 55, points: 800, colour: '#4dff7c', shotEvery: 1.8, pattern: 'hover', fan: 5, shot: 'red' },
 };
 
 // Every this many air enemies you get, one drops a power token.

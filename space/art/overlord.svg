@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <!-- THE OVERLORD, the level 3 boss. A huge dark mothership
+       with glowing vents. Its six turrets and its eye are separate
+       pictures (core-turret.svg and core-eye.svg). -->
+  <defs>
+    <linearGradient id="ov-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8a6e0"/><stop offset="0.3" stop-color="#5a4a8a"/><stop offset="0.7" stop-color="#2a1e4a"/><stop offset="1" stop-color="#0c0818"/></linearGradient>
+    <linearGradient id="ov-wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a78c0"/><stop offset="1" stop-color="#140e28"/></linearGradient>
+    <radialGradient id="ov-socket" cx="0.5" cy="0.5"><stop offset="0.6" stop-color="#05030c"/><stop offset="1" stop-color="#3a2a6a"/></radialGradient>
+    <radialGradient id="ov-vent"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#ff9ad0"/><stop offset="1" stop-color="#ff3fa4" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- great swept wings -->
+  <path d="M120 60 L4 170 L14 200 L130 150 Z" fill="url(#ov-wing)" stroke="#0c0818" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M280 60 L396 170 L386 200 L270 150 Z" fill="url(#ov-wing)" stroke="#0c0818" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M116 72 L22 164 L28 170 L118 92 Z" fill="#ffffff" opacity="0.2"/>
+  <g fill="url(#ov-vent)"><circle cx="40" cy="176" r="12"/><circle cx="360" cy="176" r="12"/><circle cx="80" cy="162" r="10"/><circle cx="320" cy="162" r="10"/></g>
+  <!-- the main body -->
+  <path d="M110 40 L170 10 L230 10 L290 40 L310 140 L260 230 L140 230 L90 140 Z" fill="url(#ov-hull)" stroke="#0c0818" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M118 46 L172 18 L200 18 L200 28 L176 30 L128 58 Z" fill="#ffffff" opacity="0.35"/>
+  <path d="M90 140 L310 140 M104 80 L296 80 M150 10 L150 230 M250 10 L250 230" stroke="#0c0818" stroke-width="1.6" opacity="0.5"/>
+  <g fill="#ff3fa4"><rect x="160" y="196" width="80" height="6" rx="3"/><rect x="170" y="210" width="60" height="5" rx="2.5"/></g>
+  <g fill="#0c0818" opacity="0.6"><circle cx="120" cy="100" r="2"/><circle cx="280" cy="100" r="2"/><circle cx="130" cy="180" r="2"/><circle cx="270" cy="180" r="2"/></g>
+  <path d="M170 10 L200 0 L230 10" stroke="#ff3fa4" stroke-width="3" fill="none"/>
+  <g fill="#38f0ff"><circle cx="112" cy="140" r="3"/><circle cx="288" cy="140" r="3"/></g>
+  <circle cx="200" cy="110" r="60" fill="url(#ov-socket)" stroke="#05030c" stroke-width="3"/>
+  <circle cx="200" cy="110" r="53" fill="none" stroke="#ff3fa4" stroke-width="2" stroke-dasharray="8 10"/>
+</svg>

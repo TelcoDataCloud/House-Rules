@@ -14,18 +14,19 @@
 
 export const PARTS = {
   pad:     { art: 'pad',         size: [120, 80],  hits: 0,  points: 0 },
-  turret:  { art: 'turret',      size: [60, 64],   hits: 2,  points: 200, fireEvery: 2 },
-  missile: { art: 'missile-pod', size: [68, 64],   hits: 4,  points: 300, fireEvery: 4 },
-  tank:    { art: 'fuel-tank',   size: [56, 60],   hits: 1,  points: 150 },
-  hangar:  { art: 'hangar',      size: [120, 80],  hits: 5,  points: 400, drops: 'P' },
-  dish:    { art: 'dish',        size: [60, 64],   hits: 3,  points: 300, drops: 'P' },
-  cargo:   { art: 'cargo',       size: [56, 56],   hits: 1,  points: 50,  drops: 'P' },
-  pylon:   { art: 'pylon',       size: [60, 76],   hits: 3,  points: 250 },
-  reactor: { art: 'reactor',     size: [150, 140], hits: 15, points: 2000, drops: '1UP' },
+  turret:  { art: 'turret',      size: [60, 64],   hits: 5,  points: 200, fireEvery: 2 },
+  missile: { art: 'missile-pod', size: [68, 64],   hits: 8,  points: 300, fireEvery: 4 },
+  tank:    { art: 'fuel-tank',   size: [56, 60],   hits: 2,  points: 150 },
+  hangar:  { art: 'hangar',      size: [120, 80],  hits: 10, points: 400, drops: 'P' },
+  dish:    { art: 'dish',        size: [60, 64],   hits: 6,  points: 300, drops: 'P' },
+  cargo:   { art: 'cargo',       size: [56, 56],   hits: 2,  points: 50,  drops: 'P' },
+  pylon:   { art: 'pylon',       size: [60, 76],   hits: 6,  points: 250 },
+  reactor: { art: 'reactor',     size: [150, 140], hits: 30, points: 2000, drops: '1UP' },
 };
 
-// A fuel tank's bang reaches this far.
+// A fuel tank's bang reaches this far, and how hard it hits.
 export const TANK_BLAST = 80;
+export const TANK_DAMAGE = 12;
 
 // A pylon powers turrets this close to it.
 export const PYLON_REACH = 170;
