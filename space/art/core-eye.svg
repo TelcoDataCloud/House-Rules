@@ -1,7 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <!-- The Core's pink eye. Shut until all four turrets are gone. -->
-  <circle cx="50" cy="50" r="42" fill="#ff3fa4"/>
-  <circle cx="50" cy="50" r="28" fill="#ff8ad0"/>
-  <circle cx="50" cy="50" r="12" fill="#2a0a1e"/>
-  <circle cx="38" cy="36" r="10" fill="#ffffff"/>
+  <defs>
+    <radialGradient id="ce-iris" cx="0.5" cy="0.5"><stop offset="0" stop-color="#ffd6ee"/><stop offset="0.45" stop-color="#ff3fa4"/><stop offset="0.85" stop-color="#a3206a"/><stop offset="1" stop-color="#4a0a2e"/></radialGradient>
+    <radialGradient id="ce-pupil" cx="0.5" cy="0.5"><stop offset="0" stop-color="#000000"/><stop offset="0.7" stop-color="#2a0a1e"/><stop offset="1" stop-color="#6a1040"/></radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="43" fill="url(#ce-iris)"/>
+  <g stroke="#ffb3dc" stroke-width="1.5" opacity="0.5">
+    <path d="M50 14 L50 30 M50 70 L50 86 M14 50 L30 50 M70 50 L86 50 M25 25 L36 36 M64 64 L75 75 M75 25 L64 36 M25 75 L36 64"/>
+  </g>
+  <circle cx="50" cy="50" r="15" fill="url(#ce-pupil)"/>
+  <ellipse cx="37" cy="34" rx="10" ry="7" fill="#ffffff" opacity="0.9"/>
+  <circle cx="60" cy="62" r="3" fill="#ffffff" opacity="0.6"/>
 </svg>

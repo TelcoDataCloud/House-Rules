@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220">
   <!-- THE CORE, the boss. The four turrets and the pink eye are separate
        pictures (core-turret.svg, core-eye.svg) so they can be shot. -->
-  <path d="M40 30 L120 10 L200 10 L280 30 L300 90 L280 150 L200 170 L120 170 L40 150 L20 90 Z" fill="#5c6078" stroke="#1a1d2e" stroke-width="3.5" stroke-linejoin="round"/>
-  <path d="M160 10 L200 10 L280 30 L300 90 L280 150 L200 170 L160 170 Z" fill="#3b4058"/>
-  <path d="M50 40 L120 22 L150 20 L150 30 L124 32 L60 50 Z" fill="#9aa0bd" opacity="0.7"/>
-  <path d="M20 90 L300 90 M60 50 L260 50 M60 130 L260 130" stroke="#1a1d2e" stroke-width="2" opacity="0.5"/>
+  <defs>
+    <linearGradient id="co-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8dcef"/><stop offset="0.3" stop-color="#8a90ad"/><stop offset="0.65" stop-color="#4c5270"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
+    <linearGradient id="co-plate" x1="0" x2="1"><stop offset="0" stop-color="#6a7090"/><stop offset="1" stop-color="#2a2e44"/></linearGradient>
+    <radialGradient id="co-socket" cx="0.5" cy="0.5"><stop offset="0.6" stop-color="#0d1226"/><stop offset="1" stop-color="#3b4058"/></radialGradient>
+  </defs>
+  <path d="M40 30 L120 10 L200 10 L280 30 L300 90 L280 150 L200 170 L120 170 L40 150 L20 90 Z" fill="url(#co-hull)" stroke="#1a1d2e" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M50 40 L120 22 L150 20 L150 30 L124 32 L60 50 Z" fill="#ffffff" opacity="0.4"/>
+  <path d="M70 60 L120 46 L120 134 L70 120 Z" fill="url(#co-plate)" opacity="0.55"/>
+  <path d="M250 60 L200 46 L200 134 L250 120 Z" fill="url(#co-plate)" opacity="0.7"/>
+  <path d="M20 90 L300 90 M60 50 L260 50 M60 130 L260 130 M120 10 L120 170 M200 10 L200 170" stroke="#1a1d2e" stroke-width="1.6" opacity="0.45"/>
   <g fill="#1a1d2e" opacity="0.6">
-    <circle cx="70" cy="60" r="2"/><circle cx="250" cy="60" r="2"/><circle cx="70" cy="120" r="2"/><circle cx="250" cy="120" r="2"/>
-    <circle cx="120" cy="30" r="2"/><circle cx="200" cy="30" r="2"/><circle cx="120" cy="150" r="2"/><circle cx="200" cy="150" r="2"/>
+    <circle cx="70" cy="60" r="1.8"/><circle cx="250" cy="60" r="1.8"/><circle cx="70" cy="120" r="1.8"/><circle cx="250" cy="120" r="1.8"/>
+    <circle cx="120" cy="30" r="1.8"/><circle cx="200" cy="30" r="1.8"/><circle cx="120" cy="150" r="1.8"/><circle cx="200" cy="150" r="1.8"/>
   </g>
-  <circle cx="160" cy="90" r="54" fill="#1a1d2e" stroke="#0d1226" stroke-width="3"/>
-  <circle cx="160" cy="90" r="48" fill="none" stroke="#7fe6f0" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M40 30 L56 26 L52 40 Z M280 30 L264 26 L268 40 Z" fill="#ffd23f"/>
+  <g fill="#38f0ff"><circle cx="32" cy="90" r="3"/><circle cx="288" cy="90" r="3"/><circle cx="160" cy="16" r="3"/><circle cx="160" cy="164" r="3"/></g>
+  <circle cx="160" cy="90" r="56" fill="url(#co-socket)" stroke="#0d1226" stroke-width="3"/>
+  <circle cx="160" cy="90" r="49" fill="none" stroke="#7fe6f0" stroke-width="2" stroke-dasharray="8 10"/>
 </svg>

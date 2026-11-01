@@ -1,17 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120">
-  <!-- THE HAULER, the mini boss. Its two engines are separate pictures
-       (hauler-engine.svg) so you can shoot them off. -->
-  <path d="M6 44 L214 44 L200 66 L20 66 Z" fill="#5c6a3a" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M110 44 L214 44 L200 66 L110 66 Z" fill="#3e4a26"/>
-  <path d="M20 48 L100 48 L96 54 L24 54 Z" fill="#8fa05a" opacity="0.7"/>
-  <path d="M110 4 C122 30 126 70 124 108 L110 102 L96 108 C94 70 98 30 110 4 Z" fill="#6b7a44" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M110 4 C122 30 126 70 124 108 L116 104 C117 70 116 36 110 4 Z" fill="#3e4a26"/>
-  <path d="M108 14 C103 40 102 70 103 96 L106 94 C106 66 106 38 108 14 Z" fill="#aab86e" opacity="0.8"/>
-  <rect x="100" y="60" width="20" height="14" rx="3" fill="#1a1f0e"/>
-  <rect x="103" y="63" width="14" height="8" rx="2" fill="#ff3fa4"/>
-  <circle cx="110" cy="30" r="7" fill="#1a1f0e"/>
-  <circle cx="110" cy="30" r="4" fill="#ffd23f"/>
-  <rect x="80" y="54" width="10" height="24" rx="2" fill="#7a8a52" stroke="#1a1f0e" stroke-width="2"/>
-  <rect x="130" y="54" width="10" height="24" rx="2" fill="#7a8a52" stroke="#1a1f0e" stroke-width="2"/>
-  <path d="M30 56 L60 56 M160 56 L190 56" stroke="#1a1f0e" stroke-width="1.5" opacity="0.6"/>
+  <!-- THE HAULER, the mini boss. A big army-green cargo ship.
+       Its two engines are separate pictures (hauler-engine.svg)
+       so you can shoot them off. -->
+  <defs>
+    <linearGradient id="hl-wing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8c88a"/><stop offset="0.4" stop-color="#6b7a44"/><stop offset="1" stop-color="#2a3214"/></linearGradient>
+    <linearGradient id="hl-body" x1="0" x2="1"><stop offset="0" stop-color="#d4e0a6"/><stop offset="0.3" stop-color="#7c8c50"/><stop offset="0.7" stop-color="#46522a"/><stop offset="1" stop-color="#1a1f0e"/></linearGradient>
+    <linearGradient id="hl-gun" x1="0" x2="1"><stop offset="0" stop-color="#c8cdb0"/><stop offset="1" stop-color="#3e4430"/></linearGradient>
+    <radialGradient id="hl-glass" cx="0.4" cy="0.35"><stop offset="0" stop-color="#fff6c8"/><stop offset="0.4" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a5a00"/></radialGradient>
+  </defs>
+  <path d="M6 44 L214 44 L200 68 L20 68 Z" fill="url(#hl-wing)" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M20 47 L100 47 L97 52 L24 52 Z" fill="#ffffff" opacity="0.3"/>
+  <path d="M30 58 L80 58 M140 58 L190 58 M60 44 L56 68 M160 44 L164 68" stroke="#1a1f0e" stroke-width="1.3" opacity="0.5"/>
+  <g fill="#1a1f0e" opacity="0.55"><circle cx="40" cy="62" r="1.2"/><circle cx="180" cy="62" r="1.2"/><circle cx="70" cy="50" r="1.2"/><circle cx="150" cy="50" r="1.2"/></g>
+  <path d="M14 46 L30 46 L28 50 L14 50 Z" fill="#ffd23f"/><path d="M206 46 L190 46 L192 50 L206 50 Z" fill="#ffd23f"/>
+  <circle cx="10" cy="48" r="2.6" fill="#ff3b3b"/><circle cx="210" cy="48" r="2.6" fill="#4dff7c"/>
+  <path d="M110 4 C122 30 126 70 124 108 L110 102 L96 108 C94 70 98 30 110 4 Z" fill="url(#hl-body)" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M108 14 C103 40 102 70 103 96 L106 94 C106 66 106 38 108 14 Z" fill="#ffffff" opacity="0.5"/>
+  <path d="M100 40 L120 40 M98 80 L122 80" stroke="#1a1f0e" stroke-width="1.3" opacity="0.5"/>
+  <rect x="100" y="58" width="20" height="16" rx="3" fill="#1a1f0e"/>
+  <rect x="103" y="61" width="14" height="10" rx="2" fill="#ff3fa4"/>
+  <rect x="104" y="62" width="5" height="4" fill="#ffffff" opacity="0.6"/>
+  <circle cx="110" cy="28" r="7.5" fill="#1a1f0e"/>
+  <circle cx="110" cy="28" r="5.5" fill="url(#hl-glass)"/>
+  <rect x="80" y="56" width="10" height="26" rx="2" fill="url(#hl-gun)" stroke="#1a1f0e" stroke-width="2"/>
+  <rect x="130" y="56" width="10" height="26" rx="2" fill="url(#hl-gun)" stroke="#1a1f0e" stroke-width="2"/>
+  <rect x="81" y="80" width="8" height="3" fill="#ff3fa4"/><rect x="131" y="80" width="8" height="3" fill="#ff3fa4"/>
 </svg>

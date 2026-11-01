@@ -54,6 +54,20 @@ loud (the sound button turns it off).
 **High score:** the best score is saved in the browser (js/best.js). This
 is the one thing the game remembers, by Asa's choice. Nothing else is saved.
 
+## New ship and upgrades (1 Nov)
+
+The Comet is a winged fighter now, and every upgrade adds a part you can
+see: nose guns, wing guns, wingtip guns, missile pods, a beam lens, bomb
+racks, bigger engines, coloured laser stripes, and drones flying beside
+you. Seven upgrades, three steps each (data/weapons.js): Spread, Laser
+(green, red, purple; the strong ones go through enemies), Beam, Homing,
+Rapid, Drones and Bomb bay. Shield and Bombs are one-off cards. Three
+cards come up at random. Spare power is saved: up to 3 extra full bars
+(BANK in data/weapons.js), shown as x2, x3 on the bar.
+
+All the art got shading: metal, glass, nav lights, shadows under flying
+ships, textured moon rock, a far planet, glowing explosions.
+
 ## Next
 
 S8: level 2, where aimed shots arrive on every level.
