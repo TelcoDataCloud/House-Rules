@@ -29,7 +29,7 @@
 
 import { state, setPhase } from './state.js';
 import { ITEMS } from '../data/items.js';
-import { TRAPS, UPGRADES } from '../data/recipes.js';
+import { TRAPS, UPGRADES, CAT_PICTURES } from '../data/recipes.js';
 import { ANCHORS, MOUNTS } from '../data/rooms.js';
 import { itemPicture } from './item-art.js';
 import { setAnchorHandler, highlightMount, showTrapOnAnchor, clearAnchorTraps } from './house.js';
@@ -54,6 +54,12 @@ function firstItem(trapId) {
 
 function mountName(mount) {
   return MOUNTS[mount] ? MOUNTS[mount].name.toLowerCase() : mount;
+}
+
+/* 'a doorway', but 'an overhead' */
+function aMount(mount) {
+  const name = mountName(mount);
+  return `${/^[aeiou]/.test(name) ? 'an' : 'a'} ${name}`;
 }
 
 /* 'the front door', but 'your bedroom door' */
@@ -134,7 +140,12 @@ function drawTray() {
     const where = document.createElement('span');
     where.className = 'rig-card-mount';
     where.textContent = mountName(trap.mount) + (trap.timer ? ', timed' : '');
-    btn.append(name, where);
+    /* the same pictures as next to each burglar: match them up */
+    const kinds = document.createElement('span');
+    kinds.className = 'rig-card-kinds';
+    kinds.textContent = trap.cat.map((c) => CAT_PICTURES[c] || '').join(' ');
+    kinds.title = trap.cat.join(' and ').toLowerCase();
+    btn.append(name, kinds, where);
     if (isPerfectAt(i)) {
       btn.classList.add('is-perfect');
       btn.append(Object.assign(document.createElement('span'), { className: 'ws-star', textContent: 'Perfect' }));
@@ -167,7 +178,7 @@ function pick(i) {
     const trap = findTrap(state.traps[i]);
     highlightMount(trap.mount);
     sfx.tick();
-    say(`${trap.name} goes on a ${mountName(trap.mount)} spot. Tap one that is glowing.`);
+    say(`${trap.name} goes on ${aMount(trap.mount)} spot. Tap one that is glowing.`);
   }
   drawTray();
 }
@@ -179,7 +190,7 @@ function place(anchor) {
   const trap = findTrap(trapId);
   if (anchor.mount !== trap.mount) {
     sfx.nope();
-    say(`${trap.name} will not go on ${spot(anchor)}. It needs a ${mountName(trap.mount)} spot.`);
+    say(`${trap.name} will not go on ${spot(anchor)}. It needs ${aMount(trap.mount)} spot.`);
     return;
   }
   const perfect = isPerfectAt(picked);

@@ -162,9 +162,30 @@ export function numberPad(longest, onEnter) {
   return { node: wrap, clear: () => { typed = ''; draw(); } };
 }
 
+/* A little sum like '3 + 2' drawn as things to count:
+   3 apples, then 2 more. Only for small adding and taking. */
+const COUNTERS = ['🍎', '⭐', '🧦', '🐟', '🍪'];
+export function countPictures(sum) {
+  const m = /^\s*(\d+)\s*([+-])\s*(\d+)\s*=?\s*\??\s*$/.exec(sum);
+  if (!m) return null;
+  const a = Number(m[1]); const b = Number(m[3]);
+  if (a > 10 || b > 10) return null;
+  const thing = COUNTERS[(a + b) % COUNTERS.length];
+  const row = el('p', 'pz-count');
+  row.setAttribute('aria-hidden', 'true');
+  const group = (n, crossed) => {
+    const g = el('span', 'pz-count-group');
+    for (let i = 0; i < n; i += 1) g.append(el('span', `pz-count-thing${crossed && i >= n - b ? ' is-gone' : ''}`, thing));
+    return g;
+  };
+  if (m[2] === '+') row.append(group(a), el('span', 'pz-count-sign', '+'), group(b));
+  else row.append(group(a, true), el('span', 'pz-count-sign', `take ${b}`));
+  return row;
+}
+
 function kit() {
   return {
-    el, button, say, shake, clue, later, numberPad, solved,
+    el, button, say, shake, clue, later, numberPad, solved, countPictures,
     body: ui.body, calm: calm(), level: state.puzzleLevel
   };
 }
@@ -221,6 +242,17 @@ function buildSafe(k, p) {
     const right = value.filter((v, i) => v === p.code[i]).length;
     say(found() ? `Nope. ${right} of ${p.code.length} numbers are right. Check your sums.` : 'Nope. You need the code. Find the note!', 'is-bad');
   });
+  /* on Easy, Dad's sums come with things to count */
+  if (found() && state.puzzleLevel === 'easy') {
+    const counts = el('div', 'pz-counts');
+    p.sums.forEach((sum, i) => {
+      const row = countPictures(sum);
+      if (!row) return;
+      row.prepend(el('span', 'pz-count-sign', `${i + 1}:`));
+      counts.append(row);
+    });
+    if (counts.children.length) ui.body.append(counts);
+  }
   ui.body.append(dials, go);
   return {
     hint(n) {

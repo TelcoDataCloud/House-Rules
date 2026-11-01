@@ -50,7 +50,7 @@ import { tonight, braveness, pronoun } from './crew.js';
 import { GADGETS, GADGET_USES } from '../data/gadgets.js';
 import { NEIGHBOURS } from '../data/difficulty.js';
 import { ROOMS, ANCHORS, PICTURE } from '../data/rooms.js';
-import { TRAPS, UPGRADES } from '../data/recipes.js';
+import { TRAPS, UPGRADES, CAT_PICTURES } from '../data/recipes.js';
 import {
   heroLayer, roomAt, floorLine, followHero, startFollowing, stopFollowing, isFollowing,
   showWholeHouse, zoomToRoom, setRoomClickHandler, sayInHud, sayUnderHouse, showTrapOnAnchor
@@ -483,6 +483,27 @@ function checkTraps(b) {
   }
 }
 
+/* A big comic burst over the house when a trap gets someone, so
+   you cannot miss it. */
+function burst(trap, data, times) {
+  const box = document.getElementById('catch-burst');
+  if (!box) return;
+  const pics = trap.cat.map((c) => CAT_PICTURES[c] || '').join('');
+  box.innerHTML = '';
+  const word = document.createElement('span');
+  word.className = 'catch-word';
+  word.textContent = trap.word || 'GOTCHA!';
+  const who = document.createElement('span');
+  who.className = 'catch-who';
+  who.textContent = times === 2 ? `${data.name} HATES ${pics}!` : times < 1 ? `${data.name} does not care.` : `Got ${data.name}!`;
+  box.append(word, who);
+  box.classList.remove('is-on');
+  void box.offsetWidth;            // start the pop again
+  box.classList.add('is-on');
+  clearTimeout(burst.timer);
+  burst.timer = setTimeout(() => box.classList.remove('is-on'), 1700);
+}
+
 function fire(b, anchor, trap) {
   delete state.rigged[anchor.id];
   showTrapOnAnchor(anchor.id, null);
@@ -511,6 +532,7 @@ function fire(b, anchor, trap) {
       sfx.yelp();
       say(b, times === 2 ? pick(b.data.hates) : times < 1 ? pick(b.data.meh) : pick(b.data.ouch));
       log(times === 2 ? `${b.data.name} HATED that.` : times < 1 ? `${b.data.name} barely noticed.` : `${b.data.name} did not like that.`, null, 'is-note');
+      burst(trap, b.data, times);
       if (trap.cat.includes('LOUD')) makeNoise(trap.nerve);
       drawMeters();
       bumpMeter(b);
@@ -633,7 +655,11 @@ function drawGadgets() {
     b.type = 'button';
     b.className = 'btn night-gadget';
     b.dataset.gadget = gadget.id;
-    b.textContent = left > 0 ? gadget.name : `${gadget.name} (used)`;
+    const pic = document.createElement('span');
+    pic.className = 'night-gadget-pic';
+    pic.setAttribute('aria-hidden', 'true');
+    pic.textContent = gadget.picture || '';
+    b.append(pic, document.createTextNode(left > 0 ? gadget.name : `${gadget.name} (used)`));
     b.title = gadget.line;
     b.setAttribute('aria-label', `${gadget.name}. ${gadget.line}${left > 0 ? '' : ' Already used tonight.'}`);
     b.disabled = left <= 0;
@@ -919,6 +945,7 @@ export function startBreakIn() {
   state.noticed = 0;
   ui.panel.hidden = false;
   ui.meters.hidden = false;
+  if (ui.gadgets) ui.gadgets.hidden = false;
   ui.log.innerHTML = '';
   ui.fast.setAttribute('aria-pressed', String(run.fast));
   ui.zoom.setAttribute('aria-pressed', String(run.zoomIn));
@@ -990,6 +1017,7 @@ export function stopBreakIn() {
   state.burglars = [];
   if (ui.panel) ui.panel.hidden = true;
   if (ui.meters) ui.meters.hidden = true;
+  if (ui.gadgets) ui.gadgets.hidden = true;
   run.peekRoom = null;
   setRoomClickHandler(null);
   stopFollowing();

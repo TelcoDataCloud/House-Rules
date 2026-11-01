@@ -45,7 +45,8 @@ export function sumFor(n, kind) {
   for (let tries = 0; tries < 200; tries += 1) {
     if (kind === 'plain') return String(n);
     if (kind === 'add') {
-      const a = roll(n + 1);
+      /* no 0 + 5: both bits are at least 1 when they can be */
+      const a = n >= 2 ? between(1, n - 1) : roll(n + 1);
       return `${a} + ${n - a}`;
     }
     if (kind === 'take') {
@@ -104,7 +105,7 @@ export function workOut(words) {
 
 function makeSafe(level) {
   const rules = SAFE.levels[level];
-  const code = Array.from({ length: rules.digits }, () => roll(10));
+  const code = Array.from({ length: rules.digits }, () => between(rules.lowest || 0, 9));
   const sums = code.map((d) => sumFor(d, pick(rules.kinds)));
   return { code, sums };
 }
@@ -271,7 +272,7 @@ function makeMirror(level) {
     const fill = (words) => words.replace(/\b([abc])\b/g, (m, k) => String(n[k]));
     const sum = fill(q.answer);
     const answer = workOut(sum);
-    if (answer >= 0) return { ask: `${fill(q.ask)}${q.ask.endsWith('=') ? ' ?' : '?'}`, answer, upsideDown: rules.upsideDown };
+    if (answer >= 0) return { ask: `${fill(q.ask)}${q.ask.endsWith('=') ? ' ?' : '?'}`, answer, upsideDown: rules.upsideDown, backwards: rules.backwards !== false, pictures: Boolean(rules.pictures) };
   }
   return { ask: 'WHAT IS 2 + 2?', answer: 4, upsideDown: false };
 }

@@ -68,9 +68,10 @@ function buildTelly(k, p) {
 function buildMirror(k, p) {
   k.clue(p.upsideDown
     ? 'A sum on the steamy mirror. It is upside down! What is the answer?'
-    : 'A sum on the steamy mirror. It is back to front! What is the answer?');
+    : p.backwards ? 'A sum on the steamy mirror. It is back to front! What is the answer?'
+      : 'A sum in the steam on the mirror. What is the answer?');
   const glass = k.el('div', 'pz-mirror');
-  const words = k.el('p', `pz-mirror-words${p.upsideDown ? ' is-upside-down' : ''}`, p.ask);
+  const words = k.el('p', `pz-mirror-words${p.upsideDown ? ' is-upside-down' : ''}${p.backwards ? ' is-backwards' : ''}`, p.ask);
   glass.setAttribute('role', 'img');
   glass.setAttribute('aria-label', `Steamy writing on the mirror. It says: ${p.ask}`);
   words.setAttribute('aria-hidden', 'true');
@@ -82,7 +83,10 @@ function buildMirror(k, p) {
     k.say(`${typed}? The cabinet stays shut.`, 'is-bad');
     return false;
   });
-  k.body.append(glass, pad.node);
+  const count = p.pictures ? k.countPictures(p.ask) : null;
+  k.body.append(glass);
+  if (count) k.body.append(count);
+  k.body.append(pad.node);
   return {
     read: () => p.ask,
     hint(n) {
@@ -170,7 +174,7 @@ function buildBooks(k, p) {
   const shelf = k.el('div', 'pz-shelf');
   const colours = ['fabric-a', 'fabric-b', 'fabric-c', 'paint-yellow', 'key-green', 'key-pink', 'key-blue'];
   p.books.forEach((book, i) => {
-    const b = k.button(`pz-book book-${colours[i % colours.length]}`, book.say, `Book: ${book.say}`, () => {
+    const b = k.button(`pz-book book-${colours[i % colours.length]}${book.say.length > 3 ? ' is-long' : ''}`, book.say, `Book: ${book.say}`, () => {
       if (b.classList.contains('is-out')) return;
       if (book.v === sorted[next].v) {
         next += 1;

@@ -73,7 +73,9 @@ export function score(night) {
   let tip = 'Different traps for different burglars. See if you can get an S.';
   const shrugged = night.fired.filter((f) => f.times < 1).length;
   const close = night.burglars.find((b) => b.status === 'escaped' && b.nerveLeft < b.nerve);
-  if (!fired) tip = 'None of your traps went off. Watch where they walk, then put traps there.';
+  const setAny = night.fired.some((f) => !f.gadget) || night.unfired;
+  if (!setAny) tip = 'You set no traps. Build some, then put them where they walk.';
+  else if (!fired) tip = 'None of your traps went off. Watch where they walk, then put traps there.';
   else if (close) tip = `${close.name} was rattled but still got away. One more trap on the way would have done it.`;
   else if (night.unfired) tip = `${night.unfired === 1 ? 'One of your traps' : `${night.unfired} of your traps`} never went off. Watch where they walk.`;
   else if (shrugged) tip = 'Some of your traps hardly bothered them. Watch who yells loudest at what.';
