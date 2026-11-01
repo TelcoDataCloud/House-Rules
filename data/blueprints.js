@@ -22,40 +22,46 @@
    =========================================================== */
 
 export const NUMBERS = {
-  easy:        { a: [2, 9],  b: [2, 9],  c: [1, 9] },
-  tricky:      { a: [3, 12], b: [3, 12], c: [2, 20] },
-  brainbuster: { a: [6, 15], b: [6, 15], c: [5, 40] }
+  easy:        { a: [1, 5],  b: [1, 5],  c: [1, 5] },
+  tricky:      { a: [2, 5],  b: [1, 10], c: [1, 10] },
+  brainbuster: { a: [2, 10], b: [2, 10], c: [1, 20] }
 };
 
 /* How many goes you get at each one. */
 export const TRIES = 2;
 
+/* Easy only uses the adding ones (+). Tricky adds times (*).
+   Brainbuster uses all of them, two steps too. Keep the words SHORT:
+   the sum is shown big underneath as well. */
 export const BLUEPRINTS = {
   SLIPPERY: [
-    { ask: 'You tip a marbles on each of b stairs. How many marbles?', answer: 'a * b' },
-    { ask: 'The slippy patch is a tiles long and b tiles wide. How many tiles?', answer: 'a * b' }
+    { ask: 'a marbles. b more. How many?', answer: 'a + b' },
+    { ask: 'a jars. b marbles in each. How many?', answer: 'a * b' }
   ],
   MESSY: [
-    { ask: 'The bucket holds a cups. You fill it b times. How many cups of gloop?', answer: 'a * b' },
-    { ask: 'a bags of flour, b scoops in each. You spill c. How many scoops are left?', answer: 'a * b - c' }
+    { ask: 'a cups of gloop. b more. How many?', answer: 'a + b' },
+    { ask: 'a buckets. b cups in each. How many cups?', answer: 'a * b' },
+    { ask: 'a bags. b scoops each. c spill. How many left?', answer: 'a * b - c' }
   ],
   STICKY: [
-    { ask: 'a jars, b spoonfuls in each. How many spoonfuls of sticky?', answer: 'a * b' },
-    { ask: 'You need a strips of tape, each b centimetres long. How many centimetres?', answer: 'a * b' }
+    { ask: 'a jars of honey. b more. How many?', answer: 'a + b' },
+    { ask: 'a jars. b spoons in each. How many spoons?', answer: 'a * b' }
   ],
   LOUD: [
-    { ask: 'a cans on the string. Each one clangs b times. How many clangs?', answer: 'a * b' },
-    { ask: 'a bells ring b times each, then the horn honks c times. How many noises?', answer: 'a * b + c' }
+    { ask: 'a cans. b more cans. How many?', answer: 'a + b' },
+    { ask: 'a cans. Each one clangs b times. How many clangs?', answer: 'a * b' }
   ],
   STARTLE: [
-    { ask: 'a rubber chickens, b squeaks each. How many squeaks?', answer: 'a * b' },
-    { ask: 'The rope is a metres. You add b more, then cut off c. How long is it now?', answer: 'a + b - c' }
+    { ask: 'a chickens. b more. How many?', answer: 'a + b' },
+    { ask: 'a chickens. b squeaks each. How many squeaks?', answer: 'a * b' }
   ],
   TANGLE: [
-    { ask: 'You wrap the door a times, using b centimetres each time. How much string?', answer: 'a * b' }
+    { ask: 'a strings. b more. How many?', answer: 'a + b' },
+    { ask: 'a doors. b strings on each. How many strings?', answer: 'a * b' }
   ],
   UPGRADE: [
-    { ask: 'a parts, b bolts on each part, plus c spare bolts. How many bolts?', answer: 'a * b + c' },
-    { ask: 'a buckets of b cups each, and c cups spilled. How many cups made it?', answer: 'a * b - c' }
+    { ask: 'a bolts. b more. How many?', answer: 'a + b' },
+    { ask: 'a parts. b bolts on each. How many bolts?', answer: 'a * b' },
+    { ask: 'a parts. b bolts each. c spare. How many?', answer: 'a * b + c' }
   ]
 };

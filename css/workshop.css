@@ -333,6 +333,7 @@
 .ws-blueprint.is-perfect { border-style: solid; box-shadow: 0 0 0 4px var(--grade-s); }
 .ws-blueprint-head { margin: 0; font-weight: 900; text-transform: uppercase; font-size: 14px; }
 .ws-blueprint-ask { margin: 0; font-size: 19px; font-weight: 800; text-align: center; }
+.ws-blueprint-sum { margin: 0; font-family: var(--font-display); font-size: 30px; font-weight: 900; }
 .ws-blueprint-said { margin: 0; min-height: 1.4em; font-weight: 800; text-align: center; }
 .ws-blueprint-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
 .ws-blueprint-input {

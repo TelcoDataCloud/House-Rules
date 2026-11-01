@@ -25,6 +25,9 @@
                the kitchen, rope in the garage. The game hides it
                in one of those rooms if it can, so if you want
                flour, go to the kitchen.
+       copies  how many of it are in the house each night. Leave it
+               out for one. Things that go in LOADS of traps (the
+               bucket, string, tape, flour) have copies: 2.
        worksAs other things it can stand in for in a trap. String
                works as rope (a bit weaker, nobody can tell in the
                dark). So a trap that needs rope also takes string.
@@ -55,19 +58,19 @@
 
 export const ITEMS = [
   /* --- COMMON: every one of these is in the house every night --- */
-  { id: 'bucket',       name: 'Bucket',         look: 'bucket', kind: 'washing',
+  { id: 'bucket',       name: 'Bucket',         look: 'bucket', kind: 'washing', copies: 2,
     riddle: 'something you take to the beach to build castles',
     foundIn: ['utility', 'garage', 'shed'], worksAs: ['sack'] },
   { id: 'marbles',      name: 'Marbles',        look: 'marbles', kind: 'toys',
     riddle: 'little glass balls that roll under the sofa',
     foundIn: ['my-room', 'box-room', 'attic'] },
-  { id: 'cooking-oil',  name: 'Cooking Oil',    look: 'bottle', kind: 'food',
+  { id: 'cooking-oil',  name: 'Cooking Oil',    look: 'bottle', kind: 'food', copies: 2,
     riddle: 'something slippy that lives next to the cooker',
     foundIn: ['kitchen', 'utility'] },
-  { id: 'pillow',       name: 'Feather Pillow', look: 'pillow', kind: 'stuff',
+  { id: 'pillow',       name: 'Feather Pillow', look: 'pillow', kind: 'stuff', copies: 2,
     riddle: 'something soft and fluffy you put your head on',
     foundIn: ['my-room', 'big-room', 'box-room'] },
-  { id: 'string',       name: 'String',         look: 'string', kind: 'tools',
+  { id: 'string',       name: 'String',         look: 'string', kind: 'tools', copies: 2,
     riddle: 'something long and thin that cats love to chase',
     foundIn: ['kitchen', 'utility', 'box-room', 'attic'], worksAs: ['rope'] },
   { id: 'rope',         name: 'Rope',           look: 'rope', kind: 'tools',
@@ -76,19 +79,19 @@ export const ITEMS = [
   { id: 'sack',         name: 'Sack',           look: 'sack', kind: 'tools',
     riddle: 'a big baggy bag, like for potatoes',
     foundIn: ['cellar', 'shed', 'garage'] },
-  { id: 'duct-tape',    name: 'Duct Tape',      look: 'tape', kind: 'tools',
+  { id: 'duct-tape',    name: 'Duct Tape',      look: 'tape', kind: 'tools', copies: 2,
     riddle: 'something sticky that comes on a roll',
     foundIn: ['garage', 'cellar', 'utility'], worksAs: ['string', 'rope'] },
   { id: 'tin-cans',     name: 'Tin Cans',       look: 'cans', kind: 'food',
     riddle: 'something that rattles when you kick it',
     foundIn: ['kitchen', 'cellar'], worksAs: ['bell'] },
-  { id: 'flour',        name: 'Bag of Flour',   look: 'flour', kind: 'food',
+  { id: 'flour',        name: 'Bag of Flour',   look: 'flour', kind: 'food', copies: 2,
     riddle: 'white powder for baking cakes',
     foundIn: ['kitchen', 'cellar'] },
   { id: 'toy-car',      name: 'Toy Car',        look: 'toycar', kind: 'toys',
     riddle: 'something tiny with four wheels',
     foundIn: ['my-room', 'attic', 'lounge'], worksAs: ['roller-skate'] },
-  { id: 'hair-dryer',   name: 'Hair Dryer',     look: 'hairdryer', kind: 'washing',
+  { id: 'hair-dryer',   name: 'Hair Dryer',     look: 'hairdryer', kind: 'washing', copies: 2,
     riddle: 'something that blows hot wind at your head',
     foundIn: ['bathroom', 'big-room'] },
   { id: 'bell',         name: 'Bell',           look: 'bell', kind: 'stuff',

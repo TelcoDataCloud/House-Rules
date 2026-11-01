@@ -1078,7 +1078,8 @@ export function showWholeHouse(animate = true) {
 /* --- FOLLOWING THE HERO ---------------------------------------
    js/hero.js calls these while Hendrix walks. The camera drifts
    after him, a little every frame, so it feels like it is
-   following rather than jumping.
+   following rather than jumping. It stays centred on him, not on
+   the room, so it never shudders at a doorway.
    ------------------------------------------------------------ */
 
 /* note is what the bar above the house says on the whole house
@@ -1118,7 +1119,11 @@ export function followHero(x, y, roomId) {
   view.svg.querySelectorAll('.room').forEach((r) => r.classList.toggle('is-open', r.dataset.room === roomId));
   wakeSpots(null);
   view.glideId += 1;                       // stop any glide that is running
-  const target = roomBox(room);
+  /* Frame the room he is in, but slide sideways to keep HIM in the
+     middle. Framing just the room made the camera jump back and
+     forth when he stood on the line between two rooms. */
+  const box = roomBox(room);
+  const target = { ...box, x: Math.max(0, Math.min(x - box.w / 2, PICTURE.w - box.w)) };
   const from = view.box || WHOLE();
   const k = 0.12;
   setBox({

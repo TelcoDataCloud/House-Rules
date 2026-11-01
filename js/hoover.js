@@ -191,7 +191,7 @@ export function buildHoover(kit, p) {
   const lines = [];
   let running = false;
 
-  kit.clue(`The robot hoover has jammed the cupboard door. Write it a program to drive home to its charger. It starts facing right.${p.most ? ` Your program can be ${p.most} lines long at most.` : ''}`);
+  kit.clue(`Get the robot hoover to its charger. It starts facing right.${p.most ? ` Use ${p.most} lines or less. Repeat helps!` : p.repeat ? ' Tip: repeat does the lines up to end again.' : ''}`);
 
   const { floor, place, start } = drawFloor(el, map);
 

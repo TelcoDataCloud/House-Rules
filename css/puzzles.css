@@ -25,6 +25,7 @@
   flex-wrap: wrap;
 }
 .pz-head h2 { margin: 0; }
+.pz-read { min-height: 44px; padding: 4px 12px; font-size: 14px; }
 .pz-time { margin: 0; font-weight: 800; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 
 .pz-clue {
@@ -259,14 +260,18 @@
 
 /* --- MORSE --------------------------------------------------- */
 
-.pz-morse { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+.pz-morse { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+/* each letter's beeps sit in their own box, so you can tell where one
+   letter stops and the next one starts */
+.pz-morse .pz-morse-group { padding: 8px 10px; background: var(--bg-2); border: 3px solid var(--ink); border-radius: 10px; }
 .pz-morse-group, .pz-chart-code { display: inline-flex; align-items: center; gap: 5px; }
-.pz-dot, .pz-dash { display: inline-block; height: 12px; background: var(--ink-soft); border-radius: 6px; }
+.pz-dot, .pz-dash { display: inline-block; flex: 0 0 auto; height: 12px; background: var(--ink-soft); border-radius: 6px; }
 .pz-morse .pz-dot, .pz-morse .pz-dash { background: var(--text); }
 .pz-dot { width: 12px; }
 .pz-dash { width: 32px; }
-.pz-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; width: 100%; }
-.pz-chart-key { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: var(--tap); padding: 4px 8px; }
+.pz-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 6px; width: 100%; }
+.pz-chart-key { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: var(--tap); padding: 4px 10px; overflow: visible; }
+.pz-chart-code { flex: 0 0 auto; }
 .pz-chart-letter { font-family: var(--font-display); font-size: 22px; font-weight: 900; }
 .pz-chart-key .pz-chart-code { gap: 3px; }
 .pz-chart-key .pz-dot { width: 7px; height: 7px; }

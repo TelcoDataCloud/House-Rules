@@ -19,8 +19,8 @@ import { readProgram, runProgram, drawFloor, playRun } from './hoover.js';
 
 export function buildBugs(k, p) {
   k.clue(p.kind === 'program'
-    ? "Dad's old computer runs the robot hoover. This program SHOULD drive it home, but it crashes. One line is wrong. Tap it."
-    : "Dad's old computer will not start. One line of this code has a bug. Tap the line that is wrong.");
+    ? 'This hoover program crashes. One line is wrong. Tap it.'
+    : 'One line of this code is wrong. Tap it.');
 
   let drawn = null;
   if (p.kind === 'program') {

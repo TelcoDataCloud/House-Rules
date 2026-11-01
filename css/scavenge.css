@@ -48,6 +48,7 @@
   color: var(--text);
 }
 /* The last ten seconds go red and shake a little. */
+.clock.is-untimed .clock-time { font-size: 20px; }
 .clock.is-urgent .clock-time { color: var(--danger); animation: clock-shake 0.5s ease-in-out infinite; }
 @keyframes clock-shake {
   0%, 100% { transform: translateX(0); }
