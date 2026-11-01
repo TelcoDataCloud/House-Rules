@@ -17,6 +17,15 @@ see his own work running at a real web address.
 
 ---
 
+**Correction from Asa, 1 Nov 2026: Hendrix is SIX and has only just
+learnt to read.** He is good at sums, including times tables, but long
+sentences are hard. So: Easy is the default, on-screen words are short,
+every puzzle has a Read it to me button (and reads itself out on Easy), and
+two-step sums live on Brainbuster for grown ups. The tone section below
+still applies; pitch the words at a six year old reader.
+
+---
+
 ## 1. The pitch
 
 You are the only one home. Two burglars have been watching the house all week
@@ -774,6 +783,37 @@ the line with the bug, then pick the fix. Data bugs are written in
 line of a hoover program that works.
 → *His turn:* write his own bug in `BUGS.SNIPPETS`.
 
+**M23 — Just Right** *(Asa, 1 Nov 2026, after Hendrix played).* No clock
+mode (`seconds: 0`, now the default). Easy puzzles are adding and taking
+with small numbers and three letter words; Tricky adds simple times
+tables; Brainbuster has the two-step sums. Short clue words, Read it to me
+on every puzzle and on the blueprint, which also shows the sum big.
+Blueprints on Easy are adding only. The robot hoover has no line limit
+until Brainbuster (a 6 line limit made one map feel impossible). The house
+fills the screen (up to 1600 wide) and the camera follows Hendrix
+smoothly instead of jumping between rooms. Morse letters sit in boxes and
+the chart fits. The busiest common items (bucket, string, tape, flour,
+oil, pillow, hair dryer) come in twos (`copies: 2`). Half the blueprints
+are spelling (picture, jumbled letters). The build result pops up in a box
+so the junk stays at the top, with bigger pictures. Later the same day:
+green "do this next" buttons, auto pickup after a lock, yellow and red
+rings on junk with no partner, a house-shaped Whole house button, and
+burglars about 1.7 times braver.
+→ *His turn:* see PROJECT_STATE.
+
+**M24 — Easy Does It** *(Asa, 1 Nov 2026, from a Claude in Chrome
+playtest).* Tonight's burglars and what they hate, as pictures, always on
+screen (`CAT_PICTURES` in `data/recipes.js`, the same pictures on every
+trap card). Easy mirror written the right way round, Easy sums come with
+things to count. Hiding places twinkle until searched, and tapping one in
+the next room walks there and searches it. Bigger bag names, a clock over
+the house, big gadget buttons, a comic burst when a trap lands. **With a
+clock the house is smaller:** 8 rooms on Monday, more each night of a week
+(`opens` in `data/nights.js`); No clock is the whole house. Easy is 3
+minutes and the clock stops while you walk. Plus the bugs it found
+(PROJECT_STATE has the list).
+→ *His turn:* see PROJECT_STATE.
+
 ---
 
 ## 10. Explicitly out of scope for v1
@@ -803,7 +843,8 @@ moving the hero at night.
 - All 27 recipes work, base and upgrade, each with its own animation
 - The two burglars need genuinely different traps to beat
 - A night runs 6-10 minutes and can be won *or* lost, at all three difficulty
-  settings
+  settings (from M24: a timed night is shorter, about 3 minutes of searching
+  a smaller house; No clock is the long version)
 - Restart resets everything cleanly, every time
 - Works on desktop and tablet, keyboard and touch
 - It looks like something a person drew on purpose

@@ -1,6 +1,6 @@
 # PROJECT STATE — House Rules
 
-Last updated: 28 October 2026 (M0 to M22 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, fresh nights, thinking time, a bigger house and the robot hoover). The newest sections are at the bottom; read those first.
+Last updated: 1 November 2026 (M0 to M24 done: the game is finished, plus locks, hints, more traps, the fuse box, pause, fresh nights, thinking time, a bigger house and the robot hoover). The newest sections are at the bottom; read those first.
 
 ---
 
@@ -851,3 +851,135 @@ result, phone 390 px with no sideways scroll, day theme).
 line to have a mistake in it, set `bug` to that line's number (the first line
 is 0), put the right version first in `fixes`, then two wrong ones, and a
 `why`. Set `level: 'easy'` and play with puzzles on Easy until it comes up.
+
+---
+
+## M23 — Just Right. Done 1 Nov 2026
+
+**Hendrix is six and has just learnt to read** (Asa, 1 Nov). The project
+instructions and the older parts of the brief say eleven; they are wrong
+on that point. Pitch on-screen words at a new reader. Maths is fine,
+including times tables; long words are not.
+
+Asa's notes after Hendrix played, and what changed:
+- *Hoover puzzle unsolvable* (tricky map, 6 line limit, he did it the long
+  way). Tricky maps now have no limit; only Brainbuster limits lines, and
+  the clue says "Repeat helps!".
+- *Multiplication one too hard, reading too complicated.* Easy is now the
+  default puzzle level and really easy (sums to 9, 3 letter words, 3 note
+  tunes, count in ones, twos and tens). Tricky has simple times tables
+  (2 to 5). Two-step sums are Brainbuster only. Mirror and blueprint
+  questions are short, the blueprint shows the sum big (5 + 4 = ?), and
+  every puzzle has Read it to me (it reads itself on Easy).
+- *Non-timed mode:* "No clock" difficulty (seconds 0), now the default.
+  Hints are free with no clock.
+- *Mouse stuck at the edge, image shudders:* the follow camera framed the
+  room he was in, so near a doorway it flipped between two rooms. It now
+  slides to keep Hendrix in the middle.
+- *House should be bigger:* up to 1600 px wide, limited by window height.
+- *Morse U did not fit:* chart keys wider, dots and dashes never squash,
+  each letter's beeps sit in their own box.
+- *Common things in lots of traps should turn up more than once:* new
+  `copies` field in `data/items.js`. Bucket, cooking oil, string, hair dryer,
+  duct tape, flour and pillow have `copies: 2`. All 55 things find a home.
+
+- *Make the icons bigger and put them at the top:* the junk cards' pictures
+  are much bigger, and what you just built now pops up in a box over the
+  bench (with its blueprint and Peek at the code) instead of pushing your
+  junk down the page. Back to the bench closes it.
+- *"Do you spill the scoops or the bag?"* That question is now "c scoops fall
+  out", and it only shows on Brainbuster.
+- *Simple maths and simple spelling for a 6 to 7 year old:* half the
+  blueprints are now spelling: a picture of a thing, jumbled letters, tap
+  them in order (3 letter words on Easy, 4 on Tricky). Words are in
+  `SPELLING` in `data/blueprints.js`. The maths ones on Easy are adding only.
+
+**Hendrix's turn for M23:** in `data/difficulty.js`, change No clock's
+`note` to his own words, then find it on the title screen.
+
+**Also in M23, Asa's second batch:**
+- Back out searching is green while there are still traps you can make;
+  once you cannot build anything more, Take the traps downstairs goes green
+  (and stays quiet until then).
+- Solve a lock on a cabinet and Hendrix picks up what is inside by himself.
+- Junk with nothing to mix with gets a yellow ring if there is time to go
+  and find its partner, a red ring and a line through it if not.
+- The Whole house button is shaped like a house.
+- Burglars are about 1.7 times braver (Sid 14, Bruno 24, Twiggy 12,
+  Dolores 19, Norm 28), because with lots of traps two of them ran too
+  easily.
+
+---
+
+## M24 — Easy Does It. Done 1 Nov 2026
+
+Asa had Claude in Chrome play the live site three times (it played the
+build before M23 went up, so some of its notes were already fixed). Asa
+picked "bugs plus the big wins", and "timed = small house".
+
+**Bugs fixed**
+- Things slid under your finger at the workbench: a thing on the bench now
+  leaves a dashed gap in your junk, so nothing moves.
+- Closing a pop up sent Hendrix walking: the house ignores taps for a
+  moment after any pop up closes.
+- The camera slid mid-tap and picked the wrong room: a tap uses the room
+  your finger first touched.
+- Hiding places in the next room looked tappable but were not: now tapping
+  one walks Hendrix there and he searches it.
+- Full Poultry made with custard said honey: a stand-in's name goes into
+  the trap's line.
+- Lounge still said the piano and TV were locked after opening them: the
+  note no longer says it (the lock itself shows).
+- "One more trap would have done it" with no traps: it now says you set no
+  traps.
+- A tip named Sid and Bruno on a night without Sid: now it names nobody.
+- "To the Mum and Dad's", "a overhead": fixed.
+- A leaf blower in the bathroom cabinet: the piano, TV cabinet, bathroom
+  cabinet and key safe now have `holds` (toys and stuff), and the rare
+  thing behind a lock has to fit.
+- A hint asked for a pillow he already had: hints pick things you have
+  first, and the thing glows in your junk.
+
+**Big wins**
+- **Who is coming tonight, in pictures**, at the top of the screen while
+  you search, build, rig and watch: each burglar's face, name, the pictures
+  of what he HATES, and what he does not care about (crossed out). The
+  pictures are `CAT_PICTURES` in `data/recipes.js` (LOUD 📢, SLIPPERY 🍌,
+  STICKY 🍯, MESSY 🎨, STARTLE 😱, TANGLE 🕸️), and the same pictures are on
+  every trap card at the bench and on the rig tray, so he matches picture
+  to picture. Code: `js/wanted.js`.
+- **Easy puzzles for a six year old:** the mirror on Easy is written the
+  right way round with things to count under it (6 apples + 4 apples), and
+  sums to 10. Dad's safe sums on Easy have no zeros and come with things to
+  count too. Book spines on the shelf are written flat unless the label is
+  long.
+- **Hiding places twinkle** until you have searched them.
+- **The bag** only shows what you have got plus one space, with bigger
+  pictures and full names (no more "Skatebo...").
+- **The clock sits over the house too**, so it never scrolls away.
+- **Night gadgets** are three big buttons with pictures (🐶 💡 💥) right
+  under the house. Each has a `picture` in `data/gadgets.js`.
+- **A big comic burst** in the middle of the screen when a trap gets
+  someone: the trap's word and "Dolores HATES 🎨!".
+- **Rig tray stays at the top** while you scroll down to the house.
+- **Room names on the whole house map** are bigger.
+- "Press Tab" removed from the house caption.
+
+**A smaller house when there is a clock.** With a clock, only Monday's 8
+rooms are open (bathroom, landing, Hendrix's room, Mum and Dad's, hall,
+lounge, dining room, kitchen); in A week, more open each night (`opens` in
+`data/nights.js`). Shut rooms have a NOT TONIGHT sign and nothing hidden in
+them. No clock always has the whole house. Easy is now 3 minutes, Medium
+2:30, Hard 1:40, and on Easy the clock stops while Hendrix walks
+(`walkClock: 'stop'` in `data/difficulty.js`).
+
+**Not done, on purpose (parked for Asa):** new puzzle types (Simon,
+shapes, shadows, maze, jigsaw, clock), a sticker book, trophies or pyjamas
+after a night, a goal for each night, naming the hero, a guaranteed catch
+on Easy. Chrome also suggested hiding the Build progress strip; it stays,
+because it is Hendrix's progress bar.
+
+**Hendrix's turn for M24:** in `data/recipes.js`, find `CAT_PICTURES` near
+the top and change STARTLE's picture from 😱 to 👻 (or any emoji he likes).
+Refresh: the scary trap cards and the burglars who hate scary things all
+show his new picture.
