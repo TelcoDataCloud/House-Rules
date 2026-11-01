@@ -12,7 +12,7 @@ import { setupInput } from './input.js';
 import { makeShip } from './ship.js';
 import { resetHud } from './hud.js';
 import { clearFx } from './fx.js';
-import { setupTitle, show } from './screens.js';
+import { setupTitle, show, showTitleBest } from './screens.js';
 import { frame } from './loop.js';
 import { wakeAudio } from './audio.js';
 import { SHIP } from '../data/ship.js';
@@ -49,6 +49,7 @@ function play() {
 function toMenu() {
   clearAll();
   state.mode = 'title';
+  showTitleBest();
   show('title');
 }
 
@@ -105,6 +106,7 @@ async function boot() {
   await loadArt(names);
   btn.disabled = false;
   btn.textContent = 'Play';
+  showTitleBest();
   btn.focus();
 }
 

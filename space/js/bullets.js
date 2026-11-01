@@ -9,6 +9,7 @@
 import { state, W, H, hardness } from './state.js';
 import { put, layer } from './art.js';
 import { targets } from './collide.js';
+import { trail } from './fx.js';
 
 const CAP = 200;
 
@@ -26,7 +27,7 @@ function make(cls, where, w, h) {
 // Your shot. vx and vy are how fast it moves sideways and up.
 export function addShot(x, y, vx, vy, gold) {
   if (count() >= CAP) return;
-  const b = make(gold ? 'shot gold' : 'shot', 'shots', 12, 18);
+  const b = make(gold ? 'shot gold' : 'shot', 'shots', 8, 28);
   Object.assign(b, { x, y, vx, vy, r: 6, damage: 1 });
   state.shots.push(b);
 }
@@ -35,8 +36,8 @@ export function addShot(x, y, vx, vy, gold) {
 export function addMissile(x, y, damage, dir) {
   if (count() >= CAP) return;
   const big = damage > 1;
-  const size = big ? 24 : 16;
-  const b = make(big ? 'missile big' : 'missile', 'shots', size, size);
+  const [w, h] = big ? [16, 30] : [12, 22];
+  const b = make(big ? 'missile big' : 'missile', 'shots', w, h);
   Object.assign(b, { x, y, vx: dir * 160, vy: -260, r: big ? 10 : 7, damage, life: 3 });
   state.missiles.push(b);
 }
@@ -89,14 +90,22 @@ export function updateBullets(dt) {
     m.x += m.vx * dt;
     m.y += m.vy * dt;
     m.life -= dt;
+    m.puff = (m.puff || 0) - dt;
+    if (m.puff <= 0) { m.puff = 0.05; trail(m.x - m.vx * 0.02, m.y - m.vy * 0.02); }
     if (m.life <= 0 || gone(m)) m.dead = true;
   }
 }
 
+// Lasers and missiles turn to point the way they are flying.
+function aim(b) {
+  const deg = (Math.atan2(b.vx, -b.vy) * 180) / Math.PI;
+  b.el.style.transform = `translate(${(b.x - b.w / 2).toFixed(1)}px, ${(b.y - b.h / 2).toFixed(1)}px) rotate(${deg.toFixed(0)}deg)`;
+}
+
 export function drawBullets() {
-  for (const list of [state.shots, state.missiles, state.foes]) {
-    for (const b of list) put(b.el, b.x, b.y, b.w, b.h);
-  }
+  for (const b of state.shots) aim(b);
+  for (const b of state.missiles) aim(b);
+  for (const b of state.foes) put(b.el, b.x, b.y, b.w, b.h);
 }
 
 // Throw away bullets marked dead.

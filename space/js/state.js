@@ -3,11 +3,13 @@
 
    Where the ship is, every enemy, every bullet, the score.
    newGame() wipes it clean, so Play again always starts fresh.
-   Nothing is saved: refresh the page and it is all gone.
+   Only your best score is saved (js/best.js). Everything else
+   is gone when you refresh.
    =========================================================== */
 
 import { SHIP } from '../data/ship.js';
 import { DIFFICULTY } from '../data/difficulty.js';
+import { loadBest } from './best.js';
 
 // The play area, in dots. CSS scales it to fit the screen.
 export const W = 480;
@@ -20,6 +22,7 @@ export const state = {
   muted: false,
   touch: false,
   god: false,             // testing only: nothing can hit you
+  best: loadBest(),       // your best score, kept in this browser (js/best.js)
 };
 
 export function newGame() {
@@ -43,6 +46,8 @@ export function newGame() {
     flocks: {}, later: [],
     stats: { livesLost: 0, partsDestroyed: 0, reactors: 0, flocks: 0, escaped: false, bombsUsed: 0 },
     endTimer: 0, ending: null,
+    slow: 0,              // seconds of slow motion left
+    hintWait: 20,         // seconds before the bomb hint may show
   });
 }
 

@@ -13,6 +13,8 @@ import { MILESTONES } from '../data/milestones.js';
 import { LEVEL } from '../data/waves.js';
 import { takeUpgrade } from './ship.js';
 import { sound } from './audio.js';
+import { say } from './voice.js';
+import { saveBest } from './best.js';
 
 const $ = (id) => document.getElementById(id);
 const SCREENS = ['title', 'pick', 'pause', 'over', 'win'];
@@ -29,16 +31,16 @@ export function setupTitle(onPlay) {
   $('game-name').textContent = GAME_NAME;
   document.title = GAME_NAME;
   $('field').setAttribute('aria-label', `${GAME_NAME} game`);
+  // One star for every step we have built. Gold means done.
   $('milestones').innerHTML = MILESTONES.map((m) =>
-    `<li class="${m.done ? 'done' : ''}" title="${m.id} ${m.name}"><span class="sr-only">${m.id} ${m.name}${m.done ? ' done' : ''}</span></li>`).join('');
+    `<li class="star ${m.done ? 'done' : ''}" title="${m.id} ${m.name}" aria-hidden="false"><span aria-hidden="true">&#9733;</span><span class="sr-only">${m.id} ${m.name}${m.done ? ' done' : ' not yet'}</span></li>`).join('');
+  showHelp();
 
   for (const btn of document.querySelectorAll('[data-controls]')) {
     btn.addEventListener('click', () => {
       state.controls = btn.dataset.controls;
       for (const b of document.querySelectorAll('[data-controls]')) b.setAttribute('aria-pressed', String(b === btn));
-      $('how-keys').textContent = state.controls === 'mouse'
-        ? 'Mouse: fly. Click: bomb. Right click: power up. P: pause.'
-        : 'Arrows: fly. Space: bomb. M: power up. P: pause.';
+      showHelp();
     });
   }
   for (const btn of document.querySelectorAll('[data-difficulty]')) {
@@ -48,6 +50,29 @@ export function setupTitle(onPlay) {
     });
   }
   $('btn-play').addEventListener('click', onPlay);
+}
+
+// The help, on the title and in the side panel, matches Keys or Mouse.
+const HELP = {
+  keys: {
+    line: 'Arrows: fly. Space: bomb. M: power up.',
+    list: ['<kbd>&larr; &uarr; &darr; &rarr;</kbd> fly', '<kbd>Space</kbd> bomb', '<kbd>M</kbd> or <kbd>0</kbd> power up', '<kbd>P</kbd> pause'],
+  },
+  mouse: {
+    line: 'Move the mouse to fly. Click: bomb. Right click: power up.',
+    list: ['<kbd>Move mouse</kbd> fly', '<kbd>Click</kbd> bomb', '<kbd>Right click</kbd> power up', '<kbd>P</kbd> pause'],
+  },
+};
+
+function showHelp() {
+  const help = HELP[state.controls];
+  $('how-keys').textContent = help.line;
+  $('side-keys').innerHTML = help.list.map((t) => `<li>${t}</li>`).join('');
+}
+
+export function showTitleBest() {
+  $('title-best').hidden = state.best === 0;
+  $('title-best').textContent = `Best: ${state.best.toLocaleString('en-AU')}`;
 }
 
 // --- the upgrade pick: three cards ---
@@ -80,8 +105,11 @@ export function openPick(onDone) {
   }).join('');
   for (const card of $('pick-cards').querySelectorAll('.card')) {
     card.addEventListener('click', () => choose(card.dataset.track));
+    // Read the card out when you land on it.
+    card.addEventListener('focus', () => say(card.querySelector('.card-name').textContent + '. ' + card.querySelector('.card-say').textContent));
   }
   show('pick');
+  say('Power up! Pick one.');
 }
 
 export function choose(track) {
@@ -123,18 +151,33 @@ function tipFor(won) {
   return 'Try Medium next!';
 }
 
+// Your best score ever in this browser. A new best gets a cheer.
+function showBest(id) {
+  const el = $(id);
+  const isNew = state.score > state.best && state.score > 0;
+  if (isNew) { state.best = state.score; saveBest(state.best); }
+  el.textContent = isNew ? 'NEW BEST!' : `Best: ${state.best.toLocaleString('en-AU')}`;
+  el.classList.toggle('new', isNew);
+  showTitleBest();
+  return isNew;
+}
+
 export function showOver() {
   $('over-score').textContent = state.score.toLocaleString('en-AU');
+  if (showBest('over-best')) say('New best!');
   $('over-tip').textContent = tipFor(false);
   show('over');
 }
 
 export function showWin() {
   const st = state.stats;
-  $('win-title').textContent = st.escaped ? 'You made it!' : 'You beat the Core!';
+  $('win-title').textContent = 'YOU WIN!';
+  const isNew = showBest('win-best');
+  say(isNew ? 'You win! New best!' : 'You win!');
   $('win-grade').textContent = gradeFor();
   $('win-score').textContent = state.score.toLocaleString('en-AU');
   $('win-stats').innerHTML = [
+    ...(st.escaped ? ['The Core got away'] : []),
     `Ships lost: ${st.livesLost}`,
     `Base parts: ${st.partsDestroyed}`,
     `Reactors: ${st.reactors}`,

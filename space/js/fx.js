@@ -3,11 +3,13 @@
 
    Every effect is a little box added to the fx layer with a CSS
    animation (in css/game.css), then thrown away when it is done.
-   Every kill gets the same four beats: flash, bang, score, token.
+   Every kill gets the same beats: white flash, fireball with
+   bits flying out, a puff of smoke, and the score floating up.
    =========================================================== */
 
 import { state } from './state.js';
 import { layer } from './art.js';
+import { say } from './voice.js';
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -23,27 +25,41 @@ function add(className, x, y, w, h, life, extra = {}) {
   return el;
 }
 
-// A fireball, with bits flying out of it.
-export function boom(x, y, size = 60, bits = 6) {
+const BIT_COLOURS = ['#ffd23f', '#ff7a1a', '#ffffff'];
+
+// A fireball, a shock ring, smoke, and bits flying out of it.
+// colour is the colour of the ship that went bang.
+export function boom(x, y, size = 60, bits = 8, colour = '#ff7a1a') {
+  add('smoke', x, y, size * 1.3, size * 1.3, 900);
   add('boom', x, y, size, size, 520);
+  add('shock', x, y, size, size, 420);
   for (let i = 0; i < bits; i++) {
-    const a = (i / bits) * Math.PI * 2 + Math.random() * 0.6;
-    const d = size * (0.6 + Math.random() * 0.6);
-    add('bit', x, y, 8, 8, 640, {
-      '--from': `translate(${x - 4}px, ${y - 4}px)`,
-      '--to': `translate(${x - 4 + Math.cos(a) * d}px, ${y - 4 + Math.sin(a) * d}px)`,
+    const a = (i / bits) * Math.PI * 2 + Math.random() * 0.7;
+    const d = size * (0.7 + Math.random() * 0.8);
+    const s = 4 + Math.random() * 7;
+    const el = add('bit', x, y, s, s, 760, {
+      '--from': `translate(${x - s / 2}px, ${y - s / 2}px)`,
+      '--to': `translate(${x - s / 2 + Math.cos(a) * d}px, ${y - s / 2 + Math.sin(a) * d}px)`,
     });
+    el.style.background = i % 2 ? colour : BIT_COLOURS[i % 3];
   }
 }
 
 export function spark(x, y) {
-  add('spark', x, y, 14, 14, 160).style.transform = `translate(${x - 7}px, ${y - 7}px)`;
+  add('spark', x, y, 16, 16, 160).style.transform = `translate(${x - 8}px, ${y - 8}px)`;
 }
 
+// A little pink puff behind a homing missile.
+export function trail(x, y) {
+  add('trail', x, y, 10, 10, 320);
+}
+
+// Words that float up and fade, above where something was.
 export function floatText(x, y, text, big = false) {
-  const el = add(big ? 'float big' : 'float', x, y, 10, 10, 950);
+  const el = add(big ? 'float big' : 'float', x, y, 10, 10, 1100);
   el.textContent = text;
-  el.style.setProperty('--at', `translate(${x - text.length * (big ? 8 : 5)}px, ${y - 10}px)`);
+  const half = text.length * (big ? 8 : 5.5);
+  el.style.setProperty('--at', `translate(${Math.max(4, Math.min(470 - half * 2, x - half))}px, ${y - 16}px)`);
 }
 
 // Add points to the score and show them floating up.
@@ -67,12 +83,12 @@ export function flash() {
   setTimeout(() => el.remove(), 380);
 }
 
-export function shake() {
+export function shake(big = false) {
   if (calm.matches) return;
   const field = document.getElementById('field');
-  field.classList.remove('shake');
+  field.classList.remove('shake', 'shake-big');
   void field.offsetWidth;            // restart the animation
-  field.classList.add('shake');
+  field.classList.add(big ? 'shake-big' : 'shake');
 }
 
 // The pilot floats off in a bubble, waving. Nobody gets hurt.
@@ -89,7 +105,7 @@ export function pilot(x, y) {
   </svg>`;
 }
 
-// The boss cracks into chunks that drift off. No blood, just rock.
+// The boss cracks into chunks that drift off. No blood, just metal.
 export function chunks(x, y) {
   const spots = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
   spots.forEach(([dx, dy], i) => {
@@ -102,15 +118,17 @@ export function chunks(x, y) {
 }
 
 let bannerTimer = 0;
-export function banner(text) {
+export function banner(text, kind = '') {
   const el = document.getElementById('banner');
   el.textContent = text;
   el.className = 'banner';
   void el.offsetWidth;
   el.classList.add('show');
   if (text === 'WARNING') el.classList.add('warn');
+  if (kind) el.classList.add(kind);
   clearTimeout(bannerTimer);
   bannerTimer = setTimeout(() => { el.className = 'banner'; }, 4200);
+  say(text);
 }
 
 export function clearFx() {

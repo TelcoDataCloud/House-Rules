@@ -52,16 +52,40 @@ function drawPlate(name, length) {
   let lines = '';
   for (let y = 40; y < length; y += 70) lines += `<path class="walk-line" d="M${W / 2 - 26} ${y} L${W / 2 + 26} ${y}"/>`;
 
+  // Coloured deck panels, blinking beacons and hazard stripes,
+  // so the base looks built and busy, not just grey rock.
+  let deck = '';
+  for (let y = 40; y < length - 40; y += 150 + roll() * 60) {
+    const leftSide = roll() < 0.5;
+    const w = 70 + roll() * 50;
+    const h = 46 + roll() * 40;
+    const x = leftSide ? 60 + roll() * 60 : W - 60 - w - roll() * 60;
+    deck += `<rect class="deck" x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" rx="8"/>`
+      + `<path class="deck-line" d="M${(x + 8).toFixed(0)} ${(y + h / 2).toFixed(0)} L${(x + w - 8).toFixed(0)} ${(y + h / 2).toFixed(0)}"/>`;
+  }
+  let beacons = '';
+  for (let y = 60; y < length; y += 140) {
+    beacons += `<circle class="beacon" cx="${W / 2 - 36}" cy="${y}" r="4.5"/><circle class="beacon beacon-b" cx="${W / 2 + 36}" cy="${y + 70}" r="4.5"/>`;
+  }
+
   const el = document.createElement('div');
   el.className = 'plate';
   el.innerHTML = `<svg width="${W}" height="${bottom + 70}" viewBox="0 -30 ${W} ${bottom + 70}" aria-hidden="true">
-    <path class="rock" d="${path}"/>
+    <defs><linearGradient id="rock-${name}" x1="0" x2="1">
+      <stop offset="0" style="stop-color: var(--moon-light)"/>
+      <stop offset="0.2" style="stop-color: var(--moon-rock)"/>
+      <stop offset="1" style="stop-color: var(--moon-shadow)"/>
+    </linearGradient></defs>
+    <path class="rock" d="${path}" style="fill: url(#rock-${name})"/>
     <path class="shade" d="M${W - 120} ${top} L${W - 40} ${top + 10} L${W - 40} ${bottom - 10} L${W - 120} ${bottom} Z"/>
-    <path class="light" d="M60 ${top + 10} L130 ${top} L130 ${bottom} L60 ${bottom - 10} Z"/>
     ${craters}
+    ${deck}
+    <path class="hazard" d="M${W / 2 - 30} 12 L${W / 2 - 30} ${length + 8}"/>
+    <path class="hazard" d="M${W / 2 + 30} 12 L${W / 2 + 30} ${length + 8}"/>
     <rect class="walk" x="${W / 2 - 26}" y="10" width="52" height="${length}" rx="8"/>
     <rect class="walk-light" x="${W / 2 - 22}" y="14" width="10" height="${length - 8}" rx="4"/>
     ${lines}
+    ${beacons}
   </svg>`;
   return el;
 }
@@ -79,7 +103,7 @@ export function spawnBase(name) {
     const spec = PARTS[p.part];
     if (!spec) { console.warn(`No part called ${p.part}`); continue; }
     const [w, h] = spec.size;
-    const partEl = sprite(spec.art, w, h);
+    const partEl = sprite(spec.art, w, h, spec.hits > 0 ? 'target' : '');
     partEl.hidden = true;
     layer('ground').appendChild(partEl);
     const part = {
@@ -182,7 +206,10 @@ function breakPart(part, chained = false) {
   fx.boom(part.x, part.y, big ? 130 : Math.max(part.w, 60) * 1.2, big ? 10 : 6);
   if (big) { sound.boom(); fx.shake(); } else sound.pop();
   fx.award(chained ? 100 : part.spec.points, part.x, part.y - 20);
-  if (part.gives && !chained) drop(part.gives, part.x, part.y);
+  // On Hard, crates never give extra ships (the reactor still does).
+  let gives = part.gives;
+  if (gives === '1UP' && part.kind !== 'reactor' && !hardness().extraShips) gives = 'P';
+  if (gives && !chained) drop(gives, part.x, part.y);
 
   if (part.kind === 'tank') {
     // BOOM: everything close by takes a big hit, a moment later.

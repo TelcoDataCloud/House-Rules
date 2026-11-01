@@ -69,6 +69,23 @@ function collisions() {
   }
 }
 
+// Lots of danger close by and bombs left over? Tell him about the bomb.
+function bombHint(dt) {
+  state.hintWait -= dt;
+  const s = state.ship;
+  if (state.hintWait > 0 || s.bombs <= 0 || s.dead > 0) return;
+  let near = 0;
+  for (const b of state.foes) if (Math.abs(b.x - s.x) < 200 && b.y > s.y - 300 && b.y < s.y + 40) near++;
+  for (const e of state.enemies) if (!e.dead && e.wait <= 0 && Math.abs(e.x - s.x) < 200 && e.y > s.y - 300) near++;
+  if (near >= 6) {
+    state.hintWait = 25;
+    const key = state.touch ? 'TAP B' : state.controls === 'mouse' ? 'CLICK' : 'SPACE';
+    fx.banner(`${key} = BOMB!`);
+    document.getElementById('hud-bombs').classList.add('nudge');
+    setTimeout(() => document.getElementById('hud-bombs').classList.remove('nudge'), 2500);
+  }
+}
+
 function actions() {
   for (const a of takeActions()) {
     if (state.mode === 'play') {
@@ -98,6 +115,7 @@ function step(dt) {
   updateBosses(dt);
   updateBullets(dt);
   collisions();
+  bombHint(dt);
   updatePickups(dt);
   sweep(state.shots);
   sweep(state.missiles);
@@ -133,9 +151,12 @@ export function frame(now) {
 
   actions();
   if (state.mode === 'play') {
+    // Slow motion for a moment when a boss goes down.
+    let scale = 1;
+    if (state.slow > 0) { state.slow -= dt; scale = 0.3; }
     // In test mode the game can run several steps a frame, to play fast.
     const steps = state.fast || 1;
-    for (let i = 0; i < steps; i++) step(dt);
+    for (let i = 0; i < steps; i++) step(dt * scale);
   } else if (state.mode === 'pick') {
     step(dt * 0.08);            // time almost stops while you choose
   }

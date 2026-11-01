@@ -4,6 +4,10 @@
    A line in data/waves.js makes a group of them. Each one flies
    using a "pattern", a small recipe for how it moves. The
    patterns are here; which enemy uses which is in data/enemies.js.
+
+   Small enemies shoot slow orbs if data/difficulty.js lets them.
+   On Easy and Medium the orbs go straight down. On Hard, some
+   come straight at you.
    =========================================================== */
 
 import { state, W, H, hardness } from './state.js';
@@ -15,6 +19,7 @@ import { sound } from './audio.js';
 import * as fx from './fx.js';
 
 let flockId = 0;
+let spawnCount = 0;
 
 // Where each member of a group starts, and when.
 function places(how, count, from) {
@@ -43,19 +48,35 @@ export function spawnWave(line) {
     flock = `f${++flockId}`;
     state.flocks[flock] = { size: group.length, got: 0, broken: false };
   }
+  const hard = hardness();
+  const shoots = spec.shotEvery > 0 && hard.shooters.includes(line.what);
   for (const p of group) {
     const el = sprite(spec.art, spec.size, spec.size);
     el.hidden = true;
     layer('air').appendChild(el);
-    const hp = Math.ceil(spec.hits * hardness().tough);
+    spawnCount++;
+    const every = spec.shotEvery / hard.shootMore;
     state.enemies.push({
-      spec, el, flock,
+      spec, el, flock, kind: line.what,
       x: p.x ?? -100, y: p.y ?? -100, x0: p.x, ox: p.ox, oy: p.oy, dir: p.dir,
-      wait: p.wait, t: 0, phase: 0, fireWait: spec.fireEvery || 0,
-      hp, r: spec.size * 0.36, w: spec.size, h: spec.size, flashT: 0,
+      wait: p.wait, t: 0, phase: 0,
+      // Spread out the first shots so a group never fires all at once.
+      shoots, shotWait: every * (0.5 + (spawnCount % 4) * 0.25), every,
+      hp: Math.ceil(spec.hits * hard.tough), r: spec.size * 0.36, w: spec.size, h: spec.size, flashT: 0,
       onHit(n) { hurt(this, n); },
     });
   }
+}
+
+// A small enemy fires one slow orb. Straight down, unless Hard says aim.
+function shoot(e) {
+  if (e.y < 30 || e.y > state.ship.y - 170) return;
+  let angle = 0;
+  if (hardness().aim && spawnCount % 2 === 0) {
+    angle = (Math.atan2(state.ship.x - e.x, state.ship.y - e.y) * 180) / Math.PI;
+  }
+  spawnCount++;
+  addFoe(e.x, e.y + e.h * 0.35, angle, 120, 'pink');
 }
 
 // --- the patterns ---
@@ -99,15 +120,15 @@ const PATTERNS = {
     }
     e.x = e.x0 + Math.sin(e.t * 0.6) * 100;
     if (e.t > 16) e.y += 70 * dt;          // gets bored and leaves
-    e.fireWait -= dt;
-    if (e.fireWait <= 0 && e.y < H - 200) {
-      e.fireWait = e.spec.fireEvery;
-      for (const a of [-20, 0, 20]) addFoe(e.x, e.y + 30, a, 140, 'pink');
+    e.shotWait -= dt;
+    if (e.shotWait <= 0 && e.y < H - 200) {
+      e.shotWait = e.spec.shotEvery;
+      for (const a of [-20, 0, 20]) addFoe(e.x, e.y + 34, a, 140, 'pink');
     }
   },
 
   // The red flock: one big swoop across the screen.
-  loop(e, dt) {
+  loop(e) {
     const u = e.t / 7;
     e.x = W / 2 + e.dir * (-280 + 560 * u) + e.ox;
     e.y = -60 + 470 * Math.sin(Math.PI * u) + e.oy;
@@ -128,6 +149,10 @@ export function updateEnemies(dt) {
     if (e.el.hidden) e.el.hidden = false;
     e.t += dt;
     PATTERNS[e.spec.pattern](e, dt);
+    if (e.shoots && e.spec.pattern !== 'hover' && !(e.spec.pattern === 'dive' && e.phase === 2)) {
+      e.shotWait -= dt;
+      if (e.shotWait <= 0) { e.shotWait = e.every; shoot(e); }
+    }
     if (e.flashT > 0) { e.flashT -= dt; if (e.flashT <= 0) e.el.classList.remove('hit'); }
     if (e.spec.pattern !== 'loop' && (e.y > H + 60 || e.x < -80 || e.x > W + 80)) e.dead = true;
   }
@@ -149,7 +174,7 @@ function hurt(e, n) {
   if (e.dead) return;
   e.hp -= n;
   e.el.classList.add('hit');
-  e.flashT = 0.06;
+  e.flashT = 0.08;
   if (e.hp <= 0) kill(e);
   else sound.ping();
 }
@@ -157,10 +182,11 @@ function hurt(e, n) {
 function kill(e) {
   e.dead = true;
   sound.pop();
-  fx.boom(e.x, e.y, e.spec.size * 1.2, e.spec.size > 70 ? 10 : 6);
-  fx.award(e.spec.points, e.x, e.y - 20);
+  const big = e.spec.size > 70;
+  fx.boom(e.x, e.y, e.spec.size * (big ? 1.6 : 1.3), big ? 14 : 9, e.spec.colour);
+  fx.award(e.spec.points, e.x, e.y - e.h / 2);
   state.dropCounter++;
-  if (e.spec.size > 70) drop('P', e.x, e.y);            // big ones always drop
+  if (big) drop('P', e.x, e.y);            // big ones always drop
   else if (state.dropCounter >= DROP_EVERY) { state.dropCounter = 0; drop('P', e.x, e.y); }
   if (e.flock) {
     const f = state.flocks[e.flock];
@@ -173,4 +199,3 @@ function kill(e) {
     }
   }
 }
-

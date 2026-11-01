@@ -76,8 +76,9 @@ function move(dt) {
     s.x += vx * SHIP.speed * dt;
     s.y += vy * SHIP.speed * dt;
   }
-  s.x = Math.max(28, Math.min(W - 28, s.x));
-  s.y = Math.max(110, Math.min(H - 40, s.y));
+  // Keep the whole ship, shield and all, inside the play area.
+  s.x = Math.max(44, Math.min(W - 44, s.x));
+  s.y = Math.max(130, Math.min(H - 56, s.y));
 }
 
 export function updateShip(dt) {

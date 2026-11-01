@@ -48,8 +48,8 @@ export function spawnBoss(name) {
     boss.el = sprite('core', 320, 220);
     layer('air').appendChild(boss.el);
     boss.turrets = [
-      part(boss, 'turret', 'core-turret', 44, 56, -130, -14, 22, CORE.turretHits, true),
-      part(boss, 'turret', 'core-turret', 44, 56, 130, -14, 22, CORE.turretHits, true),
+      part(boss, 'turret', 'core-turret', 44, 56, -118, -14, 22, CORE.turretHits, true),
+      part(boss, 'turret', 'core-turret', 44, 56, 118, -14, 22, CORE.turretHits, true),
       part(boss, 'turret', 'core-turret', 44, 56, -50, 62, 22, CORE.turretHits, true),
       part(boss, 'turret', 'core-turret', 44, 56, 50, 62, 22, CORE.turretHits, true),
     ];
@@ -81,6 +81,7 @@ function hurt(boss, p, n) {
       if (boss.turrets.every((t) => !t.alive)) {
         boss.eye.open = true;
         boss.eye.el.classList.remove('dark');
+        boss.eye.el.classList.add('awake');
         boss.fireWait = 1.2;
         fx.banner('HIT THE EYE!');
       }
@@ -88,29 +89,36 @@ function hurt(boss, p, n) {
   }
 }
 
+// The big moment: the boss shakes, booms go off all over it for two
+// seconds, time slows right down, BOSS DOWN! Then it falls apart.
 function die(boss) {
   boss.phase = 'dying';
   boss.t = 0;
-  fx.shake();
-  for (let i = 0; i < 6; i++) {
-    after(i * 0.18, () => {
-      fx.boom(boss.x + (Math.random() - 0.5) * boss.w * 0.7, boss.y + (Math.random() - 0.5) * boss.h * 0.6, 110, 8);
+  boss.el.classList.add('dying');
+  state.slow = 1.6;
+  fx.banner('BOSS DOWN!', 'gold');
+  fx.shake(true);
+  const booms = boss.name === 'core' ? 14 : 9;
+  for (let i = 0; i < booms; i++) {
+    after(i * 0.16, () => {
+      fx.boom(boss.x + (Math.random() - 0.5) * boss.w * 0.8, boss.y + (Math.random() - 0.5) * boss.h * 0.7, 90 + Math.random() * 60, 10, '#9aa0bd');
       sound.boom();
+      if (i % 3 === 0) fx.shake(true);
     });
   }
-  if (boss.name === 'hauler') {
-    fx.award(HAULER.points, boss.x, boss.y - 40);
-    HAULER.drops.forEach((d, i) => drop(d, boss.x + (i - 1.5) * 34, boss.y));
-    after(1.1, () => { boss.gone = true; });
-  } else {
-    fx.award(CORE.points, boss.x, boss.y - 60);
-    after(1.0, () => {
-      fx.chunks(boss.x, boss.y);
-      fx.flash();
-      boss.gone = true;
-    });
+  const end = booms * 0.16 + 0.2;
+  const points = boss.name === 'hauler' ? HAULER.points : CORE.points;
+  after(end, () => {
+    fx.boom(boss.x, boss.y, boss.w * 1.1, 18, '#ffd23f');
+    fx.flash();
+    fx.chunks(boss.x, boss.y);
+    fx.award(points, boss.x, boss.y - 40);
+    if (boss.name === 'hauler') HAULER.drops.forEach((d, i) => drop(d, boss.x + (i - 1.5) * 34, boss.y));
+    boss.gone = true;
+  });
+  if (boss.name === 'core') {
     state.ending = 'win';
-    state.endTimer = 3.6;
+    state.endTimer = end + 3;
   }
 }
 
@@ -137,7 +145,7 @@ function fight(boss, dt) {
     }
     if (boss.t > HAULER.stay) { boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
   } else {
-    boss.x = W / 2 + Math.sin(boss.t * 0.4) * 50;
+    boss.x = W / 2 + Math.sin(boss.t * 0.4) * 28;   // small sway, so every gun stays on screen
     for (const t of boss.turrets) {
       if (!t.alive) continue;
       t.fireWait -= dt;
@@ -161,7 +169,11 @@ export function updateBosses(dt) {
     if (boss.phase === 'enter') {
       const stop = boss.name === 'hauler' ? 170 : 205;
       boss.y += (stop - boss.y) * Math.min(1, dt * 1.6);
-      if (boss.t > 2.5) { boss.phase = 'fight'; boss.t = 2.5; }
+      if (boss.t > 2.5) {
+        boss.phase = 'fight';
+        boss.t = 2.5;
+        fx.banner(boss.name === 'hauler' ? 'SHOOT THE ENGINES!' : 'SHOOT THE GUNS!');
+      }
     } else if (boss.phase === 'fight') {
       fight(boss, dt);
     } else if (boss.phase === 'leave') {
