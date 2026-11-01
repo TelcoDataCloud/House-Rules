@@ -702,3 +702,306 @@
 /* The eye is grey and shut until you can hurt it. (Needs #layer-air to
    beat the shadow rule above.) */
 #layer-air .thing.dark > svg { filter: grayscale(1) brightness(0.6) drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
+
+/* ================= MORE ENEMY SHOTS (data/foeshots.js) ================= */
+/* Bullet: a small hot yellow tracer. Can't be shot. */
+.foe.bullet {
+  color: var(--yellow);
+  border-radius: 2px 2px 50% 50% / 2px 2px 30% 30%;
+  background: linear-gradient(to bottom, transparent, #ffb35a 30%, #fff6c0 75%, #ffffff);
+  box-shadow: 0 0 6px var(--yellow);
+}
+.foe.bullet::after { display: none; }
+/* Rocket: a dark metal body, a red warhead at the front, and fire out of the back. */
+.foe.rocket {
+  color: var(--orange);
+  border-radius: 40% 40% 50% 50% / 15% 15% 35% 35%;
+  background: linear-gradient(to bottom, #fff6c0 0 8%, #ff9a2a 8% 22%, #3a3f56 22% 30%, #8a90a8 30% 55%, #3a3f56 55% 80%, #ff3b3b 80%);
+  border: 1.5px solid #10121e;
+  box-shadow: 0 -6px 10px rgba(255, 154, 42, 0.8);
+}
+.foe.rocket::after {
+  content: ''; position: absolute; left: 1px; right: 1px; top: -8px; height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 100%, #ffffff, #ffd23f 40%, transparent 70%);
+  animation: flame 0.06s linear infinite alternate;
+  -webkit-mask-image: none; mask-image: none;
+}
+.rocket-smoke {
+  position: absolute; left: 0; top: 0; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 200, 210, 0.55), transparent 70%);
+  animation: trail 0.5s ease-out forwards;
+}
+/* Plasma: a big slow wobbling ball of blue fire. */
+.foe.plasma {
+  color: #8ad8ff;
+  background: radial-gradient(circle, #ffffff 0 18%, #c8f0ff 28%, #4aa8ff 46%, #1a3aa8 64%, rgba(26, 58, 168, 0) 72%);
+  box-shadow: 0 0 16px #4aa8ff, 0 0 32px rgba(74, 168, 255, 0.5);
+  animation: plasma 0.3s ease-in-out infinite alternate;
+}
+@keyframes plasma { to { filter: brightness(1.25); } }
+/* Mine: a dark spiky ball with a red light. Blinks fast when it wakes up. */
+.foe.mine {
+  color: var(--red);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #ff3b3b 0 14%, #5a0a0a 18%, transparent 22%),
+    radial-gradient(circle at 35% 30%, #8a90a8, #3a3f56 50%, #10121e 75%);
+  box-shadow: 0 0 0 2px #10121e, 0 0 8px rgba(255, 59, 59, 0.5);
+}
+.foe.mine::after {
+  /* the spikes */
+  inset: -6px;
+  background: conic-gradient(#3a3f56 0 6deg, transparent 6deg 39deg, #3a3f56 39deg 51deg, transparent 51deg 84deg, #3a3f56 84deg 96deg, transparent 96deg 129deg, #3a3f56 129deg 141deg, transparent 141deg 174deg, #3a3f56 174deg 186deg, transparent 186deg 219deg, #3a3f56 219deg 231deg, transparent 231deg 264deg, #3a3f56 264deg 276deg, transparent 276deg 309deg, #3a3f56 309deg 321deg, transparent 321deg 354deg, #3a3f56 354deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 50%, #000 52%, #000 70%, transparent 72%);
+  mask-image: radial-gradient(circle, transparent 50%, #000 52%, #000 70%, transparent 72%);
+  animation: orb 4s linear infinite;
+  z-index: -1;
+}
+.foe.mine.armed { animation: mine-armed 0.12s steps(2) infinite; }
+@keyframes mine-armed { 50% { box-shadow: 0 0 0 3px #ffffff, 0 0 24px var(--red), 0 0 48px var(--red); filter: brightness(1.8); } }
+.mine-ring {
+  position: absolute; left: 0; top: 0; border-radius: 50%;
+  border: 3px solid rgba(255, 90, 60, 0.9);
+  background: radial-gradient(circle, rgba(255, 200, 120, 0.35), transparent 70%);
+  animation: shock 0.45s ease-out forwards;
+}
+
+/* ================= PICKUP CAPSULES ================= */
+/* A floating supply capsule. --cap is its glow colour; the letter sits in its window. */
+.pickup.capsule { width: 34px; height: 44px; }
+.pickup.capsule .cap-body { position: absolute; inset: 0; animation: hover 0.9s ease-in-out infinite alternate; }
+.pickup.capsule svg { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 0 6px var(--cap)) drop-shadow(5px 10px 2px rgba(0, 0, 0, 0.35)); }
+.pickup.capsule .cap-letter {
+  position: absolute; left: 0; right: 0; top: 14px;
+  text-align: center; font: 800 13px/16px var(--font-body); color: #ffffff;
+  text-shadow: 0 0 4px var(--cap), 0 1px 0 #000;
+}
+.pickup.capsule.cap-1UP .cap-letter { font-size: 10px; }
+.cap-P { --cap: var(--orange); }
+.cap-B { --cap: var(--yellow); }
+.cap-S { --cap: var(--cyan); }
+.cap-1UP { --cap: var(--green); }
+@keyframes hover { from { transform: translateY(-2px) rotate(-4deg); } to { transform: translateY(2px) rotate(4deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .foe.plasma, .foe.mine::after, .foe.rocket::after, .pickup.capsule .cap-body { animation: none; }
+  .foe.mine.armed { animation: none; box-shadow: 0 0 0 3px #ffffff, 0 0 24px var(--red); }
+}
+
+/* The nuke's mushroom cloud (js/bombs.js). Each part grows from its bottom. */
+.nuke { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 3; }
+.nuke svg { width: 100%; height: 100%; overflow: visible; }
+.nuke g { transform-box: fill-box; transform-origin: 50% 100%; }
+.nuke .nk-base { transform-origin: 50% 50%; }
+
+/* A tank's turret turns on its ring (js/enemies.js). */
+.thing .turret-top { position: absolute; transform-origin: 20px 20px; }
+/* Ground things sit on the ground: a small hard shadow, no float. */
+#layer-ground .thing > svg { filter: drop-shadow(3px 5px 1px rgba(0, 0, 0, 0.45)); }
+/* Walkers rock as they step. */
+#layer-ground .thing[data-art="spider"] > svg { animation: step 0.35s ease-in-out infinite alternate; }
+@keyframes step { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+@media (prefers-reduced-motion: reduce) { #layer-ground .thing[data-art="spider"] > svg { animation: none; } }
+
+/* ================= WALKING AND FLYING BOSSES ================= */
+/* A leg shot off (or dropped when the boss takes off) falls away. */
+#layer-air .thing.leg-off > svg { animation: leg-off 1.2s ease-in forwards; }
+@keyframes leg-off {
+  from { transform: none; opacity: 1; filter: brightness(1.8) sepia(0.6); }
+  to { transform: translateY(120px) rotate(25deg) scale(0.8); opacity: 0; filter: brightness(0.4); }
+}
+/* A flying boss: jet fire pours out of its back, and its shadow drops far below. */
+#layer-air .thing.flying::before, #layer-air .thing.flying::after {
+  content: ''; position: absolute; top: -34px; width: 46px; height: 60px; border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 85%, #ffffff 0 12%, #ffd23f 30%, #ff7a1a 52%, rgba(255, 59, 26, 0) 72%);
+  animation: jet 0.07s linear infinite alternate;
+}
+#layer-air .thing.flying::before { left: 28%; }
+#layer-air .thing.flying::after { right: 28%; }
+@keyframes jet { from { transform: scaleY(0.85); } to { transform: scaleY(1.2); } }
+#layer-air .thing.flying > svg { filter: drop-shadow(30px 60px 6px rgba(0, 0, 0, 0.3)); }
+@media (prefers-reduced-motion: reduce) {
+  #layer-air .thing.flying::before, #layer-air .thing.flying::after { animation: none; }
+}
+
+/* ================= PAINTED BACKDROPS (art/bg-*.svg) ================= */
+.bg {
+  /* Each backdrop is painted ONCE, as a tall strip (two tiles plus a
+     screen), and then the whole strip slides down. Sliding a painted
+     strip is cheap; repainting a detailed picture every frame is not. */
+  position: absolute; left: 0; top: 0; width: 480px; display: none;
+  height: calc(var(--tile, 1440px) * 2 + 720px);
+  background-repeat: repeat-y; background-size: 480px var(--tile, 1440px);
+  will-change: transform;
+}
+/* Space: a nebula far away, and rocks and wreckage drifting past. */
+.field[data-world="space"] .bg-far { display: block; background-image: url(../art/bg-nebula.svg); --tile: 1440px; }
+.field[data-world="space"] .bg-near { display: block; background-image: url(../art/bg-debris.svg); --tile: 1600px; }
+/* Sky: the land far below, through the sunset haze. */
+.field[data-world="sky"] .bg-far { display: block; background-image: url(../art/bg-highland.svg); --tile: 1440px; opacity: 0.55; mix-blend-mode: luminosity; }
+/* Planet: the red ground, close up. */
+.field[data-world="ground"] .bg-far { display: block; background-image: url(../art/bg-planet.svg); --tile: 1200px; }
+.field[data-world="ground"] .terrain { display: none; }
+/* Robot base: an enormous metal deck. */
+.field[data-world="robot"] .sky { background: #2c313c; }
+.field[data-world="robot"] .bg-far { display: block; background-image: url(../art/bg-robot.svg); --tile: 960px; }
+.field[data-world="robot"] .planet, .field[data-world="robot"] .stars { display: none; }
+.field[data-world="robot"] {
+  --moon-rock: #4a5060; --moon-shadow: #2c313c; --moon-light: #8a92a6;
+  --moon-edge: #10131a; --crater: #3a404e;
+}
+/* Magma: black rock, lava rivers that glow, embers flying up past you. */
+.field[data-world="magma"] .sky { background: #140c0a; }
+.field[data-world="magma"] .bg-far { display: block; background-image: url(../art/bg-magma.svg); --tile: 1440px; }
+.field[data-world="magma"] .bg-top { display: block; background-image: url(../art/bg-embers.svg); opacity: 0.8; --tile: 1200px; }
+@keyframes lava-glow { to { filter: brightness(1.18) saturate(1.15); } }
+.field[data-world="magma"] .planet, .field[data-world="magma"] .stars { display: none; }
+.field[data-world="magma"] {
+  --moon-rock: #3a2a24; --moon-shadow: #1e1310; --moon-light: #7a4a32;
+  --moon-edge: #050302; --crater: #ff6a1a;
+}
+@media (prefers-reduced-motion: reduce) { .field[data-world="magma"] .bg-far { animation: none; } }
+
+/* ================= MORE FILMS: factory, volcano, finale ================= */
+.cut-city, .cut-volcano, .cut-lava, .cut-fireworks { opacity: 0; }
+/* A robot city on the horizon: towers, lights and smoke stacks. */
+.cut-city {
+  left: -40px; right: -40px; bottom: 0; height: 360px;
+  background:
+    radial-gradient(circle at 12% 30%, #ff3b3b 0 3px, transparent 4px),
+    radial-gradient(circle at 34% 18%, #ffb35a 0 3px, transparent 4px),
+    radial-gradient(circle at 58% 8%, #ff3b3b 0 4px, transparent 5px),
+    radial-gradient(circle at 80% 24%, #ffb35a 0 3px, transparent 4px),
+    linear-gradient(90deg, transparent 0 6%, #1e222c 6% 14%, transparent 14% 18%, #262b36 18% 30%, transparent 30% 33%, #1a1d26 33% 40%, transparent 40% 44%, #2c313c 44% 62%, transparent 62% 66%, #1e222c 66% 74%, transparent 74% 77%, #262b36 77% 92%, transparent 92%),
+    linear-gradient(to top, #10131a 0 45%, transparent 45%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  -webkit-mask-image: linear-gradient(to top, #000 0 45%, #000 45% 100%);
+  clip-path: polygon(0 100%, 0 55%, 6% 55%, 6% 30%, 14% 30%, 14% 50%, 18% 50%, 18% 20%, 30% 20%, 30% 45%, 33% 45%, 33% 35%, 40% 35%, 40% 50%, 44% 50%, 44% 5%, 62% 5%, 62% 40%, 66% 40%, 66% 25%, 74% 25%, 74% 48%, 77% 48%, 77% 15%, 92% 15%, 92% 55%, 100% 55%, 100% 100%);
+  transform-origin: 50% 100%;
+}
+/* The volcano: a dark cone with a glowing crater. */
+.cut-volcano {
+  left: 50%; bottom: 0; width: 560px; height: 300px; margin-left: -280px;
+  background:
+    radial-gradient(ellipse 70px 22px at 50% 6%, #fff2a8, #ff6a1a 50%, #7a1505 80%, transparent 82%),
+    linear-gradient(to bottom, #3a2418, #140c0a);
+  clip-path: polygon(0 100%, 40% 4%, 60% 4%, 100% 100%);
+  transform-origin: 50% 0;
+}
+/* Lava: a sea of fire with bright cracks, glowing and boiling. */
+.cut-lava {
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120px 40px at 20% 30%, #fff2a8, transparent 70%),
+    radial-gradient(ellipse 160px 50px at 75% 60%, #ffd27a, transparent 70%),
+    radial-gradient(ellipse 100px 40px at 40% 85%, #fff2a8, transparent 70%),
+    linear-gradient(#7a1505, #ff6a1a 50%, #c2301a);
+}
+/* Fireworks for the end. */
+.cut-fireworks {
+  inset: 0;
+  background:
+    radial-gradient(circle at 25% 25%, transparent 0 40px, rgba(255, 210, 63, 0.9) 42px 45px, transparent 47px),
+    radial-gradient(circle at 72% 18%, transparent 0 50px, rgba(56, 240, 255, 0.9) 52px 55px, transparent 57px),
+    radial-gradient(circle at 60% 42%, transparent 0 34px, rgba(255, 63, 164, 0.9) 36px 39px, transparent 41px),
+    radial-gradient(circle at 30% 50%, transparent 0 28px, rgba(77, 255, 124, 0.9) 30px 33px, transparent 35px);
+}
+
+/* Film 3: low over the red planet, the robot city rises ahead. */
+.cut-factory.play .cut-sky { animation: cut-sky-dusk 9s linear forwards; }
+.cut-factory .cut-stars, .cut-factory .cut-planet, .cut-factory .cut-heat { display: none; }
+.cut-factory.play .cut-ground { animation: cut-ground-low 9s ease-out forwards; }
+.cut-factory.play .cut-city { animation: cut-city 9s ease-in forwards; }
+.cut-factory.play .cut-streaks { animation: cut-streaks-early 9s linear forwards, cut-rush 0.3s linear infinite; }
+.cut-factory.play .cut-ship { animation: cut-shake 0.12s linear infinite; }
+@keyframes cut-sky-dusk { from { background: linear-gradient(#c2457a, #ff9a4a 40%, #ffd27a); } to { background: linear-gradient(#1a1030, #5a2a4a 50%, #a8503a); } }
+@keyframes cut-ground-low { from { height: 40%; } to { height: 30%; } }
+@keyframes cut-city {
+  0%, 25% { opacity: 0; transform: scale(0.3) translateY(60px); }
+  40% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1.4) translateY(0); }
+}
+
+/* Film 4 ('crater'): the volcano grows, then you plunge into the fire. */
+.cut-crater.play .cut-sky { animation: cut-sky-smoke 9s linear forwards; }
+.cut-crater .cut-stars, .cut-crater .cut-planet { display: none; }
+.cut-crater.play .cut-ground { animation: cut-ground-low 9s ease-out forwards; }
+.cut-crater.play .cut-volcano { animation: cut-cone 9s ease-in forwards; }
+.cut-crater.play .cut-lava { animation: cut-lava-in 9s ease-in forwards, lava-glow 0.6s ease-in-out infinite alternate; }
+.cut-crater.play .cut-heat { animation: cut-heat-late 9s linear forwards, cut-flicker 0.1s steps(2) infinite; }
+.cut-crater.play .cut-ship { animation: cut-shake 0.1s linear infinite; }
+@keyframes cut-sky-smoke { from { background: linear-gradient(#1a1030, #5a2a4a 50%, #a8503a); } to { background: linear-gradient(#0a0606, #3a1a12 50%, #7a2a12); } }
+@keyframes cut-cone {
+  0% { opacity: 1; transform: scale(0.35); }
+  60% { opacity: 1; transform: scale(1.6); }
+  75%, 100% { opacity: 0; transform: scale(3); }
+}
+@keyframes cut-lava-in { 0%, 58% { opacity: 0; } 72%, 100% { opacity: 1; } }
+@keyframes cut-heat-late { 0%, 60% { opacity: 0; } 72%, 100% { opacity: 1; } }
+
+/* Film 5: THE FINALE. Lava and explosions, flash, up through the sky,
+   out into space, the planet behind you, then fireworks. */
+.cut-finale.play .cut-lava { animation: cut-finale-lava var(--film, 16s) linear forwards, lava-glow 0.4s ease-in-out infinite alternate; }
+.cut-finale.play .cut-sky { animation: cut-finale-sky var(--film, 16s) linear forwards; }
+.cut-finale.play .cut-clouds-a { animation: cut-finale-clouds var(--film, 16s) linear forwards, cut-rush-big 0.5s linear infinite; }
+.cut-finale.play .cut-clouds-b { animation: cut-finale-clouds var(--film, 16s) linear forwards, cut-rush-big 0.8s linear infinite; }
+.cut-finale.play .cut-stars { animation: cut-finale-stars var(--film, 16s) linear forwards; }
+.cut-finale.play .cut-planet { animation: cut-finale-planet var(--film, 16s) ease-out forwards; }
+.cut-finale.play .cut-heat { animation: cut-finale-heat var(--film, 16s) linear forwards, cut-flicker 0.1s steps(2) infinite; }
+.cut-finale.play .cut-streaks { animation: cut-finale-streaks var(--film, 16s) linear forwards, cut-rush 0.25s linear infinite; }
+.cut-finale.play .cut-fireworks { animation: cut-finale-fireworks var(--film, 16s) linear forwards; }
+.cut-finale.play .cut-ship { animation: cut-shake 0.08s linear infinite, cut-finale-ship var(--film, 16s) ease-in-out forwards; }
+.cut-finale.play { animation: cut-finale-shake var(--film, 16s) linear forwards; }
+@keyframes cut-finale-lava { 0%, 22% { opacity: 1; filter: none; } 26% { opacity: 1; filter: brightness(3); } 32%, 100% { opacity: 0; } }
+@keyframes cut-finale-sky {
+  0%, 25% { background: linear-gradient(#ffffff, #ffffff); }
+  30% { background: linear-gradient(#c2457a, #ff9a4a 50%, #ffd27a); }
+  55% { background: linear-gradient(#2a1a5e, #a83d7a 60%, #ff9a4a); }
+  70%, 100% { background: linear-gradient(#05030c, #120a2e); }
+}
+@keyframes cut-finale-clouds { 0%, 30% { opacity: 0; } 36%, 55% { opacity: 1; } 62%, 100% { opacity: 0; } }
+@keyframes cut-finale-stars { 0%, 60% { opacity: 0; } 72%, 100% { opacity: 1; } }
+@keyframes cut-finale-planet {
+  0%, 62% { opacity: 0; transform: translateY(420px) scale(6); }
+  72% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(260px) scale(1.5); }
+}
+@keyframes cut-finale-heat { 0%, 30% { opacity: 1; } 45%, 100% { opacity: 0; } }
+@keyframes cut-finale-streaks { 0%, 28% { opacity: 1; } 55% { opacity: 0.8; } 65%, 100% { opacity: 0; } }
+@keyframes cut-finale-fireworks {
+  0%, 74% { opacity: 0; transform: scale(0.4); }
+  78% { opacity: 1; transform: scale(1); }
+  84% { opacity: 0; transform: scale(1.3); }
+  86% { opacity: 0; transform: scale(0.4) rotate(40deg); }
+  90% { opacity: 1; transform: scale(1) rotate(40deg); }
+  96%, 100% { opacity: 0; transform: scale(1.3) rotate(40deg); }
+}
+@keyframes cut-finale-ship {
+  0% { transform: translateY(80px); }
+  30% { transform: translateY(40px); }
+  70% { transform: translateY(-160px) scale(0.8); }
+  100% { transform: translateY(-240px) scale(0.6); }
+}
+@keyframes cut-finale-shake {
+  0%, 2%, 6%, 10%, 14%, 18%, 22% { translate: 0 0; }
+  1%, 5%, 9%, 13%, 17%, 21% { translate: 6px -4px; }
+  3%, 7%, 11%, 15%, 19%, 23% { translate: -6px 4px; }
+  26%, 100% { translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cut-finale.play { animation: none; }
+}
+
+/* Stars and clouds slide as painted strips too (see .bg above), so
+   the detailed backdrop under them never has to be repainted. */
+.stars-far, .stars-near, .clouds-far, .clouds-near {
+  inset: auto; left: 0; top: 0; width: 480px;
+  height: calc(var(--tile) * 2 + 720px);
+  will-change: transform;
+}
+.stars-far { --tile: 240px; }
+.stars-near { --tile: 360px; }
+.clouds-far { --tile: 600px; }
+.clouds-near { --tile: 900px; }
+.stars-twinkle { will-change: opacity; }
