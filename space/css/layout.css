@@ -393,3 +393,30 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   .hud-power.full, .hud-power.full .press, .hud-bombs.nudge, .best.new { animation: none; }
 }
+
+/* --- power banking and the new cards --- */
+.hud-power .bank {
+  font-family: var(--font-body); font-weight: 800; font-size: 16px;
+  color: var(--ink); background: var(--yellow);
+  border-radius: 999px; padding: 0 7px; margin-left: 6px;
+}
+.hud-weapons[hidden] { display: none; }
+.hud-weapon.green i.on { background: var(--green); }
+.card-name.green { color: var(--green); }
+:root[data-theme="day"] .card-name.green { color: #1b8a44; }
+.card-pips i.next { background: transparent; border: 2px dashed var(--yellow); }
+.card-new, .card-once {
+  font-weight: 800; font-size: 13px; letter-spacing: 1px;
+  border-radius: 999px; padding: 1px 8px;
+}
+.card-new { background: var(--green); color: var(--ink); }
+.card-once { background: var(--panel-line); color: var(--text); }
+
+/* Your upgrades sit along the bottom, out of the way. */
+.hud-weapons {
+  position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+  z-index: 15; pointer-events: none;
+  flex-wrap: wrap; justify-content: center; max-width: 360px;
+}
+.hud-power .press { white-space: nowrap; font-size: 14px; }
+.hud-count { font-family: var(--font-body); font-weight: 800; font-size: 18px; margin-left: 2px; }

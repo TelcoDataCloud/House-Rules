@@ -50,6 +50,10 @@
   --orange: #ff7a1a;
   --red: #ff3b3b;
   --purple: #9b5cff;
+  --violet: #c07cff;     /* purple laser */
+  --planet-a: #8fb4ff;   /* the far planet */
+  --planet-b: #4a5fb8;
+  --planet-c: #1d2560;
   --white: #ffffff;
   --ink: #070b1c;
 
@@ -99,5 +103,8 @@
   --target-ring: #e05a00;
 
   --hud-back: rgba(255, 255, 255, 0.7);
+  --planet-a: #ffffff;
+  --planet-b: #b9c8ff;
+  --planet-c: #8a9be0;
   --empty: #b9c3ea;
 }

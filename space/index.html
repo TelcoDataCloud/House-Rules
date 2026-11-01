@@ -31,7 +31,9 @@
     <div class="field" id="field" tabindex="-1" aria-label="Star Base game">
 
       <div class="sky" id="sky">
+        <div class="planet" id="planet"></div>
         <div class="stars stars-far" id="stars-far"></div>
+        <div class="stars stars-twinkle"></div>
         <div class="stars stars-near" id="stars-near"></div>
       </div>
 
@@ -53,13 +55,15 @@
         </div>
         <div class="hud-row">
           <div class="hud-power" id="hud-power" aria-label="Power bar"></div>
-          <div class="hud-weapons" id="hud-weapons" aria-label="Weapons"></div>
         </div>
         <div class="boss-bar" id="boss-bar" hidden>
           <p class="boss-name" id="boss-name"></p>
           <div class="boss-track"><div class="boss-fill" id="boss-fill"></div></div>
         </div>
       </div>
+
+      <!-- Your upgrades, along the bottom. -->
+      <div class="hud-weapons" id="hud-weapons" aria-label="Weapons" hidden></div>
 
       <p class="banner" id="banner" aria-live="polite"></p>
 

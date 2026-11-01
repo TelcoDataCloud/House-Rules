@@ -75,6 +75,9 @@
 .plate .shade { fill: var(--moon-shadow); }
 .plate .light { fill: var(--moon-light); opacity: 0.6; }
 .plate .crater { fill: var(--crater); }
+.plate .speck-dark { fill: var(--moon-edge); opacity: 0.5; }
+.plate .speck-light { fill: var(--moon-light); opacity: 0.7; }
+.plate .rim { fill: none; stroke: var(--moon-light); stroke-width: 2.5; opacity: 0.45; }
 .plate .crater-rim { fill: none; stroke: var(--moon-light); stroke-width: 2.5; }
 .plate .walk { fill: var(--walkway); stroke: var(--walkway-line); stroke-width: 2; }
 .plate .walk-light { fill: var(--walkway-light); opacity: 0.6; }
@@ -96,26 +99,33 @@
 @keyframes blink { 50% { opacity: 0.15; } }
 
 /* --- your ship --- */
-.ship { position: absolute; left: 0; top: 0; width: 64px; height: 80px; will-change: transform; }
-.ship .thing { position: absolute; left: 0; top: 0; }
+.ship {
+  position: absolute; left: 0; top: 0; width: 106px; height: 115px; will-change: transform;
+  --trim: var(--cyan);
+}
+/* The ship picture fills its box, with a shadow on the moon below. */
+.ship > svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
+  filter: drop-shadow(10px 22px 4px rgba(0, 0, 0, 0.35));
+}
 .ship.blinking { animation: ship-blink 0.16s steps(2) infinite; }
 @keyframes ship-blink { 50% { opacity: 0.25; } }
 .ship[hidden] { display: none; }
 .flame {
-  position: absolute; left: 50%; top: 66px;
-  width: 22px; height: 26px; margin-left: -11px;
+  position: absolute; top: 100px;
+  width: 16px; height: 24px; margin-left: -8px;
   border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-  background: radial-gradient(circle at 50% 25%, #fff6c0, var(--orange) 55%, transparent 75%);
+  background: radial-gradient(circle at 50% 25%, #ffffff, #9ff6ff 30%, var(--cyan) 55%, transparent 75%);
   transform-origin: 50% 0;
-  animation: flame 0.12s infinite alternate;
+  animation: flame 0.1s infinite alternate;
 }
-@keyframes flame { to { transform: scaleY(1.25) scaleX(0.9); } }
+@keyframes flame { to { transform: scaleY(1.3) scaleX(0.85); } }
 .shield {
-  position: absolute; left: -10px; top: -6px;
-  width: 84px; height: 92px; border-radius: 50%;
+  position: absolute; left: -12px; top: -10px;
+  width: 130px; height: 136px; border-radius: 50%;
   border: 3px solid var(--cyan);
   background: radial-gradient(circle, transparent 55%, rgba(56, 240, 255, 0.25));
-  box-shadow: 0 0 14px var(--cyan);
+  box-shadow: 0 0 14px var(--cyan), inset 0 0 18px rgba(56, 240, 255, 0.35);
 }
 .shield[hidden] { display: none; }
 
@@ -132,6 +142,20 @@
   box-shadow: 0 0 6px var(--cyan), 0 0 14px var(--cyan);
   -webkit-mask-image: linear-gradient(to top, transparent, #000 35%);
   mask-image: linear-gradient(to top, transparent, #000 35%);
+}
+.shot.green {
+  background: linear-gradient(90deg, transparent, var(--green) 20%, #ffffff 42%, #ffffff 58%, var(--green) 80%, transparent);
+  box-shadow: 0 0 6px var(--green), 0 0 14px var(--green);
+}
+.shot.red {
+  width: 10px !important;
+  background: linear-gradient(90deg, transparent, var(--red) 18%, #ffe0e0 42%, #ffe0e0 58%, var(--red) 82%, transparent);
+  box-shadow: 0 0 8px var(--red), 0 0 18px var(--red);
+}
+.shot.purple {
+  width: 12px !important;
+  background: linear-gradient(90deg, transparent, var(--violet) 15%, #ffffff 40%, #ffffff 60%, var(--violet) 85%, transparent);
+  box-shadow: 0 0 10px var(--violet), 0 0 22px var(--violet);
 }
 .shot.gold {
   background: linear-gradient(90deg, transparent, var(--yellow) 20%, #ffffff 42%, #ffffff 58%, var(--yellow) 80%, transparent);
@@ -194,6 +218,8 @@
 .boom {
   position: absolute; left: 0; top: 0;
   border-radius: 50%;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 40px 10px rgba(255, 170, 60, 0.55);
   background: radial-gradient(circle, #ffffff 0 12%, var(--yellow) 30%, var(--orange) 55%, rgba(255, 59, 26, 0) 72%);
   animation: boom 0.5s ease-out forwards;
 }
@@ -324,4 +350,61 @@
   .ring { animation-duration: 0.9s; }
   .pickup .token { animation: none; }
   .flame { animation: none; }
+}
+
+/* --- the beam: a wide glowing column out of the nose --- */
+.beam {
+  position: absolute; left: 0; top: 0;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(90deg, rgba(255, 63, 164, 0) 0%, var(--pink) 18%, #ffd6ee 38%, #ffffff 50%, #ffd6ee 62%, var(--pink) 82%, rgba(255, 63, 164, 0) 100%);
+  box-shadow: 0 0 14px var(--pink), 0 0 30px rgba(255, 63, 164, 0.6);
+  animation: beam 0.08s linear infinite alternate;
+  will-change: transform, height;
+}
+.beam[hidden], .beam-tip[hidden] { display: none; }
+@keyframes beam { to { opacity: 0.8; filter: brightness(1.3); } }
+.beam-tip {
+  position: absolute; left: 0; top: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0 15%, var(--pink) 40%, transparent 70%);
+  animation: beam 0.06s linear infinite alternate;
+}
+
+/* --- drones --- */
+.drone > svg { filter: drop-shadow(6px 14px 3px rgba(0, 0, 0, 0.35)); }
+
+/* --- depth: flying things cast a soft shadow on the moon below --- */
+#layer-air .thing > svg { filter: drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
+#layer-air .thing.hit > svg { filter: brightness(0) invert(1) drop-shadow(0 0 6px var(--white)); }
+#layer-air .thing.dying > svg { filter: none; }
+
+/* --- the far planet behind everything --- */
+.planet {
+  position: absolute; width: 360px; height: 360px; left: -150px; top: 40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 70% 35%, rgba(255, 255, 255, 0.35), transparent 30%),
+    radial-gradient(circle at 65% 40%, var(--planet-a), var(--planet-b) 55%, var(--planet-c) 80%);
+  box-shadow: inset -40px -20px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(120, 170, 255, 0.25);
+  opacity: 0.85;
+  will-change: transform;
+}
+.planet::after {
+  content: '';
+  position: absolute; left: -40px; right: -40px; top: 46%; height: 26px;
+  border-radius: 50%;
+  border: 3px solid rgba(220, 200, 255, 0.35);
+  transform: rotate(-14deg);
+}
+.stars-twinkle {
+  background-image:
+    radial-gradient(2.5px 2.5px at 80px 120px, var(--star), transparent),
+    radial-gradient(2px 2px at 300px 260px, var(--star), transparent),
+    radial-gradient(2.5px 2.5px at 410px 60px, var(--star), transparent);
+  background-size: 480px 480px;
+  animation: twinkle 1.6s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .beam, .beam-tip, .stars-twinkle { animation: none; }
 }
