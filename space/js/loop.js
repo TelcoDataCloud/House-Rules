@@ -12,7 +12,7 @@
 import { state } from './state.js';
 import { WAVES } from '../data/waves.js';
 import { takeActions } from './input.js';
-import { updateShip, drawShip, hitShip, useBomb, canPick } from './ship.js';
+import { updateShip, drawShip, hitShip, useBomb, canPick, rollChoices } from './ship.js';
 import { spawnWave, updateEnemies, drawEnemies } from './enemies.js';
 import { spawnBase, updateBases, drawBases } from './bases.js';
 import { spawnBoss, updateBosses, drawBosses } from './bosses.js';
@@ -49,10 +49,17 @@ function collisions() {
   for (const shot of [...state.shots, ...state.missiles]) {
     if (shot.dead) continue;
     for (const t of list) {
-      if (t.hp > 0 && touching(shot, t)) {
-        shot.dead = true;
+      if (t.hp > 0 && touching(shot, t) && !(shot.hitSet && shot.hitSet.has(t))) {
         fx.spark(shot.x, shot.y);
         t.onHit(shot.damage);
+        // Strong lasers keep going into the next enemy.
+        if (shot.through > 0) {
+          shot.through--;
+          shot.hitSet = shot.hitSet || new Set();
+          shot.hitSet.add(t);
+        } else {
+          shot.dead = true;
+        }
         break;
       }
     }
@@ -91,7 +98,7 @@ function actions() {
     if (state.mode === 'play') {
       if (a === 'bomb') useBomb();
       if (a === 'upgrade') {
-        if (canPick()) { state.mode = 'pick'; sound.power(); openPick(() => { state.mode = 'play'; $field().focus(); }); }
+        if (canPick()) { state.mode = 'pick'; sound.power(); openPick(rollChoices(), () => { state.mode = 'play'; $field().focus(); }); }
         else sound.nope();
       }
       if (a === 'pause') { state.mode = 'paused'; show('pause'); }
@@ -139,6 +146,8 @@ function draw() {
   drawBullets();
   drawShip();
   drawHud();
+  // The far planet drifts down very slowly, so it feels far away.
+  document.getElementById('planet').style.transform = `translateY(${(state.time * 1.3).toFixed(1)}px)`;
   document.getElementById('stars-far').style.backgroundPosition = `0 ${(starsY * 0.35).toFixed(1)}px`;
   document.getElementById('stars-near').style.backgroundPosition = `0 ${starsY.toFixed(1)}px`;
 }

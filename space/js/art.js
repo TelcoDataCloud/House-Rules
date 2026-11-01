@@ -11,6 +11,7 @@
    =========================================================== */
 
 const SVG = 'http://www.w3.org/2000/svg';
+const texts = {};       // the words inside each picture file, by name
 
 export async function loadArt(names) {
   const sheet = document.getElementById('sprites');
@@ -20,12 +21,17 @@ export async function loadArt(names) {
   await Promise.all(unique.map(async (name) => {
     const res = await fetch(`art/${name}.svg`);
     if (!res.ok) { console.warn(`No picture called art/${name}.svg`); return; }
-    const doc = new DOMParser().parseFromString(await res.text(), 'image/svg+xml');
+    const text = await res.text();
+    texts[name] = text;
+    const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
     const svg = doc.documentElement;
     const symbol = document.createElementNS(SVG, 'symbol');
     symbol.id = `art-${name}`;
     symbol.setAttribute('viewBox', svg.getAttribute('viewBox'));
     for (const child of [...svg.children]) {
+      // Upgrade parts are left out of the copy, so the small ships
+      // (like the lives in the corner) are always the plain ship.
+      if (child.classList && child.classList.contains('up')) continue;
       // Glow colours go in the shared defs, once each.
       if (child.tagName === 'defs') {
         for (const def of [...child.children]) {
@@ -37,6 +43,11 @@ export async function loadArt(names) {
     }
     sheet.appendChild(symbol);
   }));
+}
+
+// The whole picture file as words, to put straight into the page.
+export function rawArt(name) {
+  return texts[name] || '';
 }
 
 // Make a thing on screen showing a picture. w and h are its size.

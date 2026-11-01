@@ -8,7 +8,7 @@
 
 import { state, H } from './state.js';
 import { put, layer } from './art.js';
-import { POWER_BAR } from '../data/weapons.js';
+import { POWER_BAR, BANK } from '../data/weapons.js';
 import { sound } from './audio.js';
 import { floatText, banner } from './fx.js';
 
@@ -48,9 +48,11 @@ function collect(p) {
   p.dead = true;
   sound.pickup();
   if (p.type === 'P') {
-    if (s.power < POWER_BAR) {
+    // Extra power is saved up, up to BANK more full bars.
+    if (s.power < POWER_BAR * (BANK + 1)) {
       s.power++;
       if (s.power === POWER_BAR) { banner('PRESS M!'); sound.power(); }
+      else if (s.power % POWER_BAR === 0) { floatText(p.x, p.y - 20, 'POWER SAVED!', true); sound.power(); }
     } else {
       state.score += 100;
       floatText(p.x, p.y, '+100');

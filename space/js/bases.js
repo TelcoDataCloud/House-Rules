@@ -75,8 +75,16 @@ function drawPlate(name, length) {
       <stop offset="0" style="stop-color: var(--moon-light)"/>
       <stop offset="0.2" style="stop-color: var(--moon-rock)"/>
       <stop offset="1" style="stop-color: var(--moon-shadow)"/>
-    </linearGradient></defs>
+    </linearGradient>
+    <pattern id="speck-${name}" width="70" height="70" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="12" r="1.6" class="speck-dark"/><circle cx="40" cy="6" r="1" class="speck-light"/>
+      <circle cx="58" cy="30" r="2" class="speck-dark"/><circle cx="22" cy="44" r="1.2" class="speck-light"/>
+      <circle cx="50" cy="58" r="1.4" class="speck-dark"/><circle cx="10" cy="62" r="0.9" class="speck-light"/>
+      <circle cx="34" cy="26" r="0.8" class="speck-dark"/>
+    </pattern></defs>
     <path class="rock" d="${path}" style="fill: url(#rock-${name})"/>
+    <path d="${path}" style="fill: url(#speck-${name})"/>
+    <path class="rim" d="${path}" transform="translate(3 4)"/>
     <path class="shade" d="M${W - 120} ${top} L${W - 40} ${top + 10} L${W - 40} ${bottom - 10} L${W - 120} ${bottom} Z"/>
     ${craters}
     ${deck}

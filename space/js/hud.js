@@ -28,32 +28,43 @@ export function drawHud() {
   if (changed('score', state.score)) $('hud-score').textContent = state.score.toLocaleString('en-AU');
 
   if (changed('lives', s.lives)) {
-    $('hud-lives').innerHTML = Array.from({ length: Math.max(0, s.lives) }, () =>
-      `<svg class="hud-life" aria-hidden="true"><use href="#art-${SHIP.art}" width="100%" height="100%"/></svg>`).join('');
+    // Up to 5 little ships. More than that: one ship and a number.
+    const life = `<svg class="hud-life" aria-hidden="true"><use href="#art-${SHIP.art}" width="100%" height="100%"/></svg>`;
+    $('hud-lives').innerHTML = s.lives > 5 ? `${life}<b class="hud-count">x${s.lives}</b>`
+      : Array.from({ length: Math.max(0, s.lives) }, () => life).join('');
     $('hud-lives').setAttribute('aria-label', `${s.lives} lives`);
   }
 
   if (changed('bombs', s.bombs)) {
-    $('hud-bombs').innerHTML = Array.from({ length: s.bombs }, () => '<i class="hud-bomb"></i>').join('');
+    $('hud-bombs').innerHTML = s.bombs > 5 ? `<i class="hud-bomb"></i><b class="hud-count">x${s.bombs}</b>`
+      : Array.from({ length: s.bombs }, () => '<i class="hud-bomb"></i>').join('');
     $('hud-bombs').setAttribute('aria-label', `${s.bombs} bombs`);
   }
 
   if (changed('power', s.power)) {
-    const full = s.power >= POWER_BAR;
+    // One bar on screen. If you have saved up more full bars,
+    // a badge says how many (x2, x3...).
+    const bars = Math.floor(s.power / POWER_BAR);
+    const full = bars > 0;
+    const shown = full ? POWER_BAR : s.power;
     let html = '';
-    for (let i = 0; i < POWER_BAR; i++) html += `<i class="${i < s.power ? 'on' : ''}"></i>`;
+    for (let i = 0; i < POWER_BAR; i++) html += `<i class="${i < shown ? 'on' : ''}"></i>`;
+    if (bars > 1) html += `<span class="bank">x${bars}</span>`;
     if (full) html += `<span class="press">${state.touch ? 'TAP M' : 'PRESS M'}</span>`;
     $('hud-power').innerHTML = html;
     $('hud-power').classList.toggle('full', full);
     $('hud-power').setAttribute('aria-label', `Power ${s.power} of ${POWER_BAR}`);
   }
 
-  const weapons = `${s.spread}${s.homing}${s.rapid}`;
+  // Only the upgrades you have, each with its three dots.
+  const weapons = Object.keys(WEAPONS).map((k) => s[k]).join('');
   if (changed('weapons', weapons)) {
-    $('hud-weapons').innerHTML = ['spread', 'homing', 'rapid'].map((k) => {
+    const have = Object.keys(WEAPONS).filter((k) => s[k] > 0);
+    $('hud-weapons').hidden = have.length === 0;
+    $('hud-weapons').innerHTML = have.map((k) => {
       const w = WEAPONS[k];
       const pips = [0, 1, 2].map((i) => `<i class="${i < s[k] ? 'on' : ''}"></i>`).join('');
-      return `<span class="hud-weapon ${w.colour}"><b>${w.name[0]}</b>${pips}</span>`;
+      return `<span class="hud-weapon ${w.colour}" title="${w.name}"><b>${w.short}</b>${pips}</span>`;
     }).join('');
   }
 

@@ -25,10 +25,12 @@ function make(cls, where, w, h) {
 }
 
 // Your shot. vx and vy are how fast it moves sideways and up.
-export function addShot(x, y, vx, vy, gold) {
+// cls is its colour, damage how hard it hits, through how many
+// enemies it can go right through.
+export function addShot(x, y, vx, vy, { cls = '', damage = 1, through = 0 } = {}) {
   if (count() >= CAP) return;
-  const b = make(gold ? 'shot gold' : 'shot', 'shots', 8, 28);
-  Object.assign(b, { x, y, vx, vy, r: 6, damage: 1 });
+  const b = make(`shot ${cls}`.trim(), 'shots', 8, 28);
+  Object.assign(b, { x, y, vx, vy, r: 6, damage, through });
   state.shots.push(b);
 }
 

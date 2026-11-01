@@ -36,7 +36,10 @@ export function newGame() {
     ship: {
       x: W / 2, y: H + 60,
       lives: SHIP.lives, bombs: SHIP.bombs,
-      power: 0, spread: 0, homing: 0, rapid: 0,
+      power: 0,
+      // upgrade levels, 0 to 3 (see data/weapons.js)
+      spread: 0, laser: 0, beam: 0, homing: 0, rapid: 0, drones: 0, bay: 0,
+      droneList: [],
       shield: hard.shield, shieldWait: 0,
       invuln: 0, dead: 0, entering: 1.2,
       fireWait: 0.4, missileWait: 0.8,

@@ -8,7 +8,7 @@
 
 import { state } from './state.js';
 import { GAME_NAME } from '../data/ship.js';
-import { WEAPONS } from '../data/weapons.js';
+import { WEAPONS, EXTRAS } from '../data/weapons.js';
 import { MILESTONES } from '../data/milestones.js';
 import { LEVEL } from '../data/waves.js';
 import { takeUpgrade } from './ship.js';
@@ -22,6 +22,7 @@ const SCREENS = ['title', 'pick', 'pause', 'over', 'win'];
 export function show(name) {
   for (const s of SCREENS) $(`screen-${s}`).hidden = s !== name;
   $('hud').hidden = name === 'title';
+  if (name === 'title') $('hud-weapons').hidden = true;
   const first = name && $(`screen-${name}`).querySelector('button:not([disabled])');
   if (first) first.focus();
   else $('field').focus();
@@ -77,27 +78,40 @@ export function showTitleBest() {
 
 // --- the upgrade pick: three cards ---
 const PICS = {
-  spread: '<svg viewBox="0 0 70 70" class="card-pic" aria-hidden="true"><circle cx="35" cy="14" r="6" fill="#38f0ff"/><circle cx="20" cy="20" r="6" fill="#38f0ff"/><circle cx="50" cy="20" r="6" fill="#38f0ff"/><use href="#art-comet" x="20" y="30" width="30" height="38"/></svg>',
-  homing: '<svg viewBox="0 0 70 70" class="card-pic" aria-hidden="true"><path d="M22 50 C14 34 22 20 52 10" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/><circle cx="52" cy="10" r="6" fill="#ff3fa4"/><use href="#art-comet" x="20" y="30" width="30" height="38"/></svg>',
-  rapid: '<svg viewBox="0 0 70 70" class="card-pic" aria-hidden="true"><circle cx="35" cy="6" r="5" fill="#ffd23f"/><circle cx="35" cy="17" r="5" fill="#ffd23f"/><circle cx="35" cy="28" r="5" fill="#ffd23f"/><use href="#art-comet" x="20" y="30" width="30" height="38"/></svg>',
+  spread: '<circle cx="35" cy="12" r="5" fill="#38f0ff"/><circle cx="20" cy="18" r="5" fill="#38f0ff"/><circle cx="50" cy="18" r="5" fill="#38f0ff"/><circle cx="8" cy="26" r="5" fill="#38f0ff"/><circle cx="62" cy="26" r="5" fill="#38f0ff"/>',
+  laser: '<rect x="18" y="2" width="6" height="26" rx="3" fill="#4dff7c"/><rect x="32" y="2" width="6" height="26" rx="3" fill="#ff3b3b"/><rect x="46" y="2" width="6" height="26" rx="3" fill="#c07cff"/>',
+  beam: '<rect x="29" y="0" width="12" height="34" rx="6" fill="#ff3fa4"/><rect x="32" y="0" width="6" height="34" rx="3" fill="#ffffff"/>',
+  homing: '<path d="M22 32 C14 18 22 8 52 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/><circle cx="52" cy="4" r="5" fill="#ff3fa4"/><path d="M48 32 C56 18 48 8 18 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/>',
+  rapid: '<circle cx="35" cy="4" r="4.5" fill="#ffd23f"/><circle cx="35" cy="14" r="4.5" fill="#ffd23f"/><circle cx="35" cy="24" r="4.5" fill="#ffd23f"/>',
+  drones: '<use href="#art-drone" x="2" y="14" width="18" height="20"/><use href="#art-drone" x="50" y="14" width="18" height="20"/>',
+  bay: '<ellipse cx="24" cy="18" rx="7" ry="12" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/><ellipse cx="46" cy="18" rx="7" ry="12" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/>',
+  shield: '<circle cx="35" cy="44" r="30" fill="none" stroke="#38f0ff" stroke-width="4"/>',
+  bombpack: '<circle cx="24" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/><circle cx="46" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/>',
 };
 
-let pickDone = null;
+function cardPic(key) {
+  return `<svg viewBox="0 0 70 70" class="card-pic" aria-hidden="true">${PICS[key] || ''}<use href="#art-comet" x="20" y="30" width="30" height="38"/></svg>`;
+}
 
-export function openPick(onDone) {
+let pickDone = null;
+let choices = [];
+
+export function openPick(cards, onDone) {
   pickDone = onDone;
+  choices = cards;
   document.getElementById('banner').className = 'banner';
   const s = state.ship;
-  $('pick-cards').innerHTML = ['spread', 'homing', 'rapid'].map((k, i) => {
-    const w = WEAPONS[k];
-    const level = s[k];
-    const max = level >= 3;
-    const next = max ? 'All done' : w.steps[level].say;
-    const pips = [0, 1, 2].map((j) => `<i class="${j < level ? 'on' : ''}"></i>`).join('');
-    return `<button type="button" class="card" data-track="${k}" ${max ? 'disabled' : ''}
-      aria-label="${w.name}: ${next}. Key ${i + 1}.">
+  $('pick-cards').innerHTML = cards.map((k, i) => {
+    const extra = EXTRAS[k];
+    const w = extra || WEAPONS[k];
+    const level = extra ? 0 : s[k];
+    const next = extra ? extra.say : w.steps[level].say;
+    const pips = extra ? '<span class="card-once">ONE GO</span>'
+      : level === 0 ? '<span class="card-new">NEW</span>'
+      : [0, 1, 2].map((j) => `<i class="${j < level ? 'on' : j === level ? 'next' : ''}"></i>`).join('');
+    return `<button type="button" class="card" data-track="${k}" aria-label="${w.name}: ${next}. Key ${i + 1}.">
       <span class="card-name ${w.colour}">${w.name.toUpperCase()}</span>
-      ${PICS[k]}
+      ${cardPic(k)}
       <span class="card-say">${next}</span>
       <span class="card-pips">${pips}</span>
       <span class="card-key">${i + 1}</span>
@@ -112,15 +126,15 @@ export function openPick(onDone) {
   say('Power up! Pick one.');
 }
 
-export function choose(track) {
+export function choose(key) {
   if (state.mode !== 'pick') return;
-  if (!takeUpgrade(track)) { sound.nope(); return; }
+  if (!takeUpgrade(key)) { sound.nope(); return; }
   show(null);
   if (pickDone) pickDone();
 }
 
 export function pickByNumber(n) {
-  choose(['spread', 'homing', 'rapid'][n - 1]);
+  if (choices[n - 1]) choose(choices[n - 1]);
 }
 
 // Arrow keys move between the cards.

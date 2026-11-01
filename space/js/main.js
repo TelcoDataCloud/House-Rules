@@ -86,7 +86,7 @@ window.STAR_BASE = { state };     // type STAR_BASE.state in the console to look
 
 async function boot() {
   const names = [
-    SHIP.art, 'comet-pods',
+    SHIP.art, 'drone',
     ...Object.values(ENEMIES).map((e) => e.art),
     ...Object.values(PARTS).map((p) => p.art),
     'hauler', 'hauler-engine', 'core', 'core-turret', 'core-eye',
