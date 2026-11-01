@@ -40,11 +40,12 @@
 import { state, setPhase } from './state.js';
 import { ITEMS, CARRY_LIMIT, OUT_IN_THE_OPEN, RARE_EACH_NIGHT, RARE_HIDEOUTS } from '../data/items.js';
 import { ROOMS } from '../data/rooms.js';
+import { WEEK } from '../data/nights.js';
 import { SAFE } from '../data/puzzles.js';
 import { FOUND_LINES, EMPTY_LINES } from '../data/hints.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import {
-  placeLooseItem, setLookHandler, hidingPlaces, putDown, spillFrom, setLockGate, refreshLocks
+  placeLooseItem, setLookHandler, hidingPlaces, putDown, spillFrom, setLockGate, refreshLocks, searchLocked, setClosedRooms
 } from './house.js';
 import { itemPicture } from './item-art.js';
 import { sfx } from './audio.js';
@@ -83,8 +84,23 @@ function lockedRoom(roomId) {
 
 /* --- SETTING THE HOUSE UP ------------------------------------ */
 
+/* With a clock, the house is smaller: Monday's rooms, plus the
+   ones each night after opens (data/nights.js). No clock gets the
+   whole house. Hands back the rooms that are SHUT tonight. */
+function shutTonight() {
+  if (state.untimed) return [];
+  const night = state.week ? state.week.night : 0;
+  const open = WEEK.slice(0, night + 1).flatMap((n) => n.opens || []);
+  if (!open.length) return [];
+  return ROOMS.map((r) => r.id).filter((id) => !open.includes(id));
+}
+const isOpen = (roomId) => !(state.closed || []).includes(roomId);
+
 function scatter() {
-  const common = shuffle(ITEMS.filter((item) => !item.rare));
+  /* copies: 2 in data/items.js means there are two of it in the
+     house, because it goes in loads of traps */
+  const common = shuffle(ITEMS.filter((item) => !item.rare)
+    .flatMap((item) => Array.from({ length: Math.max(1, item.copies || 1) }, () => item)));
   const rare = shuffle(ITEMS.filter((item) => item.rare)).slice(0, RARE_EACH_NIGHT);
   const homes = (item) => item.foundIn || [];
   /* Does this thing belong in this hiding place? A place with no
@@ -103,7 +119,7 @@ function scatter() {
     return from.find((s) => homes(item).includes(s.room)) || from[0];
   };
 
-  let free = shuffle(hidingPlaces());
+  let free = shuffle(hidingPlaces().filter((s) => isOpen(s.room)));
   const take = (spot, item) => {
     state.hidden[spot.id] = item.id;
     free = free.filter((s) => s !== spot);
@@ -112,12 +128,15 @@ function scatter() {
   /* Something rare behind every lock on a hiding place (the safe,
      the piano). */
   free.filter((s) => s.lock).forEach((spot) => {
-    const item = rare.shift();
+    /* the right sort of thing for that place: no leaf blower in
+       the bathroom cabinet */
+    const at = Math.max(0, rare.findIndex((item) => fits(spot, item)));
+    const [item] = rare.splice(at, 1);
     if (item) take(spot, item);
   });
 
   /* And one in every locked room (the shed, the dark cellar). */
-  ROOMS.filter((room) => room.lock).forEach((room) => {
+  ROOMS.filter((room) => room.lock && isOpen(room.id)).forEach((room) => {
     const inside = free.filter((s) => s.room === room.id);
     const item = inside.length ? rare.shift() : null;
     if (item) take(bestFor(item, inside), item);
@@ -138,7 +157,7 @@ function scatter() {
 
   /* A few common things left lying about, in their own rooms if
      there is a free place to leave them. Never in a locked room. */
-  let places = shuffle(ROOMS.filter((room) => !room.lock).flatMap((room) =>
+  let places = shuffle(ROOMS.filter((room) => !room.lock && isOpen(room.id)).flatMap((room) =>
     (room.inTheOpen || []).map((place) => ({ room: room.id, place }))));
   const lying = common.slice(0, Math.min(OUT_IN_THE_OPEN, places.length));
   lying.forEach((item) => {
@@ -175,7 +194,8 @@ function look(spot) {
       return { blocked: true, message: `Your bag is full. Tap something in your bag to drop it, then grab this.` };
     }
     take(item);
-    state.lying = state.lying.filter((id) => id !== item.id);
+    const at = state.lying.indexOf(item.id);       // just this one, there might be two
+    if (at >= 0) state.lying.splice(at, 1);
     return { item, message: `${pick(FOUND_LINES)} ${item.name}.` };
   }
 
@@ -239,7 +259,9 @@ function drop(index) {
 
 function drawBag(bounce = false) {
   ui.bag.innerHTML = '';
-  for (let i = 0; i < CARRY_LIMIT; i += 1) {
+  /* what you have got, and one empty space for the next thing */
+  const show = Math.min(CARRY_LIMIT, state.inventory.length + 1);
+  for (let i = 0; i < show; i += 1) {
     const slot = document.createElement('li');
     slot.className = 'bag-slot';
     const item = findItem(state.inventory[i]);
@@ -289,7 +311,10 @@ function showNotes() {
 function unlocked(lock) {
   refreshLocks();
   const room = ROOMS.find((r) => r.lock === lock);
-  if (room) walkTo(room.id);
+  if (room) { walkTo(room.id); return; }
+  /* a cupboard or a safe: grab what is inside straight away, once
+     the puzzle box has closed */
+  setTimeout(() => { if (state.scavenging) searchLocked(lock); }, 1300);
 }
 
 const gate = {
@@ -305,8 +330,16 @@ const gate = {
 
 function showTime() {
   const t = Math.max(0, state.timeLeft);
-  ui.time.textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
-  ui.clock.classList.toggle('is-urgent', t <= 10);
+  ui.time.textContent = state.untimed ? 'No clock' : `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+  ui.clock.classList.toggle('is-untimed', state.untimed);
+  ui.clock.classList.toggle('is-urgent', !state.untimed && t <= 10);
+  /* the time sits over the house too, so it never scrolls away */
+  const mini = document.getElementById('hud-clock');
+  if (mini) {
+    mini.hidden = state.untimed || state.phase !== 'scavenge';
+    mini.textContent = ui.time.textContent;
+    mini.classList.toggle('is-urgent', t <= 10);
+  }
   showPuzzleTime();
 }
 
@@ -326,6 +359,9 @@ function tick() {
       if (halfTick) return;
     }
   }
+  /* Easy: walking does not use up your time */
+  const level = DIFFICULTY.find((d) => d.id === state.difficulty);
+  if (state.walking && level && level.walkClock === 'stop') return;
   state.timeLeft -= 1;
   showTime();
   if (state.timeLeft <= 10 && state.timeLeft > 0) sfx.tick();
@@ -364,6 +400,7 @@ export function setupScavenge(els) {
   setLookHandler(look);
   setLockGate(gate);
   setGate({
+    closed: (roomId) => (state.closed || []).includes(roomId),
     blocked: (roomId) => Boolean(lockedRoom(roomId)),
     onBlocked: (roomId) => gate.onLocked(lockedRoom(roomId))
   });
@@ -371,7 +408,7 @@ export function setupScavenge(els) {
   /* a hint costs time, so show the new time straight away */
   setPuzzleTimeListener(() => {
     showTime();
-    if (state.timeLeft <= 0) finish('time');
+    if (!state.untimed && state.timeLeft <= 0) finish('time');
   });
   ui.toWorkshop.addEventListener('click', () => setPhase('workshop'));
 }
@@ -380,12 +417,15 @@ export function setupScavenge(els) {
    the workbench and still have time left. */
 export function startNight() {
   stopNight();
-  if (state.scavengeBegun && state.timeLeft > 0) { carryOn(); return; }
-  const level = DIFFICULTY.find((d) => d.id === state.difficulty);
+  if (state.scavengeBegun && (state.untimed || state.timeLeft > 0)) { carryOn(); return; }
+  const level = DIFFICULTY.find((d) => d.id === state.difficulty) || DIFFICULTY[0];
   state.inventory = [];
   state.hidden = {};
   state.lying = [];
   state.timeLeft = level.seconds;
+  state.untimed = !level.seconds;
+  state.closed = shutTonight();
+  setClosedRooms(state.closed);
   state.scavenging = true;
   state.scavengeBegun = true;
   newPuzzles();
@@ -399,13 +439,14 @@ export function startNight() {
   showNotes();
   showTime();
   startHero();
-  clock = setInterval(tick, 1000);
+  if (!state.untimed) clock = setInterval(tick, 1000);
 }
 
 /* Back out of the workshop: same junk, same locks, same bag, and
    the clock carries on from where it stopped. */
 function carryOn() {
   state.scavenging = true;
+  setClosedRooms(state.closed || []);
   refreshLocks();
   ui.bar.hidden = false;
   ui.clock.hidden = false;
@@ -415,7 +456,7 @@ function carryOn() {
   showNotes();
   showTime();
   startHero(state.heroRoom || undefined);
-  clock = setInterval(tick, 1000);
+  if (!state.untimed) clock = setInterval(tick, 1000);
 }
 
 export function stopNight() {

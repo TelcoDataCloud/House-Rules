@@ -13,7 +13,7 @@
 
 import { state, setPhase, resetGame } from './state.js';
 import { buildDifficulty, buildPuzzleLevel, buildMode, buildMilestones, setupToggles } from './ui.js';
-import { buildHouse, setHouseMode, resetHouse } from './house.js';
+import { buildHouse, setHouseMode, resetHouse, setClosedRooms } from './house.js';
 import { sfx } from './audio.js';
 import { setupScavenge, startNight, hideScavenge } from './scavenge.js';
 import { setupWorkshop, showWorkshop, hideWorkshop } from './workshop.js';
@@ -23,6 +23,7 @@ import { setupLoot } from './loot.js';
 import { setupResult, showResult, hideResult } from './result.js';
 import { setupIntro, startIntro } from './intro.js';
 import { setupPuzzles } from './puzzles.js';
+import { drawWanted } from './wanted.js';
 import { setupInspect, inspecting } from './inspect.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { PUZZLE_LEVELS } from '../data/puzzles.js';
@@ -49,7 +50,7 @@ const PHASE_INFO = {
   night: {
     title: 'Night',
     line: 'Hide in the attic and watch it all go wrong for them.',
-    milestone: 'Watch who yells loudest at what. Sid and Bruno do not hate the same things.'
+    milestone: 'Watch who yells loudest. They do not all hate the same things.'
   },
   result: {
     title: 'Result',
@@ -100,13 +101,21 @@ function renderPhaseScreen(phase) {
      the scavenge is a hunt. */
   setHouseMode(phase === 'rig' || phase === 'night' ? phase : 'search');
 
+  if (phase !== 'scavenge') el('hud-clock').hidden = true;
+  /* shut rooms only matter while you search: burglars go anywhere */
+  setClosedRooms(phase === 'scavenge' ? (state.closed || []) : []);
+
+  /* who is coming, and what they hate, in pictures */
+  el('wanted').hidden = !['scavenge', 'workshop', 'rig', 'night'].includes(phase);
+  if (!el('wanted').hidden) drawWanted(el('wanted'));
+
   el('phase-name').textContent = info.title;
   el('phase-line').textContent = info.line;
   el('phase-milestone').textContent = info.milestone;
   const puzzles = PUZZLE_LEVELS.find((p) => p.id === state.puzzleLevel);
   const week = state.week ? WEEK[state.week.night] : null;
   el('phase-difficulty').textContent = (week ? `${week.name}, night ${state.week.night + 1} of ${WEEK.length}. ` : '') +
-    'Difficulty: ' + level.name + ', ' + level.seconds + ' seconds to scavenge. Puzzles: ' + puzzles.name + '.';
+    'Difficulty: ' + level.name + (level.seconds ? ', ' + level.seconds + ' seconds to scavenge' : ', no clock') + '. Puzzles: ' + puzzles.name + '.';
 }
 
 function boot() {
@@ -127,7 +136,7 @@ function boot() {
   setupPuzzles({
     dialog: el('puzzle'), title: el('puzzle-title'), time: el('puzzle-time'), clue: el('puzzle-clue'),
     body: el('puzzle-body'), say: el('puzzle-say'), leave: el('puzzle-leave'),
-    hint: el('puzzle-hint'), hints: el('puzzle-hints'), mode: el('puzzle-mode')
+    hint: el('puzzle-hint'), hints: el('puzzle-hints'), mode: el('puzzle-mode'), read: el('puzzle-read')
   });
 
   setupScavenge({
@@ -140,6 +149,7 @@ function boot() {
     panel: el('workshop'), face: el('ws-face'), say: el('ws-say'), bench: el('ws-bench'),
     slotA: el('ws-slot-a'), slotB: el('ws-slot-b'), slotC: el('ws-slot-c'), plusC: el('ws-plus-c'),
     buildNow: el('ws-build-now'), result: el('ws-result'), extra: el('ws-extra'),
+    made: el('ws-made-dialog'), madeClose: el('ws-made-close'),
     items: el('ws-items'), traps: el('ws-traps'), toRig: el('to-rig'),
     notebook: el('notebook'), found: el('ws-found'), ideas: el('ws-ideas'), backOut: el('ws-back-out')
   });

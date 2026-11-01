@@ -47,13 +47,13 @@
 
 import { state, setPhase } from './state.js';
 import { ITEMS } from '../data/items.js';
-import { TRAPS, UPGRADES, NOPE } from '../data/recipes.js';
+import { TRAPS, UPGRADES, NOPE, CAT_PICTURES } from '../data/recipes.js';
 import { HINT_LINES, MISSING_LINES, MAXED_LINES, NOTHING_LINES } from '../data/hints.js';
 import { itemPicture } from './item-art.js';
 import { heroPicture } from './hero-art.js';
 import { sfx } from './audio.js';
 import { speak, hush } from './voice.js';
-import { BLUEPRINTS, NUMBERS, TRIES } from '../data/blueprints.js';
+import { BLUEPRINTS, NUMBERS, TRIES, SPELLING } from '../data/blueprints.js';
 import { workOut, between, pick as pickFrom } from './puzzle-maths.js';
 
 const ALL = [...TRAPS, ...UPGRADES];
@@ -172,14 +172,31 @@ function hintFor(thing) {
   if (!ideas.length) {
     return fill(pickOne(thing.kind === 'trap' ? MAXED_LINES : NOTHING_LINES), nameOf(thing.id), '');
   }
+  /* things you have already got come first, and they light up in
+     your junk so you can see them */
+  const got = ideas.filter((idea) => idea.have);
+  const pool = got.length ? got : ideas;
   let words = '';
+  let idea = null;
   for (let tries = 0; tries < 6; tries += 1) {
-    const idea = pickOne(ideas);
+    idea = pickOne(pool);
     words = fill(pickOne(idea.have ? HINT_LINES : MISSING_LINES), nameOf(thing.id), riddleOf(idea.other));
     if (words !== lastHint) break;
   }
   lastHint = words;
+  if (idea && idea.have) glowPartner(idea.other);
   return words;
+}
+
+/* Make the thing the hint is about glow in your junk for a bit. */
+function glowPartner(needId) {
+  setTimeout(() => {
+    const card = [...document.querySelectorAll('#ws-items .ws-card, #ws-traps .ws-card')]
+      .find((c) => c.dataset.id === needId || (!findTrap(needId) && canBe(c.dataset.id, needId)));
+    if (!card) return;
+    card.classList.add('is-hinted');
+    setTimeout(() => card.classList.remove('is-hinted'), 4000);
+  }, 50);
 }
 
 /* Any ideas? Look through the whole bag for two things that go
@@ -230,7 +247,7 @@ function chips(trap) {
     const chip = document.createElement('span');
     chip.className = 'cat-chip';
     chip.dataset.cat = cat;
-    chip.textContent = cat;
+    chip.textContent = `${CAT_PICTURES[cat] || ''} ${cat}`;
     row.append(chip);
   });
   return row;
@@ -272,23 +289,57 @@ function onBench(kind, index) {
   return bench.some((thing) => thing && thing.kind === kind && thing.index === index);
 }
 
+/* Does this thing go with anything else you have got? */
+function hasPartner(thing) {
+  return partnersOf(thing).some((idea) => idea.have);
+}
+
 function drawLists() {
+  const searchMore = state.scavengeBegun && (state.untimed || state.timeLeft > 0);
   ui.items.innerHTML = '';
-  state.inventory.forEach((id, i) => { if (!onBench('item', i)) ui.items.append(card('item', id, i)); });
-  if (!ui.items.children.length) ui.items.append(empty(state.inventory.length ? 'All on the bench.' : 'Nothing left in your bag.'));
+  let canBuild = false;
+  state.inventory.forEach((id, i) => {
+    /* on the bench? leave a gap so nothing slides under your finger */
+    if (onBench('item', i)) { ui.items.append(gap()); return; }
+    const li = card('item', id, i);
+    /* Nothing to mix it with? A yellow box if you can still go and
+       find something for it, a red one if you cannot. */
+    const btn = li.querySelector('.ws-card');
+    if (hasPartner({ kind: 'item', id, index: i })) {
+      canBuild = true;
+    } else {
+      btn.classList.add(searchMore ? 'is-lonely' : 'is-stuck');
+      btn.title = searchMore ? 'Nothing to mix this with yet. Go back out and look!' : 'Nothing to mix this with tonight.';
+      btn.setAttribute('aria-label', `${btn.getAttribute('aria-label')}. ${btn.title}`);
+    }
+    ui.items.append(li);
+  });
+  if (!ui.items.querySelector('.ws-card')) ui.items.append(empty(state.inventory.length ? 'All on the bench.' : 'Nothing left in your bag.'));
 
   ui.traps.innerHTML = '';
-  state.traps.forEach((id, i) => { if (!onBench('trap', i)) ui.traps.append(card('trap', id, i)); });
-  if (!ui.traps.children.length) ui.traps.append(empty('No traps yet. Bolt something together.'));
+  state.traps.forEach((id, i) => ui.traps.append(onBench('trap', i) ? gap() : card('trap', id, i)));
+  if (!ui.traps.querySelector('.ws-card')) ui.traps.append(empty('No traps yet. Bolt something together.'));
   /* Time left on the scavenge clock? You can go back out for more. */
   const t = state.scavengeBegun ? state.timeLeft : 0;
-  ui.backOut.hidden = t <= 0;
-  ui.backOut.textContent = `Back out searching (${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} left)`;
+  ui.backOut.hidden = !(state.scavengeBegun && (state.untimed || t > 0));
+  ui.backOut.textContent = state.untimed ? 'Back out searching' : `Back out searching (${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} left)`;
+  /* Green means "do this next": go back out while there are still
+     traps to make, then downstairs once you have made them all. */
+  const doneBuilding = !canBuild && state.traps.length > 0;
+  ui.backOut.classList.toggle('is-next', !ui.backOut.hidden && !doneBuilding);
+  ui.toRig.classList.toggle('is-next', doneBuilding || ui.backOut.hidden);
   /* No traps? You can still go down. It will just be a long night. */
   ui.toRig.hidden = false;
   ui.toRig.textContent = state.traps.length || Object.keys(state.rigged).length
     ? 'Take the traps downstairs'
     : 'Go downstairs with no traps';
+}
+
+function gap() {
+  const li = document.createElement('li');
+  li.className = 'ws-gap';
+  li.setAttribute('aria-hidden', 'true');
+  return li;
 }
 
 function empty(words) {
@@ -427,6 +478,22 @@ function boltThird() {
   }, 700);
 }
 
+/* The trap's line, but if you used a stand in (custard for honey)
+   it says custard, not honey. */
+function lineFor(recipe, things) {
+  let line = recipe.line;
+  things.filter((thing) => thing.kind !== 'trap' && !recipe.needs.includes(thing.id)).forEach((thing) => {
+    const need = recipe.needs.find((n) => canBe(thing.id, n));
+    const was = need && findItem(need);
+    const now = findItem(thing.id);
+    if (!was || !now) return;
+    const from = was.name.split(' ').pop();
+    const to = now.name.split(' ').pop();
+    line = line.replace(new RegExp(`\\b${from}\\b`, 'gi'), (m) => (m[0] === m[0].toUpperCase() ? to : to.toLowerCase()));
+  });
+  return line;
+}
+
 /* Use the things up, put the trap on the shelf, write it in the
    notebook. */
 function build(recipe, things) {
@@ -442,8 +509,9 @@ function build(recipe, things) {
   const isNew = !state.notebook.includes(recipe.id);
   if (isNew) state.notebook.push(recipe.id);
   sfx.craft();
-  say(`${recipe.name}! ${recipe.line}`);
-  showResult(recipe, isNew, things.some((thing) => thing.kind === 'trap') || things.length === 3);
+  const line = lineFor(recipe, things);
+  say(`${recipe.name}! ${line}`);
+  showResult(recipe, isNew, things.some((thing) => thing.kind === 'trap') || things.length === 3, line);
   showBench();
 
   bench.fill(null);
@@ -481,29 +549,133 @@ function fail() {
 /* --- THE BLUEPRINT QUESTION ---------------------------------- */
 
 function blueprintFor(trap, isUpgrade) {
-  const list = isUpgrade ? BLUEPRINTS.UPGRADE : (BLUEPRINTS[trap.cat[0]] || BLUEPRINTS.UPGRADE);
-  const range = NUMBERS[state.puzzleLevel] || NUMBERS.tricky;
+  const all = isUpgrade ? BLUEPRINTS.UPGRADE : (BLUEPRINTS[trap.cat[0]] || BLUEPRINTS.UPGRADE);
+  const range = NUMBERS[state.puzzleLevel] || NUMBERS.easy;
+  /* Easy: adding only. Tricky: one step. Brainbuster: anything. */
+  const ok = (q) => (state.puzzleLevel === 'easy' ? !q.answer.includes('*')
+    : state.puzzleLevel === 'tricky' ? !q.answer.includes('c') : true);
+  const list = all.filter(ok).length ? all.filter(ok) : all;
   for (let tries = 0; tries < 40; tries += 1) {
     const q = pickFrom(list);
     const n = {};
     ['a', 'b', 'c'].forEach((k) => { n[k] = between(range[k][0], range[k][1]); });
     const fill = (words) => words.replace(/\b([abc])\b/g, (m, k) => String(n[k]));
     const answer = workOut(fill(q.answer));
-    if (answer >= 0) return { ask: fill(q.ask), answer };
+    if (answer >= 0) return { ask: fill(q.ask), sum: `${fill(q.answer).replace(/\*/g, '×')} = ?`, answer };
   }
-  return { ask: 'What is 6 times 7?', answer: 42 };
+  return { ask: 'What is 2 + 2?', sum: '2 + 2 = ?', answer: 4 };
 }
 
-function blueprintBox(trap, isUpgrade) {
-  const q = blueprintFor(trap, isUpgrade);
+/* A word to spell for this trap: one of its own things if there
+   is a short enough word for it, or else any word that fits. */
+function spellingFor(trap) {
+  const longest = state.puzzleLevel === 'easy' ? 3 : state.puzzleLevel === 'tricky' ? 4 : 9;
+  const fits = SPELLING.filter((s) => s.word.length <= longest);
+  const mine = fits.filter((s) => itemsIn(trap.id).includes(s.item));
+  return pickFrom(mine.length ? mine : fits);
+}
+
+function spellBox(trap) {
+  const s = spellingFor(trap);
   const box = document.createElement('div');
   box.className = 'ws-blueprint';
   const head = document.createElement('p');
   head.className = 'ws-blueprint-head';
-  head.textContent = 'Blueprint check. Get it right for a PERFECT build.';
+  head.textContent = 'Blueprint! Spell it right for a PERFECT trap.';
+  const pic = pictureOf('item', s.item);
+  pic.classList.add('ws-spell-pic');
+  const said = document.createElement('p');
+  said.className = 'ws-blueprint-said';
+  said.setAttribute('aria-live', 'polite');
+  const slots = document.createElement('div');
+  slots.className = 'pz-slots';
+  const tiles = document.createElement('div');
+  tiles.className = 'pz-tiles';
+  let letters = s.word.split('');
+  for (let i = 0; i < 10 && letters.join('') === s.word; i += 1) letters = [...letters].sort(() => Math.random() - 0.5);
+  const picked = [];
+  let left = TRIES;
+  const read = document.createElement('button');
+  read.type = 'button';
+  read.className = 'btn btn-quiet ws-blueprint-read';
+  read.textContent = '\u{1F50A} Say it';
+  read.addEventListener('click', () => speak(s.word.toLowerCase()));
+  const finish = () => box.querySelectorAll('button').forEach((b) => { b.disabled = true; });
+  const draw = () => {
+    slots.innerHTML = '';
+    s.word.split('').forEach((_, i) => {
+      const slot = document.createElement('span');
+      slot.className = 'pz-slot pz-slot-show';
+      slot.textContent = picked[i] !== undefined ? letters[picked[i]] : '';
+      slots.append(slot);
+    });
+    tiles.innerHTML = '';
+    letters.forEach((letter, t) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn pz-tile';
+      b.textContent = letter;
+      b.setAttribute('aria-label', `Letter ${letter}`);
+      b.disabled = picked.includes(t);
+      b.addEventListener('click', () => {
+        if (picked.includes(t) || picked.length >= s.word.length) return;
+        picked.push(t);
+        sfx.tick();
+        draw();
+        if (picked.length === s.word.length) check();
+      });
+      tiles.append(b);
+    });
+  };
+  const check = () => {
+    const spelled = picked.map((t) => letters[t]).join('');
+    if (spelled === s.word) {
+      state.perfect[trap.id] = (state.perfect[trap.id] || 0) + 1;
+      keepPerfectHonest(trap.id);
+      sfx.rare();
+      box.classList.add('is-done', 'is-perfect');
+      said.textContent = `${s.word}! PERFECT BUILD!`;
+      finish();
+      drawLists();
+      return;
+    }
+    left -= 1;
+    sfx.nope();
+    if (left <= 0) {
+      box.classList.add('is-done');
+      said.textContent = `It spells ${s.word}. A bit wonky, but it still works.`;
+      finish();
+      return;
+    }
+    said.textContent = `${spelled}? Not quite. Try again.`;
+    setTimeout(() => { picked.length = 0; draw(); }, 700);
+  };
+  draw();
+  box.append(head, pic, read, slots, tiles, said);
+  return box;
+}
+
+function blueprintBox(trap, isUpgrade) {
+  /* half the time, spell a word instead of a sum */
+  if (Math.random() < 0.5) return spellBox(trap);
+  const q = blueprintFor(trap, isUpgrade);
+  /* (a maths blueprint from here down) */
+  const box = document.createElement('div');
+  box.className = 'ws-blueprint';
+  const head = document.createElement('p');
+  head.className = 'ws-blueprint-head';
+  head.textContent = 'Blueprint! Get it right for a PERFECT trap.';
   const ask = document.createElement('p');
   ask.className = 'ws-blueprint-ask';
   ask.textContent = q.ask;
+  const sum = document.createElement('p');
+  sum.className = 'ws-blueprint-sum';
+  sum.textContent = q.sum;
+  const read = document.createElement('button');
+  read.type = 'button';
+  read.className = 'btn btn-quiet ws-blueprint-read';
+  read.textContent = '\u{1F50A} Read it to me';
+  read.addEventListener('click', () => speak(q.ask.replace(/ - /g, ' take away ')));
   const said = document.createElement('p');
   said.className = 'ws-blueprint-said';
   said.setAttribute('aria-live', 'polite');
@@ -564,7 +736,7 @@ function blueprintBox(trap, isUpgrade) {
     finish();
   });
   row.append(skip);
-  box.append(head, ask, row, said);
+  box.append(head, ask, sum, read, row, said);
   return box;
 }
 
@@ -594,7 +766,7 @@ function peekBox(trap) {
   return box;
 }
 
-function showResult(trap, isNew, isUpgrade = false) {
+function showResult(trap, isNew, isUpgrade = false, said = trap.line) {
   ui.result.innerHTML = '';
   const box = document.createElement('div');
   box.className = 'ws-made';
@@ -603,7 +775,7 @@ function showResult(trap, isNew, isUpgrade = false) {
   title.textContent = (isNew ? 'New trap: ' : 'Built: ') + trap.name;
   const line = document.createElement('p');
   line.className = 'ws-made-line';
-  line.textContent = trap.line;
+  line.textContent = said;
   const where = document.createElement('p');
   where.className = 'ws-made-where';
   where.textContent = `Goes on: ${trap.mount.toLowerCase()}. Scare: ${'★'.repeat(trap.nerve)}`;
@@ -612,6 +784,12 @@ function showResult(trap, isNew, isUpgrade = false) {
   ui.extra.innerHTML = '';
   ui.extra.append(peekBox(trap));
   ui.extra.hidden = false;
+  /* it pops up over the bench, so your junk stays at the top */
+  if (ui.made && !ui.made.open) {
+    if (ui.made.showModal) ui.made.showModal(); else ui.made.setAttribute('open', '');
+    const first = ui.made.querySelector('input, button');
+    if (first) first.focus();
+  }
 }
 
 /* --- THE NOTEBOOK ---------------------------------------------
@@ -691,6 +869,7 @@ export function setupWorkshop(els) {
     build(waiting, [bench[0], bench[1]]);
   });
   ui.toRig.addEventListener('click', () => setPhase('rig'));
+  if (ui.madeClose) ui.madeClose.addEventListener('click', closeMade);
   ui.backOut.addEventListener('click', () => { sfx.start(); setPhase('scavenge'); });
   ui.ideas.addEventListener('click', () => { sfx.tick(); say(bagHint()); });
 }
@@ -705,7 +884,8 @@ export function showWorkshop() {
   ui.result.innerHTML = '';
   ui.extra.innerHTML = '';
   ui.extra.hidden = true;
-  const timeLeft = state.scavengeBegun && state.timeLeft > 0;
+  closeMade();
+  const timeLeft = state.scavengeBegun && (state.untimed || state.timeLeft > 0);
   say(state.inventory.length
     ? 'Right. Put something on the bench and I will have a think.'
     : timeLeft
@@ -716,7 +896,14 @@ export function showWorkshop() {
   drawNotebook();
 }
 
+function closeMade() {
+  if (ui.made && ui.made.open) {
+    if (ui.made.close) ui.made.close(); else ui.made.removeAttribute('open');
+  }
+}
+
 export function hideWorkshop() {
+  closeMade();
   ui.panel.hidden = true;
   hush();
   clearTimeout(talking);

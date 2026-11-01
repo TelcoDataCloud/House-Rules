@@ -56,6 +56,8 @@ export function freshState() {
     timeLeft: 0,        // seconds left on the scavenge clock
     scavenging: false,  // true while the clock is running
     scavengeBegun: false, // true once tonight's junk is hidden, so going back out does not hide it all again
+    untimed: false,     // true on No clock (seconds: 0 in data/difficulty.js)
+    closed: [],         // rooms shut tonight: a smaller house when there is a clock (data/nights.js)
 
     /* The puzzles (js/puzzles.js). Tonight's answers are in
        puzzles. Type HOUSE.state.puzzles in the console to cheat. */

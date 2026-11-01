@@ -38,7 +38,7 @@ export function buildDifficulty(container) {
 
     const time = document.createElement('span');
     time.className = 'diff-time';
-    time.textContent = level.seconds + ' seconds';
+    time.textContent = level.seconds ? level.seconds + ' seconds' : 'No timer';
 
     const note = document.createElement('span');
     note.className = 'diff-note';
