@@ -135,14 +135,17 @@
   border-radius: 50%;
   will-change: transform;
 }
-/* Your laser: a white hot middle, a coloured edge, and a glow. */
+/* Your shots: a hard white-hot bolt with a pointed tip, a coloured
+   edge and a tail that fades out behind it. */
 .shot {
-  border-radius: 4px;
-  background: linear-gradient(90deg, transparent, var(--cyan) 20%, #ffffff 42%, #ffffff 58%, var(--cyan) 80%, transparent);
-  box-shadow: 0 0 6px var(--cyan), 0 0 14px var(--cyan);
-  -webkit-mask-image: linear-gradient(to top, transparent, #000 35%);
-  mask-image: linear-gradient(to top, transparent, #000 35%);
+  border-radius: 50% 50% 2px 2px / 18% 18% 2px 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan) 18%, #ffffff 40%, #ffffff 60%, var(--cyan) 82%, transparent);
+  box-shadow: 0 0 4px #ffffff, 0 0 10px var(--cyan), 0 0 20px rgba(56, 240, 255, 0.5);
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 45%);
+  mask-image: linear-gradient(to top, transparent, #000 45%);
 }
+/* Side guns are weaker, so their shots are thinner and dimmer. */
+.shot.weak { opacity: 0.7; box-shadow: 0 0 6px var(--cyan); }
 .shot.green {
   background: linear-gradient(90deg, transparent, var(--green) 20%, #ffffff 42%, #ffffff 58%, var(--green) 80%, transparent);
   box-shadow: 0 0 6px var(--green), 0 0 14px var(--green);
@@ -161,12 +164,13 @@
   background: linear-gradient(90deg, transparent, var(--yellow) 20%, #ffffff 42%, #ffffff 58%, var(--yellow) 80%, transparent);
   box-shadow: 0 0 6px var(--yellow), 0 0 16px var(--orange);
 }
-/* Homing missile: a pink rocket with a hot nose. */
+/* Homing missile: a dark metal rocket with a glowing seeker nose
+   and a hot engine at the back. */
 .missile {
-  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
-  background: radial-gradient(ellipse at 50% 25%, #ffffff 0 18%, var(--pink) 45%, #8a1050 75%);
-  border: 2px solid #2a0a1e;
-  box-shadow: 0 0 10px var(--pink);
+  border-radius: 50% 50% 25% 25% / 35% 35% 10% 10%;
+  background: linear-gradient(to bottom, #ffffff 0 7%, var(--pink) 7% 22%, #d8dcea 22% 27%, #7a8098 27% 50%, #3a3f56 50% 78%, #ff9a2a 78% 88%, #fff6c0 88%);
+  border: 1.5px solid #10121e;
+  box-shadow: 0 0 8px var(--pink), 0 6px 10px rgba(255, 154, 42, 0.6);
 }
 .trail {
   position: absolute; left: 0; top: 0;
@@ -176,25 +180,30 @@
 }
 @keyframes trail { from { transform: var(--at) scale(1); opacity: 0.9; } to { transform: var(--at) scale(0.2); opacity: 0; } }
 
-/* Enemy shots: big round glowing orbs with a ring that pulses,
-   so they are easy to see coming. */
+/* Enemy orbs: balls of plasma with a white-hot core and a crackling
+   ring of energy spinning round them. Easy to see coming, and you
+   can shoot them down. */
 .foe { width: 20px; height: 20px; }
 .foe::after {
   content: '';
   position: absolute; inset: -5px;
   border-radius: 50%;
-  border: 2px solid currentColor;
-  animation: orb 0.5s ease-in-out infinite alternate;
+  background: conic-gradient(from 0deg, transparent, currentColor 12%, transparent 25%, currentColor 45%, transparent 55%, currentColor 80%, transparent 90%);
+  -webkit-mask-image: radial-gradient(circle, transparent 52%, #000 56%, #000 70%, transparent 74%);
+  mask-image: radial-gradient(circle, transparent 52%, #000 56%, #000 70%, transparent 74%);
+  animation: orb 0.6s linear infinite;
 }
-@keyframes orb { from { transform: scale(0.8); opacity: 0.9; } to { transform: scale(1.15); opacity: 0.3; } }
-.foe.pink { color: var(--pink); background: radial-gradient(circle, #ffffff 0 28%, var(--pink) 52%, rgba(255, 63, 164, 0.3) 72%); box-shadow: 0 0 12px var(--pink); }
-.foe.green { color: var(--green); background: radial-gradient(circle, #ffffff 0 28%, var(--green) 52%, rgba(77, 255, 124, 0.3) 72%); box-shadow: 0 0 12px var(--green); }
+@keyframes orb { to { transform: rotate(360deg); } }
+.foe.pink { color: var(--pink); background: radial-gradient(circle, #ffffff 0 22%, #ffc2e4 30%, var(--pink) 48%, #6a0838 66%, rgba(255, 63, 164, 0) 72%); box-shadow: 0 0 10px var(--pink), 0 0 20px rgba(255, 63, 164, 0.45); }
+.foe.green { color: var(--green); background: radial-gradient(circle, #ffffff 0 22%, #c8ffd6 30%, var(--green) 48%, #0a5a22 66%, rgba(77, 255, 124, 0) 72%); box-shadow: 0 0 10px var(--green), 0 0 20px rgba(77, 255, 124, 0.45); }
 .foe.red {
   /* A laser: you can't shoot it down, so it looks hard and sharp. */
   color: var(--red);
-  border-radius: 4px;
-  background: linear-gradient(90deg, transparent, var(--red) 22%, #ffffff 42%, #ffffff 58%, var(--red) 78%, transparent);
-  box-shadow: 0 0 8px var(--red), 0 0 16px var(--red);
+  border-radius: 2px 2px 50% 50% / 2px 2px 18% 18%;
+  background: linear-gradient(90deg, transparent, var(--red) 20%, #ffffff 42%, #ffffff 58%, var(--red) 80%, transparent);
+  box-shadow: 0 0 6px var(--red), 0 0 14px var(--red), 0 0 26px rgba(255, 59, 59, 0.5);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40%);
+  mask-image: linear-gradient(to bottom, transparent, #000 40%);
 }
 .foe.red::after { display: none; }
 
@@ -608,3 +617,88 @@
   .cut-stage.play * { animation-duration: 9s !important; animation-iteration-count: 1 !important; }
   .cut-atmosphere.play .cut-ship, .cut-dive.play .cut-ship { animation: none; }
 }
+
+/* ================= NEW WEAPONS ================= */
+
+/* Beam splitter: the side beams are thinner and dimmer than the middle one. */
+.beam-side { opacity: 0.6; box-shadow: 0 0 8px var(--pink); }
+.beam[data-level="1"] { opacity: 0.75; }
+
+/* Railgun: a white-hot line straight up, gone in a blink. */
+.rail {
+  position: absolute; left: 0; top: 0;
+  background: linear-gradient(90deg, transparent, var(--yellow) 15%, #ffffff 35%, #ffffff 65%, var(--yellow) 85%, transparent);
+  box-shadow: 0 0 10px var(--yellow), 0 0 24px var(--orange);
+  animation: rail 0.25s ease-out forwards;
+}
+@keyframes rail { from { transform: var(--at) scaleX(1.6); opacity: 1; } to { transform: var(--at) scaleX(0.2); opacity: 0; } }
+.rail-ring {
+  position: absolute; left: 0; top: 0;
+  border-radius: 50%;
+  border: 3px solid var(--yellow);
+  box-shadow: 0 0 10px var(--yellow);
+  animation: shock 0.25s ease-out forwards;
+}
+
+/* ================= BOMBS ================= */
+.bomb-shell, .bomb-blast, .bomblet, .plasma-wall, .laser-bomb, .nuke-flash { position: absolute; left: 0; top: 0; pointer-events: none; }
+.bomb-shell { border-radius: 50% 50% 40% 40%; background: linear-gradient(#ffb35a 0 30%, #3a3f56 30%); border: 2px solid #10121e; }
+.bomb-blast {
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 18%, rgba(255, 210, 63, 0.85) 30%, rgba(255, 122, 26, 0.7) 50%, rgba(255, 59, 26, 0) 70%);
+  border: 4px solid rgba(255, 246, 192, 0.9);
+}
+.bomblet { border-radius: 50%; background: radial-gradient(circle, #ffffff 0 25%, var(--yellow) 50%, #a66b00); box-shadow: 0 0 10px var(--yellow); }
+.plasma-wall {
+  background: linear-gradient(to top, transparent, rgba(56, 240, 255, 0.55) 25%, #ffffff 50%, rgba(56, 240, 255, 0.55) 75%, transparent);
+  box-shadow: 0 0 30px var(--cyan);
+  border-radius: 40%;
+}
+.laser-bomb {
+  background: linear-gradient(90deg, transparent, rgba(255, 59, 59, 0.75) 12%, #ffd0d0 32%, #ffffff 50%, #ffd0d0 68%, rgba(255, 59, 59, 0.75) 88%, transparent);
+  box-shadow: 0 0 30px var(--red), 0 0 60px rgba(255, 59, 59, 0.6);
+  animation: beam 0.06s linear infinite alternate;
+}
+.nuke-flash { border-radius: 50%; background: radial-gradient(circle, #ffffff 0 20%, rgba(200, 255, 210, 0.9) 35%, rgba(77, 255, 124, 0.5) 55%, transparent 70%); }
+
+/* ================= BOSS PHASES ================= */
+/* Angry: a red glow that throbs. */
+#layer-air .thing.angry > svg { animation: angry 0.5s ease-in-out infinite alternate; }
+@keyframes angry {
+  from { filter: drop-shadow(0 0 4px rgba(255, 59, 59, 0.6)) drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
+  to { filter: drop-shadow(0 0 14px var(--red)) brightness(1.15) drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
+}
+#layer-air .thing.tint-red.angry > svg { animation: angry-red 0.5s ease-in-out infinite alternate; }
+@keyframes angry-red {
+  from { filter: hue-rotate(-85deg) saturate(1.5) drop-shadow(0 0 4px rgba(255, 59, 59, 0.6)); }
+  to { filter: hue-rotate(-85deg) saturate(1.5) brightness(1.15) drop-shadow(0 0 14px var(--red)); }
+}
+/* Powering up: it flashes and can't be hurt. */
+#layer-air .thing.charging > svg { animation: charging 0.14s steps(2) infinite; }
+@keyframes charging { 50% { filter: brightness(2.2) drop-shadow(0 0 16px #ffffff); } }
+
+/* The big cannon: first a red line where it will fire... */
+.boss-warn {
+  position: absolute; left: 0; top: 0;
+  background: repeating-linear-gradient(to bottom, var(--red) 0 16px, transparent 16px 26px);
+  box-shadow: 0 0 8px var(--red);
+  animation: boss-warn 0.18s steps(2) infinite;
+}
+@keyframes boss-warn { 50% { opacity: 0.25; } }
+/* ...then the laser itself. */
+.boss-beam {
+  position: absolute; left: 0; top: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 59, 59, 0.85) 10%, var(--orange) 25%, #fff3d6 42%, #ffffff 50%, #fff3d6 58%, var(--orange) 75%, rgba(255, 59, 59, 0.85) 90%, transparent);
+  box-shadow: 0 0 24px var(--red), 0 0 48px rgba(255, 122, 26, 0.6);
+  animation: boss-beam-in 0.12s ease-out, beam 0.05s linear infinite alternate;
+}
+@keyframes boss-beam-in { from { filter: brightness(2); opacity: 0.4; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .foe::after, .boss-warn, .boss-beam, .laser-bomb, #layer-air .thing.charging > svg { animation: none; }
+  #layer-air .thing.angry > svg { animation: none; filter: drop-shadow(0 0 10px var(--red)); }
+}
+
+/* The eye is grey and shut until you can hurt it. (Needs #layer-air to
+   beat the shadow rule above.) */
+#layer-air .thing.dark > svg { filter: grayscale(1) brightness(0.6) drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
