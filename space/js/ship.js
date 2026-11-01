@@ -6,7 +6,7 @@
    bits in art/comet.svg), so you can see what you have.
 
    One main gun at a time (data/weapons.js): Blaster, Laser, Beam
-   or Railgun, level 1 to 4. Helpers on top: homing missiles and
+   or Railgun, level 1 to 6. Helpers on top: homing missiles and
    drones. One kind of bomb (data/bombs.js, fired in js/bombs.js).
    =========================================================== */
 

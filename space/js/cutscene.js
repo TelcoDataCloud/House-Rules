@@ -1,7 +1,7 @@
 /* ===========================================================
    CUT SCENE: the little film between levels
 
-   Two films, both made of boxes and CSS animations (look in
+   Five films, all made of boxes and CSS animations (look in
    css/game.css under CUT SCENES):
      'atmosphere'  fly at the planet, it gets huge, the ship glows
                    hot as it hits the air, then clouds rush past
