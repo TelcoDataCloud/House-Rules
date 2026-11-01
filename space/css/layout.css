@@ -227,6 +227,11 @@ kbd {
 .card-name.cyan { color: var(--cyan); }
 .card-name.pink { color: var(--pink); }
 .card-name.yellow { color: var(--yellow); }
+.card-name.green { color: var(--green); }
+.card-name.orange { color: var(--orange); }
+.card-name.red { color: var(--red); }
+:root[data-theme="day"] .card-name.green { color: #138a3a; }
+:root[data-theme="day"] .card-name.orange { color: #b04a00; }
 :root[data-theme="day"] .card-name.cyan { color: #0a7f8e; }
 :root[data-theme="day"] .card-name.yellow { color: #a66b00; }
 .card-say { font-weight: 800; font-size: 16px; }
@@ -286,6 +291,9 @@ kbd {
 .hud-weapon.cyan i.on { background: var(--cyan); }
 .hud-weapon.pink i.on { background: var(--pink); }
 .hud-weapon.yellow i.on { background: var(--yellow); }
+.hud-weapon.green i.on { background: var(--green); }
+.hud-weapon.orange i.on { background: var(--orange); }
+.hud-weapon.red i.on { background: var(--red); }
 
 .boss-bar { margin-top: 2px; }
 .boss-bar[hidden] { display: none; }

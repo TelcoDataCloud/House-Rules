@@ -66,7 +66,7 @@ document.addEventListener('visibilitychange', () => {
 
 async function boot() {
   const names = [
-    SHIP.art, 'drone', 'hauler-engine', 'core-turret', 'core-eye', 'hauler',
+    SHIP.art, 'drone', 'hauler-engine', 'core-turret', 'core-eye', 'hauler', 'boss-cannon',
     ...Object.values(ENEMIES).map((e) => e.art),
     ...Object.values(PARTS).map((p) => p.art),
     ...Object.values(BOSSES).map((b) => b.art).filter(Boolean),

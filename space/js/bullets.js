@@ -30,9 +30,10 @@ function make(cls, where, w, h) {
 // Your shot. vx and vy are how fast it moves sideways and up.
 // cls is its colour, damage how hard it hits, through how many
 // enemies it can go right through.
-export function addShot(x, y, vx, vy, { cls = '', damage = 1, through = 0 } = {}) {
+export function addShot(x, y, vx, vy, { cls = '', damage = 1, through = 0, small = false } = {}) {
   if (count() >= CAP) return;
-  const b = make(`shot ${cls}`.trim(), 'shots', 8, 28);
+  // Weak side shots are drawn thinner, so you can see they hit less.
+  const b = small ? make(`shot weak ${cls}`.trim(), 'shots', 5, 20) : make(`shot ${cls}`.trim(), 'shots', 8, 28);
   Object.assign(b, { x, y, vx, vy, r: 6, damage, through });
   state.shots.push(b);
 }

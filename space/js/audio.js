@@ -68,6 +68,8 @@ const UPGRADE_TUNES = {
   bay:      [[120, 60, 0.5, 'sine', 0], [523, 523, 0.12, 'triangle', 0.3], [784, 784, 0.25, 'triangle', 0.42]],
   shield:   [[400, 1200, 0.5, 'triangle', 0], [800, 2400, 0.5, 'sine', 0.1]],
   bombpack: [[200, 80, 0.3, 'sine', 0], [200, 80, 0.3, 'sine', 0.2]],
+  blaster:  [[523, 523, 0.1, 'square', 0], [659, 659, 0.1, 'square', 0.09], [784, 784, 0.1, 'square', 0.18], [1047, 1047, 0.25, 'square', 0.27]],
+  rail:     [[90, 90, 0.3, 'sawtooth', 0], [200, 2400, 0.25, 'sawtooth', 0.3], [2400, 2400, 0.15, 'square', 0.55]],
 };
 
 let lastPop = 0;
@@ -89,6 +91,14 @@ export const sound = {
   nope() { tone(200, 150, 0.12, 'square', 0.05); },
   // A whoosh of air, for the films between levels.
   whoosh() { crash(1.6, 0.3, 3000); },
+  // A railgun shot: a sharp crack and a falling zing.
+  // A boss powering up: a long rising hum.
+  powerUp() { tone(60, 600, 1.8, 'sawtooth', 0.08); tone(120, 1200, 1.8, 'square', 0.03); },
+  // The boss cannon charging, then its big laser.
+  charge() { tone(200, 900, 1.2, 'triangle', 0.06); },
+  bigLaser() { tone(110, 60, 0.9, 'sawtooth', 0.14); crash(0.9, 0.25, 1200); },
+  rail() { crash(0.12, 0.2, 4000); tone(2600, 300, 0.18, 'sawtooth', 0.05); },
+  laserBomb() { tone(80, 120, 2, 'sawtooth', 0.12); tone(900, 700, 2, 'square', 0.03); },
 
   // Every upgrade has its own sound. Each one is a few notes
   // played one after another: [start pitch, end pitch, length, wave].

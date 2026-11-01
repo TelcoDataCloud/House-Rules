@@ -6,7 +6,8 @@
    =========================================================== */
 
 import { state } from './state.js';
-import { POWER_BAR, WEAPONS } from '../data/weapons.js';
+import { POWER_BAR, GUNS, HELPERS, MAX_LEVEL } from '../data/weapons.js';
+import { BOMBS } from '../data/bombs.js';
 import { SHIP } from '../data/ship.js';
 import { bossHealth } from './bosses.js';
 
@@ -56,16 +57,18 @@ export function drawHud() {
     $('hud-power').setAttribute('aria-label', `Power ${s.power} of ${POWER_BAR}`);
   }
 
-  // Only the upgrades you have, each with its three dots.
-  const weapons = Object.keys(WEAPONS).map((k) => s[k]).join('');
+  // Your gun, your helpers and your bomb, each with dots for its level.
+  const weapons = [s.gun, s.gunLevel, s.homing, s.drones, s.bomb, s.bombLevel].join();
   if (changed('weapons', weapons)) {
-    const have = Object.keys(WEAPONS).filter((k) => s[k] > 0);
-    $('hud-weapons').hidden = have.length === 0;
-    $('hud-weapons').innerHTML = have.map((k) => {
-      const w = WEAPONS[k];
-      const pips = [0, 1, 2].map((i) => `<i class="${i < s[k] ? 'on' : ''}"></i>`).join('');
-      return `<span class="hud-weapon ${w.colour}" title="${w.name}"><b>${w.short}</b>${pips}</span>`;
-    }).join('');
+    const chip = (thing, level, max) => {
+      const pips = Array.from({ length: max }, (_, i) => `<i class="${i < level ? 'on' : ''}"></i>`).join('');
+      return `<span class="hud-weapon ${thing.colour}" title="${thing.name}"><b>${thing.short}</b>${pips}</span>`;
+    };
+    let html = chip(GUNS[s.gun], s.gunLevel, MAX_LEVEL);
+    for (const k of Object.keys(HELPERS)) if (s[k] > 0) html += chip(HELPERS[k], s[k], 3);
+    html += chip(BOMBS[s.bomb], s.bombLevel, 3);
+    $('hud-weapons').hidden = false;
+    $('hud-weapons').innerHTML = html;
   }
 
   const boss = bossHealth();

@@ -105,6 +105,14 @@ export function pilot(x, y) {
   </svg>`;
 }
 
+// The railgun: a bright line straight up from the nose, gone in a blink.
+export function rail(x, y, level = 1) {
+  const w = 4 + level * 2;
+  const el = add('rail', x, y / 2, w, y + 20, 260);
+  el.style.setProperty('--at', `translate(${x - w / 2}px, -20px)`);
+  add('rail-ring', x, y, 26 + level * 4, 26 + level * 4, 260);
+}
+
 // An enemy orb shot out of the air: a small pop.
 export function pop(x, y, colour = 'pink') {
   add(`shock pop-${colour}`, x, y, 26, 26, 420);
