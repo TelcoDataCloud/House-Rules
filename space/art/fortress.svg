@@ -1,35 +1,105 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 230">
-  <!-- SKY FORTRESS, the level 2 boss. A flying castle with
-       big propeller pods. Its six turrets and its eye are separate
-       pictures (core-turret.svg and core-eye.svg). -->
+  <!-- SKY FORTRESS. The level 2 boss: a giant flying fortress with
+       armoured wings and tail fins. Hendrix: every fill is a colour.
+       Its six guns and the reactor in the middle are separate
+       pictures (core-turret.svg and core-eye.svg). Under each gun is
+       a round mount that is left burnt and empty when you shoot it. -->
   <defs>
-    <linearGradient id="fo-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe6c8"/><stop offset="0.3" stop-color="#c8865a"/><stop offset="0.7" stop-color="#7a4a2e"/><stop offset="1" stop-color="#2a160c"/></linearGradient>
-    <linearGradient id="fo-pod" x1="0" x2="1"><stop offset="0" stop-color="#d8dcef"/><stop offset="0.5" stop-color="#7a7f99"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
-    <radialGradient id="fo-socket" cx="0.5" cy="0.5"><stop offset="0.6" stop-color="#0d1226"/><stop offset="1" stop-color="#4a2e1c"/></radialGradient>
-    <radialGradient id="fo-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#9ff6ff"/><stop offset="1" stop-color="#38f0ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="fo-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c6cf"/><stop offset="0.3" stop-color="#5f7280"/><stop offset="0.7" stop-color="#2c3842"/><stop offset="1" stop-color="#11171d"/></linearGradient>
+    <linearGradient id="fo-wing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d909c"/><stop offset="0.5" stop-color="#3a4852"/><stop offset="1" stop-color="#161d23"/></linearGradient>
+    <linearGradient id="fo-slab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fa2ae"/><stop offset="0.5" stop-color="#3f4e59"/><stop offset="1" stop-color="#1a2229"/></linearGradient>
+    <linearGradient id="fo-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6d2da"/><stop offset="0.5" stop-color="#5a6b77"/><stop offset="1" stop-color="#1c252c"/></linearGradient>
+    <radialGradient id="fo-scorch"><stop offset="0" stop-color="#040405"/><stop offset="0.55" stop-color="#1a130c"/><stop offset="0.85" stop-color="#3a2a18"/><stop offset="1" stop-color="#252c32"/></radialGradient>
+    <radialGradient id="fo-socket"><stop offset="0.7" stop-color="#05070a"/><stop offset="0.9" stop-color="#2a0a1c"/><stop offset="1" stop-color="#5a1038"/></radialGradient>
+    <radialGradient id="fo-jet"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#9ff6ff"/><stop offset="1" stop-color="#38f0ff" stop-opacity="0"/></radialGradient>
+    <pattern id="fo-haz" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#14181c"/><rect width="5" height="10" fill="#f0b51c"/></pattern>
   </defs>
-  <!-- propeller pods -->
-  <g>
-    <ellipse cx="30" cy="70" rx="26" ry="10" fill="url(#fo-glow)" opacity="0.7"/>
-    <rect x="12" y="40" width="36" height="56" rx="14" fill="url(#fo-pod)" stroke="#1a1d2e" stroke-width="2.6"/>
-    <ellipse cx="350" cy="70" rx="26" ry="10" fill="url(#fo-glow)" opacity="0.7"/>
-    <rect x="332" y="40" width="36" height="56" rx="14" fill="url(#fo-pod)" stroke="#1a1d2e" stroke-width="2.6"/>
-    <rect x="18" y="46" width="6" height="44" rx="3" fill="#ffffff" opacity="0.4"/>
-    <rect x="338" y="46" width="6" height="44" rx="3" fill="#ffffff" opacity="0.4"/>
+
+  <!-- engine jets at the back (the top) -->
+  <g fill="url(#fo-jet)"><ellipse cx="150" cy="8" rx="16" ry="8"/><ellipse cx="190" cy="6" rx="18" ry="8"/><ellipse cx="230" cy="8" rx="16" ry="8"/></g>
+
+  <!-- the two big wings -->
+  <path d="M124 40 L44 66 L8 86 L6 124 L22 136 L66 142 L88 156 L112 200 L134 188 Z" fill="url(#fo-wing)" stroke="#0b0f13" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M256 40 L336 66 L372 86 L374 124 L358 136 L314 142 L292 156 L268 200 L246 188 Z" fill="url(#fo-wing)" stroke="#0b0f13" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M120 46 L46 70 L12 90 L12 96 L48 76 L120 54 Z" fill="#ffffff" opacity="0.3"/>
+  <path d="M260 46 L334 70 L368 90 L368 96 L332 76 L260 54 Z" fill="#ffffff" opacity="0.15"/>
+  <path d="M66 142 L120 120 M314 142 L260 120 M70 66 L76 140 M310 66 L304 140" stroke="#0b0f13" stroke-width="1.2" opacity="0.6"/>
+  <!-- glowing strips along the wings -->
+  <path d="M28 132 L64 137 M352 132 L316 137" stroke="#38f0ff" stroke-width="2.4"/>
+  <path d="M90 150 L110 186 M290 150 L270 186" stroke="url(#fo-haz)" stroke-width="6"/>
+
+  <!-- wingtip gun pods -->
+  <path d="M24 74 L56 74 L64 86 L64 124 L56 136 L24 136 L16 124 L16 86 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M324 74 L356 74 L364 86 L364 124 L356 136 L324 136 L316 124 L316 86 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- tail fins at the back -->
+  <path d="M146 30 L128 0 L140 0 L162 28 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M234 30 L252 0 L240 0 L218 28 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- the main hull -->
+  <path d="M142 8 L238 8 L270 30 L284 120 L266 190 L238 224 L142 224 L114 190 L96 120 L110 30 Z" fill="url(#fo-hull)" stroke="#0b0f13" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M116 34 L144 14 L200 14 L198 22 L148 22 L122 40 L104 120 L100 120 Z" fill="#ffffff" opacity="0.32"/>
+  <!-- engine block at the back -->
+  <path d="M146 10 L234 10 L240 30 L140 30 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="1.6"/>
+  <g fill="#0a0d11"><circle cx="160" cy="20" r="6"/><circle cx="190" cy="20" r="7"/><circle cx="220" cy="20" r="6"/></g>
+  <g fill="#9ff6ff"><circle cx="160" cy="20" r="3"/><circle cx="190" cy="20" r="3.6"/><circle cx="220" cy="20" r="3"/></g>
+  <!-- side armour slabs -->
+  <path d="M112 44 L134 40 L138 178 L118 186 L102 120 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="1.6"/>
+  <path d="M268 44 L246 40 L242 178 L262 186 L278 120 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="1.6"/>
+  <path d="M102 120 L138 120 M242 120 L278 120 M140 160 L240 160" stroke="#0b0f13" stroke-width="1.2" opacity="0.55"/>
+  <g fill="#38f0ff"><rect x="118" y="60" width="4" height="22"/><rect x="258" y="60" width="4" height="22"/><rect x="176" y="164" width="28" height="3"/></g>
+  <!-- the armoured prow -->
+  <path d="M160 172 L220 172 L230 204 L150 204 Z" fill="url(#fo-slab)" stroke="#0b0f13" stroke-width="1.6"/>
+  <rect x="146" y="210" width="88" height="8" fill="url(#fo-haz)" stroke="#0b0f13" stroke-width="1"/>
+  <g fill="#0b0f13" opacity="0.7">
+    <circle cx="124" cy="100" r="1.6"/><circle cx="256" cy="100" r="1.6"/><circle cx="124" cy="150" r="1.6"/><circle cx="256" cy="150" r="1.6"/>
+    <circle cx="40" cy="80" r="1.4"/><circle cx="340" cy="80" r="1.4"/><circle cx="40" cy="130" r="1.4"/><circle cx="340" cy="130" r="1.4"/>
   </g>
-  <!-- main hull: a flying castle -->
-  <path d="M48 50 L110 20 L270 20 L332 50 L340 130 L290 190 L90 190 L40 130 Z" fill="url(#fo-hull)" stroke="#2a160c" stroke-width="3.5" stroke-linejoin="round"/>
-  <path d="M58 56 L112 30 L180 28 L180 38 L118 42 L68 66 Z" fill="#ffffff" opacity="0.35"/>
-  <!-- battlements along the top -->
-  <g fill="url(#fo-hull)" stroke="#2a160c" stroke-width="2">
-    <rect x="118" y="8" width="20" height="16"/><rect x="152" y="8" width="20" height="16"/><rect x="208" y="8" width="20" height="16"/><rect x="242" y="8" width="20" height="16"/>
+
+  <!-- the reactor socket -->
+  <circle cx="190" cy="100" r="61" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2.4"/>
+  <circle cx="190" cy="100" r="55" fill="url(#fo-haz)" stroke="#0b0f13" stroke-width="1.4"/>
+  <circle cx="190" cy="100" r="50" fill="url(#fo-socket)" stroke="#0b0f13" stroke-width="2"/>
+  <g fill="#2a343c" stroke="#0b0f13" stroke-width="1.2">
+    <rect x="184" y="37" width="12" height="9"/><rect x="184" y="154" width="12" height="9"/>
+    <rect x="127" y="94" width="9" height="12"/><rect x="244" y="94" width="9" height="12"/>
   </g>
-  <path d="M40 130 L340 130 M60 90 L320 90 M130 20 L130 190 M250 20 L250 190" stroke="#2a160c" stroke-width="1.6" opacity="0.45"/>
-  <g fill="#2a160c" opacity="0.6">
-    <circle cx="80" cy="100" r="2"/><circle cx="300" cy="100" r="2"/><circle cx="110" cy="160" r="2"/><circle cx="270" cy="160" r="2"/>
+
+  <!-- gun mounts (the turrets sit on top of these) -->
+  <g transform="translate(40 105)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
   </g>
-  <path d="M90 190 L110 176 L130 190 M250 190 L270 176 L290 190" stroke="#ffd23f" stroke-width="4" fill="none"/>
-  <g fill="#38f0ff"><circle cx="70" cy="60" r="3"/><circle cx="310" cy="60" r="3"/><circle cx="190" cy="186" r="3"/></g>
-  <circle cx="190" cy="100" r="58" fill="url(#fo-socket)" stroke="#0d1226" stroke-width="3"/>
-  <circle cx="190" cy="100" r="51" fill="none" stroke="#ffd23f" stroke-width="2" stroke-dasharray="8 10"/>
+  <g transform="translate(340 105)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(100 175)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(280 175)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(160 199)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(220 199)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#fo-plate)" stroke="#0b0f13" stroke-width="2"/>
+    <circle r="15" fill="url(#fo-scorch)" stroke="#06070a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4cad8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
 </svg>

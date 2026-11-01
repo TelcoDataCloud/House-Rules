@@ -1,28 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120">
-  <!-- THE HAULER, the mini boss. A big army-green cargo ship.
-       Its two engines are separate pictures (hauler-engine.svg)
-       so you can shoot them off. -->
+  <!-- THE HAULER. The mini boss: a heavy armoured cargo gunship.
+       Hendrix: every fill is a colour. Change one and watch it.
+       The two engines are separate pictures (hauler-engine.svg),
+       so you can shoot them off. Under each one is a burnt empty
+       mount. The round hatch in the middle is its reactor: it
+       opens when both engines are gone. The nose points down at you. -->
   <defs>
-    <linearGradient id="hl-wing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8c88a"/><stop offset="0.4" stop-color="#6b7a44"/><stop offset="1" stop-color="#2a3214"/></linearGradient>
-    <linearGradient id="hl-body" x1="0" x2="1"><stop offset="0" stop-color="#d4e0a6"/><stop offset="0.3" stop-color="#7c8c50"/><stop offset="0.7" stop-color="#46522a"/><stop offset="1" stop-color="#1a1f0e"/></linearGradient>
-    <linearGradient id="hl-gun" x1="0" x2="1"><stop offset="0" stop-color="#c8cdb0"/><stop offset="1" stop-color="#3e4430"/></linearGradient>
-    <radialGradient id="hl-glass" cx="0.4" cy="0.35"><stop offset="0" stop-color="#fff6c8"/><stop offset="0.4" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a5a00"/></radialGradient>
+    <linearGradient id="hl-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cacac4"/><stop offset="0.35" stop-color="#76776f"/><stop offset="0.75" stop-color="#3b3c37"/><stop offset="1" stop-color="#191a17"/></linearGradient>
+    <linearGradient id="hl-armour" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9b86e"/><stop offset="0.4" stop-color="#5f6d34"/><stop offset="1" stop-color="#262e12"/></linearGradient>
+    <linearGradient id="hl-wing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9e58"/><stop offset="0.5" stop-color="#4f5c2a"/><stop offset="1" stop-color="#20270e"/></linearGradient>
+    <linearGradient id="hl-gun" x1="0" x2="1"><stop offset="0" stop-color="#dcdcd6"/><stop offset="0.45" stop-color="#73746c"/><stop offset="1" stop-color="#1e1f1b"/></linearGradient>
+    <radialGradient id="hl-scorch"><stop offset="0" stop-color="#050505"/><stop offset="0.55" stop-color="#1c140c"/><stop offset="0.85" stop-color="#3a2a18"/><stop offset="1" stop-color="#2c2c2a"/></radialGradient>
+    <radialGradient id="hl-core"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#ffd27a"/><stop offset="0.75" stop-color="#ff7a1a"/><stop offset="1" stop-color="#8a2a00"/></radialGradient>
+    <radialGradient id="hl-muzzle"><stop offset="0" stop-color="#fff6d0"/><stop offset="0.4" stop-color="#ff9a2a"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></radialGradient>
+    <pattern id="hl-haz" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#16181d"/><rect width="4" height="8" fill="#e8b81c"/></pattern>
   </defs>
-  <path d="M6 44 L214 44 L200 68 L20 68 Z" fill="url(#hl-wing)" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M20 47 L100 47 L97 52 L24 52 Z" fill="#ffffff" opacity="0.3"/>
-  <path d="M30 58 L80 58 M140 58 L190 58 M60 44 L56 68 M160 44 L164 68" stroke="#1a1f0e" stroke-width="1.3" opacity="0.5"/>
-  <g fill="#1a1f0e" opacity="0.55"><circle cx="40" cy="62" r="1.2"/><circle cx="180" cy="62" r="1.2"/><circle cx="70" cy="50" r="1.2"/><circle cx="150" cy="50" r="1.2"/></g>
-  <path d="M14 46 L30 46 L28 50 L14 50 Z" fill="#ffd23f"/><path d="M206 46 L190 46 L192 50 L206 50 Z" fill="#ffd23f"/>
-  <circle cx="10" cy="48" r="2.6" fill="#ff3b3b"/><circle cx="210" cy="48" r="2.6" fill="#4dff7c"/>
-  <path d="M110 4 C122 30 126 70 124 108 L110 102 L96 108 C94 70 98 30 110 4 Z" fill="url(#hl-body)" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M108 14 C103 40 102 70 103 96 L106 94 C106 66 106 38 108 14 Z" fill="#ffffff" opacity="0.5"/>
-  <path d="M100 40 L120 40 M98 80 L122 80" stroke="#1a1f0e" stroke-width="1.3" opacity="0.5"/>
-  <rect x="100" y="58" width="20" height="16" rx="3" fill="#1a1f0e"/>
-  <rect x="103" y="61" width="14" height="10" rx="2" fill="#ff3fa4"/>
-  <rect x="104" y="62" width="5" height="4" fill="#ffffff" opacity="0.6"/>
-  <circle cx="110" cy="28" r="7.5" fill="#1a1f0e"/>
-  <circle cx="110" cy="28" r="5.5" fill="url(#hl-glass)"/>
-  <rect x="80" y="56" width="10" height="26" rx="2" fill="url(#hl-gun)" stroke="#1a1f0e" stroke-width="2"/>
-  <rect x="130" y="56" width="10" height="26" rx="2" fill="url(#hl-gun)" stroke="#1a1f0e" stroke-width="2"/>
-  <rect x="81" y="80" width="8" height="3" fill="#ff3fa4"/><rect x="131" y="80" width="8" height="3" fill="#ff3fa4"/>
+
+  <!-- the big armoured wing across the back -->
+  <path d="M4 50 L22 34 L198 34 L216 50 L212 78 L190 88 L30 88 L8 78 Z" fill="url(#hl-wing)" stroke="#101216" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M10 50 L25 38 L90 38 L88 43 L27 43 L14 53 Z" fill="#ffffff" opacity="0.28"/>
+  <path d="M8 64 L36 64 M184 64 L212 64 M18 78 L36 78 M184 78 L202 78 M24 38 L22 86 M196 38 L198 86" stroke="#101216" stroke-width="1.2" opacity="0.6"/>
+  <!-- wingtip hazard plates and nav lights -->
+  <path d="M6 70 L24 70 L24 80 L10 78 Z" fill="url(#hl-haz)" stroke="#101216" stroke-width="1"/>
+  <path d="M214 70 L196 70 L196 80 L210 78 Z" fill="url(#hl-haz)" stroke="#101216" stroke-width="1"/>
+  <rect x="8" y="52" width="14" height="3" fill="#ffb02a"/><rect x="198" y="52" width="14" height="3" fill="#ffb02a"/>
+  <g fill="#101216" opacity="0.7"><circle cx="14" cy="60" r="1.1"/><circle cx="28" cy="46" r="1.1"/><circle cx="206" cy="60" r="1.1"/><circle cx="192" cy="46" r="1.1"/><circle cx="30" cy="84" r="1.1"/><circle cx="190" cy="84" r="1.1"/></g>
+
+  <!-- engine mounts (the engines sit on top; shoot one off and this is left) -->
+  <g>
+    <path d="M38 34 L70 34 L74 42 L74 90 L68 98 L40 98 L34 90 L34 42 Z" fill="url(#hl-metal)" stroke="#101216" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="42" y="42" width="24" height="48" rx="4" fill="url(#hl-scorch)" stroke="#0a0b0e" stroke-width="1.6"/>
+    <path d="M46 48 L50 56 L47 64 M62 80 L58 72 L61 66" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.7"/>
+    <rect x="47" y="34" width="4" height="8" fill="#2e2f2b"/><rect x="57" y="34" width="4" height="8" fill="#2e2f2b"/>
+    <g fill="#a4a59c"><circle cx="38" cy="46" r="1.3"/><circle cx="70" cy="46" r="1.3"/><circle cx="38" cy="86" r="1.3"/><circle cx="70" cy="86" r="1.3"/></g>
+  </g>
+  <g>
+    <path d="M150 34 L182 34 L186 42 L186 90 L180 98 L152 98 L146 90 L146 42 Z" fill="url(#hl-metal)" stroke="#101216" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="154" y="42" width="24" height="48" rx="4" fill="url(#hl-scorch)" stroke="#0a0b0e" stroke-width="1.6"/>
+    <path d="M158 50 L162 58 L159 66 M174 82 L170 74 L173 68" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.7"/>
+    <rect x="159" y="34" width="4" height="8" fill="#2e2f2b"/><rect x="169" y="34" width="4" height="8" fill="#2e2f2b"/>
+    <g fill="#a4a59c"><circle cx="150" cy="46" r="1.3"/><circle cx="182" cy="46" r="1.3"/><circle cx="150" cy="86" r="1.3"/><circle cx="182" cy="86" r="1.3"/></g>
+  </g>
+
+  <!-- the main hull: a long armoured block, nose at the bottom -->
+  <path d="M90 2 L130 2 L142 14 L146 66 L140 98 L126 116 L94 116 L80 98 L74 66 L78 14 Z" fill="url(#hl-metal)" stroke="#101216" stroke-width="2.8" stroke-linejoin="round"/>
+  <!-- olive armour plates on top -->
+  <path d="M92 6 L128 6 L136 16 L84 16 Z" fill="url(#hl-armour)" stroke="#101216" stroke-width="1.4"/>
+  <path d="M80 22 L94 22 L94 86 L84 86 L78 66 Z" fill="url(#hl-armour)" stroke="#101216" stroke-width="1.4"/>
+  <path d="M140 22 L126 22 L126 86 L136 86 L142 66 Z" fill="url(#hl-armour)" stroke="#101216" stroke-width="1.4"/>
+  <path d="M84 24 L92 24 L92 60 L86 60 Z" fill="#ffffff" opacity="0.22"/>
+  <!-- rear vents -->
+  <g fill="#0e1014"><rect x="98" y="20" width="24" height="2.4"/><rect x="98" y="24" width="24" height="2.4"/><rect x="98" y="28" width="24" height="2.4"/></g>
+  <g fill="#ff8a2a" opacity="0.55"><rect x="100" y="20.6" width="20" height="1"/><rect x="100" y="24.6" width="20" height="1"/></g>
+
+  <!-- the reactor hatch in the middle: its weak spot -->
+  <circle cx="110" cy="54" r="22" fill="#171815" stroke="#0a0b0e" stroke-width="2"/>
+  <circle cx="110" cy="54" r="20" fill="url(#hl-haz)" opacity="0.9"/>
+  <path d="M110 36 L124 41 L129 54 L124 67 L110 72 L96 67 L91 54 L96 41 Z" fill="url(#hl-armour)" stroke="#101216" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M110 36 L110 72 M91 54 L129 54" stroke="#101216" stroke-width="2"/>
+  <path d="M110 46 L117 54 L110 62 L103 54 Z" fill="url(#hl-core)" stroke="#2a0e00" stroke-width="1"/>
+  <path d="M99 42 L108 40 L108 44 L101 46 Z" fill="#ffffff" opacity="0.35"/>
+  <g fill="#d0d0c8"><circle cx="99" cy="44" r="1.2"/><circle cx="121" cy="44" r="1.2"/><circle cx="99" cy="64" r="1.2"/><circle cx="121" cy="64" r="1.2"/></g>
+
+  <!-- side gun sponsons, barrels pointing down -->
+  <g>
+    <path d="M74 70 L96 70 L96 86 L90 92 L80 92 L74 86 Z" fill="url(#hl-metal)" stroke="#101216" stroke-width="1.8" stroke-linejoin="round"/>
+    <rect x="81" y="86" width="8" height="18" fill="url(#hl-gun)" stroke="#101216" stroke-width="1.4"/>
+    <rect x="79.5" y="100" width="11" height="5" rx="1" fill="#2e2f2b" stroke="#101216" stroke-width="1.2"/>
+    <circle cx="85" cy="108" r="5" fill="url(#hl-muzzle)"/>
+    <rect x="77" y="74" width="16" height="3" fill="url(#hl-haz)"/>
+  </g>
+  <g>
+    <path d="M124 70 L146 70 L146 86 L140 92 L130 92 L124 86 Z" fill="url(#hl-metal)" stroke="#101216" stroke-width="1.8" stroke-linejoin="round"/>
+    <rect x="131" y="86" width="8" height="18" fill="url(#hl-gun)" stroke="#101216" stroke-width="1.4"/>
+    <rect x="129.5" y="100" width="11" height="5" rx="1" fill="#2e2f2b" stroke="#101216" stroke-width="1.2"/>
+    <circle cx="135" cy="108" r="5" fill="url(#hl-muzzle)"/>
+    <rect x="127" y="74" width="16" height="3" fill="url(#hl-haz)"/>
+  </g>
+
+  <!-- armoured nose with a glowing sensor strip -->
+  <path d="M98 92 L122 92 L122 104 L116 112 L104 112 L98 104 Z" fill="url(#hl-armour)" stroke="#101216" stroke-width="1.6" stroke-linejoin="round"/>
+  <rect x="101" y="96" width="18" height="3" rx="1" fill="#ffb02a"/>
+  <rect x="104" y="103" width="12" height="2" fill="#0e1014"/>
+  <path d="M94 116 L126 116" stroke="#101216" stroke-width="2"/>
 </svg>
