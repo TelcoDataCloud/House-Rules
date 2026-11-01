@@ -1,14 +1,64 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 64">
-  <!-- FUEL TANK. One hit and it goes BOOM, and so does anything next to it. -->
+  <!-- FUEL TANK. A round tank full of rocket fuel, seen from the top.
+       One hit and it goes BOOM, and so does anything next to it.
+       Hendrix: the orange band means danger. Try another colour. -->
   <defs>
-    <linearGradient id="ft-body" x1="0" x2="1"><stop offset="0" stop-color="#ffb08a"/><stop offset="0.3" stop-color="#e8622a"/><stop offset="0.7" stop-color="#a03c10"/><stop offset="1" stop-color="#3a1204"/></linearGradient>
-    <linearGradient id="ft-band" x1="0" x2="1"><stop offset="0" stop-color="#9aa0bd"/><stop offset="1" stop-color="#2a2e44"/></linearGradient>
+    <filter id="ft-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.8"/></filter>
+    <linearGradient id="ft-bund" gradientUnits="userSpaceOnUse" x1="4" y1="4" x2="56" y2="60"><stop offset="0" stop-color="#9c9c94"/><stop offset="0.5" stop-color="#6c6c66"/><stop offset="1" stop-color="#3c3c3a"/></linearGradient>
+    <radialGradient id="ft-dome" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#eceee6"/><stop offset="0.35" stop-color="#b4b8ae"/><stop offset="0.75" stop-color="#686c66"/><stop offset="1" stop-color="#2c2e2c"/></radialGradient>
+    <radialGradient id="ft-band" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#ffb070"/><stop offset="0.5" stop-color="#e0621e"/><stop offset="1" stop-color="#6a2406"/></radialGradient>
+    <linearGradient id="ft-pipe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8ccd0"/><stop offset="0.5" stop-color="#6a7078"/><stop offset="1" stop-color="#22262a"/></linearGradient>
   </defs>
-  <rect x="8" y="6" width="44" height="50" rx="13" fill="url(#ft-body)" stroke="#2a0f05" stroke-width="2.4"/>
-  <rect x="13" y="10" width="7" height="42" rx="3.5" fill="#ffffff" opacity="0.45"/>
-  <rect x="8" y="22" width="44" height="6" fill="url(#ft-band)" stroke="#1a1d2e" stroke-width="1.2"/>
-  <rect x="8" y="38" width="44" height="6" fill="url(#ft-band)" stroke="#1a1d2e" stroke-width="1.2"/>
-  <path d="M22 10 L38 10 L30 20 Z" fill="#ffd23f" stroke="#2a0f05" stroke-width="1.2"/>
-  <text x="30" y="17" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="8" fill="#2a0f05">!</text>
-  <rect x="26" y="1" width="8" height="6" rx="2" fill="url(#ft-band)" stroke="#1a1d2e" stroke-width="1.2"/>
+
+  <!-- shadow -->
+  <rect x="7" y="9" width="52" height="54" rx="5" fill="#000" opacity="0.45" filter="url(#ft-blur)"/>
+
+  <!-- concrete bund wall that keeps spills in -->
+  <rect x="3" y="5" width="52" height="54" rx="4" fill="url(#ft-bund)" stroke="#07090d" stroke-width="1.8"/>
+  <rect x="7" y="9" width="44" height="46" rx="2" fill="#3e403e" stroke="#26282a" stroke-width="0.8"/>
+  <path d="M4.6 57 L4.6 8 Q4.6 6.6 6 6.6 L53 6.6" fill="none" stroke="#e8e8e0" stroke-width="1" opacity="0.4"/>
+  <!-- yellow and black stripes on the bund wall -->
+  <rect x="22" y="55.5" width="31" height="3" fill="#d9a520"/>
+  <path d="M23 58.5 L26 55.5 M28 58.5 L31 55.5 M33 58.5 L36 55.5 M38 58.5 L41 55.5 M43 58.5 L46 55.5 M48 58.5 L51 55.5" stroke="#141414" stroke-width="1.8"/>
+  <!-- spilled fuel stain -->
+  <ellipse cx="42" cy="49" rx="7" ry="3.5" fill="#1a1410" opacity="0.6"/>
+
+  <!-- pipes running out to the pump -->
+  <path d="M30 40 L30 52 L14 52" fill="none" stroke="#07090d" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M30 40 L30 52 L14 52" fill="none" stroke="#7a8088" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M29.2 41 L29.2 51.2 L14 51.2" fill="none" stroke="#d0d4d8" stroke-width="0.8" stroke-linejoin="round" opacity="0.7"/>
+  <path d="M47 30 L56 30 L56 41" fill="none" stroke="#07090d" stroke-width="4.4" stroke-linejoin="round"/>
+  <path d="M47 30 L56 30 L56 41" fill="none" stroke="#6a7078" stroke-width="2.4" stroke-linejoin="round"/>
+  <!-- the pump box with a valve wheel -->
+  <rect x="7" y="47" width="9" height="9" rx="1" fill="#5c6448" stroke="#07090d" stroke-width="1"/>
+  <circle cx="11.5" cy="51.5" r="2.6" fill="none" stroke="#d93a1a" stroke-width="1.2"/>
+  <path d="M11.5 49 L11.5 54 M9 51.5 L14 51.5" stroke="#d93a1a" stroke-width="0.8"/>
+
+  <!-- shadow of the tank on the ground -->
+  <circle cx="33" cy="33" r="21" fill="#000" opacity="0.55" filter="url(#ft-blur)"/>
+
+  <!-- the tank: a round dome seen from above, with an orange danger band -->
+  <circle cx="29" cy="29" r="21" fill="url(#ft-band)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="29" cy="29" r="20" fill="none" stroke="#000" stroke-width="0.6" stroke-dasharray="1 4" opacity="0.6"/>
+  <circle cx="29" cy="29" r="15.5" fill="url(#ft-dome)" stroke="#07090d" stroke-width="1.2"/>
+  <!-- welded seams on the dome -->
+  <circle cx="29" cy="29" r="9.5" fill="none" stroke="#2a2c2a" stroke-width="0.7" opacity="0.5"/>
+  <path d="M29 13.5 L29 19.5 M29 38.5 L29 44.5 M13.5 29 L19.5 29 M38.5 29 L44.5 29" stroke="#2a2c2a" stroke-width="0.7" opacity="0.5"/>
+  <!-- ladder cage and little platform on the rim -->
+  <rect x="40" y="11" width="7" height="7" rx="1" transform="rotate(45 43.5 14.5)" fill="#5a5e58" stroke="#07090d" stroke-width="1"/>
+  <path d="M41.6 12.6 L45.4 16.4 M43.5 10.6 L47.4 14.5 M39.6 14.5 L43.5 18.4" stroke="#07090d" stroke-width="0.6"/>
+  <!-- the filler hatch in the middle -->
+  <circle cx="29" cy="29" r="4" fill="#4c504c" stroke="#07090d" stroke-width="1"/>
+  <circle cx="28.4" cy="28.4" r="2" fill="#9ca098"/>
+  <circle cx="35" cy="23" r="1.6" fill="#3c403c" stroke="#07090d" stroke-width="0.6"/>
+  <!-- red danger diamond -->
+  <path d="M22 34 L25 37 L22 40 L19 37 Z" fill="#e02a14" stroke="#07090d" stroke-width="0.7"/>
+  <path d="M22 35.6 L23.3 37.6 L20.7 37.6 Z" fill="#fff"/>
+  <!-- grime streaks and a shine -->
+  <path d="M38 34 Q36 40 31 42" fill="none" stroke="#3a2a1a" stroke-width="2" opacity="0.35"/>
+  <path d="M16 24 A14 14 0 0 1 24 15.4" fill="none" stroke="#fff" stroke-width="1.6" opacity="0.5"/>
+  <path d="M11 22 A19 19 0 0 1 22 10.4" fill="none" stroke="#ffd0a0" stroke-width="1.2" opacity="0.6"/>
+  <!-- warning lights -->
+  <circle cx="44.5" cy="44.5" r="1.2" fill="#ff3b2a"/>
+  <circle cx="7.5" cy="9.5" r="1" fill="#ffb02a"/>
 </svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 44">
+  <!-- CAPSULE. A supply pod that floats down with a power up inside.
+       Hendrix: the glow uses var(cap). The game sets cap to orange,
+       yellow, cyan or green, so this one picture does all four.
+       The letter in the window is added by the game, not drawn here. -->
+  <defs>
+    <linearGradient id="cap-metal" x1="0" x2="1">
+      <stop offset="0" stop-color="#f4f7fa"/><stop offset="0.45" stop-color="#a9b3bf"/><stop offset="1" stop-color="#3f4855"/>
+    </linearGradient>
+    <linearGradient id="cap-dark" x1="0" x2="1">
+      <stop offset="0" stop-color="#6b7684"/><stop offset="1" stop-color="#1b2028"/>
+    </linearGradient>
+    <linearGradient id="cap-glass" x1="0" x2="1">
+      <stop offset="0" style="stop-color: var(--cap, #ff7a1a)" stop-opacity="0.7"/>
+      <stop offset="0.5" style="stop-color: var(--cap, #ff7a1a)" stop-opacity="1"/>
+      <stop offset="1" style="stop-color: var(--cap, #ff7a1a)" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="cap-glow">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.35" style="stop-color: var(--cap, #ff7a1a)" stop-opacity="0.7"/>
+      <stop offset="1" style="stop-color: var(--cap, #ff7a1a)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- hover glow under the pod -->
+  <ellipse cx="9" cy="40" rx="5" ry="4" fill="url(#cap-glow)"/>
+  <ellipse cx="25" cy="40" rx="5" ry="4" fill="url(#cap-glow)"/>
+
+  <!-- side fins with hover thrusters -->
+  <path d="M6 28 L1.5 34 L1.5 39 L7 37 Z" fill="url(#cap-dark)" stroke="#06090e" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M28 28 L32.5 34 L32.5 39 L27 37 Z" fill="url(#cap-dark)" stroke="#06090e" stroke-width="1.2" stroke-linejoin="round"/>
+
+  <!-- the glass window in the middle, glowing -->
+  <rect x="5" y="11" width="24" height="22" rx="2" fill="#0d1218" stroke="#06090e" stroke-width="1.4"/>
+  <rect x="6.5" y="12" width="21" height="20" rx="1.5" fill="url(#cap-glass)"/>
+  <rect x="6.5" y="12" width="21" height="20" rx="1.5" fill="url(#cap-glow)" opacity="0.55"/>
+  <rect x="9" y="14" width="16" height="16" rx="2" fill="#0d1218" opacity="0.2"/>
+  <path d="M7.5 13 L9.5 13 L9.5 31 L7.5 31 Z" fill="#ffffff" opacity="0.5"/>
+
+  <!-- top cap -->
+  <path d="M8 3 L26 3 L30 8 L30 12 L4 12 L4 8 Z" fill="url(#cap-metal)" stroke="#06090e" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M8 3 L4 8" stroke="#ffffff" stroke-width="1" opacity="0.9"/>
+  <rect x="13" y="1" width="8" height="3" rx="1" fill="url(#cap-dark)" stroke="#06090e" stroke-width="1"/>
+  <rect x="7" y="9" width="20" height="1.6" style="fill: var(--cap, #ff7a1a)"/>
+
+  <!-- bottom cap with two thrusters -->
+  <path d="M4 32 L30 32 L30 35 L26 39 L8 39 L4 35 Z" fill="url(#cap-metal)" stroke="#06090e" stroke-width="1.5" stroke-linejoin="round"/>
+  <rect x="7" y="33.4" width="20" height="1.6" style="fill: var(--cap, #ff7a1a)"/>
+  <rect x="6.5" y="38" width="5" height="3" rx="0.8" fill="#10141a" stroke="#06090e" stroke-width="0.8"/>
+  <rect x="22.5" y="38" width="5" height="3" rx="0.8" fill="#10141a" stroke="#06090e" stroke-width="0.8"/>
+  <rect x="7.5" y="39.2" width="3" height="1.4" style="fill: var(--cap, #ff7a1a)"/>
+  <rect x="23.5" y="39.2" width="3" height="1.4" style="fill: var(--cap, #ff7a1a)"/>
+</svg>

@@ -1,16 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 64">
-  <!-- RADAR DISH. Does nothing but blink. Always has a power token. -->
+  <!-- RADAR DISH. A big dish on a concrete base, listening to space.
+       It does nothing but blink. Always has a power token.
+       Hendrix: the dish is drawn as rings. Count them! -->
   <defs>
-    <linearGradient id="ds-dish" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#b8bdd0"/><stop offset="1" stop-color="#3b4058"/></linearGradient>
-    <linearGradient id="ds-pole" x1="0" x2="1"><stop offset="0" stop-color="#9aa0bd"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
+    <filter id="ds-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.8"/></filter>
+    <linearGradient id="ds-base" gradientUnits="userSpaceOnUse" x1="4" y1="20" x2="56" y2="62"><stop offset="0" stop-color="#9c9c94"/><stop offset="0.5" stop-color="#6c6c66"/><stop offset="1" stop-color="#3a3a38"/></linearGradient>
+    <radialGradient id="ds-dish" cx="0.62" cy="0.64" r="0.75"><stop offset="0" stop-color="#5c626a"/><stop offset="0.45" stop-color="#a6acb2"/><stop offset="0.85" stop-color="#d8dcde"/><stop offset="1" stop-color="#eef0f0"/></radialGradient>
+    <linearGradient id="ds-rim" gradientUnits="userSpaceOnUse" x1="8" y1="6" x2="50" y2="48"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#8a9096"/><stop offset="1" stop-color="#2a2e34"/></linearGradient>
+    <radialGradient id="ds-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ffd23f"/><stop offset="1" stop-color="#ffb02a" stop-opacity="0"/></radialGradient>
   </defs>
-  <rect x="18" y="54" width="24" height="8" rx="2" fill="url(#ds-pole)" stroke="#1a1d2e" stroke-width="1.8"/>
-  <rect x="26" y="32" width="8" height="24" fill="url(#ds-pole)" stroke="#1a1d2e" stroke-width="1.8"/>
-  <path d="M5 34 Q30 0 55 34 Z" fill="url(#ds-dish)" stroke="#1a1d2e" stroke-width="2.4" stroke-linejoin="round"/>
-  <path d="M12 30 Q30 12 48 30" stroke="#1a1d2e" stroke-width="1" fill="none" opacity="0.4"/>
-  <path d="M11 30 Q18 16 30 13" stroke="#ffffff" stroke-width="2.2" fill="none" opacity="0.8"/>
-  <path d="M30 22 L30 8" stroke="#1a1d2e" stroke-width="2"/>
-  <circle cx="30" cy="22" r="5" fill="#1a1d2e"/>
-  <circle class="blink" cx="30" cy="22" r="3" fill="#ff3fa4"/>
-  <circle cx="30" cy="7" r="2.5" fill="#38f0ff"/>
+
+  <!-- shadow of the base -->
+  <rect x="9" y="38" width="48" height="25" rx="3" fill="#000" opacity="0.5" filter="url(#ds-blur)"/>
+  <!-- concrete base with the equipment hut -->
+  <rect x="5" y="34" width="48" height="25" rx="3" fill="url(#ds-base)" stroke="#07090d" stroke-width="1.8"/>
+  <path d="M6.6 57 L6.6 37 Q6.6 35.6 8 35.6 L51 35.6" fill="none" stroke="#e8e8e0" stroke-width="1" opacity="0.4"/>
+  <rect x="8" y="49" width="14" height="8" rx="1" fill="#5c6448" stroke="#07090d" stroke-width="1"/>
+  <path d="M8 53 L22 53" stroke="#07090d" stroke-width="0.6"/>
+  <g fill="#0d0f12"><rect x="10" y="50.4" width="4" height="1"/><rect x="16" y="50.4" width="4" height="1"/></g>
+  <rect x="40" y="50" width="10" height="6" fill="#d9a520" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M41 56 L44 50 M45 56 L48 50" stroke="#141414" stroke-width="1.6"/>
+  <g fill="#2a2c2e"><circle cx="8" cy="37" r="0.9"/><circle cx="50" cy="37" r="0.9"/><circle cx="50" cy="57" r="0.9"/></g>
+
+  <!-- the dish casts a long shadow because it stands up high -->
+  <ellipse cx="35" cy="34" rx="21" ry="21" fill="#000" opacity="0.5" filter="url(#ds-blur)"/>
+  <!-- the mount the dish sits on -->
+  <rect x="25" y="40" width="10" height="10" rx="1.5" fill="#3c4248" stroke="#07090d" stroke-width="1"/>
+
+  <!-- the dish: a bowl, so it is light at the bottom right inside -->
+  <circle cx="29" cy="27" r="22" fill="url(#ds-rim)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="29" cy="27" r="19.5" fill="url(#ds-dish)" stroke="#2a2e34" stroke-width="0.8"/>
+  <g fill="none" stroke="#3a3e44" stroke-width="0.6" opacity="0.5">
+    <circle cx="29" cy="27" r="14.5"/><circle cx="29" cy="27" r="9.5"/>
+    <path d="M29 7.5 L29 46.5 M9.5 27 L48.5 27 M15.2 13.2 L42.8 40.8 M42.8 13.2 L15.2 40.8"/>
+  </g>
+  <!-- three struts holding the feed horn, with their shadows -->
+  <path d="M31 29 L31 49 M31 29 L14 19 M31 29 L48 19" stroke="#000" stroke-width="1.6" opacity="0.3"/>
+  <path d="M29 27 L29 47 M29 27 L12 17 M29 27 L46 17" stroke="#1a1d22" stroke-width="1.6"/>
+  <path d="M29 27 L29 47 M29 27 L12 17 M29 27 L46 17" stroke="#9aa0a6" stroke-width="0.6"/>
+  <!-- the feed horn in the middle, glowing yellow -->
+  <circle cx="29" cy="27" r="6" fill="url(#ds-glow)" opacity="0.7"/>
+  <circle cx="29" cy="27" r="3.4" fill="#2a2e34" stroke="#07090d" stroke-width="1"/>
+  <circle cx="29" cy="27" r="1.6" fill="#ffd23f"/>
+  <!-- light the planes can see, and lights on the rim -->
+  <circle cx="29" cy="5" r="1.4" fill="#ff3b2a" stroke="#07090d" stroke-width="0.5"/>
+  <circle cx="8" cy="34" r="1.1" fill="#ffb02a"/>
+  <circle cx="50" cy="34" r="1.1" fill="#ffb02a"/>
+  <path d="M15 15 A19 19 0 0 1 26 8.4" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.6"/>
 </svg>

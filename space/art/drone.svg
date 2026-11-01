@@ -1,14 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-  <!-- DRONE. A little helper that flies beside you and shoots. -->
+  <!-- DRONE. A little robot wingman that flies beside you and shoots.
+       Hendrix: it has no pilot, so no cockpit. The light strip and
+       the engine glow use the trim colour, just like your ship. -->
   <defs>
-    <linearGradient id="dr-hull" x1="0" x2="1"><stop offset="0" stop-color="#eef8ff"/><stop offset="0.45" stop-color="#9fc0d6"/><stop offset="1" stop-color="#2e4256"/></linearGradient>
-    <radialGradient id="dr-core"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#9ff6ff"/><stop offset="1" stop-color="#1fb6c6"/></radialGradient>
-    <radialGradient id="dr-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#9ff6ff"/><stop offset="1" stop-color="#38f0ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="dr-hull" x1="0" x2="1"><stop offset="0" stop-color="#f4f7fa"/><stop offset="0.5" stop-color="#a9b3bf"/><stop offset="1" stop-color="#4f5967"/></linearGradient>
+    <linearGradient id="dr-base" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b6573"/><stop offset="1" stop-color="#1b2028"/></linearGradient>
+    <radialGradient id="dr-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" style="stop-color: var(--trim, #38f0ff)" stop-opacity="0.8"/><stop offset="1" style="stop-color: var(--trim, #38f0ff)" stop-opacity="0"/></radialGradient>
   </defs>
-  <circle cx="20" cy="38" r="7" fill="url(#dr-glow)"/>
-  <path d="M20 3 L34 22 L30 34 L10 34 L6 22 Z" fill="url(#dr-hull)" stroke="#0a1424" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M20 3 L10 22 L13 30 L20 22 Z" fill="#ffffff" opacity="0.45"/>
-  <rect x="17" y="1" width="6" height="8" rx="2" fill="#3c4658" stroke="#0a1424" stroke-width="1.2"/>
-  <circle cx="20" cy="22" r="6" fill="url(#dr-core)" stroke="#0a1424" stroke-width="1.5"/>
-  <path d="M8 30 L32 30" style="stroke: var(--trim, #38f0ff)" stroke-width="2.5"/>
+  <circle cx="20" cy="38" r="6.5" fill="url(#dr-glow)"/>
+  <!-- body and wings -->
+  <path d="M20 2 L23 12 L25 18 L36 29 L36 34 L26 34 L24 38 L16 38 L14 34 L4 34 L4 29 L15 18 L17 12 Z" fill="url(#dr-base)" stroke="#06090e" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- light top panel -->
+  <path d="M20 4 L22.4 12 L23.4 22 L22.4 34 L17.6 34 L16.6 22 L17.6 12 Z" fill="url(#dr-hull)"/>
+  <path d="M15 20 L6 29 L6 31 L15 25 Z" fill="#b9c3cf"/>
+  <path d="M25 20 L34 29 L34 31 L25 25 Z" fill="#6b7684"/>
+  <!-- sensor eye and light strip (trim colour) -->
+  <path d="M18.8 10 L21.2 10 L21.8 17 L18.2 17 Z" fill="#0b0f15"/>
+  <rect x="19" y="11" width="2" height="4" style="fill: var(--trim, #38f0ff)"/>
+  <path d="M5 32.5 L14 32.5 M26 32.5 L35 32.5" style="stroke: var(--trim, #38f0ff)" stroke-width="2"/>
+  <!-- bright edge on the left -->
+  <path d="M17 12 L15 18 L4 29" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.85"/>
+  <!-- engine -->
+  <rect x="16.5" y="34" width="7" height="4" rx="1" fill="#10141a" stroke="#06090e" stroke-width="0.8"/>
+  <rect x="17.5" y="35" width="5" height="2" style="fill: var(--trim, #38f0ff)"/>
 </svg>

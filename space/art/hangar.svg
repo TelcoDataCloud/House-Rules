@@ -1,17 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
-  <!-- HANGAR. Three Darts live inside. Blow it up before they come out! -->
+  <!-- HANGAR. Two curved roofs side by side, with big doors at the
+       front. Three Darts live inside. Blow it up before they come out!
+       Hendrix: the green lights over the doors mean "ready to launch". -->
   <defs>
-    <linearGradient id="hg-roof" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8dcef"/><stop offset="0.4" stop-color="#7a7f99"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
-    <linearGradient id="hg-door" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9dffb8"/><stop offset="0.5" stop-color="#2bd46a"/><stop offset="1" stop-color="#0a5a24"/></linearGradient>
+    <filter id="hg-blur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="2"/></filter>
+    <linearGradient id="hg-roof" x1="0" x2="1"><stop offset="0" stop-color="#b6bcb4"/><stop offset="0.3" stop-color="#868c86"/><stop offset="0.7" stop-color="#4c524e"/><stop offset="1" stop-color="#22262a"/></linearGradient>
+    <linearGradient id="hg-apron" gradientUnits="userSpaceOnUse" x1="0" y1="56" x2="120" y2="78"><stop offset="0" stop-color="#8e908a"/><stop offset="1" stop-color="#4a4c4a"/></linearGradient>
+    <linearGradient id="hg-door" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5048"/><stop offset="1" stop-color="#22261f"/></linearGradient>
+    <linearGradient id="hg-grime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="0.7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.3"/></linearGradient>
   </defs>
-  <path d="M6 70 L6 30 Q60 0 114 30 L114 70 Z" fill="url(#hg-roof)" stroke="#1a1d2e" stroke-width="2.4" stroke-linejoin="round"/>
-  <path d="M12 34 Q30 18 56 14 L56 22 Q34 26 18 38 Z" fill="#ffffff" opacity="0.45"/>
-  <path d="M30 16 L30 70 M60 8 L60 36 M90 16 L90 36" stroke="#1a1d2e" stroke-width="1.2" opacity="0.4"/>
-  <rect x="24" y="36" width="72" height="34" rx="4" fill="#0d1226"/>
-  <rect x="28" y="40" width="30" height="26" fill="url(#hg-door)"/>
-  <rect x="62" y="40" width="30" height="26" fill="url(#hg-door)"/>
-  <path d="M28 46 L58 46 M28 52 L58 52 M28 58 L58 58 M62 46 L92 46 M62 52 L92 52 M62 58 L92 58" stroke="#0a3a1a" stroke-width="1" opacity="0.5"/>
-  <rect x="24" y="66" width="72" height="4" fill="#ffd23f"/>
-  <path d="M28 66 L34 70 M40 66 L46 70 M52 66 L58 70 M64 66 L70 70 M76 66 L82 70 M88 66 L94 70" stroke="#1a1d2e" stroke-width="2.5"/>
-  <circle cx="16" cy="40" r="3" fill="#ff3b3b"/><circle cx="104" cy="40" r="3" fill="#ff3b3b"/>
+
+  <!-- shadow -->
+  <rect x="7" y="7" width="112" height="72" rx="4" fill="#000" opacity="0.5" filter="url(#hg-blur)"/>
+
+  <!-- concrete apron in front of the doors -->
+  <rect x="3" y="4" width="112" height="72" rx="4" fill="url(#hg-apron)" stroke="#07090d" stroke-width="1.8"/>
+  <path d="M4.6 74 L4.6 7 Q4.6 5.6 6 5.6 L113 5.6" fill="none" stroke="#e6e6de" stroke-width="1" opacity="0.35"/>
+  <path d="M3 68 L115 68 M40 60 L40 76 M78 60 L78 76" stroke="#2c2e2e" stroke-width="0.7" opacity="0.6"/>
+  <!-- tyre marks and yellow taxi lines -->
+  <path d="M30 76 L30 64 Q30 61 33 61 M88 76 L88 64 Q88 61 85 61" fill="none" stroke="#d9a520" stroke-width="1.4"/>
+  <path d="M24 75 Q26 68 27 62 M36 75 Q35 68 35 62 M82 75 Q83 68 83 62 M94 75 Q92 68 91 62" fill="none" stroke="#1a1a1a" stroke-width="1.6" opacity="0.3"/>
+
+  <!-- shadow the building throws on the apron -->
+  <path d="M10 60 L114 60 L118 66 L14 66 Z" fill="#000" opacity="0.45" filter="url(#hg-blur)"/>
+
+  <!-- left curved roof, lit from the left -->
+  <rect x="8" y="8" width="50" height="51" rx="2" fill="url(#hg-roof)" stroke="#07090d" stroke-width="1.6"/>
+  <!-- right curved roof -->
+  <rect x="60" y="8" width="50" height="51" rx="2" fill="url(#hg-roof)" stroke="#07090d" stroke-width="1.6"/>
+  <!-- roof ribs -->
+  <g stroke="#1e2224" stroke-width="0.7" opacity="0.6">
+    <path d="M8 14 L58 14 M8 20 L58 20 M8 26 L58 26 M8 32 L58 32 M8 38 L58 38 M8 44 L58 44 M8 50 L58 50"/>
+    <path d="M60 14 L110 14 M60 20 L110 20 M60 26 L110 26 M60 32 L110 32 M60 38 L110 38 M60 44 L110 44 M60 50 L110 50"/>
+  </g>
+  <rect x="8" y="8" width="50" height="51" rx="2" fill="url(#hg-grime)"/>
+  <rect x="60" y="8" width="50" height="51" rx="2" fill="url(#hg-grime)"/>
+  <!-- the roof ridge catches the light -->
+  <path d="M22 9 L22 58 M74 9 L74 58" stroke="#eef0ea" stroke-width="1.4" opacity="0.5"/>
+  <!-- gutter between the two roofs -->
+  <rect x="57.5" y="8" width="3" height="51" fill="#14171a"/>
+
+  <!-- skylight strips -->
+  <rect x="13" y="16" width="5" height="14" rx="1" fill="#2e3a44" stroke="#07090d" stroke-width="0.8"/>
+  <rect x="65" y="16" width="5" height="14" rx="1" fill="#2e3a44" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M14 17 L17 17 M66 17 L69 17" stroke="#9ec4dc" stroke-width="0.9" opacity="0.7"/>
+  <!-- roof vents and an air unit, each with a small shadow -->
+  <g fill="#000" opacity="0.4"><rect x="35" y="19" width="10" height="10"/><rect x="88" y="19" width="10" height="10"/><circle cx="43" cy="44" r="5"/><circle cx="95" cy="44" r="5"/></g>
+  <g stroke="#07090d" stroke-width="0.9">
+    <rect x="33" y="17" width="10" height="10" rx="1" fill="#5a605c"/>
+    <rect x="86" y="17" width="10" height="10" rx="1" fill="#5a605c"/>
+    <circle cx="41" cy="42" r="4.4" fill="#3c4240"/>
+    <circle cx="93" cy="42" r="4.4" fill="#3c4240"/>
+  </g>
+  <g stroke="#14171a" stroke-width="0.8"><path d="M35 20 L41 20 M35 22 L41 22 M35 24 L41 24 M88 20 L94 20 M88 22 L94 22 M88 24 L94 24"/><path d="M37.6 42 L44.4 42 M41 38.6 L41 45.4 M89.6 42 L96.4 42 M93 38.6 L93 45.4"/></g>
+  <circle cx="40.3" cy="41.3" r="1" fill="#9aa09a"/>
+  <circle cx="92.3" cy="41.3" r="1" fill="#9aa09a"/>
+
+  <!-- the big doors at the front, in yellow and black frames -->
+  <rect x="11" y="52" width="44" height="9" fill="#d9a520" stroke="#07090d" stroke-width="1"/>
+  <rect x="63" y="52" width="44" height="9" fill="#d9a520" stroke="#07090d" stroke-width="1"/>
+  <path d="M11 55 L14 52 M11 61 L14 58 M52 61 L55 58 M52 55 L55 52 M63 55 L66 52 M63 61 L66 58 M104 61 L107 58 M104 55 L107 52" stroke="#141414" stroke-width="1.8"/>
+  <rect x="14" y="53.5" width="38" height="6.5" fill="url(#hg-door)" stroke="#07090d" stroke-width="0.8"/>
+  <rect x="66" y="53.5" width="38" height="6.5" fill="url(#hg-door)" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M23.5 53.5 L23.5 60 M33 53.5 L33 60 M42.5 53.5 L42.5 60 M75.5 53.5 L75.5 60 M85 53.5 L85 60 M94.5 53.5 L94.5 60" stroke="#07090d" stroke-width="0.8"/>
+  <!-- green launch lights over each door -->
+  <g fill="#4dff7c"><rect x="26" y="50" width="4" height="1.6"/><rect x="36" y="50" width="4" height="1.6"/><rect x="78" y="50" width="4" height="1.6"/><rect x="88" y="50" width="4" height="1.6"/></g>
+  <!-- corner lights -->
+  <circle cx="10" cy="10" r="1.2" fill="#ff3b2a"/>
+  <circle cx="108" cy="10" r="1.2" fill="#ff3b2a"/>
+  <circle cx="6.5" cy="72" r="1.1" fill="#ffb02a"/>
+  <circle cx="111.5" cy="72" r="1.1" fill="#ffb02a"/>
 </svg>
