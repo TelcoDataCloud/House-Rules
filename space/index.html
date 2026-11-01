@@ -34,6 +34,11 @@
         <div class="planet" id="planet"></div>
         <div class="stars stars-far" id="stars-far"></div>
         <div class="stars stars-twinkle"></div>
+        <!-- level 2: clouds rushing past -->
+        <div class="clouds clouds-far" id="clouds-far"></div>
+        <div class="clouds clouds-near" id="clouds-near"></div>
+        <!-- level 3: the planet's ground -->
+        <div class="terrain" id="terrain"></div>
         <div class="stars stars-near" id="stars-near"></div>
       </div>
 
@@ -76,8 +81,7 @@
       <!-- TITLE SCREEN -->
       <section class="screen title-screen" id="screen-title" aria-labelledby="game-name">
         <h1 class="game-name" id="game-name">Star Base</h1>
-        <p class="tagline">Level 1: Moonfall</p>
-        <p class="soon">Level 2 coming soon!</p>
+        <p class="tagline">3 levels: space, sky, planet</p>
         <p class="best" id="title-best" hidden></p>
         <button type="button" class="btn btn-go" id="btn-play">Play</button>
         <fieldset class="choice">
@@ -107,6 +111,25 @@
         <p class="pick-keys" aria-label="Press 1, 2 or 3"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></p>
       </section>
 
+      <!-- CUT SCENE between levels. js/cutscene.js plays it. -->
+      <section class="screen cut-screen" id="screen-cut" aria-label="Flying to the next level" hidden>
+        <div class="cut-stage" id="cut-stage" aria-hidden="true">
+          <div class="cut-sky"></div>
+          <div class="cut-stars"></div>
+          <div class="cut-planet"></div>
+          <div class="cut-ground"></div>
+          <div class="cut-clouds cut-clouds-a"></div>
+          <div class="cut-clouds cut-clouds-b"></div>
+          <div class="cut-ship">
+            <div class="cut-heat"></div>
+            <svg viewBox="0 0 120 130"><use href="#art-comet" width="120" height="130"/></svg>
+          </div>
+          <div class="cut-streaks"></div>
+        </div>
+        <p class="cut-words" id="cut-words" aria-live="polite"></p>
+        <button type="button" class="btn btn-quiet cut-skip" id="cut-skip">Skip</button>
+      </section>
+
       <!-- PAUSE -->
       <section class="screen small-screen" id="screen-pause" aria-labelledby="pause-title" hidden>
         <div class="panel-box">
@@ -124,7 +147,8 @@
           <p class="big-score" id="over-score">0</p>
           <p class="best" id="over-best"></p>
           <p class="tip" id="over-tip"></p>
-          <button type="button" class="btn btn-go" id="btn-again-over">Play again</button>
+          <button type="button" class="btn btn-go" id="btn-retry">Try again</button>
+          <button type="button" class="btn" id="btn-again-over">Start from level 1</button>
           <button type="button" class="btn btn-quiet" id="btn-menu-over">Menu</button>
         </div>
       </section>
@@ -138,7 +162,7 @@
           <p class="best" id="win-best"></p>
           <ul class="win-stats" id="win-stats"></ul>
           <p class="tip" id="win-tip"></p>
-          <p class="soon">Level 2 coming soon!</p>
+          <p class="soon">More levels coming soon!</p>
           <button type="button" class="btn btn-go" id="btn-again-win">Play again</button>
           <button type="button" class="btn btn-quiet" id="btn-menu-win">Menu</button>
         </div>
@@ -162,6 +186,7 @@
       <li><span class="token token-S">S</span> shield</li>
       <li><span class="token token-1UP">1UP</span> extra ship</li>
     </ul>
+    <p class="side-note">Round orbs can be shot down. Red lasers can't. Dodge them!</p>
     <p class="side-note">Shoot the moon bases too. That is where the prizes are.</p>
   </aside>
 </main>

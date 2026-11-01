@@ -51,6 +51,14 @@
   --red: #ff3b3b;
   --purple: #9b5cff;
   --violet: #c07cff;     /* purple laser */
+  --amber: #ffab2e;      /* drone shots */
+  --sky2-top: #2a1a5e;   /* level 2 sunset sky */
+  --sky2-mid: #a83d7a;
+  --sky2-bottom: #ff9a4a;
+  --cloud: rgba(255, 255, 255, 0.9);
+  --soil: #b0583a;       /* level 3 planet ground */
+  --soil-dark: #6a2a14;
+  --soil-light: #d8865a;
   --planet-a: #8fb4ff;   /* the far planet */
   --planet-b: #4a5fb8;
   --planet-c: #1d2560;

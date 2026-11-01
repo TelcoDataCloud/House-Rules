@@ -100,20 +100,20 @@
 
 /* --- your ship --- */
 .ship {
-  position: absolute; left: 0; top: 0; width: 74px; height: 80px; will-change: transform;
+  position: absolute; left: 0; top: 0; width: 59px; height: 64px; will-change: transform;
   --trim: var(--cyan);
 }
 /* The ship picture fills its box, with a shadow on the moon below. */
 .ship > svg {
   position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
-  filter: drop-shadow(7px 16px 3px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(6px 13px 3px rgba(0, 0, 0, 0.35));
 }
 .ship.blinking { animation: ship-blink 0.16s steps(2) infinite; }
 @keyframes ship-blink { 50% { opacity: 0.25; } }
 .ship[hidden] { display: none; }
 .flame {
-  position: absolute; top: 70px;
-  width: 11px; height: 17px; margin-left: -5.5px;
+  position: absolute; top: 56px;
+  width: 9px; height: 13px; margin-left: -4.5px;
   border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
   background: radial-gradient(circle at 50% 25%, #ffffff, #9ff6ff 30%, var(--cyan) 55%, transparent 75%);
   transform-origin: 50% 0;
@@ -121,8 +121,8 @@
 }
 @keyframes flame { to { transform: scaleY(1.3) scaleX(0.85); } }
 .shield {
-  position: absolute; left: -9px; top: -8px;
-  width: 92px; height: 96px; border-radius: 50%;
+  position: absolute; left: -8px; top: -7px;
+  width: 75px; height: 78px; border-radius: 50%;
   border: 3px solid var(--cyan);
   background: radial-gradient(circle, transparent 55%, rgba(56, 240, 255, 0.25));
   box-shadow: 0 0 14px var(--cyan), inset 0 0 18px rgba(56, 240, 255, 0.35);
@@ -190,11 +190,11 @@
 .foe.pink { color: var(--pink); background: radial-gradient(circle, #ffffff 0 28%, var(--pink) 52%, rgba(255, 63, 164, 0.3) 72%); box-shadow: 0 0 12px var(--pink); }
 .foe.green { color: var(--green); background: radial-gradient(circle, #ffffff 0 28%, var(--green) 52%, rgba(77, 255, 124, 0.3) 72%); box-shadow: 0 0 12px var(--green); }
 .foe.red {
+  /* A laser: you can't shoot it down, so it looks hard and sharp. */
   color: var(--red);
-  border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%;
-  background: radial-gradient(ellipse at 50% 75%, #ffffff 0 18%, var(--red) 50%, #7a0d0d 80%);
-  border: 2px solid #2a0505;
-  box-shadow: 0 0 10px var(--red);
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent, var(--red) 22%, #ffffff 42%, #ffffff 58%, var(--red) 78%, transparent);
+  box-shadow: 0 0 8px var(--red), 0 0 16px var(--red);
 }
 .foe.red::after { display: none; }
 
@@ -303,18 +303,24 @@
   from { transform: var(--at); opacity: 1; }
   to { transform: var(--at) translate(30px, -260px); opacity: 0; }
 }
-.chunk {
+/* A boss breaking apart (js/breakup.js). */
+.thing > .cracks { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cracks polyline {
+  fill: none; stroke: #fff3c4; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px var(--orange)) drop-shadow(0 0 7px var(--orange));
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation-name: crack; animation-timing-function: ease-out; animation-fill-mode: forwards;
+}
+@keyframes crack { 70% { stroke-width: 4.5; } to { stroke-dashoffset: 0; stroke-width: 6; } }
+.thing.piece { z-index: 2; }
+.shard {
   position: absolute; left: 0; top: 0;
-  width: 80px; height: 60px;
-  background: var(--walkway);
-  border: 3px solid var(--walkway-line);
-  border-radius: 10px 30px 8px 24px;
-  animation: chunk 2.5s ease-in forwards;
+  clip-path: polygon(0 0, 100% 30%, 40% 100%);
+  background: linear-gradient(135deg, #ffb35a, #5a5f78 35%, #2a2d40);
 }
-@keyframes chunk {
-  from { transform: var(--from); opacity: 1; }
-  to { transform: var(--to) rotate(var(--spin)); opacity: 0; }
-}
+.pop-pink { border-color: var(--pink); }
+.pop-green { border-color: var(--green); }
+
 
 .field.shake { animation: shake 0.3s linear; }
 .field.shake-big { animation: shake-big 0.5s linear; }
@@ -407,4 +413,198 @@
 @keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .beam, .beam-tip, .stars-twinkle { animation: none; }
+}
+
+/* Drones fire amber shots, so you can tell them from yours. */
+.shot.drone {
+  background: linear-gradient(90deg, transparent, var(--amber) 20%, #fff3d6 42%, #fff3d6 58%, var(--amber) 80%, transparent);
+  box-shadow: 0 0 6px var(--amber), 0 0 12px var(--amber);
+}
+
+/* A red Hauler for the later levels. */
+#layer-air .thing.tint-red > svg, .thing.piece.tint-red > svg { filter: hue-rotate(-85deg) saturate(1.5) drop-shadow(8px 16px 3px rgba(0, 0, 0, 0.32)); }
+#layer-air .thing.tint-red.hit > svg { filter: brightness(0) invert(1); }
+
+/* ================= WORLDS ================= */
+.clouds, .terrain { position: absolute; inset: 0; display: none; }
+
+/* Level 2: the sky. A sunset with clouds rushing past. */
+.field[data-world="sky"] .sky { background: linear-gradient(var(--sky2-top), var(--sky2-mid) 50%, var(--sky2-bottom)); }
+.field[data-world="sky"] .planet,
+.field[data-world="sky"] .stars { display: none; }
+.field[data-world="sky"] .clouds { display: block; }
+.clouds-far {
+  opacity: 0.55;
+  background-image:
+    radial-gradient(ellipse 120px 50px at 80px 120px, var(--cloud), transparent 70%),
+    radial-gradient(ellipse 160px 60px at 360px 300px, var(--cloud), transparent 70%),
+    radial-gradient(ellipse 100px 40px at 200px 480px, var(--cloud), transparent 70%);
+  background-size: 480px 600px;
+}
+.clouds-near {
+  opacity: 0.8;
+  background-image:
+    radial-gradient(ellipse 200px 80px at 40px 200px, var(--cloud), transparent 70%),
+    radial-gradient(ellipse 220px 90px at 460px 560px, var(--cloud), transparent 70%);
+  background-size: 480px 900px;
+}
+/* On level 2 the bases sit on clouds. */
+.field[data-world="sky"] {
+  --moon-rock: #e9ecfb; --moon-shadow: #b4bde4; --moon-light: #ffffff;
+  --moon-edge: #7a86b8; --crater: #cfd6f2;
+}
+
+/* Level 3: the ground of the red planet. */
+.field[data-world="ground"] .sky { background: var(--soil); }
+.field[data-world="ground"] .planet,
+.field[data-world="ground"] .stars { display: none; }
+.field[data-world="ground"] .terrain {
+  display: block;
+  background-image:
+    radial-gradient(circle at 90px 80px, var(--soil-dark) 0 22px, var(--soil-light) 24px, transparent 27px),
+    radial-gradient(circle at 360px 260px, var(--soil-dark) 0 34px, var(--soil-light) 36px, transparent 40px),
+    radial-gradient(circle at 200px 420px, var(--soil-dark) 0 14px, var(--soil-light) 16px, transparent 18px),
+    radial-gradient(ellipse 140px 40px at 420px 120px, var(--soil-light), transparent 70%),
+    radial-gradient(ellipse 180px 50px at 60px 340px, var(--soil-dark), transparent 70%),
+    repeating-linear-gradient(170deg, transparent 0 60px, rgba(0, 0, 0, 0.08) 60px 64px);
+  background-size: 480px 480px;
+}
+/* On level 3 the bases sit on dark rocky mesas. */
+.field[data-world="ground"] {
+  --moon-rock: #8a4a32; --moon-shadow: #5a2a18; --moon-light: #c47a52;
+  --moon-edge: #2a0e04; --crater: #6a3420;
+}
+
+/* ================= CUT SCENES ================= */
+.cut-screen { padding: 0; background: #05030c; }
+.cut-stage { position: absolute; inset: 0; overflow: hidden; }
+.cut-stage > div { position: absolute; }
+.cut-sky { inset: 0; background: linear-gradient(#05030c, #120a2e); }
+.cut-stars {
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 40px 60px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 200px 140px, #fff, transparent),
+    radial-gradient(2px 2px at 330px 40px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 120px 300px, #fff, transparent),
+    radial-gradient(2px 2px at 420px 220px, #fff, transparent);
+  background-size: 480px 360px;
+}
+.cut-planet {
+  left: 50%; top: 150px; width: 140px; height: 140px; margin-left: -70px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.4), transparent 30%),
+    radial-gradient(circle at 60% 40%, #ffb27a, #c2457a 55%, #3a1a5e 85%);
+  box-shadow: 0 0 40px rgba(255, 150, 100, 0.5);
+  opacity: 0;
+}
+.cut-ground {
+  left: 0; right: 0; bottom: 0; height: 0;
+  background: var(--soil);
+  background-image:
+    radial-gradient(circle at 90px 80px, var(--soil-dark) 0 22px, var(--soil-light) 24px, transparent 27px),
+    radial-gradient(circle at 340px 200px, var(--soil-dark) 0 30px, var(--soil-light) 32px, transparent 36px);
+  background-size: 480px 300px;
+  border-top: 6px solid var(--soil-light);
+}
+.cut-clouds { inset: -200px 0; opacity: 0; }
+.cut-clouds-a {
+  background-image:
+    radial-gradient(ellipse 180px 70px at 60px 100px, #ffffff, transparent 70%),
+    radial-gradient(ellipse 200px 80px at 420px 380px, #ffffff, transparent 70%);
+  background-size: 480px 520px;
+}
+.cut-clouds-b {
+  background-image:
+    radial-gradient(ellipse 260px 90px at 300px 160px, rgba(255, 255, 255, 0.85), transparent 70%),
+    radial-gradient(ellipse 220px 70px at 80px 420px, rgba(255, 255, 255, 0.85), transparent 70%);
+  background-size: 480px 600px;
+}
+.cut-ship { left: 50%; bottom: 150px; width: 96px; height: 104px; margin-left: -48px; z-index: 2; }
+.cut-ship svg { width: 100%; height: 100%; }
+.cut-heat {
+  position: absolute; z-index: -1;
+  inset: -40px -26px -10px;
+  border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
+  background: radial-gradient(ellipse at 50% 20%, rgba(255, 255, 220, 0.9), rgba(255, 140, 40, 0.75) 35%, rgba(255, 60, 20, 0.35) 60%, transparent 72%);
+  opacity: 0;
+}
+.cut-streaks {
+  inset: -200px 0; opacity: 0; z-index: 1;
+  /* Thin streaks of hot air at uneven places, rushing past. */
+  background-image:
+    linear-gradient(transparent, rgba(255, 220, 170, 0.8), transparent),
+    linear-gradient(transparent, rgba(255, 220, 170, 0.6), transparent),
+    linear-gradient(transparent, rgba(255, 220, 170, 0.8), transparent),
+    linear-gradient(transparent, rgba(255, 220, 170, 0.5), transparent),
+    linear-gradient(transparent, rgba(255, 220, 170, 0.7), transparent),
+    linear-gradient(transparent, rgba(255, 220, 170, 0.6), transparent);
+  background-size: 2px 90px, 2px 140px, 3px 70px, 2px 110px, 2px 160px, 3px 100px;
+  background-position: 38px 0, 112px 40px, 170px 10px, 318px 70px, 381px 20px, 446px 55px;
+  background-repeat: repeat-y;
+}
+.cut-words {
+  position: absolute; left: 16px; right: 16px; top: 64px; z-index: 3;
+  margin: 0; text-align: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 30px; letter-spacing: 3px;
+  color: var(--yellow);
+  text-shadow: 0 0 18px rgba(255, 210, 63, 0.6), 0 3px 0 #05030c;
+  opacity: 0;
+}
+.cut-words.show { animation: cut-words 2.6s ease-out forwards; }
+@keyframes cut-words { 0% { opacity: 0; transform: translateY(10px); } 15% { opacity: 1; transform: none; } 85% { opacity: 1; } 100% { opacity: 0; } }
+.cut-skip { position: absolute; right: 16px; bottom: 16px; z-index: 4; min-width: 120px; }
+
+/* Film 1: fly at the planet, burn into the air, burst into clouds. */
+.cut-atmosphere.play .cut-planet { animation: cut-planet 9s ease-in forwards; }
+.cut-atmosphere.play .cut-sky { animation: cut-sky-burn 9s linear forwards; }
+.cut-atmosphere.play .cut-stars { animation: cut-fade-out 9s linear forwards; }
+.cut-atmosphere.play .cut-heat { animation: cut-heat 9s linear forwards, cut-flicker 0.1s steps(2) infinite; }
+.cut-atmosphere.play .cut-streaks { animation: cut-streaks 9s linear forwards, cut-rush 0.35s linear infinite; }
+.cut-atmosphere.play .cut-clouds-a { animation: cut-clouds-late 9s linear forwards, cut-rush-big 0.8s linear infinite; }
+.cut-atmosphere.play .cut-clouds-b { animation: cut-clouds-late 9s linear forwards, cut-rush-big 1.2s linear infinite; }
+.cut-atmosphere.play .cut-ship { animation: cut-shake 0.12s linear infinite; }
+
+@keyframes cut-planet {
+  0% { opacity: 1; transform: scale(1); }
+  45% { opacity: 1; transform: scale(5); }
+  60% { opacity: 0.4; transform: scale(9); }
+  70%, 100% { opacity: 0; transform: scale(12); }
+}
+@keyframes cut-sky-burn {
+  0%, 40% { background: linear-gradient(#05030c, #120a2e); }
+  55% { background: linear-gradient(#5a1a2e, #ff6a2a); }
+  75%, 100% { background: linear-gradient(#2a1a5e, #c2457a 50%, #ff9a4a); }
+}
+@keyframes cut-fade-out { 0%, 35% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes cut-heat { 0%, 35% { opacity: 0; } 45%, 68% { opacity: 1; } 78%, 100% { opacity: 0; } }
+@keyframes cut-flicker { 50% { filter: brightness(1.3); } }
+@keyframes cut-streaks { 0%, 38% { opacity: 0; } 46%, 68% { opacity: 1; } 76%, 100% { opacity: 0; } }
+@keyframes cut-rush { from { translate: 0 -200px; } to { translate: 0 200px; } }
+@keyframes cut-clouds-late { 0%, 62% { opacity: 0; } 72%, 100% { opacity: 1; } }
+@keyframes cut-rush-big { from { transform: translateY(-260px); } to { transform: translateY(260px); } }
+@keyframes cut-shake { 25% { translate: 2px -1px; } 75% { translate: -2px 1px; } }
+
+/* Film 2: dive down through the clouds until the ground comes up. */
+.cut-dive.play .cut-sky { animation: cut-sky-dive 9s linear forwards; }
+.cut-dive.play .cut-stars, .cut-dive .cut-planet, .cut-dive .cut-heat { display: none; }
+.cut-dive.play .cut-clouds-a { animation: cut-clouds-early 9s linear forwards, cut-rush-big 0.6s linear infinite; }
+.cut-dive.play .cut-clouds-b { animation: cut-clouds-early 9s linear forwards, cut-rush-big 0.9s linear infinite; }
+.cut-dive.play .cut-streaks { animation: cut-streaks-early 9s linear forwards, cut-rush 0.3s linear infinite; }
+.cut-dive.play .cut-ground { animation: cut-ground 9s ease-out forwards; }
+.cut-dive.play .cut-ship { animation: cut-shake 0.12s linear infinite, cut-ship-land 9s ease-in-out forwards; }
+
+@keyframes cut-sky-dive {
+  0% { background: linear-gradient(#2a1a5e, #c2457a 50%, #ff9a4a); }
+  100% { background: linear-gradient(#c2457a, #ff9a4a 40%, #ffd27a); }
+}
+@keyframes cut-clouds-early { 0% { opacity: 1; } 50% { opacity: 1; } 62%, 100% { opacity: 0; } }
+@keyframes cut-streaks-early { 0%, 50% { opacity: 0.8; } 60%, 100% { opacity: 0; } }
+@keyframes cut-ground { 0%, 50% { height: 0; } 100% { height: 55%; } }
+@keyframes cut-ship-land { 0%, 55% { transform: none; } 100% { transform: translateY(-120px) scale(0.75); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cut-stage.play * { animation-duration: 9s !important; animation-iteration-count: 1 !important; }
+  .cut-atmosphere.play .cut-ship, .cut-dive.play .cut-ship { animation: none; }
 }
