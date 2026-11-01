@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260">
+  <!-- OMEGA. The final boss: a colossal robot war machine. First it
+       stomps along on two huge legs (omega-leg.svg, drawn underneath).
+       Shoot the legs off and it fires up the four big jet engines on
+       its back (at the top of this picture) and flies at you.
+       Its six guns and the reactor in its chest are separate pictures
+       (core-turret.svg and core-eye.svg). Under each one is an
+       armoured mount that is left burnt when you shoot it.
+       Hendrix: every fill is a colour. Change one and watch it. -->
+  <defs>
+    <linearGradient id="om-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a09eb4"/><stop offset="0.3" stop-color="#4c4a60"/><stop offset="0.7" stop-color="#22212e"/><stop offset="1" stop-color="#09090f"/></linearGradient>
+    <linearGradient id="om-pad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6b4c8"/><stop offset="0.4" stop-color="#55536a"/><stop offset="1" stop-color="#111018"/></linearGradient>
+    <linearGradient id="om-slab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6c6a82"/><stop offset="0.5" stop-color="#2c2a3a"/><stop offset="1" stop-color="#0c0b12"/></linearGradient>
+    <linearGradient id="om-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b0aec6"/><stop offset="0.5" stop-color="#4a4860"/><stop offset="1" stop-color="#15141c"/></linearGradient>
+    <linearGradient id="om-bell" x1="0" x2="1"><stop offset="0" stop-color="#c4c2d4"/><stop offset="0.4" stop-color="#5a586e"/><stop offset="1" stop-color="#121119"/></linearGradient>
+    <linearGradient id="om-strip" x1="0" x2="1"><stop offset="0" stop-color="#ffb3dc"/><stop offset="0.5" stop-color="#ff3fa4"/><stop offset="1" stop-color="#8a0a52"/></linearGradient>
+    <radialGradient id="om-scorch"><stop offset="0" stop-color="#040405"/><stop offset="0.55" stop-color="#1a130c"/><stop offset="0.85" stop-color="#3a2a18"/><stop offset="1" stop-color="#22202c"/></radialGradient>
+    <radialGradient id="om-socket"><stop offset="0.7" stop-color="#05040a"/><stop offset="0.9" stop-color="#2a0a1c"/><stop offset="1" stop-color="#6a1044"/></radialGradient>
+    <radialGradient id="om-nozzle"><stop offset="0" stop-color="#ffe0f0"/><stop offset="0.3" stop-color="#ff3fa4"/><stop offset="0.7" stop-color="#4a0a2c"/><stop offset="1" stop-color="#08060c"/></radialGradient>
+    <radialGradient id="om-heat"><stop offset="0" stop-color="#ffe0a8"/><stop offset="0.4" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient>
+    <pattern id="om-haz" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#121118"/><rect width="5" height="10" fill="#f0b51c"/></pattern>
+  </defs>
+
+  <!-- the hip bar that the legs hang under -->
+  <path d="M60 150 L360 150 L372 176 L356 200 L64 200 L48 176 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2.6" stroke-linejoin="round"/>
+  <g fill="#1a1922" stroke="#05050a" stroke-width="1.6"><circle cx="90" cy="172" r="18"/><circle cx="330" cy="172" r="18"/></g>
+  <g fill="none" stroke="#ff3fa4" stroke-width="1.6" opacity="0.8"><circle cx="90" cy="172" r="12"/><circle cx="330" cy="172" r="12"/></g>
+
+  <!-- the back: four huge jet engines built in, nozzles at the top -->
+  <path d="M128 10 L292 10 L306 52 L114 52 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2.6" stroke-linejoin="round"/>
+  <g stroke="#05050a" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M126 2 L166 2 L162 36 L130 36 Z" fill="url(#om-bell)"/>
+    <path d="M170 0 L208 0 L204 36 L174 36 Z" fill="url(#om-bell)"/>
+    <path d="M212 0 L250 0 L246 36 L216 36 Z" fill="url(#om-bell)"/>
+    <path d="M254 2 L294 2 L290 36 L258 36 Z" fill="url(#om-bell)"/>
+  </g>
+  <g fill="url(#om-nozzle)" stroke="#05050a" stroke-width="1.6"><ellipse cx="146" cy="8" rx="16" ry="6"/><ellipse cx="189" cy="6" rx="15" ry="6"/><ellipse cx="231" cy="6" rx="15" ry="6"/><ellipse cx="274" cy="8" rx="16" ry="6"/></g>
+  <path d="M129 22 L163 22 M173 22 L205 22 M215 22 L247 22 M257 22 L291 22" stroke="#05050a" stroke-width="1.2" opacity="0.7"/>
+  <g fill="#ff7a1a" opacity="0.85"><rect x="134" y="27" width="24" height="1.6"/><rect x="177" y="27" width="24" height="1.6"/><rect x="219" y="27" width="24" height="1.6"/><rect x="262" y="27" width="24" height="1.6"/></g>
+  <path d="M120 38 L300 38" stroke="#ff3fa4" stroke-width="1.6"/>
+
+  <!-- the torso -->
+  <path d="M150 30 L270 30 L318 62 L332 150 L314 212 L264 252 L156 252 L106 212 L88 150 L102 62 Z" fill="url(#om-hull)" stroke="#05050a" stroke-width="3.6" stroke-linejoin="round"/>
+  <path d="M152 33 L220 33 L220 38 L156 38 L108 68 L94 148 L91 148 L105 64 Z" fill="#ffffff" opacity="0.24"/>
+  <path d="M312 66 L328.4 150 L311 210 L296 222 L308 206 L324.6 150 L308 70 Z" fill="#000000" opacity="0.3"/>
+  <!-- rib vents down both sides of the chest -->
+  <g fill="#05050a"><rect x="108" y="150" width="22" height="2.6"/><rect x="108" y="157" width="22" height="2.6"/><rect x="108" y="164" width="22" height="2.6"/><rect x="290" y="150" width="22" height="2.6"/><rect x="290" y="157" width="22" height="2.6"/><rect x="290" y="164" width="22" height="2.6"/></g>
+  <g fill="#ff3fa4" opacity="0.85"><rect x="110" y="150.7" width="18" height="1.2"/><rect x="110" y="157.7" width="18" height="1.2"/><rect x="292" y="150.7" width="18" height="1.2"/><rect x="292" y="157.7" width="18" height="1.2"/></g>
+  <path d="M90 150 L136 172 M330 150 L284 172 M102 62 L146 70 M318 62 L274 70 M140 196 L180 196 M240 196 L280 196" stroke="#05050a" stroke-width="1.3" opacity="0.6"/>
+
+  <!-- the chest prow at the front, between the two lower guns -->
+  <path d="M186 182 L234 182 L242 236 L210 254 L178 236 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="192" y="190" width="36" height="6" rx="1.4" fill="#05050a"/>
+  <rect x="194" y="191.6" width="32" height="2.8" fill="url(#om-strip)"/>
+  <rect x="196" y="202" width="28" height="4" rx="1" fill="#05050a"/>
+  <rect x="198" y="203" width="24" height="2" fill="#ff7a1a"/>
+  <path d="M190 214 L230 214 L234 232 L210 246 L186 232 Z" fill="url(#om-haz)" stroke="#05050a" stroke-width="1.2" stroke-linejoin="round"/>
+
+  <!-- the arms, hanging forward under the shoulders -->
+  <path d="M66 140 L132 136 L140 224 L118 252 L82 252 L62 224 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M354 140 L288 136 L280 224 L302 252 L338 252 L358 224 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M68 142 L130 138 L130 142 L70 146 L65 222 L63.6 222 Z" fill="#ffffff" opacity="0.18"/>
+  <path d="M84 244 L116 244 L112 250 L88 250 Z M336 244 L304 244 L308 250 L332 250 Z" fill="#ff3fa4"/>
+  <g fill="#05050a"><rect x="86" y="222" width="28" height="2.4"/><rect x="86" y="228" width="28" height="2.4"/><rect x="306" y="222" width="28" height="2.4"/><rect x="306" y="228" width="28" height="2.4"/></g>
+
+  <!-- the colossal shoulder pauldrons -->
+  <path d="M14 56 L52 30 L112 36 L124 74 L118 150 L84 170 L22 166 L2 120 Z" fill="url(#om-pad)" stroke="#05050a" stroke-width="3.4" stroke-linejoin="round"/>
+  <path d="M406 56 L368 30 L308 36 L296 74 L302 150 L336 170 L398 166 L418 120 Z" fill="url(#om-pad)" stroke="#05050a" stroke-width="3.4" stroke-linejoin="round"/>
+  <path d="M16 58 L52 33.4 L110 39 L110 44 L53 38 L20 61 L6 118 L4.4 118 Z" fill="#ffffff" opacity="0.32"/>
+  <path d="M310 39 L367 33.4 L403 58 L401 62 L367 38 L312 44 Z" fill="#ffffff" opacity="0.16"/>
+  <path d="M300 152 L336 167 L396 163 L396 166 L336 170 L302 156 Z" fill="#000000" opacity="0.3"/>
+  <!-- raised fins on top of each shoulder -->
+  <path d="M30 46 L42 8 L60 4 L58 34 Z M390 46 L378 8 L360 4 L362 34 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M42 10 L58 6 L57 12 L44 15 Z M378 10 L362 6 L363 12 L376 15 Z" fill="#ff3fa4"/>
+  <!-- outer armour layer and glowing edges -->
+  <path d="M8 76 L20 70 L24 150 L30 162 L22 162 L4 120 Z M412 76 L400 70 L396 150 L390 162 L398 162 L416 120 Z" fill="url(#om-slab)" stroke="#05050a" stroke-width="1.4" stroke-linejoin="round"/>
+  <g fill="#05050a"><rect x="10" y="96" width="9" height="2"/><rect x="10" y="101" width="9" height="2"/><rect x="10" y="106" width="9" height="2"/><rect x="401" y="96" width="9" height="2"/><rect x="401" y="101" width="9" height="2"/><rect x="401" y="106" width="9" height="2"/></g>
+  <path d="M3 122 L23 164 L84 168 M417 122 L397 164 L336 168" stroke="#ff3fa4" stroke-width="2.4" fill="none"/>
+  <path d="M70 140 L112 134 L112 142 L72 148 Z M350 140 L308 134 L308 142 L348 148 Z" fill="url(#om-haz)" stroke="#05050a" stroke-width="1"/>
+  <path d="M24 80 L114 70 M396 80 L306 70 M92 40 L100 128 M328 40 L320 128" stroke="#05050a" stroke-width="1.3" opacity="0.6"/>
+  <g fill="#ff7a1a"><rect x="96" y="80" width="12" height="3" transform="rotate(-6 102 81)"/><rect x="312" y="80" width="12" height="3" transform="rotate(6 318 81)"/></g>
+  <g fill="#05050a" opacity="0.8"><circle cx="26" cy="74" r="1.8"/><circle cx="394" cy="74" r="1.8"/><circle cx="106" cy="56" r="1.8"/><circle cx="314" cy="56" r="1.8"/><circle cx="108" cy="140" r="1.8"/><circle cx="312" cy="140" r="1.8"/><circle cx="34" cy="152" r="1.8"/><circle cx="386" cy="152" r="1.8"/></g>
+
+  <!-- the reactor socket (the core eye sits on top) -->
+  <circle cx="210" cy="105" r="62" fill="url(#om-plate)" stroke="#05050a" stroke-width="2.6"/>
+  <path d="M156 76 A62 62 0 0 1 210 43 L210 48 A57 57 0 0 0 160 78 Z" fill="#ffffff" opacity="0.25"/>
+  <circle cx="210" cy="105" r="56" fill="url(#om-haz)" stroke="#05050a" stroke-width="1.4"/>
+  <circle cx="210" cy="105" r="50" fill="url(#om-socket)" stroke="#05050a" stroke-width="2"/>
+  <g fill="#2a2838" stroke="#05050a" stroke-width="1.2"><rect x="204" y="41" width="12" height="9"/><rect x="204" y="160" width="12" height="9"/><rect x="146" y="99" width="9" height="12"/><rect x="265" y="99" width="9" height="12"/></g>
+  <g fill="#ff3fa4"><rect x="207" y="43" width="6" height="2"/><rect x="207" y="165" width="6" height="2"/><rect x="148" y="102" width="2" height="6"/><rect x="270" y="102" width="2" height="6"/></g>
+
+  <!-- gun mounts (the turrets sit on top of these) -->
+  <g transform="translate(40 110)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(380 110)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(100 190)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(320 190)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(165 225)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+  <g transform="translate(255 225)">
+    <path d="M-11 -22 L11 -22 L22 -11 L22 11 L11 22 L-11 22 L-22 11 L-22 -11 Z" fill="url(#om-plate)" stroke="#05050a" stroke-width="2"/>
+    <circle r="15" fill="url(#om-scorch)" stroke="#05050a" stroke-width="1.5"/>
+    <path d="M-8 -6 L-3 0 L-7 7 M7 -8 L3 -2 L8 4" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.6"/>
+    <g fill="#c4c0d8"><circle cx="-17" cy="-6" r="1.3"/><circle cx="17" cy="-6" r="1.3"/><circle cx="-17" cy="6" r="1.3"/><circle cx="17" cy="6" r="1.3"/></g>
+  </g>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 130">
+  <!-- THE INFERNO. The level 5 mini boss: a heavy gunship built to fly
+       through a volcano. Its black armour does not melt, and the lava
+       glows through the cracks and seams.
+       Its two engines are separate pictures (hauler-engine.svg). Under
+       each one is an armoured mount that is left burnt when you shoot
+       the engine off. The hot core in the middle is its weak spot.
+       Hendrix: every fill is a colour. Change one and refresh. -->
+  <defs>
+    <linearGradient id="in-hull" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a6e68"/><stop offset="0.3" stop-color="#3a3230"/><stop offset="0.7" stop-color="#181413"/><stop offset="1" stop-color="#060404"/></linearGradient>
+    <linearGradient id="in-wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a504c"/><stop offset="0.5" stop-color="#221d1c"/><stop offset="1" stop-color="#080606"/></linearGradient>
+    <linearGradient id="in-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a7e78"/><stop offset="0.5" stop-color="#3a3331"/><stop offset="1" stop-color="#100c0b"/></linearGradient>
+    <linearGradient id="in-lava" x1="0" x2="1"><stop offset="0" stop-color="#ffd23f"/><stop offset="0.5" stop-color="#ff7a1a"/><stop offset="1" stop-color="#c4380a"/></linearGradient>
+    <linearGradient id="in-barrel" x1="0" x2="1"><stop offset="0" stop-color="#b8aea8"/><stop offset="0.45" stop-color="#5a524e"/><stop offset="1" stop-color="#141010"/></linearGradient>
+    <radialGradient id="in-core"><stop offset="0" stop-color="#fffbe0"/><stop offset="0.3" stop-color="#ffd23f"/><stop offset="0.7" stop-color="#ff7a1a"/><stop offset="1" stop-color="#5a1404"/></radialGradient>
+    <radialGradient id="in-scorch"><stop offset="0" stop-color="#040303"/><stop offset="0.55" stop-color="#1e120a"/><stop offset="0.85" stop-color="#4a2410"/><stop offset="1" stop-color="#201a18"/></radialGradient>
+    <radialGradient id="in-fire" cy="0.6"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#ffe9a0"/><stop offset="0.6" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff4a00" stop-opacity="0"/></radialGradient>
+    <pattern id="in-haz" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#100c0b"/><rect width="4" height="8" fill="#ff9a1a"/></pattern>
+  </defs>
+
+  <!-- jet flames from the hull -->
+  <ellipse cx="108" cy="6" rx="8" ry="7" fill="url(#in-fire)"/>
+  <ellipse cx="132" cy="6" rx="8" ry="7" fill="url(#in-fire)"/>
+
+  <!-- the swept wings -->
+  <path d="M82 32 L34 26 L6 40 L2 86 L18 112 L82 106 Z" fill="url(#in-wing)" stroke="#030202" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M158 32 L206 26 L234 40 L238 86 L222 112 L158 106 Z" fill="url(#in-wing)" stroke="#030202" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M80 34.4 L34.6 28.6 L8.4 41.6 L5 84 L3.6 84 L7 40 L34 27 L80 32 Z" fill="#ffffff" opacity="0.2"/>
+  <!-- lava edges on the wings -->
+  <path d="M3 86 L18 110 L82 104 M237 86 L222 110 L158 104" stroke="url(#in-lava)" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+  <!-- wing cracks glowing through the armour -->
+  <path d="M10 50 L18 56 L14 66 L22 74 L18 88 M230 52 L222 58 L226 70 L218 78 L222 92 M30 32 L36 40 L32 46 M210 32 L204 40 L208 46" stroke="#2a0e04" stroke-width="2.8" fill="none" stroke-linejoin="round"/>
+  <path d="M10 50 L18 56 L14 66 L22 74 L18 88 M230 52 L222 58 L226 70 L218 78 L222 92 M30 32 L36 40 L32 46 M210 32 L204 40 L208 46" stroke="url(#in-lava)" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+  <!-- wing tip guns -->
+  <g fill="url(#in-barrel)" stroke="#030202" stroke-width="1"><rect x="14" y="98" width="4" height="22"/><rect x="222" y="98" width="4" height="22"/></g>
+  <g fill="#ffd23f"><rect x="14.4" y="117" width="3.2" height="1.6"/><rect x="222.4" y="117" width="3.2" height="1.6"/></g>
+  <path d="M6 42 L22 36 L22 44 L6 50 Z M234 42 L218 36 L218 44 L234 50 Z" fill="url(#in-haz)" stroke="#030202" stroke-width="1"/>
+
+  <!-- the main hull -->
+  <path d="M98 2 L142 2 L162 28 L168 88 L148 120 L92 120 L72 88 L78 28 Z" fill="url(#in-hull)" stroke="#030202" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M99 4.4 L130 4.4 L129 8 L101 8 L82 31 L76.4 86 L74.6 86 L80 29 Z" fill="#ffffff" opacity="0.22"/>
+  <path d="M158 30 L165.4 88 L146.4 117.6 L140 117.6 L160 86 Z" fill="#000000" opacity="0.3"/>
+  <!-- engine block at the back with two hot nozzles -->
+  <path d="M96 6 L144 6 L150 22 L90 22 Z" fill="#141010" stroke="#030202" stroke-width="1.6" stroke-linejoin="round"/>
+  <g fill="#030202"><circle cx="108" cy="13" r="5.6"/><circle cx="132" cy="13" r="5.6"/></g>
+  <g fill="#ffd23f"><circle cx="108" cy="13" r="3"/><circle cx="132" cy="13" r="3"/></g>
+  <!-- side heat vents on the hull -->
+  <g fill="#030202"><rect x="80" y="40" width="12" height="2.2"/><rect x="80" y="45" width="12" height="2.2"/><rect x="80" y="50" width="12" height="2.2"/><rect x="148" y="40" width="12" height="2.2"/><rect x="148" y="45" width="12" height="2.2"/><rect x="148" y="50" width="12" height="2.2"/></g>
+  <g fill="#ff7a1a"><rect x="81.6" y="40.6" width="8.8" height="1"/><rect x="81.6" y="45.6" width="8.8" height="1" fill="#ffd23f"/><rect x="149.6" y="40.6" width="8.8" height="1"/><rect x="149.6" y="45.6" width="8.8" height="1" fill="#ffd23f"/></g>
+  <!-- glowing seams between the hull plates -->
+  <path d="M78 28 L162 28 M74 66 L94 72 M166 66 L146 72 M88 98 L152 98" stroke="#2a0e04" stroke-width="2.6" fill="none"/>
+  <path d="M78 28 L162 28 M74 66 L94 72 M166 66 L146 72 M88 98 L152 98" stroke="url(#in-lava)" stroke-width="1.1" fill="none"/>
+
+  <!-- the hot core at (120, 59) -->
+  <path d="M106 34 L134 34 L146 46 L146 72 L134 84 L106 84 L94 72 L94 46 Z" fill="url(#in-plate)" stroke="#030202" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="120" cy="59" r="20" fill="url(#in-haz)" stroke="#030202" stroke-width="1.4"/>
+  <circle cx="120" cy="59" r="15.5" fill="#0a0606" stroke="#030202" stroke-width="1.4"/>
+  <circle cx="120" cy="59" r="13" fill="url(#in-core)"/>
+  <!-- cracked armour shards over the core -->
+  <g fill="url(#in-plate)" stroke="#030202" stroke-width="1" stroke-linejoin="round">
+    <path d="M110 48 L118 46.6 L117 54 L112 55 Z"/>
+    <path d="M123 46.4 L131 49 L127 55 L122.6 53.6 Z"/>
+    <path d="M131 62 L130 69 L123 69.4 L124.4 64 Z"/>
+    <path d="M109 62 L115.6 63.6 L116 70 L110.4 68 Z"/>
+  </g>
+  <circle cx="120" cy="59" r="3.6" fill="#fffbe0"/>
+
+  <!-- the nose with the heat cannon -->
+  <path d="M100 98 L140 98 L144 112 L132 124 L108 124 L96 112 Z" fill="url(#in-plate)" stroke="#030202" stroke-width="1.8" stroke-linejoin="round"/>
+  <rect x="113" y="108" width="14" height="20" fill="url(#in-barrel)" stroke="#030202" stroke-width="1.3"/>
+  <rect x="111" y="122" width="18" height="6" rx="1" fill="#1a1413" stroke="#030202" stroke-width="1.1"/>
+  <rect x="113" y="124" width="14" height="2" fill="#ff7a1a"/>
+  <path d="M104 102 L136 102 L134 106 L106 106 Z" fill="#030202"/>
+  <rect x="108" y="103" width="24" height="2" fill="#ffd23f"/>
+
+  <!-- engine mounts (the engines sit on top of these) -->
+  <g transform="translate(64 68)">
+    <path d="M-14 -30 L14 -30 L20 -22 L20 24 L12 32 L-12 32 L-20 24 L-20 -22 Z" fill="url(#in-plate)" stroke="#030202" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="-13" y="-22" width="26" height="46" rx="6" fill="url(#in-scorch)" stroke="#030202" stroke-width="1.5"/>
+    <path d="M-6 -10 L-2 -2 L-7 6 M6 -14 L2 -6 L7 2 M-3 12 L2 18" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.7"/>
+    <g fill="#b8aea8"><circle cx="-16" cy="-18" r="1.3"/><circle cx="16" cy="-18" r="1.3"/><circle cx="-16" cy="20" r="1.3"/><circle cx="16" cy="20" r="1.3"/></g>
+  </g>
+  <g transform="translate(176 68)">
+    <path d="M-14 -30 L14 -30 L20 -22 L20 24 L12 32 L-12 32 L-20 24 L-20 -22 Z" fill="url(#in-plate)" stroke="#030202" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="-13" y="-22" width="26" height="46" rx="6" fill="url(#in-scorch)" stroke="#030202" stroke-width="1.5"/>
+    <path d="M-6 -10 L-2 -2 L-7 6 M6 -14 L2 -6 L7 2 M-3 12 L2 18" stroke="#ff7a1a" stroke-width="1" fill="none" opacity="0.7"/>
+    <g fill="#b8aea8"><circle cx="-16" cy="-18" r="1.3"/><circle cx="16" cy="-18" r="1.3"/><circle cx="-16" cy="20" r="1.3"/><circle cx="16" cy="20" r="1.3"/></g>
+  </g>
+  <g fill="#030202" opacity="0.8"><circle cx="84" cy="34" r="1.2"/><circle cx="156" cy="34" r="1.2"/><circle cx="80" cy="84" r="1.2"/><circle cx="160" cy="84" r="1.2"/><circle cx="96" cy="114" r="1.1"/><circle cx="144" cy="114" r="1.1"/></g>
+</svg>

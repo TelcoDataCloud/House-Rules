@@ -1,16 +1,130 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150">
-  <!-- REACTOR at the end of the big base. Blow it up and the WHOLE base goes. -->
+  <!-- REACTOR. The big power plant at the end of the big base.
+       The pink core glows in the middle, the four round towers cool
+       it down. Blow it up and the WHOLE base goes.
+       Hendrix: every fill is a colour. Try changing the core! -->
   <defs>
-    <linearGradient id="rc-dome" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0e4f2"/><stop offset="0.35" stop-color="#8a90ad"/><stop offset="0.75" stop-color="#3b4058"/><stop offset="1" stop-color="#121524"/></linearGradient>
-    <radialGradient id="rc-core" cx="0.5" cy="0.5"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#ffb3dc"/><stop offset="0.65" stop-color="#ff3fa4"/><stop offset="1" stop-color="#7a1048"/></radialGradient>
+    <filter id="rc-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <linearGradient id="rc-yard" gradientUnits="userSpaceOnUse" x1="4" y1="4" x2="152" y2="146"><stop offset="0" stop-color="#8e908a"/><stop offset="0.5" stop-color="#5e605c"/><stop offset="1" stop-color="#323432"/></linearGradient>
+    <radialGradient id="rc-tower" cx="0.36" cy="0.34" r="0.75"><stop offset="0" stop-color="#d4d6ce"/><stop offset="0.45" stop-color="#8a8c86"/><stop offset="1" stop-color="#34363a"/></radialGradient>
+    <radialGradient id="rc-throat" cx="0.6" cy="0.62" r="0.7"><stop offset="0" stop-color="#0a0c10"/><stop offset="0.8" stop-color="#22262c"/><stop offset="1" stop-color="#4a4e54"/></radialGradient>
+    <radialGradient id="rc-steam" r="0.5"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="rc-hull" gradientUnits="userSpaceOnUse" x1="44" y1="39" x2="116" y2="111"><stop offset="0" stop-color="#b0b8c2"/><stop offset="0.4" stop-color="#5a626c"/><stop offset="1" stop-color="#1a1e24"/></linearGradient>
+    <linearGradient id="rc-fin" x1="0" x2="1"><stop offset="0" stop-color="#9aa2ac"/><stop offset="1" stop-color="#2a2f36"/></linearGradient>
+    <radialGradient id="rc-core"><stop offset="0" stop-color="#ffffff"/><stop offset="0.3" stop-color="#ffb3dc"/><stop offset="0.65" stop-color="#ff3fa4"/><stop offset="1" stop-color="#6a0a3a"/></radialGradient>
+    <radialGradient id="rc-glow"><stop offset="0" stop-color="#ff3fa4" stop-opacity="0.7"/><stop offset="0.6" stop-color="#ff3fa4" stop-opacity="0.2"/><stop offset="1" stop-color="#ff3fa4" stop-opacity="0"/></radialGradient>
+    <linearGradient id="rc-pipe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8ccd0"/><stop offset="1" stop-color="#3a3f46"/></linearGradient>
   </defs>
-  <path d="M10 140 L10 60 Q80 10 150 60 L150 140 Z" fill="url(#rc-dome)" stroke="#1a1d2e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M18 64 Q40 36 74 28 L74 38 Q46 44 26 68 Z" fill="#ffffff" opacity="0.5"/>
-  <path d="M10 100 L150 100 M10 120 L150 120 M40 40 L40 140 M120 40 L120 140" stroke="#1a1d2e" stroke-width="1.5" opacity="0.4"/>
-  <path d="M14 134 L30 134 M130 134 L146 134" stroke="#ffd23f" stroke-width="4"/>
-  <g fill="#38f0ff"><circle cx="24" cy="80" r="3"/><circle cx="136" cy="80" r="3"/></g>
-  <circle cx="80" cy="92" r="42" fill="#0d1226" stroke="#05070f" stroke-width="3"/>
-  <circle cx="80" cy="92" r="32" fill="url(#rc-core)"/>
-  <circle cx="80" cy="92" r="37" fill="none" stroke="#7fe6f0" stroke-width="2" stroke-dasharray="6 8"/>
-  <ellipse cx="70" cy="81" rx="8" ry="5" fill="#ffffff" opacity="0.85"/>
+
+  <!-- shadow -->
+  <path d="M33 11 L135 11 L157 33 L157 127 L135 149 L33 149 L11 127 L11 33 Z" fill="#000" opacity="0.5" filter="url(#rc-blur)"/>
+  <!-- the walled concrete yard -->
+  <path d="M28 5 L130 5 L152 27 L152 121 L130 143 L28 143 L6 121 L6 27 Z" fill="url(#rc-yard)" stroke="#07090d" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M28 5 L130 5 L152 27 L152 121 L130 143 L28 143 L6 121 L6 27 Z" fill="none" stroke="#3a3c3a" stroke-width="4" transform="translate(0 0)" opacity="0.6" stroke-linejoin="round"/>
+  <path d="M8 120 L8 28 L28.8 7.2 L129 7.2" fill="none" stroke="#e6e6de" stroke-width="1.2" opacity="0.4"/>
+  <path d="M6 74 L152 74 M79 5 L79 143" stroke="#26282a" stroke-width="0.8" opacity="0.5"/>
+  <!-- hazard stripes along the front wall -->
+  <rect x="46" y="134" width="66" height="5" fill="#d9a520" stroke="#07090d" stroke-width="0.8"/>
+  <path d="M48 139 L53 134 M54 139 L59 134 M60 139 L65 134 M66 139 L71 134 M72 139 L77 134 M78 139 L83 134 M84 139 L89 134 M90 139 L95 134 M96 139 L101 134 M102 139 L107 134 M108 139 L113 134 " stroke="#141414" stroke-width="2.4"/>
+  <!-- big pipes carrying coolant out to the towers -->
+  <path d="M79 74 L34 33" stroke="#000" stroke-width="9" opacity="0.35" transform="translate(3 4)" filter="url(#rc-blur)"/>
+  <path d="M79 74 L124 33" stroke="#000" stroke-width="9" opacity="0.35" transform="translate(3 4)" filter="url(#rc-blur)"/>
+  <path d="M79 74 L34 115" stroke="#000" stroke-width="9" opacity="0.35" transform="translate(3 4)" filter="url(#rc-blur)"/>
+  <path d="M79 74 L124 115" stroke="#000" stroke-width="9" opacity="0.35" transform="translate(3 4)" filter="url(#rc-blur)"/>
+  <path d="M79 74 L34 33" stroke="#07090d" stroke-width="8"/>
+  <path d="M79 74 L34 33" stroke="#6a7078" stroke-width="5.6"/>
+  <path d="M79 72.6 L34 31.6" stroke="#d0d4d8" stroke-width="1" opacity="0.6"/>
+  <path d="M79 74 L124 33" stroke="#07090d" stroke-width="8"/>
+  <path d="M79 74 L124 33" stroke="#6a7078" stroke-width="5.6"/>
+  <path d="M79 72.6 L124 31.6" stroke="#d0d4d8" stroke-width="1" opacity="0.6"/>
+  <path d="M79 74 L34 115" stroke="#07090d" stroke-width="8"/>
+  <path d="M79 74 L34 115" stroke="#6a7078" stroke-width="5.6"/>
+  <path d="M79 72.6 L34 113.6" stroke="#d0d4d8" stroke-width="1" opacity="0.6"/>
+  <path d="M79 74 L124 115" stroke="#07090d" stroke-width="8"/>
+  <path d="M79 74 L124 115" stroke="#6a7078" stroke-width="5.6"/>
+  <path d="M79 72.6 L124 113.6" stroke="#d0d4d8" stroke-width="1" opacity="0.6"/>
+  <!-- four cooling towers, round and tall, so they throw big shadows -->
+  <circle cx="39" cy="39" r="20" fill="#000" opacity="0.5" filter="url(#rc-blur)"/>
+  <circle cx="129" cy="39" r="20" fill="#000" opacity="0.5" filter="url(#rc-blur)"/>
+  <circle cx="39" cy="121" r="20" fill="#000" opacity="0.5" filter="url(#rc-blur)"/>
+  <circle cx="129" cy="121" r="20" fill="#000" opacity="0.5" filter="url(#rc-blur)"/>
+  <circle cx="34" cy="33" r="19" fill="url(#rc-tower)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="34" cy="33" r="12" fill="url(#rc-throat)" stroke="#07090d" stroke-width="1.2"/>
+  <circle cx="34" cy="33" r="15.5" fill="none" stroke="#2a2c2e" stroke-width="0.7" opacity="0.5" stroke-dasharray="2 2.6"/>
+  <circle cx="32" cy="31" r="10" fill="url(#rc-steam)"/>
+  <path d="M20 27 A15 15 0 0 1 29 18" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.5"/>
+  <circle cx="47.4" cy="19.6" r="1.3" fill="#ff3b2a" stroke="#07090d" stroke-width="0.5"/>
+  <circle cx="124" cy="33" r="19" fill="url(#rc-tower)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="124" cy="33" r="12" fill="url(#rc-throat)" stroke="#07090d" stroke-width="1.2"/>
+  <circle cx="124" cy="33" r="15.5" fill="none" stroke="#2a2c2e" stroke-width="0.7" opacity="0.5" stroke-dasharray="2 2.6"/>
+  <circle cx="122" cy="31" r="10" fill="url(#rc-steam)"/>
+  <path d="M110 27 A15 15 0 0 1 119 18" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.5"/>
+  <circle cx="137.4" cy="19.6" r="1.3" fill="#ff3b2a" stroke="#07090d" stroke-width="0.5"/>
+  <circle cx="34" cy="115" r="19" fill="url(#rc-tower)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="34" cy="115" r="12" fill="url(#rc-throat)" stroke="#07090d" stroke-width="1.2"/>
+  <circle cx="34" cy="115" r="15.5" fill="none" stroke="#2a2c2e" stroke-width="0.7" opacity="0.5" stroke-dasharray="2 2.6"/>
+  <circle cx="32" cy="113" r="10" fill="url(#rc-steam)"/>
+  <path d="M20 109 A15 15 0 0 1 29 100" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.5"/>
+  <circle cx="47.4" cy="101.6" r="1.3" fill="#ff3b2a" stroke="#07090d" stroke-width="0.5"/>
+  <circle cx="124" cy="115" r="19" fill="url(#rc-tower)" stroke="#07090d" stroke-width="1.8"/>
+  <circle cx="124" cy="115" r="12" fill="url(#rc-throat)" stroke="#07090d" stroke-width="1.2"/>
+  <circle cx="124" cy="115" r="15.5" fill="none" stroke="#2a2c2e" stroke-width="0.7" opacity="0.5" stroke-dasharray="2 2.6"/>
+  <circle cx="122" cy="113" r="10" fill="url(#rc-steam)"/>
+  <path d="M110 109 A15 15 0 0 1 119 100" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.5"/>
+  <circle cx="137.4" cy="101.6" r="1.3" fill="#ff3b2a" stroke="#07090d" stroke-width="0.5"/>
+  <!-- shadow of the reactor drum -->
+  <circle cx="85" cy="81" r="46" fill="#000" opacity="0.55" filter="url(#rc-blur)"/>
+  <!-- cooling fins all round the drum -->
+  <circle cx="79" cy="74" r="46" fill="#1a1d22" stroke="#07090d" stroke-width="1.6"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(0 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(15 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(30 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(45 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(60 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(75 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(90 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(105 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(120 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(135 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(150 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(165 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(180 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(195 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(210 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(225 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(240 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(255 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(270 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(285 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(300 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(315 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(330 79 74)"/>
+  <rect x="77" y="27" width="4" height="10" fill="url(#rc-fin)" stroke="#07090d" stroke-width="0.6" transform="rotate(345 79 74)"/>
+  <!-- the armoured drum -->
+  <circle cx="79" cy="74" r="37" fill="url(#rc-hull)" stroke="#07090d" stroke-width="2"/>
+  <path d="M52 52 A35 35 0 0 1 96 43" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.4"/>
+  <circle cx="79" cy="74" r="31" fill="none" stroke="#07090d" stroke-width="0.8" opacity="0.6"/>
+  <g fill="#2a2e34"><circle cx="111.8" cy="82.8" r="1"/><circle cx="103.0" cy="98.0" r="1"/><circle cx="87.8" cy="106.8" r="1"/><circle cx="70.2" cy="106.8" r="1"/><circle cx="55.0" cy="98.0" r="1"/><circle cx="46.2" cy="82.8" r="1"/><circle cx="46.2" cy="65.2" r="1"/><circle cx="55.0" cy="50.0" r="1"/><circle cx="70.2" cy="41.2" r="1"/><circle cx="87.8" cy="41.2" r="1"/><circle cx="103.0" cy="50.0" r="1"/><circle cx="111.8" cy="65.2" r="1"/></g>
+  <!-- vent slots on the drum -->
+  <g fill="#0d0f12"><rect x="58" y="47" width="9" height="1.4" transform="rotate(-35 62 48)"/><rect x="91" y="47" width="9" height="1.4" transform="rotate(35 96 48)"/><rect x="58" y="100" width="9" height="1.4" transform="rotate(35 62 100)"/><rect x="91" y="100" width="9" height="1.4" transform="rotate(-35 96 100)"/></g>
+  <!-- cyan ring of glass round the core -->
+  <circle cx="79" cy="74" r="24" fill="#0a1a22" stroke="#07090d" stroke-width="1.6"/>
+  <circle cx="79" cy="74" r="21.5" fill="none" stroke="#38f0ff" stroke-width="2.4" opacity="0.9"/>
+  <circle cx="79" cy="74" r="21.5" fill="none" stroke="#07090d" stroke-width="2.6" stroke-dasharray="1.6 7.4"/>
+  <!-- the pink core, glowing -->
+  <circle cx="79" cy="74" r="30" fill="url(#rc-glow)"/>
+  <circle cx="79" cy="74" r="17" fill="url(#rc-core)" stroke="#07090d" stroke-width="1.4"/>
+  <!-- a heavy grate over the core -->
+  <g stroke="#14171c" stroke-width="1.6" opacity="0.85"><path d="M66 68 L92 68 M64 74 L94 74 M66 80 L92 80 M73 59 L73 89 M79 57 L79 91 M85 59 L85 89"/></g>
+  <circle cx="79" cy="74" r="17" fill="none" stroke="#2a2f36" stroke-width="2"/>
+  <circle cx="79" cy="74" r="4" fill="#ffffff" opacity="0.85"/>
+  <!-- control huts on the yard -->
+  <rect x="62" y="120" width="12" height="9" rx="1" fill="#5c6448" stroke="#07090d" stroke-width="1"/>
+  <rect x="84" y="120" width="12" height="9" rx="1" fill="#5c6448" stroke="#07090d" stroke-width="1"/>
+  <g fill="#38f0ff"><rect x="64" y="122" width="3" height="1.4"/><rect x="86" y="122" width="3" height="1.4"/></g>
+  <rect x="62" y="9" width="34" height="8" rx="1" fill="#3e4448" stroke="#07090d" stroke-width="1"/>
+  <g fill="#0d0f12"><rect x="65" y="11" width="28" height="1"/><rect x="65" y="13" width="28" height="1"/></g>
+  <!-- warning lights round the wall -->
+  <g fill="#ff3fa4"><circle cx="10" cy="74" r="1.6"/><circle cx="148" cy="74" r="1.6"/></g>
+  <g fill="#ffb02a"><circle cx="29" cy="9" r="1.2"/><circle cx="129" cy="9" r="1.2"/><circle cx="29" cy="139" r="1.2"/><circle cx="129" cy="139" r="1.2"/></g>
 </svg>
