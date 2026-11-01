@@ -121,6 +121,7 @@ kbd {
 }
 .btn-quiet { background: transparent; }
 .btn:hover { filter: brightness(1.1); }
+.btn[disabled] { opacity: 0.6; cursor: wait; }
 
 .pill {
   min-height: 52px;

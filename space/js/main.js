@@ -90,7 +90,11 @@ async function boot() {
     ...Object.values(PARTS).map((p) => p.art),
     'hauler', 'hauler-engine', 'core', 'core-turret', 'core-eye',
   ];
-  await loadArt(names);
+  // Set up the screen straight away, but keep Play switched off
+  // until every picture has arrived, or the ships would be invisible.
+  const btn = $('btn-play');
+  btn.disabled = true;
+  btn.textContent = 'Loading';
   setupInput($('field'));
   setupTitle(play);
   setupToggles();
@@ -98,6 +102,10 @@ async function boot() {
   window.addEventListener('resize', fit);
   show('title');
   requestAnimationFrame(frame);
+  await loadArt(names);
+  btn.disabled = false;
+  btn.textContent = 'Play';
+  btn.focus();
 }
 
 boot();
