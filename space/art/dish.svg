@@ -1,9 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 64">
   <!-- RADAR DISH. Does nothing but blink. Always has a power token. -->
-  <rect x="26" y="34" width="8" height="24" fill="#3b4058" stroke="#1a1d2e" stroke-width="2"/>
-  <path d="M6 34 Q30 2 54 34 Z" fill="#9aa0bd" stroke="#1a1d2e" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M30 34 Q42 10 54 34 Z" fill="#5c6078"/>
-  <path d="M12 30 Q20 16 30 14" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7"/>
+  <defs>
+    <linearGradient id="ds-dish" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#b8bdd0"/><stop offset="1" stop-color="#3b4058"/></linearGradient>
+    <linearGradient id="ds-pole" x1="0" x2="1"><stop offset="0" stop-color="#9aa0bd"/><stop offset="1" stop-color="#1a1d2e"/></linearGradient>
+  </defs>
+  <rect x="18" y="54" width="24" height="8" rx="2" fill="url(#ds-pole)" stroke="#1a1d2e" stroke-width="1.8"/>
+  <rect x="26" y="32" width="8" height="24" fill="url(#ds-pole)" stroke="#1a1d2e" stroke-width="1.8"/>
+  <path d="M5 34 Q30 0 55 34 Z" fill="url(#ds-dish)" stroke="#1a1d2e" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M12 30 Q30 12 48 30" stroke="#1a1d2e" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M11 30 Q18 16 30 13" stroke="#ffffff" stroke-width="2.2" fill="none" opacity="0.8"/>
+  <path d="M30 22 L30 8" stroke="#1a1d2e" stroke-width="2"/>
   <circle cx="30" cy="22" r="5" fill="#1a1d2e"/>
-  <circle class="blink" cx="30" cy="22" r="2.5" fill="#ff3fa4"/>
+  <circle class="blink" cx="30" cy="22" r="3" fill="#ff3fa4"/>
+  <circle cx="30" cy="7" r="2.5" fill="#38f0ff"/>
 </svg>

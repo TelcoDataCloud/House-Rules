@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
   <!-- LANDING PAD. Just for show. Marks where a base starts. -->
-  <ellipse cx="60" cy="40" rx="56" ry="30" fill="#6b7088" stroke="#1a1d2e" stroke-width="2.5"/>
+  <defs>
+    <radialGradient id="pd-floor" cx="0.4" cy="0.35"><stop offset="0" stop-color="#9aa0bd"/><stop offset="0.7" stop-color="#5c6078"/><stop offset="1" stop-color="#2a2e44"/></radialGradient>
+  </defs>
+  <ellipse cx="60" cy="40" rx="56" ry="30" fill="url(#pd-floor)" stroke="#1a1d2e" stroke-width="2.4"/>
   <ellipse cx="60" cy="40" rx="44" ry="22" fill="none" stroke="#ffd23f" stroke-width="2" stroke-dasharray="8 6"/>
+  <g fill="#38f0ff"><circle cx="8" cy="40" r="2.5"/><circle cx="112" cy="40" r="2.5"/><circle cx="60" cy="12" r="2.5"/><circle cx="60" cy="68" r="2.5"/></g>
   <text x="60" y="48" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="22" fill="#ffd23f">H</text>
 </svg>
