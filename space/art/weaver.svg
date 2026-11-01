@@ -1,13 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 58">
-  <!-- WEAVER. Pink flying wing. Wiggles side to side. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 60">
+  <!-- WEAVER. Pink flying wing with a glass dome. Wiggles side to side. -->
   <defs>
     <radialGradient id="glow-pink"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ff5fc0"/><stop offset="1" stop-color="#ff2a9a" stop-opacity="0"/></radialGradient>
   </defs>
-  <circle cx="10" cy="12" r="7" fill="url(#glow-pink)"/>
-  <circle cx="54" cy="12" r="7" fill="url(#glow-pink)"/>
-  <path d="M32 54 L2 20 L14 10 L32 16 L50 10 L62 20 Z" fill="#ff3fa4" stroke="#2a0a1e" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M32 54 L62 20 L50 10 L32 16 Z" fill="#a3206a"/>
-  <path d="M30 44 L10 22 L18 16 L30 20 Z" fill="#ff9ad0" opacity="0.8"/>
-  <circle cx="32" cy="26" r="7" fill="#2a0a1e"/>
-  <circle cx="32" cy="26" r="4" fill="#ffffff"/>
+  <circle cx="22" cy="10" r="8" fill="url(#glow-pink)"/>
+  <circle cx="46" cy="10" r="8" fill="url(#glow-pink)"/>
+  <!-- the wing -->
+  <path d="M34 56 L3 26 L10 14 L24 18 L34 12 L44 18 L58 14 L65 26 Z" fill="#ff3fa4" stroke="#2a0a1e" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M34 56 L65 26 L58 14 L44 18 L34 12 Z" fill="#a3206a"/>
+  <path d="M30 46 L9 26 L13 19 L24 23 L30 20 Z" fill="#ff9ad0" opacity="0.8"/>
+  <path d="M12 28 L56 28 M18 36 L50 36" stroke="#2a0a1e" stroke-width="1.5" opacity="0.5"/>
+  <!-- engine pods -->
+  <rect x="17" y="10" width="10" height="10" rx="3" fill="#5a1038" stroke="#2a0a1e" stroke-width="2"/>
+  <rect x="41" y="10" width="10" height="10" rx="3" fill="#5a1038" stroke="#2a0a1e" stroke-width="2"/>
+  <!-- wing tip lights -->
+  <circle cx="6" cy="26" r="2.5" fill="#4de3ff"/>
+  <circle cx="62" cy="26" r="2.5" fill="#4de3ff"/>
+  <!-- glass dome -->
+  <circle cx="34" cy="30" r="9" fill="#2a0a1e"/>
+  <circle cx="34" cy="30" r="7" fill="#4de3ff"/>
+  <circle cx="34" cy="31" r="3" fill="#1a5f70"/>
+  <ellipse cx="31" cy="27" rx="2.5" ry="1.8" fill="#ffffff"/>
 </svg>

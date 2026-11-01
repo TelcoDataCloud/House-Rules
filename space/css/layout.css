@@ -340,3 +340,56 @@ kbd {
   .banner.show, .banner.warn.show { animation: banner-calm 2.4s linear forwards; }
   @keyframes banner-calm { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
 }
+
+/* --- added after the first playtest --- */
+.soon {
+  margin: 0;
+  font-weight: 800; font-size: 15px;
+  color: var(--ink);
+  background: var(--green);
+  border-radius: 999px;
+  padding: 3px 14px;
+}
+.best { margin: 0; font-weight: 800; font-size: 18px; color: var(--cyan); }
+:root[data-theme="day"] .best { color: #0a7f8e; }
+.best.new { color: var(--yellow); font-size: 22px; animation: newbest 0.5s ease-in-out infinite alternate; }
+@keyframes newbest { to { transform: scale(1.1); } }
+
+.built { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.built-label { margin: 0; font-weight: 800; font-size: 14px; color: var(--text-dim); }
+.milestones li.star {
+  width: auto; height: auto; background: none; box-shadow: none;
+  font-size: 22px; line-height: 1; color: var(--empty);
+}
+.milestones li.star.done { color: var(--yellow); text-shadow: 0 0 8px var(--yellow); }
+
+.pick-keys { margin: 0; display: flex; gap: 10px; font-size: 22px; }
+.pick-keys kbd { font-size: 22px; padding: 4px 14px; }
+
+/* End screens: a solid card, so nothing shows through the words. */
+.small-screen { background: rgba(7, 11, 28, 0.78); }
+.panel-box {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: var(--panel);
+  border: 3px solid var(--panel-line);
+  border-radius: 18px;
+  padding: 22px 26px;
+  max-width: 420px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* The power bar pulses when it is full. */
+.hud-power.full { animation: power-full 0.45s ease-in-out infinite alternate; }
+@keyframes power-full { to { box-shadow: 0 0 18px var(--yellow); transform: scale(1.06); } }
+.hud-power.full .press { animation: blink-press 0.45s steps(2) infinite; }
+@keyframes blink-press { 50% { opacity: 0.3; } }
+
+/* The bombs wiggle when the game says "use a bomb!" */
+.hud-bombs.nudge { animation: nudge 0.25s ease-in-out infinite alternate; box-shadow: 0 0 16px var(--yellow); }
+@keyframes nudge { to { transform: scale(1.12); } }
+
+.banner.gold { font-size: 46px; color: var(--yellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-power.full, .hud-power.full .press, .hud-bombs.nudge, .best.new { animation: none; }
+}

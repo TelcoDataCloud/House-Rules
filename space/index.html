@@ -73,6 +73,8 @@
       <section class="screen title-screen" id="screen-title" aria-labelledby="game-name">
         <h1 class="game-name" id="game-name">Star Base</h1>
         <p class="tagline">Level 1: Moonfall</p>
+        <p class="soon">Level 2 coming soon!</p>
+        <p class="best" id="title-best" hidden></p>
         <button type="button" class="btn btn-go" id="btn-play">Play</button>
         <fieldset class="choice">
           <legend>Fly with</legend>
@@ -86,7 +88,10 @@
           <button type="button" class="pill" data-difficulty="hard" aria-pressed="false">Hard</button>
         </fieldset>
         <p class="how" id="how-keys">Arrows: fly. Space: bomb. M: power up. P: pause.</p>
-        <ol class="milestones" id="milestones" aria-label="Milestones"></ol>
+        <div class="built">
+          <p class="built-label" id="built-label">Built so far</p>
+          <ol class="milestones" id="milestones" aria-labelledby="built-label"></ol>
+        </div>
         <a class="back-link" href="../">Back to Trap House</a>
       </section>
 
@@ -95,35 +100,44 @@
         <h2 class="pick-title" id="pick-title">POWER UP!</h2>
         <p class="pick-sub">Pick one</p>
         <div class="cards" id="pick-cards"></div>
-        <p class="pick-sub">Arrows to choose. Enter to take it.</p>
+        <p class="pick-keys" aria-label="Press 1, 2 or 3"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></p>
       </section>
 
       <!-- PAUSE -->
       <section class="screen small-screen" id="screen-pause" aria-labelledby="pause-title" hidden>
-        <h2 id="pause-title">Paused</h2>
-        <button type="button" class="btn btn-go" id="btn-resume">Keep going</button>
-        <button type="button" class="btn" id="btn-restart">Start again</button>
-        <button type="button" class="btn btn-quiet" id="btn-menu">Menu</button>
+        <div class="panel-box">
+          <h2 id="pause-title">Paused</h2>
+          <button type="button" class="btn btn-go" id="btn-resume">Keep going</button>
+          <button type="button" class="btn" id="btn-restart">Start again</button>
+          <button type="button" class="btn btn-quiet" id="btn-menu">Menu</button>
+        </div>
       </section>
 
       <!-- GAME OVER -->
       <section class="screen small-screen" id="screen-over" aria-labelledby="over-title" hidden>
-        <h2 id="over-title">Out of ships!</h2>
-        <p class="big-score" id="over-score">0</p>
-        <p class="tip" id="over-tip"></p>
-        <button type="button" class="btn btn-go" id="btn-again-over">Play again</button>
-        <button type="button" class="btn btn-quiet" id="btn-menu-over">Menu</button>
+        <div class="panel-box">
+          <h2 id="over-title">Out of ships!</h2>
+          <p class="big-score" id="over-score">0</p>
+          <p class="best" id="over-best"></p>
+          <p class="tip" id="over-tip"></p>
+          <button type="button" class="btn btn-go" id="btn-again-over">Play again</button>
+          <button type="button" class="btn btn-quiet" id="btn-menu-over">Menu</button>
+        </div>
       </section>
 
       <!-- YOU WIN -->
       <section class="screen small-screen" id="screen-win" aria-labelledby="win-title" hidden>
-        <h2 id="win-title">You did it!</h2>
-        <p class="grade" id="win-grade">S</p>
-        <p class="big-score" id="win-score">0</p>
-        <ul class="win-stats" id="win-stats"></ul>
-        <p class="tip" id="win-tip"></p>
-        <button type="button" class="btn btn-go" id="btn-again-win">Play again</button>
-        <button type="button" class="btn btn-quiet" id="btn-menu-win">Menu</button>
+        <div class="panel-box">
+          <h2 id="win-title">YOU WIN!</h2>
+          <p class="grade" id="win-grade">S</p>
+          <p class="big-score" id="win-score">0</p>
+          <p class="best" id="win-best"></p>
+          <ul class="win-stats" id="win-stats"></ul>
+          <p class="tip" id="win-tip"></p>
+          <p class="soon">Level 2 coming soon!</p>
+          <button type="button" class="btn btn-go" id="btn-again-win">Play again</button>
+          <button type="button" class="btn btn-quiet" id="btn-menu-win">Menu</button>
+        </div>
       </section>
 
     </div>

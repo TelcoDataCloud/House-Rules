@@ -29,14 +29,18 @@
   --star-dim: #8f98c4;
 
   /* --- THE MOON --- */
-  --moon-rock: #8a8fa3;
-  --moon-shadow: #6b7088;
-  --moon-light: #b8bccc;
+  --moon-rock: #7d82a0;
+  --moon-shadow: #4f5475;
+  --moon-light: #aeb3cc;
   --moon-edge: #3a3d52;
   --crater: #5c6078;
   --walkway: #5c6078;
   --walkway-light: #9aa0bd;
   --walkway-line: #1a1d2e;
+  --deck: #3d4a7a;          /* coloured floor panels on a base */
+  --deck-light: #7fe6f0;
+  --target-glow: rgba(255, 122, 26, 0.6);    /* the glow under things you can shoot */
+  --target-ring: #ff7a1a;
 
   /* --- BRIGHT COLOURS: shots, tokens, words --- */
   --cyan: #38f0ff;
@@ -89,6 +93,10 @@
   --walkway: #6b7088;
   --walkway-light: #b8bccc;
   --walkway-line: #3a3d52;
+  --deck: #7d8cc4;
+  --deck-light: #ffffff;
+  --target-glow: rgba(255, 90, 0, 0.5);
+  --target-ring: #e05a00;
 
   --hud-back: rgba(255, 255, 255, 0.7);
   --empty: #b9c3ea;

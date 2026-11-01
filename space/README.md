@@ -37,6 +37,23 @@ screen. Three upgrade tracks (Spread, Homing, Rapid). Bomb, shield,
 1UP. Easy starts with a shield that grows back 15 s after it pops.
 Light theme, sound with a mute, reduced motion, touch buttons.
 
+## Playtest fixes (1 Nov, after a Chrome playtest)
+
+New enemy art (cockpits, wings, engine glow), white hit flash, bigger
+explosions with smoke and coloured debris, lasers and pulsing enemy orbs,
+missile trails. Boss deaths: long explosion, shake, slow motion, BOSS
+DOWN!. Bosses tell you what to shoot; the Core's eye glows only when it
+can be hurt and stays fully on screen. Brighter bases with orange rings on
+everything you can shoot. Small enemies shoot slow orbs (data/difficulty.js
+says which); Hard aims some shots and crates give no extra ships. A
+"SPACE = BOMB!" hint when it gets busy. Ship stays inside the box with the
+mouse. Help switches for Mouse. Stars for "Built so far". Solid end panels,
+one YOU WIN! title, Level 2 coming soon. The game reads short lines out
+loud (the sound button turns it off).
+
+**High score:** the best score is saved in the browser (js/best.js). This
+is the one thing the game remembers, by Asa's choice. Nothing else is saved.
+
 ## Next
 
-S8: level 2, where aimed shots arrive.
+S8: level 2, where aimed shots arrive on every level.
