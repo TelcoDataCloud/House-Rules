@@ -20,6 +20,8 @@ function count() {
 function make(cls, where, w, h) {
   const el = document.createElement('div');
   el.className = cls;
+  el.style.width = `${w}px`;      // every bullet gets its size here
+  el.style.height = `${h}px`;
   layer(where).appendChild(el);
   return { el, w, h };
 }
