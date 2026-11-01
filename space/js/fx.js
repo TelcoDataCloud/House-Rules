@@ -105,16 +105,16 @@ export function pilot(x, y) {
   </svg>`;
 }
 
-// The boss cracks into chunks that drift off. No blood, just metal.
-export function chunks(x, y) {
-  const spots = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
-  spots.forEach(([dx, dy], i) => {
-    add('chunk', x, y, 80, 60, 2600, {
-      '--from': `translate(${x - 40 + dx * 40}px, ${y - 30 + dy * 30}px)`,
-      '--to': `translate(${x - 40 + dx * 260}px, ${y - 30 + dy * 200 + 160}px)`,
-      '--spin': `${(i % 2 ? 1 : -1) * 120}deg`,
-    });
-  });
+// An enemy orb shot out of the air: a small pop.
+export function pop(x, y, colour = 'pink') {
+  add(`shock pop-${colour}`, x, y, 26, 26, 420);
+  add('boom', x, y, 18, 18, 520);
+}
+
+// A puff of smoke (and fire, if hot) behind a falling boss piece.
+export function puff(x, y, hot = true) {
+  add('smoke', x, y, 40, 40, 900);
+  if (hot) add('boom', x, y, 26, 26, 520);
 }
 
 let bannerTimer = 0;

@@ -20,9 +20,9 @@ import { targets } from './collide.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
 
-const SHIP_W = 74;
-const SHIP_H = 80;
-const NOSE = 38;                 // from the middle of the ship up to its nose
+const SHIP_W = 59;
+const SHIP_H = 64;
+const NOSE = 30;                 // from the middle of the ship up to its nose
 const TRIM = { none: '#38f0ff', green: '#4dff7c', red: '#ff3b3b', purple: '#c07cff' };
 
 let box, shieldEl, beamEl, beamTip, upParts = [], flames = [], droneEls = [];
@@ -35,7 +35,7 @@ export function makeShip() {
   // upgrade part can be switched on and off.
   box.innerHTML = rawArt(SHIP.art);
   upParts = [...box.querySelectorAll('.up')];
-  flames = [31, 43].map((left) => {
+  flames = [25, 34].map((left) => {
     const f = document.createElement('div');
     f.className = 'flame';
     f.style.left = `${left}px`;
@@ -48,7 +48,7 @@ export function makeShip() {
   layer('ship').replaceChildren(box);
 
   droneEls = [0, 1].map(() => {
-    const d = sprite('drone', 22, 24, 'drone');
+    const d = sprite('drone', 18, 20, 'drone');
     d.hidden = true;
     layer('ship').appendChild(d);
     return d;
@@ -89,7 +89,7 @@ function fire() {
   const cls = look.colour || (rapid && rapid.gold ? 'gold' : '');
   for (const shot of pattern) {
     const a = (shot.angle * Math.PI) / 180;
-    addShot(s.x + shot.x, s.y - 22, Math.sin(a) * SHIP.shotSpeed, -Math.cos(a) * SHIP.shotSpeed,
+    addShot(s.x + shot.x, s.y - 18, Math.sin(a) * SHIP.shotSpeed, -Math.cos(a) * SHIP.shotSpeed,
       { cls, damage: look.damage, through: look.through });
   }
 }
@@ -97,7 +97,7 @@ function fire() {
 function launchMissiles() {
   const s = state.ship;
   const m = step('homing');
-  const spots = m.missiles === 2 ? [[-24, 0]] : [[-24, 0], [-29, 4]];
+  const spots = m.missiles === 2 ? [[-19, 0]] : [[-19, 0], [-23, 3]];
   for (const [ox, oy] of spots) {
     addMissile(s.x + ox, s.y + oy, m.damage, -1);
     addMissile(s.x - ox, s.y + oy, m.damage, 1);
@@ -116,14 +116,15 @@ function updateDrones(dt) {
   const look = laserLook();
   s.droneList.forEach((drone, i) => {
     const side = i === 0 ? -1 : 1;
-    const tx = s.x + side * 48;
-    const ty = s.y + 12;
+    const tx = s.x + side * 40;
+    const ty = s.y + 10;
     drone.x += (tx - drone.x) * Math.min(1, dt * 7);
     drone.y += (ty - drone.y) * Math.min(1, dt * 7);
     drone.wait -= dt;
     if (drone.wait <= 0 && s.dead <= 0) {
       drone.wait = d.every;
-      addShot(drone.x, drone.y - 13, 0, -SHIP.shotSpeed, { cls: look.colour, damage: look.damage, through: look.through });
+      // Drones fire their own amber shots, so you can tell them apart.
+      addShot(drone.x, drone.y - 10, 0, -SHIP.shotSpeed, { cls: 'drone', damage: look.damage, through: look.through });
     }
   });
 }
@@ -168,8 +169,8 @@ function move(dt) {
     s.y += vy * SHIP.speed * dt;
   }
   // Keep the whole ship, shield and all, inside the play area.
-  s.x = Math.max(44, Math.min(W - 44, s.x));
-  s.y = Math.max(120, Math.min(H - 48, s.y));
+  s.x = Math.max(36, Math.min(W - 36, s.x));
+  s.y = Math.max(120, Math.min(H - 40, s.y));
 }
 
 export function updateShip(dt) {
@@ -230,12 +231,12 @@ export function drawShip() {
   put(box, s.x, s.y, SHIP_W, SHIP_H);
   box.classList.toggle('blinking', s.invuln > 0 && s.dead <= 0);
   shieldEl.hidden = !s.shield;
-  for (const f of flames) f.style.height = `${15 + s.rapid * 6}px`;
+  for (const f of flames) f.style.height = `${12 + s.rapid * 5}px`;
 
   droneEls.forEach((el, i) => {
     const d = s.droneList && s.droneList[i];
     el.hidden = !d;
-    if (d) put(el, d.x, d.y, 22, 24);
+    if (d) put(el, d.x, d.y, 18, 20);
   });
 
   beamEl.hidden = !s.beamOn;
@@ -331,7 +332,7 @@ export function takeUpgrade(key) {
     if (key === 'shield') s.shield = true;
     if (key === 'bombpack') s.bombs = Math.min(9, s.bombs + 2);
     s.power -= POWER_BAR;
-    sound.power();
+    sound.upgrade(key);
     fx.floatText(s.x, s.y - 60, EXTRAS[key].say.toUpperCase(), true);
     return true;
   }
@@ -340,7 +341,7 @@ export function takeUpgrade(key) {
   s.power -= POWER_BAR;
   const now = WEAPONS[key].steps[s[key] - 1];
   if (key === 'bay') s.bombs = Math.min(9, s.bombs + now.add);
-  sound.power();
+  sound.upgrade(key);
   fx.floatText(s.x, s.y - 60, now.say.toUpperCase(), true);
   return true;
 }

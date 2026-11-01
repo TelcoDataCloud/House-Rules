@@ -10,6 +10,7 @@
 import { SHIP } from '../data/ship.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { loadBest } from './best.js';
+import { LEVELS } from '../data/levels.js';
 
 // The play area, in dots. CSS scales it to fit the screen.
 export const W = 480;
@@ -23,16 +24,16 @@ export const state = {
   touch: false,
   god: false,             // testing only: nothing can hit you
   best: loadBest(),       // your best score, kept in this browser (js/best.js)
+  levelIndex: 0,          // which level: 0 is level 1
 };
 
-export function newGame() {
+// A brand new game, from level 1 (or another level, for testing).
+export function newGame(startAt = 0) {
   const hard = DIFFICULTY[state.difficulty];
   Object.assign(state, {
-    mode: 'play',
-    time: 0,              // seconds since the level started
-    waveIndex: 0,         // the next line to read in data/waves.js
     score: 0,
-    dropCounter: 0,
+    levelIndex: startAt,
+    stats: { livesLost: 0, partsDestroyed: 0, reactors: 0, flocks: 0, escaped: false, bombsUsed: 0 },
     ship: {
       x: W / 2, y: H + 60,
       lives: SHIP.lives, bombs: SHIP.bombs,
@@ -44,14 +45,46 @@ export function newGame() {
       invuln: 0, dead: 0, entering: 1.2,
       fireWait: 0.4, missileWait: 0.8,
     },
+  });
+  startLevel();
+}
+
+// Start the current level. Your ship keeps its upgrades, lives,
+// bombs and score; everything else is wiped.
+export function startLevel() {
+  const s = state.ship;
+  Object.assign(state, {
+    mode: 'play',
+    time: 0,              // seconds since the level started
+    waveIndex: 0,         // the next line to read in the level's waves
+    dropCounter: 0,
     enemies: [], plates: [], parts: [], bosses: [],
     shots: [], missiles: [], foes: [], pickups: [],
     flocks: {}, later: [],
-    stats: { livesLost: 0, partsDestroyed: 0, reactors: 0, flocks: 0, escaped: false, bombsUsed: 0 },
     endTimer: 0, ending: null,
     slow: 0,              // seconds of slow motion left
     hintWait: 20,         // seconds before the bomb hint may show
   });
+  Object.assign(s, { x: W / 2, y: H + 60, entering: 1.2, invuln: 0, dead: 0, droneList: [] });
+  // Remember how you started, so Try again can put you back here.
+  state.levelStart = { score: state.score, ship: JSON.parse(JSON.stringify(s)) };
+}
+
+// Try the same level again after running out of ships.
+export function retryLevel() {
+  const snap = state.levelStart;
+  state.score = snap.score;
+  state.ship = JSON.parse(JSON.stringify(snap.ship));
+  state.ship.lives = Math.max(state.ship.lives, SHIP.lives);
+  startLevel();
+}
+
+export function level() {
+  return LEVELS[state.levelIndex];
+}
+
+export function isLastLevel() {
+  return state.levelIndex >= LEVELS.length - 1;
 }
 
 // Do something a bit later, in game time (so pausing waits too).
@@ -59,6 +92,15 @@ export function after(seconds, fn) {
   state.later.push({ at: state.time + seconds, fn });
 }
 
+// How hard things are right now: the button you picked on the
+// title screen, made harder by each level.
 export function hardness() {
-  return DIFFICULTY[state.difficulty];
+  const d = DIFFICULTY[state.difficulty];
+  const l = level() || LEVELS[0];
+  return {
+    ...d,
+    tough: d.tough * l.tough,
+    bulletSpeed: d.bulletSpeed * l.bulletSpeed,
+    shootMore: d.shootMore * l.shootMore,
+  };
 }

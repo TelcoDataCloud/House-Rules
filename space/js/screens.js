@@ -10,19 +10,19 @@ import { state } from './state.js';
 import { GAME_NAME } from '../data/ship.js';
 import { WEAPONS, EXTRAS } from '../data/weapons.js';
 import { MILESTONES } from '../data/milestones.js';
-import { LEVEL } from '../data/waves.js';
+import { LEVELS } from '../data/levels.js';
 import { takeUpgrade } from './ship.js';
 import { sound } from './audio.js';
 import { say } from './voice.js';
 import { saveBest } from './best.js';
 
 const $ = (id) => document.getElementById(id);
-const SCREENS = ['title', 'pick', 'pause', 'over', 'win'];
+const SCREENS = ['title', 'pick', 'pause', 'over', 'win', 'cut'];
 
 export function show(name) {
   for (const s of SCREENS) $(`screen-${s}`).hidden = s !== name;
-  $('hud').hidden = name === 'title';
-  if (name === 'title') $('hud-weapons').hidden = true;
+  $('hud').hidden = name === 'title' || name === 'cut';
+  if (name === 'title' || name === 'cut') $('hud-weapons').hidden = true;
   const first = name && $(`screen-${name}`).querySelector('button:not([disabled])');
   if (first) first.focus();
   else $('field').focus();
@@ -149,7 +149,9 @@ $('pick-cards').addEventListener('keydown', (e) => {
 function gradeFor() {
   const st = state.stats;
   let points = state.score - st.livesLost * 2000 + state.ship.bombs * 500;
-  const g = LEVEL.grades;
+  // Add up the grade points of every level you played.
+  const g = { S: 0, A: 0, B: 0 };
+  for (const lv of LEVELS.slice(0, state.levelIndex + 1)) for (const k of ['S', 'A', 'B']) g[k] += lv.grades[k];
   let grade = points >= g.S ? 'S' : points >= g.A ? 'A' : points >= g.B ? 'B' : 'C';
   if (st.escaped && (grade === 'S' || grade === 'A')) grade = 'B';
   return grade;
@@ -160,9 +162,9 @@ function tipFor(won) {
   if (!won && st.livesLost >= 3) return 'Bullets go in straight lines. Fly to the side!';
   if (state.ship.bombs >= 3) return 'Use your bombs! Press space when it gets busy.';
   if (st.reactors === 0) return 'Blow up the pink reactor at the end of the big base.';
-  if (st.escaped) return 'Shoot the four turrets on the Core, then its eye.';
+  if (st.escaped) return 'Shoot the boss turrets first, then its eye.';
   if (st.flocks === 0) return 'Get all five red ships for a prize.';
-  return 'Try Medium next!';
+  return state.difficulty === 'easy' ? 'Try Medium next!' : 'You are a star pilot!';
 }
 
 // Your best score ever in this browser. A new best gets a cheer.
@@ -180,6 +182,7 @@ export function showOver() {
   $('over-score').textContent = state.score.toLocaleString('en-AU');
   if (showBest('over-best')) say('New best!');
   $('over-tip').textContent = tipFor(false);
+  $('btn-retry').textContent = `Try level ${state.levelIndex + 1} again`;
   show('over');
 }
 
@@ -191,7 +194,8 @@ export function showWin() {
   $('win-grade').textContent = gradeFor();
   $('win-score').textContent = state.score.toLocaleString('en-AU');
   $('win-stats').innerHTML = [
-    ...(st.escaped ? ['The Core got away'] : []),
+    ...(st.escaped ? ['A boss got away'] : []),
+    `Levels: ${state.levelIndex + 1}`,
     `Ships lost: ${st.livesLost}`,
     `Base parts: ${st.partsDestroyed}`,
     `Reactors: ${st.reactors}`,

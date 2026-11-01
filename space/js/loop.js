@@ -9,8 +9,7 @@
      5. draw everything where it now is
    =========================================================== */
 
-import { state } from './state.js';
-import { WAVES } from '../data/waves.js';
+import { state, level } from './state.js';
 import { takeActions } from './input.js';
 import { updateShip, drawShip, hitShip, useBomb, canPick, rollChoices } from './ship.js';
 import { spawnWave, updateEnemies, drawEnemies } from './enemies.js';
@@ -24,12 +23,14 @@ import { openPick, pickByNumber, showOver, showWin, show } from './screens.js';
 import { SHIP } from '../data/ship.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
+import { drawWorld } from './world.js';
+import { levelClear } from './flow.js';
 
-let starsY = 0;
 
 function readLevel() {
-  while (state.waveIndex < WAVES.length && WAVES[state.waveIndex].at <= state.time) {
-    const line = WAVES[state.waveIndex++];
+  const waves = level().waves;
+  while (state.waveIndex < waves.length && waves[state.waveIndex].at <= state.time) {
+    const line = waves[state.waveIndex++];
     if (line.say) { fx.banner(line.say); if (line.say === 'WARNING') sound.warn(); }
     if (line.what) spawnWave(line);
     if (line.base) spawnBase(line.base);
@@ -60,6 +61,17 @@ function collisions() {
         } else {
           shot.dead = true;
         }
+        break;
+      }
+    }
+    // Shoot an orb out of the air. (Lasers have hp 0, so they never count.)
+    if (shot.dead) continue;
+    for (const b of state.foes) {
+      if (b.hp > 0 && !b.dead && b.y > 0 && touching(shot, b, 4)) {
+        b.hp -= shot.damage;
+        fx.spark(b.x, b.y);
+        if (b.hp <= 0) { b.dead = true; fx.pop(b.x, b.y, b.colour); fx.award(b.points, b.x, b.y - 10); sound.ping(); }
+        if (shot.through > 0) shot.through--; else shot.dead = true;
         break;
       }
     }
@@ -134,7 +146,9 @@ function step(dt) {
       const end = state.ending;
       state.ending = null;
       state.mode = end;
-      if (end === 'over') showOver(); else showWin();
+      if (end === 'over') showOver();
+      else if (end === 'clear') levelClear();
+      else showWin();
     }
   }
 }
@@ -146,17 +160,13 @@ function draw() {
   drawBullets();
   drawShip();
   drawHud();
-  // The far planet drifts down very slowly, so it feels far away.
-  document.getElementById('planet').style.transform = `translateY(${(state.time * 1.3).toFixed(1)}px)`;
-  document.getElementById('stars-far').style.backgroundPosition = `0 ${(starsY * 0.35).toFixed(1)}px`;
-  document.getElementById('stars-near').style.backgroundPosition = `0 ${starsY.toFixed(1)}px`;
 }
 
 let lastTime = 0;
 export function frame(now) {
   const dt = Math.min(0.05, (now - lastTime) / 1000 || 0);
   lastTime = now;
-  starsY += dt * (state.mode === 'play' ? 90 : 30);
+  drawWorld(dt, state.mode === 'play');
 
   actions();
   if (state.mode === 'play') {
@@ -169,8 +179,7 @@ export function frame(now) {
   } else if (state.mode === 'pick') {
     step(dt * 0.08);            // time almost stops while you choose
   }
-  if (state.mode !== 'title') draw();
-  else document.getElementById('stars-near').style.backgroundPosition = `0 ${starsY.toFixed(1)}px`;
+  if (state.mode !== 'title' && state.mode !== 'cut') draw();
   requestAnimationFrame(frame);
 }
 

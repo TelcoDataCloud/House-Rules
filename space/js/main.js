@@ -2,24 +2,32 @@
    MAIN: starts everything
 
    Loads the pictures, sets up the keys and buttons, fits the
-   game to the screen, and starts the loop. Play wipes the old
-   game clean and starts a new one.
+   game to the screen, and starts the loop. What happens when
+   you press Play, Try again or Menu is in js/flow.js.
    =========================================================== */
 
-import { state, newGame, W, H } from './state.js';
+import { state, W, H } from './state.js';
 import { loadArt } from './art.js';
 import { setupInput } from './input.js';
-import { makeShip } from './ship.js';
-import { resetHud } from './hud.js';
-import { clearFx } from './fx.js';
 import { setupTitle, show, showTitleBest } from './screens.js';
 import { frame } from './loop.js';
-import { wakeAudio } from './audio.js';
+import { playGame, retry, toMenu } from './flow.js';
+import { setupCut } from './cutscene.js';
+import { applyWorld } from './world.js';
 import { SHIP } from '../data/ship.js';
 import { ENEMIES } from '../data/enemies.js';
 import { PARTS } from '../data/parts.js';
+import { BOSSES } from '../data/bosses.js';
 
 const $ = (id) => document.getElementById(id);
+
+// For testing: ?god makes you safe, ?fast=4 plays four times as fast,
+// ?level=2 starts on level 2.
+const params = new URLSearchParams(location.search);
+if (params.has('god')) state.god = true;
+if (params.has('fast')) state.fast = Math.max(1, Math.min(10, Number(params.get('fast')) || 1));
+const startAt = Math.max(0, (Number(params.get('level')) || 1) - 1);
+window.STAR_BASE = { state };     // type STAR_BASE.state in the console to look inside
 
 // Make the 480 by 720 play area as big as the window allows.
 function fit() {
@@ -28,29 +36,6 @@ function fit() {
   $('field').style.transform = `scale(${scale})`;
   $('stage').style.width = `${W * scale}px`;
   $('stage').style.height = `${H * scale}px`;
-}
-
-// Empty every layer, so nothing from the last game is left on screen.
-function clearAll() {
-  clearFx();
-  for (const name of ['ground', 'pickups', 'air', 'shots', 'ship', 'foes']) $(`layer-${name}`).replaceChildren();
-}
-
-function play() {
-  wakeAudio();
-  clearAll();
-  newGame();
-  resetHud();
-  makeShip();
-  show(null);
-  $('field').focus();
-}
-
-function toMenu() {
-  clearAll();
-  state.mode = 'title';
-  showTitleBest();
-  show('title');
 }
 
 function setupToggles() {
@@ -67,9 +52,10 @@ function setupToggles() {
     $('sound-toggle').innerHTML = state.muted ? '&#128263;' : '&#128266;';
   });
   $('btn-resume').addEventListener('click', () => { state.mode = 'play'; show(null); });
-  $('btn-restart').addEventListener('click', play);
-  $('btn-again-over').addEventListener('click', play);
-  $('btn-again-win').addEventListener('click', play);
+  $('btn-restart').addEventListener('click', () => playGame(0));
+  $('btn-retry').addEventListener('click', retry);
+  $('btn-again-over').addEventListener('click', () => playGame(0));
+  $('btn-again-win').addEventListener('click', () => playGame(0));
   for (const id of ['btn-menu', 'btn-menu-over', 'btn-menu-win']) $(id).addEventListener('click', toMenu);
 }
 
@@ -78,18 +64,12 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden && state.mode === 'play') { state.mode = 'paused'; show('pause'); }
 });
 
-// For testing: ?god makes you safe, ?fast=4 plays four times as fast.
-const params = new URLSearchParams(location.search);
-if (params.has('god')) state.god = true;
-if (params.has('fast')) state.fast = Math.max(1, Math.min(10, Number(params.get('fast')) || 1));
-window.STAR_BASE = { state };     // type STAR_BASE.state in the console to look inside
-
 async function boot() {
   const names = [
-    SHIP.art, 'drone',
+    SHIP.art, 'drone', 'hauler-engine', 'core-turret', 'core-eye', 'hauler',
     ...Object.values(ENEMIES).map((e) => e.art),
     ...Object.values(PARTS).map((p) => p.art),
-    'hauler', 'hauler-engine', 'core', 'core-turret', 'core-eye',
+    ...Object.values(BOSSES).map((b) => b.art).filter(Boolean),
   ];
   // Set up the screen straight away, but keep Play switched off
   // until every picture has arrived, or the ships would be invisible.
@@ -97,8 +77,10 @@ async function boot() {
   btn.disabled = true;
   btn.textContent = 'Loading';
   setupInput($('field'));
-  setupTitle(play);
+  setupTitle(() => playGame(startAt));
   setupToggles();
+  setupCut();
+  applyWorld('space');
   fit();
   window.addEventListener('resize', fit);
   show('title');
