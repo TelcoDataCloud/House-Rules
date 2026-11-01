@@ -47,6 +47,8 @@
    WHAT MAKES THEM TICK
 
        nerve       how brave he is. Every trap knocks some off.
+                   (Made braver on 1 Nov: with so many traps they
+                   were running away far too easily.)
                    When it gets to nothing, he runs for it and
                    drops everything he is carrying.
        weakTo      kinds of trap he HATES. They hurt his nerve
@@ -81,7 +83,7 @@ export const BURGLARS = [
     comesIn: 'right',
     waitsFirst: 0,
     pause: 1.6,
-    nerve: 8,
+    nerve: 14,
     weakTo: ['LOUD', 'STARTLE'],
     shrugsOff: ['MESSY'],
     route: [
@@ -112,7 +114,7 @@ export const BURGLARS = [
     comesIn: 'left',
     waitsFirst: 3,
     pause: 2.2,
-    nerve: 14,
+    nerve: 24,
     weakTo: ['STICKY', 'MESSY'],
     shrugsOff: ['LOUD'],
     route: [
@@ -143,7 +145,7 @@ export const BURGLARS = [
     comesIn: 'left',
     waitsFirst: 6,
     pause: 1.2,
-    nerve: 7,
+    nerve: 12,
     weakTo: ['SLIPPERY', 'TANGLE'],
     shrugsOff: ['STICKY'],
     route: [
@@ -174,7 +176,7 @@ export const BURGLARS = [
     comesIn: 'right',
     waitsFirst: 9,
     pause: 2,
-    nerve: 11,
+    nerve: 19,
     weakTo: ['MESSY', 'LOUD'],
     shrugsOff: ['SLIPPERY'],
     route: [
@@ -204,7 +206,7 @@ export const BURGLARS = [
     comesIn: 'left',
     waitsFirst: 12,
     pause: 2.6,
-    nerve: 17,
+    nerve: 28,
     weakTo: ['STICKY', 'TANGLE'],
     shrugsOff: ['LOUD', 'STARTLE'],
     route: [

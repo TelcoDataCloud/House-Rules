@@ -69,6 +69,18 @@
    balloon? Copy the Splash Line block and change the words.
    =========================================================== */
 
+/* A picture for each kind of trap. It goes on every trap card, and
+   next to each burglar so you can see what he hates. Match the
+   pictures! Change one to any emoji you like. */
+export const CAT_PICTURES = {
+  LOUD: '📢',
+  SLIPPERY: '🍌',
+  STICKY: '🍯',
+  MESSY: '🎨',
+  STARTLE: '😱',
+  TANGLE: '🕸️'
+};
+
 export const TRAPS = [
   { id: 'ballbearing-boulevard', name: 'Ballbearing Boulevard', needs: ['cooking-oil', 'marbles'],
     cat: ['SLIPPERY'], nerve: 3, mount: 'FLOOR',

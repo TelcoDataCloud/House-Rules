@@ -33,5 +33,8 @@ export const MILESTONES = [
   { code: 'M19', name: 'Night Gadgets', done: true },
   { code: 'M20', name: 'A Week of Nights', done: true },
   { code: 'M21', name: 'Inspect Mode', done: true },
-  { code: 'M22', name: 'Bug Hunt', done: true }
-];
+  { code: 'M22', name: 'Bug Hunt', done: true },
+  { code: 'M23', name: 'Just Right', done: true },
+  { code: 'M24', name: 'Easy Does It', done: true }
+]
+;

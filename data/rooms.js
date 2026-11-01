@@ -139,7 +139,7 @@ export const ROOMS = [
     ],
     closeUp: [
       { kind: 'towel',   x: 40, colour: 'fabric-b' },
-      { kind: 'cabinet', x: 101, search: 'Bathroom cabinet', lock: 'mirror' }
+      { kind: 'cabinet', x: 101, search: 'Bathroom cabinet', lock: 'mirror', holds: ['toys', 'stuff'] }
     ] },
   { id: 'landing',  name: 'Landing',       floor: 'upstairs',
     flooring: 'carpet',
@@ -222,7 +222,7 @@ export const ROOMS = [
     inTheOpen: [ { x: 6 }, { x: 70, lift: 28 } ],
     props: [
       { kind: 'coats',    x: 10,  search: 'Coat pockets', holds: ['toys', 'stuff'] },
-      { kind: 'keysafe',  x: 72,  search: 'Key safe', lock: 'morse' },
+      { kind: 'keysafe',  x: 72,  search: 'Key safe', lock: 'morse', holds: ['toys', 'stuff'] },
       { kind: 'shoerack', x: 58,  search: 'Shoe rack', holds: ['stuff', 'toys'] },
       { kind: 'plant',    x: 100, search: 'Plant pot', holds: ['tools', 'stuff'] }
     ],
@@ -243,15 +243,15 @@ export const ROOMS = [
     ] },
   { id: 'lounge',   name: 'Lounge',        floor: 'ground',
     x: 604, y: 402, w: 234, h: 154,
-    note: 'The telly, the sofa and the piano. The piano lid and the TV cabinet are locked.',
+    note: 'The telly, the sofa and the piano.',
     inTheOpen: [ { x: 60 }, { x: 150, lift: 22 } ],
     props: [
       { kind: 'window', x: 120 },
       { kind: 'rug',    x: 96,  search: 'Under the rug', holds: ['toys'] },
-      { kind: 'piano',  x: 4,   search: 'Inside the piano', lock: 'piano' },
+      { kind: 'piano',  x: 4,   search: 'Inside the piano', lock: 'piano', holds: ['toys', 'stuff'] },
       { kind: 'lamp',   x: 96 },
       { kind: 'sofa',   x: 84,  colour: 'fabric-b', search: 'Down the back of the sofa', holds: ['toys', 'stuff', 'food'] },
-      { kind: 'tv',     x: 176, search: 'TV cabinet', lock: 'telly' }
+      { kind: 'tv',     x: 176, search: 'TV cabinet', lock: 'telly', holds: ['toys', 'stuff'] }
     ],
     closeUp: [
       { kind: 'books',  x: 10, lift: 78 },

@@ -5,6 +5,7 @@
    house. Each one works once a night, so pick your moment.
 
        name    what the button says
+       picture the picture on the button (any emoji)
        line    what it does, in a few words
        who     who it gets:
                  'everyone'  every burglar in the house
@@ -21,11 +22,11 @@
    =========================================================== */
 
 export const GADGETS = [
-  { id: 'bark', name: 'Dog bark', who: 'everyone', cat: ['STARTLE', 'LOUD'], nerve: 2, word: 'WOOF WOOF!',
+  { id: 'bark', name: 'Dog bark', picture: '🐶', who: 'everyone', cat: ['STARTLE', 'LOUD'], nerve: 2, word: 'WOOF WOOF!',
     line: 'Plays a recording of a very big dog, all over the house.' },
-  { id: 'lights', name: 'Lights out', who: 'room', cat: ['STARTLE'], nerve: 3, word: 'BLACKOUT!',
+  { id: 'lights', name: 'Lights out', picture: '💡', who: 'room', cat: ['STARTLE'], nerve: 3, word: 'BLACKOUT!',
     line: 'Flicks the lights off in the room you are watching.' },
-  { id: 'spring', name: 'Spring a trap', who: 'trap', cat: [], nerve: 0, word: '',
+  { id: 'spring', name: 'Spring a trap', picture: '💥', who: 'trap', cat: [], nerve: 0, word: '',
     line: 'Sets off the nearest trap to whoever you are following.' }
 ];
 

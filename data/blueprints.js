@@ -30,6 +30,33 @@ export const NUMBERS = {
 /* How many goes you get at each one. */
 export const TRIES = 2;
 
+/* SPELLING. Half the time the blueprint asks you to spell
+   something instead: a picture, and the letters all jumbled up.
+   item is which picture to show (an id from data/items.js). Easy
+   uses words of 3 letters, Tricky up to 4, Brainbuster any. Add
+   your own! */
+export const SPELLING = [
+  { word: 'EGG', item: 'eggs' },
+  { word: 'ICE', item: 'ice' },
+  { word: 'CAN', item: 'tin-cans' },
+  { word: 'CAR', item: 'toy-car' },
+  { word: 'MUD', item: 'compost' },
+  { word: 'JAR', item: 'honey' },
+  { word: 'BAG', item: 'flour' },
+  { word: 'BELL', item: 'bell' },
+  { word: 'ROPE', item: 'rope' },
+  { word: 'SACK', item: 'sack' },
+  { word: 'TAPE', item: 'duct-tape' },
+  { word: 'SOAP', item: 'soap' },
+  { word: 'GLUE', item: 'glue' },
+  { word: 'RAKE', item: 'rake' },
+  { word: 'HORN', item: 'air-horn' },
+  { word: 'POOL', item: 'paddling-pool' },
+  { word: 'BUCKET', item: 'bucket' },
+  { word: 'BANANA', item: 'banana' },
+  { word: 'PILLOW', item: 'pillow' }
+];
+
 /* Easy only uses the adding ones (+). Tricky adds times (*).
    Brainbuster uses all of them, two steps too. Keep the words SHORT:
    the sum is shown big underneath as well. */
@@ -41,7 +68,7 @@ export const BLUEPRINTS = {
   MESSY: [
     { ask: 'a cups of gloop. b more. How many?', answer: 'a + b' },
     { ask: 'a buckets. b cups in each. How many cups?', answer: 'a * b' },
-    { ask: 'a bags. b scoops each. c spill. How many left?', answer: 'a * b - c' }
+    { ask: 'a bags. b scoops in each. c scoops fall out. How many scoops left?', answer: 'a * b - c' }
   ],
   STICKY: [
     { ask: 'a jars of honey. b more. How many?', answer: 'a + b' },

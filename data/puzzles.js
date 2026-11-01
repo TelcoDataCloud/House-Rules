@@ -48,6 +48,8 @@ export const HINTS = {
    hides the note somewhere. The note hides in one of noteRooms.
 
    digits is how many numbers in the code.
+   lowest is the smallest each number can be (2 on Easy, so no
+   sums with a 0 in them).
    kinds is the sorts of sum Dad writes. The game picks one for
    each number, and every answer is a single number, 0 to 9:
        add          4 + 3
@@ -61,7 +63,7 @@ export const SAFE = {
   noteRooms: ['hall', 'lounge', 'dining', 'kitchen', 'landing', 'utility', 'porch'],
   noteSays: 'Safe code. Do not tell the kids!',
   levels: {
-    easy:        { digits: 3, kinds: ['add'] },
+    easy:        { digits: 3, kinds: ['add'], lowest: 2 },
     tricky:      { digits: 3, kinds: ['add', 'times'] },
     brainbuster: { digits: 3, kinds: ['take', 'times-take'] }
   }
@@ -206,14 +208,15 @@ export const TELLY = {
 
    questions has a, b and c in it. The game swaps them for random
    numbers and works out the answer itself. upsideDown flips it
-   the other way too.
+   the other way too. backwards: false writes it the right way
+   round, and pictures: true draws things to count under it.
    =========================================================== */
 export const MIRROR = {
   name: 'Bathroom cabinet',
   levels: {
-    easy: { upsideDown: false, questions: [
-      { ask: 'a + b =', a: [1, 9], b: [1, 9], answer: 'a + b' },
-      { ask: 'a - b =', a: [6, 15], b: [1, 5], answer: 'a - b' }
+    easy: { upsideDown: false, backwards: false, pictures: true, questions: [
+      { ask: 'a + b =', a: [1, 6], b: [1, 4], answer: 'a + b' },
+      { ask: 'a - b =', a: [4, 9], b: [1, 3], answer: 'a - b' }
     ] },
     tricky: { upsideDown: false, questions: [
       { ask: 'a x b =', a: [2, 5], b: [1, 10], answer: 'a * b' },
