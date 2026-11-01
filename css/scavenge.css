@@ -72,7 +72,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
   gap: 6px;
 }
 /* the bag shouts at you when it is full */
@@ -111,7 +111,8 @@
   font: inherit;
   cursor: pointer;
 }
-.bag-drop .item-picture { width: 70%; height: 70%; }
+.bag-drop .item-picture { width: 50px; height: 50px; }
+.bag-drop { padding-bottom: 26px; }
 .bag-drop:hover:not([disabled]) { background: var(--bg-2); }
 .bag-drop:hover:not([disabled])::after {
   content: 'drop';
@@ -142,14 +143,11 @@
   bottom: 1px;
   left: 2px;
   right: 2px;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.05;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--text-dim);
+  color: var(--text);
 }
 @keyframes bag-bounce {
   0% { transform: scale(0.6); }
@@ -195,13 +193,27 @@
 /* --- SMALL SCREENS ------------------------------------------- */
 
 @media (max-width: 560px) {
-  .bag { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .bag-slot { aspect-ratio: auto; height: 56px; }
+  .bag { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bag-wrap { flex-basis: 100%; }
+  .bag-slot { aspect-ratio: auto; height: 84px; }
   .scavenge-bar .btn { width: 100%; }
-  .bag-title { padding-right: 104px; min-height: 40px; }   /* room for the day/night and sound buttons */
 }
 
 @media (prefers-reduced-motion: reduce) {
   .item-pop { animation: none; opacity: 0; }
   .clock.is-urgent .clock-time, .bag.is-shouting { animation: none; }
 }
+
+/* the little clock over the house */
+.hud-clock {
+  margin: 0 0 0 auto;
+  padding: 4px 12px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  background: var(--bg-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+.hud-clock[hidden] { display: none; }
+.hud-clock.is-urgent { color: var(--danger); }

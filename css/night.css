@@ -239,11 +239,48 @@
 }
 
 /* --- GADGETS (M17) ------------------------------------------- */
-.night-gadgets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: var(--gap); }
-.night-gadgets-head { font-weight: 800; color: var(--text-dim); }
-.night-gadget { min-height: var(--tap); background: var(--accent); color: var(--ink); }
+.night-gadgets { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--gap); margin: var(--gap) 0; }
+.night-gadgets[hidden] { display: none; }
+.night-gadgets-head { font-weight: 800; font-size: 1.1rem; }
+.night-gadget { min-height: 72px; padding: 8px 22px; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--ink); }
+.night-gadget-pic { font-size: 2rem; line-height: 1; }
 .night-gadget[disabled] { opacity: 0.45; }
 .fx-blackout { fill: var(--dark-room); opacity: 0.85; pointer-events: none; }
 .pin-clock { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; }
 .pin-clock-time { font-family: var(--font-display); font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
 .night-time { display: inline-block; min-width: 3.2em; color: var(--text-dim); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+/* --- THE BIG CATCH: a comic burst in the middle of the screen -- */
+.catch-burst {
+  position: fixed;
+  left: 50%;
+  top: 38%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 30px;
+  background: var(--btn);
+  color: var(--ink);
+  border: 5px solid var(--ink);
+  border-radius: 28px;
+  box-shadow: 0 8px 0 var(--ink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4) rotate(-6deg);
+}
+.catch-burst.is-on { animation: catch-pop 1.7s ease-out forwards; }
+.catch-word { font-family: var(--font-display); font-size: clamp(36px, 6vw, 72px); font-weight: 900; line-height: 1; }
+.catch-who { font-size: clamp(18px, 2.4vw, 28px); font-weight: 900; }
+@keyframes catch-pop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-6deg); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.12) rotate(-3deg); }
+  25%  { transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+  80%  { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .catch-burst.is-on { animation: catch-fade 1.7s linear forwards; transform: translate(-50%, -50%); }
+  @keyframes catch-fade { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
+}

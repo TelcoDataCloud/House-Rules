@@ -394,3 +394,54 @@ body {
 .inspect-also { color: var(--text-dim); margin-top: 0; }
 body.is-inspecting #app, body.is-inspecting main { cursor: help; }
 #inspect-toggle[aria-pressed="true"] { background: var(--accent); color: var(--ink); }
+
+/* --- WANTED: tonight's burglars and what they hate ----------- */
+.wanted {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  margin: 0 auto var(--gap);
+}
+.wanted[hidden] { display: none; }
+.wanted-title { margin: 0; font-weight: 800; font-size: 1.1rem; }
+.wanted-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 4px;
+  background: var(--panel);
+  border: var(--outline) solid var(--panel-edge);
+  border-radius: 999px;
+  box-shadow: 0 var(--shadow-drop) 0 var(--ink);
+}
+.wanted-face { width: 48px; height: 48px; border-radius: 50%; background: var(--btn-quiet); }
+.wanted-name { font-size: 1.15rem; }
+.wanted-row { display: flex; align-items: center; gap: 4px; }
+.wanted-word { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
+.wanted-hates, .wanted-meh { display: flex; gap: 2px; }
+.wanted-pic { font-size: 1.7rem; line-height: 1; }
+.wanted-meh { margin-left: 4px; }
+.wanted-meh .wanted-pic {
+  position: relative;
+  font-size: 1.2rem;
+  opacity: 0.55;
+}
+.wanted-meh .wanted-pic::after {
+  content: '';
+  position: absolute;
+  left: -2px; right: -2px; top: 50%;
+  height: 3px;
+  background: var(--lose);
+  transform: rotate(-35deg);
+}
+
+/* on a phone the day/night and sound buttons sit at the top right,
+   so the posters start underneath them */
+@media (max-width: 700px) {
+  .wanted { margin-top: 58px; }
+  .wanted-title { flex-basis: 100%; text-align: center; }
+}

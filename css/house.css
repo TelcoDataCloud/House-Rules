@@ -95,9 +95,9 @@
 
 .room-name {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   fill: var(--label-text);
 }
@@ -162,6 +162,17 @@
 
 .spot { outline: none; }
 .spot:not(.is-here) { pointer-events: none; }
+/* while searching, a hiding place in the next room can be tapped
+   too: Hendrix walks there and looks */
+.house-scene svg[data-mode="search"] .spot:not(.is-here) { pointer-events: auto; cursor: pointer; }
+
+/* the twinkle on places you have not looked in yet */
+.spot-sparkle { fill: var(--spot-sparkle); stroke: var(--ink); stroke-width: 1; opacity: 0; pointer-events: none; }
+.house-scene svg[data-mode="search"] .spot.is-here:not(.is-searched) .spot-sparkle { animation: twinkle 1.6s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .house-scene svg[data-mode="search"] .spot.is-here:not(.is-searched) .spot-sparkle { animation: none; opacity: 1; }
+}
 .spot.is-here { cursor: var(--cursor-search); }
 .house-scene svg[data-mode="search"] .room.is-open { cursor: var(--cursor-search); }
 
@@ -373,3 +384,44 @@
   .anchor-body, .room-tag, .close-up, .spot .prop-body { transition: none; }
   .spot.is-rummaging .prop-body { animation: none; }
 }
+
+/* --- THE WHOLE HOUSE BUTTON, shaped like a house (M23) -------- */
+.house-btn {
+  position: relative;
+  z-index: 0;
+  min-height: 64px;
+  padding: 30px 24px 10px;
+  color: var(--ink);
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+/* the walls and the roof */
+.house-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn);
+  clip-path: polygon(50% 0, 100% 38%, 100% 100%, 0 100%, 0 38%);
+}
+/* the chimney */
+.house-btn::after {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  top: 2px;
+  right: 20%;
+  width: 14px;
+  height: 22px;
+  background: var(--chimney);
+}
+.house-btn:hover::before { filter: brightness(1.08); }
+.house-btn:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; }
+
+/* --- ROOMS SHUT TONIGHT (a smaller house when there is a clock) --- */
+.room-shut { display: none; pointer-events: none; }
+.room-shut.is-on { display: inline; }
+.room-shut-cover { fill: var(--ink); opacity: 0.72; }
+.room-shut-sign { fill: var(--btn); stroke: var(--ink); stroke-width: 3; }
+.room-shut-words { font-family: var(--font-display); font-size: 16px; font-weight: 900; fill: var(--ink); text-anchor: middle; }

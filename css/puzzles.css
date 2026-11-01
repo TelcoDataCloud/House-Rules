@@ -254,8 +254,8 @@
   line-height: 1.3;
   color: var(--ink);
   opacity: 0.75;
-  transform: scaleX(-1);
 }
+.pz-mirror-words.is-backwards { transform: scaleX(-1); }
 .pz-mirror-words.is-upside-down { transform: rotate(180deg); }
 
 /* --- MORSE --------------------------------------------------- */
@@ -297,13 +297,13 @@
   min-width: var(--tap);
   min-height: 130px;
   padding: 6px 2px;
-  writing-mode: vertical-rl;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 900;
   color: var(--ink);
   border-radius: 6px 6px 0 0;
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
+.pz-book.is-long { writing-mode: vertical-rl; font-size: 18px; }
 .pz-book.is-out { transform: translateY(-18px); opacity: 0.35; }
 .book-fabric-a { background: var(--fabric-a); }
 .book-fabric-b { background: var(--fabric-b); }
@@ -433,3 +433,10 @@
   .hv-bot, .pz-book, .pz-music { transition: none; }
   .room-lock, .spot-lock { transition: none; }
 }
+
+/* --- THINGS TO COUNT (Easy) ------------------------------------ */
+.pz-counts { display: grid; gap: 4px; justify-items: center; }
+.pz-count { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin: 6px 0; }
+.pz-count-group { display: flex; flex-wrap: wrap; gap: 2px; font-size: 28px; line-height: 1; }
+.pz-count-thing.is-gone { opacity: 0.3; text-decoration: line-through; }
+.pz-count-sign { font-family: var(--font-display); font-size: 26px; font-weight: 900; }

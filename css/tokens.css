@@ -95,6 +95,7 @@
   /* --- HIDING PLACES: the glow when you point at one --- */
   --hud-name: #ffd166;       /* the room name above the house */
   --spot-glow: #ffe066;
+  --spot-sparkle: #fff3b0;
   --spot-searched: #b9b1c9;  /* the glow once you have looked there */
   --rare: #ff7ad9;           /* the sparkle round a rare thing in your bag */
   --hose: #4f9a52;           /* the garden hose */
@@ -323,6 +324,7 @@
 
   --hud-name: #9a5a00;
   --spot-glow: #ffb703;
+  --spot-sparkle: #ffd23f;
   --spot-searched: #8f889c;
   --rare: #d6339f;
   --hose: #3f8a44;

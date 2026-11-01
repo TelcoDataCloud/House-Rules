@@ -8,6 +8,9 @@
 
 .rig-bar[hidden] { display: none; }
 .rig-bar { max-width: 900px; }
+/* stays at the top while you scroll down to the house, so the traps
+   are always in reach */
+.rig-bar:not([hidden]) { position: sticky; top: 4px; z-index: 5; max-height: 45vh; overflow-y: auto; }
 
 .rig-head { padding-right: 110px; }          /* room for the day/night and sound buttons */
 .rig-head h2 { margin-bottom: 4px; }
@@ -97,3 +100,5 @@
 .rig-timer + .rig-timer { margin-top: 6px; }
 .rig-timer-words { flex: 1 1 200px; font-weight: 800; }
 .rig-timer-step { min-width: var(--tap); min-height: var(--tap); padding: 0 10px; }
+
+.rig-card-kinds { font-size: 1.4rem; line-height: 1; }
