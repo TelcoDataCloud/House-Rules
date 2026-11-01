@@ -36,5 +36,4 @@ export const MILESTONES = [
   { code: 'M22', name: 'Bug Hunt', done: true },
   { code: 'M23', name: 'Just Right', done: true },
   { code: 'M24', name: 'Easy Does It', done: true }
-]
-;
+];
