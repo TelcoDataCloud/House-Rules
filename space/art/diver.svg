@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 64">
+  <!-- DIVER. Yellow. Flashes, then dives at where you were. -->
+  <defs>
+    <radialGradient id="glow-orange"><stop offset="0" stop-color="#fff6c0"/><stop offset="0.4" stop-color="#ff9a2a"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="30" cy="8" r="9" fill="url(#glow-orange)"/>
+  <path d="M30 60 L6 26 L20 32 L30 6 L40 32 L54 26 Z" fill="#ffd23f" stroke="#3a2a00" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M30 60 L54 26 L40 32 L30 6 Z" fill="#c9960a"/>
+  <path d="M28 52 L12 30 L20 34 L28 14 Z" fill="#fff2a8" opacity="0.8"/>
+  <circle cx="30" cy="38" r="5" fill="#3a2a00"/>
+  <circle cx="30" cy="38" r="2.5" fill="#ff3b3b"/>
+</svg>

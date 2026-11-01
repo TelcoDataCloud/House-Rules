@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
+  <!-- HANGAR. Three Darts live inside. Blow it up before they come out! -->
+  <path d="M6 70 L6 30 Q60 0 114 30 L114 70 Z" fill="#5c6078" stroke="#1a1d2e" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M60 10 Q90 14 114 30 L114 70 L60 70 Z" fill="#3b4058"/>
+  <path d="M12 34 Q30 18 56 14 L56 22 Q34 26 18 38 Z" fill="#9aa0bd" opacity="0.7"/>
+  <rect x="24" y="36" width="72" height="34" rx="4" fill="#1a1d2e"/>
+  <rect x="28" y="40" width="30" height="26" fill="#2bd46a" opacity="0.9"/>
+  <rect x="62" y="40" width="30" height="26" fill="#2bd46a" opacity="0.9"/>
+  <rect x="24" y="52" width="72" height="3" fill="#ffd23f"/>
+</svg>

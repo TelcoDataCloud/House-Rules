@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 84">
+  <!-- BRUISER. Big, slow, purple. Fires three shots in a fan. -->
+  <path d="M45 76 L6 40 L16 14 L74 14 L84 40 Z" fill="#9b5cff" stroke="#1e0a3c" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M45 76 L84 40 L74 14 L45 14 Z" fill="#5e2fb0"/>
+  <path d="M42 66 L14 40 L20 20 L42 20 Z" fill="#c9a6ff" opacity="0.6"/>
+  <g transform="rotate(180 45 42)">
+    <rect x="18" y="2" width="12" height="16" rx="3" fill="#c9a6ff" stroke="#1e0a3c" stroke-width="2"/>
+    <rect x="39" y="-2" width="12" height="20" rx="3" fill="#c9a6ff" stroke="#1e0a3c" stroke-width="2"/>
+    <rect x="60" y="2" width="12" height="16" rx="3" fill="#c9a6ff" stroke="#1e0a3c" stroke-width="2"/>
+  </g>
+  <path d="M24 34 L66 34 M28 48 L62 48" stroke="#1e0a3c" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="45" cy="42" r="11" fill="#1e0a3c"/>
+  <circle cx="45" cy="42" r="7" fill="#ff3fa4"/>
+  <circle cx="43" cy="40" r="2.5" fill="#ffffff"/>
+</svg>

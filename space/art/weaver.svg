@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 58">
+  <!-- WEAVER. Pink flying wing. Wiggles side to side. -->
+  <defs>
+    <radialGradient id="glow-pink"><stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ff5fc0"/><stop offset="1" stop-color="#ff2a9a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="10" cy="12" r="7" fill="url(#glow-pink)"/>
+  <circle cx="54" cy="12" r="7" fill="url(#glow-pink)"/>
+  <path d="M32 54 L2 20 L14 10 L32 16 L50 10 L62 20 Z" fill="#ff3fa4" stroke="#2a0a1e" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M32 54 L62 20 L50 10 L32 16 Z" fill="#a3206a"/>
+  <path d="M30 44 L10 22 L18 16 L30 20 Z" fill="#ff9ad0" opacity="0.8"/>
+  <circle cx="32" cy="26" r="7" fill="#2a0a1e"/>
+  <circle cx="32" cy="26" r="4" fill="#ffffff"/>
+</svg>

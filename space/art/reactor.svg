@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150">
+  <!-- REACTOR at the end of the big base. Blow it up and the WHOLE base goes. -->
+  <path d="M10 140 L10 60 Q80 10 150 60 L150 140 Z" fill="#5c6078" stroke="#1a1d2e" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M80 22 Q120 28 150 60 L150 140 L80 140 Z" fill="#3b4058"/>
+  <path d="M18 64 Q40 36 74 28 L74 38 Q46 44 26 68 Z" fill="#9aa0bd" opacity="0.7"/>
+  <rect x="10" y="100" width="140" height="4" fill="#1a1d2e" opacity="0.5"/>
+  <circle cx="80" cy="92" r="40" fill="#1a1d2e" stroke="#0d1226" stroke-width="3"/>
+  <circle cx="80" cy="92" r="30" fill="#ff3fa4"/>
+  <circle cx="80" cy="92" r="18" fill="#ff8ad0"/>
+  <circle cx="72" cy="84" r="7" fill="#ffffff"/>
+  <circle cx="80" cy="92" r="36" fill="none" stroke="#7fe6f0" stroke-width="2" stroke-dasharray="6 8"/>
+</svg>

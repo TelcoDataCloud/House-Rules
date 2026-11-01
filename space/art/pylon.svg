@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 76">
+  <!-- PYLON. Gives power to the turrets near it. Knock it out and they go dark. -->
+  <path d="M26 70 L34 70 L32 12 L28 12 Z" fill="#9aa0bd" stroke="#1a1d2e" stroke-width="2"/>
+  <path d="M30 12 L16 32 M30 12 L44 32 M30 32 L16 52 M30 32 L44 52 M16 32 L44 32 M16 52 L44 52" stroke="#7a7f99" stroke-width="3"/>
+  <rect x="20" y="66" width="20" height="8" rx="2" fill="#5c6078" stroke="#1a1d2e" stroke-width="2"/>
+  <circle cx="30" cy="9" r="10" fill="none" stroke="#ffd23f" stroke-width="2" opacity="0.5"/>
+  <circle cx="30" cy="9" r="6" fill="#ffd23f"/>
+</svg>

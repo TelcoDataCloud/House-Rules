@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 52">
+  <!-- DART. Orange arrowhead. Flies straight down. -->
+  <defs>
+    <radialGradient id="glow-orange"><stop offset="0" stop-color="#fff6c0"/><stop offset="0.4" stop-color="#ff9a2a"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="24" cy="10" r="9" fill="url(#glow-orange)"/>
+  <path d="M24 50 L4 8 L24 18 L44 8 Z" fill="#ff7a1a" stroke="#2a0f05" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M24 50 L44 8 L24 18 Z" fill="#b84c0a"/>
+  <path d="M24 46 L10 14 L22 20 Z" fill="#ffb070" opacity="0.8"/>
+  <circle cx="24" cy="30" r="4" fill="#2a0f05"/>
+  <circle cx="24" cy="30" r="2" fill="#ff3b3b"/>
+</svg>

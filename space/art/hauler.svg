@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120">
+  <!-- THE HAULER, the mini boss. Its two engines are separate pictures
+       (hauler-engine.svg) so you can shoot them off. -->
+  <path d="M6 44 L214 44 L200 66 L20 66 Z" fill="#5c6a3a" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M110 44 L214 44 L200 66 L110 66 Z" fill="#3e4a26"/>
+  <path d="M20 48 L100 48 L96 54 L24 54 Z" fill="#8fa05a" opacity="0.7"/>
+  <path d="M110 4 C122 30 126 70 124 108 L110 102 L96 108 C94 70 98 30 110 4 Z" fill="#6b7a44" stroke="#1a1f0e" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M110 4 C122 30 126 70 124 108 L116 104 C117 70 116 36 110 4 Z" fill="#3e4a26"/>
+  <path d="M108 14 C103 40 102 70 103 96 L106 94 C106 66 106 38 108 14 Z" fill="#aab86e" opacity="0.8"/>
+  <rect x="100" y="60" width="20" height="14" rx="3" fill="#1a1f0e"/>
+  <rect x="103" y="63" width="14" height="8" rx="2" fill="#ff3fa4"/>
+  <circle cx="110" cy="30" r="7" fill="#1a1f0e"/>
+  <circle cx="110" cy="30" r="4" fill="#ffd23f"/>
+  <rect x="80" y="54" width="10" height="24" rx="2" fill="#7a8a52" stroke="#1a1f0e" stroke-width="2"/>
+  <rect x="130" y="54" width="10" height="24" rx="2" fill="#7a8a52" stroke="#1a1f0e" stroke-width="2"/>
+  <path d="M30 56 L60 56 M160 56 L190 56" stroke="#1a1f0e" stroke-width="1.5" opacity="0.6"/>
+</svg>
