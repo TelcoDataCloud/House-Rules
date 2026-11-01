@@ -1,0 +1,95 @@
+/* ===========================================================
+   TOKENS: every colour and size on the page lives here
+
+   Hendrix: this is the paint box for the screens, the sky,
+   the moon and the bullets. (The ships are painted in their
+   own pictures in the art folder.)
+
+   Two themes: space (dark, the normal one) and day (light).
+   Change a colour in one, change it in the other too.
+   =========================================================== */
+
+:root,
+:root[data-theme="space"] {
+  /* --- THE PAGE AROUND THE GAME --- */
+  --page: #070b1c;
+  --text: #e8ecff;
+  --text-dim: #8f98c4;
+  --panel: #0e1434;
+  --panel-line: #1d2a66;
+  --focus: #ffd23f;
+
+  /* --- THE SKY --- */
+  --sky-top: #120a2e;
+  --sky-mid: #1b1250;
+  --sky-bottom: #0b1a3a;
+  --nebula-a: rgba(122, 63, 214, 0.45);   /* purple cloud */
+  --nebula-b: rgba(31, 182, 198, 0.30);   /* teal cloud */
+  --star: #ffffff;
+  --star-dim: #8f98c4;
+
+  /* --- THE MOON --- */
+  --moon-rock: #8a8fa3;
+  --moon-shadow: #6b7088;
+  --moon-light: #b8bccc;
+  --moon-edge: #3a3d52;
+  --crater: #5c6078;
+  --walkway: #5c6078;
+  --walkway-light: #9aa0bd;
+  --walkway-line: #1a1d2e;
+
+  /* --- BRIGHT COLOURS: shots, tokens, words --- */
+  --cyan: #38f0ff;
+  --pink: #ff3fa4;
+  --green: #4dff7c;
+  --yellow: #ffd23f;
+  --orange: #ff7a1a;
+  --red: #ff3b3b;
+  --purple: #9b5cff;
+  --white: #ffffff;
+  --ink: #070b1c;
+
+  /* --- HUD --- */
+  --hud-back: rgba(7, 11, 28, 0.55);
+  --empty: #1d2a66;
+
+  /* --- WORDS --- */
+  --font-display: 'Orbitron', 'Trebuchet MS', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  /* --- SIZES --- */
+  --field-w: 480px;      /* the play area, before it is scaled to fit */
+  --field-h: 720px;
+  --button-min: 60px;    /* biggest finger, smallest button */
+  --radius: 12px;
+  --side-w: 260px;
+}
+
+:root[data-theme="day"] {
+  --page: #eef1ff;
+  --text: #1a1d3a;
+  --text-dim: #4a5280;
+  --panel: #ffffff;
+  --panel-line: #b9c3ea;
+  --focus: #b44a00;
+
+  --sky-top: #b9cdf5;
+  --sky-mid: #d9cff7;
+  --sky-bottom: #bfe6ee;
+  --nebula-a: rgba(180, 140, 255, 0.45);
+  --nebula-b: rgba(120, 220, 230, 0.40);
+  --star: #ffffff;
+  --star-dim: #8f98c4;
+
+  --moon-rock: #a3a7b8;
+  --moon-shadow: #8a8fa3;
+  --moon-light: #d4d7e2;
+  --moon-edge: #5c6078;
+  --crater: #7a7f99;
+  --walkway: #6b7088;
+  --walkway-light: #b8bccc;
+  --walkway-line: #3a3d52;
+
+  --hud-back: rgba(255, 255, 255, 0.7);
+  --empty: #b9c3ea;
+}

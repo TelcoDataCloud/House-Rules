@@ -1,0 +1,231 @@
+/* ===========================================================
+   GAME: the sky, the moon, the ships, the bullets, the bangs
+   =========================================================== */
+
+/* --- the sky --- */
+.sky {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 22%, var(--nebula-a), transparent 45%),
+    radial-gradient(circle at 85% 70%, var(--nebula-b), transparent 50%),
+    radial-gradient(circle at 70% 10%, var(--nebula-a), transparent 35%),
+    linear-gradient(var(--sky-top), var(--sky-mid) 55%, var(--sky-bottom));
+}
+.stars { position: absolute; inset: 0; background-repeat: repeat; }
+.stars-far {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, var(--star-dim), transparent),
+    radial-gradient(1px 1px at 140px 80px, var(--star-dim), transparent),
+    radial-gradient(1px 1px at 90px 190px, var(--star-dim), transparent),
+    radial-gradient(1px 1px at 200px 140px, var(--star-dim), transparent),
+    radial-gradient(1px 1px at 60px 110px, var(--star-dim), transparent);
+  background-size: 240px 240px;
+}
+.stars-near {
+  background-image:
+    radial-gradient(1.5px 1.5px at 40px 60px, var(--star), transparent),
+    radial-gradient(2px 2px at 220px 200px, var(--star), transparent),
+    radial-gradient(1.5px 1.5px at 300px 30px, var(--star), transparent),
+    radial-gradient(2px 2px at 120px 300px, var(--star), transparent),
+    radial-gradient(1.5px 1.5px at 260px 330px, var(--star), transparent);
+  background-size: 360px 360px;
+}
+
+.layer { position: absolute; inset: 0; pointer-events: none; }
+
+/* --- every thing on screen: ships, parts, bullets --- */
+.thing {
+  position: absolute; left: 0; top: 0;
+  will-change: transform;
+}
+.thing[hidden] { display: none; }
+.thing > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* A thing that just got hit flashes bright for a moment. */
+.thing.hit > svg { filter: brightness(2.2); }
+
+/* A Diver about to dive flashes a warning ring. */
+.thing.warn::after {
+  content: '';
+  position: absolute; inset: -14px;
+  border-radius: 50%;
+  border: 3px solid var(--yellow);
+  animation: warn 0.25s steps(2) infinite;
+}
+@keyframes warn { 50% { opacity: 0.1; } }
+
+/* --- the moon plates --- */
+.plate { position: absolute; left: 0; top: 0; will-change: transform; }
+.plate svg { display: block; overflow: visible; }
+.plate .rock { fill: var(--moon-rock); stroke: var(--moon-edge); stroke-width: 4; }
+.plate .shade { fill: var(--moon-shadow); }
+.plate .light { fill: var(--moon-light); opacity: 0.6; }
+.plate .crater { fill: var(--crater); }
+.plate .crater-rim { fill: none; stroke: var(--moon-light); stroke-width: 2.5; }
+.plate .walk { fill: var(--walkway); stroke: var(--walkway-line); stroke-width: 2; }
+.plate .walk-light { fill: var(--walkway-light); opacity: 0.6; }
+.plate .walk-line { stroke: var(--walkway-line); stroke-width: 2; opacity: 0.5; }
+
+/* A broken base part stays on the moon, burnt and dark. */
+.thing.wreck > svg { filter: brightness(0.3) grayscale(0.7); }
+.thing.wreck { opacity: 0.85; }
+/* A turret with no power from its pylon. */
+.thing.dark > svg { filter: grayscale(1) brightness(0.6); }
+.thing.open > svg { filter: brightness(1.4); }
+.blink { animation: blink 0.8s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0.15; } }
+
+/* --- your ship --- */
+.ship { position: absolute; left: 0; top: 0; width: 64px; height: 80px; will-change: transform; }
+.ship .thing { position: absolute; left: 0; top: 0; }
+.ship.blinking { animation: ship-blink 0.16s steps(2) infinite; }
+@keyframes ship-blink { 50% { opacity: 0.25; } }
+.ship[hidden] { display: none; }
+.flame {
+  position: absolute; left: 50%; top: 66px;
+  width: 22px; height: 26px; margin-left: -11px;
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  background: radial-gradient(circle at 50% 25%, #fff6c0, var(--orange) 55%, transparent 75%);
+  transform-origin: 50% 0;
+  animation: flame 0.12s infinite alternate;
+}
+@keyframes flame { to { transform: scaleY(1.25) scaleX(0.9); } }
+.shield {
+  position: absolute; left: -10px; top: -6px;
+  width: 84px; height: 92px; border-radius: 50%;
+  border: 3px solid var(--cyan);
+  background: radial-gradient(circle, transparent 55%, rgba(56, 240, 255, 0.25));
+  box-shadow: 0 0 14px var(--cyan);
+}
+.shield[hidden] { display: none; }
+
+/* --- bullets --- */
+.shot, .foe, .missile {
+  position: absolute; left: 0; top: 0;
+  border-radius: 50%;
+  will-change: transform;
+}
+.shot { width: 12px; height: 18px; background: radial-gradient(ellipse at 50% 40%, #ffffff 0 25%, var(--cyan) 50%, transparent 72%); }
+.shot.gold { background: radial-gradient(ellipse at 50% 40%, #ffffff 0 25%, var(--yellow) 50%, transparent 72%); }
+.missile { width: 16px; height: 16px; background: radial-gradient(circle, #ffffff 0 20%, var(--pink) 45%, transparent 72%); }
+.missile.big { width: 24px; height: 24px; }
+.foe { width: 20px; height: 20px; }
+.foe.pink { background: radial-gradient(circle, #ffffff 0 22%, var(--pink) 48%, transparent 72%); }
+.foe.green { background: radial-gradient(circle, #ffffff 0 22%, var(--green) 48%, transparent 72%); }
+.foe.red { width: 14px; height: 26px; border-radius: 40%; background: radial-gradient(ellipse, #ffffff 0 20%, var(--red) 50%, transparent 74%); }
+
+/* --- pickups --- */
+.token {
+  display: inline-grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  font-family: var(--font-body); font-weight: 800; font-size: 15px;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+.token-P { background: var(--orange); box-shadow: 0 0 12px var(--orange); }
+.token-B { background: var(--yellow); box-shadow: 0 0 12px var(--yellow); }
+.token-S { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+.token-1UP { background: var(--green); box-shadow: 0 0 12px var(--green); font-size: 11px; width: 34px; height: 34px; }
+.pickup { position: absolute; left: 0; top: 0; will-change: transform; }
+.pickup .token { animation: bob 0.6s ease-in-out infinite alternate; }
+@keyframes bob { to { transform: scale(1.15); } }
+
+/* --- bangs --- */
+.boom {
+  position: absolute; left: 0; top: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0 12%, var(--yellow) 30%, var(--orange) 55%, rgba(255, 59, 26, 0) 72%);
+  animation: boom 0.5s ease-out forwards;
+}
+@keyframes boom {
+  0% { transform: var(--at) scale(0.2); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: var(--at) scale(1.4); opacity: 0; }
+}
+.bit {
+  position: absolute; left: 0; top: 0;
+  width: 8px; height: 8px; border-radius: 2px;
+  background: var(--orange);
+  animation: bit 0.6s ease-out forwards;
+}
+@keyframes bit {
+  from { transform: var(--from); opacity: 1; }
+  to { transform: var(--to) rotate(200deg); opacity: 0; }
+}
+.spark {
+  position: absolute; left: 0; top: 0;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle, #ffffff, var(--cyan) 50%, transparent 70%);
+  animation: spark 0.15s ease-out forwards;
+}
+@keyframes spark { to { opacity: 0; } }
+.float {
+  position: absolute; left: 0; top: 0;
+  font-family: var(--font-body); font-weight: 800; font-size: 16px;
+  color: var(--yellow);
+  text-shadow: 0 2px 0 var(--ink);
+  white-space: nowrap;
+  animation: float 0.9s ease-out forwards;
+}
+.float.big { font-size: 24px; }
+@keyframes float {
+  from { transform: var(--at); opacity: 1; }
+  to { transform: var(--at) translateY(-40px); opacity: 0; }
+}
+.ring {
+  position: absolute; left: 0; top: 0;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 10px solid var(--yellow);
+  box-shadow: 0 0 30px var(--yellow), inset 0 0 30px var(--yellow);
+  animation: ring 0.7s ease-out forwards;
+}
+@keyframes ring {
+  from { transform: var(--at) scale(0.2); opacity: 1; }
+  to { transform: var(--at) scale(28); opacity: 0; }
+}
+.flash {
+  position: absolute; inset: 0; z-index: 14;
+  background: #ffffff;
+  animation: flash 0.35s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes flash { from { opacity: 0.7; } to { opacity: 0; } }
+.pilot {
+  position: absolute; left: 0; top: 0;
+  width: 48px; height: 48px;
+  animation: pilot 2.4s ease-in forwards;
+}
+@keyframes pilot {
+  from { transform: var(--at); opacity: 1; }
+  to { transform: var(--at) translate(30px, -260px); opacity: 0; }
+}
+.chunk {
+  position: absolute; left: 0; top: 0;
+  width: 80px; height: 60px;
+  background: var(--walkway);
+  border: 3px solid var(--walkway-line);
+  border-radius: 10px 30px 8px 24px;
+  animation: chunk 2.5s ease-in forwards;
+}
+@keyframes chunk {
+  from { transform: var(--from); opacity: 1; }
+  to { transform: var(--to) rotate(var(--spin)); opacity: 0; }
+}
+
+.field.shake { animation: shake 0.3s linear; }
+@keyframes shake {
+  25% { translate: 4px -3px; }
+  50% { translate: -4px 3px; }
+  75% { translate: 3px 2px; }
+}
+
+/* Calm mode: no flash, no shake, bits fade where they are. */
+@media (prefers-reduced-motion: reduce) {
+  .flash { display: none; }
+  .field.shake { animation: none; }
+  .bit { animation: bit-calm 0.5s linear forwards; }
+  @keyframes bit-calm { from { transform: var(--from); opacity: 1; } to { transform: var(--from); opacity: 0; } }
+  .ring { animation-duration: 0.9s; }
+  .pickup .token { animation: none; }
+  .flame { animation: none; }
+}
