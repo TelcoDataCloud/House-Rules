@@ -9,11 +9,10 @@
    reactor takes the whole base with it.
    =========================================================== */
 
-import { state, W, H, hardness, after } from './state.js';
+import { state, W, H, hardness, after, level } from './state.js';
 import { sprite, put, layer } from './art.js';
 import { BASES } from '../data/bases.js';
-import { PARTS, TANK_BLAST, PYLON_REACH } from '../data/parts.js';
-import { LEVEL } from '../data/waves.js';
+import { PARTS, TANK_BLAST, TANK_DAMAGE, PYLON_REACH } from '../data/parts.js';
 import { addFoe } from './bullets.js';
 import { spawnWave } from './enemies.js';
 import { drop } from './pickups.js';
@@ -135,7 +134,7 @@ function canShoot(part) {
 
 export function updateBases(dt) {
   for (const plate of state.plates) {
-    plate.front += LEVEL.scroll * dt;
+    plate.front += level().scroll * dt;
     if (plate.front - plate.length > H + 80) plate.gone = true;
   }
 
@@ -223,7 +222,7 @@ function breakPart(part, chained = false) {
     // BOOM: everything close by takes a big hit, a moment later.
     for (const other of state.parts) {
       if (other === part || !other.alive || !other.hittable || other.plate !== part.plate) continue;
-      if (Math.hypot(other.x - part.x, other.along - part.along) < TANK_BLAST) after(0.15, () => hurtPart(other, 5));
+      if (Math.hypot(other.x - part.x, other.along - part.along) < TANK_BLAST) after(0.15, () => hurtPart(other, TANK_DAMAGE));
     }
   }
 

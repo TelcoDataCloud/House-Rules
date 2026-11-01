@@ -66,6 +66,11 @@ export function put(el, x, y, w, h) {
   el.style.transform = `translate(${(x - w / 2).toFixed(1)}px, ${(y - h / 2).toFixed(1)}px)`;
 }
 
+// Empty every layer, so nothing from before is left on screen.
+export function clearLayers() {
+  for (const name of ['ground', 'pickups', 'air', 'shots', 'ship', 'foes', 'fx']) layer(name).replaceChildren();
+}
+
 export function layer(name) {
   return document.getElementById(`layer-${name}`);
 }

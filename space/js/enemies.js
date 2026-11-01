@@ -76,7 +76,7 @@ function shoot(e) {
     angle = (Math.atan2(state.ship.x - e.x, state.ship.y - e.y) * 180) / Math.PI;
   }
   spawnCount++;
-  addFoe(e.x, e.y + e.h * 0.35, angle, 120, 'pink');
+  addFoe(e.x, e.y + e.h * 0.35, angle, e.spec.shot === 'red' ? 170 : 120, e.spec.shot || 'pink');
 }
 
 // --- the patterns ---
@@ -111,7 +111,16 @@ const PATTERNS = {
     }
   },
 
-  // The Bruiser: come down, float side to side, fire a fan straight down.
+  // Bounce off the sides of the screen on the way down.
+  zigzag(e, dt) {
+    if (e.vx === undefined) e.vx = (e.x < W / 2 ? 1 : -1) * 120;
+    e.y += e.spec.speed * dt;
+    e.x += e.vx * dt;
+    if (e.x < 40) { e.x = 40; e.vx = Math.abs(e.vx); }
+    if (e.x > W - 40) { e.x = W - 40; e.vx = -Math.abs(e.vx); }
+  },
+
+  // The Bruiser and Gunship: come down, float side to side, fire a fan straight down.
   hover(e, dt) {
     if (e.phase === 0) {
       e.y += e.spec.speed * dt;
@@ -122,8 +131,9 @@ const PATTERNS = {
     if (e.t > 16) e.y += 70 * dt;          // gets bored and leaves
     e.shotWait -= dt;
     if (e.shotWait <= 0 && e.y < H - 200) {
-      e.shotWait = e.spec.shotEvery;
-      for (const a of [-20, 0, 20]) addFoe(e.x, e.y + 34, a, 140, 'pink');
+      e.shotWait = e.spec.shotEvery / hardness().shootMore;
+      const n = e.spec.fan || 3;
+      for (let i = 0; i < n; i++) addFoe(e.x, e.y + 34, (i - (n - 1) / 2) * 16, 140, e.spec.shot || 'pink');
     }
   },
 

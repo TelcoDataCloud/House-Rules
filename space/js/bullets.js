@@ -10,6 +10,7 @@ import { state, W, H, hardness } from './state.js';
 import { put, layer } from './art.js';
 import { targets } from './collide.js';
 import { trail } from './fx.js';
+import { FOE_SHOTS } from '../data/foeshots.js';
 
 const CAP = 200;
 
@@ -52,8 +53,10 @@ export function addFoe(x, y, angle, speed, colour = 'pink') {
   const sp = speed * hardness().bulletSpeed;
   const rad = (angle * Math.PI) / 180;
   const red = colour === 'red';
-  const b = make(`foe ${colour}`, 'foes', red ? 14 : 20, red ? 26 : 20);
-  Object.assign(b, { x, y, vx: Math.sin(rad) * sp, vy: Math.cos(rad) * sp, r: 6 });
+  const b = make(`foe ${colour}`, 'foes', red ? 8 : 20, red ? 30 : 20);
+  // Orbs can be shot down (look in data/foeshots.js). Lasers can't.
+  const kind = FOE_SHOTS[colour] || {};
+  Object.assign(b, { x, y, vx: Math.sin(rad) * sp, vy: Math.cos(rad) * sp, r: 6, colour, hp: kind.canShoot ? kind.hits : 0, points: kind.points || 0 });
   state.foes.push(b);
 }
 
@@ -109,7 +112,10 @@ function aim(b) {
 export function drawBullets() {
   for (const b of state.shots) aim(b);
   for (const b of state.missiles) aim(b);
-  for (const b of state.foes) put(b.el, b.x, b.y, b.w, b.h);
+  for (const b of state.foes) {
+    if (b.colour === 'red' && b.vx) aim(b);     // a laser points the way it flies
+    else put(b.el, b.x, b.y, b.w, b.h);
+  }
 }
 
 // Throw away bullets marked dead.
