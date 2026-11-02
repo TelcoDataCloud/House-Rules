@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- THE PLASMA CORE. The boss keeps its hottest power hidden under
+       two armour doors. When it gets really angry the doors open and
+       you can see this swirling purple ball of plasma. That is the
+       moment to shoot it!
+       Hendrix: every fill is a colour. -->
+  <defs>
+    <linearGradient id="wc-frame" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa2b2"/><stop offset="0.4" stop-color="#4a505e"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="wc-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d5dbe6"/><stop offset="0.4" stop-color="#7a8294"/><stop offset="1" stop-color="#22252e"/></linearGradient>
+    <linearGradient id="wc-wall" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5a6070"/><stop offset="0.5" stop-color="#22252e"/><stop offset="1" stop-color="#060709"/></linearGradient>
+    <radialGradient id="wc-plasma" cx="0.45" cy="0.45"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#f0d8ff"/><stop offset="0.6" stop-color="#b05cff"/><stop offset="0.9" stop-color="#5a1aa0"/><stop offset="1" stop-color="#2a0850"/></radialGradient>
+    <radialGradient id="wc-halo"><stop offset="0.55" stop-color="#b05cff" stop-opacity="0.7"/><stop offset="1" stop-color="#b05cff" stop-opacity="0"/></radialGradient>
+  </defs>
+
+  <!-- the square armour frame round the hole -->
+  <rect x="1" y="1" width="98" height="98" rx="6" fill="url(#wc-frame)" stroke="#0c0d12" stroke-width="2"/>
+  <path d="M4 30 L4 7 Q4 4 7 4 L30 4" stroke="#ffffff" stroke-width="1.6" fill="none" opacity="0.4"/>
+  <g fill="#c4cad8"><circle cx="7" cy="7" r="1.4"/><circle cx="93" cy="7" r="1.4"/><circle cx="7" cy="93" r="1.4"/><circle cx="93" cy="93" r="1.4"/></g>
+
+  <!-- the round hole going down into the boss. The top left wall is in
+       shadow, the bottom right wall catches the light. -->
+  <circle cx="50" cy="50" r="46" fill="url(#wc-wall)" stroke="#0c0d12" stroke-width="2"/>
+  <!-- containment ring with clamps and vents -->
+  <circle cx="50" cy="50" r="40" fill="#1a1d24" stroke="#0c0d12" stroke-width="1.6"/>
+  <circle cx="50" cy="50" r="37" fill="none" stroke="#b05cff" stroke-width="1.4" opacity="0.8"/>
+    <g transform="rotate(22.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(67.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(112.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(157.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(202.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(247.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(292.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(337.5 50 50)"><rect x="46" y="5" width="8" height="10" rx="1.5" fill="url(#wc-metal)" stroke="#0c0d12" stroke-width="1.2"/><circle cx="50" cy="8.5" r="1" fill="#0c0d12"/></g>
+    <g transform="rotate(0 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(45 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(90 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(135 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(180 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(225 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(270 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+    <g transform="rotate(315 50 50)"><rect x="47" y="12" width="6" height="5" fill="#0a0b0f"/><rect x="48" y="13.3" width="4" height="2.4" fill="#d89aff"/></g>
+
+  <!-- the plasma glow and swirling core -->
+  <circle cx="50" cy="50" r="36" fill="url(#wc-halo)"/>
+  <circle cx="50" cy="50" r="27" fill="url(#wc-plasma)" stroke="#2a0850" stroke-width="1.2"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M50 26 C66 27 75 40 72 54 C70 64 60 70 50 67" stroke="#f0d8ff" stroke-width="2.4" opacity="0.8"/>
+    <path d="M50 74 C34 73 25 60 28 46 C30 36 40 30 50 33" stroke="#f0d8ff" stroke-width="2.4" opacity="0.8"/>
+    <path d="M62 38 C66 46 63 56 55 59" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
+    <path d="M38 62 C34 54 37 44 45 41" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
+    <path d="M70 32 C76 40 78 48 76 58" stroke="#c47cff" stroke-width="1.6" opacity="0.8"/>
+    <path d="M30 68 C24 60 22 52 24 42" stroke="#c47cff" stroke-width="1.6" opacity="0.8"/>
+  </g>
+  <circle cx="50" cy="50" r="8" fill="#ffffff"/>
+  <circle cx="50" cy="50" r="12" fill="#ffffff" opacity="0.35"/>
+</svg>

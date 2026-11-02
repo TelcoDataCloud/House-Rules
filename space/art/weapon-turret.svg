@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 120">
+  <!-- THE LASER TURRET. It rises out of the boss's back when the boss
+       gets angry, swings round on its round base and fires a red laser
+       out of the tip at the bottom. The red rings on the barrel are
+       the coils that charge it up.
+       Hendrix: every fill is a colour. Try changing the reds. -->
+  <defs>
+    <linearGradient id="wt-house" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d5dbe6"/><stop offset="0.35" stop-color="#7a8294"/><stop offset="0.75" stop-color="#3a404e"/><stop offset="1" stop-color="#14161c"/></linearGradient>
+    <linearGradient id="wt-rail" x1="0" x2="1"><stop offset="0" stop-color="#e2e6ec"/><stop offset="0.35" stop-color="#8a92a2"/><stop offset="0.75" stop-color="#3a3f4c"/><stop offset="1" stop-color="#121419"/></linearGradient>
+    <linearGradient id="wt-coil" x1="0" x2="1"><stop offset="0" stop-color="#ffb0a0"/><stop offset="0.45" stop-color="#ff2a2a"/><stop offset="1" stop-color="#6a0606"/></linearGradient>
+    <linearGradient id="wt-beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2a2a" stop-opacity="0.2"/><stop offset="1" stop-color="#ff7a3a"/></linearGradient>
+    <radialGradient id="wt-glow"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#fff0c0"/><stop offset="0.55" stop-color="#ff6a2a"/><stop offset="1" stop-color="#ff1a1a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="wt-pit"><stop offset="0.6" stop-color="#08090c"/><stop offset="1" stop-color="#2a2e38"/></radialGradient>
+    <pattern id="wt-haz" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#14161b"/><rect width="4" height="8" fill="#f0b51c"/></pattern>
+  </defs>
+
+  <!-- the hazard ring in the boss's deck that the turret rises out of -->
+  <circle cx="48" cy="40" r="38" fill="url(#wt-haz)" stroke="#0c0d12" stroke-width="2.4"/>
+  <circle cx="48" cy="40" r="32" fill="url(#wt-pit)" stroke="#0c0d12" stroke-width="1.6"/>
+
+  <!-- shadow the barrel throws down and right -->
+  <path d="M38 56 L64 56 L63 114 L41 114 Z" fill="#000000" opacity="0.35" transform="translate(4 3)"/>
+
+  <!-- the long twin rail barrel -->
+  <rect x="42" y="56" width="12" height="52" fill="#1a1d24" stroke="#0c0d12" stroke-width="1.4"/>
+  <rect x="45.5" y="58" width="5" height="50" fill="url(#wt-beam)"/>
+  <path d="M34 54 L43 54 L42 110 L36 110 Z" fill="url(#wt-rail)" stroke="#0c0d12" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M53 54 L62 54 L60 110 L54 110 Z" fill="url(#wt-rail)" stroke="#0c0d12" stroke-width="2" stroke-linejoin="round"/>
+  <!-- red charge coils that wrap both rails -->
+  <g stroke="#0c0d12" stroke-width="1.3">
+    <rect x="31" y="62" width="34" height="6" rx="2" fill="#22252e"/>
+    <rect x="31.5" y="75" width="33" height="6" rx="2" fill="#22252e"/>
+    <rect x="32" y="88" width="32" height="6" rx="2" fill="#22252e"/>
+  </g>
+  <rect x="33" y="64" width="30" height="2" fill="url(#wt-coil)"/>
+  <rect x="33.5" y="77" width="29" height="2" fill="url(#wt-coil)"/>
+  <rect x="34" y="90" width="28" height="2" fill="url(#wt-coil)"/>
+
+  <!-- the emitter at the tip, where the laser comes out -->
+  <path d="M33 102 L63 102 L60 110 L54 112 L42 112 L36 110 Z" fill="url(#wt-house)" stroke="#0c0d12" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M35 108 L30 117 L39 112 Z M61 108 L66 117 L57 112 Z" fill="url(#wt-rail)" stroke="#0c0d12" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="48" cy="113" r="9" fill="url(#wt-glow)"/>
+  <ellipse cx="48" cy="109" rx="6" ry="2.2" fill="#0c0d12"/>
+  <ellipse cx="48" cy="109" rx="4" ry="1.4" fill="#ffd0a0"/>
+  <circle cx="48" cy="114" r="2.8" fill="#ffffff"/>
+
+  <!-- the round armoured turret. It spins around its middle. -->
+  <circle cx="51" cy="43" r="27" fill="#000000" opacity="0.35"/>
+  <path d="M48 13 C64 13 76 25 76 40 C76 50 71 57 64 61 L32 61 C25 57 20 50 20 40 C20 25 32 13 48 13 Z" fill="url(#wt-house)" stroke="#0c0d12" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M48 17 C38 17 28 24 25 35 L29 36 C32 27 39 21 48 21 Z" fill="#ffffff" opacity="0.4"/>
+  <!-- the armour cap on top -->
+  <circle cx="48" cy="38" r="13" fill="#2c313c" stroke="#0c0d12" stroke-width="1.6"/>
+  <circle cx="48" cy="38" r="13" fill="url(#wt-house)" opacity="0.55"/>
+  <path d="M38 33 A11 11 0 0 1 52 27" stroke="#ffffff" stroke-width="1.6" fill="none" opacity="0.45"/>
+  <!-- red sensor slit facing where it aims -->
+  <rect x="38" y="51" width="20" height="5" rx="1.5" fill="#0c0d12"/>
+  <rect x="39.5" y="52.3" width="17" height="2.4" fill="url(#wt-coil)"/>
+  <!-- panel lines and vents -->
+  <path d="M22 40 L35 40 M61 40 L74 40 M48 14 L48 25" stroke="#0c0d12" stroke-width="1.1" opacity="0.6"/>
+  <g fill="#0a0b0f"><rect x="25" y="44" width="9" height="2"/><rect x="25" y="48" width="9" height="2"/><rect x="62" y="44" width="9" height="2"/><rect x="62" y="48" width="9" height="2"/></g>
+  <g fill="#ff4a2a"><rect x="26" y="44.5" width="7" height="0.9"/><rect x="26" y="48.5" width="7" height="0.9"/><rect x="63" y="44.5" width="7" height="0.9"/><rect x="63" y="48.5" width="7" height="0.9"/></g>
+  <g fill="#c4cad8"><circle cx="34" cy="22" r="1.2"/><circle cx="62" cy="22" r="1.2"/><circle cx="26" cy="33" r="1.2"/><circle cx="70" cy="33" r="1.2"/></g>
+  <g fill="#0c0d12"><circle cx="48" cy="29" r="1"/><circle cx="57" cy="38" r="1"/><circle cx="39" cy="38" r="1"/><circle cx="48" cy="47" r="1"/></g>
+</svg>
