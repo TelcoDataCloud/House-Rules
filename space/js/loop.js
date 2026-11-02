@@ -9,7 +9,7 @@
      5. draw everything where it now is
    =========================================================== */
 
-import { state, level } from './state.js';
+import { state, level, hardness } from './state.js';
 import { takeActions } from './input.js';
 import { updateShip, drawShip, hitShip, useBomb, canPick, rollChoices } from './ship.js';
 import { spawnWave, updateEnemies, drawEnemies } from './enemies.js';
@@ -21,7 +21,8 @@ import { clear } from './canvas.js';
 import { touching, targets } from './collide.js';
 import { drawHud } from './hud.js';
 import { openPick, pickByNumber, showOver, showWin, show } from './screens.js';
-import { SHIP } from '../data/ship.js';
+import { SHIP, STAR } from '../data/ship.js';
+import { drop } from './pickups.js';
 import { MINE_BLAST } from '../data/foeshots.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
@@ -110,6 +111,20 @@ function collisions() {
   }
 }
 
+// STAR POWER: when lots of enemy shots are close to the ship, a gold
+// star capsule drops just in front of it (see data/ship.js).
+function starRescue(dt) {
+  state.starWait = (state.starWait ?? 8) - dt;
+  const s = state.ship;
+  if (state.starWait > 0 || s.dead > 0 || s.star > 0) return;
+  let near = 0;
+  for (const b of state.foes) if (Math.hypot(b.x - s.x, b.y - s.y) < 170 && b.y < s.y + 30) near++;
+  for (const b of state.bosses) if (b.shot) near += 3;     // a boss cannon counts as busy
+  if (near < STAR.danger) return;
+  state.starWait = hardness().starWait;
+  drop('STAR', Math.max(40, Math.min(440, s.x + (Math.random() - 0.5) * 80)), Math.max(60, s.y - 150));
+}
+
 // Lots of danger close by and bombs left over? Tell him about the bomb.
 function bombHint(dt) {
   state.hintWait -= dt;
@@ -157,6 +172,7 @@ function step(dt) {
   updateBullets(dt);
   collisions();
   bombHint(dt);
+  starRescue(dt);
   updatePickups(dt);
   fx.updateFx(dt);
   sweep(state.shots);

@@ -14,7 +14,7 @@ import { state, W, H, hardness, powerBar, giveBombs } from './state.js';
 import { rawArt } from './art.js';
 import { ctx, art, sprite, radial } from './canvas.js';
 import { input } from './input.js';
-import { SHIP } from '../data/ship.js';
+import { SHIP, STAR } from '../data/ship.js';
 import { GUNS, HELPERS, EXTRAS,  MAX_LEVEL } from '../data/weapons.js';
 import { BOMBS } from '../data/bombs.js';
 import { addShot, addMissile } from './bullets.js';
@@ -201,6 +201,7 @@ export function updateShip(dt) {
   }
 
   if (s.invuln > 0) s.invuln -= dt;
+  if (s.star > 0) s.star -= dt;
 
   const back = hardness().shieldBack;
   if (!s.shield && back && s.shieldWait > 0) {
@@ -319,7 +320,7 @@ function drawBeams(s) {
 export function drawShip() {
   const s = state.ship;
   const ship = shipLook();
-  const blink = s.invuln > 0 && s.dead <= 0 && Math.floor(s.invuln * 8) % 2 === 0;
+  const blink = !(s.star > 0) && s.invuln > 0 && s.dead <= 0 && Math.floor(s.invuln * 8) % 2 === 0;
 
   (s.droneList || []).forEach((d) => {
     sprite(droneLook(), d.x, d.y, 18, 20, { shadow: [6, 14, 0.35] });
@@ -328,6 +329,21 @@ export function drawShip() {
   if (s.dead > 0) return;
   flames(s);
   sprite(ship, s.x, s.y, SHIP_W, SHIP_H, { alpha: blink ? 0.3 : 1, shadow: [6, 13, 0.35] });
+  if (s.star > 0) {
+    // STAR POWER: a gold glow, and a gold ring that shrinks as time runs out.
+    const left = s.star / STAR.seconds;
+    const flick = s.star < 1.2 && Math.floor(s.star * 10) % 2 === 0;
+    radial(s.x, s.y, 50, [[0, 'rgba(255,225,74,0.5)'], [0.6, 'rgba(255,170,40,0.25)'], [1, 'rgba(255,170,40,0)']], flick ? 0.4 : 1, 'lighter');
+    ctx.save();
+    ctx.strokeStyle = '#ffe14a';
+    ctx.shadowColor = '#ffd23f';
+    ctx.shadowBlur = 14;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, 40, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+    ctx.stroke();
+    ctx.restore();
+  }
   if (s.shield) {
     // A thin, see-through bubble, so you can still see your ship.
     ctx.save();

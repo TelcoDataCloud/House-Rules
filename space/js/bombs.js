@@ -109,34 +109,50 @@ const KINDS = {
   },
 
   lightning(lv, s) {
-    // From the ship to the nearest enemy, then on and on.
-    const chain = [];
-    let from = { x: s.x, y: s.y - 30 };
-    const left = targets().filter((t) => t.y > -20 && t.y < H);
-    for (let i = 0; i < lv.jumps && left.length; i++) {
-      left.sort((a, b) => Math.hypot(a.x - from.x, a.y - from.y) - Math.hypot(b.x - from.x, b.y - from.y));
-      const t = left.shift();
-      chain.push({ from: { x: from.x, y: from.y }, to: t });
-      from = t;
-    }
-    if (!chain.length) {
-      // Nothing to hit: a bolt straight up anyway, so you see it go.
-      chain.push({ from: { x: s.x, y: s.y - 30 }, to: { x: s.x, y: -10, ghost: true } });
-    }
-    fx.add('tint', 0, 0, 0.35, { draw: (p, k) => screenTint('255,40,60', 0.25 * (1 - k)) });
-    chain.forEach((link, i) => {
-      const damage = lv.damage * LIGHTNING_FADE ** i;
-      after(i * 0.06, () => {
-        const end = { x: link.to.x, y: link.to.y };
-        fx.add('bolt', 0, 0, 0.4, { draw: (p, k) => bolt(link.from, end, k, p) });
-        if (!link.to.ghost) {
-          link.to.onHit(damage, 'bomb');
-          sparks(end.x, end.y, '#ff4a5a', 10);
-        }
-        sound.zap(end.x);
+    // 1. A crackling ball of red lightning shoots up ahead of you,
+    //    to the middle of the enemies (or straight ahead).
+    const [tx, ty] = ballTarget(s, lv.size / 2);
+    const from = [s.x, s.y - 30];
+    fx.add('ball', from[0], from[1], 0.35, {
+      draw(p, k) {
+        const x = lerp(from[0], tx, k);
+        const y = lerp(from[1], ty, k);
+        lightningBall(x, y, 14 + 6 * k, p.t, 0.9);
+      },
+    });
+    sound.zap(s.x);
+    after(0.35, () => {
+      // 2. It bursts: a big sphere of red lightning, crackling arcs
+      //    out to the edge, a shock ring, and a red flash.
+      const R = lv.size / 2;
+      fx.add('tint', 0, 0, 0.3, { draw: (p, k) => screenTint('255,30,50', 0.3 * (1 - k)) });
+      fx.add('burst', tx, ty, 1.1, {
+        draw(p, k) {
+          const r = R * (k < 0.18 ? k / 0.18 : 1);
+          const a = k < 0.65 ? 1 : 1 - (k - 0.65) / 0.35;
+          lightningBall(tx, ty, r, p.t, a);
+        },
+      });
+      fx.add('shock', tx, ty, 0.45, { size: R * 2 / 1.5, colour: '#ff4a5a', width: 5 });
+      fx.flash();
+      fx.shake(true);
+      sound.thunder();
+      // 3. Arcs jump out to the enemies inside it: the nearest first,
+      //    a bit weaker after every jump.
+      const inside = targets()
+        .filter((t) => Math.hypot(t.x - tx, t.y - ty) < R + t.r)
+        .sort((a, b) => Math.hypot(a.x - tx, a.y - ty) - Math.hypot(b.x - tx, b.y - ty))
+        .slice(0, lv.jumps);
+      inside.forEach((t, i) => {
+        after(0.05 + i * 0.04, () => {
+          const end = { x: t.x, y: t.y };
+          fx.add('bolt', 0, 0, 0.35, { draw: (p, k) => bolt({ x: tx, y: ty }, end, k, p) });
+          t.onHit(lv.damage * LIGHTNING_FADE ** i, 'bomb');
+          sparks(end.x, end.y, '#ff4a5a', 8);
+          if (i % 3 === 0) sound.zap(end.x);
+        });
       });
     });
-    sound.thunder();
   },
 
   laser(lv, s) {
@@ -208,6 +224,66 @@ export function fireBomb(kind, level) {
 }
 
 // ---------- the pieces of the bombs ----------
+
+// Where the ball of lightning goes: the middle of the most enemies
+// it can catch, or straight ahead if there are none.
+function ballTarget(s, R) {
+  const list = targets().filter((t) => t.y > 30 && t.y < s.y - 80);
+  let best = null;
+  let bestCount = 0;
+  for (const t of list) {
+    const n = list.filter((o) => Math.hypot(o.x - t.x, o.y - t.y) < R).length;
+    if (n > bestCount) { best = t; bestCount = n; }
+  }
+  if (best) return [best.x, Math.min(best.y, s.y - 160)];
+  return [s.x, Math.max(120, s.y - 240)];
+}
+
+// A ball of red lightning: a glowing red core, and jagged arcs
+// crackling out from the middle to the edge, new ones every frame.
+function lightningBall(x, y, r, t, alpha) {
+  radial(x, y, r * 1.15, [[0, 'rgba(255,255,255,0.9)'], [0.2, 'rgba(255,90,100,0.75)'], [0.6, 'rgba(200,0,30,0.35)'], [1, 'rgba(120,0,20,0)']], alpha, 'lighter');
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.lineJoin = 'round';
+  const arcs = Math.max(5, Math.round(r / 8));
+  for (const [w, colour, blur] of [[5, 'rgba(220,20,50,0.6)', 14], [2, '#ff6a78', 6], [0.9, '#ffffff', 0]]) {
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = w;
+    ctx.shadowColor = '#ff2a3a';
+    ctx.shadowBlur = blur;
+    ctx.beginPath();
+    for (let i = 0; i < arcs; i++) {
+      // Each arc wanders out from the middle in a zigzag.
+      const seed = Math.floor(t * 24) * 97 + i * 13;
+      const rnd = (n) => ((Math.sin(seed * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
+      let ang = (i / arcs) * Math.PI * 2 + rnd(1);
+      ctx.moveTo(x, y);
+      const steps = 8;
+      for (let j = 1; j <= steps; j++) {
+        ang += (rnd(j + 2) - 0.5) * 1.1;
+        const d = (r * j) / steps;
+        ctx.lineTo(x + Math.cos(ang) * d, y + Math.sin(ang) * d);
+      }
+    }
+    ctx.stroke();
+  }
+  // A crackling rim round the outside.
+  ctx.strokeStyle = 'rgba(255,120,130,0.7)';
+  ctx.lineWidth = 2;
+  ctx.shadowBlur = 10;
+  ctx.beginPath();
+  for (let i = 0; i <= 40; i++) {
+    const a = (i / 40) * Math.PI * 2;
+    const wob = r * (0.94 + 0.08 * Math.sin(a * 7 + t * 40));
+    const px = x + Math.cos(a) * wob;
+    const py = y + Math.sin(a) * wob;
+    if (i) ctx.lineTo(px, py); else ctx.moveTo(px, py);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
 
 function screenTint(rgb, alpha) {
   ctx.save();
