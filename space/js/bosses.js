@@ -32,6 +32,8 @@ import { drop } from './pickups.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
 import { makeCracks, crackSpot, breakApart } from './breakup.js';
+import { drawHole, bossDamage, debris, sparks } from './damage.js';
+import { makeRig, rigMuzzle, rigFire, drawRig } from './rig.js';
 
 function part(boss, name, art, w, h, ox, oy, r, hits, open) {
 
@@ -114,6 +116,8 @@ function hurt(boss, p, n, how) {
   p.alive = false;
   sound.boom(p.x);
   fx.boom(p.x, p.y, 90, 8);
+  debris(p.x, p.y, 12);
+  sparks(p.x, p.y, 10);
   if (p.art && !p.leg) p.hidden = true;
 
   if (boss.kind === 'hauler') {
@@ -165,8 +169,9 @@ function powerUp(boss) {
     fx.banner('IT CAN FLY!', 'warn');
     sound.whoosh();
   }
-  const out = boss.kind === 'hauler' ? 62 : boss.h / 2 + 4;
-  boss.cannon = { from: out - 70, to: out, oy: out - 70, angle: 0 };
+  // Its big weapon comes out (js/rig.js): a turret, missile wings,
+  // tesla coils or a plasma core. Omega gets all of them.
+  boss.cannon = makeRig(boss);
   boss.cannonWait = 2.6 + boss.twinDelay;
 }
 
@@ -257,16 +262,6 @@ function drawShot(boss) {
 
 function startCannon(boss) {
   const c = boss.cannon;
-  // The cannon turns on its top hinge to aim where you are now.
-  const px = boss.x;
-  const py = boss.y + c.oy - 46;
-  const tx = state.ship.x;
-  const ty = H + 40;
-  const rad = Math.atan2(px - tx, ty - py);
-  const angle = (rad * 180) / Math.PI;
-  const x0 = px - Math.sin(rad) * 98;             // the end of the barrel
-  const y0 = py + Math.cos(rad) * 98;
-  const len = Math.hypot(tx - x0, ty - y0) + 60;
   const warn = hardness().cannonWarn || 1.3;
   // Which big attack this time ('all' takes turns).
   let kind = boss.cfg.cannon || 'laser';
@@ -274,8 +269,22 @@ function startCannon(boss) {
     boss.cannonTurn = ((boss.cannonTurn ?? -1) + 1) % 4;
     kind = ['laser', 'plasma', 'lightning', 'missiles'][boss.cannonTurn];
   }
+  // Aim at where you are now. (The turret swings round first, so
+  // its barrel end moves; everything else fires from where it is.)
+  c.angle = 0;
+  let [px, py] = rigMuzzle(boss, kind);
+  const tx = state.ship.x;
+  const ty = H + 40;
+  const rad = Math.atan2(px - tx, ty - py);
+  const angle = (rad * 180) / Math.PI;
+  c.angle = angle;
+  [px, py] = rigMuzzle(boss, kind);
+  const x0 = px;
+  const y0 = py;
+  const len = Math.hypot(tx - x0, ty - y0) + 60;
   boss.shot = { x0, y0, angle, len, t: 0, warn, fire: kind === 'laser' ? 0.9 : kind === 'lightning' ? 0.55 : 0.8, kind };
   c.angle = angle;
+  c.kind = kind;
   boss.hold = warn + 1.1;                         // keep still while it fires
   sound.charge();
 }
@@ -283,7 +292,7 @@ function startCannon(boss) {
 function updateCannon(boss, dt) {
   const c = boss.cannon;
   if (!c) return;
-  c.oy += (c.to - c.oy) * Math.min(1, dt * 2);
+  c.out = Math.min(1, (c.out || 0) + dt * 0.8);       // it comes out slowly
   if (boss.charging > 0 || boss.phase !== 'fight') return;
   const sh = boss.shot;
   if (!sh) {
@@ -338,8 +347,9 @@ function fireCannon(boss, sh) {
     for (let i = 0; i < 5; i++) after(i * 0.14, () => addFoe(sh.x0, sh.y0, aim, 210, 'plasma'));
     sound.bigLaser();
   } else if (sh.kind === 'missiles') {
-    // A fan of rockets around the line.
-    for (let i = 0; i < 6; i++) after(i * 0.08, () => addFoe(sh.x0, sh.y0, aim + (i - 2.5) * 9, 170, 'rocket'));
+    // A fan of rockets, one from each rack on its wings.
+    const racks = rigFire(boss, 'missiles');
+    racks.forEach(([x, y], i) => after(i * 0.07, () => addFoe(x, y, aim + (i - (racks.length - 1) / 2) * 7, 170, 'rocket')));
     sound.launch();
   } else if (sh.kind === 'lightning') {
     sound.zap(sh.x0);
@@ -505,6 +515,12 @@ export function updateBosses(dt) {
       }
     } else if (boss.phase === 'fight') {
       fight(boss, dt);
+      // Fire and smoke out of its holes, and worse the more it is hurt.
+      let hp = 0;
+      let max = 0;
+      for (const p of boss.parts) { hp += Math.max(0, p.hp); max += p.max; }
+      const holes = boss.parts.filter((p) => !p.alive && !p.leg && p.art && p.name !== 'eye').map((p) => [p.x, p.y]);
+      bossDamage(boss, holes, 1 - hp / max, boss.stage === 3, dt);
     } else if (boss.phase === 'leave') {
       boss.y -= 120 * dt;
       if (boss.y < -boss.h - 60) {
@@ -566,11 +582,7 @@ export function drawBosses() {
       sprite(bitmap(p.art, { tint }), p.x + jx, y + jy, p.w, p.h, { rot, alpha, look: p.flashT > 0 ? 'white' : 'img', shadow: boss.flying ? null : [8, 16, 0.32] });
     }
 
-    const c = boss.cannon;
-    if (c) {
-      // The cannon hangs from its top and turns to aim.
-      sprite(bitmap('boss-cannon', { tint }), boss.x + jx, boss.y + c.oy + jy, 90, 120, { rot: (c.angle * Math.PI) / 180, oy: -45 });
-    }
+    if (boss.cannon) drawRig(boss, boss.cannon, 'under', jx, jy);
 
     // The body. White when hit, flashing when powering up or dying.
     const flashOn = (boss.charging > 0 || dying) && Math.floor(t * 14) % 2 === 0;
@@ -589,7 +601,12 @@ export function drawBosses() {
     sprite(body, boss.x + jx, boss.y + jy, boss.w, boss.h, { look, shadow });
     if (boss.angry && !dying) glowOver(body, boss.x, boss.y, boss.w, boss.h, 'red', 0.12 + 0.12 * Math.sin(t * 12));
     if (dying && boss.cracks) drawCracks(boss, body);
+    if (boss.cannon && !dying) drawRig(boss, boss.cannon, 'over', jx, jy);
 
+    // Burning holes where its guns and engines were.
+    for (const p of boss.parts) {
+      if (!p.alive && !p.leg && p.art && p.name !== 'eye') drawHole(p.x + jx, p.y + jy, Math.min(p.w, p.h), t);
+    }
     for (const p of boss.parts) {
       if (p.leg || p.hidden || !p.art) continue;
       const set = bitmap(p.art, { tint: p.name === 'eye' ? '' : tint });

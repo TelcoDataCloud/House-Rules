@@ -18,6 +18,7 @@ import { spawnWave } from './enemies.js';
 import { drop } from './pickups.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
+import { blowUp, smoulder, drawCrater } from './damage.js';
 
 
 // A little dice that always rolls the same, so a base looks the same every game.
@@ -185,6 +186,7 @@ export function updateBases(dt) {
   for (const part of state.parts) {
     part.y = part.plate.front - part.along;
     if (part.flashT > 0) part.flashT -= dt;
+    if (!part.alive && part.crater && part.y > -60 && part.y < H + 40) smoulder(part, dt, level().scroll);
     if (!part.alive) continue;
 
     if (part.kind === 'turret' && canShoot(part)) {
@@ -250,8 +252,14 @@ export function drawBases() {
       ctx.stroke();
       ctx.restore();
     }
-    const look = !part.alive || part.dark ? 'dark' : part.flashT > 0 ? 'white' : 'img';
-    sprite(art(part.spec.art), part.x, part.y, part.w, part.h, { look, alpha: part.alive ? 1 : 0.85 });
+    if (!part.alive && part.crater) {
+      // A scorched crater, with the burnt wreck lying crooked in it.
+      drawCrater(part, state.time);
+      sprite(art(part.spec.art), part.x, part.y, part.w * 0.82, part.h * 0.82, { look: 'dark', rot: Math.sin(part.seed) * 0.4, alpha: 0.9 });
+      continue;
+    }
+    const look = part.dark ? 'dark' : part.flashT > 0 ? 'white' : 'img';
+    sprite(art(part.spec.art), part.x, part.y, part.w, part.h, { look });
   }
 }
 
@@ -269,7 +277,8 @@ function breakPart(part, chained = false) {
   part.alive = false;
   state.stats.partsDestroyed++;
   const big = part.kind === 'reactor' || part.kind === 'tank';
-  fx.boom(part.x, part.y, big ? 130 : Math.max(part.w, 60) * 1.2, big ? 10 : 6);
+  // A proper explosion, then a burning, smoking wreck (js/damage.js).
+  blowUp(part);
   if (big) { sound.boom(part.x); fx.shake(); } else sound.pop(part.x);
   fx.award(chained ? 100 : part.spec.points, part.x, part.y - 20);
   // On Hard, crates never give extra ships (the reactor still does).

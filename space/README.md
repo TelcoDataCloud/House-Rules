@@ -174,3 +174,19 @@ From Asa's change list after a playtest.
   explodes, with arcs zapping every enemy inside it.
 - **Enemy shots** are sci-fi now: energy darts, ion shots with rings,
   plasma torpedoes with spinning rings, lightning bolts.
+
+## Wrecks, smoke and boss weapon hardware (2 Nov, night)
+
+- **Things blow up properly** (js/damage.js): base guns, missile pods, fuel
+  tanks, crates and the rest explode with debris (missile pods cook off),
+  then leave a scorched crater with a burnt wreck that keeps smoking and
+  burning until it scrolls away.
+- **Bosses get wrecked as you fight:** every gun or engine you shoot off
+  leaves a burning hole pouring out fire, smoke and sparks. More smoke at
+  one third damage, fire and black smoke at two thirds, little explosions
+  near the end, and heavy smoke in LAST STAND.
+- **Each big attack has its own hardware** (js/rig.js, art/weapon-*.svg):
+  a laser turret rises out of the boss's back and swings to aim; missile
+  wings slide out of its sides; two tesla coils rise and arc together
+  before the lightning strikes; armour doors slide open to show a glowing
+  plasma core. Omega brings out all four.
