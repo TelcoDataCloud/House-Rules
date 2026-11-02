@@ -5,64 +5,81 @@
    shots off the screen first, so a bomb always gets you out of
    trouble. Then each one hurts things in its own way:
 
-     he       one big bang just in front of the ship
-     cluster  little bombs fly to the nearest enemies and pop
-     plasma   a wall of fire rolls up the screen, hitting all it touches
-     laser    a giant laser straight up that follows you for 2 seconds
-     nuke     a white flash and everything on screen gets hit
+     he         one big bang just in front of the ship
+     cluster    little bombs fly to the nearest enemies and pop
+     lightning  red lightning jumps from enemy to enemy
+     laser      a giant laser straight up that follows you for 2 seconds
+     nuke       a missile flies to where the enemies are, then a huge
+                flash, a shockwave, and a mushroom cloud rising up
 
    Hits from a bomb say 'bomb', so a boss only takes a little bit
    (BOSS_SHARE in data/bombs.js).
+
+   Everything you see is a particle (js/fx.js), drawn on the canvas.
    =========================================================== */
 
 import { state, W, H, after } from './state.js';
-import { layer } from './art.js';
+import { ctx, radial } from './canvas.js';
 import { targets } from './collide.js';
-import { clearFoes } from './bullets.js';
-import { BOMBS } from '../data/bombs.js';
+import { BOMBS, LIGHTNING_FADE } from '../data/bombs.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+const lerp = (a, b, k) => a + (b - a) * k;
 
-// A box on the fx layer that plays one animation, then goes away.
-function show(cls, x, y, w, h, frames, ms) {
-  const el = document.createElement('div');
-  el.className = cls;
-  el.style.width = `${w}px`;
-  el.style.height = `${h}px`;
-  el.style.transform = `translate(${x - w / 2}px, ${y - h / 2}px)`;
-  layer('fx').appendChild(el);
-  if (frames && !calm.matches) el.animate(frames, { duration: ms, easing: 'ease-out', fill: 'forwards' });
-  else if (frames) el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
-  setTimeout(() => el.remove(), ms + 50);
-  return el;
+// Everything inside the bang gets hit: full in the middle, half at the edge.
+function hitAround(x, y, size, damage, edge = 0.5) {
+  for (const t of targets()) {
+    const d = Math.hypot(t.x - x, t.y - y);
+    if (d < size / 2 + t.r) t.onHit(damage * lerp(1, edge, Math.min(1, d / (size / 2))), 'bomb');
+  }
 }
 
-function hitAround(x, y, size, damage) {
-  for (const t of targets()) {
-    if (Math.hypot(t.x - x, t.y - y) < size / 2 + t.r) t.onHit(damage, 'bomb');
-  }
+// A thing that flies from one place to another along a curve.
+function fly(from, to, time, look) {
+  fx.add('fly', from[0], from[1], time, {
+    draw(p, k) {
+      const x = lerp(from[0], to[0], k);
+      const y = lerp(from[1], to[1], k) - Math.sin(k * Math.PI) * (look.arc || 0);
+      look.draw(x, y, k);
+    },
+    tick(p) {
+      if (look.smoke) {
+        const k = p.t / p.life;
+        if (Math.random() < 0.7) fx.smokePuff(lerp(from[0], to[0], k), lerp(from[1], to[1], k) + 8);
+      }
+    },
+  });
+}
+
+function shell(x, y) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = '#3a3f56';
+  ctx.strokeStyle = '#10121e';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 6, 10, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#ffb35a';
+  ctx.fillRect(-4, -9, 8, 5);
+  ctx.restore();
 }
 
 const KINDS = {
   he(lv, s) {
     const x = s.x;
     const y = s.y - 170;
-    show('bomb-shell', s.x, s.y - 30, 16, 22, [
-      { transform: `translate(${s.x - 8}px, ${s.y - 41}px)` },
-      { transform: `translate(${x - 8}px, ${y - 11}px) scale(1.3)` },
-    ], 220);
+    fly([s.x, s.y - 30], [x, y], 0.22, { draw: shell });
     after(0.22, () => {
       fx.boom(x, y, lv.size, 18, '#ff7a1a');
-      show('bomb-blast', x, y, lv.size, lv.size, [
-        { transform: `translate(${x - lv.size / 2}px, ${y - lv.size / 2}px) scale(0.2)`, opacity: 1 },
-        { transform: `translate(${x - lv.size / 2}px, ${y - lv.size / 2}px) scale(1.1)`, opacity: 0 },
-      ], 600);
+      fx.add('shock', x, y, 0.6, { size: lv.size, colour: '#fff6c0', width: 5 });
       fx.flash();
       fx.shake(true);
       sound.bomb();
-      hitAround(x, y, lv.size, lv.damage);
+      hitAround(x, y, lv.size, lv.damage, 0.5);
     });
   },
 
@@ -77,129 +94,274 @@ const KINDS = {
       const y = t ? t.y : s.y - 220 - (i % 3) * 60;
       const delay = 0.08 * i;
       after(delay, () => {
-        show('bomblet', s.x, s.y, 12, 12, [
-          { transform: `translate(${s.x - 6}px, ${s.y - 36}px)` },
-          { transform: `translate(${(s.x + x) / 2 - 6}px, ${Math.min(s.y, y) - 70}px)` },
-          { transform: `translate(${x - 6}px, ${y - 6}px)` },
-        ], 380);
+        fly([s.x, s.y - 30], [x, y], 0.38, {
+          arc: 70,
+          draw: (bx, by) => radial(bx, by, 8, [[0, '#ffffff'], [0.4, '#ffd23f'], [1, 'rgba(166,107,0,0)']], 1, 'lighter'),
+        });
       });
       after(delay + 0.38, () => {
         fx.boom(x, y, lv.size, 8, '#ffd23f');
         sound.pop();
-        hitAround(x, y, lv.size, lv.damage);
+        hitAround(x, y, lv.size, lv.damage, 0.8);
       });
     }
     sound.bomb();
   },
 
-  plasma(lv, s) {
-    // A wall of blue fire from the ship to the top of the screen.
-    const hit = new Set();
-    const steps = 10;
-    const from = s.y;
-    show('plasma-wall', W / 2, from, W + 40, 70, [
-      { transform: `translate(-20px, ${from - 35}px)`, opacity: 1 },
-      { transform: `translate(-20px, ${-80}px)`, opacity: 0.9 },
-    ], 900);
-    for (let i = 0; i <= steps; i++) {
-      after((0.9 * i) / steps, () => {
-        const y = from - ((from + 60) * i) / steps;
-        for (const t of targets()) {
-          if (!hit.has(t) && Math.abs(t.y - y) < 50 + t.r) { hit.add(t); t.onHit(lv.damage, 'bomb'); fx.spark(t.x, t.y); }
-        }
-      });
+  lightning(lv, s) {
+    // From the ship to the nearest enemy, then on and on.
+    const chain = [];
+    let from = { x: s.x, y: s.y - 30 };
+    const left = targets().filter((t) => t.y > -20 && t.y < H);
+    for (let i = 0; i < lv.jumps && left.length; i++) {
+      left.sort((a, b) => Math.hypot(a.x - from.x, a.y - from.y) - Math.hypot(b.x - from.x, b.y - from.y));
+      const t = left.shift();
+      chain.push({ from: { x: from.x, y: from.y }, to: t });
+      from = t;
     }
-    sound.whoosh();
-    fx.shake();
+    if (!chain.length) {
+      // Nothing to hit: a bolt straight up anyway, so you see it go.
+      chain.push({ from: { x: s.x, y: s.y - 30 }, to: { x: s.x, y: -10, ghost: true } });
+    }
+    fx.add('tint', 0, 0, 0.35, { draw: (p, k) => screenTint('255,40,60', 0.25 * (1 - k)) });
+    chain.forEach((link, i) => {
+      const damage = lv.damage * LIGHTNING_FADE ** i;
+      after(i * 0.06, () => {
+        const end = { x: link.to.x, y: link.to.y };
+        fx.add('bolt', 0, 0, 0.4, { draw: (p, k) => bolt(link.from, end, k, p) });
+        if (!link.to.ghost) {
+          link.to.onHit(damage, 'bomb');
+          sparks(end.x, end.y, '#ff4a5a', 10);
+        }
+        sound.zap(end.x);
+      });
+    });
+    sound.thunder();
   },
 
   laser(lv, s) {
     // A giant laser that follows your ship for two seconds.
-    const el = document.createElement('div');
-    el.className = 'laser-bomb';
-    el.style.width = `${lv.size}px`;
-    layer('fx').appendChild(el);
-    const ticks = 20;
-    for (let i = 0; i <= ticks; i++) {
-      after((2 * i) / ticks, () => {
+    fx.add('laserbomb', s.x, s.y, 2, {
+      draw(p, k) {
         const ship = state.ship;
-        el.style.height = `${Math.max(0, ship.y - 30)}px`;
-        el.style.transform = `translate(${ship.x - lv.size / 2}px, 0px)`;
+        const w = lv.size * (k < 0.08 ? k / 0.08 : k > 0.9 ? (1 - k) / 0.1 : 1) * (0.92 + Math.random() * 0.08);
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const g = ctx.createLinearGradient(ship.x - w / 2, 0, ship.x + w / 2, 0);
+        g.addColorStop(0, 'rgba(255,59,59,0)');
+        g.addColorStop(0.12, 'rgba(255,59,59,0.75)');
+        g.addColorStop(0.32, '#ffd0d0');
+        g.addColorStop(0.5, '#ffffff');
+        g.addColorStop(0.68, '#ffd0d0');
+        g.addColorStop(0.88, 'rgba(255,59,59,0.75)');
+        g.addColorStop(1, 'rgba(255,59,59,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(ship.x - w / 2, 0, w, Math.max(0, ship.y - 30));
+        ctx.restore();
+      },
+      tick(p, dt) {
+        const ship = state.ship;
         for (const t of targets()) {
-          if (t.y < ship.y && Math.abs(t.x - ship.x) < lv.size / 2 + t.r) t.onHit(lv.damage / ticks, 'bomb');
+          if (t.y < ship.y && Math.abs(t.x - ship.x) < lv.size / 2 + t.r) t.onHit(lv.damage * dt, 'bomb');
         }
-        for (const b of state.foes) if (Math.abs(b.x - ship.x) < lv.size / 2) b.dead = true;
-        if (i === ticks) el.remove();
-      });
-    }
+        for (const b of state.foes) if (Math.abs(b.x - ship.x) < lv.size / 2 && b.y < ship.y) b.dead = true;
+      },
+    });
     sound.laserBomb();
     fx.shake(true);
   },
 
-  nuke(lv) {
-    fx.flash();
-    mushroom();
-    fx.shake(true);
-    sound.bomb();
-    after(0.35, () => {
-      sound.bomb();
+  nuke(lv, s) {
+    // Where to send it: the boss, or the busiest spot, or straight ahead.
+    const [tx, ty] = nukeTarget(s);
+    sound.launch();
+    fly([s.x, s.y - 30], [tx, ty], 0.4, {
+      smoke: true,
+      draw: (x, y) => {
+        shell(x, y);
+        radial(x, y + 12, 8, [[0, '#ffffff'], [0.4, '#ffd23f'], [1, 'rgba(255,122,26,0)']], 1, 'lighter');
+      },
+    });
+    after(0.4, () => {
+      state.slow = Math.max(state.slow, 0.6);   // the world slows down
+      fx.flash();
       fx.shake(true);
-      for (const t of targets()) { t.onHit(lv.damage, 'bomb'); }
+      sound.nuke();
+      mushroom(tx, ty);
+      for (const t of targets()) t.onHit(lv.damage, 'bomb');
+      // Then everything keeps burning for 3 seconds.
+      for (let i = 1; i <= 6; i++) {
+        after(i * 0.5, () => { for (const t of targets()) t.onHit(lv.burn / 2, 'bomb'); });
+      }
     });
   },
 };
 
-// The nuke: one huge mushroom cloud that rises up the middle of the
-// screen. A fireball climbs on a column of smoke, then cools to grey.
-function mushroom() {
-  const w = 420;
-  const h = 520;
-  const el = document.createElement('div');
-  el.className = 'nuke';
-  el.style.width = `${w}px`;
-  el.style.height = `${h}px`;
-  el.style.transform = `translate(${W / 2 - w / 2}px, ${H - 70 - h}px)`;
-  el.innerHTML = `<svg viewBox="0 0 420 520" aria-hidden="true">
-    <defs>
-      <radialGradient id="nk-fire" cx="0.5" cy="0.55" r="0.6"><stop offset="0" stop-color="#ffffff"/><stop offset="0.25" stop-color="#fff2a8"/><stop offset="0.5" stop-color="#ff9a2a"/><stop offset="0.8" stop-color="#c2301a"/><stop offset="1" stop-color="#5a1a12"/></radialGradient>
-      <radialGradient id="nk-smoke" cx="0.45" cy="0.35" r="0.7"><stop offset="0" stop-color="#b8a89a"/><stop offset="0.6" stop-color="#6a5a52"/><stop offset="1" stop-color="#2a2226"/></radialGradient>
-      <linearGradient id="nk-stem" x1="0" x2="1"><stop offset="0" stop-color="#4a3a36"/><stop offset="0.35" stop-color="#ff8a2a"/><stop offset="0.5" stop-color="#fff2a8"/><stop offset="0.65" stop-color="#ff8a2a"/><stop offset="1" stop-color="#4a3a36"/></linearGradient>
-    </defs>
-    <g class="nk-base"><ellipse cx="210" cy="485" rx="200" ry="34" fill="url(#nk-smoke)"/><ellipse cx="210" cy="480" rx="120" ry="18" fill="#ff9a2a" opacity="0.7"/></g>
-    <g class="nk-stem"><path d="M178 490 C186 400 190 300 192 215 L228 215 C230 300 234 400 242 490 Z" fill="url(#nk-stem)"/></g>
-    <g class="nk-cap">
-      <ellipse cx="210" cy="232" rx="165" ry="30" fill="url(#nk-smoke)" opacity="0.85"/>
-      <circle cx="130" cy="180" r="62" fill="url(#nk-smoke)"/><circle cx="290" cy="180" r="62" fill="url(#nk-smoke)"/>
-      <circle cx="170" cy="130" r="72" fill="url(#nk-smoke)"/><circle cx="250" cy="130" r="72" fill="url(#nk-smoke)"/>
-      <circle cx="210" cy="110" r="80" fill="url(#nk-smoke)"/>
-      <g class="nk-glow">
-        <circle cx="140" cy="182" r="50" fill="url(#nk-fire)"/><circle cx="280" cy="182" r="50" fill="url(#nk-fire)"/>
-        <circle cx="175" cy="135" r="60" fill="url(#nk-fire)"/><circle cx="245" cy="135" r="60" fill="url(#nk-fire)"/>
-        <circle cx="210" cy="118" r="68" fill="url(#nk-fire)"/>
-      </g>
-    </g>
-  </svg>`;
-  layer('fx').appendChild(el);
-  const ms = 3400;
-  const part = (sel) => el.querySelector(sel);
-  if (!calm.matches) {
-    part('.nk-stem').animate([{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(1.05)' }], { duration: ms, easing: 'ease-out', fill: 'forwards' });
-    part('.nk-cap').animate([
-      { transform: 'translateY(300px) scale(0.15)' },
-      { transform: 'translateY(0) scale(1)', offset: 0.35 },
-      { transform: 'translateY(-20px) scale(1.12)' },
-    ], { duration: ms, easing: 'ease-out', fill: 'forwards' });
-    part('.nk-base').animate([{ transform: 'scaleX(0.2)', opacity: 1 }, { transform: 'scaleX(1.3)', opacity: 0.8 }], { duration: ms, easing: 'ease-out', fill: 'forwards' });
-  }
-  part('.nk-glow').animate([{ opacity: 1 }, { opacity: 0.9, offset: 0.3 }, { opacity: 0 }], { duration: ms * 0.75, fill: 'forwards' });
-  el.animate([{ opacity: 1 }, { opacity: 1, offset: 0.7 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
-  setTimeout(() => el.remove(), ms + 50);
-}
-
 export function fireBomb(kind, level) {
   const s = state.ship;
   const lv = BOMBS[kind].levels[level - 1];
-  clearFoes();                         // every bomb clears the shots
+  // Every bomb clears the enemy shots, with a crackle on each one.
+  for (const b of state.foes) if (b.y > -10 && b.y < H) fx.spark(b.x, b.y);
+  state.foes.length = 0;
   fx.floatText(s.x, s.y - 60, BOMBS[kind].name.toUpperCase(), true);
-  KINDS[kind](lv, s);
+  (KINDS[kind] || KINDS.he)(lv, s);
+}
+
+// ---------- the pieces of the bombs ----------
+
+function screenTint(rgb, alpha) {
+  ctx.save();
+  ctx.fillStyle = `rgba(${rgb},${alpha})`;
+  ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+}
+
+function sparks(x, y, colour, n) {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const sp = 80 + Math.random() * 160;
+    fx.add('bit', x, y, 0.35 + Math.random() * 0.2, { size: 3, colour, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, drag: 3 });
+  }
+  fx.spark(x, y);
+}
+
+// One jagged lightning bolt from a to b. It flickers: it is redrawn
+// with new zigzags a few times, and blinks.
+function bolt(a, b, k, p) {
+  if (!p.zig || Math.floor(k * 8) !== p.zigAt) {
+    p.zigAt = Math.floor(k * 8);
+    const n = Math.max(4, Math.floor(Math.hypot(b.x - a.x, b.y - a.y) / 18));
+    p.zig = [];
+    for (let i = 0; i <= n; i++) {
+      const u = i / n;
+      const off = i === 0 || i === n ? 0 : (Math.random() - 0.5) * 26;
+      const nx = -(b.y - a.y);
+      const ny = b.x - a.x;
+      const len = Math.hypot(nx, ny) || 1;
+      p.zig.push([lerp(a.x, b.x, u) + (nx / len) * off, lerp(a.y, b.y, u) + (ny / len) * off]);
+    }
+  }
+  if (Math.floor(k * 12) % 3 === 2) return;   // blink
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.globalAlpha = 1 - k * 0.6;
+  ctx.lineJoin = 'round';
+  for (const [width, colour, blur] of [[9, 'rgba(200,0,30,0.6)', 18], [4, '#ff3b4a', 8], [1.6, '#ffffff', 0]]) {
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = width;
+    ctx.shadowColor = '#ff2a3a';
+    ctx.shadowBlur = blur;
+    ctx.beginPath();
+    p.zig.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function nukeTarget(s) {
+  const boss = state.bosses.find((b) => b.phase === 'fight' || b.phase === 'enter');
+  if (boss) return [boss.x, Math.max(260, boss.y)];
+  // The busiest spot: the enemy with the most others near it.
+  const list = targets().filter((t) => t.y > 40 && t.y < s.y - 60);
+  let best = null;
+  let bestCount = 0;
+  for (const t of list) {
+    const n = list.filter((o) => Math.hypot(o.x - t.x, o.y - t.y) < 140).length;
+    if (n > bestCount) { best = t; bestCount = n; }
+  }
+  // Low enough that the mushroom cloud fits on the screen.
+  if (best) return [best.x, Math.max(260, best.y)];
+  return [s.x, Math.max(120, s.y - 260)];
+}
+
+// The mushroom cloud. Lots of smoke balls: a fireball, a ring of dust
+// on the ground, a stem rising, and a cap rolling over at the top.
+// Lit orange from underneath, cooling to grey. Then embers fall.
+function mushroom(x, y) {
+  const life = calm.matches ? 1.5 : 3.2;
+  // White-out, then an orange tint that fades.
+  fx.add('tint', 0, 0, life, {
+    draw: (p, k) => {
+      if (k < 0.06) screenTint('255,255,255', 0.9 * (1 - k / 0.06));
+      else screenTint('255,120,40', 0.22 * (1 - k));
+    },
+  });
+  // The shockwave: a bright ring with a dark ring just inside it,
+  // so the world behind looks bent.
+  fx.add('shockwave', x, y, 0.9, {
+    draw(p, k) {
+      const r = 20 + 560 * (1 - (1 - k) * (1 - k));
+      ctx.save();
+      ctx.globalAlpha = 1 - k;
+      ctx.lineWidth = 14 * (1 - k) + 2;
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.lineWidth = 10 * (1 - k) + 2;
+      ctx.strokeStyle = 'rgba(20,10,30,0.35)';
+      ctx.beginPath(); ctx.arc(x, y, Math.max(0, r - 14), 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    },
+  });
+  // The fireball.
+  fx.add('fireball', x, y, 1.3, {
+    draw(p, k) {
+      const r = 30 + 110 * Math.min(1, k * 3);
+      radial(x, y, r * 1.4, [[0, 'rgba(255,170,60,0.6)'], [1, 'rgba(255,120,40,0)']], 1 - k, 'lighter');
+      radial(x, y, r, [[0, '#ffffff'], [0.25, '#fff2a8'], [0.55, '#ff9a2a'], [0.85, '#c2301a'], [1, 'rgba(90,26,18,0)']], 1 - k * k);
+    },
+  });
+  if (calm.matches) return;
+  // A smoke ball: hot and bright when new, grey and dark when old,
+  // with orange light from below.
+  const ball = (heat0) => (p, k) => {
+    const heat = Math.max(0, heat0 - k * 1.4);
+    const a = k < 0.8 ? 1 : 1 - (k - 0.8) / 0.2;
+    const c = `rgb(${Math.round(lerp(106, 255, heat))},${Math.round(lerp(90, 200, heat * heat))},${Math.round(lerp(82, 120, heat))})`;
+    radial(p.x, p.y, p.size, [[0, c], [0.55, `rgba(70,56,52,${0.85 * a})`], [1, 'rgba(40,30,30,0)']], a);
+    radial(p.x, p.y + p.size * 0.35, p.size * 0.8, [[0, 'rgba(255,140,50,0.7)'], [1, 'rgba(255,90,30,0)']], a * Math.max(0, 1 - k * 1.3), 'lighter');
+  };
+  // Dust ring along the ground.
+  for (let i = 0; i < 26; i++) {
+    const a = (i / 26) * Math.PI * 2;
+    fx.add('dust', x, y + 18, life * 0.9, {
+      size: 18 + Math.random() * 12, vx: Math.cos(a) * 260, vy: Math.sin(a) * 60, drag: 2.2, draw: ball(0.4),
+    });
+  }
+  // The stem: smoke rushing up from the blast.
+  for (let i = 0; i < 18; i++) {
+    const delay = i * 0.03;
+    const up = 70 + (i / 18) * 90;
+    fx.add('stem', x + (Math.random() - 0.5) * 30, y, life - delay, {
+      size: 18 + Math.random() * 10, vy: -up, drag: 0.6, draw: ball(1),
+      tick(p) { p.size += 0.1; },
+    });
+  }
+  // The cap: a ring of rolling smoke at the top that keeps rising.
+  const capY = y - 150;
+  for (let i = 0; i < 26; i++) {
+    const a = (i / 26) * Math.PI * 2;
+    const ring = i % 2 ? 1 : 0.6;
+    fx.add('cap', x, y - 30, life, {
+      size: 26 + Math.random() * 20, draw: ball(1.1), a, ring,
+      tick(p) {
+        const k = Math.min(1, p.t / 0.8);
+        const rise = capY - 25 * (p.t / life);
+        const rx = (40 + 70 * k) * p.ring;
+        const ry = (16 + 22 * k) * p.ring;
+        const roll = p.a + p.t * 0.6;
+        p.x = x + Math.cos(roll) * rx;
+        p.y = lerp(y - 30, rise, k) + Math.sin(roll) * ry - (1 - p.ring) * 30;
+        p.size += 0.15;
+      },
+    });
+  }
+  // Glowing embers drifting down afterwards.
+  after(0.8, () => {
+    for (let i = 0; i < 30; i++) {
+      fx.add('ember', x + (Math.random() - 0.5) * 240, y - 150 + (Math.random() - 0.5) * 120, 1.6 + Math.random(), {
+        vx: (Math.random() - 0.5) * 30, vy: 40 + Math.random() * 50,
+        draw: (p, k) => radial(p.x, p.y, 3, [[0, '#fff2a8'], [0.5, '#ff7a1a'], [1, 'rgba(255,90,30,0)']], 1 - k, 'lighter'),
+      });
+    }
+  });
 }

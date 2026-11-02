@@ -11,6 +11,7 @@ import { GAME_NAME } from '../data/ship.js';
 import { MILESTONES } from '../data/milestones.js';
 import { LEVELS } from '../data/levels.js';
 import { takeUpgrade, cardInfo } from './ship.js';
+import { PICS } from './icons.js';
 import { sound } from './audio.js';
 import { say } from './voice.js';
 import { saveBest } from './best.js';
@@ -22,6 +23,12 @@ export function show(name) {
   for (const s of SCREENS) $(`screen-${s}`).hidden = s !== name;
   $('hud').hidden = name === 'title' || name === 'cut';
   if (name === 'title' || name === 'cut') $('hud-weapons').hidden = true;
+  // In the game the help panel goes away and the game gets bigger.
+  const playing = name !== 'title';
+  if (document.body.classList.contains('in-game') !== playing) {
+    document.body.classList.toggle('in-game', playing);
+    window.dispatchEvent(new Event('resize'));
+  }
   const first = name && $(`screen-${name}`).querySelector('button:not([disabled])');
   if (first) first.focus();
   else $('field').focus();
@@ -41,6 +48,12 @@ export function setupTitle(onPlay) {
       state.controls = btn.dataset.controls;
       for (const b of document.querySelectorAll('[data-controls]')) b.setAttribute('aria-pressed', String(b === btn));
       showHelp();
+    });
+  }
+  for (const btn of document.querySelectorAll('[data-autopower]')) {
+    btn.addEventListener('click', () => {
+      state.autoPower = btn.dataset.autopower === 'on';
+      for (const b of document.querySelectorAll('[data-autopower]')) b.setAttribute('aria-pressed', String(b === btn));
     });
   }
   for (const btn of document.querySelectorAll('[data-difficulty]')) {
@@ -76,23 +89,6 @@ export function showTitleBest() {
 }
 
 // --- the upgrade pick: three cards ---
-const BOMB = (fill) => `<path d="M35 2 L44 10 L44 30 L35 36 L26 30 L26 10 Z" fill="${fill}" stroke="#05070f" stroke-width="2"/><rect x="31" y="0" width="8" height="5" fill="#2a2d40"/>`;
-const PICS = {
-  blaster: '<rect x="33" y="2" width="4" height="22" rx="2" fill="#ffffff"/><rect x="25" y="6" width="3" height="16" rx="1.5" fill="#38f0ff"/><rect x="42" y="6" width="3" height="16" rx="1.5" fill="#38f0ff"/><rect x="12" y="14" width="2" height="10" rx="1" fill="#38f0ff" opacity="0.6" transform="rotate(-14 13 19)"/><rect x="56" y="14" width="2" height="10" rx="1" fill="#38f0ff" opacity="0.6" transform="rotate(14 57 19)"/>',
-  laser: '<rect x="27" y="0" width="5" height="30" rx="2.5" fill="#4dff7c"/><rect x="38" y="0" width="5" height="30" rx="2.5" fill="#c07cff"/>',
-  beam: '<path d="M35 30 L14 0 L20 0 Z M35 30 L56 0 L50 0 Z" fill="#ff3fa4" opacity="0.55"/><rect x="29" y="0" width="12" height="32" rx="6" fill="#ff3fa4"/><rect x="32" y="0" width="6" height="32" rx="3" fill="#ffffff"/>',
-  rail: '<rect x="32" y="0" width="6" height="32" fill="#ffd23f"/><rect x="34" y="0" width="2" height="32" fill="#ffffff"/><ellipse cx="35" cy="30" rx="10" ry="3" fill="none" stroke="#ffd23f" stroke-width="2"/><ellipse cx="35" cy="20" rx="8" ry="2.5" fill="none" stroke="#ffd23f" stroke-width="1.5"/>',
-  homing: '<path d="M22 32 C14 18 22 8 52 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/><circle cx="52" cy="4" r="5" fill="#ff3fa4"/><path d="M48 32 C56 18 48 8 18 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/>',
-  drones: '<use href="#art-drone" x="2" y="14" width="18" height="20"/><use href="#art-drone" x="50" y="14" width="18" height="20"/>',
-  shield: '<circle cx="35" cy="44" r="30" fill="none" stroke="#38f0ff" stroke-width="4"/>',
-  bombpack: '<circle cx="24" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/><circle cx="46" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/>',
-  'bomb-he': BOMB('#ff7a1a'),
-  'bomb-cluster': '<circle cx="35" cy="8" r="6" fill="#ffd23f" stroke="#05070f" stroke-width="2"/><circle cx="20" cy="18" r="6" fill="#ffd23f" stroke="#05070f" stroke-width="2"/><circle cx="50" cy="18" r="6" fill="#ffd23f" stroke="#05070f" stroke-width="2"/><circle cx="27" cy="30" r="5" fill="#ffd23f" stroke="#05070f" stroke-width="2"/><circle cx="43" cy="30" r="5" fill="#ffd23f" stroke="#05070f" stroke-width="2"/>',
-  'bomb-plasma': '<path d="M2 30 Q12 14 22 26 Q35 6 48 26 Q58 14 68 30 Z" fill="#38f0ff" opacity="0.85"/><path d="M10 30 Q22 20 35 28 Q48 20 60 30 Z" fill="#ffffff"/>',
-  'bomb-laser': '<rect x="22" y="0" width="26" height="32" fill="#ff3b3b" opacity="0.7"/><rect x="30" y="0" width="10" height="32" fill="#ffffff"/>',
-  'bomb-nuke': BOMB('#4dff7c') + '<circle cx="35" cy="19" r="5" fill="#05070f"/><path d="M35 19 L29 10 L41 10 Z M35 19 L27 25 L33 29 Z M35 19 L43 25 L37 29 Z" fill="#05070f"/>',
-};
-
 function cardPic(key) {
   return `<svg viewBox="0 0 70 70" class="card-pic" aria-hidden="true">${PICS[key] || ''}<use href="#art-comet" x="20" y="30" width="30" height="38"/></svg>`;
 }

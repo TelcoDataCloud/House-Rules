@@ -10,11 +10,12 @@
    drones. One kind of bomb (data/bombs.js, fired in js/bombs.js).
    =========================================================== */
 
-import { state, W, H, hardness } from './state.js';
-import { sprite, put, layer, rawArt } from './art.js';
+import { state, W, H, hardness, powerBar, giveBombs } from './state.js';
+import { rawArt } from './art.js';
+import { ctx, art, sprite, radial } from './canvas.js';
 import { input } from './input.js';
 import { SHIP } from '../data/ship.js';
-import { GUNS, HELPERS, EXTRAS, POWER_BAR, MAX_LEVEL } from '../data/weapons.js';
+import { GUNS, HELPERS, EXTRAS,  MAX_LEVEL } from '../data/weapons.js';
 import { BOMBS } from '../data/bombs.js';
 import { addShot, addMissile } from './bullets.js';
 import { targets } from './collide.js';
@@ -27,47 +28,15 @@ const SHIP_H = 64;
 const NOSE = 30;                 // from the middle of the ship up to its nose
 const TRIM = { none: '#38f0ff', green: '#4dff7c', red: '#ff3b3b', purple: '#c07cff', pink: '#ff3fa4', yellow: '#ffd23f' };
 
-let box, shieldEl, beamEls = [], beamTip, upParts = [], flames = [], droneEls = [];
+// The ship's picture is remade (once) whenever its parts change.
 let shownLook = '';
+let shipText = '';
+let lastShip = null;
+let lastDrone = null;
 
 export function makeShip() {
-  box = document.createElement('div');
-  box.className = 'ship';
-  // The ship is put straight into the page (not as a copy), so every
-  // upgrade part can be switched on and off.
-  box.innerHTML = rawArt(SHIP.art);
-  upParts = [...box.querySelectorAll('.up')];
-  flames = [25, 34].map((left) => {
-    const f = document.createElement('div');
-    f.className = 'flame';
-    f.style.left = `${left}px`;
-    box.prepend(f);
-    return f;
-  });
-  shieldEl = document.createElement('div');
-  shieldEl.className = 'shield';
-  box.appendChild(shieldEl);
-  layer('ship').replaceChildren(box);
-
-  droneEls = [0, 1].map(() => {
-    const d = sprite('drone', 18, 20, 'drone');
-    d.hidden = true;
-    layer('ship').appendChild(d);
-    return d;
-  });
-
-  // Three beams: the middle one, and two side beams for the splitter.
-  beamEls = [0, 1, 2].map((i) => {
-    const b = document.createElement('div');
-    b.className = i === 0 ? 'beam' : 'beam beam-side';
-    b.hidden = true;
-    return b;
-  });
-  beamTip = document.createElement('div');
-  beamTip.className = 'beam-tip';
-  beamTip.hidden = true;
-  layer('shots').append(...beamEls, beamTip);
   shownLook = '';
+  shipText = '';
 }
 
 // --- what you have right now ---
@@ -85,6 +54,7 @@ function fire() {
   const s = state.ship;
   const g = gunNow();
   const look = s.gun === 'laser' ? g.look : s.gunLevel >= 5 ? 'gold' : '';
+  sound.shot(s.gun, s.x);
   for (const shot of g.shots) {
     const a = (shot.angle * Math.PI) / 180;
     addShot(s.x + shot.x, s.y - 18, Math.sin(a) * SHIP.shotSpeed, -Math.cos(a) * SHIP.shotSpeed,
@@ -102,9 +72,10 @@ function fireRail() {
   const lines = g.twin ? [-7, 7] : [0];
   for (const off of lines) {
     const x = s.x + off;
-    for (const t of targets()) {
-      if (t.y < s.y - 20 && t.y > top && Math.abs(t.x - x) < t.r + 7) t.onHit(g.twin ? g.damage / 2 : g.damage);
-    }
+    // The nearest ones in the line get hit, up to pierce of them.
+    const inLine = targets().filter((t) => t.y < s.y - 20 && t.y > top && Math.abs(t.x - x) < t.r + 7)
+      .sort((a, b) => b.y - a.y).slice(0, g.pierce || 3);
+    for (const t of inLine) t.onHit(g.twin ? g.damage / 2 : g.damage);
     // Shots in the way that can be shot down pop too.
     for (const b of state.foes) if (b.hp > 0 && b.y < s.y && Math.abs(b.x - x) < 14) { b.dead = true; fx.pop(b.x, b.y, b.colour); }
     fx.rail(x, s.y - NOSE, s.gunLevel);
@@ -122,6 +93,7 @@ function launchMissiles() {
     addMissile(s.x - ox, s.y + oy, m.damage, 1);
   }
   s.missileWait = m.every;
+  sound.shot('missile', s.x);
 }
 
 // --- drones fly beside you, a little behind, and shoot ---
@@ -143,6 +115,7 @@ function updateDrones(dt) {
       drone.wait = d.every;
       // Drones fire their own amber shots, so you can tell them apart.
       addShot(drone.x, drone.y - 10, 0, -SHIP.shotSpeed, { cls: 'drone', damage: d.damage, through: 0 });
+      if (i === 0) sound.shot('drone', drone.x);
     }
   });
 }
@@ -263,53 +236,112 @@ function partLevels() {
   };
 }
 
-// Switch on the ship parts for every upgrade you have.
-function showParts() {
+// The ship picture with only the parts you have, in your trim colour.
+function shipLook() {
   const s = state.ship;
   const lv = partLevels();
   const trim = s.gun === 'laser' ? gunNow().look : s.gun === 'beam' ? 'pink' : s.gun === 'rail' ? 'yellow' : 'none';
-  const look = JSON.stringify(lv) + trim + s.drones;
-  if (look === shownLook) return;
-  shownLook = look;
-  for (const g of upParts) {
-    g.style.display = (lv[g.dataset.track] || 0) >= Number(g.dataset.level) ? '' : 'none';
+  const key = JSON.stringify(lv) + trim;
+  if (key !== shownLook) {
+    shownLook = key;
+    const colour = TRIM[trim] || TRIM.none;
+    shipText = rawArt(SHIP.art)
+      .replace(/<g class="up" data-track="(\w+)" data-level="(\d)">[\s\S]*?<\/g>/g,
+        (all, track, level) => ((lv[track] || 0) >= Number(level) ? all : ''))
+      .replace(/var\(--trim,\s*#[0-9a-fA-F]+\)/g, colour);
+    s.trimColour = colour;
   }
-  box.style.setProperty('--trim', TRIM[trim]);
-  for (const d of droneEls) d.style.setProperty('--trim', TRIM[trim]);
-  beamEls.forEach((b) => { b.dataset.level = s.gunLevel; });
+  const set = art(SHIP.art, { key, text: shipText });
+  if (set) lastShip = set;
+  return lastShip;
+}
+
+function droneLook() {
+  const colour = state.ship.trimColour || TRIM.none;
+  const set = art('drone', { key: colour, text: rawArt('drone').replace(/var\(--trim,\s*#[0-9a-fA-F]+\)/g, colour) });
+  if (set) lastDrone = set;
+  return lastDrone;
+}
+
+// Engine fire out of the two nozzles. Bigger as your gun grows.
+function flames(s) {
+  const len = 12 + Math.min(4, s.gunLevel - 1) * 3;
+  for (const side of [-4.5, 4.5]) {
+    const flick = 0.85 + Math.random() * 0.3;
+    const x = s.x + side;
+    const y = s.y + 24;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const g = ctx.createLinearGradient(0, y, 0, y + len * flick);
+    g.addColorStop(0, '#ffffff');
+    g.addColorStop(0.3, '#7fe6f0');
+    g.addColorStop(1, 'rgba(56,240,255,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(x - 4, y);
+    ctx.quadraticCurveTo(x, y + len * flick * 1.2, x + 4, y);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+function drawBeams(s) {
+  if (!s.beamOn || !s.beams) return;
+  const ox = s.x;
+  const oy = s.y - NOSE + 6;
+  const lv = s.gunLevel;
+  s.beams.forEach((b, i) => {
+    const len = Math.min(b.len, 1000);
+    const flicker = 0.85 + Math.random() * 0.15;
+    ctx.save();
+    ctx.translate(ox, oy);
+    ctx.rotate((b.angle * Math.PI) / 180);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = (i === 0 ? 1 : 0.6) * (lv === 1 ? 0.75 : 1) * flicker;
+    const w = b.width;
+    const g = ctx.createLinearGradient(-w, 0, w, 0);
+    g.addColorStop(0, 'rgba(255,63,164,0)');
+    g.addColorStop(0.25, 'rgba(255,63,164,0.6)');
+    g.addColorStop(0.42, '#ffd0ea');
+    g.addColorStop(0.5, '#ffffff');
+    g.addColorStop(0.58, '#ffd0ea');
+    g.addColorStop(0.75, 'rgba(255,63,164,0.6)');
+    g.addColorStop(1, 'rgba(255,63,164,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(-w, -len, w * 2, len);
+    ctx.restore();
+    if (i === 0 && b.hit) {
+      radial(ox, oy - len, w * 1.4, [[0, '#ffffff'], [0.3, '#ff3fa4'], [1, 'rgba(255,63,164,0)']], flicker, 'lighter');
+    }
+  });
 }
 
 export function drawShip() {
   const s = state.ship;
-  showParts();
-  box.hidden = s.dead > 0;
-  put(box, s.x, s.y, SHIP_W, SHIP_H);
-  box.classList.toggle('blinking', s.invuln > 0 && s.dead <= 0);
-  shieldEl.hidden = !s.shield;
-  for (const f of flames) f.style.height = `${12 + Math.min(4, s.gunLevel - 1) * 3}px`;
+  const ship = shipLook();
+  const blink = s.invuln > 0 && s.dead <= 0 && Math.floor(s.invuln * 8) % 2 === 0;
 
-  droneEls.forEach((el, i) => {
-    const d = s.droneList && s.droneList[i];
-    el.hidden = !d;
-    if (d) put(el, d.x, d.y, 18, 20);
+  (s.droneList || []).forEach((d) => {
+    sprite(droneLook(), d.x, d.y, 18, 20, { shadow: [6, 14, 0.35] });
   });
-
-  // The beams: each one is a tall box, turned to point along its line.
-  const ox = s.x;
-  const oy = s.y - NOSE + 6;
-  beamEls.forEach((el, i) => {
-    const b = s.beamOn && s.beams && s.beams[i];
-    el.hidden = !b;
-    if (!b) return;
-    const len = Math.min(b.len, 1000);
-    el.style.width = `${b.width}px`;
-    el.style.height = `${len.toFixed(0)}px`;
-    el.style.transformOrigin = '50% 100%';
-    el.style.transform = `translate(${(ox - b.width / 2).toFixed(1)}px, ${(oy - len).toFixed(1)}px) rotate(${b.angle}deg)`;
-  });
-  const main = s.beamOn && s.beams && s.beams[0];
-  beamTip.hidden = !main || !main.hit;
-  if (main && main.hit) put(beamTip, ox, oy - main.len, main.width * 2.4, main.width * 2.4);
+  drawBeams(s);
+  if (s.dead > 0) return;
+  flames(s);
+  sprite(ship, s.x, s.y, SHIP_W, SHIP_H, { alpha: blink ? 0.3 : 1, shadow: [6, 13, 0.35] });
+  if (s.shield) {
+    // A thin, see-through bubble, so you can still see your ship.
+    ctx.save();
+    ctx.globalAlpha = 0.55 + 0.15 * Math.sin(state.time * 6);
+    ctx.strokeStyle = '#38f0ff';
+    ctx.shadowColor = '#38f0ff';
+    ctx.shadowBlur = 10;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.ellipse(s.x, s.y + 1, 36, 38, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+    radial(s.x, s.y + 1, 38, [[0.7, 'rgba(56,240,255,0)'], [1, 'rgba(56,240,255,0.18)']]);
+  }
 }
 
 function respawn() {
@@ -329,13 +361,19 @@ export function hitShip() {
     s.shield = false;
     s.invuln = 1.2;
     s.shieldWait = hardness().shieldBack || 0;
-    sound.shield();
+    sound.shieldBreak();
     fx.spark(s.x, s.y);
     fx.floatText(s.x, s.y - 50, 'SHIELD GONE');
     return;
   }
   s.lives--;
   state.stats.livesLost++;
+  // Losing a ship costs a gun level (on Easy, only from level 3 on),
+  // but never below level 2.
+  if (state.levelIndex + 1 >= hardness().loseGun && s.gunLevel > 2) {
+    s.gunLevel--;
+    fx.floatText(s.x, s.y - 80, 'GUN DOWN', true);
+  }
   s.dead = 1.4;
   s.shieldWait = hardness().shieldBack || 0;
   sound.hurt();
@@ -360,7 +398,7 @@ export function useBomb() {
 }
 
 export function canPick() {
-  return state.ship.power >= POWER_BAR;
+  return state.ship.power >= powerBar();
 }
 
 // --- the cards ---
@@ -383,7 +421,11 @@ export function rollChoices() {
   const otherGun = shuffle(Object.keys(GUNS).filter((k) => k !== s.gun))[0];
   pool.push(`gun-${otherGun}`);
   for (const k of Object.keys(HELPERS)) if (s[k] < 3) pool.push(k);
-  const otherBomb = shuffle(Object.keys(BOMBS).filter((k) => k !== s.bomb))[0];
+  // Rare bombs (like the Nuke) turn up less often.
+  const others = Object.keys(BOMBS).filter((k) => k !== s.bomb);
+  const weight = (k) => BOMBS[k].rare || 1;
+  let roll = Math.random() * others.reduce((n, k) => n + weight(k), 0);
+  const otherBomb = others.find((k) => (roll -= weight(k)) <= 0) || others[0];
   pool.push(s.bombLevel < 3 && Math.random() < 0.5 ? 'bomb-up' : `bomb-${otherBomb}`);
   shuffle(pool);
   // Levelling up your gun turns up more often than anything else.
@@ -392,7 +434,9 @@ export function rollChoices() {
     pool.unshift('gun-up');
   }
   const cards = pool.slice(0, 3);
-  const extras = Object.keys(EXTRAS).filter((k) => !(k === 'shield' && s.shield));
+  // One-off cards, but never a pointless one (a shield when you have
+  // one, bombs when you are full).
+  const extras = Object.keys(EXTRAS).filter((k) => !(k === 'shield' && s.shield) && !(k === 'bombpack' && s.bombs >= SHIP.maxBombs));
   if (cards.length === 3 && Math.random() < 0.2) cards[2] = extras[Math.floor(Math.random() * extras.length)];
   for (const e of extras) if (cards.length < 3 && !cards.includes(e)) cards.push(e);
   return shuffle(cards);
@@ -429,7 +473,8 @@ export function takeUpgrade(key) {
   let tune = key;
   if (EXTRAS[key]) {
     if (key === 'shield') s.shield = true;
-    if (key === 'bombpack') s.bombs = Math.min(9, s.bombs + 2);
+    if (key === 'bombpack') giveBombs(2);
+    if (key === 'points') state.score += 3000;
     say = EXTRAS[key].say;
   } else if (key === 'gun-up') {
     if (s.gunLevel >= MAX_LEVEL) return false;
@@ -443,12 +488,12 @@ export function takeUpgrade(key) {
   } else if (key === 'bomb-up') {
     if (s.bombLevel >= 3) return false;
     s.bombLevel++;
-    s.bombs = Math.min(9, s.bombs + 1);
+    giveBombs(1);
     say = BOMBS[s.bomb].levels[s.bombLevel - 1].say;
     tune = 'bay';
   } else if (key.startsWith('bomb-')) {
     s.bomb = key.slice(5);
-    s.bombs = Math.min(9, s.bombs + 1);
+    giveBombs(1);
     say = BOMBS[s.bomb].name;
     tune = 'bombpack';
   } else if (HELPERS[key]) {
@@ -456,8 +501,20 @@ export function takeUpgrade(key) {
     s[key]++;
     say = HELPERS[key].steps[s[key] - 1].say;
   } else return false;
-  s.power -= POWER_BAR;
+  s.power -= powerBar();
   sound.upgrade(tune);
   fx.floatText(s.x, s.y - 60, say.toUpperCase(), true);
   return true;
+}
+
+// Auto power-up (a setting on the title screen): when the bar is
+// full, pick for you straight away. A stronger gun first, then a
+// helper, then whatever is left. No need to stop and press M.
+export function autoUpgrade() {
+  const cards = rollChoices();
+  const pick = cards.find((k) => k === 'gun-up')
+    || cards.find((k) => HELPERS[k])
+    || cards.find((k) => k === 'bomb-up')
+    || cards[0];
+  takeUpgrade(pick);
 }
