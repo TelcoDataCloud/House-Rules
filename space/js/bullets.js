@@ -1,30 +1,23 @@
 /* ===========================================================
    BULLETS: your shots, your missiles, and enemy shots
 
-   Every bullet is a small round box. Each frame it moves by its
-   speed. Off the screen, it is thrown away. There is a cap of
-   200 on screen at once so the game never slows down.
+   Every bullet is a dot with a speed. Each frame it moves, and
+   off the screen it is thrown away. There is a cap of 300 on
+   screen at once so the game never slows down. How each kind is
+   drawn is in js/looks.js.
    =========================================================== */
 
 import { state, W, H, hardness } from './state.js';
-import { put, layer } from './art.js';
+import { ctx, radial } from './canvas.js';
+import { shotLook, missileLook, foeLook } from './looks.js';
 import { targets } from './collide.js';
 import { trail, smokePuff } from './fx.js';
 import { FOE_SHOTS, ROCKET_START, ROCKET_TOP, MINE_WAKE, MINE_FUSE } from '../data/foeshots.js';
 
-const CAP = 200;
+const CAP = 300;
 
 function count() {
   return state.shots.length + state.missiles.length + state.foes.length;
-}
-
-function make(cls, where, w, h) {
-  const el = document.createElement('div');
-  el.className = cls;
-  el.style.width = `${w}px`;      // every bullet gets its size here
-  el.style.height = `${h}px`;
-  layer(where).appendChild(el);
-  return { el, w, h };
 }
 
 // Your shot. vx and vy are how fast it moves sideways and up.
@@ -33,7 +26,7 @@ function make(cls, where, w, h) {
 export function addShot(x, y, vx, vy, { cls = '', damage = 1, through = 0, small = false } = {}) {
   if (count() >= CAP) return;
   // Weak side shots are drawn thinner, so you can see they hit less.
-  const b = small ? make(`shot weak ${cls}`.trim(), 'shots', 5, 20) : make(`shot ${cls}`.trim(), 'shots', 8, 28);
+  const b = { cls, weak: small, w: small ? 5 : 8, h: small ? 20 : 28 };
   Object.assign(b, { x, y, vx, vy, r: 6, damage, through });
   state.shots.push(b);
 }
@@ -41,9 +34,8 @@ export function addShot(x, y, vx, vy, { cls = '', damage = 1, through = 0, small
 // A homing missile. It turns towards the nearest thing it can hit.
 export function addMissile(x, y, damage, dir) {
   if (count() >= CAP) return;
-  const big = damage > 1;
-  const [w, h] = big ? [16, 30] : [12, 22];
-  const b = make(big ? 'missile big' : 'missile', 'shots', w, h);
+  const big = damage >= 0.6;
+  const b = { big, w: 24, h: 40 };
   Object.assign(b, { x, y, vx: dir * 160, vy: -260, r: big ? 10 : 7, damage, life: 3 });
   state.missiles.push(b);
 }
@@ -55,7 +47,7 @@ export function addFoe(x, y, angle, speed, colour = 'pink') {
   const rad = (angle * Math.PI) / 180;
   // What kind of shot it is, and how it moves: data/foeshots.js.
   const kind = FOE_SHOTS[colour] || FOE_SHOTS.pink;
-  const b = make(`foe ${colour}`, 'foes', kind.size[0], kind.size[1]);
+  const b = { w: kind.size[0], h: kind.size[1] };
   const start = kind.move === 'speedup' ? ROCKET_START : kind.move === 'mine' ? 0.45 : 1;
   Object.assign(b, {
     x, y, dx: Math.sin(rad), dy: Math.cos(rad), speed: sp, vx: Math.sin(rad) * sp * start, vy: Math.cos(rad) * sp * start,
@@ -111,7 +103,6 @@ export function updateBullets(dt) {
       const s = state.ship;
       if (!b.armed && s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_WAKE) {
         b.armed = MINE_FUSE;
-        b.el.classList.add('armed');
       }
       if (b.armed) {
         b.armed -= dt;
@@ -134,30 +125,59 @@ export function updateBullets(dt) {
   }
 }
 
-// Lasers and missiles turn to point the way they are flying.
-function aim(b) {
-  const deg = (Math.atan2(b.vx, -b.vy) * 180) / Math.PI;
-  b.el.style.transform = `translate(${(b.x - b.w / 2).toFixed(1)}px, ${(b.y - b.h / 2).toFixed(1)}px) rotate(${deg.toFixed(0)}deg)`;
+// Turn to point the way it is flying, then stamp its picture.
+function stamp(img, b, w, h, turn = true) {
+  ctx.save();
+  ctx.translate(b.x, b.y);
+  if (turn) ctx.rotate(Math.atan2(b.vx, -b.vy));
+  ctx.drawImage(img, -w / 2, -h / 2, w, h);
+  ctx.restore();
 }
 
-export function drawBullets() {
-  for (const b of state.shots) aim(b);
-  for (const b of state.missiles) aim(b);
+export function drawShots() {
+  for (const b of state.shots) stamp(shotLook(b.cls, b.weak), b, 24, 44);
+  for (const m of state.missiles) stamp(missileLook(m.big), m, 24, 40);
+}
+
+export function drawFoes() {
   for (const b of state.foes) {
-    // Lasers, bullets and rockets point the way they fly.
-    if ((b.colour === 'red' || b.colour === 'bullet' || b.colour === 'rocket') && b.vx) aim(b);
-    else put(b.el, b.x, b.y, b.w, b.h);
+    if (b.colour === 'red') stamp(foeLook('red'), b, 24, 46);
+    else if (b.colour === 'bullet') stamp(foeLook('bullet'), b, 18, 30);
+    else if (b.colour === 'rocket') {
+      // Fire out of the back of a rocket, flickering.
+      radial(b.x - b.dx * 18, b.y - b.dy * 18, 7 + Math.random() * 3, [[0, '#ffffff'], [0.35, '#ffd23f'], [1, 'rgba(255,122,26,0)']], 1, 'lighter');
+      stamp(foeLook('rocket'), b, 26, 44);
+    } else if (b.colour === 'mine') {
+      const blink = b.armed && Math.floor(b.t * 16) % 2 === 0;
+      stamp(foeLook('mine', blink), b, 46, 46, false);
+      if (blink) radial(b.x, b.y, 30, [[0, 'rgba(255,59,59,0.6)'], [1, 'rgba(255,59,59,0)']], 1, 'lighter');
+    } else {
+      const big = b.colour === 'plasma';
+      const size = big ? 50 : b.colour === 'green' ? 38 : 36;
+      // A pulsing glow and a spinning ring of energy round each orb.
+      const pulse = big ? 1 + Math.sin(b.t * 20) * 0.06 : 1;
+      stamp(foeLook(b.colour), b, size * pulse, size * pulse, false);
+      const col = b.colour === 'green' ? '77,255,124' : big ? '176,92,255' : '255,63,164';
+      ctx.save();
+      ctx.strokeStyle = `rgba(${col},0.85)`;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 6]);
+      ctx.lineDashOffset = -b.t * 40;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, (b.w / 2) + 4, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 }
 
 // Throw away bullets marked dead.
 export function sweep(list) {
   for (let i = list.length - 1; i >= 0; i--) {
-    if (list[i].dead) { list[i].el.remove(); list.splice(i, 1); }
+    if (list[i].dead) list.splice(i, 1);
   }
 }
 
 export function clearFoes() {
-  for (const b of state.foes) b.el.remove();
   state.foes.length = 0;
 }
