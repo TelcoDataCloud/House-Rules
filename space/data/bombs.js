@@ -13,8 +13,9 @@
                      middle, half as hard at the edge.
      Cluster         little bombs that each find an enemy.
                      Best against groups.
-     Red Lightning   jumps from enemy to enemy. A bit weaker after
-                     every jump. Best when enemies are spread out.
+     Red Lightning   a ball of red lightning flies up and explodes.
+                     Arcs zap every enemy inside it, a bit weaker
+                     for each one. Best against a crowd.
      Laser           a giant laser straight up for 2 seconds.
                      The strongest, but only in one line.
      Nuke            the whole screen, but the least on each enemy,
@@ -22,7 +23,7 @@
 
    damage   how hard it hits (per second for the Laser)
    size     how wide the bang or the laser is
-   jumps    (Lightning) how many enemies it can reach
+   jumps    (Lightning) how many enemies its arcs can zap
    burn     (Nuke) extra hurt every second, for 3 seconds
    rare     how often its card turns up. 1 is normal, 0.3 is rare.
 
@@ -53,11 +54,11 @@ export const BOMBS = {
     ],
   },
   lightning: {
-    name: 'Red Lightning', short: 'LT', colour: 'red', area: 'Jumps',
+    name: 'Red Lightning', short: 'LT', colour: 'red', area: 'Big ball',
     levels: [
-      { say: 'Jumps 6 times', jumps: 6, damage: 9 },
-      { say: 'Jumps 9 times', jumps: 9, damage: 12 },
-      { say: 'Jumps 12 times', jumps: 12, damage: 15 },
+      { say: 'Lightning ball', jumps: 6, damage: 9, size: 260 },
+      { say: 'Bigger ball', jumps: 9, damage: 12, size: 320 },
+      { say: 'Mega ball', jumps: 12, damage: 15, size: 380 },
     ],
   },
   laser: {

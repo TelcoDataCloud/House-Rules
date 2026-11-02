@@ -160,3 +160,17 @@ From Asa's change list after a playtest.
 - **Screen:** banners in the top third, weapons as pictures at the top
   right, the help panel hides during play so the game is bigger, no
   pointless cards, and an Auto power-up option on the title screen.
+
+## Boss weapons, star power, new shots (2 Nov, evening)
+
+- **Every boss has its own weapons** (`guns`, `ringShot`, `cannon` in
+  data/bosses.js). Big attacks: a laser, a lightning strike, a stream of
+  plasma, or a fan of missiles, each with its own warning colour (red,
+  white-violet, violet, orange). Omega takes turns with all four.
+- **Star power:** when lots of shots crowd your ship, a gold star capsule
+  drops in front of you. Grab it and nothing can hurt you for 5 seconds
+  (STAR in data/ship.js).
+- **Red Lightning** is now a ball of red lightning that flies up and
+  explodes, with arcs zapping every enemy inside it.
+- **Enemy shots** are sci-fi now: energy darts, ion shots with rings,
+  plasma torpedoes with spinning rings, lightning bolts.

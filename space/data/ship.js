@@ -21,3 +21,11 @@ export const SHIP = {
   shotSpeed: 720,    // how fast your shots fly
   hitSize: 9,        // the bit of the ship that gets hit. Small is easier.
 };
+
+// STAR POWER. When it gets really busy round your ship, a gold star
+// capsule drops in front of you. Grab it and NOTHING can hurt you
+// for a few seconds. You can even crash into enemies!
+export const STAR = {
+  seconds: 5,        // how long it lasts. Try 10!
+  danger: 6,         // how many enemy shots close to you counts as busy
+};
