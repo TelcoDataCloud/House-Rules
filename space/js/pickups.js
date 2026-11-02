@@ -18,7 +18,7 @@ import { floatText, banner } from './fx.js';
 // The glow colour of each capsule.
 const CAP = { P: '#ff7a1a', B: '#ffd23f', S: '#38f0ff', '1UP': '#4dff7c', STAR: '#ffe14a' };
 // What is written on each capsule.
-const LABEL = { STAR: '\\u2605' };
+const LABEL = { STAR: '\u2605' };
 
 export function drop(type, x, y) {
   // A floating capsule (art/capsule.svg). Its glow colour says what is inside.
