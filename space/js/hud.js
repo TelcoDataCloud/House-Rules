@@ -5,9 +5,10 @@
    It only changes the page when a number actually changes.
    =========================================================== */
 
-import { state } from './state.js';
-import { POWER_BAR, GUNS, HELPERS, MAX_LEVEL } from '../data/weapons.js';
+import { state, powerBar } from './state.js';
+import {  GUNS, HELPERS, MAX_LEVEL } from '../data/weapons.js';
 import { BOMBS } from '../data/bombs.js';
+import { icon } from './icons.js';
 import { SHIP } from '../data/ship.js';
 import { bossHealth } from './bosses.js';
 
@@ -45,28 +46,29 @@ export function drawHud() {
   if (changed('power', s.power)) {
     // One bar on screen. If you have saved up more full bars,
     // a badge says how many (x2, x3...).
-    const bars = Math.floor(s.power / POWER_BAR);
+    const bars = Math.floor(s.power / powerBar());
     const full = bars > 0;
-    const shown = full ? POWER_BAR : s.power;
+    const shown = full ? powerBar() : s.power;
     let html = '';
-    for (let i = 0; i < POWER_BAR; i++) html += `<i class="${i < shown ? 'on' : ''}"></i>`;
+    for (let i = 0; i < powerBar(); i++) html += `<i class="${i < shown ? 'on' : ''}"></i>`;
     if (bars > 1) html += `<span class="bank">x${bars}</span>`;
     if (full) html += `<span class="press">${state.touch ? 'TAP M' : 'PRESS M'}</span>`;
     $('hud-power').innerHTML = html;
     $('hud-power').classList.toggle('full', full);
-    $('hud-power').setAttribute('aria-label', `Power ${s.power} of ${POWER_BAR}`);
+    $('hud-power').setAttribute('aria-label', `Power ${s.power} of ${powerBar()}`);
   }
 
   // Your gun, your helpers and your bomb, each with dots for its level.
   const weapons = [s.gun, s.gunLevel, s.homing, s.drones, s.bomb, s.bombLevel].join();
   if (changed('weapons', weapons)) {
-    const chip = (thing, level, max) => {
+    // A picture for each thing, and dots for how far it is upgraded.
+    const chip = (thing, pic, level, max) => {
       const pips = Array.from({ length: max }, (_, i) => `<i class="${i < level ? 'on' : ''}"></i>`).join('');
-      return `<span class="hud-weapon ${thing.colour}" title="${thing.name}"><b>${thing.short}</b>${pips}</span>`;
+      return `<span class="hud-weapon ${thing.colour}" title="${thing.name}" aria-label="${thing.name} level ${level}">${icon(pic)}<span class="pips">${pips}</span></span>`;
     };
-    let html = chip(GUNS[s.gun], s.gunLevel, MAX_LEVEL);
-    for (const k of Object.keys(HELPERS)) if (s[k] > 0) html += chip(HELPERS[k], s[k], 3);
-    html += chip(BOMBS[s.bomb], s.bombLevel, 3);
+    let html = chip(GUNS[s.gun], s.gun, s.gunLevel, MAX_LEVEL);
+    for (const k of Object.keys(HELPERS)) if (s[k] > 0) html += chip(HELPERS[k], k, s[k], 3);
+    html += chip(BOMBS[s.bomb], `bomb-${s.bomb}`, s.bombLevel, 3);
     $('hud-weapons').hidden = false;
     $('hud-weapons').innerHTML = html;
   }

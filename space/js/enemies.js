@@ -11,7 +11,7 @@
    =========================================================== */
 
 import { state, W, H, hardness, after, level } from './state.js';
-import { sprite, put, layer } from './art.js';
+import { art, sprite } from './canvas.js';
 import { ENEMIES, DROP_EVERY } from '../data/enemies.js';
 import { addFoe } from './bullets.js';
 import { drop } from './pickups.js';
@@ -51,22 +51,11 @@ export function spawnWave(line) {
   const hard = hardness();
   const shoots = spec.shotEvery > 0 && hard.shooters.includes(line.what);
   for (const p of group) {
-    const el = sprite(spec.art, spec.size, spec.h || spec.size);
-    el.hidden = true;
-    // Things on the ground (tanks, walkers) go under everything that flies.
-    layer(spec.ground ? 'ground' : 'air').appendChild(el);
-    let turret = null;
-    if (spec.turret) {
-      // A tank's turret is its own picture, so it can turn to aim.
-      turret = sprite(spec.turret, 40, 56, 'turret-top');
-      turret.style.left = `${spec.size / 2 - 20}px`;
-      turret.style.top = `${(spec.h || spec.size) / 2 - 20}px`;
-      el.appendChild(turret);
-    }
+    // A tank's turret is its own picture, so it can turn to aim.
     spawnCount++;
     const every = spec.shotEvery / hard.shootMore;
     state.enemies.push({
-      spec, el, turret, aim: 0, flock, kind: line.what,
+      spec, aim: 0, flock, kind: line.what,
       x: p.x ?? -100, y: p.y ?? -100, x0: p.x, ox: p.ox, oy: p.oy, dir: p.dir,
       wait: p.wait, t: 0, phase: 0,
       // Spread out the first shots so a group never fires all at once.
@@ -113,11 +102,11 @@ const PATTERNS = {
   dive(e, dt) {
     if (e.phase === 0) {
       e.y += (150 - e.y) * Math.min(1, dt * 2.2);
-      if (e.y > 140) { e.phase = 1; e.t = 0; e.el.classList.add('warn'); }
+      if (e.y > 140) { e.phase = 1; e.t = 0; e.warn = true; }
     } else if (e.phase === 1) {
       if (e.t > 1.1) {
         e.phase = 2;
-        e.el.classList.remove('warn');
+        e.warn = false;
         const dx = state.ship.x - e.x;
         const dy = Math.max(80, state.ship.y - e.y);
         const d = Math.hypot(dx, dy);
@@ -193,47 +182,51 @@ export function updateEnemies(dt) {
       e.wait -= dt;
       if (e.wait > 0) continue;
     }
-    if (e.el.hidden) e.el.hidden = false;
     e.t += dt;
     PATTERNS[e.spec.pattern](e, dt);
     if (e.shoots && e.spec.pattern !== 'hover' && !(e.spec.pattern === 'dive' && e.phase === 2)) {
       e.shotWait -= dt;
       if (e.shotWait <= 0) { e.shotWait = e.every; shoot(e); }
     }
-    if (e.flashT > 0) { e.flashT -= dt; if (e.flashT <= 0) e.el.classList.remove('hit'); }
+    if (e.flashT > 0) e.flashT -= dt;
     if (e.spec.pattern !== 'loop' && (e.y > H + 60 || e.x < -80 || e.x > W + 80)) e.dead = true;
   }
   for (let i = state.enemies.length - 1; i >= 0; i--) {
     const e = state.enemies[i];
     if (e.dead) {
       if (e.escaped && e.flock) state.flocks[e.flock].broken = true;
-      e.el.remove();
       state.enemies.splice(i, 1);
     }
   }
 }
 
-export function drawEnemies() {
+// Draw the enemies. ground: true for tanks and walkers (drawn
+// under everything that flies), false for the ones in the air.
+export function drawEnemies(ground) {
   for (const e of state.enemies) {
-    if (e.wait > 0) continue;
-    put(e.el, e.x, e.y, e.w, e.h);
-    if (e.turret) e.turret.style.transform = `rotate(${(-e.aim).toFixed(1)}deg)`;
+    if (e.wait > 0 || !!e.spec.ground !== ground) continue;
+    const look = e.flashT > 0 ? 'white' : e.warn && Math.floor(e.t * 10) % 2 ? 'red' : 'img';
+    // Flying things cast a soft shadow on the ground far below.
+    sprite(art(e.spec.art), e.x, e.y, e.w, e.h, { look, shadow: ground ? [3, 5, 0.45] : [8, 16, 0.32] });
+    if (e.spec.turret) {
+      // The turret turns on its ring, which is 20px down its picture.
+      sprite(art(e.spec.turret), e.x, e.y + 8, 40, 56, { rot: (-e.aim * Math.PI) / 180, oy: -8, look: e.flashT > 0 ? 'white' : 'img' });
+    }
   }
 }
 
 function hurt(e, n) {
   if (e.dead) return;
   e.hp -= n;
-  e.el.classList.add('hit');
   e.flashT = 0.08;
   if (e.hp <= 0) kill(e);
-  else sound.ping();
+  else sound.ping(e.x);
 }
 
 function kill(e) {
   e.dead = true;
-  sound.pop();
   const big = e.spec.size > 70;
+  if (big) sound.boom(e.x); else sound.pop(e.x);
   fx.boom(e.x, e.y, e.spec.size * (big ? 1.6 : 1.3), big ? 14 : 9, e.spec.colour);
   fx.award(e.spec.points, e.x, e.y - e.h / 2);
   state.dropCounter++;

@@ -10,12 +10,12 @@
 
 import { state, newGame, startLevel, retryLevel, level } from './state.js';
 import { LEVELS } from '../data/levels.js';
-import { clearLayers } from './art.js';
 import { makeShip } from './ship.js';
 import { resetHud } from './hud.js';
 import { clearFx } from './fx.js';
 import { show, showTitleBest, showWin } from './screens.js';
 import { applyWorld } from './world.js';
+import { paintPlate } from './bases.js';
 import { playCut } from './cutscene.js';
 import { wakeAudio } from './audio.js';
 
@@ -24,20 +24,22 @@ function beginLevel() {
   resetHud();
   makeShip();
   applyWorld(level().world);
+  // Paint this level's bases now, so they are ready when they arrive.
+  for (const line of level().waves) if (line.base) paintPlate(line.base);
   show(null);
   document.getElementById('field').focus();
 }
 
 export function playGame(startAt = 0) {
   wakeAudio();
-  clearLayers();
+  clearFx();
   newGame(Math.max(0, Math.min(LEVELS.length - 1, startAt)));
   beginLevel();
 }
 
 export function retry() {
   wakeAudio();
-  clearLayers();
+  clearFx();
   retryLevel();
   beginLevel();
 }
@@ -45,7 +47,7 @@ export function retry() {
 export function levelClear() {
   const next = LEVELS[state.levelIndex + 1];
   state.mode = 'cut';
-  clearLayers();
+  clearFx();
   show('cut');
   const lines = [`LEVEL ${state.levelIndex + 1} CLEAR!`, ...next.intro.lines];
   playCut(next.intro, lines, () => {
@@ -60,7 +62,7 @@ export function gameWon() {
   const end = level().ending;
   if (!end) { showWin(); return; }
   state.mode = 'cut';
-  clearLayers();
+  clearFx();
   show('cut');
   playCut(end, end.lines, () => {
     state.mode = 'win';
@@ -69,7 +71,7 @@ export function gameWon() {
 }
 
 export function toMenu() {
-  clearLayers();
+  clearFx();
   clearFx();
   state.mode = 'title';
   applyWorld('space');

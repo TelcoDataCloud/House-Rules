@@ -20,7 +20,7 @@
    =========================================================== */
 
 import { state, W, H, hardness, after, level, isLastLevel } from './state.js';
-import { sprite, put, layer } from './art.js';
+import { ctx, art as bitmap, sprite, glowOver, radial } from './canvas.js';
 import { BOSSES } from '../data/bosses.js';
 import { BOSS_SHARE } from '../data/bombs.js';
 import { addFoe } from './bullets.js';
@@ -30,17 +30,15 @@ import { SHIP } from '../data/ship.js';
 import { drop } from './pickups.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
-import { makeCracks, crackSpot, showCracks, breakApart } from './breakup.js';
+import { makeCracks, crackSpot, breakApart } from './breakup.js';
 
 function part(boss, name, art, w, h, ox, oy, r, hits, open) {
-  const el = art ? sprite(art, w, h) : null;
-  if (el) {
-    if (boss.cfg.tint) el.classList.add(`tint-${boss.cfg.tint}`);
-    layer('air').appendChild(el);
-  }
-  const hp = Math.ceil(hits * hardness().tough);
+
+  const hard = hardness();
+  // Bosses get extra tough when your gun is strong (bossPower).
+  const hp = Math.ceil(hits * (hard.tough / hard.power) * hard.bossPower);
   const p = {
-    name, el, w, h, ox, oy, r, hp, max: hp, alive: true, open, x: 0, y: -999, flashT: 0,
+    name, art, hidden: !art, w, h, ox, oy, r, hp, max: hp, alive: true, open, x: 0, y: -999, flashT: 0,
     onHit(n, how) { hurt(boss, p, n, how); },
   };
   boss.parts.push(p);
@@ -56,9 +54,7 @@ function makeHauler(cfg, name, cx) {
   const [ex, ey] = cfg.engineAt || [56, 3];
   boss.w = w; boss.h = h;
   boss.sway = cfg.twins ? 40 : 90;
-  boss.el = sprite(cfg.art || 'hauler', w, h);
-  if (cfg.tint) boss.el.classList.add(`tint-${cfg.tint}`);
-  layer('air').appendChild(boss.el);
+  boss.art = cfg.art || 'hauler';
   const engine = cfg.engineArt || 'hauler-engine';
   boss.left = part(boss, 'left engine', engine, ew, eh, -ex, ey, 22, cfg.engineHits, true);
   boss.right = part(boss, 'right engine', engine, ew, eh, ex, ey, 22, cfg.engineHits, true);
@@ -71,8 +67,7 @@ function makeCore(cfg, name) {
   const boss = { name, cfg, kind: 'core', t: 0, phase: 'enter', x: W / 2, y: -h, parts: [], fireWait: 1.5, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: 0 };
   boss.title = cfg.name;
   boss.w = w; boss.h = h;
-  boss.el = sprite(cfg.art, w, h);
-  layer('air').appendChild(boss.el);
+  boss.art = cfg.art;
   boss.turrets = cfg.turrets.map(([ox, oy], i) => {
     const t = part(boss, 'turret', 'core-turret', 44, 56, ox, oy, 22, cfg.turretHits, true);
     t.fireWait = 1 + i * 0.5;
@@ -80,15 +75,14 @@ function makeCore(cfg, name) {
   });
   const [ex, ey] = cfg.eye;
   boss.eye = part(boss, 'eye', 'core-eye', 92, 92, ex, ey, 40, cfg.eyeHits, false);
-  boss.eye.el.classList.add('dark');
+  boss.eye.look = 'dark';
   // Walking bosses have legs underneath. Some legs can be shot off.
   boss.legs = [];
   if (cfg.legs) {
     const L = cfg.legs;
     boss.legs = L.at.map(([lx, ly], i) => {
       const leg = part(boss, 'leg', L.art, L.size[0], L.size[1], lx, ly, L.size[0] * 0.4, L.hits || 1, !!L.hits);
-      leg.el.classList.add('leg');
-      layer('air').insertBefore(leg.el, boss.el);   // under the body
+      leg.leg = true;                                // drawn under the body
       leg.side = i === 0 ? -1 : 1;
       leg.solid = !!L.hits;
       return leg;
@@ -113,13 +107,13 @@ function hurt(boss, p, n, how) {
   // A bomb only takes a little bit off a boss.
   if (how === 'bomb') n = Math.min(n, p.max * BOSS_SHARE);
   p.hp -= n;
-  if (p.el) { p.el.classList.add('hit'); p.flashT = 0.06; }
-  else { boss.el.classList.add('hit'); boss.flashT = 0.06; }
-  if (p.hp > 0) { sound.ping(); return; }
+  if (p.art) p.flashT = 0.06;
+  else boss.flashT = 0.06;
+  if (p.hp > 0) { sound.ping(p.x, true); return; }
   p.alive = false;
-  sound.boom();
+  sound.boom(p.x);
   fx.boom(p.x, p.y, 90, 8);
-  if (p.el) p.el.hidden = true;
+  if (p.art && !p.leg) p.hidden = true;
 
   if (boss.kind === 'hauler') {
     if (p === boss.body) die(boss);
@@ -139,7 +133,6 @@ function checkLastStand(boss) {
   if (boss.kind !== 'core' || boss.stage !== 2 || !hardness().lastStand || boss.eye.hp > boss.eye.max * 0.4) return;
   boss.stage = 3;
   boss.charging = 1;
-  boss.el.classList.add('charging');
   fx.banner('LAST STAND!', 'warn');
   sound.powerUp();
   fx.shake(true);
@@ -148,11 +141,10 @@ function checkLastStand(boss) {
 
 // A leg is shot off: it falls away, and the boss staggers.
 function legOff(boss, leg) {
-  leg.el.hidden = false;
-  leg.el.classList.add('leg-off');
+  leg.offT = 0;                       // it falls off (see drawBosses)
   fx.shake(true);
   fx.banner('LEG DOWN!');
-  after(1.2, () => { leg.el.hidden = true; });
+  after(1.2, () => { leg.hidden = true; });
 }
 
 // Stage 2: the shell is gone. The boss can't be hurt for a moment
@@ -160,56 +152,76 @@ function legOff(boss, leg) {
 function powerUp(boss) {
   boss.stage = 2;
   boss.charging = 2;
-  boss.el.classList.add('angry', 'charging');
+  boss.angry = true;
   fx.banner('POWERING UP!', 'warn');
   sound.powerUp();
   fx.shake(true);
   // A flying boss: the legs drop off and the jets light up.
   if (boss.cfg.flies) {
-    for (const leg of boss.legs) { leg.alive = false; leg.el.classList.add('leg-off'); }
-    after(1.2, () => { for (const leg of boss.legs) leg.el.hidden = true; });
-    boss.el.classList.add('flying');
+    for (const leg of boss.legs) { leg.alive = false; if (leg.offT === undefined) leg.offT = 0; }
+    after(1.2, () => { for (const leg of boss.legs) leg.hidden = true; });
     boss.flying = true;
     fx.banner('IT CAN FLY!', 'warn');
     sound.whoosh();
   }
-  const c = sprite('boss-cannon', 90, 120);
-  if (boss.cfg.tint) c.classList.add(`tint-${boss.cfg.tint}`);
-  layer('air').insertBefore(c, boss.el);           // behind the body
   const out = boss.kind === 'hauler' ? 62 : boss.h / 2 + 4;
-  boss.cannon = { el: c, from: out - 70, to: out, oy: out - 70, angle: 0 };
+  boss.cannon = { from: out - 70, to: out, oy: out - 70, angle: 0 };
   boss.cannonWait = 2.6 + boss.twinDelay;
 }
 
 // The end of powering up: open the weak spot.
 function awake(boss) {
-  boss.el.classList.remove('charging');
   if (boss.stage === 3) return;
   if (boss.kind === 'hauler') {
     boss.body.open = true;
     fx.banner('NOW THE BODY!');
   } else {
     boss.eye.open = true;
-    boss.eye.el.classList.remove('dark');
-    boss.eye.el.classList.add('awake');
+    boss.eye.look = 'awake';
     boss.fireWait = 1.2;
     fx.banner('HIT THE EYE!');
   }
 }
 
 // --- the big cannon: red line first, then the laser ---
-function beamBox(cls) {
-  const el = document.createElement('div');
-  el.className = cls;
-  layer('foes').appendChild(el);
-  return el;
-}
-
-function placeBeam(el, shot, width) {
-  el.style.width = `${width}px`;
-  el.style.transformOrigin = '50% 0';
-  el.style.height = `${shot.len.toFixed(0)}px`;
-  el.style.transform = `translate(${(shot.x0 - width / 2).toFixed(1)}px, ${shot.y0.toFixed(1)}px) rotate(${shot.angle.toFixed(1)}deg)`;
+// Draw the cannon's red warning line, or its big laser.
+function drawShot(boss) {
+  const sh = boss.shot;
+  if (!sh) return;
+  ctx.save();
+  ctx.translate(sh.x0, sh.y0);
+  ctx.rotate((sh.angle * Math.PI) / 180);
+  if (!sh.firing) {
+    // A dashed red line that blinks: this is where it will fire.
+    if (Math.floor(sh.t * 11) % 2 === 0) {
+      ctx.strokeStyle = '#ff3b3b';
+      ctx.shadowColor = '#ff3b3b';
+      ctx.shadowBlur = 8;
+      ctx.lineWidth = 6;
+      ctx.setLineDash([16, 10]);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, sh.len);
+      ctx.stroke();
+    }
+  } else {
+    const w = boss.cfg.cannonWidth * (0.9 + Math.random() * 0.2);
+    const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
+    g.addColorStop(0, 'rgba(255,59,59,0)');
+    g.addColorStop(0.1, 'rgba(255,59,59,0.85)');
+    g.addColorStop(0.25, '#ff7a1a');
+    g.addColorStop(0.42, '#fff3d6');
+    g.addColorStop(0.5, '#ffffff');
+    g.addColorStop(0.58, '#fff3d6');
+    g.addColorStop(0.75, '#ff7a1a');
+    g.addColorStop(0.9, 'rgba(255,59,59,0.85)');
+    g.addColorStop(1, 'rgba(255,59,59,0)');
+    ctx.shadowColor = '#ff3b3b';
+    ctx.shadowBlur = 30;
+    ctx.fillStyle = g;
+    ctx.fillRect(-w / 2, 0, w, sh.len);
+  }
+  ctx.restore();
 }
 
 function startCannon(boss) {
@@ -225,10 +237,9 @@ function startCannon(boss) {
   const y0 = py + Math.cos(rad) * 98;
   const len = Math.hypot(tx - x0, ty - y0) + 60;
   const warn = hardness().cannonWarn || 1.3;
-  boss.shot = { x0, y0, angle, len, t: 0, warn, fire: 0.9, el: beamBox('boss-warn') };
+  boss.shot = { x0, y0, angle, len, t: 0, warn, fire: 0.9 };
   c.angle = angle;
   boss.hold = warn + 1.1;                         // keep still while it fires
-  placeBeam(boss.shot.el, boss.shot, 6);
   sound.charge();
 }
 
@@ -246,9 +257,6 @@ function updateCannon(boss, dt) {
   sh.t += dt;
   if (sh.t >= sh.warn && !sh.firing) {
     sh.firing = true;
-    sh.el.remove();
-    sh.el = beamBox('boss-beam');
-    placeBeam(sh.el, sh, boss.cfg.cannonWidth);
     sound.bigLaser();
     fx.shake();
   }
@@ -264,7 +272,6 @@ function updateCannon(boss, dt) {
     const across = Math.abs(rx * dy - ry * dx);
     if (along > 0 && across < boss.cfg.cannonWidth / 2 + SHIP.hitSize) hitShip();
     if (sh.t >= sh.warn + sh.fire) {
-      sh.el.remove();
       boss.shot = null;
       c.angle = 0;
       boss.cannonWait = boss.cfg.cannonEvery * (boss.stage === 3 ? 0.7 : 1);
@@ -273,8 +280,8 @@ function updateCannon(boss, dt) {
 }
 
 function clearCannon(boss) {
-  if (boss.shot) { boss.shot.el.remove(); boss.shot = null; }
-  if (boss.cannon) { boss.cannon.el.remove(); boss.cannon = null; }
+  boss.shot = null;
+  boss.cannon = null;
 }
 
 // The big moment: time slows right down, BOSS DOWN! Glowing cracks
@@ -284,14 +291,13 @@ function die(boss) {
   clearCannon(boss);
   boss.phase = 'dying';
   boss.t = 0;
-  boss.el.classList.add('dying');
   state.slow = 1.6;
   fx.banner('BOSS DOWN!', 'gold');
   fx.shake(true);
   boss.cracks = makeCracks(boss.kind === 'core' ? 5 : 4);
   const booms = boss.kind === 'core' ? 14 : 9;
   const end = booms * 0.16 + 0.2;
-  showCracks(boss, end);
+  boss.crackTime = end;
   for (let i = 0; i < booms; i++) {
     after(i * 0.16, () => {
       // Each bang is a bit further out along one of the cracks.
@@ -305,6 +311,7 @@ function die(boss) {
   }
   after(end, () => {
     fx.boom(boss.x, boss.y, boss.w * 0.9, 18, '#ffd23f');
+    sound.bossDeath(boss.x);
     fx.flash();
     fx.shake(true);
     breakApart(boss);
@@ -352,11 +359,14 @@ function fight(boss, dt) {
       boss.fireWait = cfg.fireEvery / 2;
       boss.gun = 1 - boss.gun;
       const gx = boss.x + (boss.gun ? 25 : -25);
-      if (angry) for (const a of [-14, 0, 14]) addFoe(gx, boss.y + 30, a, 140, 'pink');
+      // Angry: big slow plasma balls instead of little orbs.
+      boss.volley = (boss.volley || 0) + 1;
+      if (angry && boss.volley % 3 === 0) for (const a of [-16, 16]) addFoe(gx, boss.y + 30, a, 85, 'plasma');
       else addFoe(gx, boss.y + 30, 0, 140, 'pink');
     }
     // It only gives up and flies away if you haven't made it angry yet.
-    if (!angry && boss.t > cfg.stay) { boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
+    // It gives up and flies away if you take too long (a bit longer once it is angry).
+    if (boss.t > cfg.stay * (angry ? 1.6 : 1) && !boss.shot) { clearCannon(boss); boss.phase = 'leave'; fx.banner('IT GOT AWAY'); }
     return;
   }
   if (boss.flying && boss.charging <= 0) {
@@ -420,37 +430,127 @@ export function updateBosses(dt) {
     }
     // Walking: the legs step forward and back, one after the other.
     const walking = boss.legs && boss.legs.length && !boss.flying && boss.phase !== 'dying' && boss.hold <= 0;
-    if (walking) boss.step = (boss.step || 0) + dt * 2.6;
+    if (walking) {
+      // A stomp each time a foot comes down.
+      const before = Math.floor((boss.step || 0) / Math.PI);
+      boss.step = (boss.step || 0) + dt * 2.6;
+      if (Math.floor(boss.step / Math.PI) !== before) { sound.stomp(boss.x); if (boss.kind === 'core') fx.shake(); }
+    }
     for (const p of boss.parts) {
       p.x = boss.x + p.ox;
       p.y = boss.y + p.oy;
       if (p.name === 'leg' && boss.cfg.legs) p.y += Math.sin((boss.step || 0) + (p.side > 0 ? Math.PI : 0)) * boss.cfg.legs.stride;
-      if (p.flashT > 0) { p.flashT -= dt; if (p.flashT <= 0 && p.el) p.el.classList.remove('hit'); }
+      if (p.flashT > 0) p.flashT -= dt;
+      if (p.offT !== undefined) p.offT += dt;
     }
-    if (boss.flashT > 0) { boss.flashT -= dt; if (boss.flashT <= 0) boss.el.classList.remove('hit'); }
+    if (boss.flashT > 0) boss.flashT -= dt;
+    boss.clock = (boss.clock || 0) + dt;
   }
   for (let i = state.bosses.length - 1; i >= 0; i--) {
     const boss = state.bosses[i];
     if (boss.gone) {
       clearCannon(boss);
-      boss.el.remove();
-      for (const p of boss.parts) if (p.el) p.el.remove();
       state.bosses.splice(i, 1);
     }
   }
 }
 
+// Draw every boss: legs underneath, then the cannon, then the
+// body, then its guns and eye on top, then the cannon's laser.
 export function drawBosses() {
   for (const boss of state.bosses) {
-    put(boss.el, boss.x, boss.y, boss.w, boss.h);
-    for (const p of boss.parts) if (p.el) put(p.el, p.x, p.y, p.w, p.h);
+    if (boss.gone || boss.broken) continue;
+    const tint = boss.cfg.tint || '';
+    const t = boss.clock || 0;
+    const dying = boss.phase === 'dying';
+    // Shaking when it is dying.
+    const jx = dying ? (Math.random() - 0.5) * 6 : 0;
+    const jy = dying ? (Math.random() - 0.5) * 4 : 0;
+
+    for (const p of boss.parts) {
+      if (!p.leg || p.hidden) continue;
+      let y = p.y;
+      let rot = 0;
+      let alpha = 1;
+      if (p.offT !== undefined) {
+        // A leg falling away: it drops, turns and fades.
+        const k = Math.min(1, p.offT / 1.2);
+        y += 120 * k * k;
+        rot = 0.45 * k * p.side;
+        alpha = 1 - k;
+      }
+      sprite(bitmap(p.art, { tint }), p.x + jx, y + jy, p.w, p.h, { rot, alpha, look: p.flashT > 0 ? 'white' : 'img', shadow: boss.flying ? null : [8, 16, 0.32] });
+    }
+
     const c = boss.cannon;
     if (c) {
       // The cannon hangs from its top and turns to aim.
-      c.el.style.transformOrigin = '50% 12%';
-      c.el.style.transform = `translate(${(boss.x - 45).toFixed(1)}px, ${(boss.y + c.oy - 60).toFixed(1)}px) rotate(${c.angle.toFixed(1)}deg)`;
+      sprite(bitmap('boss-cannon', { tint }), boss.x + jx, boss.y + c.oy + jy, 90, 120, { rot: (c.angle * Math.PI) / 180, oy: -45 });
     }
+
+    // The body. White when hit, flashing when powering up or dying.
+    const flashOn = (boss.charging > 0 || dying) && Math.floor(t * 14) % 2 === 0;
+    const look = boss.flashT > 0 || flashOn ? 'white' : 'img';
+    const body = bitmap(boss.art, { tint });
+    if (boss.flying) {
+      // Jet fire pours out of its back.
+      for (const side of [-1, 1]) {
+        const fx = boss.x + side * boss.w * 0.22;
+        const len = 1 + Math.random() * 0.3;
+        radial(fx, boss.y - boss.h / 2 - 8, 34 * len, [[0, '#ffffff'], [0.25, '#ffd23f'], [0.55, '#ff7a1a'], [1, 'rgba(255,59,26,0)']], 1, 'lighter');
+      }
+    }
+    // Flying things are far above the ground, so their shadow is far away.
+    const shadow = boss.flying ? [30, 60, 0.3] : [8, 16, 0.32];
+    sprite(body, boss.x + jx, boss.y + jy, boss.w, boss.h, { look, shadow });
+    if (boss.angry && !dying) glowOver(body, boss.x, boss.y, boss.w, boss.h, 'red', 0.12 + 0.12 * Math.sin(t * 12));
+    if (dying && boss.cracks) drawCracks(boss, body);
+
+    for (const p of boss.parts) {
+      if (p.leg || p.hidden || !p.art) continue;
+      const set = bitmap(p.art, { tint: p.name === 'eye' ? '' : tint });
+      let pl = p.flashT > 0 ? 'white' : p.look === 'dark' ? 'dark' : 'img';
+      sprite(set, p.x + jx, p.y + jy, p.w, p.h, { look: pl });
+      if (p.look === 'awake') {
+        // The eye glows pink when you can hurt it.
+        radial(p.x, p.y, p.w * 0.75, [[0, 'rgba(255,63,164,0.5)'], [1, 'rgba(255,63,164,0)']], 0.6 + 0.4 * Math.sin(t * 10), 'lighter');
+        glowOver(set, p.x, p.y, p.w, p.h, 'pink', 0.15 + 0.15 * Math.sin(t * 10));
+      }
+    }
+    drawShot(boss);
   }
+}
+
+// Glowing cracks spread over a dying boss, only on its metal.
+let crackCanvas = null;
+function drawCracks(boss, body) {
+  if (!body) return;
+  const k = Math.min(1, (boss.t || 0) / boss.crackTime);
+  const w = Math.ceil(boss.w);
+  const h = Math.ceil(boss.h);
+  if (!crackCanvas) crackCanvas = document.createElement('canvas');
+  crackCanvas.width = w;
+  crackCanvas.height = h;
+  const g = crackCanvas.getContext('2d');
+  g.drawImage(body.img, 0, 0, w, h);
+  // 'source-in' keeps the cracks only where the boss has metal.
+  g.globalCompositeOperation = 'source-in';
+  g.strokeStyle = '#fff3c4';
+  g.shadowColor = '#ff7a1a';
+  g.shadowBlur = 8;
+  g.lineWidth = 3 + 3 * k;
+  g.lineCap = 'round';
+  g.lineJoin = 'round';
+  g.beginPath();
+  for (const c of boss.cracks) {
+    // Each crack grows out from the middle.
+    const pts = c.pts.map(([x, y]) => [(0.5 + x) * w, (0.5 + y) * h]);
+    const n = Math.min(pts.length - 1, Math.max(1, Math.floor(k * (pts.length - 1) * 1.2 + 1)));
+    g.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i <= n; i++) g.lineTo(pts[i][0], pts[i][1]);
+  }
+  g.stroke();
+  ctx.drawImage(crackCanvas, boss.x - w / 2, boss.y - h / 2, w, h);
 }
 
 // For the bar across the top: how much boss is left? (Both twins count.)
