@@ -15,8 +15,9 @@ import { updateShip, drawShip, hitShip, useBomb, canPick, rollChoices } from './
 import { spawnWave, updateEnemies, drawEnemies } from './enemies.js';
 import { spawnBase, updateBases, drawBases } from './bases.js';
 import { spawnBoss, updateBosses, drawBosses } from './bosses.js';
-import { updateBullets, drawBullets, sweep } from './bullets.js';
-import { updatePickups } from './pickups.js';
+import { updateBullets, drawShots, drawFoes, sweep } from './bullets.js';
+import { updatePickups, drawPickups } from './pickups.js';
+import { clear } from './canvas.js';
 import { touching, targets } from './collide.js';
 import { drawHud } from './hud.js';
 import { openPick, pickByNumber, showOver, showWin, show } from './screens.js';
@@ -157,6 +158,7 @@ function step(dt) {
   collisions();
   bombHint(dt);
   updatePickups(dt);
+  fx.updateFx(dt);
   sweep(state.shots);
   sweep(state.missiles);
   sweep(state.foes);
@@ -174,12 +176,19 @@ function step(dt) {
   }
 }
 
+// Draw everything on the canvas, bottom to top.
 function draw() {
-  drawBases();
-  drawEnemies();
-  drawBosses();
-  drawBullets();
-  drawShip();
+  clear();
+  drawBases();            // the bases on the ground
+  drawEnemies(true);      // tanks and walkers on the ground
+  fx.drawFx(0);           // smoke on the ground
+  drawPickups();          // capsules
+  drawEnemies(false);     // ships in the air
+  drawBosses();           // bosses (and their big laser)
+  drawShots();            // your shots and missiles
+  drawShip();             // you, your drones, your beam
+  drawFoes();             // enemy shots, on top so you can always see them
+  fx.drawFx(1);           // bangs, sparks, scores
   drawHud();
 }
 

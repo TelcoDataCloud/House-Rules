@@ -8,6 +8,7 @@
 
 import { state, W, H } from './state.js';
 import { loadArt } from './art.js';
+import { setupCanvas } from './canvas.js';
 import { setupInput } from './input.js';
 import { setupTitle, show, showTitleBest } from './screens.js';
 import { frame } from './loop.js';
@@ -31,7 +32,8 @@ window.STAR_BASE = { state };     // type STAR_BASE.state in the console to look
 
 // Make the 480 by 720 play area as big as the window allows.
 function fit() {
-  const side = window.innerWidth > 860 ? 260 + 24 : 0;
+  // The help panel only shows on the title screen, on big screens.
+  const side = window.innerWidth > 860 && !document.body.classList.contains('in-game') ? 260 + 24 : 0;
   const scale = Math.min((window.innerHeight - 16) / H, (window.innerWidth - 16 - side) / W);
   $('field').style.transform = `scale(${scale})`;
   $('stage').style.width = `${W * scale}px`;
@@ -79,6 +81,7 @@ async function boot() {
   const btn = $('btn-play');
   btn.disabled = true;
   btn.textContent = 'Loading';
+  setupCanvas();
   setupInput($('field'));
   setupTitle(() => playGame(startAt));
   setupToggles();

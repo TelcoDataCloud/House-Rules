@@ -11,7 +11,7 @@ import { SHIP } from '../data/ship.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { loadBest } from './best.js';
 import { LEVELS } from '../data/levels.js';
-import { START_GUN } from '../data/weapons.js';
+import { START_GUN, POWER_BAR, POWER_GROW } from '../data/weapons.js';
 import { START_BOMB } from '../data/bombs.js';
 
 // The play area, in dots. CSS scales it to fit the screen.
@@ -103,10 +103,38 @@ export function after(seconds, fn) {
 export function hardness() {
   const d = DIFFICULTY[state.difficulty];
   const l = level() || LEVELS[0];
+  // The stronger your gun, the tougher everything gets (powerScale
+  // in each level file). Bosses get twice as much.
+  const s = state.ship || {};
+  const power = Math.max(0, (s.gunLevel || 1) - 1) + ((s.homing || 0) + (s.drones || 0)) / 3;
   return {
     ...d,
-    tough: d.tough * l.tough,
+    // On Easy the shield grows back fast on the first levels, then slower, then not at all.
+    shieldBack: d.shieldBack ? (l.shieldBack ?? null) : null,
+    power: 1 + (l.powerScale || 0) * power,
+    bossPower: 1 + 2 * (l.powerScale || 0) * power,
+    tough: d.tough * l.tough * (1 + (l.powerScale || 0) * power),
     bulletSpeed: d.bulletSpeed * l.bulletSpeed,
     shootMore: d.shootMore * l.shootMore,
   };
+}
+
+// How many power tokens fill the bar on this level. It grows each level.
+export function powerBar() {
+  return POWER_BAR + POWER_GROW * (state.levelIndex || 0);
+}
+
+// Give bombs or ships, up to the most you can have (data/ship.js).
+// Returns how many did not fit, so they can be turned into points.
+export function giveBombs(n) {
+  const s = state.ship;
+  const room = Math.max(0, SHIP.maxBombs - s.bombs);
+  s.bombs += Math.min(room, n);
+  return n - Math.min(room, n);
+}
+export function giveLife() {
+  const s = state.ship;
+  if (s.lives >= SHIP.maxLives) return 1;
+  s.lives++;
+  return 0;
 }
