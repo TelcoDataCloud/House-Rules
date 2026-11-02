@@ -1005,3 +1005,6 @@
 .clouds-far { --tile: 600px; }
 .clouds-near { --tile: 900px; }
 .stars-twinkle { will-change: opacity; }
+
+/* The canvas the game is drawn on (js/canvas.js). */
+.play { position: absolute; left: 0; top: 0; width: 480px; height: 720px; pointer-events: none; }
