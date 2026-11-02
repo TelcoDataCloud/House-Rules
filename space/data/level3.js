@@ -11,6 +11,11 @@ export const LEVEL = {
   scroll: 80,
   length: 265,
   tough: 1.6,
+  // Easy only: seconds until a popped shield grows back on this level.
+  shieldBack: 25,
+  // Enemies get tougher as YOUR gun gets stronger. Each gun level
+  // above 1 adds this much to their hits. Bosses get double.
+  powerScale: 0.15,
   bulletSpeed: 1.2,
   shootMore: 1.45,
   grades: { S: 60000, A: 42000, B: 24000 },

@@ -15,6 +15,8 @@ export const SHIP = {
   speed: 380,        // how fast it flies
   lives: 3,          // ships you start with
   bombs: 3,          // bombs you start with (press space)
+  maxLives: 5,       // the most ships you can have. Extra ones become points.
+  maxBombs: 5,       // the most bombs you can carry. Extra ones become points.
   fireRate: 4,       // shots every second. Try 30!
   shotSpeed: 720,    // how fast your shots fly
   hitSize: 9,        // the bit of the ship that gets hit. Small is easier.

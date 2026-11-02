@@ -25,8 +25,11 @@
    angle   tips it: 0 is straight up, -12 leans left, 12 right
    =========================================================== */
 
-// How many power tokens fill the bar.
+// How many power tokens fill the bar on level 1.
 export const POWER_BAR = 6;
+
+// The bar gets this much longer on every level after that.
+export const POWER_GROW = 1;
 
 // How many extra full bars you can save up.
 export const BANK = 3;
@@ -112,16 +115,17 @@ export const GUNS = {
     ],
   },
 
-  // every: seconds between shots. Hits everything in a straight line.
+  // every: seconds between shots. pierce: how many things in a
+  // straight line it can go through.
   rail: {
     name: 'Railgun', short: 'RG', colour: 'yellow',
     levels: [
-      { say: 'Railgun', every: 1.0, damage: 6 },
-      { say: 'Fast railgun', every: 0.85, damage: 8 },
-      { say: 'Heavy railgun', every: 0.75, damage: 11 },
-      { say: 'Super railgun', every: 0.65, damage: 14 },
-      { say: 'Twin railgun', every: 0.6, damage: 16, twin: true },
-      { say: 'Mega railgun', every: 0.5, damage: 19, twin: true },
+      { say: 'Railgun', every: 1.0, damage: 6, pierce: 3 },
+      { say: 'Fast railgun', every: 0.85, damage: 8, pierce: 3 },
+      { say: 'Heavy railgun', every: 0.75, damage: 11, pierce: 4 },
+      { say: 'Super railgun', every: 0.65, damage: 14, pierce: 4 },
+      { say: 'Twin railgun', every: 0.6, damage: 16, twin: true, pierce: 5 },
+      { say: 'Mega railgun', every: 0.5, damage: 19, twin: true, pierce: 5 },
     ],
   },
 };
@@ -153,4 +157,5 @@ export const HELPERS = {
 export const EXTRAS = {
   shield: { name: 'Shield', say: 'Shield on', colour: 'cyan' },
   bombpack: { name: 'Bombs', say: '+2 bombs', colour: 'yellow' },
+  points: { name: 'Points', say: '+3000 points', colour: 'yellow' },
 };

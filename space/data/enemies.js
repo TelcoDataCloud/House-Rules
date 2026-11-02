@@ -31,7 +31,7 @@ export const ENEMIES = {
   dart:    { art: 'dart',     size: 52, hits: 3,  speed: 120, points: 100, colour: '#ff7a1a', shotEvery: 3.5, pattern: 'straight' },
   weaver:  { art: 'weaver',   size: 60, hits: 4,  speed: 95,  points: 150, colour: '#ff3fa4', shotEvery: 2.6, pattern: 'weave' },
   diver:   { art: 'diver',    size: 58, hits: 6,  speed: 110, points: 200, colour: '#ffd23f', shotEvery: 2.2, pattern: 'dive', shot: 'bullet' },
-  bruiser: { art: 'bruiser',  size: 96, hits: 20, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2.6, pattern: 'hover', fan: 3, shot: 'plasma' },
+  bruiser: { art: 'bruiser',  size: 96, hits: 20, speed: 60,  points: 500, colour: '#9b5cff', shotEvery: 2.2, pattern: 'hover', fan: 3 },
   red:     { art: 'red-dart', size: 48, hits: 3,  speed: 0,   points: 100, colour: '#ff3b3b', shotEvery: 0,   pattern: 'loop' },
   saucer:  { art: 'saucer',   size: 58, hits: 5,  speed: 90,  points: 200, colour: '#38f0ff', shotEvery: 2.4, pattern: 'zigzag', shot: 'red' },
   // Level 4 and 5.

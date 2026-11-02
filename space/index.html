@@ -46,14 +46,8 @@
         <div class="bg bg-top" id="bg-top"></div>
       </div>
 
-      <!-- Layers, bottom to top. Later ones are drawn on top. -->
-      <div class="layer" id="layer-ground"></div>
-      <div class="layer" id="layer-pickups"></div>
-      <div class="layer" id="layer-air"></div>
-      <div class="layer" id="layer-shots"></div>
-      <div class="layer" id="layer-ship"></div>
-      <div class="layer" id="layer-foes"></div>
-      <div class="layer" id="layer-fx"></div>
+      <!-- The game itself is drawn here, every frame. js/canvas.js -->
+      <canvas class="play" id="play" width="480" height="720" aria-label="The game"></canvas>
 
       <!-- THE HUD: score, lives, bombs, power bar, weapons. js/hud.js -->
       <div class="hud" id="hud" hidden>
@@ -98,6 +92,11 @@
           <button type="button" class="pill" data-difficulty="easy" aria-pressed="true">Easy</button>
           <button type="button" class="pill" data-difficulty="medium" aria-pressed="false">Medium</button>
           <button type="button" class="pill" data-difficulty="hard" aria-pressed="false">Hard</button>
+        </fieldset>
+        <fieldset class="choice">
+          <legend>Power ups</legend>
+          <button type="button" class="pill" data-autopower="off" aria-pressed="true">I pick</button>
+          <button type="button" class="pill" data-autopower="on" aria-pressed="false">Auto</button>
         </fieldset>
         <p class="how" id="how-keys">Arrows: fly. Space: bomb. M: power up. P: pause.</p>
         <div class="built">

@@ -17,4 +17,5 @@ export const MILESTONES = [
   { id: 'S9', name: 'Level 3',      done: true },
   { id: 'S10', name: 'Level 4',     done: true },
   { id: 'S11', name: 'Level 5',     done: true },
+  { id: 'S12', name: 'Canvas',      done: true },
 ];

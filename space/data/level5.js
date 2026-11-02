@@ -12,9 +12,14 @@ export const LEVEL = {
   world: 'magma',
   scroll: 90,
   length: 280,
-  tough: 1.8,
-  bulletSpeed: 1.25,
-  shootMore: 1.55,
+  tough: 2.0,
+  // Easy only: seconds until a popped shield grows back on this level.
+  shieldBack: null,
+  // Enemies get tougher as YOUR gun gets stronger. Each gun level
+  // above 1 adds this much to their hits. Bosses get double.
+  powerScale: 0.24,
+  bulletSpeed: 1.3,
+  shootMore: 1.75,
   grades: { S: 110000, A: 80000, B: 45000 },
 
   intro: {

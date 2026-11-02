@@ -28,6 +28,11 @@ export const LEVEL = {
   scroll: 60,         // how fast the ground slides past
   length: 240,        // seconds. The boss gives up after this.
   tough: 1,           // enemies take this many times more hits
+  // Easy only: seconds until a popped shield grows back on this level.
+  shieldBack: 10,
+  // Enemies get tougher as YOUR gun gets stronger. Each gun level
+  // above 1 adds this much to their hits. Bosses get double.
+  powerScale: 0.05,
   bulletSpeed: 1,     // enemy bullets this many times faster
   shootMore: 1,       // enemies shoot this many times more often
   grades: { S: 24000, A: 16000, B: 9000 },   // points for each grade
