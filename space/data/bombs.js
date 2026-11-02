@@ -6,25 +6,14 @@
    stronger (up to level 3). Every bomb wipes out the enemy
    shots on the screen, so it always gets you out of trouble.
 
-   The rule: the BIGGER the area a bomb covers, the LESS it hurts
-   each enemy. So each bomb is best at something different.
+     High Explosive  a big bang right in front of you
+     Cluster         splits into little bombs that find enemies
+     Plasma          a wall of fire that rolls up the screen
+     Laser           a giant laser straight up, for two seconds
+     Nuke            hits everything on the whole screen
 
-     High Explosive  one big bang in front of you. Hardest in the
-                     middle, half as hard at the edge.
-     Cluster         little bombs that each find an enemy.
-                     Best against groups.
-     Red Lightning   jumps from enemy to enemy. A bit weaker after
-                     every jump. Best when enemies are spread out.
-     Laser           a giant laser straight up for 2 seconds.
-                     The strongest, but only in one line.
-     Nuke            the whole screen, but the least on each enemy,
-                     and they keep burning for a bit. Rare!
-
-   damage   how hard it hits (per second for the Laser)
-   size     how wide the bang or the laser is
-   jumps    (Lightning) how many enemies it can reach
-   burn     (Nuke) extra hurt every second, for 3 seconds
-   rare     how often its card turns up. 1 is normal, 0.3 is rare.
+   damage  how hard it hits
+   size    how big the bang is
 
    Bombs can't finish a boss on their own. A boss only takes a
    little bit (BOSS_SHARE) from each bomb.
@@ -37,31 +26,31 @@ export const BOSS_SHARE = 0.1;
 
 export const BOMBS = {
   he: {
-    name: 'High Explosive', short: 'HE', colour: 'orange', area: 'Big bang',
+    name: 'High Explosive', short: 'HE', colour: 'orange',
     levels: [
-      { say: 'Big bang', damage: 10, size: 170 },
-      { say: 'Bigger bang', damage: 14, size: 210 },
-      { say: 'Huge bang', damage: 18, size: 260 },
+      { say: 'Big bang', damage: 6, size: 170 },
+      { say: 'Bigger bang', damage: 9, size: 210 },
+      { say: 'Huge bang', damage: 13, size: 260 },
     ],
   },
   cluster: {
-    name: 'Cluster', short: 'CL', colour: 'yellow', area: 'Finds enemies',
+    name: 'Cluster', short: 'CL', colour: 'yellow',
     levels: [
       { say: '5 little bombs', bomblets: 5, damage: 6, size: 80 },
       { say: '7 little bombs', bomblets: 7, damage: 7, size: 90 },
       { say: '10 little bombs', bomblets: 10, damage: 8, size: 100 },
     ],
   },
-  lightning: {
-    name: 'Red Lightning', short: 'LT', colour: 'red', area: 'Jumps',
+  plasma: {
+    name: 'Plasma', short: 'PL', colour: 'cyan',
     levels: [
-      { say: 'Jumps 6 times', jumps: 6, damage: 9 },
-      { say: 'Jumps 9 times', jumps: 9, damage: 12 },
-      { say: 'Jumps 12 times', jumps: 12, damage: 15 },
+      { say: 'Plasma wave', damage: 5 },
+      { say: 'Hot plasma', damage: 8 },
+      { say: 'Mega plasma', damage: 11 },
     ],
   },
   laser: {
-    name: 'Laser bomb', short: 'LB', colour: 'red', area: 'One line',
+    name: 'Laser bomb', short: 'LB', colour: 'red',
     levels: [
       { say: 'Giant laser', damage: 12, size: 80 },
       { say: 'Wider laser', damage: 16, size: 110 },
@@ -69,14 +58,11 @@ export const BOMBS = {
     ],
   },
   nuke: {
-    name: 'Nuke', short: 'NK', colour: 'green', area: 'Whole screen', rare: 0.35,
+    name: 'Nuke', short: 'NK', colour: 'green',
     levels: [
-      { say: 'Nuke', damage: 8, burn: 2 },
-      { say: 'Big nuke', damage: 12, burn: 2 },
-      { say: 'Mega nuke', damage: 16, burn: 3 },
+      { say: 'Nuke', damage: 8 },
+      { say: 'Big nuke', damage: 12 },
+      { say: 'Mega nuke', damage: 16 },
     ],
   },
 };
-
-// How much weaker the lightning gets on each jump. 0.85 keeps 85%.
-export const LIGHTNING_FADE = 0.85;
