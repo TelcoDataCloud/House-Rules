@@ -133,3 +133,30 @@ sit still are much tougher, power ups are glowing capsules, a new sleeker
 ship, realistic base buildings, and painted backdrops for every world
 (art/bg-*.svg).
 
+
+## Canvas, real sounds, harder later levels (2 Nov)
+
+From Asa's change list after a playtest.
+
+- **Canvas:** the play area is now one `<canvas>` (js/canvas.js). The art is
+  still one SVG per thing in `art/`, turned into bitmaps when the game
+  loads. Effects are pooled particles (js/fx.js). Steady 60 fps.
+- **Sounds:** recorded CC0 sounds by Kenney (`sounds/`), 2 or 3 versions
+  each, a random small pitch change, panned left and right, and small
+  sounds go quieter while big ones play. The synth is the fallback.
+- **Bombs:** Red Lightning replaces Plasma. Damage matches the area: the
+  bigger the area, the less each enemy takes. The Nuke flies out to where
+  the enemies are (or the boss), then a white-out, a shockwave, and a
+  mushroom cloud rising from that spot, and everything burns for 3 s.
+  It is the rarest bomb card.
+- **Harder from level 3:** enemies and bosses get tougher as your gun
+  gets stronger (`powerScale` in each level file). The power bar is longer
+  each level. Ships and bombs are capped at 5 (extras become points).
+  Losing a ship costs a gun level (Easy: from level 3, never below 2). On
+  Easy the shield grows back fast on levels 1 and 2, slower on 3 and 4, not
+  on 5. The railgun only goes through 3 to 5 things.
+- **Enemy shots:** dark outlines and hot colours only (pink, red, violet).
+  The angry Hauler fires plasma balls.
+- **Screen:** banners in the top third, weapons as pictures at the top
+  right, the help panel hides during play so the game is bigger, no
+  pointless cards, and an Auto power-up option on the title screen.

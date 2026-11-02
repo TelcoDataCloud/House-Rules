@@ -100,6 +100,10 @@ These are not preferences. They are what makes the project teachable.
   plain CSS. Edit, refresh, see it. If something needs compiling, it is out.
 - **No canvas.** The house, the characters and every trap are SVG and DOM so
   Hendrix can right-click, Inspect, change a colour and watch it change.
+  **Exception: Star Base (`space/`) draws its play area on one `<canvas>`**
+  (Asa's call, 2 Nov 2026, for frame rate with lots of particles). Its art
+  is still one SVG file per thing in `space/art/`, turned into bitmaps at
+  load (`space/js/canvas.js`). Menus, HUD and cards stay DOM.
 - **`data/` belongs to Hendrix.** `items.js`, `recipes.js`, `rooms.js`,
   `burglars.js`, `difficulty.js`, `milestones.js`. Plain data, no logic, no
   cleverness, header comments written *to him* in the second person. Adding

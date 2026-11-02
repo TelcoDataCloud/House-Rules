@@ -31,7 +31,7 @@ export const BOSSES = {
   // Level 1 mini boss.
   hauler: {
     kind: 'hauler', name: 'THE HAULER',
-    engineHits: 30, bodyHits: 70,
+    engineHits: 22, bodyHits: 50,
     stay: 30,            // seconds before it gives up and flies away (until it is angry)
     fireEvery: 1.6,      // seconds between shots from its side guns
     cannonEvery: 4.5, cannonWidth: 40,

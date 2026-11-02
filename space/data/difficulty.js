@@ -14,19 +14,21 @@
      aim          true means some shots come straight at you!
      extraShips   false means crates never have a 1UP in them
                   (the reactor still gives one)
+     loseGun      which level you start losing a gun level when
+                  a ship is hit (1 means always, 99 means never)
    =========================================================== */
 
 export const DIFFICULTY = {
   easy: {
-    name: 'Easy', cannonWarn: 1.7, lastStand: false, shield: true, shieldBack: 10, bulletSpeed: 1.0, tough: 0.75,
+    name: 'Easy', cannonWarn: 1.7, lastStand: false, shield: true, shieldBack: 10, bulletSpeed: 1.0, tough: 0.75, loseGun: 3,
     shooters: ['weaver', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1, aim: false, extraShips: true,
   },
   medium: {
-    name: 'Medium', cannonWarn: 1.25, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.2, tough: 1,
+    name: 'Medium', cannonWarn: 1.25, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.2, tough: 1, loseGun: 1,
     shooters: ['weaver', 'diver', 'dart', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1.2, aim: false, extraShips: true,
   },
   hard: {
-    name: 'Hard', cannonWarn: 0.95, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.45, tough: 1.5,
+    name: 'Hard', cannonWarn: 0.95, lastStand: true, shield: false, shieldBack: null, bulletSpeed: 1.45, tough: 1.5, loseGun: 1,
     shooters: ['weaver', 'diver', 'dart', 'saucer', 'tank', 'spider', 'firedrone'], shootMore: 1.8, aim: true, extraShips: false,
   },
 };
