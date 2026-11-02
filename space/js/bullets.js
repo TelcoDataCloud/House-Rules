@@ -139,34 +139,77 @@ export function drawShots() {
   for (const m of state.missiles) stamp(missileLook(m.big), m, 24, 40);
 }
 
+// Enemy shots are drawn pointing DOWN (js/looks.js); turn each one
+// to point the way it is flying.
+function stampFoe(img, b, w, h, tipUp = false) {
+  ctx.save();
+  ctx.translate(b.x, b.y);
+  ctx.rotate(Math.atan2(-b.vx, b.vy) + (tipUp ? Math.PI : 0));
+  ctx.drawImage(img, -w / 2, -h * 0.6, w, h);
+  ctx.restore();
+}
+
 export function drawFoes() {
   for (const b of state.foes) {
-    if (b.colour === 'red') stamp(foeLook('red'), b, 24, 46);
-    else if (b.colour === 'bullet') stamp(foeLook('bullet'), b, 18, 30);
-    else if (b.colour === 'rocket') {
-      // Fire out of the back of a rocket, flickering.
-      radial(b.x - b.dx * 18, b.y - b.dy * 18, 7 + Math.random() * 3, [[0, '#ffffff'], [0.35, '#ffd23f'], [1, 'rgba(255,122,26,0)']], 1, 'lighter');
-      stamp(foeLook('rocket'), b, 26, 44);
-    } else if (b.colour === 'mine') {
-      const blink = b.armed && Math.floor(b.t * 16) % 2 === 0;
-      stamp(foeLook('mine', blink), b, 46, 46, false);
-      if (blink) radial(b.x, b.y, 30, [[0, 'rgba(255,59,59,0.6)'], [1, 'rgba(255,59,59,0)']], 1, 'lighter');
-    } else {
-      const big = b.colour === 'plasma';
-      const size = big ? 50 : b.colour === 'green' ? 38 : 36;
-      // A pulsing glow and a spinning ring of energy round each orb.
-      const pulse = big ? 1 + Math.sin(b.t * 20) * 0.06 : 1;
-      stamp(foeLook(b.colour), b, size * pulse, size * pulse, false);
-      const col = b.colour === 'green' ? '77,255,124' : big ? '176,92,255' : '255,63,164';
-      ctx.save();
-      ctx.strokeStyle = `rgba(${col},0.85)`;
-      ctx.lineWidth = 2;
-      ctx.setLineDash([5, 6]);
-      ctx.lineDashOffset = -b.t * 40;
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, (b.w / 2) + 4, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
+    switch (b.colour) {
+      // These two are drawn tip-up, so turn them round.
+      case 'red': stampFoe(foeLook('red'), b, 24, 46, true); break;
+      case 'bullet': stampFoe(foeLook('bullet'), b, 18, 30, true); break;
+      case 'bolt':
+        // Lightning crackles: it flips side to side as it flies.
+        ctx.save(); ctx.translate(b.x, b.y); ctx.scale(Math.floor(b.t * 18) % 2 ? -1 : 1, 1); ctx.translate(-b.x, -b.y);
+        stampFoe(foeLook('bolt'), b, 28, 48);
+        ctx.restore();
+        break;
+      case 'rocket':
+        // Fire out of the back of a rocket, flickering.
+        radial(b.x - b.dx * 18, b.y - b.dy * 18, 7 + Math.random() * 3, [[0, '#ffffff'], [0.35, '#ffd23f'], [1, 'rgba(255,122,26,0)']], 1, 'lighter');
+        stampFoe(foeLook('rocket'), b, 26, 44);
+        break;
+      case 'mine': {
+        const blink = b.armed && Math.floor(b.t * 16) % 2 === 0;
+        stamp(foeLook('mine', blink), b, 46, 46, false);
+        if (blink) radial(b.x, b.y, 30, [[0, 'rgba(255,59,59,0.6)'], [1, 'rgba(255,59,59,0)']], 1, 'lighter');
+        break;
+      }
+      case 'plasma': {
+        // A plasma torpedo: a pulsing core, two rings of energy spinning
+        // round it at different tilts, and sparks crackling off it.
+        const pulse = 1 + Math.sin(b.t * 20) * 0.07;
+        stamp(foeLook('plasma'), b, 54 * pulse, 54 * pulse, false);
+        ctx.save();
+        ctx.translate(b.x, b.y);
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.strokeStyle = 'rgba(200,150,255,0.9)';
+        ctx.shadowColor = '#b05cff';
+        ctx.shadowBlur = 8;
+        ctx.lineWidth = 2;
+        for (const [tilt, speed] of [[0.5, 4], [-0.9, -5]]) {
+          ctx.save();
+          ctx.rotate(tilt + b.t * speed);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 19, 7, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+        if (Math.random() < 0.5) {
+          const a = Math.random() * Math.PI * 2;
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * 12, Math.sin(a) * 12);
+          ctx.lineTo(Math.cos(a + 0.3) * 18 + (Math.random() - 0.5) * 6, Math.sin(a + 0.3) * 18 + (Math.random() - 0.5) * 6);
+          ctx.stroke();
+        }
+        ctx.restore();
+        break;
+      }
+      default: {
+        // Energy darts (pink) and ion shots (green), with a shimmer.
+        const green = b.colour === 'green';
+        stampFoe(foeLook(b.colour), b, green ? 30 : 26, green ? 46 : 44);
+        radial(b.x, b.y, 9 + Math.sin(b.t * 30) * 2, [[0, green ? 'rgba(77,255,124,0.5)' : 'rgba(255,63,164,0.5)'], [1, 'rgba(0,0,0,0)']], 1, 'lighter');
+      }
     }
   }
 }

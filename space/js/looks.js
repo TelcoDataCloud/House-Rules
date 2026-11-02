@@ -94,34 +94,87 @@ export function missileLook(big) {
 
 // --- enemy shots: hot colours, dark outlines ---
 
-function orb(g, size, core, mid, rim) {
-  const r = size / 2;
-  const c = size / 2 + 8;
-  const grad = g.createRadialGradient(c, c, 0, c, c, r);
-  grad.addColorStop(0, '#ffffff');
-  grad.addColorStop(0.3, core);
-  grad.addColorStop(0.65, mid);
-  grad.addColorStop(1, rim);
+// An energy dart: a white-hot pointed head, a glowing body, and a tail
+// that fades behind it, with a dark outline so it shows up anywhere.
+// Drawn pointing DOWN (the way enemy shots fly); the game turns it.
+function dart(g, w, h, core, mid, edge) {
+  const cx = w / 2;
+  // dark outline first
+  g.save();
+  g.fillStyle = 'rgba(10, 4, 14, 0.85)';
+  g.beginPath();
+  g.moveTo(cx, h + 2);
+  g.quadraticCurveTo(cx + w / 2 + 2, h * 0.62, cx + w * 0.22, 0);
+  g.lineTo(cx - w * 0.22, 0);
+  g.quadraticCurveTo(cx - w / 2 - 2, h * 0.62, cx, h + 2);
+  g.fill();
+  g.restore();
+  // the glowing body: bright at the head (bottom), fading to the tail (top)
+  const body = g.createLinearGradient(0, 0, 0, h);
+  body.addColorStop(0, 'rgba(0,0,0,0)');
+  body.addColorStop(0.45, edge);
+  body.addColorStop(0.8, mid);
+  body.addColorStop(1, core);
   g.shadowColor = mid;
   g.shadowBlur = 10;
-  g.fillStyle = grad;
+  g.fillStyle = body;
   g.beginPath();
-  g.arc(c, c, r, 0, Math.PI * 2);
+  g.moveTo(cx, h);
+  g.quadraticCurveTo(cx + w / 2, h * 0.62, cx + w * 0.16, 1);
+  g.lineTo(cx - w * 0.16, 1);
+  g.quadraticCurveTo(cx - w / 2, h * 0.62, cx, h);
   g.fill();
-  g.shadowBlur = 0;
-  // A dark outline, so it shows up on snow and sunsets too.
-  g.strokeStyle = 'rgba(10, 4, 14, 0.85)';
-  g.lineWidth = 2;
-  g.stroke();
+  // the white-hot head
+  g.shadowBlur = 6;
+  g.fillStyle = '#ffffff';
+  g.beginPath();
+  g.ellipse(cx, h * 0.8, w * 0.18, h * 0.12, 0, 0, Math.PI * 2);
+  g.fill();
 }
+
 
 export function foeLook(kind, armed = false) {
   switch (kind) {
     case 'green':
-      return made2d('foe|green', 38, 38, (g) => orb(g, 22, '#c8ffd6', '#4dff7c', '#0a5a22'));
+      // An ion shot: a green dart with two rings of energy round it.
+      return made2d('foe|green', 30, 46, (g) => {
+        g.translate(7, 6);
+        dart(g, 16, 32, '#ffffff', '#6dff94', 'rgba(77,255,124,0.5)');
+        g.strokeStyle = '#c8ffd6';
+        g.lineWidth = 1.5;
+        g.shadowColor = '#4dff7c';
+        g.shadowBlur = 6;
+        for (const y of [14, 20]) { g.beginPath(); g.ellipse(8, y, 7, 2, 0, 0, Math.PI * 2); g.stroke(); }
+      });
     case 'plasma':
-      // A big slow ball of violet fire.
-      return made2d('foe|plasma', 50, 50, (g) => orb(g, 34, '#f0d8ff', '#b05cff', '#3a0a6e'));
+      // A plasma torpedo: a violet-white core in a cage of energy rings.
+      return made2d('foe|plasma', 54, 54, (g) => {
+        const c = 27;
+        const glow = g.createRadialGradient(c, c, 0, c, c, 20);
+        glow.addColorStop(0, '#ffffff');
+        glow.addColorStop(0.3, '#f0d8ff');
+        glow.addColorStop(0.6, '#b05cff');
+        glow.addColorStop(1, 'rgba(58,10,110,0)');
+        g.shadowColor = '#b05cff';
+        g.shadowBlur = 14;
+        g.fillStyle = glow;
+        g.beginPath(); g.arc(c, c, 20, 0, Math.PI * 2); g.fill();
+        g.shadowBlur = 0;
+        g.strokeStyle = 'rgba(10, 4, 14, 0.85)';
+        g.lineWidth = 2;
+        g.beginPath(); g.arc(c, c, 11, 0, Math.PI * 2); g.stroke();
+      });
+    case 'bolt':
+      // A lightning bolt shot: a jagged violet-white streak.
+      return made2d('foe|bolt', 28, 48, (g) => {
+        g.translate(14, 6);
+        const pts = [[0, 0], [5, 8], [-4, 14], [5, 22], [-3, 28], [0, 36]];
+        for (const [w, c, blur] of [[7, 'rgba(10,4,14,0.85)', 0], [5, '#b05cff', 10], [2, '#ffffff', 0]]) {
+          g.strokeStyle = c; g.lineWidth = w; g.lineJoin = 'round'; g.lineCap = 'round';
+          g.shadowColor = '#b05cff'; g.shadowBlur = blur;
+          g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.stroke();
+        }
+      });
     case 'red':
       // A laser: a hard red needle. Can't be shot down.
       return made2d('foe|red', 24, 46, (g) => {
@@ -136,7 +189,7 @@ export function foeLook(kind, armed = false) {
       // A tracer: small, hot pink-red, quick.
       return made2d('foe|bullet', 18, 30, (g) => {
         g.translate(6, 7);
-        g.shadowColor = '#ff2a6a';
+        g.shadowColor = '#ff2a4a';
         g.shadowBlur = 6;
         g.fillStyle = 'rgba(30, 0, 10, 0.9)';
         g.fillRect(-1, -1, 8, 18);
@@ -185,6 +238,10 @@ export function foeLook(kind, armed = false) {
         g.beginPath(); g.arc(c, c, armed ? 6 : 4, 0, Math.PI * 2); g.fill();
       });
     default:
-      return made2d('foe|pink', 36, 36, (g) => orb(g, 20, '#ffc2e4', '#ff3fa4', '#6a0838'));
+      // An energy dart: pink and white, pointed.
+      return made2d('foe|pink', 26, 44, (g) => {
+        g.translate(7, 6);
+        dart(g, 12, 30, '#ffffff', '#ff5ab8', 'rgba(255,63,164,0.55)');
+      });
   }
 }

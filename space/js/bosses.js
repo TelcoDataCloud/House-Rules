@@ -24,6 +24,7 @@ import { ctx, art as bitmap, sprite, glowOver, radial } from './canvas.js';
 import { BOSSES } from '../data/bosses.js';
 import { BOSS_SHARE } from '../data/bombs.js';
 import { addFoe } from './bullets.js';
+import { SHOT_SPEED } from './enemies.js';
 import { spawnWave } from './enemies.js';
 import { hitShip } from './ship.js';
 import { SHIP } from '../data/ship.js';
@@ -185,26 +186,56 @@ function awake(boss) {
 
 // --- the big cannon: red line first, then the laser ---
 // Draw the cannon's red warning line, or its big laser.
+// The warning line has a colour for each attack, so you can learn them:
+// red laser, white-violet lightning, violet plasma, orange missiles.
+const WARN = { laser: '#ff3b3b', lightning: '#d8b0ff', plasma: '#b05cff', missiles: '#ff9a2a' };
+
+// Draw the cannon's warning line, or its laser or lightning.
 function drawShot(boss) {
   const sh = boss.shot;
   if (!sh) return;
+  const colour = WARN[sh.kind] || WARN.laser;
   ctx.save();
   ctx.translate(sh.x0, sh.y0);
   ctx.rotate((sh.angle * Math.PI) / 180);
   if (!sh.firing) {
-    // A dashed red line that blinks: this is where it will fire.
-    if (Math.floor(sh.t * 11) % 2 === 0) {
-      ctx.strokeStyle = '#ff3b3b';
-      ctx.shadowColor = '#ff3b3b';
+    // A dashed line that blinks faster and faster: this is where it will fire.
+    const k = sh.t / sh.warn;
+    if (Math.floor(sh.t * (8 + 14 * k)) % 2 === 0) {
+      ctx.strokeStyle = colour;
+      ctx.shadowColor = colour;
       ctx.shadowBlur = 8;
       ctx.lineWidth = 6;
-      ctx.setLineDash([16, 10]);
+      ctx.setLineDash(sh.kind === 'missiles' ? [6, 10] : [16, 10]);
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(0, sh.len);
       ctx.stroke();
+      if (sh.kind === 'missiles') {
+        // Missiles spread out, so show the fan.
+        ctx.globalAlpha = 0.5;
+        for (const a of [-0.4, 0.4]) {
+          ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.sin(a) * sh.len, Math.cos(a) * sh.len); ctx.stroke();
+        }
+      }
     }
-  } else {
+    // The muzzle charges up.
+    radial(0, 0, 10 + 18 * k, [[0, '#ffffff'], [0.4, colour], [1, 'rgba(0,0,0,0)']], 0.9, 'lighter');
+  } else if (sh.kind === 'lightning') {
+    // A jagged column of lightning, redrawn every frame so it crackles.
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineJoin = 'round';
+    for (const [w, c, blur] of [[16, 'rgba(150,80,255,0.5)', 24], [7, '#c89bff', 10], [2.5, '#ffffff', 0]]) {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = w;
+      ctx.shadowColor = '#b05cff';
+      ctx.shadowBlur = blur;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      for (let y = 24; y < sh.len; y += 24) ctx.lineTo((Math.random() - 0.5) * boss.cfg.cannonWidth * 0.7, y);
+      ctx.stroke();
+    }
+  } else if (sh.kind === 'laser') {
     const w = boss.cfg.cannonWidth * (0.9 + Math.random() * 0.2);
     const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
     g.addColorStop(0, 'rgba(255,59,59,0)');
@@ -237,7 +268,13 @@ function startCannon(boss) {
   const y0 = py + Math.cos(rad) * 98;
   const len = Math.hypot(tx - x0, ty - y0) + 60;
   const warn = hardness().cannonWarn || 1.3;
-  boss.shot = { x0, y0, angle, len, t: 0, warn, fire: 0.9 };
+  // Which big attack this time ('all' takes turns).
+  let kind = boss.cfg.cannon || 'laser';
+  if (kind === 'all') {
+    boss.cannonTurn = ((boss.cannonTurn ?? -1) + 1) % 4;
+    kind = ['laser', 'plasma', 'lightning', 'missiles'][boss.cannonTurn];
+  }
+  boss.shot = { x0, y0, angle, len, t: 0, warn, fire: kind === 'laser' ? 0.9 : kind === 'lightning' ? 0.55 : 0.8, kind };
   c.angle = angle;
   boss.hold = warn + 1.1;                         // keep still while it fires
   sound.charge();
@@ -257,8 +294,18 @@ function updateCannon(boss, dt) {
   sh.t += dt;
   if (sh.t >= sh.warn && !sh.firing) {
     sh.firing = true;
-    sound.bigLaser();
     fx.shake();
+    fireCannon(boss, sh);
+  }
+  // Only the laser and lightning hit along the whole line. Plasma and
+  // missiles are shots that fly down it (they hit like any shot).
+  if (sh.firing && (sh.kind === 'plasma' || sh.kind === 'missiles')) {
+    if (sh.t >= sh.warn + sh.fire) {
+      boss.shot = null;
+      c.angle = 0;
+      boss.cannonWait = boss.cfg.cannonEvery * (boss.stage === 3 ? 0.7 : 1);
+    }
+    return;
   }
   if (sh.firing) {
     // Does the laser touch the ship? Distance from the ship to the line.
@@ -270,12 +317,35 @@ function updateCannon(boss, dt) {
     const ry = s.y - sh.y0;
     const along = rx * dx + ry * dy;
     const across = Math.abs(rx * dy - ry * dx);
-    if (along > 0 && across < boss.cfg.cannonWidth / 2 + SHIP.hitSize) hitShip();
+    const width = sh.kind === 'lightning' ? boss.cfg.cannonWidth * 0.75 : boss.cfg.cannonWidth;
+    if (along > 0 && across < width / 2 + SHIP.hitSize) hitShip();
     if (sh.t >= sh.warn + sh.fire) {
       boss.shot = null;
       c.angle = 0;
       boss.cannonWait = boss.cfg.cannonEvery * (boss.stage === 3 ? 0.7 : 1);
     }
+  }
+}
+
+// The big attack goes off, in its own way.
+function fireCannon(boss, sh) {
+  const down = sh.angle;            // 0 is straight down
+  // addFoe's angle: 0 is down, and plus turns towards +x. The cannon's
+  // angle turns the other way, so flip it.
+  const aim = -down;
+  if (sh.kind === 'plasma') {
+    // A stream of big plasma balls down the line.
+    for (let i = 0; i < 5; i++) after(i * 0.14, () => addFoe(sh.x0, sh.y0, aim, 210, 'plasma'));
+    sound.bigLaser();
+  } else if (sh.kind === 'missiles') {
+    // A fan of rockets around the line.
+    for (let i = 0; i < 6; i++) after(i * 0.08, () => addFoe(sh.x0, sh.y0, aim + (i - 2.5) * 9, 170, 'rocket'));
+    sound.launch();
+  } else if (sh.kind === 'lightning') {
+    sound.zap(sh.x0);
+    sound.thunder();
+  } else {
+    sound.bigLaser();
   }
 }
 
@@ -327,16 +397,28 @@ function die(boss) {
 }
 
 // A ring of bullets from the eye, with a gap pointing at you.
+// One shot from a boss gun, in its own kind (data/bosses.js).
+// Bullets come in a burst of three. slow < 1 makes a ring gentler.
+function bossShot(x, y, angle, kind = 'pink', slow = 1) {
+  const speed = (SHOT_SPEED[kind] || 140) * slow;
+  if (kind === 'bullet') {
+    for (let i = 0; i < 3; i++) after(i * 0.1, () => addFoe(x, y, angle, speed, 'bullet'));
+  } else {
+    addFoe(x, y, angle, speed, kind);
+  }
+}
+
 function fireRing(boss, turn = 0) {
   const eye = boss.eye;
   const s = state.ship;
-  const slots = boss.cfg.ring + 2;
+  // Big plasma balls come in rings half as full, so you can get through.
+  const slots = Math.round(boss.cfg.ring / (boss.cfg.ringShot === 'plasma' ? 2 : 1)) + 2;
   const stepAngle = 360 / slots;
   // Which way is the ship? 0 means straight down.
   const toShip = (Math.atan2(s.x - eye.x, s.y - eye.y) * 180) / Math.PI;
   for (let k = 0; k < slots; k++) {
     if (k === 0 || k === slots - 1) continue;        // the gap, always on your side
-    addFoe(eye.x, eye.y, toShip + stepAngle / 2 + k * stepAngle + turn, 105, 'pink');
+    bossShot(eye.x, eye.y, toShip + stepAngle / 2 + k * stepAngle + turn, boss.cfg.ringShot || 'pink', 0.75);
   }
 }
 
@@ -361,8 +443,10 @@ function fight(boss, dt) {
       const gx = boss.x + (boss.gun ? 25 : -25);
       // Angry: big slow plasma balls instead of little orbs.
       boss.volley = (boss.volley || 0) + 1;
-      if (angry && boss.volley % 3 === 0) for (const a of [-16, 16]) addFoe(gx, boss.y + 30, a, 85, 'plasma');
-      else addFoe(gx, boss.y + 30, 0, 140, 'pink');
+      // Its own guns (cfg.guns). Angry: a fan of three, not one.
+      // (Bullets already come in bursts, so they don't fan out.)
+      if (angry && cfg.guns !== 'bullet' && boss.volley % 2 === 0) for (const a of [-16, 0, 16]) bossShot(gx, boss.y + 30, a, cfg.guns);
+      else bossShot(gx, boss.y + 30, 0, cfg.guns);
     }
     // It only gives up and flies away if you haven't made it angry yet.
     // It gives up and flies away if you take too long (a bit longer once it is angry).
@@ -382,7 +466,7 @@ function fight(boss, dt) {
   for (const t of boss.turrets) {
     if (!t.alive) continue;
     t.fireWait -= dt;
-    if (t.fireWait <= 0) { t.fireWait = cfg.turretEvery; addFoe(t.x, t.y + 30, 0, cfg.turretShot === 'red' ? 190 : 140, cfg.turretShot || 'green'); }
+    if (t.fireWait <= 0) { t.fireWait = cfg.turretEvery; bossShot(t.x, t.y + 30, 0, cfg.guns); }
   }
   if (boss.eye.open && boss.charging <= 0) {
     boss.fireWait -= dt;

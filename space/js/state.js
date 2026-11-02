@@ -70,8 +70,9 @@ export function startLevel() {
     endTimer: 0, ending: null,
     slow: 0,              // seconds of slow motion left
     hintWait: 20,         // seconds before the bomb hint may show
+    starWait: 8,          // seconds before a star power capsule may drop
   });
-  Object.assign(s, { x: W / 2, y: H + 60, entering: 1.2, invuln: 0, dead: 0, droneList: [] });
+  Object.assign(s, { x: W / 2, y: H + 60, entering: 1.2, invuln: 0, star: 0, dead: 0, droneList: [] });
   // Remember how you started, so Try again can put you back here.
   state.levelStart = { score: state.score, ship: JSON.parse(JSON.stringify(s)) };
 }
