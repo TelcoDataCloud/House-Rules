@@ -1,14 +1,17 @@
 /* ===========================================================
-   ART: loads the pictures and puts things on the screen
+   ART: loads the pictures
 
    Every picture is its own file in the art folder. At the start
-   we read each file once and keep it in the hidden sprite sheet
-   in index.html. Then every Dart on screen just says "draw the
-   dart picture here", so a hundred Darts cost hardly anything.
+   we read each file once. Then:
+     - the game turns it into a bitmap for the canvas (js/canvas.js)
+     - a copy goes in the hidden sprite sheet in index.html, for
+       the little pictures on the menus and the HUD (lives, cards)
 
    Want a better Dart? Draw a new art/dart.svg. Nothing else
    needs to change.
    =========================================================== */
+
+import { setText, warm } from './canvas.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const texts = {};       // the words inside each picture file, by name
@@ -23,6 +26,7 @@ export async function loadArt(names) {
     if (!res.ok) { console.warn(`No picture called art/${name}.svg`); return; }
     const text = await res.text();
     texts[name] = text;
+    setText(name, text);
     const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
     const svg = doc.documentElement;
     const symbol = document.createElementNS(SVG, 'symbol');
@@ -42,35 +46,12 @@ export async function loadArt(names) {
       symbol.appendChild(document.importNode(child, true));
     }
     sheet.appendChild(symbol);
+    // Make its bitmap now, so nothing pops in during the game.
+    await warm(name);
   }));
 }
 
-// The whole picture file as words, to put straight into the page.
+// The whole picture file as words.
 export function rawArt(name) {
   return texts[name] || '';
-}
-
-// Make a thing on screen showing a picture. w and h are its size.
-export function sprite(name, w, h, extra = '') {
-  const div = document.createElement('div');
-  div.className = `thing ${extra}`.trim();
-  div.style.width = `${w}px`;
-  div.style.height = `${h}px`;
-  div.dataset.art = name;      // right-click, Inspect: you can see which picture it is
-  div.innerHTML = `<svg aria-hidden="true"><use href="#art-${name}" width="100%" height="100%"/></svg>`;
-  return div;
-}
-
-// Move a thing so its middle is at x, y.
-export function put(el, x, y, w, h) {
-  el.style.transform = `translate(${(x - w / 2).toFixed(1)}px, ${(y - h / 2).toFixed(1)}px)`;
-}
-
-// Empty every layer, so nothing from before is left on screen.
-export function clearLayers() {
-  for (const name of ['ground', 'pickups', 'air', 'shots', 'ship', 'foes', 'fx']) layer(name).replaceChildren();
-}
-
-export function layer(name) {
-  return document.getElementById(`layer-${name}`);
 }

@@ -1,15 +1,56 @@
 /* ===========================================================
-   AUDIO: little beeps and booms
+   AUDIO: the sounds
 
-   No sound files. The browser makes every sound from scratch
-   with a tiny synthesiser. Each sound is a pitch that slides,
-   or a burst of noise that fades.
+   Most sounds are recorded sound files in the sounds folder
+   (free sounds by Kenney, kenney.nl, that anyone may use).
+   Each one has 2 or 3 versions, and each time one plays it is
+   picked at random and its pitch nudged a little, so a hundred
+   shots never sound exactly the same.
+
+   Big sounds are built from layers: a crack at the start, a
+   boom in the middle, and debris rattling at the end. While a
+   big sound plays, the small ones go quieter for a moment.
+   Sounds are panned left or right to match where things are.
+
+   If a file can't load, a little synthesiser makes a beep
+   instead (the tone() and crash() below).
    =========================================================== */
 
-import { state } from './state.js';
+import { state, W } from './state.js';
 
 let ctx = null;
 let noise = null;
+let master = null;     // everything goes through here
+let smallBus = null;   // small sounds go through here, so they can be turned down
+
+// The sound files, and how many versions of each there are.
+const FILES = {
+  blaster: 3, laser: 3, rail: 2, drone: 2, missile: 2,
+  hit: 3, clang: 3, pop: 3, boom: 2, crunch: 2, debris: 2,
+  shield: 2, shatter: 2,
+  bigboom: 1, launch: 1, spark: 2, stomp: 1,
+};
+const buffers = {};
+
+// All the sound files come packed in a few text files, listed in
+// sounds/packs.json (made by tools/pack-sounds.py from .mp3 files).
+async function loadSounds() {
+  const pack = {};
+  try {
+    const list = await (await fetch('sounds/packs.json')).json();
+    const parts = await Promise.all(list.map(async (name) => (await fetch(`sounds/${name}`)).json()));
+    for (const part of parts) Object.assign(pack, part);
+  } catch (e) { return; }
+  await Promise.all(Object.entries(FILES).flatMap(([name, n]) => Array.from({ length: n }, async (_, i) => {
+    const text = pack[`${name}-${i + 1}`];
+    if (!text) return;
+    try {
+      const bytes = Uint8Array.from(atob(text), (c) => c.charCodeAt(0));
+      const data = await ctx.decodeAudioData(bytes.buffer);
+      (buffers[name] = buffers[name] || []).push(data);
+    } catch (e) { /* can't play it: the synth plays instead */ }
+  })));
+}
 
 // Browsers only allow sound after you click something, so Play calls this.
 export function wakeAudio() {
@@ -17,13 +58,57 @@ export function wakeAudio() {
   const Ctx = window.AudioContext || window.webkitAudioContext;
   if (!Ctx) return;
   ctx = new Ctx();
+  master = ctx.createGain();
+  master.gain.value = 0.9;
+  master.connect(ctx.destination);
+  smallBus = ctx.createGain();
+  smallBus.connect(master);
   noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
   const data = noise.getChannelData(0);
   for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  loadSounds();
+}
+
+// Play a sound file. Returns false if it isn't loaded (use the synth).
+//   vol    how loud (0 to 1)
+//   x      where it is across the screen, for left and right
+//   rate   1 is normal pitch; it is nudged up or down 5% each time
+//   big    a big sound: turns the small ones down for a moment
+//   delay  seconds to wait first
+function play(name, { vol = 0.5, x = null, rate = 1, big = false, delay = 0 } = {}) {
+  if (!ctx || state.muted) return true;
+  const list = buffers[name];
+  if (!list || !list.length) return false;
+  const src = ctx.createBufferSource();
+  src.buffer = list[Math.floor(Math.random() * list.length)];
+  src.playbackRate.value = rate * (0.95 + Math.random() * 0.1);
+  const gain = ctx.createGain();
+  gain.gain.value = vol;
+  let node = src.connect(gain);
+  if (x !== null && ctx.createStereoPanner) {
+    const pan = ctx.createStereoPanner();
+    pan.pan.value = Math.max(-0.8, Math.min(0.8, (x / W) * 2 - 1));
+    node = node.connect(pan);
+  }
+  node.connect(big ? master : smallBus);
+  src.start(ctx.currentTime + delay);
+  if (big) duck();
+  return true;
+}
+
+// Turn the small sounds down while a big one plays.
+function duck() {
+  const g = smallBus.gain;
+  const t = ctx.currentTime;
+  g.cancelScheduledValues(t);
+  g.setValueAtTime(g.value, t);
+  g.linearRampToValueAtTime(0.35, t + 0.05);
+  g.linearRampToValueAtTime(1, t + 0.9);
 }
 
 function tone(from, to, time, type = 'square', volume = 0.08) {
   if (!ctx || state.muted) return;
+  const out = master || ctx.destination;
   const t = ctx.currentTime;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
@@ -32,13 +117,14 @@ function tone(from, to, time, type = 'square', volume = 0.08) {
   osc.frequency.exponentialRampToValueAtTime(Math.max(20, to), t + time);
   gain.gain.setValueAtTime(volume, t);
   gain.gain.exponentialRampToValueAtTime(0.0001, t + time);
-  osc.connect(gain).connect(ctx.destination);
+  osc.connect(gain).connect(out);
   osc.start(t);
   osc.stop(t + time);
 }
 
 function crash(time, volume, low = 800) {
   if (!ctx || state.muted) return;
+  const out = master || ctx.destination;
   const t = ctx.currentTime;
   const src = ctx.createBufferSource();
   src.buffer = noise;
@@ -49,7 +135,7 @@ function crash(time, volume, low = 800) {
   const gain = ctx.createGain();
   gain.gain.setValueAtTime(volume, t);
   gain.gain.exponentialRampToValueAtTime(0.0001, t + time);
-  src.connect(filter).connect(gain).connect(ctx.destination);
+  src.connect(filter).connect(gain).connect(out);
   src.start(t);
   src.stop(t + time);
 }
@@ -73,32 +159,85 @@ const UPGRADE_TUNES = {
 };
 
 let lastPop = 0;
+let lastHit = 0;
+let lastShot = 0;
 export const sound = {
-  pop() {
+  // A small enemy blows up.
+  pop(x = null) {
     const now = performance.now();
     if (now - lastPop < 40) return;   // lots of pops at once sound like one
     lastPop = now;
-    crash(0.18, 0.18, 2000);
+    if (!play('pop', { vol: 0.35, x })) crash(0.18, 0.18, 2000);
   },
-  boom() { crash(0.7, 0.35, 900); tone(160, 40, 0.5, 'sine', 0.2); },
-  ping() { tone(1400, 1200, 0.04, 'square', 0.03); },
+  // A big bang: crack, boom, then bits of metal falling.
+  boom(x = null) {
+    const ok = play('crunch', { vol: 0.45, x, big: true });
+    play('boom', { vol: 0.8, x, rate: 0.9, big: true });
+    play('debris', { vol: 0.25, x, delay: 0.18 });
+    if (!ok) { crash(0.7, 0.35, 900); tone(160, 40, 0.5, 'sine', 0.2); }
+  },
+  // Your shot hits something that didn't break (yet).
+  ping(x = null, armour = false) {
+    const now = performance.now();
+    if (now - lastHit < 55) return;
+    lastHit = now;
+    if (!play(armour ? 'clang' : 'hit', { vol: armour ? 0.18 : 0.12, x })) tone(1400, 1200, 0.04, 'square', 0.03);
+  },
+  // Your guns. Each one sounds different.
+  shot(gun, x = null) {
+    const now = performance.now();
+    if (now - lastShot < 70) return;
+    lastShot = now;
+    const file = { blaster: 'blaster', laser: 'laser', drone: 'drone', missile: 'missile' }[gun] || 'blaster';
+    play(file, { vol: gun === 'drone' || gun === 'missile' ? 0.06 : 0.09, x, rate: gun === 'drone' ? 1.25 : 1 });
+  },
   pickup() { tone(500, 1200, 0.12, 'square', 0.07); },
   power() { [0, 0.08, 0.16].forEach((d, i) => setTimeout(() => tone(500 + i * 250, 900 + i * 300, 0.12, 'square', 0.07), d * 1000)); },
-  hurt() { tone(600, 80, 0.5, 'sawtooth', 0.12); crash(0.4, 0.25, 1500); },
-  shield() { tone(900, 300, 0.25, 'triangle', 0.15); },
-  bomb() { crash(1.2, 0.45, 600); tone(200, 30, 1, 'sine', 0.25); },
+  hurt() {
+    if (!play('crunch', { vol: 0.6, big: true })) crash(0.4, 0.25, 1500);
+    tone(600, 80, 0.5, 'sawtooth', 0.1);
+  },
+  // The shield takes a hit (and stays), or breaks.
+  shield() { if (!play('shield', { vol: 0.4 })) tone(900, 300, 0.25, 'triangle', 0.15); },
+  shieldBreak() { if (!play('shatter', { vol: 0.5, big: true })) tone(900, 300, 0.25, 'triangle', 0.15); },
+  // High Explosive and the other plain bangs.
+  bomb() {
+    play('crunch', { vol: 0.6, big: true, rate: 0.8 });
+    if (!play('boom', { vol: 1, big: true, rate: 0.75 })) { crash(1.2, 0.45, 600); tone(200, 30, 1, 'sine', 0.25); }
+    play('debris', { vol: 0.35, delay: 0.25 });
+    play('debris', { vol: 0.25, delay: 0.5, rate: 0.8 });
+  },
   warn() { [0, 0.5, 1, 1.5].forEach((d) => setTimeout(() => tone(440, 330, 0.3, 'square', 0.06), d * 1000)); },
   nope() { tone(200, 150, 0.12, 'square', 0.05); },
   // A whoosh of air, for the films between levels.
   whoosh() { crash(1.6, 0.3, 3000); },
-  // A railgun shot: a sharp crack and a falling zing.
+  // Red Lightning: a crackle and a snap for each jump, thunder after.
+  zap(x = null) { if (!play('spark', { vol: 0.45, x })) { crash(0.08, 0.18, 6000); tone(1800, 200, 0.08, 'sawtooth', 0.04); } },
+  thunder() { setTimeout(() => { crash(1.6, 0.35, 400); tone(70, 40, 1.4, 'sine', 0.18); }, 250); },
+  // The nuke: a missile goes, then a huge low boom, then rumble.
+  launch() { if (!play('launch', { vol: 0.6 }) && !play('missile', { vol: 0.5, rate: 0.7 })) { crash(0.4, 0.2, 2500); tone(300, 900, 0.4, 'sawtooth', 0.04); } },
+  nuke() {
+    play('bigboom', { vol: 1, big: true, rate: 0.85 });
+    play('boom', { vol: 1, big: true, rate: 0.55 });
+    play('boom', { vol: 0.8, big: true, rate: 0.45, delay: 0.12 });
+    play('crunch', { vol: 0.6, big: true, rate: 0.6 });
+    tone(45, 25, 2.6, 'sine', 0.3);
+    crash(2.8, 0.35, 500);
+    play('debris', { vol: 0.35, delay: 0.6, rate: 0.7 });
+    play('debris', { vol: 0.3, delay: 1.1, rate: 0.6 });
+  },
+  // A walking boss puts a foot down.
+  stomp(x = null) { play('stomp', { vol: 0.5, x, rate: 0.85 }); },
+  // A boss's last big bang.
+  bossDeath(x = null) { if (!play('bigboom', { vol: 1, x, big: true })) this.boom(x); play('debris', { vol: 0.4, x, delay: 0.4 }); },
+  laserBomb() { tone(80, 120, 2, 'sawtooth', 0.12); tone(900, 700, 2, 'square', 0.03); },
   // A boss powering up: a long rising hum.
   powerUp() { tone(60, 600, 1.8, 'sawtooth', 0.08); tone(120, 1200, 1.8, 'square', 0.03); },
   // The boss cannon charging, then its big laser.
   charge() { tone(200, 900, 1.2, 'triangle', 0.06); },
-  bigLaser() { tone(110, 60, 0.9, 'sawtooth', 0.14); crash(0.9, 0.25, 1200); },
-  rail() { crash(0.12, 0.2, 4000); tone(2600, 300, 0.18, 'sawtooth', 0.05); },
-  laserBomb() { tone(80, 120, 2, 'sawtooth', 0.12); tone(900, 700, 2, 'square', 0.03); },
+  bigLaser() { if (!play('rail', { vol: 0.7, rate: 0.5, big: true })) { tone(110, 60, 0.9, 'sawtooth', 0.14); crash(0.9, 0.25, 1200); } },
+  // A railgun shot: a sharp crack and a falling zing.
+  rail() { if (!play('rail', { vol: 0.35 })) { crash(0.12, 0.2, 4000); tone(2600, 300, 0.18, 'sawtooth', 0.05); } },
 
   // Every upgrade has its own sound. Each one is a few notes
   // played one after another: [start pitch, end pitch, length, wave].

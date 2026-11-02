@@ -10,7 +10,7 @@
    =========================================================== */
 
 import { state, W, H, hardness, after, level } from './state.js';
-import { sprite, put, layer } from './art.js';
+import { ctx, art, sprite, bitmapFromSvg, DPR } from './canvas.js';
 import { BASES } from '../data/bases.js';
 import { PARTS, TANK_BLAST, TANK_DAMAGE, PYLON_REACH } from '../data/parts.js';
 import { addFoe } from './bullets.js';
@@ -19,7 +19,6 @@ import { drop } from './pickups.js';
 import { sound } from './audio.js';
 import * as fx from './fx.js';
 
-const SVG = 'http://www.w3.org/2000/svg';
 
 // A little dice that always rolls the same, so a base looks the same every game.
 function dice(seed) {
@@ -67,9 +66,8 @@ function drawPlate(name, length) {
     beacons += `<circle class="beacon" cx="${W / 2 - 36}" cy="${y}" r="4.5"/><circle class="beacon beacon-b" cx="${W / 2 + 36}" cy="${y + 70}" r="4.5"/>`;
   }
 
-  const el = document.createElement('div');
-  el.className = 'plate';
-  el.innerHTML = `<svg width="${W}" height="${bottom + 70}" viewBox="0 -30 ${W} ${bottom + 70}" aria-hidden="true">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${bottom + 70}" viewBox="0 -30 ${W} ${bottom + 70}">
+    <style>${plateStyle()}</style>
     <defs><linearGradient id="rock-${name}" x1="0" x2="1">
       <stop offset="0" style="stop-color: var(--moon-light)"/>
       <stop offset="0.2" style="stop-color: var(--moon-rock)"/>
@@ -94,27 +92,73 @@ function drawPlate(name, length) {
     ${lines}
     ${beacons}
   </svg>`;
-  return el;
+}
+
+// The colours of a plate come from css/tokens.css and the world
+// (css/game.css). A picture made for the canvas can't see the
+// page's CSS, so we look the colours up and write them in.
+function plateStyle() {
+  const css = getComputedStyle(document.getElementById('field'));
+  const v = (name) => css.getPropertyValue(name).trim();
+  return `
+    .rock { stroke: ${v('--moon-edge')}; stroke-width: 4; }
+    .shade { fill: ${v('--moon-shadow')}; }
+    .crater { fill: ${v('--crater')}; }
+    .speck-dark { fill: ${v('--moon-edge')}; opacity: 0.5; }
+    .speck-light { fill: ${v('--moon-light')}; opacity: 0.7; }
+    .rim { fill: none; stroke: ${v('--moon-light')}; stroke-width: 2.5; opacity: 0.45; }
+    .crater-rim { fill: none; stroke: ${v('--moon-light')}; stroke-width: 2.5; }
+    .walk { fill: ${v('--walkway')}; stroke: ${v('--walkway-line')}; stroke-width: 2; }
+    .walk-light { fill: ${v('--walkway-light')}; opacity: 0.6; }
+    .walk-line { stroke: ${v('--walkway-line')}; stroke-width: 2; opacity: 0.5; }
+    .deck { fill: ${v('--deck')}; stroke: ${v('--walkway-line')}; stroke-width: 2.5; }
+    .deck-line { stroke: ${v('--deck-light')}; stroke-width: 3; stroke-dasharray: 10 6; }
+    .hazard { stroke: ${v('--yellow')}; stroke-width: 4; stroke-dasharray: 12 10; }
+    .beacon { fill: ${v('--cyan')}; }
+    .beacon-b { fill: ${v('--pink')}; }
+  `.replace(/var\(--moon-[a-z]+\)/g, '#777');
+}
+
+// A plate is painted into slices 500px tall (one huge picture
+// would be too big for some tablets). Slices are kept, so the same
+// base in the same world is only painted once.
+const SLICE = 500;
+const plates = new Map();
+export function paintPlate(name) {
+  const base = BASES[name];
+  const world = document.getElementById('field').dataset.world;
+  const theme = document.documentElement.dataset.theme || '';
+  const key = `${name}|${world}|${theme}`;
+  if (plates.has(key)) return plates.get(key);
+  const css = getComputedStyle(document.getElementById('field'));
+  const svg = drawPlate(name, base.length).replace(/var\((--[a-z0-9-]+)\)/g, (all, v) => css.getPropertyValue(v).trim() || '#777');
+  const height = base.length + 130;
+  const slices = [];
+  for (let top = 0; top < height; top += SLICE) {
+    const h = Math.min(SLICE, height - top);
+    const piece = { top, h, img: null };
+    const text = svg
+      .replace(/height="[\d.]+" viewBox="0 -30 [\d.]+ [\d.]+"/, `height="${h}" viewBox="0 ${top - 30} ${W} ${h}"`);
+    bitmapFromSvg(text, DPR).then((img) => { piece.img = img; });
+    slices.push(piece);
+  }
+  plates.set(key, slices);
+  return slices;
 }
 
 export function spawnBase(name) {
   const base = BASES[name];
   if (!base) { console.warn(`No base called ${name}`); return; }
-  const el = drawPlate(name, base.length);
-  layer('ground').appendChild(el);
   // "front" is where the start of the base is on screen. It begins at the top edge.
-  const plate = { name, length: base.length, front: -20, el };
+  const plate = { name, length: base.length, front: -20, slices: paintPlate(name) };
   state.plates.push(plate);
 
   for (const p of base.parts) {
     const spec = PARTS[p.part];
     if (!spec) { console.warn(`No part called ${p.part}`); continue; }
     const [w, h] = spec.size;
-    const partEl = sprite(spec.art, w, h, spec.hits > 0 ? 'target' : '');
-    partEl.hidden = true;
-    layer('ground').appendChild(partEl);
     const part = {
-      kind: p.part, spec, plate, el: partEl, w, h,
+      kind: p.part, spec, plate, w, h,
       x: p.across, y: plate.front - p.along, along: p.along,
       hp: Math.ceil(spec.hits * hardness().tough),
       hittable: spec.hits > 0, alive: true,
@@ -140,7 +184,7 @@ export function updateBases(dt) {
 
   for (const part of state.parts) {
     part.y = part.plate.front - part.along;
-    if (part.flashT > 0) { part.flashT -= dt; if (part.flashT <= 0) part.el.classList.remove('hit'); }
+    if (part.flashT > 0) part.flashT -= dt;
     if (!part.alive) continue;
 
     if (part.kind === 'turret' && canShoot(part)) {
@@ -160,17 +204,16 @@ export function updateBases(dt) {
     // The hangar opens when it gets near, and three Darts fly out.
     if (part.kind === 'hangar' && !part.launched && part.y > 210) {
       part.launched = true;
-      part.el.classList.add('open');
       launchDarts(part);
     }
   }
 
   for (let i = state.parts.length - 1; i >= 0; i--) {
     const part = state.parts[i];
-    if (part.plate.gone) { part.el.remove(); state.parts.splice(i, 1); }
+    if (part.plate.gone) state.parts.splice(i, 1);
   }
   for (let i = state.plates.length - 1; i >= 0; i--) {
-    if (state.plates[i].gone) { state.plates[i].el.remove(); state.plates.splice(i, 1); }
+    if (state.plates[i].gone) state.plates.splice(i, 1);
   }
 }
 
@@ -184,34 +227,50 @@ function launchDarts(hangar) {
 
 export function drawBases() {
   for (const plate of state.plates) {
-    plate.el.style.transform = `translate(0px, ${(plate.front - plate.length - 30).toFixed(1)}px)`;
+    const top = plate.front - plate.length - 30;
+    for (const piece of plate.slices) {
+      const y = top + piece.top;
+      if (piece.img && y < H && y + piece.h > 0) ctx.drawImage(piece.img, 0, y, W, piece.h);
+    }
   }
+  const pulse = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(state.time * 7));
   for (const part of state.parts) {
-    const onScreen = part.y > -120 && part.y < H + 120;
-    part.el.hidden = !onScreen;
-    if (onScreen) put(part.el, part.x, part.y, part.w, part.h);
+    if (part.y < -120 || part.y > H + 120) continue;
+    // Things you can shoot sit on a glowing orange ring.
+    if (part.alive && part.hittable) {
+      const r = Math.max(part.w, part.h) * 0.62;
+      ctx.save();
+      ctx.globalAlpha = pulse;
+      ctx.strokeStyle = '#ff9a2a';
+      ctx.shadowColor = '#ff9a2a';
+      ctx.shadowBlur = 10;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(part.x, part.y, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    const look = !part.alive || part.dark ? 'dark' : part.flashT > 0 ? 'white' : 'img';
+    sprite(art(part.spec.art), part.x, part.y, part.w, part.h, { look, alpha: part.alive ? 1 : 0.85 });
   }
 }
 
 function hurtPart(part, n) {
   if (!part.alive) return;
   part.hp -= n;
-  part.el.classList.add('hit');
   part.flashT = 0.06;
   if (part.hp <= 0) breakPart(part);
-  else sound.ping();
+  else sound.ping(part.x, true);
 }
 
 // A part breaks. It stays on the moon as burnt wreckage.
 function breakPart(part, chained = false) {
   if (!part.alive) return;
   part.alive = false;
-  part.el.classList.remove('open', 'dark');
-  part.el.classList.add('wreck');
   state.stats.partsDestroyed++;
   const big = part.kind === 'reactor' || part.kind === 'tank';
   fx.boom(part.x, part.y, big ? 130 : Math.max(part.w, 60) * 1.2, big ? 10 : 6);
-  if (big) { sound.boom(); fx.shake(); } else sound.pop();
+  if (big) { sound.boom(part.x); fx.shake(); } else sound.pop(part.x);
   fx.award(chained ? 100 : part.spec.points, part.x, part.y - 20);
   // On Hard, crates never give extra ships (the reactor still does).
   let gives = part.gives;
@@ -231,7 +290,6 @@ function breakPart(part, chained = false) {
       if (t.kind === 'turret' && t.alive && t.plate === part.plate
         && Math.hypot(t.x - part.x, t.along - part.along) < PYLON_REACH) {
         t.dark = true;
-        t.el.classList.add('dark');
       }
     }
   }
