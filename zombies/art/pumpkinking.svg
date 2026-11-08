@@ -1,0 +1,149 @@
+<!-- pumpkinking: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>The Pumpkin King</title>
+<defs>
+<linearGradient id="pumpkinking-pumpkin" x1="0" y1="0" x2="0.3" y2="1">
+<stop stop-color="#ffba08" /><stop offset="0.55" stop-color="#ff8b00" /><stop offset="1" stop-color="#ec5400" />
+</linearGradient>
+<linearGradient id="pumpkinking-green" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#b4e83a" /><stop offset="0.55" stop-color="#94cf23" /><stop offset="1" stop-color="#508c0a" />
+</linearGradient>
+<linearGradient id="pumpkinking-purple" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#94297e" /><stop offset="0.55" stop-color="#78236f" /><stop offset="1" stop-color="#3d153f" />
+</linearGradient>
+<linearGradient id="pumpkinking-gold" x1="0" y1="0" x2="1" y2="0.5">
+<stop stop-color="#ffbc00" /><stop offset="0.5" stop-color="#ffe030" /><stop offset="1" stop-color="#e89b00" />
+</linearGradient>
+<linearGradient id="pumpkinking-mouth" x1="0" y1="0" x2="0.3" y2="1">
+<stop stop-color="#280c0b" /><stop offset="1" stop-color="#781b1c" />
+</linearGradient>
+</defs>
+
+<g stroke="#10100d" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
+<g id="pumpkinking-cloak-back" fill="url(#pumpkinking-purple)">
+<path d="M225 300 306 394 721 425 800 569 850 676 938 740Q976 783 987 832L947 826 901 829 910 866 850 936 820 849 771 874 736 812 663 876 301 901 183 833 126 791 91 744 63 791Q39 761 37 725L57 640 4 674Q22 605 68 557L130 518 97 497 114 410Z" />
+<path d="m699 562 86 113 46 78-43-25-26 22-43-88Z" fill="#40123f" stroke="none" />
+<path d="m102 590-26 106-10-51-38 18Z" fill="#a72d87" stroke="none" />
+<path d="m898 790 21-13 49 34-25 6-39 3Z" fill="#321333" stroke-width="8" />
+</g>
+<g id="pumpkinking-legs">
+<path d="m113 830-20 108-43 7-5 58 123 11 100-15 17-134Z" fill="url(#pumpkinking-green)" />
+<path d="m95 934 98 11 59-16-7 66-77 13-116-8 5-46Z" fill="#a7d72c" stroke="none" />
+<path d="m197 947 56-18-7 66-78 13 3-51Z" fill="#6da51a" stroke="none" />
+<path d="m89 949-5 52m45-46-4 48" fill="none" stroke="#537c0d" stroke-width="8" />
+<path d="m530 885 29 77 3 54 79 4 158-10-5-61-38-17-40-92Z" fill="url(#pumpkinking-green)" />
+<path d="m545 904 30 56 3 52 65 3-27-64-23-64Z" fill="#50800f" stroke="none" />
+<path d="m617 949 81 18 84-16-30-14Z" fill="#c0e84a" stroke="none" />
+<path d="m690 966 6 48m48-55 7 53" fill="none" stroke="#4b7d0d" stroke-width="8" />
+</g>
+<path id="pumpkinking-trousers" d="M134 774Q269 719 595 735L697 728 745 832 775 909 750 900 735 923 697 873 680 897 653 874 618 939 582 894 535 919 553 957 496 957 465 892Q378 909 319 884L308 945 279 939 254 951 233 914 194 930 177 873 150 889 146 844 62 898Q81 823 134 774Z" fill="url(#pumpkinking-purple)" />
+<path d="m215 837 61 47-15 50 25-12 14 13 17-53Zm277-21 47 112-39 16-43-86Z" fill="#451343" stroke="none" />
+<path d="m596 819 82-28 35 61-29 7-15-25-57 17Z" fill="#94c830" stroke-width="8" />
+<path d="m607 824 63-22 14 25-68 17Z" fill="#abd83c" stroke="none" />
+<g id="pumpkinking-raised-arm">
+<path d="M239 350 199 293 175 259 203 242 149 211 103 209 116 176 91 140 61 149 73 115 62 106 34 104 5 163 25 209 22 223 46 263 28 337 76 424 150 482 179 424 226 394Z" fill="url(#pumpkinking-green)" />
+<path d="m27 209 28-52 37-11 19 27-42 25-4 31 53 8 16 74 49 53-28 64-56-41-45-65-8-60Z" fill="#a7dd30" stroke="none" />
+<path d="m8 163 23-49 13 8-5 38-17 22Z" fill="#73a714" stroke="none" />
+<path d="m105 214 34 25 54 1-31-16Z" fill="#5b9410" stroke="none" />
+<path d="m77 423 24-35 57 37-9 53Z" fill="#589411" stroke="none" />
+<path d="M124 365Q175 304 226 299L245 321 252 358 286 398 210 448 151 486 173 435 197 389 152 394 184 354Z" fill="url(#pumpkinking-purple)" />
+</g>
+<g id="pumpkinking-throwing-pumpkin">
+<path d="m164 64-7-35 25-10 26 16-15 35Z" fill="#558915" />
+<path d="m166 31 16-7 13 14-14 13-8-7Z" fill="#83b722" stroke="none" />
+<path d="M54 105Q69 63 116 54 165 46 210 70 254 85 269 137 283 186 248 218 224 241 198 236L104 205 117 177 91 143 64 151 73 116Z" fill="url(#pumpkinking-pumpkin)" />
+<path d="M146 58Q93 89 91 143m80-80q-33 57-33 94l-13 54m74-141q33 62 12 120l-13 40m28-146q44 79 13 120" fill="none" stroke="#d95100" stroke-width="7" />
+<path d="m113 64-33 26-13 15 11 5 43-32 23-18Zm67 3-15 24 33-17Z" fill="#ffcb13" stroke="none" />
+<g fill="#44170c" stroke-width="5">
+<path d="m132 113 17-24 21 31Z" />
+<path d="m204 129 25-13 3 30Z" />
+<path d="m180 138 10-14 4 17Z" />
+<path d="m126 128 20 9-2 13 18 7 11-13 25 10-4 11 16 6 6-13 15 2q-10 31-37 30l-11-17-21-5-9 9-17-12Z" />
+</g>
+</g>
+<path id="pumpkinking-body" d="M240 506Q309 445 462 463L596 487 658 610 691 739Q576 833 338 826 164 818 108 713 97 661 143 579Z" fill="url(#pumpkinking-green)" />
+<path d="M133 655 112 695Q244 798 449 751l180-62-47-88-53 88-41-103Q361 565 268 620l-4-41-58 74-30 51-14-75Z" fill="#7db61a" stroke="none" />
+<path d="m208 644 65-32q102-48 208-22l33 102-91 33-179 5-62-28Z" fill="#a9db2e" stroke="none" />
+<path id="pumpkinking-tattered-shirt" d="m165 564 94-71 168-24 92 22 70 103 28 89-19-19-40-32-40 52-31-99q-100-26-219 35l-4-39-52 65-36 55-17-66-51 33q1-56 57-104Zm112-43-27 29-45 11 12-28Z" fill="#ffe0ad" stroke="#476321" stroke-width="7" />
+<path d="m274 522-25 33-43 6 11-29Zm69 3 67-14-18 46-74 14Z" fill="#89bd25" stroke="#476321" stroke-width="7" />
+<path d="m182 545 31-7-43 55-34 34 18-39Zm108-34 117-21 34 6-164 34Z" fill="#d1ae78" stroke="none" />
+<path id="pumpkinking-belt" d="M109 706Q277 802 617 691L646 747Q375 884 133 779Z" fill="#713322" />
+<path d="m145 735 28 62 101 20-11-51Zm433-24 17 53 42-18-23-45Z" fill="#51271e" stroke="none" />
+<path d="m263 728 10-11 148-12 23 122-10 9-149 6Z" fill="url(#pumpkinking-gold)" />
+<path d="m278 731 133-17 3 14-129 17Z" fill="#fff07a" stroke="none" />
+<path d="m302 756 86-6 10 55-85 5Z" fill="#582b20" stroke-width="8" />
+<g id="pumpkinking-right-sleeve" fill="url(#pumpkinking-purple)">
+<path d="m333 407 118 57 183-20 105-32 65 23 1 69-117 84-9 75 17 45-26-32-23 76-38-93-50-115-37 31-26-63-43 7 13-42-107-10-72 58-10-58-20 15 13-21-60 16 51-29-65-10Z" />
+<path d="m566 527 22-27 47 18 45-47 39-16 61-2-4 27-70 20-37 50-18 18-13-31-27-3Z" fill="#501748" stroke="none" />
+</g>
+<g id="pumpkinking-right-arm">
+<path d="M647 522 683 482 742 478 783 505 846 532 883 592 850 631 785 647 726 657 677 627 657 581Z" fill="url(#pumpkinking-green)" />
+<path d="m671 564 40 38 52-10 34 21 59-11-9 23-124 26-39-23Z" fill="#4f890c" stroke="none" />
+<path d="M665 509 703 465 773 460 805 357 846 325Q880 324 914 339L903 397 874 409 862 448 951 389 973 387Q1002 405 1019 440L1003 480 962 494 941 479 919 502 981 529 1008 558 996 597 973 627 921 610 926 577 905 570 853 616 809 603 768 583 750 546 717 572 692 579 679 568Z" fill="url(#pumpkinking-green)" />
+<path d="m704 469 72-5 19 36-55-8-1 39-48 36-15-29Z" fill="#b2e735" stroke="none" />
+<path d="m816 387 35-48 51 8-8 39-43 4Z" fill="#b3df38" stroke="none" />
+<path d="m818 390 55 13-16 51-64-6Z" fill="#578e0c" stroke="none" />
+<path d="m872 462 82-62 14 2 27 30-29 8-28 36-11-37-38 33Z" fill="#b8e941" stroke="none" />
+<path d="m940 478 23-36 45 11-10 21-36 14Z" fill="#76b319" stroke="none" />
+<path d="m928 576 16-31 43 16 14-3-11 34-19 26-43-13Z" fill="#6ca51a" stroke="none" />
+<path d="m746 505 11 31-6 14m21 31 36 20 43 12m-31-223 53 12m66 75-11-34" fill="none" stroke="#345d0e" stroke-width="8" />
+</g>
+<g id="pumpkinking-crown">
+<path d="m353 188 2-68 40 8 22-11-1 28 20-9 8-34 33-23 25 13-3 27 18 1 14-46 68 27-5 36 28 14 20-37 43 21-8 48 24 12 19-26 42 27-24 54-20 33-61-13-145-58Z" fill="url(#pumpkinking-gold)" />
+<path d="m360 155 39-8 1-22-8 5-18-3-2 24Zm87-14 16-18 13-34-28 17Zm64-12 20-42-7 56Zm95 15 24 27 23-44-16-7Zm86 47 13 32 26-43-14-2Z" fill="#bf7c00" stroke="none" />
+<path d="m463 125 5-32 8-7 14 10-3 24Zm73 19 12-56 26 8-1 37-13-3-7 25Zm99 30 22-33 12 7-15 39Zm-271-13 5-18 20-4 1 13Z" fill="#ffdf25" stroke="none" />
+<g fill="#ffe6b6" stroke-width="7">
+<path d="M348 115Q356 100 384 99L412 105 413 124 399 122 397 133Q389 142 382 126L377 157Q365 173 362 154L362 137Q349 146 348 130Z" />
+<path d="M516 76Q516 61 530 62 562 61 591 74L591 95 582 98 577 108Q566 122 556 102L555 91 548 132Q542 146 529 137L527 129 536 89Q527 101 517 92Z" />
+<path d="M633 101Q649 96 674 110L695 125 690 146 682 148 674 179Q670 194 658 187L654 180 664 138Q654 156 645 143L643 127 626 122Z" />
+<path d="M725 157Q752 162 778 187L775 200 766 225Q755 237 747 223L751 199Q742 221 733 204L735 188 714 180Z" />
+</g>
+<g fill="#ff6b00" stroke="#16100a" stroke-width="4">
+<path d="M371 103Q332 89 371 44 417 79 386 100Z" />
+<path d="M551 64Q513 42 566 2 604 48 573 67Z" />
+<path d="M669 112Q628 87 687 52 714 103 681 113Z" />
+<path d="M756 172Q717 147 777 113 799 160 768 173Z" />
+</g>
+<g fill="#ffd913" stroke="none">
+<path d="M374 97Q351 86 371 59 401 83 380 98Z" />
+<path d="M555 59Q532 42 565 14 584 47 567 61Z" />
+<path d="M672 105Q646 91 683 64 697 98 680 107Z" />
+<path d="M755 163Q737 149 774 126 787 153 766 165Z" />
+</g>
+<g fill="#fff56a" stroke="none">
+<path d="M371 70Q357 88 375 94 389 91 371 70Z" />
+<path d="M563 28Q540 48 557 58 575 59 563 28Z" />
+<path d="M681 78Q660 90 671 102 684 108 681 78Z" />
+<path d="M773 139Q751 149 756 160 774 167 773 139Z" />
+</g>
+</g>
+<g id="pumpkinking-great-pumpkin">
+<path d="M450 165Q372 174 312 213L283 244Q250 293 254 340 257 390 305 425 361 471 442 484 518 492 599 467L672 440 746 409Q778 373 756 310 731 262 681 226 625 186 548 175Z" fill="url(#pumpkinking-pumpkin)" />
+<path d="M287 250Q274 308 302 344L353 403 401 436 440 477Q349 460 298 414 253 383 260 329 262 284 287 250Z" fill="#ef6200" stroke="none" />
+<path d="M450 177 403 204 358 255 321 312Q330 257 375 211Z" fill="#ffbb07" stroke="none" />
+<path d="M535 185 482 247 469 290 494 272 542 225 587 210Z" fill="#ffab00" stroke="none" />
+<path d="M588 459Q675 429 701 380L738 343 755 342Q770 386 741 406L670 434Z" fill="#d95000" stroke="none" />
+<path d="M428 176Q345 222 319 305 303 347 325 396m192-217q-39 40-54 82m116-65q23 59 18 102m70-62q48 83 35 145l-22 48M426 421l10 42m140-35-19 44" fill="none" stroke="#c74b00" stroke-width="8" />
+<path d="M283 244 325 219 382 190 363 209 318 240Z" fill="#ffd01a" stroke="none" />
+<g stroke="#160e08" stroke-width="8">
+<path d="M402 248Q429 192 470 203 503 213 505 270L482 265Q480 232 458 228 436 226 416 252Z" fill="#632113" />
+<path d="M570 282Q600 216 639 245 665 265 667 302L648 297Q632 269 616 268 597 266 585 285Z" fill="#632113" />
+<path d="m519 281 24-26 10 35Z" fill="#642112" stroke-width="5" />
+<path d="M375 270Q524 342 674 329 648 392 608 434 495 470 399 399 372 345 375 270Z" fill="url(#pumpkinking-mouth)" />
+</g>
+<path d="M414 254Q455 198 487 247L494 272 470 266 460 244 430 253Z" fill="#ffe958" stroke="none" />
+<path d="M580 285Q614 228 644 278L654 301 632 295 619 278 598 284Z" fill="#ffe958" stroke="none" />
+<path d="m381 285 49 18-5 30-32 26Q380 331 381 285Z" fill="#360e0d" stroke="none" />
+<path d="m611 351 48-9-36 63-16-30Z" fill="#390f0e" stroke="none" />
+<path d="M449 432 11-31 14-27 20-3 23 7 11 7 16-8 23 4 17 10 10 17 9 32Q506 453 449 432Z" fill="#e83c50" stroke-width="5" />
+<path d="m468 385 12-9 22 2 5 21 20-15 23 4 16 15-15-3 8 14-4 25-94-10Z" fill="#f34a60" stroke="none" />
+<g fill="#ffe29b" stroke="#382316" stroke-width="5">
+<path d="m434 296 50 14-12 34-46-7Z" />
+<path d="m560 319 55 9-11 42-49-7Z" />
+<path d="m406 378 55 17-9 37-61-20Z" />
+<path d="m562 415 47-3 3 34-59 3Z" />
+</g>
+<path d="m438 302 38 11-7 23-38-6Zm127 24 43 7-8 29-39-5Zm-156 58 44 14-6 23-47-14Zm159 37 34-3 2 21-43 3Z" fill="#ffecb5" stroke="none" />
+</g>
+</g>
+</svg>
