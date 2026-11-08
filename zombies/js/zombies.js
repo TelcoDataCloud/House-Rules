@@ -11,7 +11,7 @@
 import { state, TILE, COLS, ROWS } from './state.js';
 import { ZOMBIES } from '../data/zombies.js';
 import { DIFFICULTY } from '../data/difficulty.js';
-import { NIGHTS, GIANT_FROM, MOON } from '../data/nights.js';
+import { NIGHTS, GIANT_FROM, MOON, KING_EVERY } from '../data/nights.js';
 import { LINES } from '../data/lines.js';
 import { el, blocked, thingAt, EDGE } from './grid.js';
 import { stepOn } from './traps.js';
@@ -29,8 +29,11 @@ export function tonight() {
   const diff = DIFFICULTY[state.mode];
   const plan = NIGHTS[Math.min(state.night - 1, NIGHTS.length - 1)];
   const count = diff.hordeStart + diff.hordeGrow * (state.night - 1);
+  // Easy meets one new zombie a night: everyone met so far can come
+  const pool = [...diff.mix];
+  if (diff.meet) Object.entries(diff.meet).forEach(([n, k]) => { if (Number(n) <= state.night) pool.push(k); });
   const kinds = [];
-  for (let i = 0; i < count; i++) kinds.push(pick(diff.mix));
+  for (let i = 0; i < count; i++) kinds.push(pick(pool));
   plan.extra.forEach((k) => kinds.push(k));
   // anyone carried off last night comes back tonight, as a zombie
   state.taken.forEach((t) => kinds.push(t.kind || 'bob'));
@@ -40,6 +43,7 @@ export function tonight() {
   // for testing: ?horde=bogey,eyeball picks tonight's zombies by hand
   if (window.ZOMBIES.horde) return { kinds: window.ZOMBIES.horde, side: plan.side, moon };
   if (state.night >= GIANT_FROM[state.mode] && (state.night - GIANT_FROM[state.mode]) % 2 === 0) kinds.push('giant');
+  if (state.night % KING_EVERY === 0) kinds.push('pumpkinking');
   return { kinds, side: plan.side, moon };
 }
 
@@ -68,9 +72,9 @@ function edgeSpot(side) {
   return { x: COLS - 0.5, y: 2 + r * (ROWS - 4) };
 }
 
-function makeZombie(kind, side, i) {
+export function makeZombie(kind, side, i, at) {
   const data = ZOMBIES[kind] || ZOMBIES.bob;
-  const spot = edgeSpot(side);
+  const spot = at || edgeSpot(side);
   const moon = moonTonight();
   const z = {
     id: nextId++, kind, data, x: spot.x, y: spot.y, lastX: spot.x, lastY: spot.y,
@@ -128,7 +132,7 @@ function target(z) {
   }
   let best = null, bd = 1e9;
   state.villagers.forEach((v) => {
-    if (v.taken) return;
+    if (v.taken || v.pumpkin > 0) return;
     const d = Math.hypot(v.x - z.x, v.y - z.y);
     if (d < bd) { bd = d; best = v; }
   });
@@ -147,6 +151,7 @@ function nearestThing(z, does) {
 }
 
 export function updateZombies(dt) {
+  state.villagers.forEach((v) => { if (v.pumpkin > 0) { v.pumpkin -= dt; if (v.pumpkin <= 0 && v.hat) v.hat.style.display = 'none'; } });
   updateDropped(dt);
   updateFlattened(dt);
   updateHard(dt);
@@ -220,6 +225,15 @@ export function updateZombies(dt) {
     const there = thingAt(c, r);
     if (blocked(c, r, z) && !(c === Math.floor(z.x) && r === Math.floor(z.y))) {
       if (there && there.does === 'hold') {
+        if (z.data.rider && !z.riderOff) {
+          z.riderOff = true; z.jumps = true; z.dizzy = 2;
+          const rider = makeZombie('bob', 'north', 0, { x: z.x - 0.6, y: z.y + 0.3 });
+          rider.dizzy = 3; rider.wait = 0;
+          state.zombies.push(rider);
+          burst(z.x, z.y - 0.8, 'WHOA');
+          blip('boing');
+          drawZ(z); continue;
+        }
         z.holdT += dt;
         if (z.holdT > (there.data.seconds || 8)) { z.climbed = there; z.holdT = 0; burst(z.x, z.y - 0.5, 'hup'); }
         else if (Math.random() < dt * 0.3) burst(z.x, z.y - 0.5, 'grr');
@@ -241,6 +255,17 @@ export function updateZombies(dt) {
         z.throwT = 9 + Math.random() * 4;
         if (z.data.throws === 'snot' && Math.hypot(state.hero.x - z.x, state.hero.y - z.y) < 5) { snotScreen(); burst(z.x, z.y - 0.5, 'SPLORT'); blip('splat'); }
         if (z.data.throws === 'bogey' && Math.hypot(state.hero.x - z.x, state.hero.y - z.y) < 5) flickBogey(z);
+        if (z.data.throws === 'pumpkin') {
+          const near = state.villagers.filter((v) => !v.taken && !(v.pumpkin > 0) && Math.hypot(v.x - z.x, v.y - z.y) < 7);
+          if (near.length) {
+            const v = pick(near);
+            v.pumpkin = 20;
+            if (!v.hat) { v.hat = el('use', { href: '#art-pumpkin', width: 26, height: 26, x: 7, y: -14 }); v.el.appendChild(v.hat); }
+            v.hat.style.display = '';
+            burst(v.x, v.y - 1, 'HAT!');
+            blip('splat');
+          }
+        }
         if (z.data.throws === 'gas') { cloud(z.x, z.y, 2, 4); state.gasAt = { x: z.x, y: z.y, t: 4 }; burst(z.x, z.y - 0.5, 'PARP'); blip('groan'); }
       }
     }
@@ -251,7 +276,7 @@ export function updateZombies(dt) {
 
     // grabbing the hero
     const hd = Math.hypot(state.hero.x - z.x, state.hero.y - z.y);
-    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0 && !(state.hero.blink > 0)) {
+    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0 && !(state.hero.blink > 0) && !z.data.harmless) {
       z.grabT = 1.5;
       hurtHero();
     }
@@ -333,6 +358,7 @@ export function cure(z) {
   state.curedTonight++;
   burst(z.x, z.y - 0.8, 'POP!');
   blip('pop');
+  setTimeout(() => blip('cheer'), 180);
   say(pick(LINES.cured));
   return true;
 }
