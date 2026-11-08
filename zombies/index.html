@@ -92,21 +92,23 @@
     </div>
     <div class="moon-strip" id="moon-strip" hidden></div>
     <p class="lookout-line" id="lookout-line"></p>
+    <button type="button" class="upgrade-btn" id="upgrade-btn" hidden></button>
     <button type="button" class="go night-btn" id="night-falls">NIGHT FALLS</button>
   </div>
 
   <div class="stage" id="stage">
     <!-- The village. Drawn by js/grid.js. -->
-    <svg class="village" id="village" viewBox="0 0 960 640" aria-label="The village">
+    <svg class="village" id="village" viewBox="0 0 1440 960" aria-label="The village">
       <defs>
         <radialGradient id="glow-torch"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.75"/><stop offset="0.5" stop-color="#ffb347" stop-opacity="0.35"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
       </defs>
       <g id="ground"></g>
+      <g id="homes"></g>
       <g id="things"></g>
       <g id="ghost"></g>
       <g id="mobs"></g>
       <g id="fx"></g>
-      <rect class="night-tint" x="0" y="0" width="960" height="640"></rect>
+      <rect class="night-tint" x="0" y="0" width="1440" height="960"></rect>
       <g id="glows"></g>
       <g id="aim"></g>
     </svg>

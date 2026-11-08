@@ -15,7 +15,7 @@ import { WIN_AT, JOBS } from '../data/villagers.js';
 import { loadArt, icon } from './art.js';
 import { drawGround, placeThing, clearThings } from './grid.js';
 import { startVillage } from './villagers.js';
-import { startDay, stopDay, nightFallsPressed, dayClick, dayHover, clearHover } from './day.js';
+import { startDay, stopDay, nightFallsPressed, buyWeapon, dayClick, dayHover, clearHover } from './day.js';
 import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightTap, nightMove, nightUp, checkWin } from './night.js';
 import { setupCamera, setAiming, startView } from './camera.js';
 import * as hero from './hero.js';
@@ -85,6 +85,7 @@ function continueGame() {
 }
 
 function day() {
+  startView();
   startDay(night);
 }
 
@@ -107,8 +108,9 @@ function dawnResult() {
   for (const t of state.things.values()) if (t.does === 'bed') beds += t.data.holds || 1;
   const noBed = state.villagers[beds];
   const bedLine = noBed ? `<p>${icon('bed')} ${LINES.noBedFor.replace('{name}', noBed.name)}</p>` : '';
+  const socks = state.socksTonight ? `<p>${icon('sock')} ${state.socksTonight} odd socks found. Plain Bob is jealous.</p>` : '';
   $('result-counts').innerHTML =
-    `<p>${icon('bucket')} ${state.curedTonight} cured tonight</p>` + joined + bedLine +
+    `<p>${icon('bucket')} ${state.curedTonight} cured tonight</p>` + joined + bedLine + socks +
     `<p>${icon('villager')} Village ${n} / ${WIN_AT}</p>` + taken + pits + broke;
   $('result-tip').textContent = justWon
     ? `You won! Keep going for a village of ${WIN_AT * 2}, or play again on ${state.mode === 'easy' ? 'Hard' : 'Easy'}.`
@@ -136,6 +138,7 @@ function wire() {
   $('play-again').addEventListener('click', () => { stopDay(); clearSave(); titleScreen(); });
   $('to-title').addEventListener('click', () => { stopDay(); stopNight(); titleScreen(); });
   $('night-falls').addEventListener('click', nightFallsPressed);
+  $('upgrade-btn').addEventListener('click', buyWeapon);
   $('pause-btn').addEventListener('click', () => { if (state.phase === 'night') pauseNight(!isPaused()); });
   $('resume').addEventListener('click', () => pauseNight(false));
   $('pause-title').addEventListener('click', () => { stopNight(); titleScreen(); });

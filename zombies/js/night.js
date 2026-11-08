@@ -7,7 +7,7 @@
    goes home and the result screen comes up.
    =========================================================== */
 
-import { state } from './state.js';
+import { state, CENTRE } from './state.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { LINES } from '../data/lines.js';
 import { WIN_AT } from '../data/villagers.js';
@@ -21,6 +21,7 @@ import { icon } from './art.js';
 import { say, blip } from './voice.js';
 import { getPlan } from './day.js';
 import { ringBell } from './hard.js';
+import { updateCombat, clearCombat, holdDown, holdUp, swing } from './combat.js';
 
 let raf = 0;
 let last = 0;
@@ -35,6 +36,8 @@ export function startNight(whenDone) {
   state.taken = [];
   state.curedTonight = 0;
   state.joined = [];
+  state.socksTonight = 0;
+  clearCombat();
   state.gasAt = null;
   state.brokeTonight = 0;
   document.getElementById('stage').classList.add('is-night');
@@ -59,7 +62,11 @@ export function startNight(whenDone) {
 }
 
 export function wireNightButtons() {
-  document.getElementById('btn-whack').addEventListener('click', (e) => { e.currentTarget.blur(); if (state.phase === 'night') hero.whack(); });
+  // press and hold WHACK to charge a spin; a quick press is a normal whack
+  const wb = document.getElementById('btn-whack');
+  wb.addEventListener('pointerdown', (e) => { e.preventDefault(); if (state.phase === 'night') holdDown(); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => wb.addEventListener(ev, () => { if (state.phase === 'night') holdUp(); }));
+  wb.addEventListener('keydown', (e) => { if (e.key === 'Enter') swing(false); });
   document.getElementById('btn-potion').addEventListener('click', (e) => { e.currentTarget.blur(); if (state.phase === 'night') { hero.throwPotion(); drawCounts(); } });
 }
 
@@ -85,14 +92,18 @@ function ammoBar() {
 
 function tick(now) {
   if (paused) { last = now; raf = requestAnimationFrame(tick); return; }
-  const dt = Math.min(0.05, (now - last) / 1000) * (window.ZOMBIES.fast || 1);
+  let dt = Math.min(0.05, (now - last) / 1000) * (window.ZOMBIES.fast || 1);
   last = now;
+  // hit stop: the world freezes for a blink when a whack lands
+  if (state.hitStop > 0) { state.hitStop -= dt / (window.ZOMBIES.fast || 1); raf = requestAnimationFrame(tick); return; }
   const diff = DIFFICULTY[state.mode];
   if (state.phase === 'night') {
     state.time += dt;
     updateZombies(dt);
     hero.update(dt);
+    updateCombat(dt);
     catapult.update(dt);
+    catapult.autoFire(dt);
     if (state.gasAt) state.gasAt.t -= dt;
     walkHome(dt);
     drawSun(state.time / diff.nightSeconds);
@@ -112,7 +123,8 @@ function tick(now) {
 function walkHome(dt) {
   state.villagers.forEach((v) => {
     if (!v.walkHome) return;
-    const dx = 12 - v.x, dy = 9 - v.y, d = Math.hypot(dx, dy);
+    const home = v.home || CENTRE;
+    const dx = home.x - v.x, dy = home.y - v.y, d = Math.hypot(dx, dy);
     if (d < 0.3) { v.walkHome = false; v.el.classList.remove('walking'); return; }
     v.el.classList.add('walking');
     v.x += dx / d * 2.5 * dt; v.y += dy / d * 2.5 * dt;
@@ -149,6 +161,7 @@ export function isPaused() { return paused; }
 
 export function stopNight() {
   paused = false;
+  clearCombat();
   document.getElementById('screen-pause').hidden = true;
   cancelAnimationFrame(raf);
   clearZombies();
@@ -175,7 +188,7 @@ export function nightTap(ev) {
   if (t && t.does === 'bell') { ringBell(t); return; }
   const z = state.zombies.find((o) => !o.pit && Math.hypot(o.x - p.x, o.y - p.y) < 1);
   if (z) {
-    if (Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 1.4) hero.whack();
+    if (Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 1.6) hero.whack();
     else hero.runTo(z.x, z.y);
     return;
   }

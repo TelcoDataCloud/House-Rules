@@ -8,32 +8,35 @@
    turns it into a villager who walks home.
    =========================================================== */
 
-import { state, TILE, COLS, ROWS } from './state.js';
+import { state, TILE, COLS, ROWS, CENTRE } from './state.js';
 import { ZOMBIES } from '../data/zombies.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { NIGHTS, GIANT_FROM, MOON, KING_EVERY } from '../data/nights.js';
 import { LINES } from '../data/lines.js';
-import { el, blocked, thingAt, EDGE, isPond, eastBank, BRIDGE_MID } from './grid.js';
-// The stream splits the map. Anyone on the wrong bank heads for the bridge first.
+import { el, blocked, thingAt, EDGE, isPond, eastBank, BRIDGES } from './grid.js';
+// The stream splits the map. Anyone on the wrong bank walks to the
+// bridge that is least out of their way, then across it.
 export function viaBridge(from, goal) {
   const goalEast = eastBank(goal.x, goal.y);
-  const goalEnd = goalEast ? BRIDGE_MID.east : BRIDGE_MID.west;
-  // on the bridge (or just at either end of it): walk off the side the goal is on
-  const onBridge = Math.abs(from.y - BRIDGE_MID.y) < 1.1 && from.x > BRIDGE_MID.west - 0.4 && from.x < BRIDGE_MID.east + 0.4;
-  if (onBridge) {
-    if (Math.abs(from.x - goalEnd) < 0.4) return goal;
-    return { ...goal, x: goalEnd, y: BRIDGE_MID.y };
+  // on a bridge (or just at either end): walk off the side the goal is on
+  for (const b of BRIDGES) {
+    const onIt = Math.abs(from.y - b.y) < 1.1 && from.x > b.west - 0.4 && from.x < b.east + 0.4;
+    if (!onIt) continue;
+    const end = goalEast ? b.east : b.west;
+    if (Math.abs(from.x - end) < 0.4) return goal;
+    return { ...goal, x: end, y: b.y };
   }
   if (eastBank(from.x, from.y) === goalEast) return goal;
-  // wrong bank: go to our end of the bridge first
-  return { ...goal, x: goalEast ? BRIDGE_MID.west : BRIDGE_MID.east, y: BRIDGE_MID.y };
+  let best = BRIDGES[0], bd = 1e9;
+  BRIDGES.forEach((b) => { const d = Math.abs(from.y - b.y) + Math.abs(goal.y - b.y); if (d < bd) { bd = d; best = b; } });
+  return { ...goal, x: goalEast ? best.west : best.east, y: best.y };
 }
 import { stepOn } from './traps.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
 import { JOBS } from '../data/villagers.js';
-import { TRICKS, onWhack, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
+import { TRICKS, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
 import { updateHard } from './hard.js';
 
 let nextId = 1;
@@ -153,7 +156,7 @@ function target(z) {
     if (d < bd) { bd = d; best = v; }
   });
   if (best) return { x: best.x, y: best.y };
-  return { x: COLS / 2, y: ROWS / 2 };
+  return { x: CENTRE.x, y: CENTRE.y };
 }
 
 function nearestThing(z, does) {
@@ -295,7 +298,7 @@ export function updateZombies(dt) {
 
     // grabbing the hero
     const hd = Math.hypot(state.hero.x - z.x, state.hero.y - z.y);
-    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0 && !(state.hero.blink > 0) && !z.data.harmless) {
+    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0 && !(state.hero.blink > 0) && !z.data.harmless && !z.armOff) {
       z.grabT = 1.5;
       hurtHero();
     }
@@ -340,28 +343,6 @@ export function hurtHero() {
   h.lastHurt = state.time;
 }
 
-export function whackAt(x, y) {
-  let n = 0;
-  state.zombies.forEach((z) => {
-    if (z.pit || z.big) return;
-    const d = Math.hypot(z.x - x, z.y - y);
-    if (d < 1.3 && z.data.heavy) { burst(z.x, z.y - 0.8, 'nope'); return; }
-    if (d < 1.3) {
-      onWhack(z);
-      z.dizzy = 3;
-      z.bedSince = 0;
-      const dx = z.x - x, dy = z.y - y, len = Math.hypot(dx, dy) || 1;
-      z.flyX = dx / len * 1.5; z.flyY = dy / len * 1.5; z.flying = 0.3;
-      if (z.carrying) { z.carrying.taken = false; z.carrying = null; z.leaving = false; }
-      n++;
-    }
-  });
-  if (n) {
-    burst(x, y - 0.8, pick(LINES.whack)); blip('bonk');
-    if (!state.whackedOnce) { state.whackedOnce = true; say(LINES.firstWhack); import('./hud.js').then((m) => m.banner(LINES.firstWhack, 2200)); }
-  }
-  return n;
-}
 
 // The cure. Returns true if someone was cured.
 export function cure(z) {
