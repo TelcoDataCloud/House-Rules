@@ -1046,3 +1046,30 @@ within 2 squares go home), **sprinkler** (2 crew, cures one zombie in
 reach every 15 s, no potion), **giant net** (needs a giant villager,
 holds Giant Gary). Big zombies now step over pits. Seven more Higgsfield
 SVGs.
+
+### Z6.1 Kid fixes (8 Nov, from Asa's Grok playtest list)
+
+All 30 items done in the order given, except greying Hard traps on Easy
+(Asa ruled that out earlier; the comment was fixed instead) and the
+minecart (parked). Must-fix: How to play (four cards, first PLAY and a
+button), build checklist dots gone, Village x / 12 in the HUD, clicking
+a zombie never spends potion (WHACK and POTION buttons on screen, E and
+Space still work), catapult and bell help only when built, a "what it
+does" line for every thing on pick (`what` in `data/traps.js`), words on
+every count, beds and farms can be taken back (never the last bed),
+"Night ends in 1:20" on the sky bar, snot lasts 1.6 s. Bugs: day 1 shows
+"You start with" instead of a morning, the moon warning is spoken, Easy
+meets one new zombie a night with a lookout tip (`meet` in
+`data/difficulty.js`, `tip` in `data/zombies.js`), Hopper really jumps,
+win screen has PLAY AGAIN and KEEP GOING with a bigger goal, **the
+village is saved at the start of each day (`js/save.js`, CONTINUE on the
+title; Asa: "u need a save game as its a building game")**, pause (P,
+Esc, the button), a banner when there is no bed. Polish: NIGHT FALLS
+pinned in the top strip, ghost preview of the thing on the hovered
+square, failed builds flash the missing count and say why in the help
+line, help line changes with what you are doing, hearts only at night,
+Moon strip labelled with FULL MOON and NEW MOON, speech queues instead
+of talking over itself, villagers have names (carried off says who).
+Tuning: Easy bar unlocks a few things a night (`from` in
+`data/traps.js`), a readable morning line, "BONK! Stunned. Potion cures
+them." on the first whack, "You got back up!" with a blink on Easy.
