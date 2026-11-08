@@ -1,13 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="15" cy="10" r="2" fill="var(--ink)"/><circle cx="25" cy="10" r="2" fill="var(--ink)"/><path d="M15 14 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<!-- lookout: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="lookout-skin" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#df9563" /><stop offset="1" stop-color="#ffb680" /></linearGradient>
+<linearGradient id="lookout-brass" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#ffd543" /><stop offset=".4" stop-color="#e6a714" /><stop offset=".65" stop-color="#a3670a" /><stop offset="1" stop-color="#724008" /></linearGradient>
+<linearGradient id="lookout-glass" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#52d2fc" /><stop offset="1" stop-color="#1594d7" /></linearGradient>
+</defs>
 
-<circle cx="34" cy="12" r="5" fill="var(--potion)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-</g></svg>
+<g stroke="#0c0906" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="lookout-legs">
+<path d="M266 712L465 727 429 947 429 1008 351 1016 215 1012 227 939 242 928Z" fill="#69401f" />
+<path d="M461 732L636 724 663 931 680 941 690 1012 475 1012 470 947Z" fill="#613b20" />
+<path d="M265 863L433 877 422 943 364 941 245 933Z" fill="#482914" stroke="none" />
+<path d="M477 886L649 875 659 932 548 941 484 946Z" fill="#482b17" stroke="none" />
+<path d="M233 940L365 945 351 1007 224 1005Z" fill="#79491f" stroke="none" />
+<path d="M548 945L673 944 682 1005 558 1005Z" fill="#79491f" stroke="none" />
+<path d="M245 932L366 937 356 948 233 941Z" fill="#9b6332" stroke="none" />
+<path d="M546 937L658 931 673 943 555 949Z" fill="#936032" stroke="none" />
+</g>
+<g id="lookout-torso">
+<path d="M308 427L573 420 622 740 372 762Z" fill="#e5d6b4" />
+<path d="M411 454L493 464 535 434 524 489 420 484Z" fill="#baa583" stroke="none" />
+<path d="M397 496L419 665 543 668 532 562 452 611Z" fill="#f4e8cb" stroke="none" />
+<path d="M397 600L536 456 548 533 403 677Z" fill="#754412" stroke-width="11" />
+<path d="M412 615L521 507 527 532 410 646Z" fill="#995b20" stroke="none" />
+<path d="M383 676L568 674 577 743 379 746Z" fill="#70421c" stroke-width="11" />
+<path d="M410 684L428 684 426 735 405 735Z M520 683L538 682 548 734 523 735Z" fill="#a26a31" stroke="none" />
+<path d="M436 674L518 675 519 743 433 744Z" fill="#e8a807" stroke-width="9" />
+<path d="M444 682L509 682 509 694 446 695Z" fill="#ffdb38" stroke="none" />
+<path d="M453 694L496 694 497 724 453 723Z" fill="#75491e" stroke-width="6" />
+<path d="M477 519L531 567 482 619 429 566Z" fill="#ffc325" stroke-width="9" />
+<path d="M477 543L503 567 480 592 456 567Z" fill="#85501e" stroke-width="6" />
+<path d="M474 449L467 501 447 453Z" fill="#b56c43" stroke-width="6" />
+</g>
+<g id="lookout-coat">
+<path d="M300 435L400 438 406 594 379 892 286 889 187 868 240 668Z" fill="#6f6a6c" />
+<path d="M328 449L307 482 366 526 364 647 345 848 237 835 263 717 284 569Z" fill="#595356" stroke="none" />
+<path d="M362 449L396 445 398 636 373 884 195 862 204 831 346 848 369 539 308 494Z" fill="#a29e9e" stroke="none" />
+<path d="M301 439L404 437 399 528 306 493Z" fill="#8d898a" stroke-width="10" />
+<path d="M361 449L342 480 393 516 395 453Z" fill="#635f60" stroke="none" />
+<path d="M532 429L589 414 624 459 600 488 655 677 721 866 582 886 552 653Z" fill="#767173" />
+<path d="M541 445L588 463 571 482 574 520 616 485 630 465 589 416Z" fill="#a6a2a3" stroke="none" />
+<path d="M571 524L605 495 650 677 683 747 611 765 590 606Z" fill="#595356" stroke="none" />
+<path d="M555 514L573 526 589 704 612 841 708 821 719 858 587 876Z" fill="#a4a0a1" stroke="none" />
+<path d="M251 685L348 689 338 757 241 750Z" fill="#625c5e" stroke-width="10" />
+<path d="M606 681L684 670 704 741 617 749Z" fill="#635e60" stroke-width="10" />
+</g>
+<g id="lookout-left-arm">
+<path d="M150 696L196 752 249 709 304 652 268 607Z" fill="url(#lookout-skin)" />
+<path d="M160 704L201 742 249 700 211 655Z" fill="#d88652" stroke="none" />
+<path d="M213 416L280 456 300 491 291 535 251 577 274 603 145 713 62 589Q55 573 66 541Z" fill="#777274" />
+<path d="M66 546L110 564 183 646 145 700 70 589Z" fill="#585254" stroke="none" />
+<path d="M122 671L240 575 270 603 148 704Z" fill="#a5a1a2" stroke="none" />
+<path d="M251 577L210 535" fill="none" stroke-width="13" />
+</g>
+<g id="lookout-raised-arm">
+<path d="M631 416L662 371 841 392 796 532 735 565 705 575 640 562 618 473Z" fill="#625c5f" />
+<path d="M650 396L828 400 805 458 749 469 641 420Z" fill="#aaa5a6" stroke="none" />
+<path d="M645 428L748 472 725 529 647 493Z" fill="#777174" stroke="none" />
+<path d="M675 300L840 319 825 397 756 423 661 377Z" fill="url(#lookout-skin)" stroke-width="13" />
+<path d="M679 312L766 353 756 415 820 390 835 324Z" fill="#d88b59" stroke="none" />
+</g>
+<g id="lookout-head">
+<path d="M280 180L604 157 642 415 546 430 452 443 272 448 234 425 220 259Z" fill="url(#lookout-skin)" />
+<path d="M228 260L282 206 305 435 272 438 242 421Z" fill="#b76b42" stroke="none" />
+<path d="M283 201L594 173 600 199 286 226Z" fill="#d68a58" stroke="none" />
+<path d="M279 360L348 350 357 433 306 438Z" fill="#cc8657" stroke="none" />
+<path d="M580 331L625 325 634 407 592 412Z" fill="#d38c59" stroke="none" />
+<path d="M331 241L425 237 431 318 338 326Z" fill="#fff" stroke="none" />
+<path d="M330 244L338 325" fill="none" stroke="#56351f" stroke-width="6" />
+<path d="M377 255L425 252 430 317 382 321Z" fill="#075119" stroke="none" />
+<path d="M399 255L423 254 426 300 401 301Z" fill="#032d11" stroke="none" />
+<path d="M385 263L401 262 402 279 386 280Z" fill="#f6fff6" stroke="none" />
+<path d="M311 202L428 199 432 238 315 246Z" fill="#593315" stroke-width="6" />
+<path d="M490 193L580 179 587 217 496 233Z" fill="#633919" stroke-width="6" />
+<path d="M519 271Q548 242 579 272" fill="none" stroke-width="18" />
+<path d="M383 350Q410 365 451 362L456 396Q440 413 415 403 390 395 383 350Z" fill="#501c13" stroke-width="5" />
+<path d="M390 383Q420 368 448 391L447 400Q413 414 395 393Z" fill="#c8314c" stroke="none" />
+<path d="M449 267L520 260 548 427 531 445 460 452 431 283Z" fill="#b97142" stroke-width="12" />
+<path d="M450 273L516 267 539 423 477 433Z" fill="#e49b65" stroke="none" />
+</g>
+<g id="lookout-hat">
+<path d="M208 153L212 100 307 13 560 8 593 98 693 91 716 143 611 208 606 159 282 192 220 256 225 307 123 291 118 220Z" fill="#675a55" />
+<path d="M310 19L552 17 569 59 317 68Z" fill="#a99b95" stroke="none" />
+<path d="M219 104L309 22 317 67 216 145Z" fill="#71625b" stroke="none" />
+<path d="M317 68L570 60 586 107 326 125Z" fill="#5f534e" stroke="none" />
+<path d="M221 149L318 69 326 124Z" fill="#44362e" stroke="none" />
+<path d="M125 222L248 132 689 99 705 140 254 180 131 282Z" fill="#a99c96" stroke="none" />
+<path d="M125 222L248 132 254 180 131 282Z" fill="#7d6d67" stroke="none" />
+<path d="M131 283L254 180 605 158 613 199 700 149 281 198 214 258 218 297Z" fill="#2b2019" stroke="none" />
+</g>
+<g id="lookout-telescope">
+<path d="M610 216L686 202 712 294 618 307Q590 305 581 274 571 239 598 219Z" fill="url(#lookout-brass)" stroke-width="10" />
+<path d="M591 237L679 220 684 238 586 260Z" fill="#e7ac20" stroke="none" />
+<path d="M588 264L691 247 695 267 597 284Z" fill="#915609" stroke="none" />
+<path d="M682 187L797 152 819 311 694 309Q664 304 658 265 649 222 674 192Z" fill="url(#lookout-brass)" stroke-width="11" />
+<path d="M683 210L777 184 774 209 666 234Z" fill="#e6a529" stroke="none" />
+<path d="M666 254L781 233 786 270 673 284Z" fill="#915307" stroke="none" />
+<path d="M691 191L712 185Q679 220 685 260 688 289 709 307L691 305Q653 263 672 216Z" fill="#ffd13a" stroke="none" />
+<path d="M800 138L861 120Q915 106 953 159 980 195 977 249 974 299 935 324 915 338 876 335L813 331Q778 323 762 285 742 244 752 201 763 153 800 138Z" fill="#efbd23" stroke-width="14" />
+<path d="M790 158L848 140 831 165 768 183Z" fill="#ffdd48" stroke="none" />
+<path d="M760 204L815 193 809 231 756 239Z" fill="#ffdf4c" stroke="none" />
+<path d="M761 270L815 266 830 299 776 294Z" fill="#b17b09" stroke="none" />
+<path d="M814 327Q783 265 805 197 824 139 870 127 922 117 953 168 981 217 963 272 950 319 910 327Z" fill="#ffd13b" stroke="none" />
+<ellipse cx="883" cy="226" rx="65" ry="80" transform="rotate(-9 883 226)" fill="#136c86" stroke-width="7" />
+<path d="M874 154Q913 147 933 191 956 248 918 289 900 308 878 299 841 282 830 245 810 177 854 159Z" fill="url(#lookout-glass)" stroke="none" />
+<path d="M836 247L926 176Q945 197 943 218L846 278Z" fill="#47bff0" stroke="none" />
+<path d="M852 206L884 166 910 182 876 224Z" fill="#fff" stroke="none" />
+<path d="M933 222Q941 269 906 296" fill="none" stroke="#168dd0" stroke-width="7" />
+</g>
+</g>
+</svg>
