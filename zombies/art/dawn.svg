@@ -1,0 +1,103 @@
+<!-- dawn: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="dawn-brass" x1="0" y1="0" x2="0.7" y2="1">
+<stop stop-color="#ffe934" />
+<stop offset="0.48" stop-color="#ffc400" />
+<stop offset="1" stop-color="#e69a00" />
+</linearGradient>
+<linearGradient id="dawn-bowl" x1="0.75" y1="0" x2="0.3" y2="1">
+<stop stop-color="#a76100" />
+<stop offset="0.48" stop-color="#ed9b00" />
+<stop offset="0.8" stop-color="#ffcf00" />
+<stop offset="1" stop-color="#fff73b" />
+</linearGradient>
+<linearGradient id="dawn-beam" x1="0" y1="1" x2="1" y2="0">
+<stop stop-color="#ffffb9" />
+<stop offset="0.42" stop-color="#ffff35" />
+<stop offset="1" stop-color="#ffdf00" />
+</linearGradient>
+<radialGradient id="dawn-flare">
+<stop stop-color="#fffff3" />
+<stop offset="0.6" stop-color="#ffffb5" />
+<stop offset="1" stop-color="#ffff62" />
+</radialGradient>
+</defs>
+
+<g id="dawn-tripod" stroke="#080704" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+<path d="M391 670 458 721 331 855 330 898 255 929 192 891 193 835 215 820Z" fill="#a74816" />
+<path d="m391 681 35 39-158 139-53-31Z" fill="#be581a" stroke="none" />
+<path d="m426 720 28 9-123 126-64 6Z" fill="#773612" stroke="none" />
+<path d="m194 832 62 36 75-22-1 52-75 31-62-37Z" fill="#d78c00" />
+<path d="m256 868 75-22-1 52-75 31Z" fill="#a76300" stroke="none" />
+<path d="m202 835 54 32 65-20" fill="none" stroke="#ffe151" stroke-width="4" />
+<path d="m576 673 58-34 129 179 18 8 1 61-64 36-74-32-3-52Z" fill="#994116" />
+<path d="m628 657 129 166-37 27-126-161Z" fill="#c4621c" stroke="none" />
+<path d="m644 834 74 26 64-34v61l-64 36-73-32Z" fill="#e39a00" />
+<path d="m718 860 64-34v61l-64 36Z" fill="#ffb900" stroke="none" />
+<path d="m651 838 67 22 54-29" fill="none" stroke="#ffe75c" stroke-width="4" />
+<path d="m394 711-8 72 105 35 108-37-10-81Z" fill="#6c3011" />
+<path d="m437 737-34 184-8 10v51l75 34 77-33v-53l-11-11 28-179Z" fill="#954117" />
+<path d="m498 780-28 164 64-24 27-179Z" fill="#c45b19" stroke="none" />
+<path d="m437 744 61 36 65-25-2 31-69 20-60-25Z" fill="#79330f" stroke="none" />
+<path d="m397 928 73 27 77-25v53l-77 33-75-34Z" fill="#d68b00" />
+<path d="m470 955 77-25v53l-77 33Z" fill="#efa500" stroke="none" />
+<path d="m405 928 65 27 68-23" fill="none" stroke="#ffdf48" stroke-width="4" />
+<path d="m377 694 1 45 118 43 120-45v-45l-117-41Z" fill="#dc9000" />
+<path d="m496 738 120-46v45l-120 45Z" fill="#ffbb00" stroke="none" />
+<path d="m384 699 112 39 113-39" fill="none" stroke="#ffdc43" stroke-width="4" />
+<path d="m388 681 108 46 117-41v-45l-102-32-123 36Z" fill="#7d3514" stroke-width="10" />
+<path d="m389 650 107 36 116-40-101-32Z" fill="#aa4c18" stroke="none" />
+<path d="m496 686 116-40v40l-116 41Z" fill="#a74817" stroke="none" />
+<path d="m400 651 96 35 107-35M496 688v32" fill="none" stroke="#e77b2c" stroke-width="4" />
+<path d="m493 595-1 58 38 12 46-20-5-47Z" fill="#975019" stroke-width="9" />
+</g>
+<g id="dawn-mount" stroke="#080704" stroke-width="13" stroke-linejoin="round">
+<path d="m176 530-1 109 68 51 53 22 228-77 195-30 94-115 2-131-47-14-25 125-61 83-176 28-176 50-56-51-1-93Z" fill="#ad6900" />
+<path d="m233 566 41 14 1 49 55 21 159-51 24 33-217 74-60-54Z" fill="#ffb900" stroke="none" />
+<path d="m330 650 177-55M330 650l-56-50" fill="none" stroke="#ffdf4a" stroke-width="4" />
+<path d="m745 381 44-13 2 117-72 99-92 29 12-37 60-30 46-73Z" fill="#d58a00" stroke="none" />
+</g>
+<g id="dawn-dish" stroke="#080704" stroke-linejoin="round">
+<path d="M272 46C220 70 186 112 153 166 108 236 112 297 145 363 196 464 301 559 414 602 517 642 626 630 697 580 768 529 789 441 759 353 728 259 653 166 558 103 465 41 353 12 301 35Z" fill="#b57700" stroke-width="14" />
+<path d="M154 176c-38 95-13 152 48 230 61 79 141 141 231 173 107 40 213 20 272-41l-16 48c-71 58-174 60-275 16C290 550 194 459 145 363c-30-62-35-120 9-187Z" fill="#9b5900" stroke="none" />
+<path d="M273 49C201 88 162 150 165 216c3 114 111 249 239 319 126 70 265 80 338 8 74-73 55-185-26-296C626 124 449 19 330 30Z" fill="url(#dawn-brass)" stroke-width="12" />
+<path d="M291 78C226 107 195 163 202 226c11 99 110 218 224 279 116 63 237 67 298 6 60-61 34-161-40-261C601 140 440 57 342 66Z" fill="url(#dawn-bowl)" stroke="#835000" stroke-width="6" />
+<path d="M346 78c17 99 57 227 125 340-22-115-18-230-12-324-44-16-81-22-113-16Z" fill="#d98a00" stroke="none" />
+<path d="M459 94c65 26 115 57 167 99L473 418c-18-107-23-215-14-324Z" fill="#a56800" stroke="none" opacity=".55" />
+<path d="M628 196 477 423l218-160Z" fill="#e69900" stroke="none" />
+<path d="M479 442c93 28 191 8 273-28 3 40-6 72-28 97-58 59-181 62-298-6-73-39-131-94-171-148 68 63 151 100 224 85Z" fill="#ffdd00" stroke="none" />
+<path d="M329 117c-46 11-80 40-95 82l53 50c17-29 40-49 70-60Z" fill="#fffbd4" stroke="none" />
+<path d="m229 222 50 43-4 47-44-34c-4-19-4-36-2-56Z" fill="#fffbd4" stroke="none" />
+<path d="M273 49C201 88 162 150 165 216c3 114 111 249 239 319 126 70 265 80 338 8" fill="none" stroke="#ffe842" stroke-width="4" />
+</g>
+<g id="dawn-rim-clamps" stroke="#080704" stroke-width="10" stroke-linejoin="round">
+<path d="m265 46 13-25 63-11 31 52-10 26-58 10-17-39Z" fill="#b27000" />
+<path d="m278 23 63-11 30 49-58 10Z" fill="#ffcf12" stroke="none" />
+<path d="m313 71-9 27m9-27 57-10" fill="none" stroke="#8a5100" stroke-width="5" />
+<path d="m166 306 61-4 29 48-5 15-38 4-27 47-14-4-34-51Z" fill="#a96500" />
+<path d="m168 307 59-5 29 48-55 7Z" fill="#ffe12c" stroke="none" />
+<path d="m201 357-27 53m27-53 53-7" fill="none" stroke="#765000" stroke-width="5" />
+<path d="m742 321 19-17 32-9 44 33v93l-28 12v-77l-50 11Z" fill="#b77a00" />
+<path d="m763 307 28-8 39 32-46 19Z" fill="#ffcf14" stroke="none" />
+<path d="m785 350 24-1 1 77 20-9v-85Z" fill="#ce8600" stroke="none" />
+<path d="m142 440 68-20 67 36v111l-51 24-85-35Z" fill="#b97600" stroke-width="13" />
+<path d="m148 441 62-15 61 31-44 18Z" fill="#ffdc29" stroke="none" />
+<path d="m227 475 44-18v110l-44 18Z" fill="#e79b00" stroke="none" />
+<path d="m153 446 74 29v105" fill="none" stroke="#ffe04c" stroke-width="4" />
+<ellipse cx="183" cy="514" rx="31" ry="39" fill="#865000" stroke-width="7" transform="rotate(-16 183 514)" />
+<path d="M177 483c17-5 31 8 34 26s-2 31-15 35l-16-9Z" fill="#ffcd21" stroke="none" />
+<ellipse cx="177" cy="513" rx="22" ry="31" fill="#f9ba00" stroke="#ffc92b" stroke-width="3" transform="rotate(-16 177 513)" />
+<path d="m561 527 59-6 31 55-22 57-76 12-11-16 30-51-18-36Z" fill="#a96500" />
+<path d="m562 530 56-5 30 51-59 7Z" fill="#ffda16" stroke="none" />
+<path d="m589 583 59-7-21 53-69 12Z" fill="#b87500" stroke="none" />
+<path d="m562 535 27 48-31 52" fill="none" stroke="#f4b924" stroke-width="4" />
+</g>
+<g id="dawn-sunbeam">
+<path d="M386 415 832 0h192v100L459 469Z" fill="#ffdf00" />
+<path d="M414 440 906 0h118v27L443 457Z" fill="url(#dawn-beam)" />
+<path d="m414 440 36 20L1024 27V0H906Z" fill="#ffff73" opacity=".6" />
+<path d="M383 407c16-15 53-4 82 18s43 44 32 53c-15 13-58 1-87-17-28-18-40-41-27-54Z" fill="url(#dawn-flare)" />
+<path d="m420 432 486-432h36L441 452Z" fill="#ffffcf" opacity=".45" />
+</g>
+</svg>

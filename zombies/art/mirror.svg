@@ -1,0 +1,75 @@
+<!-- mirror: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Ornate gold standing mirror</title>
+<defs>
+<clipPath id="mirror-glass-clip"><path d="M351 257 409 216 584 204 655 256 610 821 560 819 551 842 495 834 476 808 406 801 382 824 301 798Z" /></clipPath>
+</defs>
+
+<g stroke="#080906" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+<g id="mirror-feet">
+<path d="m244 881-36 40-2 54 67 13 83-46 1-51-47-16Z" fill="#ffca04" />
+<path d="m275 934 78-46 3 54-83 46Z" fill="#a94500" stroke-width="7" />
+<path d="m212 923 63 11 30-28-61-15Z" fill="#ffe444" stroke="none" />
+<path d="m565 916-31 35-1 53 81 13 98-51 1-48-44-25Z" fill="#ffca05" />
+<path d="m616 963 94-47 2 50-98 51Z" fill="#a84400" stroke-width="7" />
+<path d="m539 951 77 12 33-30-77-11Z" fill="#ffe23e" stroke="none" />
+</g>
+<path d="m292 189 70-55 81-26 110-44 118 1 85 46-9 57 39 25-20 161 12 9-7 64-15 7-24 272 15 6-5 68-23 9-7 109-13 15-61 30-88-22-4-29-194-16-39 28-73-17-24-29 10-106-23-7 5-67 22-8 25-281-20-8 7-65 23-8Z" fill="#b34f00" />
+<path d="m727 201 56-9-24 164-47-14Z" fill="#bd5900" stroke="none" />
+<path d="m704 413 46 14-25 280-48 11Z" fill="#b45300" stroke="none" />
+<path d="m671 789 47-9-10 111-55 32Z" fill="#ad4700" stroke="none" />
+<path d="m283 207 115-37 181-19 150 51-16 145-13 65-25 304-10 73-8 119-43 22-62-10-2-29-60-5-29 41-65-8-27-40-59-5-17 23-68-11-17-20 11-114 8-72 27-284 8-66Z" fill="#ffc500" />
+<path d="m337 240 61-36 184-7 74 57-46 570-54 6-5 15-53-7-21-30-71-7-25 24-82-23Z" fill="#a24600" stroke-width="9" />
+<path d="m351 257 58-41 175-12 71 52-45 565-50-2-9 23-56-8-19-26-70-7-24 23-81-26Z" fill="#81dcf8" stroke-width="12" />
+<g clip-path="url(#mirror-glass-clip)" stroke="none">
+<path d="m357 267 59-39 168-11 70 41 2-22-70-39-184 12-59 47-45 547 20 8Z" fill="#39b3e2" />
+<path d="m340 340 134-118 102-6-234 208Z" fill="#c2f1fd" />
+<path d="m307 652 344-318-9 119-343 321Z" fill="#c1f1fc" />
+<path d="m297 809 338-311-4 44-308 285Z" fill="#c4f3fc" />
+</g>
+<path d="m586 239 8 38 10 12 27 8-31 12-10 16-11 30-5-32-12-14-28-12 29-11 10-12Z" fill="#fff" stroke="none" />
+<g id="mirror-top-ornament">
+<path d="m251 205 11-85 8-10 70-27 11-2 48 20 3-43 36-8 3-25 6-8 67-10 38 18 2 18 39 15 2 22 73-15 13 1 70 39 8 12-18 83-6 8-84 2-31-20-2-22-66 1-11 32-10 6-82 3-15-11-3-22-42 1-15-13-16 43-9 4-65 7Z" fill="#b75100" />
+<path d="m252 201 17-82 78-29 43 37 13-1 8-62 32-8 9-31 63-9 2 36 37-1-9 74 40-3 12-26 73-21 44 31-15 79-7 11-53 3-22-14 8-45 26-5-2 21-18 4 20-1 7-38-13-9-43 7-19 39-66-3-13 33-80 3-8-29-51 3-15-11-21-30-38 9-8 31 16 2-6-7 3-18 30-4-8 52-6 6Z" fill="#ffce05" stroke="none" />
+<path d="m260 193 13-71 73-28 40 35 17-1 9-61 31-8 9-31 60-9M518 54l33-1M557 122l27-1 12-24 73-19 39 29" fill="none" stroke="#fff281" stroke-width="7" />
+<path d="m304 173-11-1 8-30 34-9 13 8 13 25 15 11 45-3 8 21M623 188l-8-11 8-42 11-7 29 1-3 28-11 3" fill="none" stroke="#883600" stroke-width="9" />
+<path d="m438 89 17-22 44-4 19 18-5 58-18 19-42 2-17-19Z" fill="#f2262c" stroke-width="7" />
+<path d="m444 92 14-19 39-5-9 20Z" fill="#ff9492" stroke="none" />
+<path d="m443 94 13-6-4 46-11 7Z" fill="#ff605c" stroke="none" />
+<path d="m489 88 24-5-5 51-20-1Z" fill="#d90912" stroke="none" />
+<path d="m441 141 13-7 34-1 20 6-16 15-37 2Z" fill="#ac0809" stroke="none" />
+</g>
+<g id="mirror-column-shading" stroke="none">
+<path d="m318 395 21 0-25 290-25-5Z" fill="#b95400" />
+<path d="m680 415 22 2-25 293-25 2Z" fill="#d27a00" />
+<path d="m281 758 23 0-5 45-20 17-9 49-22 9 10-103Z" fill="#d17800" />
+</g>
+<g id="mirror-column-blocks">
+<path d="m250 322 71-2 22 10-4 60-13 8-69-3-15-7 7-59Z" fill="#ffca06" />
+<path d="m254 329 67-2-4 57-68-1Z" fill="#ffcb06" stroke="none" />
+<path d="m322 329 16 5-5 54-17-5Z" fill="#d17800" stroke="none" />
+<path d="m253 331 67-2" fill="none" stroke="#fff18a" stroke-width="8" />
+<path d="m644 346 71-4 63 20-6 65-12 4-48-15-72-2-9-8 6-51Z" fill="#db8500" />
+<path d="m644 351 76-2-6 57-77 0Z" fill="#ffca09" stroke="none" />
+<path d="m646 352 70-1" fill="none" stroke="#fff08b" stroke-width="8" />
+<path d="m720 353 51 14-5 53-52-14Z" fill="#c97500" stroke="none" />
+<path d="m220 683 23-7 48 8 20 4-5 62-16 9-69-5-12-7 5-56Z" fill="#db8400" />
+<path d="m222 690 67 5-7 52-65-6Z" fill="#ffcb09" stroke="none" />
+<path d="m225 688 60 6" fill="none" stroke="#fff184" stroke-width="8" />
+<path d="m611 716 65 3 51-13 20 8-5 65-63 17-70-6-10-7 7-58Z" fill="#d58000" />
+<path d="m613 721 73 6-8 56-72-5Z" fill="#ffcc0b" stroke="none" />
+<path d="m616 720 66 6" fill="none" stroke="#fff18a" stroke-width="8" />
+<path d="m687 727 53-12-5 59-56 15Z" fill="#c67500" stroke="none" />
+</g>
+<g id="mirror-bottom-ornament">
+<path d="m265 799 68 6 9 11-1 11 42 4 21-27 73 7 23 30 49 5 1-20 11-8 66 8 4 57-8 17-23 22-47-7-2-19-61-5-12 16-15 11-62-6-20-31-58-7-10 17-18 2-51-8-22-22 6-68Z" fill="#ffbd00" />
+<path d="m265 806 63 5-3 19 60 6 23-26 61 7 23 27 61 8 6-25 64 5" fill="none" stroke="#fff181" stroke-width="7" />
+<path d="m287 833 14 3-2 26-30-4-8-4 4-45M324 878l61 7 16 30 61 8 19-14 6-15 63 6M594 859l-13-2-3 30 30 6 15-9" fill="none" stroke="#a34a00" stroke-width="8" />
+<path d="m405 841 13-13 32 3 14 14-2 42-15 17-32-5-13-16Z" fill="#f32a2e" stroke-width="6" />
+<path d="m409 844 12-11 26 3-5 13Z" fill="#ff9390" stroke="none" />
+<path d="m408 847 10 1-4 32-8 3Z" fill="#ff605c" stroke="none" />
+<path d="m443 849 16-3-3 39-14-6Z" fill="#da0d16" stroke="none" />
+<path d="m407 884 8-5 27 1 14 7-11 12-28-5Z" fill="#bb090c" stroke="none" />
+</g>
+</g>
+</svg>
