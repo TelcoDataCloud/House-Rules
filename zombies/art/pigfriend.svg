@@ -1,0 +1,88 @@
+<!-- pigfriend: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Happy pink pig holding a truffle</title>
+<defs>
+<linearGradient id="pigfriend-pink" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#ffacc4" /><stop offset="1" stop-color="#fa789b" />
+</linearGradient>
+<linearGradient id="pigfriend-body-pink" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#fa7b9d" /><stop offset="1" stop-color="#ed587e" />
+</linearGradient>
+<linearGradient id="pigfriend-brown" x1="0" y1="0" x2="0.7" y2="1">
+<stop stop-color="#965b39" /><stop offset="1" stop-color="#4f2918" />
+</linearGradient>
+</defs>
+
+<g stroke="#080908" stroke-width="19" stroke-linejoin="round" stroke-linecap="round">
+<g id="pigfriend-tail">
+<path d="M842 437L848 350Q849 339 862 338L975 328Q982 327 988 334L1007 355L1009 464Q1009 474 998 478L892 511L883 464L951 436L950 388L904 392L903 453Z" fill="#f884a5" />
+<path d="M877 365L980 355L981 450L903 475L903 453L951 436L950 388L904 392L903 437L875 444Z" fill="#f46590" stroke="none" />
+<path d="M981 340L998 359L999 463L911 491L911 470L981 450Z" fill="#db4c75" stroke="none" />
+</g>
+<g id="pigfriend-rear-legs">
+<path d="M162 550L239 584L224 819L207 973L111 970Q104 970 107 956L127 749Z" fill="#ef668d" />
+<path d="M128 749L209 821L217 750L155 684Z" fill="#ca365c" stroke="none" />
+<path d="M120 901L198 911L197 969L115 960Z" fill="#743030" stroke="none" />
+<path d="M721 734L866 693L912 957Q915 968 900 971L821 978L763 968Q754 968 753 954Z" fill="#f57a9b" />
+<path d="M732 810L793 782L811 910L755 900Z" fill="#c84468" stroke="none" />
+<path d="M755 900L811 910L902 900L909 959L821 969L762 958Z" fill="#803332" stroke="none" />
+<path d="M755 900L811 910L821 969L762 958Z" fill="#602727" stroke="none" />
+</g>
+<g id="pigfriend-body">
+<path d="M166 548L738 385L899 451L903 648L883 741L896 796L721 825L716 1002Q716 1014 704 1014L560 1014Q544 1010 527 992L522 853L399 853L393 992Q374 1010 353 1014L211 1014Q196 1014 197 1000L209 763L144 710Z" fill="url(#pigfriend-body-pink)" />
+<path d="M737 393L893 455L785 498L738 489Z" fill="#ffa5bf" stroke="none" />
+<path d="M738 489L893 463L893 649L724 742Z" fill="#f97b9d" stroke="none" />
+<path d="M724 742L893 649L875 741L886 779L725 818Z" fill="#dc4d75" stroke="none" />
+<path d="M209 740Q456 749 721 740L708 772L556 800L529 850L391 850L365 799L218 770Z" fill="#ca4067" stroke="none" />
+<path d="M219 772L363 799L356 934L207 934Z" fill="url(#pigfriend-pink)" stroke="none" />
+<path d="M363 799L390 809L389 918L356 941Z" fill="#db4c70" stroke="none" />
+<path d="M559 799L707 772L712 934L565 935Z" fill="url(#pigfriend-pink)" stroke="none" />
+<path d="M532 815L559 801L565 935L534 921Z" fill="#e95e81" stroke="none" />
+<path d="M207 933L356 935L386 919L385 986L352 1004L207 1004Z" fill="#853333" stroke="none" />
+<path d="M356 935L386 919L385 986L352 1004Z" fill="#612726" stroke="none" />
+<path d="M534 921L565 935L712 933L712 1004L558 1004L536 985Z" fill="#873534" stroke="none" />
+<path d="M534 921L565 935L567 1004L558 1004L536 985Z" fill="#662827" stroke="none" />
+<path d="M375 781L390 781L408 842L392 842Z M533 781L548 781L531 843L516 843Z" fill="#b92e53" stroke="none" />
+</g>
+<g id="pigfriend-head">
+<path d="M171 110L284 53L645 53L769 139L777 274L777 542L739 598Q734 608 721 608L179 608Q166 608 159 595L129 540L131 266Z" fill="url(#pigfriend-pink)" />
+<path d="M283 63L636 63L692 150L222 150Z" fill="#ffb6cc" stroke="none" />
+<path d="M140 282L171 269L168 590L138 537Z" fill="#dd527a" stroke="none" />
+<path d="M740 272L767 273L767 539L734 588L740 329Z" fill="#dd527a" stroke="none" />
+<path d="M140 302L169 290L169 335L151 327L140 336Z M740 298L767 287L767 335L754 326L740 333Z" fill="#ce456e" stroke="none" />
+</g>
+<g id="pigfriend-ears">
+<path d="M207 260L59 310Q54 312 49 302L15 244Q11 236 16 224L89 52Q92 44 102 42L249 12Q258 9 265 18L320 97L264 123Z" fill="url(#pigfriend-pink)" />
+<path d="M254 22L174 203L200 256L211 250L263 113L309 97Z" fill="#e4557e" stroke="none" />
+<path d="M24 242L174 203L200 256L61 300Z" fill="#c33d62" stroke="none" />
+<path d="M264 118L207 260" fill="none" stroke-width="17" />
+<path d="M614 98L668 17Q674 9 684 12L827 43Q835 45 839 54L906 213Q910 222 905 232L874 292Q871 299 860 296L723 263Q714 261 711 249L665 119Z" fill="url(#pigfriend-pink)" />
+<path d="M674 24L746 199L720 250L672 113L624 97Z" fill="#ee6088" stroke="none" />
+<path d="M746 199L896 225L865 287L721 252Z" fill="#c74065" stroke="none" />
+<path d="M666 118L711 249" fill="none" stroke-width="17" />
+</g>
+<g id="pigfriend-face">
+<path d="M238 319C255 246 344 241 363 313 M556 312C578 235 667 241 684 316" fill="none" stroke="#000" stroke-width="32" />
+<rect x="193" y="361" width="85" height="69" rx="9" fill="#f2517e" stroke="none" />
+<rect x="642" y="360" width="85" height="68" rx="9" fill="#f2517e" stroke="none" />
+<path d="M279 459Q457 563 638 456Q619 594 461 601Q306 590 279 459Z" fill="#b71f48" stroke-width="18" />
+<path d="M306 526Q343 499 378 526L539 524Q582 501 612 526Q556 591 459 591Q366 586 306 526Z" fill="#ed3b69" stroke="none" />
+<path d="M354 321Q363 317 377 317L550 317Q563 317 572 327L581 337Q587 342 587 355L587 454Q587 471 572 481Q566 487 551 487L357 487Q343 487 334 474Q328 467 328 452L330 350Q330 340 339 332Z" fill="#ff91b1" stroke-width="14" />
+<path d="M349 343L349 448Q349 462 361 463L576 463Q572 478 557 478L357 478Q337 471 337 453L338 352Z" fill="#ec608b" stroke="none" />
+<path d="M350 338L575 338L564 327L366 327Z" fill="#ffc0d2" stroke="none" />
+<rect x="392" y="370" width="39" height="62" rx="9" fill="#802d37" stroke="none" />
+<rect x="493" y="370" width="39" height="62" rx="9" fill="#802d37" stroke="none" />
+</g>
+<g id="pigfriend-truffle">
+<path d="M405 628L493 645L486 724Q486 741 468 744Q415 751 390 732Q382 726 386 710Z" fill="#efbd84" stroke-width="17" />
+<path d="M405 651L401 678Q424 674 449 690L444 731L437 737Q472 739 478 728L484 663Z" fill="#dda46c" stroke="none" />
+<path d="M400 678Q425 676 449 690L442 725L436 735Q407 733 396 723Q391 718 397 701Z" fill="#ffdcac" stroke="none" />
+<path d="M389 509Q401 487 426 487L485 487Q513 485 535 511Q564 508 581 538Q603 558 606 584Q618 617 594 651Q584 668 562 671Q544 693 508 685Q480 684 461 668Q441 654 413 663Q372 677 342 658Q305 644 304 610Q301 579 328 551Q342 515 389 509Z" fill="url(#pigfriend-brown)" stroke-width="17" />
+<path d="M389 518Q405 496 427 496L467 496Q492 514 476 528Q469 538 452 535Q427 530 417 551Q412 582 385 583Q364 582 345 559Q343 532 363 525Z" fill="#a36544" stroke="none" />
+<path d="M333 568Q351 576 356 588Q340 599 345 620L331 629Q313 623 313 603Q315 580 333 568Z" fill="#8b5236" stroke="none" />
+<path d="M443 594Q450 588 469 587Q482 555 509 564Q532 568 540 590Q531 605 512 601Q493 599 481 622Q468 644 438 634Q431 612 443 594Z" fill="#9d6040" stroke="none" />
+<path d="M537 521Q560 522 568 546L577 568Q591 573 596 595L594 617L574 621Q565 605 566 592L535 586Q524 573 532 559Q536 547 529 539Z" fill="#815034" stroke="none" />
+<path d="M347 632Q366 611 382 620Q394 638 412 636L439 630L464 644Q490 659 516 650Q545 640 547 619L544 595Q565 585 570 614Q577 638 562 654Q538 682 506 675Q480 674 460 660Q436 648 410 657Q372 667 347 649L332 639Z" fill="#4c2818" stroke="none" />
+</g>
+</g>
+</svg>
