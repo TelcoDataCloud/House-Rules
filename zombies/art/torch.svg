@@ -1,1 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="17" y="16" width="6" height="22" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 2 q8 6 4 14 q-4 4 -8 0 q-4 -8 4 -14z" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 7 q3 3 1 7 q-2 1 -3 0 q-1 -4 2 -7z" fill="var(--button)"/></svg>
+<!-- torch: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Chunky wooden village torch</title>
+
+<g stroke="#080807" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+<g id="torch-post">
+<path d="M385 728L511 797 639 729V941L511 1013 385 942Z" fill="#bb6a22" />
+<path d="M511 797L639 729V941L511 1013Z" fill="#764014" stroke="none" />
+<path d="M449 765L466 775V985L449 975Z" fill="#a45518" stroke="none" />
+<path d="M574 763L589 755V969L574 978Z" fill="#854818" stroke="none" />
+<path d="M385 728L511 797 639 729V941L511 1013 385 942Z" fill="none" />
+</g>
+<g id="torch-lower-iron-collar">
+<path d="M304 625L512 736 719 625V703L511 819 304 705Z" fill="#757575" />
+<path d="M511 736L719 625V703L511 819Z" fill="#525353" stroke="none" />
+<path d="M304 625L512 736 719 625V703L511 819 304 705Z" fill="none" />
+</g>
+<g id="torch-wooden-brazier">
+<path d="M230 465L511 605 789 465 776 607 511 753 245 609Z" fill="#ab5616" />
+<path d="M511 605L789 465 776 607 511 753Z" fill="#774010" stroke="none" />
+<path d="M253 493L448 592V662L260 560Z" fill="#c36a1b" stroke="none" />
+<path d="M574 581L713 510 710 585 574 662Z" fill="#ad5817" stroke="none" />
+<path d="M287 509L305 518 313 638 295 628Z" fill="#81420f" stroke="none" />
+<path d="M448 574L466 583V728L448 718Z" fill="#95501a" stroke="none" />
+<path d="M713 505L731 496 727 634 709 644Z" fill="#62380f" stroke="none" />
+<path d="M230 465L511 605 789 465 776 607 511 753 245 609Z" fill="none" />
+<path d="M210 381L509 205 814 380 511 556Z" fill="#e47b24" />
+<path d="M282 421L511 289 741 419 511 549Z" fill="#613313" />
+</g>
+<g id="torch-flame" stroke-linejoin="miter">
+<path d="M341 402C361 358 333 342 308 324 251 284 274 188 328 148 339 139 351 133 365 131 361 161 369 188 378 197 401 157 433 143 459 124 498 95 494 47 476 10 552 27 604 62 623 115 643 168 615 205 610 236 637 223 659 218 681 197 713 237 730 290 707 338 697 360 679 372 681 398L511 496Z" fill="#ff5100" />
+<path d="M336 332C320 298 325 261 349 233 358 263 373 287 396 303 400 243 436 209 480 188 516 172 541 153 550 124 572 174 553 196 549 234 542 273 559 305 583 332 597 310 621 294 650 286 658 331 628 350 630 389 630 404 633 411 635 420L511 490 349 400C359 372 347 350 336 332Z" fill="#ffc900" stroke="none" />
+<path d="M397 428C382 402 374 372 380 337 393 356 408 370 428 379 414 316 453 261 508 243 484 311 517 337 540 375 563 412 558 446 532 472L509 489Z" fill="#fff14c" stroke="none" />
+</g>
+<g id="torch-top-rim">
+<path d="M211 381L263 351 327 389 281 424V508L210 461Z" fill="#77716f" />
+<path d="M211 381L263 351 327 389 281 424Z" fill="#aaa09d" stroke="none" />
+<path d="M281 424L334 393 511 489 440 514V600L281 509Z" fill="#a7500d" />
+<path d="M281 424L334 393 511 489 440 514Z" fill="#e37b26" stroke="none" />
+<path d="M281 424L334 393 511 489 440 514V600L281 509Z" fill="none" />
+<path d="M689 390L758 351 814 381V459L740 503 740 420Z" fill="#50504f" />
+<path d="M689 390L758 351 814 381 740 420Z" fill="#a69b96" stroke="none" />
+<path d="M689 390L758 351 814 381V459L740 503 740 420Z" fill="none" />
+<path d="M511 489L686 391 741 420V506L581 597 581 515Z" fill="#86420e" />
+<path d="M511 489L686 391 741 420 581 515Z" fill="#e47a24" stroke="none" />
+<path d="M511 489L686 391 741 420V506L581 597 581 515Z" fill="none" />
+<path d="M440 514L511 476 581 514V597L511 636 440 596Z" fill="#807b79" />
+<path d="M511 550L581 514V597L511 636Z" fill="#575858" stroke="none" />
+<path d="M440 514L511 476 581 514 511 550Z" fill="#b0a5a1" stroke="none" />
+<path d="M440 514L511 476 581 514V597L511 636 440 596Z" fill="none" />
+</g>
+</g>
+</svg>

@@ -1,1 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="14" width="32" height="12" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 14 v12 M24 14 v12" stroke="var(--wood-dark)" stroke-width="2"/></svg>
+<!-- plank: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Stack of three wooden planks</title>
+
+<g stroke="#050504" stroke-width="29" stroke-linejoin="round" stroke-linecap="round">
+<g id="plank-bottom-plank">
+<path d="M68 746 467 486 994 589 994 740 606 1010 68 901Z" fill="#f59c24" />
+<path d="M68 746 467 486 994 589 606 876Z" fill="#ffb135" stroke="none" />
+<path d="m130 759 131-84 62 13 155-105 64 13-205 143-65-14-90 47Z" fill="#bc6918" stroke="none" />
+<path d="m399 824 180-123 62 12 153-104 66 13-205 143-61-14-135 89Z" fill="#bc6918" stroke="none" />
+<path d="M606 876 994 589 994 740 606 1010Z" fill="#91430c" stroke="none" />
+<path d="m606 876 388-287v27L619 895v105l-13 10Z" fill="#713207" stroke="none" />
+<path d="m68 746 538 130v24L68 769Z" fill="#a5540c" stroke="none" />
+<path d="m68 829 135 32 12-28 246 56 8 32 137 32v37l-170-38-9-32-178-40-12 30-169-40Z" fill="#b46014" stroke="none" />
+<path d="M68 746 467 486 994 589 994 740 606 1010 68 901Z" fill="none" />
+</g>
+<g id="plank-middle-plank">
+<path d="M35 540 468 279 988 382 988 523 547 855 35 705Z" fill="#ffa52b" />
+<path d="M35 540 468 279 988 382 547 685Z" fill="#ffb437" stroke="none" />
+<path d="m143 570 159-102 61 14 175-119 64 13-224 154-62-15-108 73Z" fill="#bd6c1c" stroke="none" />
+<path d="m374 629 178-119 52 10 156-105 72 14-217 150-52-12-123 83Z" fill="#bd6c1c" stroke="none" />
+<path d="M547 685 988 382 988 523 547 855Z" fill="#95470e" stroke="none" />
+<path d="m547 685 441-303v26L562 701v141l-15 13Z" fill="#723307" stroke="none" />
+<path d="m35 540 512 145v23L35 567Z" fill="#a6560e" stroke="none" />
+<path d="m35 645 142 37 15-31 193 50 9 34 153 40v38l-180-48-9-33-137-34-14 29-172-43Z" fill="#b56517" stroke="none" />
+<path d="M35 540 468 279 988 382 988 523 547 855 35 705Z" fill="none" />
+</g>
+<g id="plank-top-plank">
+<path d="M70 289 577 27 987 143 987 296 554 618 70 463Z" fill="#ffa62b" />
+<path d="M70 296 577 27 987 143 566 444Z" fill="#ffb337" stroke="none" />
+<path d="m168 320 173-100 62 8 125-68-42-13L643 59l53 15-117 69 50 11-197 109-62-8-135 79Z" fill="#b96a19" stroke="none" />
+<path d="m366 373 176-101 54 10 93-61-35-15 154-101 53 15-129 87 46 12-152 100-46-7-135 84Z" fill="#b96a19" stroke="none" />
+<path d="M566 444 987 143 987 296 554 618 554 451Z" fill="#92440c" stroke="none" />
+<path d="m566 432 421-289v29L580 458v141l-26 19V451Z" fill="#703006" stroke="none" />
+<path d="m70 294 496 138-12 21L70 315Z" fill="#a3540d" stroke="none" />
+<path d="m70 373 226 61 7 35 104 30 14-29 133 40v41l-112-34-14 29-159-45-8-35-191-49Z" fill="#b36416" stroke="none" />
+<path d="M70 289 577 27 987 143 987 296 554 618 70 463Z" fill="none" />
+</g>
+</g>
+</svg>

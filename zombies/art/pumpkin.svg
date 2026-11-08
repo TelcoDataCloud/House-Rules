@@ -1,1 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="14" ry="12" fill="var(--pumpkin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 10 v24 M12 12 q-1 10 0 20 M28 12 q1 10 0 20" stroke="var(--ink)" stroke-width="1.5" fill="none"/><rect x="18" y="4" width="4" height="7" fill="var(--carrot-leaf)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- pumpkin: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Voxel pumpkin projectile</title>
+
+<g stroke="#050503" stroke-width="23" stroke-linejoin="round">
+<path d="M418 216 298 234 278 280 235 278 158 320 156 367 92 411 81 495 44 522 46 742 85 768 94 840 161 887 166 919 304 985 350 970 369 1000 576 1012 647 974 694 987 840 925 848 881 928 837 935 767 978 740 979 521 938 494 926 411 859 371 856 322 777 278 733 280 714 234 589 216Z" fill="#ff8300" />
+</g>
+<g>
+<path d="m298 244 117-18-1 58-52 45-80-42Z" fill="#ffbc14" />
+<path d="m304 244 57 35 2 51-81-43Z" fill="#ff7400" />
+<path d="m598 228 106 16-57 42-51 11Z" fill="#ffbc13" />
+<path d="m704 244 19 43-77 47-43-35Z" fill="#dc4800" />
+<path d="m169 327 68-38 43 2 77 43-89 38Z" fill="#ffbb10" />
+<path d="m169 327 87 27-43 70-46-22Z" fill="#ff7900" />
+<path d="m650 340 85-49 40-2 70 39-88 41Z" fill="#ffb710" />
+<path d="m757 355 88-27 4 56-44 39Z" fill="#df4a00" />
+<path d="m103 418 55-35 54 30-47 58Z" fill="#ffbf19" />
+<path d="m103 418 62 40-12 91-61-38Z" fill="#ff9200" />
+<path d="m814 411 42-29 61 36-68 47Z" fill="#ffc020" />
+<path d="m849 458 68-40 10 92-73 46Z" fill="#e84c00" />
+<path d="m55 526 38-24 62 36-13 27Z" fill="#ff9c0a" />
+<path d="m55 526 87 38 12 220-97-49Z" fill="#ff7100" />
+<path d="m854 547 74-38 39 18-101 39Z" fill="#ff8508" />
+<path d="m866 563 101-36v205l-102 51Z" fill="#df4800" />
+<path d="m96 755 58 28 22 99-71-49Z" fill="#bc3700" />
+<path d="m864 781 59-28-7 77-81 52Z" fill="#af3200" />
+<path d="m264 357 65-20 104 29-71 117-53 30-135-28Z" fill="#ff9800" />
+<path d="m234 427 122 32-47 54-126-32Z" fill="#ffbd18" />
+<path d="m184 481 125 32-5 350-132-47Z" fill="#ff7900" />
+<path d="m172 815 132 45 22 104-21 8-123-61Z" fill="#e54a00" />
+<path d="m580 367 97-29 77 28 58 82-152 36Z" fill="#ff9d02" />
+<path d="m640 440 129-37 34 36-137 43Z" fill="#ffc022" />
+<path d="m666 479 137-40 32 129 1 246-146 55-19-249Z" fill="#ff7800" />
+<path d="m690 866 145-54-13 103-129 60-27-8Z" fill="#e64a00" />
+<path d="m430 375 149 4 47 74-51 77-216-12 9-36Z" fill="#ff9b00" />
+<path d="m385 460 224 17-35 54-215-13Z" fill="#ffbd18" />
+<path d="m359 517 215 13 13 386-242-12-9-296Z" fill="#ff7800" />
+<path d="m574 530 52-77 29 105 20 62-9 232-92 63Z" fill="#df4800" />
+<path d="m345 902 229 13v85l-198-13-16-27Z" fill="#df4900" />
+<path d="m574 915 85-61-17 108-68 38Z" fill="#b93300" />
+</g>
+<g fill="#a43200">
+<path d="m353 331-29-4-68 27-92 104-22 105v218l12 99 22 31-3-99V573l12-91 88-110 57-26 28 6Z" />
+<path d="m426 364 17 24-74 97-25 116v284l4 65 13 20-14-13-41 15-7-113V606l9-94Z" />
+<path d="m581 367-8 25 50 63 17 50 18 105v245l-16 107 30 8 18-104V618l-24-139-32-52Z" />
+<path d="m638 340 39-13 88 28 50 65 33 38 9 80 10 26v217l-17 99-21 37 6-105V573l-31-135-53-66-75-27-42 10Z" />
+</g>
+<g stroke="#050503" stroke-width="23" stroke-linejoin="round">
+<path d="m365 285 65-18 127-6 68 21v75l-82 35-178-30Z" fill="#379900" />
+</g>
+<path d="m376 293 78-22 160 21-72 30Z" fill="#79df00" />
+<path d="m376 293 166 29v59l-166-29Z" fill="#399b00" />
+<path d="m542 322 72-30v58l-72 31Z" fill="#155500" />
+<path d="m418 279 3-133 93-110L630 12l90 51-12 89-105 25-15 27-2 85" fill="#369700" stroke="#050503" stroke-width="23" stroke-linejoin="round" />
+<path d="m431 151 89-106 108-22 80 44-106 25-79 98Z" fill="#50b800" />
+<path d="m520 45 108-22 80 44-106 25Z" fill="#8be600" />
+<path d="m431 151 92 39-5 115-93-15Z" fill="#329400" />
+<path d="m523 190 79-98 106-25-10 76-105 25-16 35-3 87-56 15Z" fill="#155300" />
+</svg>
