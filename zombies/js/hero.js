@@ -15,6 +15,7 @@ import { whackAt, cure } from './zombies.js';
 import { burst } from './fx.js';
 import { say } from './voice.js';
 import { drawHearts } from './hud.js';
+import { puddleAt } from './gross.js';
 
 export const SPEED = 5;   // squares a second
 const keys = new Set();
@@ -73,6 +74,8 @@ export function update(dt) {
   if (len) {
     dx /= len; dy /= len;
     let speed = SPEED;
+    if (h.sticky > 0) { h.sticky -= dt; speed *= 0.45; }
+    if (puddleAt(h.x, h.y)) { speed *= 1.8; if (!h.slid) { h.slid = true; burst(h.x, h.y - 0.8, 'whoa'); } } else h.slid = false;
     if (state.gasAt && state.gasAt.t > 0 && Math.hypot(state.gasAt.x - h.x, state.gasAt.y - h.y) < 2) speed *= 0.5;
     const nx = h.x + dx * speed * dt, ny = h.y + dy * speed * dt;
     if (!blocked(Math.floor(nx), Math.floor(h.y))) h.x = Math.max(0.5, Math.min(COLS - 0.5, nx));

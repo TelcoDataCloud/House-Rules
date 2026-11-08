@@ -14,6 +14,7 @@ const NAMES = [
   'honey', 'scare', 'log', 'bed', 'farm', 'brewery', 'well', 'catapult', 'bell',
   'garlic', 'pumpkin', 'bucket', 'carrot', 'plank', 'heart', 'villager',
   'zombieicon', 'tree', 'grass', 'woods',
+  'bogey', 'eyeball', 'eye', 'loosebits', 'arm', 'vomit', 'puddle', 'burplord', 'bogeyblob',
 ];
 
 export async function loadArt() {
