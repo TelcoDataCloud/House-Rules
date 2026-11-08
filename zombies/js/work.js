@@ -17,7 +17,7 @@
 import { state, TILE, COLS, ROWS } from './state.js';
 import { JOBS } from '../data/villagers.js';
 import { DIFFICULTY } from '../data/difficulty.js';
-import { thingAt } from './grid.js';
+import { thingAt, eastBank } from './grid.js';
 
 // Villagers only mind walls; they squeeze past everything else
 function wallAt(col, row) { const t = thingAt(col, row); return !!(t && t.does === 'block'); }
@@ -36,6 +36,7 @@ const WORK = {
   farmer:  { at: 'farm',    makes: 'carrots', amount: 2, verb: 'picked' },
   builder: { at: 'tree',    makes: 'planks',  amount: 3, verb: 'chopped' },
   brewer:  { at: 'brewery', makes: 'potion',  amount: 1, verb: 'cooked', trips: 1 },
+  miner:   { at: 'mine',    makes: 'stone',   amount: 2, verb: 'dug' },
   chicken: { at: 'farm',    makes: 'carrots', amount: 1, verb: 'scratched up' },
   cow:     { at: 'brewery', makes: 'potion',  amount: 1, verb: 'milked', cheap: true, trips: 1 },
   pig:     { at: 'tree',    makes: 'potion',  amount: 1, verb: 'snuffled up', free: true, trips: 1 },
@@ -72,6 +73,7 @@ function workplace(v) {
     let best = null, bd = 1e9;
     document.querySelectorAll('#ground .tree').forEach((t) => {
       const x = Number(t.dataset.col) + 0.5, y = Number(t.dataset.row) + 0.5;
+      if (eastBank(x, y)) return;   // the far bank is over the stream
       const d = Math.hypot(x - v.x, y - v.y);
       if (d < bd) { bd = d; best = { x, y: y + 0.4, thing: null }; }
     });
@@ -83,7 +85,7 @@ function workplace(v) {
     if (t.worker && t.worker !== v) continue;     // someone else is on it
     const d = Math.hypot(t.col + 0.5 - v.x, t.row + 0.5 - v.y);
     // stand just below a building rather than inside it
-    const standY = (w.at === 'brewery') ? t.row + 1.3 : t.row + 0.5;
+    const standY = (w.at === 'brewery' || w.at === 'mine') ? t.row + 1.3 : t.row + 0.5;
     if (d < bd) { bd = d; best = { x: t.col + 0.5, y: standY, thing: t }; }
   }
   return best;

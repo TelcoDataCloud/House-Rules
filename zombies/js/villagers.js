@@ -16,6 +16,7 @@ export function startVillage() {
   state.planks = POCKETS.planks;
   state.carrots = POCKETS.carrots;
   state.potion = POCKETS.potion;
+  state.stone = POCKETS.stone || 0;
   START.forEach((job) => addVillager(job));
 }
 
@@ -53,7 +54,8 @@ export function placeAtWork(v) {
 
 // Who gets which bed: one each, in order, the rest have none
 export function assignBeds() {
-  const beds = [...state.things.values()].filter((t) => t.does === 'bed');
+  const beds = [];
+  for (const t of state.things.values()) if (t.does === 'bed') for (let i = 0; i < (t.data.holds || 1); i++) beds.push(t);
   state.villagers.forEach((v, i) => { v.bed = beds[i] || null; });
   return state.villagers.filter((v) => !v.bed);
 }
@@ -61,10 +63,9 @@ export function assignBeds() {
 // At night everyone finds a bed
 export function sendToBed() {
   assignBeds();
-  const beds = [...state.things.values()].filter((t) => t.does === 'bed');
   state.villagers.forEach((v, i) => {
-    const bed = beds[i];
-    if (bed) { v.x = bed.col + 0.5; v.y = bed.row + 0.5; }
+    const bed = v.bed;
+    if (bed) { v.x = bed.col + 0.3 + (i % 2) * 0.4; v.y = bed.row + 0.7; }
     else { v.x = 12 + (i % 3) * 0.6; v.y = 9 + Math.floor(i / 3) * 0.5; }
     v.el.classList.remove('walking');
     draw(v);

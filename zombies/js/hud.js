@@ -18,6 +18,7 @@ export function drawCounts() {
     `<span id="count-planks">${icon('plank')} Planks ${state.planks}</span>` +
     `<span id="count-carrots">${icon('carrot')} Carrots ${state.carrots}</span>` +
     `<span id="count-potion">${icon('bucket')} Potion ${state.potion}</span>` +
+    (state.stone || [...state.things.values()].some((t) => t.does === 'mine') ? `<span id="count-stone">${icon('stone')} Stone ${state.stone}</span>` : '') +
     (state.phase === 'night' ? `<span>${icon('zombieicon')} Zombies ${state.zombies.filter((z) => !z.pit).length}</span>` : '');
   const pc = document.getElementById('btn-potion-count');
   if (pc) pc.textContent = state.potion;
@@ -116,7 +117,8 @@ export function buildBar(pickHandler) {
     b.dataset.id = id;
     b.setAttribute('aria-pressed', 'false');
     b.title = t.what || '';
-    b.innerHTML = `${icon('' + t.art, 44)}<span>${t.name}</span><span class="cost">${t.planks} ${icon('plank', 16)}${t.crew ? ' ' + t.crew + icon('villager', 16) : ''}</span>`;
+    const cost = (t.planks ? `${t.planks} ${icon('plank', 16)}` : '') + (t.stone ? ` ${t.stone} ${icon('stone', 16)}` : '') + (t.crew ? ' ' + t.crew + icon('villager', 16) : '');
+    b.innerHTML = `${icon('' + t.art, 44)}<span>${t.name}</span><span class="cost">${cost}</span>`;
     b.addEventListener('click', () => onPick(id));
     bar.appendChild(b);
   });
@@ -126,7 +128,7 @@ export function drawBar() {
   document.querySelectorAll('#bar .thing').forEach((b) => {
     const t = TRAPS[b.dataset.id];
     if (!t) return;
-    b.classList.toggle('cannot', state.planks < t.planks);
+    b.classList.toggle('cannot', state.planks < t.planks || state.stone < (t.stone || 0));
     b.setAttribute('aria-pressed', state.picked === b.dataset.id ? 'true' : 'false');
   });
 }

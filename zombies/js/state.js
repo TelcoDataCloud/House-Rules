@@ -18,6 +18,7 @@ export const state = {
   planks: 0,
   carrots: 0,
   potion: 0,
+  stone: 0,
   villagers: [],        // { id, job, col, row, x, y, el, taken }
   things: new Map(),    // "col,row" -> { kind, col, row, el, used, held: [], crew }
   zombies: [],          // { id, kind, x, y, el, ... }
@@ -35,7 +36,7 @@ export function key(col, row) { return col + ',' + row; }
 export function fresh() {
   state.phase = 'title';
   state.night = 1;
-  state.planks = 0; state.carrots = 0; state.potion = 0;
+  state.planks = 0; state.carrots = 0; state.potion = 0; state.stone = 0;
   state.villagers = [];
   state.things = new Map();
   state.zombies = [];

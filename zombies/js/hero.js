@@ -17,6 +17,7 @@ import { say } from './voice.js';
 import { drawHearts } from './hud.js';
 import { puddleAt } from './gross.js';
 import { ringBell } from './hard.js';
+import { viaBridge } from './zombies.js';
 
 export const SPEED = 5;   // squares a second
 const keys = new Set();
@@ -70,7 +71,8 @@ export function update(dt) {
   if (keys.has('a') || keys.has('arrowleft')) dx -= 1;
   if (keys.has('d') || keys.has('arrowright')) dx += 1;
   if (!dx && !dy && goal) {
-    dx = goal.x - h.x; dy = goal.y - h.y;
+    const g = viaBridge(h, goal);
+    dx = g.x - h.x; dy = g.y - h.y;
     if (Math.hypot(dx, dy) < 0.15) { goal = null; dx = dy = 0; }
   }
   const len = Math.hypot(dx, dy);
