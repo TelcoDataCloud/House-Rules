@@ -1,13 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--zombie-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="12" y="7" width="6" height="6" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="23" y="6" width="5" height="7" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="15" cy="10" r="1.5" fill="var(--ink)"/><circle cx="26" cy="9" r="1.5" fill="var(--ink)"/><path d="M13 15 h12" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<!-- snot: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="snot-skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#c5ee20" /><stop offset="1" stop-color="#80ad0e" /></linearGradient>
+<linearGradient id="snot-shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#29c4d3" /><stop offset="1" stop-color="#1095aa" /></linearGradient>
+<linearGradient id="snot-pants" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a22aaf" /><stop offset="1" stop-color="#651d81" /></linearGradient>
+<linearGradient id="snot-metal" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#858d92" /><stop offset=".5" stop-color="#c4c9cd" /><stop offset="1" stop-color="#68757a" /></linearGradient>
+</defs>
 
-<path d="M17 15 q1 6 -2 9" stroke="var(--snot-dark)" stroke-width="3" fill="none"/><rect x="30" y="22" width="10" height="11" rx="2" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="35" cy="22" rx="5" ry="3" fill="var(--snot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-</g></svg>
+<g stroke="#080d06" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+<g id="snot-bucket">
+<path d="M76 77L337 119 276 302 235 341 80 306 19 260Z" fill="url(#snot-metal)" />
+<path d="M79 91L120 118 64 286 24 258Z" fill="#858c90" stroke="none" />
+<path d="M148 129L190 142 137 299 94 290Z" fill="#d6dadd" stroke="none" />
+<path d="M84 67C154 81 256 104 337 113L323 154C257 177 125 133 72 88Z" fill="#9ea7a9" />
+<path d="M84 72C146 111 250 147 325 132" fill="none" stroke="#e5e7e7" stroke-width="14" />
+<path d="M34 191C7 185 18 155 34 136 48 118 35 93 51 65 66 36 91 24 126 34 169-5 216 1 245 35 281 27 307 40 323 61 353 64 371 91 362 113L321 160C289 171 274 141 257 155 242 169 253 190 252 211 251 237 225 243 209 228 184 209 214 174 212 155 211 130 191 115 161 110 121 105 94 88 79 68 63 95 64 125 61 153 59 175 53 194 34 191Z" fill="#75d600" />
+<path d="M40 173C46 139 51 126 52 98 55 70 72 51 96 48 115 41 141 47 151 63 174 34 213 38 231 61 249 49 278 51 291 72 320 64 349 86 345 104 309 118 283 112 259 127 234 141 229 171 239 198 244 214 233 228 219 217 208 204 224 171 219 148 210 115 175 103 147 101 118 90 96 75 78 64 60 82 58 116 56 140 56 160 49 181 40 173Z" fill="#a9fa00" stroke="none" />
+<path d="M106 56C131 46 145 55 156 70L132 79 109 74ZM158 76C187 52 219 67 233 89 205 104 175 99 158 76ZM238 95C266 69 299 82 313 111 306 134 287 128 274 124L253 126Z" fill="#baff0a" stroke="none" />
+<g fill="#f5ffb0" stroke="none">
+<ellipse cx="190" cy="28" rx="20" ry="7" transform="rotate(5 190 28)" />
+<ellipse cx="192" cy="77" rx="15" ry="7" />
+<ellipse cx="272" cy="103" rx="17" ry="8" />
+<ellipse cx="326" cy="84" rx="15" ry="6" transform="rotate(25 326 84)" />
+<ellipse cx="130" cy="57" rx="9" ry="4" />
+<path d="M233 56Q249 47 269 69 253 66 233 56ZM38 145Q48 129 43 155 40 170 33 166 27 161 38 145ZM234 169Q246 202 236 208 222 211 234 169Z" />
+</g>
+</g>
+<g id="snot-legs">
+<path d="M147 866L111 912 60 934 44 994 150 1016 248 995 275 924 207 875Z" fill="url(#snot-skin)" />
+<path d="M61 935L164 959 150 1010 49 990Z" fill="#83ad11" stroke="none" />
+<path d="M164 959L241 932 248 987 151 1010Z" fill="#426e06" stroke="none" />
+<path d="M115 911L155 887 185 902 203 938 164 959 63 935Z" fill="#b9e529" stroke="none" />
+<path d="M562 900L578 1005 682 1019 850 1006 838 929 775 909 751 842 646 829Z" fill="url(#snot-skin)" />
+<path d="M570 916L612 889 639 923 677 940 683 1013 582 1001Z" fill="#628b0a" stroke="none" />
+<path d="M677 940L833 929 844 1001 683 1013Z" fill="#8aaf15" stroke="none" />
+<path d="M274 714L138 817 115 875 156 866 160 915 198 900 211 931 245 922 250 937 279 936 332 869 413 804 519 820 542 942 583 916 605 850 651 902 701 844 752 864 748 844 782 849 715 712 605 670 477 687Z" fill="url(#snot-pants)" />
+<path d="M414 793L332 869 279 929 250 931 245 921 212 928 243 876 341 792 290 762 276 717Z" fill="#401253" stroke="none" />
+<path d="M364 785L519 815 546 780 578 749 491 755Z" fill="#431253" stroke="none" />
+<path d="M546 780L576 913 547 932 524 816Z" fill="#541868" stroke="none" />
+<path d="M502 711L604 675 708 716 578 749Z" fill="#92239f" stroke="none" />
+<path d="M229 788L261 829 233 854 193 840Z" fill="#b7dc20" stroke-width="9" />
+<path d="M646 750L719 731 749 791 676 813Z" fill="#b0da1b" stroke-width="9" />
+</g>
+<g id="snot-body">
+<path d="M370 397L283 367 265 391 239 377 211 347 168 334 171 268 128 249 83 272 77 291 44 305 40 380 77 398 153 491 259 519 334 507Z" fill="url(#snot-skin)" />
+<path d="M47 371L117 323 152 339 119 361 191 427 259 445 276 501 158 485 82 392Z" fill="#608c09" stroke="none" />
+<path d="M83 279L128 258 118 322 82 348Z" fill="#b0d526" stroke="none" />
+<path d="M165 281L150 278Q135 291 145 313C193 329 236 323 259 298 281 274 288 237 298 210" fill="none" stroke-width="15" />
+<path d="M164 291C203 305 229 309 249 291 272 269 278 232 292 211" fill="none" stroke="#aeb6bc" stroke-width="24" />
+<path d="M215 291Q203 305 217 317" fill="none" stroke="#48545a" stroke-width="8" />
+<path d="M282 368L369 396 417 439 614 424 692 402 748 400 759 465 685 608 657 606 648 579 618 574 605 670 570 658 570 613 536 608 493 658 471 717 439 731 430 685 297 756 300 682 237 706 307 577 326 539 250 529 290 463 240 459Z" fill="url(#snot-shirt)" />
+<path d="M370 401L340 431 349 463 284 450 249 453 282 376Z" fill="#21b7c8" stroke="none" />
+<path d="M289 463L324 467 316 532 259 526Z" fill="#117989" stroke="none" />
+<path d="M416 442L404 480 397 497 418 503 415 527 468 511 500 486 546 463 574 440Z" fill="url(#snot-skin)" stroke-width="9" />
+<path d="M417 450L413 477 455 487 508 472Z" fill="#6d9609" stroke="none" />
+<path d="M579 462C626 414 681 404 738 407L712 433 657 465 641 521 643 584 581 552 570 501 570 584 547 601 493 649 486 659 472 716 442 727 435 686 400 705 443 653 466 583 502 527Z" fill="#127b8d" stroke="none" />
+<path d="M577 463Q633 417 711 414L670 442 650 478 574 467Z" fill="#28b9cc" stroke="none" />
+<path d="M491 688L534 607 570 614 569 656 593 668 521 697Z" fill="url(#snot-skin)" stroke-width="9" />
+<path d="M535 616L520 683 496 686Z" fill="#658f0a" stroke="none" />
+</g>
+<g id="snot-outstretched-hand">
+<path d="M646 478L722 419 786 430 831 336Q870 317 909 324L935 354 937 368 981 367 1011 404 1004 444 946 453 920 476 1009 490 1005 520 982 558 911 527 889 562Q859 574 827 563L819 605 799 619 767 624 711 594 713 572 644 562Q636 521 646 478Z" fill="url(#snot-skin)" />
+<path d="M654 479L710 491 721 526 715 565 650 557Z" fill="#84aa10" stroke="none" />
+<path d="M721 526L765 486 800 505 783 524 828 545 818 604 798 616 768 618 715 591Z" fill="#91b817" stroke="none" />
+<path d="M722 528L778 550 817 539 784 522 803 501 766 485Z" fill="#c5ec39" stroke="none" />
+<path d="M780 552L777 618 800 613 815 604 822 544Z" fill="#658b09" stroke="none" />
+<path d="M785 450L809 393 833 344 858 371 928 358 922 392 881 406 867 443 887 449 859 478 830 553 789 524 807 491Z" fill="#68920b" stroke="none" />
+<path d="M837 344L906 330 927 355 858 371Z" fill="#c8eb2f" stroke="none" />
+<path d="M885 411L930 402 945 377 979 374 1003 405 942 408 917 442 943 447 916 470 905 514 883 557 845 559 863 497 888 454 874 444Z" fill="#5a8309" stroke="none" />
+<path d="M946 377L981 377 1000 401 935 399Z" fill="#c3e931" stroke="none" />
+<path d="M947 461L1002 495 995 514 920 487Z" fill="#b2d828" stroke="none" />
+<path d="M715 573L718 529 764 486M786 450L807 397 928 367M920 476L887 449 881 444 895 413 931 402 938 369M781 524L827 546 817 605" fill="none" stroke-width="11" />
+</g>
+<g id="snot-head">
+<path d="M295 187L353 112 662 23 779 354 710 406 389 460Z" fill="#527d05" />
+<path d="M353 112L662 23 779 354 448 443Z" fill="url(#snot-skin)" />
+<path d="M353 112L448 443 391 454 300 188Z" fill="#527e06" stroke="none" />
+<path d="M448 443L775 352 710 400 391 454Z" fill="#3b6504" stroke="none" />
+<path d="M379 145L471 94 497 137 401 185Z" fill="#326300" stroke="none" />
+<path d="M558 117L650 66 675 110 577 157Z" fill="#326300" stroke="none" />
+<path d="M400 183L514 142 548 242 428 272Z" fill="#fff5c4" stroke-width="9" />
+<path d="M574 156L673 116 704 205 604 237Z" fill="#fff5c4" stroke-width="9" />
+<path d="M410 183L427 258 441 266 419 180Z" fill="#f4d68d" stroke="none" />
+<path d="M584 155L605 225 616 231 595 151Z" fill="#f4d68d" stroke="none" />
+<path d="M491 200L518 192 526 218 499 226ZM638 139L663 131 671 158 647 166Z" fill="#080d06" stroke="none" />
+<path d="M444 295L530 300 605 292 696 255 715 346 616 384 455 410Z" fill="#310504" stroke-width="10" />
+<path d="M456 309L473 316 471 343 455 366Z" fill="#640d0a" stroke="none" />
+<path d="M473 296L522 299 519 333 475 333Z" fill="#fff2bb" stroke-width="5" />
+<path d="M632 280L675 262 685 298 642 314Z" fill="#fff1bd" stroke-width="6" />
+<path d="M602 349L648 334 658 371 615 386Z" fill="#fff1bd" stroke-width="7" />
+<path d="M550 356C530 332 499 337 481 354 462 368 441 396 455 418 467 438 496 434 514 420 534 404 526 387 546 386L564 374Z" fill="#ff6267" stroke-width="9" />
+<path d="M482 383C488 347 521 338 544 355 520 353 507 364 498 388L482 406Z" fill="#e54850" stroke="none" />
+<path d="M459 396C456 381 466 367 482 363 498 356 511 361 513 369 494 383 488 401 488 421 468 429 455 416 459 396Z" fill="#ff7477" stroke="none" />
+<path d="M530 235L609 216 623 268 543 289Z" fill="#7dac0d" stroke="#75a00a" stroke-width="10" />
+<path d="M545 242L563 237 572 271 553 276ZM580 232L599 227 609 259 590 267Z" fill="#081500" stroke="none" />
+</g>
+<g id="snot-snot-trail">
+<path d="M565 269C577 323 560 400 536 449 505 508 461 529 410 547 363 564 336 581 327 611 314 646 337 676 366 667 401 658 401 628 424 617 438 610 455 625 481 603 520 570 544 520 564 469 585 417 596 364 598 313L599 267C596 250 583 253 583 270L582 282Z" fill="#87f000" stroke="#187e08" stroke-width="11" />
+<path d="M570 281C582 334 556 421 536 464 512 518 471 547 420 563 378 577 353 590 344 614 331 647 355 658 375 642 387 632 389 610 410 600 431 590 450 605 473 585 512 551 541 490 557 445 577 390 589 325 587 284L590 267 587 298 579 298Z" fill="#b0ff00" stroke="none" />
+<path d="M447 571C470 551 493 536 513 513L531 495C512 532 491 561 465 578 450 589 441 580 447 571Z" fill="#f1ffad" stroke="none" />
+<ellipse cx="369" cy="601" rx="15" ry="26" transform="rotate(39 369 601)" fill="#f4ffae" stroke="none" />
+<ellipse cx="394" cy="579" rx="5" ry="4" fill="#f4ffae" stroke="none" />
+</g>
+</g>
+</svg>

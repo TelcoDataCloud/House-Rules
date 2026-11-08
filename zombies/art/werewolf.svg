@@ -1,13 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--undies)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--undies)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="15" cy="10" r="2" fill="var(--ink)"/><circle cx="25" cy="10" r="2" fill="var(--ink)"/><path d="M15 14 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-<path d="M9 2 l3 -6 l4 6 z M24 2 l3 -6 l4 6 z" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M14 15 l3 3 l3 -3 l3 3 l3 -3" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="var(--zombie-eye)"/>
-</g></svg>
+<!-- werewolf: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="werewolf-fur" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#ac5c29" /><stop offset=".55" stop-color="#88421e" /><stop offset="1" stop-color="#59290f" />
+</linearGradient>
+<linearGradient id="werewolf-gold" x1="0" y1="0" x2=".8" y2="1">
+<stop stop-color="#ffbd70" /><stop offset="1" stop-color="#f8a85f" />
+</linearGradient>
+<linearGradient id="werewolf-paw" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#bc783f" /><stop offset="1" stop-color="#9b5429" />
+</linearGradient>
+<linearGradient id="werewolf-nose" x1="0" y1="0" x2=".3" y2="1">
+<stop stop-color="#454644" /><stop offset="1" stop-color="#242625" />
+</linearGradient>
+<clipPath id="werewolf-shortClip"><path d="M262 608L651 609Q678 672 668 728Q571 746 503 820Q475 846 426 833Q399 758 239 730Q228 683 250 649Z" /></clipPath>
+</defs>
+
+<g stroke="#080907" stroke-width="12" stroke-linejoin="miter" stroke-linecap="square">
+<g id="werewolf-tail">
+<path d="M630 634L725 590L748 538L824 497L817 546L878 504L890 593L865 659L896 657L850 747L782 772L811 795Q750 816 706 812L645 789Z" fill="url(#werewolf-fur)" />
+<path d="M675 637L730 613L709 651L796 622L759 725L838 703L768 766L792 784L713 801L664 777Z" fill="#54250f" stroke="none" />
+<path d="M670 622L720 603L717 620L673 642Z" fill="#c17a42" stroke="none" />
+</g>
+<g id="werewolf-legs">
+<path d="M267 704L422 775L425 822L392 931L402 996L337 1016L157 1009Q155 964 167 940Q176 927 211 918L237 830L212 833Q231 771 267 704Z" fill="url(#werewolf-fur)" />
+<path d="M271 749L405 782L417 819L366 890L360 842L303 882L297 838L250 873L259 823L227 825Z" fill="#995023" stroke="none" />
+<path d="M489 785L637 710Q673 757 698 841L663 833L694 918Q727 923 741 943Q751 965 752 1010L564 1017L490 996L501 932L483 870L472 825Z" fill="url(#werewolf-fur)" />
+<path d="M505 795L640 746L674 797L688 828L655 824L650 881L589 841L580 887L531 852L526 869Z" fill="#a35829" stroke="none" />
+<path d="M168 942Q219 910 294 926L356 941L337 1010L158 1008Z" fill="url(#werewolf-paw)" stroke="none" />
+<path d="M172 943L218 929L284 933L337 950L355 940L293 924L229 919L190 927Z" fill="#da9453" stroke="none" />
+<path d="M210 1007Q211 966 219 946L239 931M272 1008Q274 967 282 950L302 934" fill="none" stroke-width="11" />
+<path d="M544 941Q612 914 684 926Q720 930 737 944L747 1008L569 1009Z" fill="url(#werewolf-paw)" stroke="none" />
+<path d="M546 940L571 954L624 946L690 943L733 944Q698 921 650 921Q589 921 546 940Z" fill="#d89453" stroke="none" />
+<path d="M638 1008Q636 966 628 947L608 934M704 1008Q704 965 693 945L672 932" fill="none" stroke-width="11" />
+</g>
+<g id="werewolf-body">
+<path d="M335 329L640 331L663 421L616 605L581 673L402 677L352 563L318 437Z" fill="url(#werewolf-fur)" />
+<path d="M367 376L391 411L422 397L448 428L481 404L512 427L547 404L567 426L606 410L631 392L618 472L582 482L559 588L531 618L511 656L454 657L422 600L396 581L397 484L349 471L335 424Z" fill="url(#werewolf-gold)" stroke-width="10" />
+<path d="M353 382L378 379L387 438L414 429L427 459L454 438L480 467L494 475L495 430L514 419L546 427L566 452L578 422L607 426L606 397L622 390L602 368L391 360Z" fill="#a56834" stroke="none" />
+<path d="M498 460L489 570L486 617M402 527Q443 536 491 515Q539 536 573 527M439 575Q465 580 488 572L531 575" fill="none" stroke="#ae6c37" stroke-width="9" />
+</g>
+<g id="werewolf-underpants">
+<path d="M262 608L651 609Q678 672 668 728Q571 746 503 820Q475 846 426 833Q399 758 239 730Q228 683 250 649Z" fill="#ee1b24" />
+<g clip-path="url(#werewolf-shortClip)" stroke="none">
+<path d="M237 624Q441 732 668 637L682 670Q464 742 235 659Z" fill="#b40f18" />
+<path d="M237 712Q374 718 424 786Q450 828 512 794L492 843L422 845L349 771L237 742Z" fill="#bd131a" />
+<g fill="#fffaf0">
+<ellipse cx="269" cy="689" rx="18" ry="20" />
+<ellipse cx="332" cy="716" rx="19" ry="17" />
+<circle cx="458" cy="726" r="20" />
+<circle cx="539" cy="729" r="20" />
+<ellipse cx="619" cy="719" rx="19" ry="18" />
+<ellipse cx="670" cy="685" rx="15" ry="19" />
+<circle cx="406" cy="769" r="20" />
+<circle cx="486" cy="784" r="20" />
+</g>
+<path d="M382 709Q424 754 431 821M570 710Q548 767 513 808" stroke="#a92b22" stroke-width="7" fill="none" />
+</g>
+<path d="M250 649Q450 739 663 652" fill="none" stroke-width="8" />
+<path d="M239 730Q375 748 416 810L426 833M668 728Q574 747 503 820" fill="none" stroke-width="10" />
+</g>
+<g id="werewolf-arms">
+<path d="M315 293L253 303L171 329Q153 379 148 427L177 422L180 489L211 474L243 547L227 557Q257 598 308 637L351 686L427 636L409 591L385 534L370 488L346 478L326 397" fill="url(#werewolf-fur)" />
+<path d="M178 337L203 342L172 375Z M207 316L261 310L243 327Z" fill="#c57b40" stroke="none" />
+<path d="M159 420L211 395L223 440L276 402L283 456L219 498L207 476L181 490L177 424Z" fill="#602b10" stroke="none" />
+<path d="M249 543L275 534L306 580L305 559L371 610L330 636L289 611L233 562Z" fill="#6b3012" stroke="none" />
+<path d="M275 520L336 499L356 540L298 526L297 540Z" fill="#ba6c34" stroke="none" />
+<path d="M646 292L712 287L780 309L769 318Q795 367 800 406L767 403L755 472L731 461L711 529L725 539L676 606L635 646L574 631L557 587L581 484L619 472L638 392" fill="url(#werewolf-fur)" />
+<path d="M683 304L741 311L751 343L732 325Z" fill="#c17b42" stroke="none" />
+<path d="M767 395L741 382L734 426L686 395L682 446L727 478L731 461L756 473Z" fill="#612d12" stroke="none" />
+<path d="M684 532L660 570L659 549L606 600L644 622L682 581L716 541L699 528Z" fill="#652d12" stroke="none" />
+<path d="M628 493L612 537L668 513L666 527L681 505Z" fill="#bc7038" stroke="none" />
+<path d="M311 626Q362 595 410 589L448 608L467 645L466 691Q448 708 423 711Q386 725 350 715Q338 703 341 679Q318 672 311 626Z" fill="url(#werewolf-paw)" />
+<path d="M320 626L347 670L393 653L430 661L460 647L448 613L412 596Q363 601 320 626Z" fill="#b9783e" stroke="none" />
+<path d="M342 678L357 676M389 662Q399 682 395 713M430 650Q439 675 432 707" fill="none" stroke-width="8" />
+<path d="M513 645L530 610L558 587Q610 592 656 614L643 656L626 705Q592 724 550 710L509 694Z" fill="url(#werewolf-paw)" />
+<path d="M531 613L558 594Q602 596 647 617L633 659L594 654L554 643L518 649Z" fill="#b5753e" stroke="none" />
+<path d="M552 648Q543 675 544 704M594 658L585 712M641 659L624 664" fill="none" stroke-width="8" />
+</g>
+<g id="werewolf-head">
+<path d="M284 217L239 173Q234 99 252 12Q316 25 365 53L389 117L325 235Z" fill="url(#werewolf-fur)" />
+<path d="M270 59L327 125L307 211L271 173Q266 112 270 59Z" fill="#ff9297" stroke="none" />
+<path d="M256 22L304 50L341 98L347 52Z" fill="#bc6b35" stroke="none" />
+<path d="M558 91Q618 36 711 11L709 150L677 189L653 221L589 178Z" fill="url(#werewolf-fur)" />
+<path d="M641 110L692 50L685 150L652 188Z" fill="#ff9499" stroke="none" />
+<path d="M581 85L622 64L638 67L622 86L697 22L660 31Z" fill="#b86631" stroke="none" />
+<path d="M307 207L310 134L365 115L349 59Q379 48 415 56L412 24Q451 24 490 44L492 11Q538 29 563 52L572 92L647 109L655 207Q704 222 717 252L693 261L699 278L665 289L670 333L639 345L605 390L555 403L503 396L461 408L412 402L376 368L337 377L333 346L274 334L286 305L246 310L255 293L200 286L227 252L208 234Q248 204 278 210" fill="url(#werewolf-fur)" />
+<path d="M653 186L683 192Q716 198 734 217L709 234L735 266L699 279L689 260L713 254L697 232L654 215Z" fill="#713614" />
+<path d="M354 62L408 118L364 114L348 67Z M420 31L445 77L362 63L411 70Z M497 20L513 67L550 47Z M315 137L335 146L422 123L369 123Z" fill="#c17a40" stroke="none" />
+<path d="M311 139L335 149L346 240L305 218Z" fill="#663011" stroke="none" />
+<path d="M222 234L258 238L230 266L207 281L248 292L273 267L314 247L289 242L271 254L254 254Z" fill="#b26732" stroke="none" />
+<path d="M245 309Q260 264 285 259M277 299L295 291" fill="none" stroke-width="8" stroke-linecap="round" />
+<path d="M375 180L453 145Q476 177 478 246L386 258Z" fill="#fff" stroke="none" />
+<path d="M530 148L611 163L618 248L528 245Q522 184 530 148Z" fill="#fff" stroke="none" />
+<path d="M443 206L468 204L473 247L447 250Z" fill="#080908" stroke-width="8" />
+<path d="M533 198L556 195L560 243L534 245Z" fill="#080908" stroke-width="8" />
+<path d="M457 209L468 208L469 220L458 221Z M545 201L555 200L556 212L546 213Z" fill="#fff" stroke="none" />
+<path d="M371 172Q427 153 460 126L470 148Q434 176 379 194Z" fill="#020402" />
+<path d="M528 118Q573 140 615 147L613 170Q559 164 521 143Z" fill="#020402" />
+<path d="M317 322L329 289L351 264L431 252L474 243L535 242L578 237L649 237L669 264L684 292L649 295L655 322L628 315L622 349L600 386L557 397L510 389L462 402L413 397L379 364L361 347L342 355L345 320Z" fill="url(#werewolf-gold)" stroke="none" />
+<path d="M326 306L348 274L399 262L421 269L462 247L476 258L536 249L577 240L539 237L476 241L429 249L351 263L331 285Z" fill="#ffc57f" stroke="none" />
+<path d="M345 320L365 315L361 347L380 345L413 388L458 394L462 404L412 400L376 367L338 378L333 346L276 334L317 316Z" fill="#925024" stroke="none" />
+<path d="M651 271L663 287L640 286L645 320L626 314L625 337L603 377L609 388L636 346L669 333L663 306L687 294L672 266Z" fill="#a86430" stroke="none" />
+<g stroke="#f95760" stroke-width="10" stroke-linecap="round">
+<path d="M352 298L374 272M375 298L402 269M403 295L426 269M589 276L610 250M610 277L632 250M635 275L656 250" />
+</g>
+<path d="M412 307Q439 346 503 341Q583 344 605 301L580 366L538 380L487 382L432 373Z" fill="#6d211d" stroke-width="8" />
+<path d="M425 323L433 350L446 368L465 339Z" fill="#fff9ec" stroke-width="6" stroke-linejoin="round" />
+<path d="M559 335L574 363L587 340L590 324Z" fill="#fff9ec" stroke-width="6" stroke-linejoin="round" />
+<path d="M476 265L542 255L579 265L571 303Q531 317 490 308Z" fill="url(#werewolf-nose)" stroke-width="11" stroke-linejoin="round" />
+<path d="M489 267L541 260L570 265L502 272Z" fill="#575956" stroke="none" />
+<path d="M534 314L529 333M402 315Q412 302 423 303" fill="none" stroke-width="6" stroke-linecap="round" />
+<path d="M456 362Q475 340 499 351L510 359Q528 342 544 359Q563 382 558 418Q554 451 529 456Q496 461 479 441Q470 430 469 405Z" fill="#ff7b87" stroke-width="8" stroke-linejoin="round" />
+<path d="M462 362Q480 353 496 365Q513 379 513 408L515 446Q492 449 482 430Q476 417 476 394Z" fill="#ff9199" stroke="none" />
+<path d="M508 366Q521 387 519 417" fill="none" stroke="#dc4d5a" stroke-width="6" stroke-linecap="round" />
+</g>
+</g>
+</svg>

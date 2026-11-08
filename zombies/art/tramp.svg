@@ -1,1 +1,111 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="17" ry="12" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="20" cy="22" rx="10" ry="7" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M5 30 v6 M35 30 v6" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- tramp: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Blue voxel-style trampoline</title>
+<desc>A chunky round blue trampoline with silver springs and three short metal legs, viewed from above on white.</desc>
+
+<g stroke="#050607" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="tramp-legs">
+<path d="M55 583H160V744L171 753V814L109 852L40 815V754L55 744Z" fill="#77798b" />
+<path d="M55 603L109 635V786L55 754Z" fill="#c5c7d2" stroke="none" />
+<path d="M109 635L160 605V754L109 786Z" fill="#888b9e" stroke="none" />
+<path d="M41 755L109 794L171 755V815L109 852L41 815Z" fill="#424555" />
+<path d="M109 794V845L164 812V765Z" fill="#23242e" stroke="none" />
+<path d="M864 583H969V744L982 754V815L914 852L853 816V754L864 744Z" fill="#77798b" />
+<path d="M865 608L914 636V786L865 756Z" fill="#86899c" stroke="none" />
+<path d="M914 636L969 605V755L914 786Z" fill="#c7c9d4" stroke="none" />
+<path d="M853 755L914 794L982 755V815L914 852L853 816Z" fill="#424555" />
+<path d="M860 767L914 798V843L860 812Z" fill="#23242e" stroke="none" />
+<path d="M451 749H578V880L592 890V949L520 989L436 951V892L451 882Z" fill="#8c8fa2" />
+<path d="M452 769L520 793V924L452 892Z" fill="#c6c8d3" stroke="none" />
+<path d="M520 793L578 768V892L520 924Z" fill="#86899b" stroke="none" />
+<path d="M436 891L520 931L592 891V949L520 989L436 951Z" fill="#424555" />
+<path d="M520 932L584 899V945L520 980Z" fill="#22232d" stroke="none" />
+</g>
+<g id="tramp-frame">
+<path d="M10 387L28 279L94 185L185 119L315 70L423 50L512 48L601 50L710 70L839 119L930 185L996 279L1014 387V516L951 635L813 738L643 792H382L211 738L73 635L10 516Z" fill="#0054ce" />
+<path d="M10 387L73 529L207 633L383 693L641 693L817 633L951 529L1014 387V516L951 635L813 738L643 792H382L211 738L73 635L10 516Z" fill="#005bdd" stroke="none" />
+<path d="M10 387L73 529V635L10 516Z" fill="#0045b6" stroke="none" />
+<path d="M207 633L383 693V792L211 738Z" fill="#0048bb" stroke="none" />
+<path d="M641 693L817 633L813 738L643 792Z" fill="#003daf" stroke="none" />
+<path d="M951 529L1014 387V516L951 635Z" fill="#003db1" stroke="none" />
+<path d="M383 693L400 694V791H383Z M630 694H644V789H630Z" fill="#0044b7" stroke="none" />
+<path d="M99 388L112 306L160 232L238 174L348 133L438 113H586L676 133L786 174L864 232L912 306L925 388L883 491L781 574L620 629H405L244 574L142 491Z" fill="#073b82" />
+<path d="M107 380L150 314L228 249L329 197L438 171L512 165L587 171L695 197L796 249L874 314L918 380L912 307L863 232L785 174L676 133L586 113H438L348 133L238 174L160 232L112 306Z" fill="#0045a6" stroke="none" />
+</g>
+<g id="tramp-jumping-mat">
+<ellipse cx="512" cy="390" rx="316" ry="190" fill="#2d303f" />
+<path d="M210 450C154 330 293 205 474 201C575 194 674 216 736 252Z" fill="#3e4258" stroke="none" />
+<path d="M227 477C296 552 433 582 555 575C430 575 283 534 227 477Z" fill="#22232e" stroke="none" />
+</g>
+<g id="tramp-springs" stroke-width="10">
+<g transform="translate(512 110)">
+<path d="M-39 32C-53 5 51 5 39 32L34 91H-34Z" fill="#9295a4" />
+<path d="M-40 34C-45 10 43 10 40 34M-40 58C-45 34 43 34 40 58M-38 81C-43 58 41 58 38 81" fill="none" stroke="#050607" stroke-width="25" />
+<path d="M-40 34C-45 10 43 10 40 34M-40 58C-45 34 43 34 40 58M-38 81C-43 58 41 58 38 81" fill="none" stroke="#c3c5ce" stroke-width="14" />
+<path d="M-29 25Q0 10 28 25M-29 49Q0 34 28 49M-27 72Q0 58 27 72" fill="none" stroke="#f0f0f2" stroke-width="6" />
+<path d="M-33 79H33L34 113H-34Z" fill="#009cf1" />
+<path d="M-28 106H28" stroke="#0064c9" stroke-width="6" />
+</g>
+<g transform="translate(240 173) rotate(-37)">
+<path d="M-36 28V97H36V28" fill="#9295a4" />
+<path d="M-37 28C-41 3 42 3 37 28M-37 52C-41 27 42 27 37 52M-35 77C-39 52 40 52 35 77" fill="none" stroke="#050607" stroke-width="26" />
+<path d="M-37 28C-41 3 42 3 37 28M-37 52C-41 27 42 27 37 52M-35 77C-39 52 40 52 35 77" fill="none" stroke="#bfc1cc" stroke-width="15" />
+<path d="M-28 20Q0 6 27 20M-28 44Q0 30 27 44M-26 69Q0 55 26 69" fill="none" stroke="#ededf1" stroke-width="6" />
+<path d="M-31 78H31L32 107H-32Z" fill="#009ff5" />
+<path d="M-28 100H28" stroke="#0062cb" stroke-width="6" />
+</g>
+<g transform="translate(784 173) rotate(37)">
+<path d="M-36 28V97H36V28" fill="#9295a4" />
+<path d="M-37 28C-41 3 42 3 37 28M-37 52C-41 27 42 27 37 52M-35 77C-39 52 40 52 35 77" fill="none" stroke="#050607" stroke-width="26" />
+<path d="M-37 28C-41 3 42 3 37 28M-37 52C-41 27 42 27 37 52M-35 77C-39 52 40 52 35 77" fill="none" stroke="#bfc1cc" stroke-width="15" />
+<path d="M-28 20Q0 6 27 20M-28 44Q0 30 27 44M-26 69Q0 55 26 69" fill="none" stroke="#ededf1" stroke-width="6" />
+<path d="M-31 78H31L32 107H-32Z" fill="#009ff5" />
+<path d="M-28 100H28" stroke="#0062cb" stroke-width="6" />
+</g>
+<g transform="translate(99 355) rotate(-82)">
+<path d="M-34 19V107H34V19" fill="#8c8e9d" />
+<path d="M-34 20C-40 0 40 0 34 20M-34 47C-40 27 40 27 34 47M-34 74C-40 54 40 54 34 74" fill="none" stroke="#050607" stroke-width="25" />
+<path d="M-34 20C-40 0 40 0 34 20M-34 47C-40 27 40 27 34 47M-34 74C-40 54 40 54 34 74" fill="none" stroke="#bfc1cc" stroke-width="14" />
+<path d="M0 9Q20 8 27 14M0 36Q20 35 27 41M0 63Q20 62 27 68" fill="none" stroke="#f1f1f4" stroke-width="7" />
+<path d="M-27 94H27V130H-27Z" fill="#009ef2" />
+<path d="M-24 123H24" stroke="#0062c5" stroke-width="6" />
+</g>
+<g transform="translate(925 355) rotate(82)">
+<path d="M-34 19V107H34V19" fill="#8c8e9d" />
+<path d="M-34 20C-40 0 40 0 34 20M-34 47C-40 27 40 27 34 47M-34 74C-40 54 40 54 34 74" fill="none" stroke="#050607" stroke-width="25" />
+<path d="M-34 20C-40 0 40 0 34 20M-34 47C-40 27 40 27 34 47M-34 74C-40 54 40 54 34 74" fill="none" stroke="#bfc1cc" stroke-width="14" />
+<path d="M-27 14Q-20 8 0 9M-27 41Q-20 35 0 36M-27 68Q-20 62 0 63" fill="none" stroke="#f1f1f4" stroke-width="7" />
+<path d="M-27 94H27V130H-27Z" fill="#009ef2" />
+<path d="M-24 123H24" stroke="#0062c5" stroke-width="6" />
+</g>
+<g transform="translate(282 480) rotate(139)">
+<path d="M-30 0H30V34H-30Z" fill="#009cf4" />
+<path d="M-28 24H28" stroke="#0066cf" stroke-width="7" />
+<path d="M-35 53C-40 28 40 28 35 53M-35 78C-40 53 40 53 35 78M-35 103C-40 78 40 78 35 103" fill="none" stroke="#050607" stroke-width="26" />
+<path d="M-35 53C-40 28 40 28 35 53M-35 78C-40 53 40 53 35 78M-35 103C-40 78 40 78 35 103" fill="none" stroke="#bfc1cc" stroke-width="15" />
+<path d="M-26 45Q0 31 26 45M-26 70Q0 56 26 70M-26 95Q0 81 26 95" fill="none" stroke="#ededf2" stroke-width="6" />
+</g>
+<g transform="translate(742 480) rotate(-139)">
+<path d="M-30 0H30V34H-30Z" fill="#009cf4" />
+<path d="M-28 24H28" stroke="#0066cf" stroke-width="7" />
+<path d="M-35 53C-40 28 40 28 35 53M-35 78C-40 53 40 53 35 78M-35 103C-40 78 40 78 35 103" fill="none" stroke="#050607" stroke-width="26" />
+<path d="M-35 53C-40 28 40 28 35 53M-35 78C-40 53 40 53 35 78M-35 103C-40 78 40 78 35 103" fill="none" stroke="#bfc1cc" stroke-width="15" />
+<path d="M-26 45Q0 31 26 45M-26 70Q0 56 26 70M-26 95Q0 81 26 95" fill="none" stroke="#ededf2" stroke-width="6" />
+</g>
+<g transform="translate(512 534)">
+<path d="M-33 0Q0-5 34 0L40 43H-40Z" fill="#009ff2" />
+<path d="M-34 52C-42 24 42 24 34 52M-35 77C-43 49 43 49 35 77M-36 102C-44 74 44 74 36 102" fill="none" stroke="#050607" stroke-width="26" />
+<path d="M-34 52C-42 24 42 24 34 52M-35 77C-43 49 43 49 35 77M-36 102C-44 74 44 74 36 102" fill="none" stroke="#c0c2cc" stroke-width="15" />
+<path d="M-26 43Q0 29 26 43M-27 68Q0 54 27 68M-28 93Q0 79 28 93" fill="none" stroke="#eeeef2" stroke-width="6" />
+</g>
+</g>
+<g id="tramp-blue-padding">
+<path d="M10 387L28 279L94 185L185 119L315 70L423 50L512 48L601 50L710 70L839 119L930 185L996 279L1014 387L951 529L817 633L641 693H383L207 633L73 529ZM99 388L142 491L244 574L405 632H620L781 574L883 491L925 388L912 306L864 232L786 174L676 133L586 113H438L348 133L238 174L160 232L112 306Z" fill="#009afa" fill-rule="evenodd" stroke="none" />
+<path d="M28 279L105 297L99 388L10 390Z M185 119L238 174L348 133L315 70Z M423 50L438 113H586L601 50Z M710 70L676 133L786 174L839 119Z M919 297L996 279L1014 390L925 388Z M73 529L142 503L244 582L207 633Z M405 632L383 693H641L620 632Z M781 582L882 503L951 529L817 633Z" fill="#29b2f7" stroke="none" />
+<path d="M105 297L160 232L238 174L348 133L438 113V158L348 178L259 211L186 267L135 333L112 397L99 388Z M586 113L676 133L786 174L864 232L919 297L925 388L912 397L889 333L838 267L765 211L676 178L586 158Z" fill="#0044bf" stroke="none" />
+<path d="M438 113H586V158H438Z" fill="#0057d2" stroke="none" />
+<path d="M10 387L28 279L94 185L185 119L315 70L423 50L512 48L601 50L710 70L839 119L930 185L996 279L1014 387V516L951 635L813 738L643 792H382L211 738L73 635L10 516Z" fill="none" />
+<path d="M133 304L160 267L238 206L348 169L438 158H586L676 169L786 206L864 267L891 304M144 491L244 574L405 632H620L781 574L882 491" fill="none" />
+</g>
+</g>
+</svg>
