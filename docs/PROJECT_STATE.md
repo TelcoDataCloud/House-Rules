@@ -1137,3 +1137,33 @@ under, jumped or burped flat (plank walls can now be burped flat).
 **Cottages** replace beds (4 planks, two villagers each, chimney smoke);
 the village starts with two. A sixth how-to card for stone. Six more
 sprites.
+
+### Z11 Fun to play (8 Nov, night)
+
+Asa: villagers pile on each other; the hero needs weapon upgrades, longer
+stun, arms falling off, bigger knockback; nights are mostly running and
+whacking so make that fun; bigger map; catapult autofire.
+- **Home patches:** every villager gets their own square near their
+  cottage or the well, drawn by day as a dashed box with their name
+  (`assignHomes` in `js/villagers.js`). They wait there, walk back there
+  after work, and step round each other when walking.
+- **Weapons** (`data/weapons.js`): wooden spoon, frying pan (12 planks),
+  rubber chicken (18 planks, 2 stone), giant mallet (28 planks, 6 stone).
+  Each stuns longer, knocks further, reaches further, knocks more arms
+  off and drops more loot. Upgrade button by day, saved with the village.
+- **Combat** (`js/combat.js`): hit stop and screen shake on every whack,
+  the weapon swings in the hero's hand, combo counter, SUPER WHACK at 5
+  (double knockback, even moves the Burp Lord), hold Space or the WHACK
+  button to charge a spin that hits everyone round you (3 s cooldown).
+  Arms fly off and crawl back to click on; a zombie with an arm off
+  cannot grab you. Whacked zombies drop carrots, planks and odd socks
+  that you run over to collect (they magnet in); socks counted at dawn.
+- **Catapult autofire:** a crewed catapult lobs a pumpkin at the nearest
+  zombie every 5 s (`auto` in `data/traps.js`), never potion. You can
+  still drag to aim.
+- **Bigger map:** 36 by 24 squares (was 24 by 16), a new painted map with
+  a crossroads for the village, a west path, a pond, two rock areas, a
+  wheat field, a stream with **two bridges** (zombies pick the one least
+  out of their way). `tools/read-map.py` and `tools/make-land.py` turn
+  the painting into `data/map.js`. The camera starts zoomed on the
+  village and follows the hero at night.
