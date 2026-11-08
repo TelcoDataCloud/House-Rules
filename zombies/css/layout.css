@@ -1,0 +1,181 @@
+/* ===========================================================
+   LAYOUT: the screens around the game
+
+   The title screen, the panels, the buttons, the build bar.
+   What the village looks like is in game.css.
+   =========================================================== */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 18px;
+  min-height: 100%;
+}
+
+body { display: flex; flex-direction: column; align-items: center; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  min-height: var(--touch);
+  min-width: var(--touch);
+  border: var(--ink-w) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--button);
+  color: var(--button-text);
+  font-weight: 800;
+  padding: 8px 18px;
+  box-shadow: 0 4px 0 var(--ink);
+  transition: transform 80ms;
+}
+button:hover { transform: translateY(-2px); }
+button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+button:focus-visible, [tabindex]:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 3px;
+}
+button.go {
+  background: var(--go);
+  color: var(--go-text);
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  padding: 10px 28px;
+}
+button.quiet { background: var(--panel); }
+button[aria-pressed="true"] { background: var(--go); color: var(--go-text); }
+
+.toolbar {
+  position: fixed; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 20;
+}
+.toggle { font-size: 1.3rem; padding: 4px 10px; }
+
+.game { width: min(100vw, calc(var(--tile) * var(--cols) + 24px)); padding: 12px; }
+
+/* ---------- screens that cover the game ---------- */
+.screen {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: var(--page); z-index: 10; text-align: center; padding: 20px;
+  overflow: auto;
+}
+.screen[hidden] { display: none; }
+.screen .box {
+  background: var(--panel);
+  border: var(--ink-w) solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 0 8px 0 var(--ink);
+  padding: 28px 32px;
+  max-width: 720px;
+  width: 100%;
+}
+.title-art { width: min(90vw, 560px); height: auto; display: block; margin: 0 auto 8px; }
+h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  margin: 0;
+  color: var(--snot);
+  -webkit-text-stroke: 2px var(--ink);
+  text-shadow: 0 6px 0 var(--ink);
+  letter-spacing: 2px;
+}
+.tagline { margin: 6px 0 18px; font-weight: 800; color: var(--text-dim); }
+h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter-spacing: 1px; }
+
+.modes { display: flex; gap: 14px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+.modes button { font-size: 1.4rem; padding: 12px 30px; min-width: 160px; }
+.mode-note { margin: 0 0 18px; color: var(--text-dim); font-weight: 700; min-height: 1.4em; }
+
+.milestones { display: flex; gap: 8px; justify-content: center; margin: 14px 0 4px; flex-wrap: wrap; }
+.milestones span {
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--ink);
+  background: var(--heart-off); display: inline-block;
+}
+.milestones span.done { background: var(--go); }
+.milestones-note { font-size: 0.9rem; color: var(--text-dim); margin: 0; }
+
+.other-games { margin-top: 14px; font-weight: 700; }
+.other-games a { color: var(--text); }
+
+/* ---------- the strip above the village ---------- */
+.top {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 8px 12px; margin-bottom: 8px;
+  background: var(--panel); border: var(--ink-w) solid var(--ink);
+  border-radius: var(--radius); box-shadow: 0 4px 0 var(--ink);
+}
+.top .day { font-family: var(--font-title); font-size: 1.6rem; letter-spacing: 1px; min-width: 120px; }
+.counts { display: flex; gap: 14px; flex-wrap: wrap; font-weight: 800; font-size: 1.2rem; }
+.counts span { display: inline-flex; align-items: center; gap: 6px; }
+.counts svg { width: 30px; height: 30px; }
+.hearts { display: flex; gap: 3px; }
+.hearts svg { width: 26px; height: 26px; }
+.skybar {
+  position: relative; flex: 1; min-width: 160px; height: 28px;
+  border: var(--ink-w) solid var(--ink); border-radius: 20px;
+  background: linear-gradient(90deg, var(--water), var(--potion));
+  overflow: hidden;
+}
+.skybar.night { background: var(--night-sky); }
+.skybar .sun {
+  position: absolute; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--button); border: 2px solid var(--ink); left: 0;
+  transition: left 500ms linear;
+}
+.skybar.night .sun { background: var(--moon); }
+.moon-strip { display: flex; gap: 4px; align-items: center; }
+.moon-strip span {
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink);
+  background: var(--page); display: inline-block;
+}
+.moon-strip span.full { background: var(--moon); }
+.moon-strip span.now { outline: 3px solid var(--focus); }
+.lookout-line {
+  flex-basis: 100%; margin: 0; font-weight: 800; font-size: 1.1rem;
+}
+
+/* ---------- the build bar ---------- */
+.bar {
+  display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap;
+  padding: 10px; margin-top: 8px;
+  background: var(--wood); border: var(--ink-w) solid var(--ink);
+  border-radius: var(--radius); box-shadow: 0 4px 0 var(--ink);
+}
+.bar[hidden] { display: none; }
+.bar .thing {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 92px; padding: 6px 4px; background: var(--panel); color: var(--text); font-size: 0.85rem;
+}
+.bar .thing svg { width: 44px; height: 44px; }
+.bar .thing .cost { font-size: 0.8rem; color: var(--text-dim); }
+.bar .thing.cannot { opacity: 0.5; }
+.bar .thing[aria-pressed="true"] { background: var(--go); color: var(--go-text); }
+.bar .thing[aria-pressed="true"] .cost { color: var(--go-text); }
+.bar .spacer { flex: 1; }
+.bar .go { align-self: center; }
+
+.help {
+  margin: 10px 0 0; padding: 10px 14px; font-weight: 700; color: var(--text-dim);
+  background: var(--panel); border: var(--ink-w) solid var(--ink); border-radius: var(--radius);
+}
+.help kbd {
+  background: var(--page); border: 2px solid var(--ink); border-radius: 6px; padding: 0 6px;
+  font-family: inherit; font-weight: 800;
+}
+
+/* ---------- result ---------- */
+.result-counts { font-size: 1.3rem; font-weight: 800; margin: 10px 0; }
+.result-counts p { margin: 4px 0; }
+
+@media (max-width: 700px) {
+  html { font-size: 16px; }
+  .bar .thing { width: 76px; }
+}

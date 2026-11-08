@@ -1,0 +1,99 @@
+/* ===========================================================
+   TOKENS: every colour and size lives here
+
+   Hendrix: this is the paint box. The grass, the night sky,
+   the zombies' skin, the snot. Change one and the whole game
+   repaints. Two themes: day (light page) and night (dark page).
+   The game itself always goes dark at night by itself.
+   =========================================================== */
+
+:root,
+:root[data-theme="light"] {
+  --page: #f3ead6;
+  --text: #22221f;
+  --text-dim: #6b6a60;
+  --panel: #fffaf0;
+  --panel-line: #22221f;
+  --focus: #ff8a00;
+  --button: #ffd23f;
+  --button-text: #22221f;
+  --go: #37c84c;
+  --go-text: #ffffff;
+
+  /* the ground */
+  --grass: #7bc74d;
+  --grass-dark: #63a93a;
+  --grass-line: rgba(0, 0, 0, 0.08);
+  --woods: #2f6b2a;
+  --woods-dark: #1f4a1c;
+  --dirt: #b8803d;
+  --mud: #6e4a22;
+  --water: #4fb3ff;
+
+  /* things */
+  --wood: #c98a3c;
+  --wood-dark: #8a5a1e;
+  --stone: #9aa0a6;
+  --straw: #e9c766;
+  --carrot: #ff8c1a;
+  --carrot-leaf: #3fa63a;
+  --honey: #ffb52e;
+  --pumpkin: #ff7a1a;
+  --cloth: #d9534f;
+  --cloth-2: #3b82f6;
+  --skin: #f5c89b;
+  --hair: #5a3a1e;
+
+  /* zombies */
+  --zombie: #86c94a;
+  --zombie-dark: #4f8a24;
+  --zombie-eye: #ffffff;
+  --snot: #9bff2a;
+  --snot-dark: #5fb800;
+  --gas: rgba(120, 220, 60, 0.55);
+  --fur: #8a5a2b;
+  --undies: #ff4d6d;
+
+  /* potion */
+  --potion: #3fd1ff;
+  --potion-glow: rgba(63, 209, 255, 0.6);
+
+  /* night */
+  --night-sky: #0f1a3a;
+  --night-tint: rgba(10, 18, 50, 0.55);
+  --torch-glow: rgba(255, 200, 80, 0.45);
+  --moon: #fff2b0;
+  --star: #ffffff;
+
+  /* ink */
+  --ink: #22221f;
+  --ink-w: 3px;
+  --heart: #ff3b5c;
+  --heart-off: #c9c3b6;
+
+  /* sizes */
+  --tile: 40px;
+  --cols: 24;
+  --rows: 16;
+  --radius: 14px;
+  --touch: 52px;
+  --font-title: 'Luckiest Guy', 'Arial Black', sans-serif;
+  --font: 'Nunito', system-ui, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --page: #141528;
+  --text: #f0ecff;
+  --text-dim: #a5a0c4;
+  --panel: #1f2040;
+  --panel-line: #0b0b18;
+  --button: #ffd23f;
+  --grass: #5fa63c;
+  --grass-dark: #4b8a2c;
+  --woods: #1f4a1c;
+  --woods-dark: #123011;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion: 0; }
+}

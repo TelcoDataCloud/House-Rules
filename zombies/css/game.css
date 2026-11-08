@@ -1,0 +1,105 @@
+/* ===========================================================
+   GAME: the village itself
+
+   The village is one big SVG with a layer for the ground, a
+   layer for things, a layer for everyone walking about and a
+   layer for effects. Zombies and villagers are <use> tags that
+   point at pictures from the art folder, so right click one,
+   Inspect, and you can see which picture it is.
+   =========================================================== */
+
+.stage {
+  position: relative;
+  border: var(--ink-w) solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 6px 0 var(--ink);
+  background: var(--woods);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.village { display: block; width: 100%; height: auto; }
+
+.sprite-sheet { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ground squares */
+.tile { fill: var(--grass); stroke: var(--grass-line); stroke-width: 1; }
+.tile.alt { fill: var(--grass-dark); }
+.tile.edge { fill: var(--woods); stroke: none; }
+.tile.hover { fill: var(--button); }
+.tile.bad { fill: var(--cloth); }
+
+/* night */
+.night-tint { fill: var(--night-tint); pointer-events: none; opacity: 0; transition: opacity 1500ms; }
+.stage.is-night .night-tint { opacity: 1; }
+.torch-glow { fill: var(--torch-glow); pointer-events: none; opacity: 0; transition: opacity 1500ms; }
+.stage.is-night .torch-glow { opacity: 1; }
+
+/* everyone walking about */
+.mob { transition: none; }
+.mob.dizzy .body { animation: wobble 600ms infinite; }
+.mob.stuck .body { animation: struggle 500ms infinite; }
+.mob.cured .body { animation: pop 500ms; }
+.mob .stars { display: none; }
+.mob.dizzy .stars { display: block; animation: spin 1.2s linear infinite; transform-origin: 20px 2px; }
+
+@keyframes wobble { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+@keyframes struggle { 0%,100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+.mob.walking .body { animation: bob 500ms infinite; }
+.mob.down .body { transform: rotate(90deg); transform-origin: 20px 30px; }
+
+/* effects */
+.burst {
+  font-family: var(--font-title); font-size: 26px; fill: var(--button);
+  stroke: var(--ink); stroke-width: 1.5; paint-order: stroke; pointer-events: none;
+  animation: rise 900ms forwards;
+}
+@keyframes rise { from { opacity: 1; transform: translateY(0) scale(0.6); } to { opacity: 0; transform: translateY(-40px) scale(1.3); } }
+
+.splash { fill: var(--potion); opacity: 0.8; pointer-events: none; animation: splash 700ms forwards; }
+@keyframes splash { from { transform: scale(0.2); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
+
+.gascloud { fill: var(--gas); pointer-events: none; }
+
+.arc { fill: none; stroke: var(--button); stroke-width: 4; stroke-dasharray: 8 10; pointer-events: none; }
+.landing { fill: var(--potion-glow); stroke: var(--button); stroke-width: 3; pointer-events: none; }
+.shot { pointer-events: none; }
+
+.stage.aiming { cursor: crosshair; }
+
+/* the snot on your screen */
+.snot-screen {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background:
+    radial-gradient(circle at 20% 10%, var(--snot) 0 60px, transparent 70px),
+    radial-gradient(circle at 70% 20%, var(--snot) 0 80px, transparent 90px),
+    radial-gradient(circle at 45% 60%, var(--snot) 0 50px, transparent 60px);
+  transition: opacity 400ms;
+}
+.snot-screen.on { opacity: 0.75; animation: drip 5s forwards; }
+@keyframes drip { from { transform: translateY(0); } to { transform: translateY(120%); opacity: 0; } }
+
+/* the big banner in the middle */
+.banner {
+  position: absolute; left: 0; right: 0; top: 35%; text-align: center;
+  font-family: var(--font-title); font-size: 3rem; color: var(--button);
+  -webkit-text-stroke: 2px var(--ink); text-shadow: 0 5px 0 var(--ink);
+  pointer-events: none; opacity: 0; transition: opacity 300ms;
+}
+.banner.show { opacity: 1; }
+
+.down-timer {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-family: var(--font-title); font-size: 4rem; color: var(--heart);
+  -webkit-text-stroke: 2px var(--ink); pointer-events: none;
+}
+.down-timer[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mob .body, .mob .stars, .burst, .splash, .snot-screen.on { animation: none !important; }
+  .night-tint, .torch-glow { transition: none; }
+}
