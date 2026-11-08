@@ -1028,3 +1028,21 @@ cleaned by `tools/clean-art.py`; prompts and job ids in `tools/`.
 Balance: Hard night 1 is a warm up (`takeFrom: 2`), and zombies never
 carry off the last two villagers (`KEEP_AT_LEAST`), so the village always
 goes on.
+
+### Z6 Hard (8 Nov, later still)
+
+Hard now has its own cast and kit. The **vampire** comes on new moons
+(6 in 10, `MOON.new.maybe` in `data/nights.js`): silent, hisses at
+torches, cannot pass **garlic**, bites a sleeping villager after a 3 s
+tug and that villager comes back next night as a vampire (`state.taken`
+now remembers the kind). Cured, he is a night shift villager. **Traps
+wear out** (`uses` in `data/traps.js`, `js/hard.js` wear) and builders
+mend two each in the morning; leftovers are mended by a click for a
+plank. Hard traps: **bell tower** (click or B, everyone within 9 squares
+walks to it for 6 s, once per 20 s), **silver bell** (werewolf within 4
+squares flees), **ice slide** (4 square slide, dizzy), **mirror** (20 s
+of waving at himself), **dawn mirror** (after 70% of the night, zombies
+within 2 squares go home), **sprinkler** (2 crew, cures one zombie in
+reach every 15 s, no potion), **giant net** (needs a giant villager,
+holds Giant Gary). Big zombies now step over pits. Seven more Higgsfield
+SVGs.
