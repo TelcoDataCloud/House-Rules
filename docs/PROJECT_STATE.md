@@ -1012,3 +1012,19 @@ tug). Balance is Asa's call after a play.
 
 Gotcha: the sandbox Chromium crashes when SVG files are DOMParser'd and
 importNode'd into the page; `zombies/js/art.js` uses insertAdjacentHTML.
+
+### Z5 Gross (8 Nov, later)
+
+Bogey Bomber (flicks bogeys, hero goes sticky), Eyeball Roll (eye rolls
+off, he chases it), Loose Bits (whack him and his arm comes off, he hops
+after it), Vomit Comet (spews puddles that everyone slides in, himself
+included), Burp Lord (mini boss from night 4, burps fences flat for 15 s,
+spoon does nothing, 2 potion). All in `data/zombies.js` as `trick` and
+`throws` words; the habits are one function each in `js/gross.js`. Nine
+more Higgsfield SVGs. Every sprite now comes from Higgsfield (SVG output),
+cleaned by `tools/clean-art.py`; prompts and job ids in `tools/`.
+`?horde=bogey,eyeball` picks tonight's zombies for testing.
+
+Balance: Hard night 1 is a warm up (`takeFrom: 2`), and zombies never
+carry off the last two villagers (`KEEP_AT_LEAST`), so the village always
+goes on.
