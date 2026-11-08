@@ -1,0 +1,135 @@
+<!-- chicken: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy zombie chicken holding a carrot</title>
+
+<g stroke="#080a05" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+<g id="chicken-loose-feathers">
+<path d="M269 187 250 176Q192 187 161 149L176 138 150 132Q129 95 140 49L205 74 210 101 219 87Q251 118 259 167L275 178Z" fill="#a9d52b" stroke-width="12" />
+<path d="M142 56 247 166 215 148 178 136 149 127Q139 97 142 56" fill="#8bb519" stroke="none" />
+<path d="m249 170-67-31-17 10q35 31 84 21" fill="#8dae16" stroke="none" />
+<path d="m161 713 10 10-13 16q-4 44-35 73l-11-14-6 23q-35 19-75 13 6-41 33-70l21-2-8-13q31-24 70-23Z" fill="#a8d82d" stroke-width="12" />
+<path d="m151 738-112 89 61-10 10-27 13 13q23-27 28-65" fill="#90bd1e" stroke="none" />
+<path d="m855 703 9-7 17 11q42 0 68 21l-11 9 22 3q28 38 10 86-38-20-56-44l-4-20-11 15q-24-28-27-60Z" fill="#abd733" stroke-width="12" />
+<path d="m880 717 80 96-37-25-10-35-10 13q-17-20-23-49" fill="#94bc21" stroke="none" />
+</g>
+<g id="chicken-far-wing">
+<path d="m704 320 70-104L899 64l26 13 24 55-20 35 14 39 49-18q14 39 17 83l-58 40 57 12-8 78-79 12 54 41-33 68-96-36-95 115-59-82Z" fill="#a6d93a" />
+<path d="m710 319 67-89 56 11 98-134 17 25-27 44 21 36-75 84-69 40 39 100-48 81-59-81Z" fill="#628d24" stroke="none" />
+<path d="m775 231 58 10-34 51 73-8-37 52 70-22-23 70 105-28-2 35-91 21 68 44-25 55-81-29-66 77-24-111-36-70Z" fill="#84b82c" stroke="none" />
+<path d="m853 124 51-46 14 8-44 57-48 44Z" fill="#b9e54d" stroke="none" />
+</g>
+<g id="chicken-body">
+<path d="m360 436 267-32 101 75 48 124-31 97-10-13 1 44-44 78-36 37-137 41 10-33-67 20-9-27-65-20-43-37-45-20-53-38 33-55-55 10-14-47 72-85Z" fill="#a8d844" />
+<path d="m357 461 40 66-8 76-35 63-49 104-58-37 34-48 25-3-20-9 27-69-8-46Z" fill="#729a39" stroke="none" />
+<path d="m378 514 57 12-17 62-26 66-37 54-20 66-26-10 30-95Z" fill="#82b13b" stroke="none" />
+<path d="m614 469 57-17 57 37 36 115-26 74-17-30-26 31-25-18-24-93Z" fill="#82b831" stroke="none" />
+<path d="m445 505 27-10-9 54-13 28-38-8 2-32Z" fill="#84b12f" stroke="none" />
+<path d="m379 646 14-11 25 28 16-23 15 23 15 7-10 49 60 17 42 2 5-47 48-5 1 17 61-12-4-36 25 21 35-12 2 59-39 47-10 58-46 19-37 7-19 13-50-1-43-17-57-25-42-43-31-9 24-66Z" fill="#e9d2ae" stroke="none" />
+<path d="m379 646 22 44 14-17 20 17 13-9-5 34-23-2-20 59-49-22-17 25-20-9 28-53 21-57Z" fill="#b49a78" stroke="none" />
+<path d="m420 721 34 5-6 47-39-4-18 35-28-17 22-42Z" fill="#c4ab87" stroke="none" />
+<path d="m560 738-11 47 45-1 63-10 10-37 62-13-39 78-34 37-129 39 7-26-71 21-10-21 34-43 58-9Z" fill="#bba383" stroke="none" />
+<path d="m456 741 61-1-43 105-23 8-57-25 19-48 36-6Z" fill="#8ead51" stroke="none" />
+<path d="m481 809 64-9 4-19 11-22 2 25 95-10 29-10-8 43-30 27-126 45 6-26-65 22Z" fill="#9c896d" stroke="none" />
+<path d="m378 646 15-11 25 28 16-23 15 23 15 7-10 49-31-1-22 56" fill="none" stroke-width="11" />
+<path d="m454 719 1 19 58 1" fill="none" stroke-width="10" />
+<path d="m723 591 15 87 18-34" fill="#598125" stroke="none" />
+</g>
+<g id="chicken-left-wing">
+<path d="m413 576-27-96-51-6q-55-50-85-126l-13-33-54-64L74 186 22 246l-6 76 66 44-64 20 16 78 65 7-67 39 39 83 104-40-33 37-33 52 59 32 55-36 27 26 41-22 6 47q59-7 116-43Z" fill="#a9d83d" />
+<path d="m24 249 144 102 64 75-103-38-109-67Z" fill="#6c9832" stroke="none" />
+<path d="m102 472 85-8-47 44 42 44-17 20-93 18-36-76Z" fill="#7ba532" stroke="none" />
+<path d="m101 475 58-1-17 21-40 2Z" fill="#6a8d2b" stroke="none" />
+<path d="m190 532 40-6-23 48 43 27 40-23 7 47 100-32-15 43-99 15-59 22-11-41-47 36-50-27Z" fill="#729a32" stroke="none" />
+<path d="m180 264-37 9 24 19 1 40 14 20 23-11 17 24 16-17-9-32Z" fill="#eed4b0" stroke-width="10" />
+<path d="m180 270-6 49 8 19 20-4 24 17-3-30Z" fill="#e2c4a0" stroke="none" />
+<path d="m175 557-27 33-33 48 52 31 46-35-6-20 20-24-20-12 20-47Z" fill="#ead0ab" stroke-width="11" />
+<path d="m175 557-19 31 12 14 25-20 15-4 13-39Z" fill="#b59a76" stroke="none" />
+<path d="m167 661 16-45 20-20 10 7-12 15 9 18Z" fill="#c6ab88" stroke="none" />
+<path d="m207 578 43 23 40-23 7 47 93-27" fill="none" stroke-width="11" />
+</g>
+<g id="chicken-feet">
+<path d="m319 827-29-30 20-37 35-10q35 5 57 38l-28 53-15 37 8 88-73 31-27-70-86-40 3-52 61-47 39 26Z" fill="#ff9105" />
+<path d="m195 837 49-39-13 51 84 59-45 20-79-44Z" fill="#e56b00" stroke="none" />
+<path d="m231 849 85 59 22 58-40 20-26-63-78-39Z" fill="#c44900" stroke="none" />
+<path d="m325 907 13 63 19-8-5-83 14-46-47-6-19-29 17-26 28-14 24 8-28 31-24 1-9 32Z" fill="#ef7e00" stroke="none" />
+<path d="m642 909-46-79 26-23 33-6 39 42 55-69 69 18 2 46 16 2 27 15-13 75-126 29-44 49-44-15-23-27Z" fill="#ff9707" />
+<path d="m622 811 48 63 22-27-39-39Z" fill="#ffb91c" stroke="none" />
+<path d="m620 965 141-144 52 14-65 74 78-21 23-25-8 57-122 29-43 49-39-18Z" fill="#c44900" stroke="none" />
+<path d="m752 784 8 37 53 12-2-34Z" fill="#ffbb20" stroke="none" />
+<path d="m831 850-7 36-87 21 45-43Z" fill="#ffb215" stroke="none" />
+</g>
+<g id="chicken-wattle">
+<path d="m512 476-34 108 49 13-1 26 94-1 6-110Z" fill="#fa272d" />
+<path d="m512 488-24 91 18 7 15-76 16 32-3 73 17 2 3-93Z" fill="#ce181d" stroke="none" />
+<path d="m546 511 43 57 35-33-2-28Z" fill="#b21819" stroke="none" />
+</g>
+<g id="chicken-head">
+<path d="m293 238 45-24-27-69 64-34-21-45Q410 25 471 15q27 26 47 58l64-13q25 42 33 90l91-12 41 177 18 105-40 13 2 12-53 15-20 66-77 5-61-51-155 39-39-131-26-30-25 26-27-79 39-31Z" fill="#abda46" />
+<path d="m307 278 35-42 35 109 17 104 36 46-66 17-35-125-30-29-7 15-20-72Z" fill="#80aa37" stroke="none" />
+<path d="m292 292 28-16-4 31-33-7Z" fill="#92bd3c" stroke="none" />
+<path d="m351 233 99-31 5 12 45-19 8 18 108-34-9-25-100 20-54 7-5 8-112 30Z" fill="#c5ed67" stroke="none" />
+<path d="m514 214 38 100 61-15-12-84 112-32-8-34-84 17-9 21Z" fill="#b7e052" stroke="none" />
+<path d="m498 228 17-3 15 33-34 8-13-31Z" fill="#6f982d" stroke="none" />
+<path d="m493 235 17-2 7 15-21 5Z" fill="#c9e982" stroke="none" />
+<path d="m325 346 9 32 16-13 15 43 13 12-15 8 8 32-20-4-9 8-12-42-13-54Z" fill="#e8d1ad" stroke-width="9" />
+<path d="m326 350 10 29 15-10 9 31-17 9-8-21-9 1Z" fill="#ac9472" stroke="none" />
+<path d="m388 507 56-17-2 42-39-11Z" fill="#0e1606" stroke-width="5" />
+<path d="m677 462 30-13-25 68-15-21Z" fill="#60862a" stroke-width="7" />
+</g>
+<g id="chicken-eyes">
+<path d="M393 268q46-22 93-30l31 10 31 93-35 26-90 21-39-105Z" fill="#fff7dd" stroke-width="13" />
+<path d="m394 277 33 101 21-5-34-105Z" fill="#dccba6" stroke="none" />
+<path d="m486 241 12 20 22-4-5-12Z" fill="#af9773" stroke="none" />
+<path d="m460 289 32-10 12 30-33 12Z" fill="#030402" stroke-width="5" />
+<path d="m606 210 110-28 27 119-48 21-82-19-15-79Z" fill="#fff6dc" stroke-width="12" />
+<path d="m607 217 19 76-13 3-14-75Z" fill="#decea8" stroke="none" />
+<path d="m644 232 59 43m-13-50-38 55" fill="none" stroke="#030402" stroke-width="18" stroke-linecap="square" />
+</g>
+<g id="chicken-comb">
+<path d="m337 213-26-68q24-20 64-34l-21-45q52-39 117-51 27 25 47 58 40-13 64-13 26 44 35 121l-110 30-12-29-41 11-5-13Z" fill="#ff2929" stroke-width="14" />
+<path d="m396 44 50 64 67 27 24 65-28 7-13-28-43 12-6-12-107 27-20-58 53-31 22 37-32-86Z" fill="#b91718" stroke="none" />
+<path d="m446 108 69-26-44-60-70 24Z" fill="#ff302c" stroke="none" />
+<path d="m489 92 24 43 87-23-22-44-62 14Z" fill="#ff3531" stroke="none" />
+<path d="m449 109 18 27 44-2Z" fill="#d51e1c" stroke="none" />
+<path d="m343 134 31-17 20 36Z" fill="#ff4038" stroke="none" />
+</g>
+<g id="chicken-beak">
+<path d="m499 385 80-82 112-12 28 15 12 48-58 22-4 99-11 66-62 5-77-61Z" fill="#ffbd0a" stroke-width="14" />
+<path d="m528 401 130-45 6 21-8 124-51 7-49-48Z" fill="#650c05" stroke-width="9" />
+<path d="m533 406 20 52 52 49 46-6-2-54-23-20-26 4-16-2-34 3Z" fill="#d92930" stroke="none" />
+<path d="m552 432 35-4 13 2 18-2 21 46 8 25-41 1-45-44Z" fill="#f3454a" stroke="none" />
+<path d="m573 459 14-7 15 2 11-4 18 11 15 38-40 1Z" fill="#fa585d" stroke="none" />
+<path d="m530 402 58 79 16 28 50-3 11-129 8-1-3 118-13 39-59 5-70-59-21-90Z" fill="#ffa008" stroke="none" />
+<path d="m505 384 74-74 48 11-97 80Z" fill="#ffce25" stroke="none" />
+<path d="m580 308 49 13 57-23-45 1Z" fill="#ffe057" stroke="none" />
+<path d="m629 321 8 39 47-16 36 5-9-37-25-14Z" fill="#ffd32b" stroke="none" />
+<path d="m530 402 108-42 46-16 39 8-55 22-11 128-53 6-48-48Z" fill="none" stroke="#6f2200" stroke-width="8" />
+</g>
+<g id="chicken-carrot-leaves">
+<path d="m815 393-26-92 19-8-2-33 48-3 26 24 14-12q28 8 46 30l-6 22 15 9 6 30-101 53Z" fill="#55c900" stroke-width="14" />
+<path d="m817 268 0 101 19 21 17-126Z" fill="#65da04" stroke="none" />
+<path d="m800 307 17-5 1 72 16 16-24 3Z" fill="#35a700" stroke="none" />
+<path d="m850 388 44-110 36 20-20 33Z" fill="#59d000" stroke="none" />
+<path d="m843 393 60-65 30-5 15 32-92 43Z" fill="#3ca800" stroke="none" />
+<path d="m852 389 48-49 18 6Z" fill="#51bd00" stroke="none" />
+<path d="m880 282-9 26" fill="none" stroke-width="9" />
+</g>
+<g id="chicken-carrot">
+<path d="M762 380q34-4 70 15 44 20 60 48l-28 59-56 78q-53 57-103 77l-17-12q5-59 27-125l36-112Z" fill="#ff8f0b" stroke-width="14" />
+<path d="m773 389 35 13-28 35-30-6 10-38Z" fill="#ffad2b" stroke="none" />
+<path d="m853 406 29 36-26 48-49 91-54 44-48 22 66-93 32-98Z" fill="#f47400" stroke="none" />
+<path d="m808 437 24 9 28 31-22-4-12-19Z" fill="#e76000" stroke="none" />
+<path d="m728 483 34 6-16-19-10 2Z" fill="#e97600" stroke="none" />
+<path d="m717 518 20 3 12 11 12-1 11-15 15 10-22 33-38-15-13 9-7-3Z" fill="#ff9e20" stroke="none" />
+<path d="m698 582 27 8 12 24-14-8-7-9-20-6Z" fill="#eb7100" stroke="none" />
+<path d="m762 575 21 13-32 30-14 5Z" fill="#d95800" stroke="none" />
+</g>
+<g id="chicken-holding-wing">
+<path d="m793 472 53 6 41 22-22 127-23-22-19 66-51-13-4-43 17-23-43-29 19-37 34 1-23-18Z" fill="#a9d73d" stroke-width="13" />
+<path d="m796 483 47 7 34 16-14 56-32-29-44-9 7-1-15-13Z" fill="#b7df4d" stroke="none" />
+<path d="m754 561 45 18 24-29 35 44-14 11-23 57-47-12 2-32 20-27Z" fill="#719e2c" stroke="none" />
+<path d="m799 578 34 24 5 18 10-29-20-37Z" fill="#8dbb33" stroke="none" />
+<path d="m761 535 47 6-32-15" fill="#87b331" stroke="none" />
+</g>
+</g>
+</svg>

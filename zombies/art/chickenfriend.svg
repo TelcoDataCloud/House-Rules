@@ -1,0 +1,69 @@
+<!-- chickenfriend: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Happy blocky white chicken</title>
+
+<g stroke="#050504" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+<g id="chickenfriend-tail">
+<path d="M186 656 111 681 120 773 160 781 163 840 220 868 307 834 292 711Z" fill="#faf8f8" />
+<path d="m119 688 24 40-18 39 111-35-1-53Z" fill="#cac7c7" stroke="none" />
+<path d="m162 781 22 25-15 35 52 20-2-35 75-26-18-50Z" fill="#c1bebe" stroke="none" />
+<path d="m159 768 75-26" fill="none" />
+</g>
+<g id="chickenfriend-feet">
+<path d="m303 797-13 108-56 5-2 69 58 38 189-15 1-62-74-38 12-89Z" fill="#ff9a00" />
+<path d="m305 812 42 17-11 96-42-11Z" fill="#c85100" stroke="none" />
+<path d="m347 829 59-2-7 95-63 3Z" fill="#ff9200" stroke="none" />
+<path d="m241 920 53 35 63-7-26-23 73-4 66 22-44 7-26-18 18 19-56 5-26-20 20 20-62 1Z" fill="#ffc52a" stroke="none" />
+<path d="m241 922-1 52 50 34 4-53Z" fill="#c34c00" stroke="none" />
+<path d="m358 954-2 51m67-56 3 51" fill="none" stroke-width="11" />
+<path d="m558 812 12 84-34 9-1 68 69 39 184-20-1-65-74-39-38 3-10-83Z" fill="#ff9900" />
+<path d="m568 824 33 2 12 92-35-9Z" fill="#c45000" stroke="none" />
+<path d="m601 826 57-5 11 88-56 9Z" fill="#ff9700" stroke="none" />
+<path d="m544 909 63 40 62-9-27-14 30 12 55-3-26-14 77 13-66-36-42 9-57 11-34-9Z" fill="#ffc529" stroke="none" />
+<path d="m544 917-1 52 61 35 3-55Z" fill="#c14c00" stroke="none" />
+<path d="m667 946 1 54m62-62 2 54" fill="none" stroke-width="11" />
+</g>
+<g id="chickenfriend-right-wing">
+<path d="m726 443 173-107 29 18 78 111-65 47 29 51-91 58 13 24-159 92Z" fill="#faf7f7" />
+<path d="m904 353 55 90-91 60 33 53-158 102-6 67 145-80-27-23 105-62-34-47 67-48Z" fill="#c9c5c6" stroke="none" />
+<path d="m943 516 15 33-34-34Z" fill="#ffffff" stroke="none" />
+</g>
+<g id="chickenfriend-body">
+<path d="m237 492 501 5-2 228-10 79-362 32-130-59Z" fill="#faf7f7" />
+<path d="m244 514 140 49-5 196-20 66-115-51Z" fill="#c9c6c7" stroke="none" />
+<path d="m383 564 347-26 1 23-337 32-10 171-17 62-8-1 20-66Z" fill="#ffffff" stroke="none" />
+<path d="m390 765 337-34-9 64-348 32Z" fill="#c5c1c2" stroke="none" />
+<path d="m373 551 356-34 1 44-336 32-13-6Z" fill="#c8c4c5" stroke="none" />
+</g>
+<g id="chickenfriend-left-wing">
+<path d="m113 337 201 120 16 74-22 116-27 61L56 590l26-70-64-42 56-121Z" fill="#faf7f7" />
+<path d="m79 367 33-10-39 91 95 57-23 57 157 93-23 43L62 586l42-17 24-53-42 3-58-43Z" fill="#c9c5c6" stroke="none" />
+<path d="m86 526 29-7-20 45-27 17Z" fill="#ffffff" stroke="none" />
+</g>
+<g id="chickenfriend-wattle">
+<path d="m521 514-9 124 42 28 91-14 12-40-18-91Z" fill="#ff251c" />
+<path d="m522 529 28 7 12 87-7 25 92-13-8 13-84 13-33-26Z" fill="#c60800" stroke="none" />
+</g>
+<g id="chickenfriend-head">
+<path d="m243 223 129-56 389 8q10 1 12 14l28 312-29 20-368 34-72-24-16-75-65-39Z" fill="#fffdfd" />
+<path d="m253 232 114-34 21 339-50-13-15-72-62-39Z" fill="#c5c2c3" stroke="none" />
+<path d="m388 537 125-13-27-93 18-37 61 138 213-31-12 14-361 32Z" fill="#c9c6c7" stroke="none" />
+<path d="M413 344c8-70 100-83 118-11M649 321c10-67 87-67 100-7" fill="none" stroke-width="26" />
+</g>
+<g id="chickenfriend-comb">
+<path d="m310 186 1-63 61-29 33 4V49l78-40 97 10q10 1 11 12l2 46 66 6q11 1 11 12l-1 114-8 10-141 2-9-46-136-8Z" fill="#ff241b" />
+<path d="m320 132 51-20 4 45-55 23Z" fill="#c60900" stroke="none" />
+<path d="m414 58 68-31 1 94 50-17 4 102 122 1-4 10-130 3-9-51-74-6-2-54-26-3Z" fill="#bd0800" stroke="none" />
+<path d="m414 58 70-39 97 9 6 59 66 6 8 112-10-104-70-8-7-57-86-9Z" fill="#ff827a" stroke="none" />
+</g>
+<g id="chickenfriend-beak">
+<path d="m490 405 50 117 31 19 96-11 31-125-19-42Z" fill="#ffb900" />
+<path d="m500 425 43 94 27 17-33-67-21-42Z" fill="#e66b00" stroke="none" />
+<path d="m541 423 36 75q4 10 16 10l51-7q10-2 14-13l23-80Z" fill="#8f0000" stroke-width="11" />
+<path d="M559 464q52-29 91 27l-5 6-53 7q-9 0-15-12Z" fill="#ff4563" stroke="none" />
+<path d="m488 424 5-66 191-24 52 21 3 42-49 14-149 13Z" fill="#ffbe08" stroke-width="11" />
+<path d="m497 363 46 13 185-20-46-15Z" fill="#ffda3c" stroke="none" />
+<path d="m497 365 46 12-2 40-49 8Z" fill="#ff9800" stroke="none" />
+</g>
+</g>
+</svg>

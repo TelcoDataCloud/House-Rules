@@ -1,0 +1,141 @@
+<!-- cow: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy zombie cow</title>
+<defs>
+<linearGradient id="cow-green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a1dc42" /><stop offset="1" stop-color="#83c639" /></linearGradient>
+<linearGradient id="cow-pink" x1="0" y1="0" x2="0.7" y2="1"><stop stop-color="#f5929b" /><stop offset="1" stop-color="#df707c" /></linearGradient>
+<linearGradient id="cow-black" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#393939" /><stop offset="1" stop-color="#262626" /></linearGradient>
+<linearGradient id="cow-ivory" x1="0" y1="0" x2="0.5" y2="1"><stop stop-color="#fff9e8" /><stop offset="1" stop-color="#f4e9cc" /></linearGradient>
+<linearGradient id="cow-gold" x1="0" y1="0" x2="1" y2="0.6"><stop stop-color="#e39700" /><stop offset="0.5" stop-color="#ffc52c" /><stop offset="1" stop-color="#eca40a" /></linearGradient>
+</defs>
+
+<g stroke="#080907" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+<g id="cow-tail">
+<path d="M830 447 Q895 455 931 488 L968 561 924 585 901 521 842 495Z" fill="#85c63a" />
+<path d="M853 467 909 497 937 565 918 575 899 520 849 497" fill="#639729" stroke="none" />
+<path d="M957 561 972 560 1005 592 1005 661 967 707 931 675 914 682 893 621 914 577Z" fill="#3b343f" />
+<path d="M916 674 936 631 968 698 965 706 931 675Z" fill="#29242c" stroke="none" />
+</g>
+<g id="cow-rear-legs">
+<path d="M88 674 182 702 123 979 59 982 17 968Z" fill="#82bc35" />
+<path d="M111 717 146 732 79 891 41 880Z" fill="#659528" stroke="none" />
+<path d="M40 879 81 889 142 886 124 979 59 982 17 968Z" fill="#3b3a3d" />
+<path d="M81 889 124 890 111 978 60 978Z" fill="#27272a" stroke="none" />
+<path d="M737 698 824 694 895 965 851 982 769 980Z" fill="#83c238" />
+<path d="M782 728 811 723 866 881 831 891Z" fill="#629528" stroke="none" />
+<path d="M765 888 831 891 873 879 895 965 851 982 777 980Z" fill="#363537" />
+<path d="M832 895 849 972 885 960 866 885Z" fill="#29292b" stroke="none" />
+<path d="M444 767 573 772 566 960 441 963Z" fill="#669c27" />
+<path d="M442 900 568 900 566 960 441 963Z" fill="#29292a" />
+</g>
+<g id="cow-body">
+<path d="M102 394 242 344 744 363 Q797 376 845 401 L852 705 Q835 724 755 748 L756 800 613 818 530 796 330 812 147 752 72 720 Q47 708 49 691 L96 408Z" fill="url(#cow-green)" />
+<path d="M102 398 214 358 196 389 160 419 145 493 Q122 504 83 500Z" fill="url(#cow-black)" stroke="none" />
+<path d="M65 607 107 610 128 547 Q137 528 160 545 L176 512 Q185 490 199 512 L219 546 212 592 232 653 Q240 677 217 690 L195 699 155 675 147 747 72 720 51 698Z" fill="url(#cow-black)" stroke="none" />
+<path d="M733 433 Q772 418 797 422 822 423 818 466 L817 491 848 526 847 582 Q835 602 788 619 L764 665 Q750 683 735 668 L697 650 675 605 703 552Z" fill="#303030" stroke="none" />
+<path d="M330 653 419 709 405 803 330 805Z" fill="#679d2a" stroke="none" />
+<path d="M607 760 648 736 648 814 613 819 593 811Z" fill="#62932b" stroke="none" />
+<path d="M756 711 846 670 847 705 760 746Z" fill="#64962a" stroke="none" />
+</g>
+<g id="cow-front-legs">
+<path d="M151 677 146 756 115 1006 Q223 1022 324 1005 L331 753" fill="url(#cow-green)" />
+<path d="M293 730 329 752 322 1004 272 1009Z" fill="#5e8e29" stroke="none" />
+<path d="M147 802 Q181 787 187 805 L192 835 Q219 860 203 885 L190 895 163 889 148 920 126 923Z" fill="#343434" stroke="none" />
+<path d="M273 737 Q278 716 302 730 L331 750 329 836 286 819 250 826 Q239 825 243 800 L242 781 Q243 771 263 761Z" fill="#343434" stroke="none" />
+<path d="M125 923 Q227 935 327 923 L324 1005 Q224 1022 115 1006Z" fill="#3b3a3d" />
+<path d="M277 930 325 926 320 1001 271 1009Z" fill="#29292b" stroke="none" />
+<path d="M610 760 601 815 589 1007 Q693 1026 788 1006 L749 716" fill="url(#cow-green)" />
+<path d="M611 762 648 746 646 927 597 925Z" fill="#64962c" stroke="none" />
+<path d="M721 790 761 806 778 922 730 924 711 882 683 869 Q666 861 676 838 L691 799 Q697 779 721 790Z" fill="#333" stroke="none" />
+<path d="M596 923 Q681 933 777 923 L788 1006 Q694 1026 589 1007Z" fill="#38373a" />
+<path d="M746 928 777 926 782 1001 740 1008Z" fill="#29292b" stroke="none" />
+</g>
+<g id="cow-ears">
+<path d="M261 169 157 138 Q95 151 47 173 L28 219 72 341 Q160 333 241 302Z" fill="url(#cow-green)" />
+<path d="M31 221 153 181 239 218 248 189 262 175 241 302 74 337Z" fill="#63962b" stroke="none" />
+<path d="M54 239 153 208 242 250 235 297 80 329Z" fill="url(#cow-pink)" stroke-width="8" />
+<path d="M58 258 140 240 180 278 210 282 237 270 242 249 153 212 57 242Z" fill="#bf5d6d" stroke="none" />
+<path d="M38 215 151 181 158 146" fill="none" stroke="#b1e260" stroke-width="4" />
+<path d="M741 181 834 153 Q874 162 946 192 L959 236 906 351 Q816 339 747 304Z" fill="url(#cow-green)" />
+<path d="M747 237 839 198 951 236 901 343 748 303Z" fill="#61952a" stroke="none" />
+<path d="M750 264 839 224 933 254 897 339 753 306Z" fill="url(#cow-pink)" stroke-width="8" />
+<path d="M755 273 840 229 927 258 921 275 850 255 810 288 779 285 756 292Z" fill="#bf5c6c" stroke="none" />
+<path d="M839 198 837 160" fill="none" stroke="#b0e264" stroke-width="4" />
+</g>
+<g id="cow-horns" fill="url(#cow-ivory)">
+<path d="M318 87 280 71 263 15 Q261 7 250 10 L204 16 Q195 18 194 27 L182 107 213 175 270 198Z" />
+<path d="M190 106 237 99 251 116 292 134 270 190 216 173Z" fill="#dfcda5" stroke="none" />
+<path d="M697 98 731 80 747 25 Q750 15 760 17 L808 26 Q816 27 816 39 L824 117 792 184 734 207Z" />
+<path d="M702 145 754 126 769 108 817 118 789 180 738 199Z" fill="#decca5" stroke="none" />
+<path d="M730 82 753 74 756 24Z" fill="#d7c7a4" stroke="none" />
+</g>
+<g id="cow-collar">
+<path d="M274 562 690 563 674 656 Q667 684 509 725 384 739 290 651Z" fill="#925122" />
+<path d="M289 581 Q311 643 424 679 L443 720 Q350 711 290 651Z" fill="#7a411d" stroke="none" />
+<path d="M318 585 Q349 646 471 665 L573 651 641 600" fill="none" stroke-width="13" />
+<path d="M443 720 Q425 667 453 647 482 630 507 658 L479 677 475 717Z" fill="#ffc426" stroke-width="9" />
+<path d="M449 711 Q438 666 462 656" fill="none" stroke="#ffdf54" stroke-width="6" />
+<path d="M477 670 550 658" fill="none" stroke="#683617" stroke-width="8" />
+</g>
+<g id="cow-head">
+<path d="M239 574 Q224 477 234 297 L310 75 Q311 66 325 64 424 46 545 50 555 50 557 66 L550 79 611 89 688 115 716 171 Q754 257 755 375 760 481 748 567 Q749 577 735 579 634 602 479 599 341 599 247 578Z" fill="url(#cow-green)" />
+<path d="M310 76 272 186 299 183 326 208 Q332 215 348 211 L387 204 Q397 202 411 166 L445 154 Q457 149 456 137 L454 107 Q453 93 442 93 L406 94 394 64Z" fill="url(#cow-black)" stroke="none" />
+<path d="M293 269 Q296 253 318 257 L341 280 342 329 311 328 Q288 322 290 306Z" fill="#40552a" stroke="none" />
+<path d="M609 243 Q621 232 657 249 L682 220 Q690 211 707 219 L732 231 744 276 749 371 719 365 707 401 Q700 426 682 416 L639 390 629 343 608 317Z" fill="#323232" stroke="none" />
+<path d="M241 523 Q469 577 749 525 L744 569 Q542 615 245 575Z" fill="#72af2d" stroke="none" />
+<path d="M285 566 277 459 332 495 370 587Z" fill="#a6d94a" stroke="none" />
+<g id="cow-exposed-brain">
+<path d="M552 65 525 79 532 102 512 133 551 147 565 188 615 173 649 198 677 179 701 187 714 176 Q716 151 701 140 700 107 664 96 L634 92 Q619 66 552 72" fill="#d36676" stroke-width="11" />
+<path d="M532 82 Q585 68 616 88 634 99 626 119 659 113 676 135 694 134 705 151 L708 166 Q686 177 663 161 L650 184 618 163 576 177 563 140 526 128 540 106Z" fill="url(#cow-pink)" stroke="none" />
+<path d="M535 91 Q577 86 585 121 M565 163 Q570 117 610 118 642 117 652 150 657 165 648 181 M626 118 Q626 97 634 95 M654 145 Q678 126 698 139 M539 138 Q555 143 570 132" fill="none" stroke="#ae4e60" stroke-width="5" />
+<path d="M544 82 Q582 75 607 88 M589 128 Q609 120 626 132" fill="none" stroke="#fba2a7" stroke-width="6" />
+</g>
+<g id="cow-eyes">
+<path d="M315 256 430 215 Q442 210 448 225 L482 330 Q486 341 474 348 L359 383 Q346 387 340 373 L306 273 Q303 261 315 256Z" fill="#659c2d" stroke-width="17" />
+<path d="M315 252 Q374 225 430 214 441 210 446 222 L482 328 Q486 341 473 347 L357 381 Q345 385 340 372 L307 273 Q302 257 315 252Z" fill="url(#cow-ivory)" stroke-width="12" />
+<path d="M331 339 355 372 469 339 466 324 Q411 360 331 339Z" fill="#f5ecd4" stroke="none" />
+<path d="M418 276 443 267 451 292 428 299Z" fill="#030403" stroke-width="9" />
+<path d="M551 240 Q558 226 572 233 L668 277 Q682 284 677 297 L644 376 Q639 387 622 381 L512 349 Q498 343 504 329Z" fill="#263521" stroke-width="20" />
+<path d="M551 240 Q558 225 572 233 L668 277 Q681 283 675 298 L643 375 Q638 389 622 382 L511 349 Q498 343 504 329Z" fill="url(#cow-ivory)" stroke-width="12" />
+<path d="M517 344 624 375 637 372 650 345 625 361 553 361Z" fill="#f1e6c9" stroke="none" />
+<path d="M541 299 562 311 551 333 528 323Z" fill="#020302" stroke-width="9" />
+</g>
+<g id="cow-cheek-wound">
+<path d="M237 352 274 337 271 386 311 401 310 439 339 460 340 501 319 510 303 552 280 518 264 513 238 467Z" fill="#681e28" stroke-width="8" />
+<path d="M250 356 265 351 261 391 281 405 247 421Z" fill="#92313e" stroke="none" />
+<path d="M239 420 Q277 423 308 404 L307 438 Q275 455 242 456Z" fill="url(#cow-ivory)" stroke-width="6" />
+<path d="M250 476 Q298 477 337 450 L339 482 Q308 510 263 512Z" fill="url(#cow-ivory)" stroke-width="6" />
+<path d="M249 445 Q278 446 303 431 M265 503 Q305 498 331 480" fill="none" stroke="#ddc69f" stroke-width="7" />
+<path d="M286 515 309 507 300 533Z" fill="#8c2d3a" stroke="none" />
+</g>
+<g id="cow-muzzle">
+<path d="M373 383 Q505 376 636 384 645 385 651 395 L675 428 673 520 Q672 535 650 568 L638 587 Q512 604 373 587 L343 530 341 432 Q341 425 350 414Z" fill="url(#cow-pink)" stroke-width="13" />
+<path d="M346 529 Q489 550 670 525 L648 571 634 587 376 584Z" fill="#b65160" stroke="none" />
+<path d="M371 387 Q502 380 634 387" fill="none" stroke="#ffb1b5" stroke-width="5" />
+<rect x="403" y="427" width="54" height="48" rx="6" fill="#70212b" stroke="none" />
+<path d="M411 431 452 432 449 469 410 469Z" fill="#4b121a" stroke="none" />
+<rect x="559" y="427" width="55" height="48" rx="6" fill="#70212b" stroke="none" />
+<path d="M566 431 606 432 606 468 566 468Z" fill="#4b121a" stroke="none" />
+<path d="M439 542 Q524 504 620 506 636 507 635 520 L627 558 Q533 578 455 561 L451 541" fill="#4f121b" stroke-width="7" />
+<path d="M459 558 Q543 544 625 545 L624 558 Q538 574 459 561Z" fill="#812631" stroke="none" />
+</g>
+<g id="cow-tongue">
+<path d="M493 538 Q505 520 537 520 L559 524 Q577 508 600 521 632 541 646 581 663 628 627 652 590 680 552 652 536 640 531 606 526 560 493 545Z" fill="#f13e5c" stroke-width="11" />
+<path d="M501 537 Q525 525 543 534 574 555 585 588 L597 628 Q612 652 641 623 635 653 604 658 568 663 552 640 541 622 537 590 530 554 501 542Z" fill="#e72f50" stroke="none" />
+<path d="M513 536 Q531 530 547 543 574 568 580 599" fill="none" stroke="#ff5d75" stroke-width="7" />
+<path d="M558 526 Q594 550 605 611" fill="none" stroke="#a7223b" stroke-width="5" />
+</g>
+</g>
+<g id="cow-bent-cowbell">
+<path d="M399 752 Q403 740 420 734 L502 703 Q518 696 528 708 L551 738 582 833 Q589 852 572 863 L454 896 Q407 906 376 885 362 877 368 858Z" fill="url(#cow-gold)" stroke-width="12" />
+<path d="M405 752 437 737 417 842 382 863Z" fill="#e99c00" stroke="none" />
+<path d="M518 709 532 746 514 770 535 774 548 786" fill="none" stroke="#926000" stroke-width="8" />
+<path d="M519 711 525 742 505 776 531 778 537 812" fill="#ffd34b" stroke="none" />
+<path d="M382 864 Q446 830 528 814 553 808 570 838 546 863 455 885 407 897 383 878 Q375 873 382 864Z" fill="#9d6400" stroke-width="8" />
+<path d="M400 855 Q457 828 529 818 550 817 559 833 493 858 439 860Z" fill="#080a07" stroke-width="6" />
+<path d="M473 838 Q482 817 503 825 527 831 530 852 535 877 509 885 486 891 473 871 464 856 473 838Z" fill="#f5b30b" stroke-width="8" />
+<path d="M480 842 Q491 829 508 838 L517 849 Q490 838 480 859Z" fill="#ffc733" stroke="none" />
+<path d="M389 859 Q461 823 538 810" fill="none" stroke="#ffda54" stroke-width="4" />
+</g>
+</g>
+</svg>
