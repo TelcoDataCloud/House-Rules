@@ -983,3 +983,32 @@ because it is Hendrix's progress bar.
 the top and change STARTLE's picture from 😱 to 👻 (or any emoji he likes).
 Refresh: the scary trap cards and the burglars who hate scary things all
 show his new picture.
+
+---
+
+## Snot Moon (third game, `/zombies/`) — Z0 to Z4, 8 November 2026
+
+A kids' zombie village builder. Cure zombies with potion, every cured
+zombie becomes a villager; villagers are the score and the economy.
+Spec: `claude/ZOMBIE_BRIEF.md` in the Claude project; `zombies/README.md`.
+
+Built in one session at Asa's request ("playable with a first level in 24
+hours"): title with Easy/Hard, the grid, build bar (wall, fence, torch, mud,
+pit, brains on a string, trampoline, spin door, pumpkin drop, honey,
+scarecrow, log, bed, carrots, catapult; bell and garlic on Hard), villagers
+with jobs that make carrots, planks and potion each morning, nights with
+Plain Bob, Hopper, Digger (Hard adds Snot Bucket and Gas Bag), the hero
+(WASD, Space whack, E potion, click to run), the catapult aim mini game
+(drag, dotted arc, landing circle, aim assist on Easy, wind on Hard,
+pumpkin or potion shot), hearts and the sit-down timer, dawn, the result
+screen, the moon strip on Hard (full moon faster zombies and a werewolf,
+new moon slow), Giant Gary from night 5 (Easy) or 3 (Hard). Win at 12
+villagers (`WIN_AT` in `data/villagers.js`).
+
+Headless Playwright runs clean on Easy and Hard (one console line: the
+blocked Google Fonts request). Hard with an idle hero loses 3 of 7
+villagers on night 1; a real player whacks them off the beds (3 second
+tug). Balance is Asa's call after a play.
+
+Gotcha: the sandbox Chromium crashes when SVG files are DOMParser'd and
+importNode'd into the page; `zombies/js/art.js` uses insertAdjacentHTML.
