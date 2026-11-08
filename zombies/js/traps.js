@@ -7,7 +7,7 @@
    trap, add a word here and in data/traps.js.
    =========================================================== */
 
-import { state, TILE } from './state.js';
+import { state, TILE, CENTRE } from './state.js';
 import { burst, splash } from './fx.js';
 import { blip } from './voice.js';
 import { DIFFICULTY } from '../data/difficulty.js';
@@ -149,7 +149,7 @@ const ACT = {
       // Easy: the villager is scared, hops to the well, the zombie just stands there puzzled
       z.scaredT = 4;
       z.dizzy = 2;
-      v.x = 12 + Math.random(); v.y = 9;
+      v.x = CENTRE.x + Math.random(); v.y = CENTRE.y + 1;
       burst(z.x, z.y - 0.5, 'eek');
     }
   },

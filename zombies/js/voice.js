@@ -51,6 +51,9 @@ export function blip(kind) {
     twang: ['triangle', 300, 900, 0.3],
     yawn:  ['sine', 300, 150, 0.8],
     dong:  ['triangle', 660, 330, 0.9],
+    bong:  ['triangle', 880, 220, 0.5],
+    squeak: ['sine', 900, 1600, 0.25],
+    thud:  ['square', 120, 40, 0.35],
     cheer: ['square', 523, 1046, 0.5],
   }[kind] || ['sine', 440, 440, 0.2];
   o.type = set[0];

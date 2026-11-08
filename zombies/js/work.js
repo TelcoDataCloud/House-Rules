@@ -26,7 +26,6 @@ import { burst } from './fx.js';
 import { blip } from './voice.js';
 import { drawCounts, flashCount, helpSay, drawSun } from './hud.js';
 
-const HOME = { x: 12, y: 9 };
 const WALK = 2.2;          // squares a second
 const JOB_TIME = 1.4;      // seconds spent doing the job
 
@@ -94,6 +93,8 @@ function workplace(v) {
 export function updateWork(dt) {
   const diff = DIFFICULTY[state.mode];
   state.villagers.forEach((v) => {
+    // a job with no work (catapult crew, a lookout) drops whatever trip it was on
+    if (!WORK[v.job]) { if (v.task && v.task.spot.thing) v.task.spot.thing.worker = null; v.task = null; v.trips = 0; return; }
     if (!v.task) {
       if (!(v.trips > 0)) { v.el.classList.remove('walking'); return; }
       const w = WORK[v.job];
@@ -109,9 +110,9 @@ export function updateWork(dt) {
     const t = v.task;
     t.age += dt;
     // stuck somewhere silly for too long: give up the walk and count the trip
-    if (t.age > 14) { if (t.spot.thing) t.spot.thing.worker = null; v.x = HOME.x; v.y = HOME.y; drawVillager(v); finishTrip(v); return; }
+    if (t.age > 14) { if (t.spot.thing) t.spot.thing.worker = null; v.x = v.home.x; v.y = v.home.y; drawVillager(v); finishTrip(v); return; }
     if (t.step === 'go' || t.step === 'home') {
-      const goal = t.step === 'go' ? t.spot : HOME;
+      const goal = t.step === 'go' ? t.spot : v.home;
       const dx = goal.x - v.x, dy = goal.y - v.y, d = Math.hypot(dx, dy);
       if (d < 0.25) {
         if (t.step === 'go') { t.step = 'work'; v.busy = JOB_TIME; v.el.classList.remove('walking'); }
@@ -126,6 +127,12 @@ export function updateWork(dt) {
         else if (!wallAt(Math.floor(v.x), Math.floor(ny))) nx = v.x;
         else { nx = v.x + dy / d * step; ny = v.y - dx / d * step; }
       }
+      // step round anyone in the way
+      state.villagers.forEach((o) => {
+        if (o === v) return;
+        const ox = nx - o.x, oy = ny - o.y, od = Math.hypot(ox, oy);
+        if (od > 0.01 && od < 0.6) { nx += ox / od * (0.6 - od) * 0.5; ny += oy / od * (0.6 - od) * 0.5; }
+      });
       v.x = nx; v.y = ny;
       v.el.classList.add('walking');
       drawVillager(v);

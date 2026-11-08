@@ -6,9 +6,9 @@
    Hard they are the first the zombies go for.
    =========================================================== */
 
-import { state, TILE } from './state.js';
+import { state, TILE, CENTRE } from './state.js';
 import { JOBS, POCKETS, START, NAMES } from '../data/villagers.js';
-import { el } from './grid.js';
+import { el, thingAt, buildable } from './grid.js';
 
 let nextId = 1;
 
@@ -49,7 +49,46 @@ export function removeVillager(v) {
 // the walls, brewers by the brewery, everyone else near the well.
 export function placeAtWork(v) {
   if (v.crewOf) { v.x = v.crewOf.col + 0.5; v.y = v.crewOf.row - 0.4; return; }
-  v.x = 11 + Math.random() * 3; v.y = 8.5 + Math.random() * 1.5;
+  if (!v.home) assignHomes();
+  v.x = v.home.x; v.y = v.home.y;
+}
+
+// Everyone gets their own patch of ground to stand on: a free square
+// near their cottage, or near the well, never next to someone else's.
+// The patches are drawn as little boxes with the name in them.
+export function assignHomes() {
+  const taken = [];
+  const free = (c, r) => buildable(c, r) && !thingAt(c, r) && !taken.some(([tc, tr]) => Math.abs(tc - c) < 2 && Math.abs(tr - r) < 2);
+  const near = (cx, cy, max) => {
+    const list = [];
+    for (let r = Math.floor(cy) - max; r <= Math.floor(cy) + max; r++) {
+      for (let c = Math.floor(cx) - max; c <= Math.floor(cx) + max; c++) list.push([c, r, Math.hypot(c + 0.5 - cx, r + 0.5 - cy)]);
+    }
+    return list.sort((a, b) => a[2] - b[2]);
+  };
+  state.villagers.forEach((v) => {
+    if (v.crewOf) { v.home = { x: v.crewOf.col + 0.5, y: v.crewOf.row - 0.4 }; return; }
+    let spot = null;
+    if (v.bed && v.bed.col !== undefined) spot = near(v.bed.col + 0.5, v.bed.row + 0.5, 2).find(([c, r, d]) => d > 0.6 && free(c, r));
+    if (!spot) spot = near(CENTRE.x, CENTRE.y, 7).find(([c, r, d]) => d > 1.2 && free(c, r));
+    if (!spot) spot = [Math.floor(CENTRE.x), Math.floor(CENTRE.y) + 1, 0];
+    taken.push([spot[0], spot[1]]);
+    v.home = { x: spot[0] + 0.5, y: spot[1] + 0.75, col: spot[0], row: spot[1] };
+  });
+  drawHomes();
+}
+
+export function drawHomes() {
+  const g = document.getElementById('homes');
+  if (!g) return;
+  g.innerHTML = '';
+  state.villagers.forEach((v) => {
+    if (!v.home || v.home.col === undefined) return;
+    g.appendChild(el('rect', { class: 'home-box', x: v.home.col * TILE + 3, y: v.home.row * TILE + 3, width: TILE - 6, height: TILE - 6, rx: 6 }));
+    const t = el('text', { class: 'home-name', x: v.home.col * TILE + TILE / 2, y: v.home.row * TILE + TILE - 5, 'text-anchor': 'middle' });
+    t.textContent = v.name;
+    g.appendChild(t);
+  });
 }
 
 // Who gets which bed: one each, in order, the rest have none
@@ -66,13 +105,14 @@ export function sendToBed() {
   state.villagers.forEach((v, i) => {
     const bed = v.bed;
     if (bed) { v.x = bed.col + 0.3 + (i % 2) * 0.4; v.y = bed.row + 0.7; }
-    else { v.x = 12 + (i % 3) * 0.6; v.y = 9 + Math.floor(i / 3) * 0.5; }
+    else { v.x = CENTRE.x + (i % 3) * 0.6; v.y = CENTRE.y + 1 + Math.floor(i / 3) * 0.5; }
     v.el.classList.remove('walking');
     draw(v);
   });
 }
 
 export function wakeUp() {
+  assignHomes();
   state.villagers.forEach((v) => { placeAtWork(v); draw(v); });
 }
 
