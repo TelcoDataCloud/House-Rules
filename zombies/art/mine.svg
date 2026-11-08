@@ -1,0 +1,120 @@
+<!-- mine: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Voxel mine entrance</title>
+<desc>A blocky grey rock mine entrance with golden wooden supports, a short track, a leaning pickaxe and a bright lantern on a white background.</desc>
+
+<g id="mine-rock">
+<path d="M46 503 66 375 146 187 225 152 273 59 500 10 620 69 710 59 808 112 837 187 928 316 967 381 961 658 1001 714 1011 804 916 849 857 817 706 760 446 899 218 978 108 927 54 868 83 792 11 720 28 523Z" fill="#858995" stroke="#080909" stroke-width="16" stroke-linejoin="round" />
+<path d="M273 59 500 10 638 81 464 147 354 106Z" fill="#c7cad6" />
+<path d="m273 59 81 47-39 111-90-65Z" fill="#737783" />
+<path d="m354 106 110 41-45 128-104-58Z" fill="#a4a8b5" />
+<path d="m464 147 174-66 23 139-242 55Z" fill="#767a86" />
+<path d="m638 81 72-22 98 53-120 38-37-20Z" fill="#aeb2c0" />
+<path d="m688 150 120-38 29 75-176 51-10-108Z" fill="#575c68" />
+<path d="m146 187 79-35 90 65 46 25-113 21Z" fill="#bec2ce" />
+<path d="m146 187 102 76-72 110-110 2Z" fill="#858995" />
+<path d="m66 375 110-2-7 95-123 35Z" fill="#555b67" />
+<path d="m248 263 113-21 58 33-99 101-144-3Z" fill="#626773" />
+<path d="m928 316 39 65-81 37-16-64Z" fill="#c1c5d1" />
+<path d="m967 381-6 277-74-13-1-227Z" fill="#858a96" />
+<path d="m961 658 40 56-78 43-56-44 20-68Z" fill="#bdc1cd" />
+<path d="m923 757 78-43 10 90-95 45Z" fill="#858a96" />
+<path d="m867 713 56 44-7 92-59-32Z" fill="#666c78" />
+<path d="m28 523 176-77 58 70-142 71Z" fill="#bec3cf" />
+<path d="m28 523 92 64-7 138-30 67-72-72Z" fill="#686e7b" />
+<path d="m120 587 142-71 14 111-73 108-90-10Z" fill="#9298a6" />
+<path d="m83 792 120-57 77 40 40 163-102 40-110-51-54-59Z" fill="#6e7481" />
+<path d="m142 823 89-45 49 60-54 35Z" fill="#b0b6c3" />
+<path d="m142 823 84 50-8 105-110-51Z" fill="#9298a6" />
+<path d="m226 873 54-35 40 100-102 40Z" fill="#787f8d" />
+<path d="M46 503 66 375 146 187 225 152 273 59 500 10 620 69 710 59 808 112 837 187 928 316 967 381 961 658 1001 714 1011 804 916 849 857 817 706 760 446 899 218 978 108 927 54 868 83 792 11 720 28 523Z" fill="none" stroke="#080909" stroke-width="16" stroke-linejoin="round" />
+<path d="m620 69 18 12 17 97" fill="none" stroke="#080909" stroke-width="12" stroke-linejoin="round" />
+<path d="m28 523 176-77 58 70 14 111M83 792l30-67" fill="none" stroke="#080909" stroke-width="12" stroke-linejoin="round" />
+</g>
+<g id="mine-mine-interior">
+<path d="m351 366 374-77 101 109-23 420-360 107-92-274Z" fill="#101112" stroke="#080909" stroke-width="14" stroke-linejoin="round" />
+<path d="m446 467 217-64-13 288-196 67Z" fill="#121314" />
+<path d="m663 403 68-25-16 363-65-50Z" fill="#303136" />
+<path d="m454 758 196-67 151 127-357 107Z" fill="#1c1710" />
+</g>
+<g id="mine-wood-frame" stroke="#080909" stroke-width="14" stroke-linejoin="round">
+<path d="m271 397 76-24 100 29-1 505-57 21-62-159-43-286Z" fill="#d67b12" />
+<path d="m271 397 67 31 3 191-35 18-22-154Z" fill="#9b500b" stroke="none" />
+<path d="m338 428 70-19-9 507 47-9 1-505Z" fill="#ef9017" stroke="none" />
+<path d="m718 340 80-24 88 4-23 495-60 19-95-89Z" fill="#d47a12" />
+<path d="m718 340 37 37-4 405-43-37Z" fill="#a7560c" stroke="none" />
+<path d="m798 316 88 4-23 495-60 19-5-305Z" fill="#f59616" stroke="none" />
+<path d="m418 435 95-56 66 5-158 196Z" fill="#ec8912" />
+<path d="m418 435 95-56-92 137Z" fill="#aa540a" stroke="none" />
+<path d="m630 371 76-41 82 97-1 89-44-15Z" fill="#dc790d" />
+<path d="m630 371 28-13 129 158-44-15Z" fill="#a95309" stroke="none" />
+<path d="m361 293 395-101 62 55-1 81-395 103-62-49Z" fill="#d57a12" />
+<path d="m361 293 395-101 62 55-395 101Z" fill="#ffa52b" stroke="none" />
+<path d="m394 304 359-92 25 14-361 93Z" fill="#ec911b" stroke="none" />
+<path d="m423 348 395-101" fill="none" stroke="#ffbd4a" stroke-width="7" />
+<path d="m361 293 395-101 62 55-1 81-395 103-62-49Z" fill="none" />
+<path d="m749 181 95-21 89 54-4 112-95 24-86-55Z" fill="#d97b10" />
+<path d="m749 181 95-21 89 54-99 25Z" fill="#ffab32" stroke="none" />
+<path d="m749 181-1 114 86 55V239Z" fill="#ad580b" stroke="none" />
+<path d="m834 239 99-25" fill="none" stroke="#ffd06b" stroke-width="6" />
+<path d="m749 181 95-21 89 54-4 112-95 24-86-55Z" fill="none" />
+<path d="m238 292 108-29 81 53-1 112-108 30-80-52Z" fill="#df8215" />
+<path d="m238 292 108-29 81 53-108 29Z" fill="#ffab32" stroke="none" />
+<path d="m238 292 81 53-1 113-80-52Z" fill="#995009" stroke="none" />
+<path d="m319 345 108-29" fill="none" stroke="#ffcb60" stroke-width="6" />
+<path d="m238 292 108-29 81 53-1 112-108 30-80-52Z" fill="none" />
+</g>
+<g id="mine-track-sleepers" stroke="#080909" stroke-width="13" stroke-linejoin="round">
+<path d="m475 720 116-31 53 38 1 24-125 31-45-38Z" fill="#a9580e" />
+<path d="m475 720 116-31 53 38-124 32Z" fill="#c47720" stroke="none" />
+<path d="m449 803 175-54 65 39 1 25-214 56-27-29Z" fill="#bb6410" />
+<path d="m449 803 175-54 65 39-213 54Z" fill="#ec921f" stroke="none" />
+<path d="m501 887 219-66 50 46 1 27-227 77-43-45Z" fill="#b46111" />
+<path d="m501 887 219-66 50 46-226 73Z" fill="#ed9223" stroke="none" />
+<path d="m604 930 185-38 37 36 1 27-167 44-56-40Z" fill="#b96813" />
+<path d="m604 930 185-38 37 36-166 46Z" fill="#f49b2b" stroke="none" />
+</g>
+<g id="mine-rails" stroke="#080909" stroke-width="12" stroke-linejoin="round">
+<path d="m588 677 33-7 265 241-1 41-44 14-254-271Z" fill="#777d88" />
+<path d="m588 677 33-7 265 241-44 13Z" fill="#bfc4cf" stroke="none" />
+<path d="m588 677 33-7 38 35-34 10Z" fill="#747b87" stroke="none" />
+<path d="m842 924 44-13-1 41-44 14Z" fill="#9197a4" stroke="none" />
+<path d="m588 677 33-7 265 241-1 41-44 14-254-271Z" fill="none" />
+<path d="m449 711 18-10 227 260-1 41-43 14-201-266Z" fill="#767d89" />
+<path d="m449 711 18-10 227 260-44 13Z" fill="#c7cdd8" stroke="none" />
+<path d="m449 711 18-10 27 32-29 10Z" fill="#9299a5" stroke="none" />
+<path d="m650 974 44-13-1 41-43 14Z" fill="#9198a5" stroke="none" />
+<path d="m449 711 18-10 227 260-1 41-43 14-201-266Z" fill="none" />
+<path d="m474 749 176 225m-16-246 208 196" fill="none" stroke="#e0e4ec" stroke-width="5" />
+</g>
+<g id="mine-pickaxe" stroke="#080909" stroke-linejoin="round">
+<path d="m228 620 43-14 13 9 121 344-9 20-43 14-20-16-111-336Z" fill="#ba681d" stroke-width="15" />
+<path d="m242 625 29-8 126 342-39 13Z" fill="#da8730" stroke="none" />
+<path d="m228 620 14 5 116 347-5 11-20-11-111-331Z" fill="#a75918" stroke="none" />
+<path d="M121 775 145 703 185 670 222 647 241 634 277 626 317 619 351 623 378 637 417 674 416 681 375 677 340 680 306 690 277 704 242 718 206 738 171 765 143 789Z" fill="#96aebe" stroke-width="15" />
+<path d="m145 703 40-33 37-23 19-13 36-8 40-7 34 4 27 14 39 37-55-32-43-4-57 14-53 26-36 32-31 68-12-3Z" fill="#d6e6f0" stroke="none" />
+<path d="m173 710 36-32 53-26 57-14 43 4 55 32-42 3-35 3-34 10-29 14-35 14-36 20-35 27-28 24Z" fill="#90a9ba" stroke="none" />
+<path d="m235 636 39-11 35 4 20 66-35 10-41 15Z" fill="#b3c8d8" stroke-width="12" />
+<path d="m235 636 39-11 35 4-43 12-13 10Z" fill="#edf5fa" stroke="none" />
+<path d="m235 636 18 15 15 56-15 13Z" fill="#6e879a" stroke="none" />
+</g>
+<g id="mine-lantern-bracket" stroke="#080909" stroke-width="12" stroke-linejoin="round">
+<path d="m813 398 35-10 2 84-37 11Z" fill="#555b65" />
+<path d="m818 407 31-10 82 36 1 31-33 12-81-40Z" fill="#565d69" />
+<path d="m818 407 31-10 82 36-33 11Z" fill="#949aa6" stroke="none" />
+<path d="m898 444 33-11 1 31-33 12Z" fill="#747c89" stroke="none" />
+<path d="M895 473c-12 5-19 18-17 32 1 15 12 27 24 25 14-2 22-16 21-30-1-11-7-20-16-23l-1 20c3 8 0 15-5 15-6-1-8-10-4-15Z" fill="#636c78" />
+</g>
+<g id="mine-lantern" stroke="#080909" stroke-width="12" stroke-linejoin="round">
+<path d="m832 523 71-20 68 28v26l-74 24-65-32Z" fill="#737c89" />
+<path d="m832 523 71-20 68 28-77 27Z" fill="#a7aebb" stroke="none" />
+<path d="m843 552 51 23 64-22 2 84-65 26-55-24Z" fill="#fff044" />
+<path d="m843 552 28 13 1 82-32-8Z" fill="#ffdb20" stroke="none" />
+<path d="m914 571 30-10-1 69-29 11Z" fill="#fff879" stroke="none" />
+<path d="m894 575 1 88" fill="none" stroke="#555e69" stroke-width="16" />
+<path d="m831 621 10 9 54 24 64-24 12 7v23l-77 28-63-32Z" fill="#515b68" />
+<path d="m831 621 10 9 54 24 64-24 12 7-77 29Z" fill="#7d8795" stroke="none" />
+<path d="m832 523 71-20 68 28v26l-74 24-65-32Z" fill="none" />
+<path d="m831 621 10 9 54 24 64-24 12 7v23l-77 28-63-32Z" fill="none" />
+</g>
+</svg>
