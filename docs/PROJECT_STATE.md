@@ -1073,3 +1073,20 @@ of talking over itself, villagers have names (carried off says who).
 Tuning: Easy bar unlocks a few things a night (`from` in
 `data/traps.js`), a readable morning line, "BONK! Stunned. Potion cures
 them." on the first whack, "You got back up!" with a blink on Easy.
+
+### Z7 Big and Z8 Polish (8 Nov, evening) — Snot Moon v1 complete
+
+Zombie animals: cow (cured: milk, potion for half the carrots), chicken
+(steals a carrot and runs; cured: a carrot a day), sheep (harmless; cured:
+a plank a day), pig (digs under fences; cured: a free potion a day,
+truffles), horse with rider (the rider falls off at the first fence and
+becomes a Plain Bob; the horse then jumps), goldfish in a bowl
+(harmless). The **Pumpkin King** every fifth night (`KING_EVERY` in
+`data/nights.js`): catapult only, 3 potion, throws pumpkins that land on
+villagers' heads and hide them from every zombie for 20 s. Cured, he is
+the pumpkin farmer (4 carrots a day). Easy meets the animals on nights 8
+to 12. Twelve more sprites (zombie and cured versions). Polish: a cheer
+on every cure, a bell dong, tablet layout (corner buttons above the
+strip, scrolling build bar, sticky WHACK and POTION), Trap House's title
+now links to Star Base and Snot Moon. All milestone dots done. Not done:
+pinch zoom, a painted title backdrop (Asa to say).
