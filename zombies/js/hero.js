@@ -40,7 +40,7 @@ export function listen() {
     if (state.phase !== 'night') return;
     const k = e.key.toLowerCase();
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) { keys.add(k); goal = null; e.preventDefault(); }
-    if (k === ' ') { whack(); e.preventDefault(); }
+    if (k === ' ') { whack(); e.preventDefault(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); }
     if (k === 'e') { throwPotion(); e.preventDefault(); }
     if (k === 'b') { const bell = [...state.things.values()].find((t) => t.does === 'bell' && !t.broken); if (bell) ringBell(bell); }
   });

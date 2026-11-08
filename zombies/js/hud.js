@@ -50,7 +50,7 @@ export function drawDay() {
   document.getElementById('day-label').textContent = t.replace('{n}', state.night);
   const sky = document.getElementById('skybar');
   sky.classList.toggle('night', state.phase === 'night');
-  document.getElementById('sky-label').textContent = state.phase === 'night' ? 'Night ends' : 'Day';
+  document.getElementById('sky-label').textContent = state.phase === 'night' ? 'Night ends' : 'Work done';
   document.getElementById('night-falls').hidden = state.phase !== 'day';
   document.getElementById('night-buttons').hidden = state.phase !== 'night';
   document.getElementById('pause-btn').hidden = state.phase !== 'night';

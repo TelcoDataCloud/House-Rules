@@ -18,6 +18,7 @@ import { stepOn } from './traps.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
+import { JOBS } from '../data/villagers.js';
 import { TRICKS, onWhack, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
 import { updateHard } from './hard.js';
 
@@ -133,7 +134,8 @@ function target(z) {
   let best = null, bd = 1e9;
   state.villagers.forEach((v) => {
     if (v.taken || v.pumpkin > 0) return;
-    const d = Math.hypot(v.x - z.x, v.y - z.y);
+    // Hard: anyone sleeping by the well with no bed is the easy pick
+    const d = Math.hypot(v.x - z.x, v.y - z.y) - (DIFFICULTY[state.mode].bedlessHalfTrips && !v.bed ? 6 : 0);
     if (d < bd) { bd = d; best = v; }
   });
   if (best) return { x: best.x, y: best.y };
@@ -356,10 +358,15 @@ export function cure(z) {
   v.el.classList.add('cured');
   v.walkHome = true;
   state.curedTonight++;
+  state.joined = state.joined || [];
+  state.joined.push({ name: v.name, job });
   burst(z.x, z.y - 0.8, 'POP!');
   blip('pop');
   setTimeout(() => blip('cheer'), 180);
-  say(pick(LINES.cured));
+  const jobName = (JOBS[job] || { name: job }).name.toLowerCase();
+  const line = LINES.joined.replace('{name}', v.name).replace('{job}', jobName).replace('{does}', (JOBS[job] || {}).does || '');
+  say(line, true);
+  import('./hud.js').then((m) => m.helpSay(line));
   return true;
 }
 

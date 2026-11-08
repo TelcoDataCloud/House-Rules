@@ -1,15 +1,14 @@
 /* ===========================================================
    VILLAGERS: the people who live here
 
-   By day they stand at their work. At night they sleep in beds
-   (one each; anyone without a bed sleeps by the well). Each
-   morning every job makes its thing (data/villagers.js).
+   By day they walk to work (js/work.js). At night they sleep in
+   beds, one each; anyone without a bed sleeps by the well, and on
+   Hard they are the first the zombies go for.
    =========================================================== */
 
 import { state, TILE } from './state.js';
 import { JOBS, POCKETS, START, NAMES } from '../data/villagers.js';
-import { DIFFICULTY } from '../data/difficulty.js';
-import { el, thingAt } from './grid.js';
+import { el } from './grid.js';
 
 let nextId = 1;
 
@@ -33,6 +32,13 @@ export function addVillager(job, x, y) {
   return v;
 }
 
+// Change what a villager does. The picture changes with it.
+export function setJob(v, job) {
+  v.job = job;
+  const use = v.el.querySelector('use');
+  use.setAttribute('href', '#art-' + (JOBS[job]?.art || 'farmer'));
+}
+
 export function removeVillager(v) {
   v.el.remove();
   state.villagers = state.villagers.filter((x) => x !== v);
@@ -41,19 +47,23 @@ export function removeVillager(v) {
 // Where each villager stands by day: farmers by the farm, builders by
 // the walls, brewers by the brewery, everyone else near the well.
 export function placeAtWork(v) {
-  const things = [...state.things.values()];
-  const want = { farmer: 'farm', brewer: 'brewery', crew: 'catapult', lookout: 'tower' }[v.job];
-  const spot = want ? things.find((t) => t.does === want) : null;
-  if (spot) { v.x = spot.col + 0.5 + (Math.random() - 0.5); v.y = spot.row - 0.6; }
-  else { v.x = 11 + Math.random() * 3; v.y = 8 + Math.random() * 2; }
+  if (v.crewOf) { v.x = v.crewOf.col + 0.5; v.y = v.crewOf.row - 0.4; return; }
+  v.x = 11 + Math.random() * 3; v.y = 8.5 + Math.random() * 1.5;
+}
+
+// Who gets which bed: one each, in order, the rest have none
+export function assignBeds() {
+  const beds = [...state.things.values()].filter((t) => t.does === 'bed');
+  state.villagers.forEach((v, i) => { v.bed = beds[i] || null; });
+  return state.villagers.filter((v) => !v.bed);
 }
 
 // At night everyone finds a bed
 export function sendToBed() {
+  assignBeds();
   const beds = [...state.things.values()].filter((t) => t.does === 'bed');
   state.villagers.forEach((v, i) => {
     const bed = beds[i];
-    v.bed = bed || null;
     if (bed) { v.x = bed.col + 0.5; v.y = bed.row + 0.5; }
     else { v.x = 12 + (i % 3) * 0.6; v.y = 9 + Math.floor(i / 3) * 0.5; }
     v.el.classList.remove('walking');
@@ -63,30 +73,6 @@ export function sendToBed() {
 
 export function wakeUp() {
   state.villagers.forEach((v) => { placeAtWork(v); draw(v); });
-}
-
-// Every morning: the jobs make things
-export function morning() {
-  const diff = DIFFICULTY[state.mode];
-  const made = { carrots: 0, planks: 0, potion: 0 };
-  // farmers and builders first, then the brewers use the fresh carrots
-  const order = [...state.villagers].sort((a, b) => (JOBS[a.job]?.makes === 'potion') - (JOBS[b.job]?.makes === 'potion'));
-  order.forEach((v) => {
-    const job = JOBS[v.job];
-    if (!job || !job.makes) return;
-    if (job.needs && ![...state.things.values()].some((t) => t.does === job.needs)) return;
-    if (job.makes === 'potion') {
-      let n = job.amount;
-      const cost = job.free ? 0 : job.cheap ? Math.ceil(diff.potionCostCarrots / 2) : diff.potionCostCarrots;
-      while (n > 0 && state.carrots >= cost) {
-        state.carrots -= cost; state.potion += 1; made.potion += 1; n--;
-      }
-    } else {
-      state[job.makes] += job.amount;
-      made[job.makes] += job.amount;
-    }
-  });
-  return made;
 }
 
 export function draw(v) {
