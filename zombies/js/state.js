@@ -6,9 +6,12 @@
    pockets. Nothing is saved; refresh and it is day 1 again.
    =========================================================== */
 
-export const COLS = 24;
-export const ROWS = 16;
+export const COLS = 36;
+export const ROWS = 24;
 export const TILE = 40;
+
+// The middle of the village: the well is here, everyone gathers round it
+export const CENTRE = { x: COLS / 2, y: ROWS / 2 };
 
 export const state = {
   phase: 'title',       // 'title', 'day', 'night', 'dawn'
@@ -51,6 +54,11 @@ export function fresh() {
   state.whackedOnce = false;
   state.brokeTonight = 0;
   state.dropped = [];
+  state.weapon = 0;
+  state.socks = 0;
+  state.arms = [];
+  state.loot = [];
+  state.hitStop = 0;
 }
 
 window.ZOMBIES = { state };
