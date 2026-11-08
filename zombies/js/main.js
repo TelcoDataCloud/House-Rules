@@ -73,10 +73,11 @@ function dawnResult() {
   const won = checkWin();
   $('result-title').textContent = won ? LINES.win : 'DAWN';
   const taken = state.taken.length ? `<p>${icon('zombieicon')} ${state.taken.length} carried off. Cure them tomorrow.</p>` : '';
+  const broke = state.brokeTonight ? `<p>${icon('plank')} ${state.brokeTonight} traps broke</p>` : '';
   const pits = state.zombies.length ? `<p>${icon('pit')} ${state.zombies.length} waiting in pits</p>` : '';
   $('result-counts').innerHTML =
     `<p>${icon('bucket')} ${state.curedTonight} cured tonight</p>` +
-    `<p>${icon('villager')} ${n} villagers (${WIN_AT} wins)</p>` + taken + pits;
+    `<p>${icon('villager')} ${n} villagers (${WIN_AT} wins)</p>` + taken + pits + broke;
   $('result-tip').textContent = won ? 'Keep going for a bigger village, or start again on Hard.' : pick(LINES.tip);
   say(won ? LINES.win : `${state.curedTonight} cured. ${n} villagers.`);
   show('screen-result');

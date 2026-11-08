@@ -20,6 +20,7 @@ import * as catapult from './catapult.js';
 import { icon } from './art.js';
 import { say, blip } from './voice.js';
 import { getPlan } from './day.js';
+import { ringBell } from './hard.js';
 
 let raf = 0;
 let last = 0;
@@ -33,6 +34,7 @@ export function startNight(whenDone) {
   state.taken = [];
   state.curedTonight = 0;
   state.gasAt = null;
+  state.brokeTonight = 0;
   document.getElementById('stage').classList.add('is-night');
   document.getElementById('help').innerHTML = '<kbd>WASD</kbd> run. <kbd>Space</kbd> whack. <kbd>E</kbd> potion. Press and drag from the catapult to aim.';
   sendToBed();
@@ -135,6 +137,7 @@ export function stopNight() {
 export function nightDown(ev) {
   const p = pointToTile(ev);
   const t = thingAt(p.col, p.row);
+  if (t && t.does === 'bell') { ringBell(t); return; }
   if (t && t.does === 'catapult') {
     if (!t.crewMember || !state.villagers.includes(t.crewMember)) { banner('needs a villager', 1200); return; }
     catapult.startAim(t);
