@@ -108,7 +108,7 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
 /* ---------- the strip above the village ---------- */
 .top {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  padding: 8px 12px; margin-bottom: 8px;
+  padding: 8px 190px 8px 12px; margin-bottom: 8px;   /* room on the right for the pause, theme and sound buttons */
   background: var(--panel); border: var(--ink-w) solid var(--ink);
   border-radius: var(--radius); box-shadow: 0 4px 0 var(--ink);
 }
@@ -179,3 +179,31 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
   html { font-size: 16px; }
   .bar .thing { width: 76px; }
 }
+
+/* ---------- title buttons, how to play ---------- */
+.title-buttons { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.how-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 10px 0 18px; }
+.how-card {
+  background: var(--page); border: var(--ink-w) solid var(--ink); border-radius: var(--radius);
+  padding: 12px 10px; text-align: center;
+}
+.how-card h3 { font-family: var(--font-title); font-size: 1.3rem; margin: 6px 0 4px; letter-spacing: 1px; }
+.how-card p { margin: 0; font-size: 1rem; }
+
+/* ---------- the top strip, continued ---------- */
+.sky { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px; }
+.sky-label { font-weight: 800; white-space: nowrap; }
+.night-btn { margin-left: auto; font-size: 1.5rem; }
+.counts span.flash { animation: flash 900ms; }
+@keyframes flash { 0%, 100% { color: inherit; } 30%, 70% { color: var(--heart); transform: scale(1.15); } }
+.moon-strip b { font-size: 0.9rem; margin: 0 4px; }
+
+/* ---------- night buttons ---------- */
+.night-buttons { display: flex; gap: 12px; margin-top: 8px; }
+.night-buttons[hidden] { display: none; }
+.night-buttons button { flex: 1; font-family: var(--font-title); font-size: 1.5rem; letter-spacing: 1px; min-height: 64px; }
+.night-buttons small { font-family: var(--font); font-size: 0.8rem; opacity: 0.7; margin-left: 6px; }
+#btn-potion { background: var(--potion); }
+
+/* ---------- pause ---------- */
+.screen.pause { background: rgba(10, 12, 30, 0.6); }

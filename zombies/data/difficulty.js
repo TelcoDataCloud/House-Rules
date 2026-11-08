@@ -2,8 +2,9 @@
    DIFFICULTY: Easy and Hard
 
    Hendrix: this is the one file that makes Easy easy and Hard
-   hard. Change a number, refresh, play. Nothing greys out, both
-   modes have every trap.
+   hard. Change a number, refresh, play. Hard has a few extra
+   traps of its own (hard: true in data/traps.js); Easy unlocks
+   its bar a few things a night.
 
    nightSeconds   how long the night lasts
    hordeStart     zombies on night 1
@@ -16,6 +17,10 @@
    aimAssist      catapult shots snap to the nearest zombie
    moon           does the moon cycle happen?
    mix            which zombies can come (names from data/zombies.js)
+   meet           Easy: a new zombie joins the mix on these nights, one at a
+                  time, so there is one new thing to learn each night
+   barUnlocks     Easy: new things appear on the build bar night by night
+                  (the "from" numbers in data/traps.js)
    =========================================================== */
 
 export const DIFFICULTY = {
@@ -32,7 +37,9 @@ export const DIFFICULTY = {
     aimAssist: true,
     moon: false,
     potionCostCarrots: 3,
-    mix: ['bob', 'bob', 'bob', 'hopper', 'digger', 'bogey', 'eyeball', 'loosebits', 'vomit'],
+    mix: ['bob', 'bob', 'bob'],
+    meet: { 2: 'hopper', 3: 'digger', 4: 'bogey', 5: 'eyeball', 6: 'loosebits', 7: 'vomit' },
+    barUnlocks: true,
   },
   hard: {
     name: 'Hard',

@@ -83,7 +83,7 @@
     radial-gradient(circle at 45% 60%, var(--snot) 0 50px, transparent 60px);
   transition: opacity 400ms;
 }
-.snot-screen.on { opacity: 0.75; animation: drip 5s forwards; }
+.snot-screen.on { opacity: 0.7; animation: drip 1.6s forwards; }
 @keyframes drip { from { transform: translateY(0); } to { transform: translateY(120%); opacity: 0; } }
 
 /* the big banner in the middle */
@@ -106,3 +106,6 @@
   .mob .body, .mob .stars, .burst, .splash, .snot-screen.on { animation: none !important; }
   .night-tint, .torch-glow { transition: none; }
 }
+
+/* the see-through thing that follows the pointer while building */
+.ghost { opacity: 0.55; pointer-events: none; }

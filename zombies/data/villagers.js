@@ -30,5 +30,8 @@ export const POCKETS = { planks: 10, carrots: 6, potion: 2 };
 // How many villagers you need to win the first level
 export const WIN_AT = 12;
 
+// Villagers get a name from this list, in order, then round again.
+export const NAMES = ['Pip', 'Mo', 'Dot', 'Bex', 'Fin', 'Lou', 'Kit', 'Jem', 'Taz', 'Wren', 'Ned', 'Sol'];
+
 // Zombies can never carry off the last few. The village always goes on.
 export const KEEP_AT_LEAST = 2;
