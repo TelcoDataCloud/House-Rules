@@ -1,1 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="18" y="6" width="4" height="32" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 6 h12" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/><path d="M32 6 v8" stroke="var(--ink)" stroke-width="1.5"/><ellipse cx="32" cy="19" rx="6" ry="5" fill="var(--undies)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M28 17 q2 -3 4 0 q2 -3 4 0" stroke="var(--ink)" stroke-width="1.5" fill="none"/></svg>
+<!-- brains: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden post with dangling pink rubber brain</title>
+
+<g stroke="#080705" stroke-width="19" stroke-linejoin="round" stroke-linecap="round">
+<g id="brains-wooden-base">
+<path d="M51 790 248 680 474 805 474 891 250 1012 51 891Z" fill="#a74813" />
+<path d="M51 790 248 680 474 805 250 932Z" fill="#ffab48" />
+<path d="M250 932 474 805 474 891 250 1012Z" fill="#a64814" stroke="none" />
+<path d="M51 790 250 932 250 1012 51 891Z" fill="#bb581b" stroke="none" />
+<path d="M51 790 248 680 474 805 474 891 250 1012 51 891Z" fill="none" />
+<path d="M124 930 124 842 320 731M365 947 365 864 166 748" fill="none" stroke="#7b390f" stroke-width="11" />
+<path d="M250 936 250 996" stroke="#db7b2c" stroke-width="10" />
+</g>
+<g id="brains-support-brace">
+<path d="M324 345 577 249 338 564 309 505Z" fill="#9a4210" />
+<path d="M324 345 497 286 328 502Z" fill="#e7832c" stroke="none" />
+<path d="M324 345 577 249 338 564 309 505Z" fill="none" />
+</g>
+<g id="brains-horizontal-beam">
+<path d="M327 176 791 21 870 67 866 162 340 343Z" fill="#99400f" />
+<path d="M327 176 791 21 870 67 350 246Z" fill="#f09135" stroke="none" />
+<path d="M350 246 866 74 866 162 340 343Z" fill="#95400f" stroke="none" />
+<path d="M327 176 791 21 870 67 866 162 340 343Z" fill="none" />
+</g>
+<g id="brains-upright">
+<path d="M145 186 266 118 340 183 340 801 250 852 148 789Z" fill="#a94c13" />
+<path d="M250 229 340 183 340 801 250 852Z" fill="#91400f" stroke="none" />
+<path d="M156 235 200 260 200 507Q213 542 232 533L232 496Q233 479 247 475L247 841 210 819 210 685Q207 648 182 644 165 643 165 672L165 798 156 791Z" fill="#c16a23" stroke="none" />
+<path d="M252 245 252 833" stroke="#dc8130" stroke-width="11" />
+<path d="M145 186 266 118 340 183 340 801 250 852 148 789Z" fill="none" />
+</g>
+<g id="brains-post-bindings" fill="#eac28a">
+<path d="M132 267Q123 276 124 300L125 326Q125 344 146 355L223 394Q240 404 259 393L353 339Q368 330 369 310L368 268 247 319Z" />
+<path d="M134 277 232 331Q244 339 260 329L361 273 357 299 254 359Q243 365 228 357L135 307Z" fill="#ffe0a8" stroke="none" />
+<path d="M143 179Q118 188 119 213L120 242Q119 265 141 277L227 324Q242 332 259 322L382 252Q398 241 397 218L395 192Q393 176 377 169L254 236Z" />
+<path d="M128 198 232 258Q248 269 264 260L386 189 386 214 263 282Q248 287 232 280L130 222Z" fill="#ffe6b6" stroke="none" />
+</g>
+<g id="brains-post-cap">
+<path d="M138 91Q138 81 150 74L253 18Q265 12 278 20L373 75Q383 81 382 95L382 180Q382 190 371 197L264 257Q253 264 239 256L147 204Q138 199 138 186Z" fill="#a84b12" />
+<path d="M146 86 257 25Q265 22 274 27L372 83 372 91 260 151Q252 155 243 149L147 94Z" fill="#ffa342" stroke="none" />
+<path d="M260 151 372 91 372 181 260 245Z" fill="#93400e" stroke="none" />
+<path d="M148 97 200 126 200 223 148 193Z" fill="#ba5a19" stroke="none" />
+<path d="M253 155 253 246" stroke="#de7b29" stroke-width="11" />
+</g>
+<g id="brains-hanging-string">
+<path d="M629 77Q640 34 672 31 693 27 715 45L757 80Q779 98 777 124L777 181Q775 219 753 233 727 248 702 231L696 213Q711 207 713 184L715 139Q716 121 701 108L656 77Q646 72 629 77Z" fill="#e8bf87" />
+<path d="M637 70Q650 41 676 41 693 39 714 58L751 90Q773 108 765 126 752 147 721 125L706 105 655 75Z" fill="#ffe1a9" stroke="none" />
+<path d="M698 234 752 232 752 399Q730 417 698 399Z" fill="#f4cf96" />
+<path d="M708 244 742 244 742 280Q728 290 708 279Z" fill="#e6ba80" stroke="none" />
+<path d="M678 387Q658 399 663 422L671 442Q654 458 663 474 673 498 719 499 763 499 778 474 786 458 772 438 786 418 770 396L753 386 752 399Q726 415 698 399L698 385Z" fill="#edc48c" />
+<path d="M677 399Q669 417 692 428 730 444 765 423L769 411Q760 436 717 433 687 432 677 419Z" fill="#ffe1aa" stroke="none" />
+<path d="M695 447Q733 459 769 441" fill="none" stroke-width="13" />
+<path d="M678 460Q712 481 748 463" fill="none" stroke="#ffe0aa" stroke-width="13" />
+</g>
+<g id="brains-rubber-brain">
+<path d="M667 425L616 423 581 466 498 492 497 578 459 609 466 661 471 704 514 718 509 780 585 787 609 839 674 819 699 855 751 840 795 833 816 801 888 801 899 747 948 741 966 697 982 653 946 601 952 523 888 491 861 432 781 432 782 464 767 481 744 493 696 495 669 482 658 467 664 443Z" fill="#fb79a6" />
+<path d="M481 609Q480 644 512 655 523 610 564 591 594 582 596 607 551 611 531 661 520 691 535 707 564 732 581 697 604 659 645 655 671 652 685 628 718 585 747 595 760 600 753 612 699 615 685 678 631 652 597 704 583 726 588 756 559 795 529 765L512 718Q466 706 465 658Z" fill="#ed4885" stroke="none" />
+<path d="M589 726Q613 768 647 763 659 761 679 751 711 737 737 753 750 761 746 774 787 781 817 733 835 786 803 816 772 850 722 845 684 841 674 817 621 842 591 799Z" fill="#e9427e" stroke="none" />
+<path d="M788 518Q805 561 832 552 866 535 892 553L876 561Q833 556 816 601 820 657 840 696 855 714 873 704 890 689 900 693 921 700 952 660 963 648 960 641 985 700 937 734L899 747Q888 796 817 802 838 748 810 697 834 648 814 589Z" fill="#ed4682" stroke="none" />
+<path d="M884 627Q927 619 933 573L946 596Q947 627 889 638Z" fill="#e63d79" stroke="none" />
+<path d="M581 466Q628 454 665 469M669 509Q708 484 744 505 796 535 814 590 831 649 811 694M632 538Q601 568 597 609 563 603 540 637 516 669 514 718M747 609Q702 609 685 678 650 663 623 681 586 705 585 764L585 787M735 768Q701 758 685 779 668 797 674 819M757 694Q800 674 820 709 837 743 816 801M815 590Q839 553 875 560M852 488Q873 487 888 491M887 637Q929 634 946 601M895 727 895 749" fill="none" stroke-width="16" />
+<path d="M549 538Q562 514 596 503M648 579Q664 551 696 539" fill="none" stroke="#ffd5e1" stroke-width="23" />
+</g>
+</g>
+</svg>

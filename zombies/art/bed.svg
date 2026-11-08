@@ -1,1 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="8" width="32" height="26" rx="3" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="7" y="14" width="26" height="17" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="8" y="10" width="10" height="6" rx="2" fill="var(--panel)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- bed: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Cosy wooden bed with blue blanket</title>
+
+<g stroke="#080807" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+<g id="bed-headboard">
+<path d="M451 240V65L517 10 602 35V76L874 159 914 124 998 149 992 588 934 642 864 619 857 335Z" fill="#88400f" />
+<path d="M541 108 602 76 874 159 857 214Z" fill="#eb933e" stroke="none" />
+<path d="M542 108 857 214 857 327 541 218Z" fill="#934610" stroke="none" />
+<path d="M542 208 858 268 857 327 541 218Z" fill="#71310b" stroke="none" />
+<path d="M451 240V65L517 10 602 35 594 80 542 111 540 221 484 251Z" fill="#a65219" />
+<path d="M460 67 519 20 593 41 538 89Z" fill="#ed963f" stroke="none" />
+<path d="M538 89 593 41 593 80 551 112 540 221Z" fill="#743008" stroke="none" />
+<path d="M857 334V179L914 124 998 149 992 588 934 642 865 619Z" fill="#a3521a" />
+<path d="M865 181 916 135 987 155 939 205Z" fill="#ed9641" stroke="none" />
+<path d="M939 205 987 155 983 583 934 631Z" fill="#76330c" stroke="none" />
+</g>
+<g id="bed-bed-frame">
+<path d="M143 643 461 313 913 455 915 562 539 904 143 769Z" fill="#9c4b14" />
+<path d="M541 796 912 463 913 556 540 894Z" fill="#8d400e" />
+<path d="M249 411 451 239 912 360 913 463 802 565 254 433Z" fill="#faf8ff" />
+<path d="M800 468 904 370 904 457 805 550Z" fill="#b8b9d2" stroke="none" />
+</g>
+<g id="bed-pillow">
+<path d="M457 341C445 307 460 274 482 249L539 186Q559 165 586 175C653 190 731 217 788 243Q815 255 816 288C820 318 811 337 794 355L722 427Z" fill="#fffdfb" />
+<path d="M467 290C479 285 506 299 533 306L691 356Q706 362 709 377L710 415 465 336Q458 317 467 290Z" fill="#ced9e5" stroke="none" />
+<path d="M709 370C728 337 768 286 798 262Q808 271 807 301C807 321 803 331 789 347L720 416 710 414Z" fill="#abbcda" stroke="none" />
+</g>
+<g id="bed-blue-blanket">
+<path d="M89 573C90 531 180 458 248 409Q251 382 274 360L316 332Q335 312 363 320C471 340 637 393 741 435Q796 456 806 488C812 516 810 591 815 642Q816 659 800 673L738 729 545 896 398 837 150 722Z" fill="#238ffa" />
+<path d="M99 574 150 588 397 683 445 717 397 791 150 716Z" fill="#0064d4" stroke="none" />
+<path d="M544 707Q562 667 602 628L712 542Q725 555 727 580L733 727 557 881 544 885Z" fill="#0057bd" stroke="none" />
+<path d="M249 409Q251 383 274 360L316 332Q335 312 363 320C471 340 637 393 741 435Q781 451 796 480L723 547Q706 520 658 502C518 446 356 395 302 400Q270 400 249 409Z" fill="#72d0f7" stroke="none" />
+<path d="M723 547 796 480Q802 492 802 519L805 643Q807 653 794 666L739 716 733 578Q733 559 723 547Z" fill="#2988cf" stroke="none" />
+<path d="M252 408Q276 394 307 400C422 423 588 476 670 511Q720 532 725 558C731 591 728 668 733 720" fill="none" stroke="#004b8d" stroke-width="16" />
+<path d="M89 573C90 531 180 458 248 409Q251 382 274 360L316 332Q335 312 363 320C471 340 637 393 741 435Q796 456 806 488C812 516 810 591 815 642Q816 659 800 673L738 729 545 896 398 837 150 722Z" fill="none" />
+</g>
+<g id="bed-footboard">
+<path d="M92 683 149 654 451 758 450 948 99 832Z" fill="#aa551b" />
+<path d="M103 702 149 667 447 768 401 805Z" fill="#ed943d" stroke="none" />
+<path d="M102 752 401 855 401 875 101 773Z" fill="#71300c" stroke="none" />
+<path d="M26 616 75 570 151 597 151 857 103 899 28 872Z" fill="#a6531a" />
+<path d="M35 619 78 580 142 603 100 644Z" fill="#ee9842" stroke="none" />
+<path d="M100 644 142 603 142 852 104 886Z" fill="#7c370e" stroke="none" />
+<path d="M397 738 451 684 538 715 537 963 478 1013 397 984Z" fill="#aa551c" />
+<path d="M406 739 454 694 529 720 478 767Z" fill="#f09b47" stroke="none" />
+<path d="M478 767 529 720 528 958 478 1002Z" fill="#78340e" stroke="none" />
+</g>
+</g>
+</svg>

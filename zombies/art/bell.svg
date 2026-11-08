@@ -1,1 +1,128 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="8" y="14" width="24" height="24" rx="2" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M6 14 l14 -10 l14 10z" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 30 q0 -12 6 -12 q6 0 6 12z" fill="var(--button)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="31" r="2" fill="var(--ink)"/></svg>
+<!-- bell: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Golden bell in a blocky stone village tower</title>
+
+<g stroke="#090a08" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+<g id="bell-stone-tower">
+<path d="M218 704L613 765 791 645 791 891 613 996 218 919Z" fill="#a69f9b" />
+<path d="M613 765L791 645 791 891 613 996Z" fill="#777170" />
+<path d="M218 704L613 765 613 996 218 919Z" fill="#b3aca8" />
+<g stroke="#625d5a" stroke-width="7">
+<path d="M221 796L614 870 790 756M220 867L615 940 790 825" />
+<path d="M282 731L282 806M558 764L558 860M512 851L512 921M280 808L280 875M713 700L713 808M666 844L666 910M757 783L757 847" />
+</g>
+<path d="M217 860L181 873 181 947 267 966 297 947 297 881Z" fill="#bbb4b0" />
+<path d="M181 873L267 892 297 881 217 860Z" fill="#ede8e2" stroke="none" />
+<path d="M267 892L267 960 297 947 297 881Z" fill="#8c8784" stroke="none" />
+<path d="M744 849L797 808 836 821 836 888 776 925 744 915Z" fill="#77716f" />
+<path d="M744 849L776 862 836 821 797 808Z" fill="#c7c1bb" stroke="none" />
+<path d="M776 862L776 917" fill="none" stroke="#595451" stroke-width="7" />
+</g>
+<g id="bell-doorway">
+<path d="M290 949L293 853Q295 804 340 780Q379 754 418 774Q490 809 494 862L496 984 443 980 340 959Z" fill="#cdc7c1" />
+<path d="M340 959L340 843 374 819 407 822 442 852 443 980Z" fill="#a44b0c" />
+<path d="M355 953L355 848 380 832 402 833 436 860 436 882 406 853 380 848 355 867Z" fill="#79300b" stroke="none" />
+<path d="M400 827L400 969" fill="none" stroke-width="8" />
+<g fill="none" stroke="#716c68" stroke-width="7">
+<path d="M296 885L338 899M295 815L339 843M354 777L374 819M432 784L409 823M478 832L444 852M495 926L444 915" />
+</g>
+<path d="M290 949L337 961 340 843 374 819 407 822 442 852 443 980 496 989 494 862Q490 809 418 774Q379 754 340 780Q295 804 293 853Z" fill="none" stroke-width="10" />
+</g>
+<g id="bell-terrace">
+<path d="M200 670L382 553 812 599 812 658 616 798 200 726Z" fill="#8c8682" />
+<path d="M200 670L382 553 812 599 616 738Z" fill="#ded8d2" />
+<path d="M291 663L393 591 742 625 592 721Z" fill="#4e4c4b" />
+<path d="M200 670L616 738 616 798 200 726Z" fill="#bab3ad" />
+<path d="M616 738L812 599 812 658 616 798Z" fill="#9d9792" />
+<path d="M202 672L615 746 808 607" fill="none" stroke="#ece6df" stroke-width="8" />
+<path d="M294 689L294 742M499 721L499 776M681 694L681 749M756 642L756 698" fill="none" stroke="#625e5b" stroke-width="8" />
+<path d="M499 721L523 703M294 689L318 674M681 694L660 688M756 642L736 638" fill="none" stroke="#79736f" stroke-width="7" />
+</g>
+<g id="bell-rear-columns">
+<path d="M367 434L409 408 446 429 446 570 410 594 368 579Z" fill="#aaa6a2" />
+<path d="M369 514L411 528 444 506M411 449L411 587" fill="none" stroke="#66625f" stroke-width="7" />
+<path d="M698 463L755 451 790 463 790 609 755 634 698 618Z" fill="#8b8683" />
+<path d="M698 463L755 480 790 463 755 451Z" fill="#d0c9c2" stroke-width="7" />
+<path d="M755 480L755 632M700 544L755 557 789 535" fill="none" stroke="#56514e" stroke-width="7" />
+</g>
+<g id="bell-timber-frame">
+<path d="M367 389L409 367 447 391 447 473 368 459Z" fill="#93420d" />
+<path d="M370 437L405 420 444 430 444 470 370 458Z" fill="#bd5f17" stroke-width="8" />
+<path d="M674 359L754 321 790 341 790 463 755 479 704 465 675 431Z" fill="#a24b12" />
+<path d="M754 351L754 468 708 422 680 400Z" fill="#cf701b" stroke-width="8" />
+<path d="M754 351L754 468 790 451 790 341Z" fill="#853709" stroke-width="8" />
+<path d="M264 435L345 377 405 408 299 503 266 493Z" fill="#c97020" />
+<path d="M300 442L342 404 384 412 300 489Z" fill="#e58a29" stroke-width="7" />
+<path d="M528 438L580 412 617 446 617 550 562 497Z" fill="#ae5517" />
+<path d="M566 469L611 510" fill="none" stroke="#d88129" stroke-width="12" />
+<path d="M227 385L287 393 300 409 300 505 288 520 227 507Z" fill="#bb5e17" />
+<path d="M233 408L255 414 255 503 237 499Z" fill="#df8527" stroke="none" />
+<path d="M287 410L287 512" fill="none" stroke="#8b3c0d" stroke-width="7" />
+<path d="M562 430L615 450 657 428 657 539 616 568 561 552Z" fill="#b95b16" />
+<path d="M615 451L615 563 657 539 657 428Z" fill="#8b390a" stroke-width="7" />
+<path d="M580 462L590 465 590 548 580 546Z" fill="#dc7e24" stroke="none" />
+</g>
+<g id="bell-bell">
+<path d="M449 477Q411 482 401 517C393 543 398 567 379 590L368 615Q395 631 460 632Q518 633 555 616L546 587C529 567 531 537 522 517Q513 482 477 479Z" fill="#ffca00" />
+<path d="M451 495C428 506 430 528 427 548L420 586 408 622 377 616 389 589C402 559 396 530 410 508Q425 490 451 495Z" fill="#ffff54" stroke="none" />
+<path d="M468 487Q491 505 490 539L497 587 507 625 550 616 539 586C527 559 531 532 518 512Q501 490 468 487Z" fill="#ff8b00" stroke="none" />
+<path d="M382 586Q451 606 541 586" fill="none" stroke="#c96b00" stroke-width="7" />
+<path d="M445 630Q428 643 441 660Q456 678 476 666Q495 654 486 633" fill="#ff9c00" stroke-width="10" />
+<ellipse cx="459" cy="647" rx="15" ry="13" fill="#ffcb00" stroke="none" />
+<circle cx="452" cy="641" r="6" fill="#fff369" stroke="none" />
+<path d="M449 477Q411 482 401 517C393 543 398 567 379 590L368 615Q395 631 460 632Q518 633 555 616L546 587C529 567 531 537 522 517Q513 482 477 479Z" fill="none" stroke-width="9" />
+<path d="M443 447L462 431 494 437 479 451 479 500 443 496Z" fill="#a85011" stroke-width="9" />
+<path d="M449 449L462 438 483 441 470 450 470 493 449 489Z" fill="#c56b1c" stroke="none" />
+</g>
+<g id="bell-front-stone-pillars">
+<path d="M229 506L288 519 331 495 331 650 288 679 229 666Z" fill="#bdb6b0" />
+<path d="M288 519L331 495 331 650 288 679Z" fill="#8f8985" stroke-width="8" />
+<path d="M232 511L287 524 326 503" fill="none" stroke="#e9e3dd" stroke-width="7" />
+<path d="M230 586L288 599 330 577" fill="none" stroke="#57534f" stroke-width="8" />
+<path d="M560 553L615 567 657 541 657 693 617 724 560 711Z" fill="#bfb9b3" />
+<path d="M615 567L657 541 657 693 617 724Z" fill="#89837f" stroke-width="8" />
+<path d="M565 558L615 571 650 550" fill="none" stroke="#eee9e3" stroke-width="6" />
+<path d="M562 635L615 647 654 625" fill="none" stroke="#58534f" stroke-width="8" />
+</g>
+<g id="bell-roof">
+<path d="M187 353L439 130 528 155 588 122 835 302 835 348 652 459 284 398 187 406Z" fill="#9b430e" />
+<path d="M284 354L651 414 800 316 800 362 652 459 284 398Z" fill="#a74c11" />
+<path d="M296 369L644 427 778 340" fill="none" stroke="#c46a20" stroke-width="17" />
+<path d="M207 340L293 270 293 258 374 190 375 183 440 129 527 153 609 409Z" fill="#ff9326" />
+<path d="M527 153L587 122 718 215 718 226 819 296 643 416 609 409Z" fill="#9b3d0e" />
+<path d="M530 169L589 134 620 157 545 203Z" fill="#ad4b15" stroke="none" />
+<path d="M551 218L652 167M577 300L714 223" fill="none" stroke="#6c290b" stroke-width="15" />
+<path d="M527 153L559 137 643 398 609 415Z" fill="#ae4911" stroke-width="8" />
+<path d="M377 195L546 230M300 266L575 319" fill="none" stroke="#aa480f" stroke-width="14" stroke-linecap="butt" />
+<path d="M300 258L570 308" fill="none" stroke="#f99735" stroke-width="7" stroke-linecap="butt" />
+<path d="M207 340L609 409 527 153" fill="none" stroke-width="9" />
+<path d="M187 353L207 346 284 363 284 398 256 419 187 406Z" fill="#b65a13" />
+<path d="M193 354L255 369 279 360 208 346Z" fill="#ffc16a" stroke="none" />
+<path d="M256 369L256 413 284 398 284 363Z" fill="#863708" stroke="none" />
+<path d="M552 416L577 402 615 414 640 399 658 408 658 455 621 478 552 465Z" fill="#c66a1c" />
+<path d="M559 419L620 434 651 415" fill="none" stroke="#ffbb62" stroke-width="7" />
+<path d="M621 434L621 473 658 455 658 408Z" fill="#95410c" stroke="none" />
+<path d="M552 416L577 402 615 414 640 399 658 408 658 455 621 478 552 465Z" fill="none" stroke-width="10" />
+<path d="M773 311L807 287 836 303 836 347 798 371 773 362Z" fill="#ad5210" />
+<path d="M780 313L798 322 829 303 809 294Z" fill="#ed9b3e" stroke="none" />
+<path d="M798 322L798 365 831 345 831 310Z" fill="#893706" stroke="none" />
+<path d="M798 323L798 362" fill="none" stroke="#cc7625" stroke-width="6" />
+</g>
+<g id="bell-roof-cap">
+<path d="M437 97L493 64 591 86 591 122 528 155 437 130Z" fill="#bf6118" />
+<path d="M437 97L494 68 591 86 528 121Z" fill="#ffb75d" stroke-width="8" />
+<path d="M528 121L528 151 591 122 591 86Z" fill="#9e440d" stroke="none" />
+<path d="M466 32L507 7 564 25 564 89 526 112 465 94Z" fill="#bd5f16" />
+<path d="M466 32L507 7 564 25 526 53Z" fill="#ffc06a" stroke-width="9" />
+<path d="M526 53L564 32 564 89 526 112Z" fill="#93400c" stroke-width="7" />
+<path d="M506 47L520 51 520 104 505 100Z" fill="#b25513" stroke="none" />
+<path d="M466 32L507 7 564 25 564 89 526 112 465 94Z" fill="none" stroke-width="11" />
+</g>
+<g id="bell-front-foot">
+<path d="M495 929L519 917 613 935 645 915 669 922 669 989 616 1020 495 998Z" fill="#b3aba5" />
+<path d="M495 929L519 917 613 935 645 915 669 922 616 955Z" fill="#e9e2dc" stroke="none" />
+<path d="M616 955L616 1015 669 989 669 922Z" fill="#8c8580" stroke="none" />
+<path d="M495 929L519 917 613 935 645 915 669 922 669 989 616 1020 495 998Z" fill="none" stroke-width="12" />
+</g>
+</g>
+</svg>

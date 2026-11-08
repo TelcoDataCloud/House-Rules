@@ -1,1 +1,110 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M8 12 h24 l-3 24 h-18z" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="20" cy="12" rx="12" ry="4" fill="var(--potion)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M8 12 q12 -14 24 0" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- bucket: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden bucket of glowing blue potion</title>
+
+<g stroke="#050604" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+<path d="M104 253 229 178 229 161 398 130 507 137 630 127 801 165 801 187 914 255 904 397 858 538 818 938 709 995 508 1016 304 1004 169 948 122 548Z" fill="#a74a0d" />
+</g>
+<g id="bucket-wooden-interior">
+<path d="m113 256 120-70 56 21 6 83-77 44-77 26Z" fill="#8d390b" />
+<path d="m113 256 75 5 29 71-76 28Z" fill="#bc5d10" />
+<path d="m113 256 120-70 49 19-94 56Z" fill="#ffa839" />
+<path d="m239 169 159-31 36 30-133 26Z" fill="#ffa33a" />
+<path d="m301 194 133-26-3 97-126 29Z" fill="#7f350d" />
+<path d="m239 169 62 25 4 100-19 8-5-94Z" fill="#642708" />
+<path d="m434 146 102-3 68 20-17 92-155 6Z" fill="#8e3b0c" />
+<path d="m434 146 102-3 68 20-17 13-153-3Z" fill="#e4821c" />
+<path d="m604 171 40-33 148 35-67 25Z" fill="#ffa43a" />
+<path d="m604 171 121 27-1 98-120-32Z" fill="#80340b" />
+<path d="m587 176 17-5v93l-19-4Z" fill="#542108" />
+<path d="m743 210 49-17 113 67-75 8Z" fill="#cc6c15" />
+<path d="m743 210 87 58-29 73-62-40Z" fill="#813209" />
+<path d="m830 268 75-8-29 88-66-17Z" fill="#e18420" />
+<path d="m905 260-8 133-40 24 19-69Z" fill="#aa4b0b" />
+<path d="m141 347 77-20 6 83-74 32Z" fill="#7b2f07" />
+<path d="m810 331 66 17-19 69-54-22Z" fill="#773008" />
+</g>
+<g id="bucket-potion">
+<path d="M216 331C236 282 365 244 510 244c146 0 267 38 293 88l-8 48-95 49-327 10-158-58Z" fill="#008bff" />
+<path d="M476 285c-35-18-129 1-162 24-35 23-7 39 55 36-42-26 57-51 107-60Z" fill="#00f3eb" />
+<path d="M592 284c46-11 141 8 160 29 28 32-53 65-160 70-111 7-211-6-193-39 8-14 33-24 55-29-63 38 61 36 127 29 72-9 143-36 11-60Z" fill="#00f5ed" />
+<ellipse cx="642" cy="348" rx="38" ry="13" transform="rotate(-12 642 348)" fill="#ddffff" />
+</g>
+<g id="bucket-bucket-body">
+<path d="m148 363 69-29 119 51 180 16 184-16 101-50 66 25-44 321-20 175-88 66-206 29-208-16-140-60Z" fill="#b95410" stroke="#050604" stroke-width="17" stroke-linejoin="round" />
+<path d="m158 365 51 20 1 125-43-16Z" fill="#ad4b0b" />
+<path d="m209 385 83 31 11 337-88-45Z" fill="#cf6b16" />
+<path d="m166 584 28 13 8 123-27-23Z" fill="#dc7418" />
+<path d="m215 625 87 22 4 270-87-31Z" fill="#b45410" />
+<path d="m313 431 88 10 6 332-87-12Z" fill="#d8751c" />
+<path d="m402 442 90 6 2 331-87-6Z" fill="#bc5a12" />
+<path d="m508 450 157-18-30 342-127 8Z" fill="#a3460b" />
+<path d="m665 432 68-8-22 305-76 45Z" fill="#883607" />
+<path d="m751 411 73-33-29 308-65 40Z" fill="#9f4409" />
+<path d="m824 378 33-16-35 297-27 27Z" fill="#803108" />
+<path d="m323 839 82 14 4 79-83-10Z" fill="#cc6716" />
+<path d="m408 853 85 6 1 78-85-5Z" fill="#be5b12" />
+<path d="m510 859 123-1-9 69-114 13Z" fill="#9e420a" />
+<path d="m633 858 67-12-8 73-68 8Z" fill="#874009" />
+<path d="m718 841 66-39-9 77-66 32Z" fill="#a8490c" />
+<path d="m802 792 25-16-12 87-26 14Z" fill="#763008" />
+<path d="m194 601 11 121m98-77 9 117m188-114 2 133m220-151-13 103m-500 113 4 42m100-30 3 62m185-40 1 57m203-85-4 64m87-105-10 65" fill="none" stroke="#602506" stroke-width="18" />
+<g stroke="#050604" stroke-width="16" stroke-linejoin="round">
+<path d="m148 363 69-29 119 51-44 32Z" fill="#ffb449" />
+<path d="m309 426 29-37 178 12-20 48Z" fill="#ffb74b" />
+<path d="m508 448 17-42 175-21 40 38Z" fill="#ed8b27" />
+<path d="m714 383 87-48 66 25-117 53Z" fill="#ffac3e" />
+</g>
+<path d="m157 370 51 20 84 33v109m21-102-1 116m186-96v101m248-134-11 116" fill="none" stroke="#632704" stroke-width="15" />
+</g>
+<g id="bucket-metal-bands" stroke="#050604" stroke-width="18" stroke-linejoin="round">
+<path d="m153 497 148 56 220 9 221-26 118-49-11 97-105 41-224 26-221-14-144-54Z" fill="#8a8d9e" />
+<path d="m161 875 143 53 205 16 203-24 116-59-11 78-108 56-201 21-203-12-136-56Z" fill="#858999" />
+</g>
+<g>
+<path d="m164 515 138 51 219 15 222-26 105-44 1-14-107 44-220 27-219-11-140-54Z" fill="#d0d0de" />
+<path d="m164 528 135 51v48l-135-48Z" fill="#777c8c" />
+<path d="m521 581 222-26-4 59-218 26Z" fill="#7c8091" />
+<path d="m743 555 106-44-8 66-102 37Z" fill="#565969" />
+<path d="m177 886 130 49 207 16 195-24 104-52-1 13-103 45-195 25-207-16-129-45Z" fill="#b8bacb" />
+<path d="m178 897 129 45v53l-131-53Z" fill="#818696" />
+<path d="m514 958 195-25-3 53-193 21Z" fill="#777c8e" />
+<path d="m713 932 99-44-4 45-95 50Z" fill="#575c6e" />
+</g>
+<g id="bucket-handle-mounts" stroke="#050604" stroke-width="18" stroke-linejoin="round">
+<path d="m58 424 65-28 84 37v120l-57 27-92-34Z" fill="#9699a9" />
+<path d="m818 440 84-43 65 25v122l-64 37-85-29Z" fill="#8b8e9e" />
+</g>
+<g>
+<path d="m67 430 57-24 73 33-50 29Z" fill="#d0d1e0" />
+<path d="m147 468 51-24v101l-47 24Z" fill="#65697b" />
+<path d="m829 444 73-36 54 20-77 40Z" fill="#d0d1e0" />
+<path d="m879 468 77-40v109l-55 31-22-21Z" fill="#55596b" />
+</g>
+<g id="bucket-swing-handle">
+<path d="m104 514 60 10-12 138 86 90 163 28 110 5 129-4 162-90 52-168 62-9 5 49-43 194-215 127-158 3-110-3-199-36-44-48-80-92Z" fill="#555968" stroke="#050604" stroke-width="19" stroke-linejoin="round" stroke-linecap="round" />
+<path d="m112 524 43 7-12 132 91 98 163 29 116 4 133-5 166-91 53-167 43-8-49 195-200 113-147 4-109-4-199-33L87 670Z" fill="#b5b7ca" />
+<path d="m87 670 117 128 199 33 109 4 147-4 200-113 49-195 4 39-42 188-210 124-146 2-110-3-204-34L82 707Z" fill="#5b5e6f" />
+<path d="m659 831 200-113 49-195 4 39-42 188-210 124Z" fill="#505464" />
+</g>
+<g id="bucket-rising-bubbles" stroke="#030504" stroke-width="16">
+<path d="M649 79c0 40-31 72-70 72s-71-31-71-72 31-71 71-71 70 31 70 71Z" fill="#009bfa" />
+<path d="M500 168c0 30-24 53-53 53s-54-24-54-54 24-53 54-53 53 24 53 54Z" fill="#00c1f6" />
+<circle cx="534" cy="250" r="34" fill="#00bce9" />
+</g>
+<g>
+<path d="M578 18c-34 0-61 29-61 61 0 27 24 44 53 44 32 0 55-28 54-63-1-11-3-18-8-26-11-10-24-16-38-16Z" fill="#00b5ec" />
+<ellipse cx="558" cy="50" rx="29" ry="21" transform="rotate(-36 558 50)" fill="#04f6f6" />
+<ellipse cx="556" cy="50" rx="22" ry="16" transform="rotate(-36 556 50)" fill="#d3ffff" />
+<ellipse cx="606" cy="105" rx="12" ry="14" transform="rotate(28 606 105)" fill="#00f4f2" />
+<circle cx="605" cy="102" r="6" fill="#d3ffff" />
+<path d="M400 166c0 24 21 36 43 33 26-3 41-33 34-63-9-9-19-14-30-14-26 0-47 19-47 44Z" fill="#00c9f2" />
+<ellipse cx="434" cy="152" rx="24" ry="19" transform="rotate(-35 434 152)" fill="#00f1f2" />
+<ellipse cx="431" cy="148" rx="14" ry="11" transform="rotate(-35 431 148)" fill="#d3ffff" />
+<ellipse cx="466" cy="187" rx="8" ry="9" transform="rotate(29 466 187)" fill="#37f9f5" />
+<path d="M509 249c0 14 15 18 25 17 20-2 28-17 20-32-4-8-12-12-20-12-14 0-25 12-25 27Z" fill="#00d4eb" />
+<ellipse cx="529" cy="241" rx="12" ry="13" transform="rotate(28 529 241)" fill="#32ffff" />
+<ellipse cx="527" cy="239" rx="7" ry="8" fill="#daffff" />
+<circle cx="546" cy="261" r="5" fill="#00f6ee" />
+</g>
+</svg>

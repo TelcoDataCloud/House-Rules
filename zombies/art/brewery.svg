@@ -1,1 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="12" width="32" height="26" rx="3" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M2 14 l18 -11 l18 11z" fill="var(--cloth)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="12" y="20" width="16" height="14" rx="5" fill="var(--potion)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="17" cy="25" r="2" fill="var(--panel)"/><circle cx="23" cy="29" r="1.5" fill="var(--panel)"/></svg>
+<!-- brewery: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Stone potion hut</title>
+<defs>
+<linearGradient id="brewery-pot" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#393247" /><stop offset=".45" stop-color="#292435" /><stop offset="1" stop-color="#191623" />
+</linearGradient>
+</defs>
+
+<g stroke="#100e10" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="brewery-stone-walls">
+<path d="M105 491 337 267 606 579 606 899 399 966 101 852Z" fill="#aaa8b1" />
+<path d="M501 550 932 423 940 779 598 979 500 925Z" fill="#85818e" />
+<path d="m108 595 157 45 1 147-163-46Z" fill="#c0bec5" stroke="none" />
+<path d="m286 423 118 28-2 127-137-32Z" fill="#c0bec5" stroke="none" />
+<path d="m609 607 158-88 1 113-159 92Z" fill="#93909c" stroke="none" />
+<path d="m777 645 154-88 3 111-158 94Z" fill="#a19da8" stroke="none" />
+<g fill="none" stroke="#56535c" stroke-width="9">
+<path d="m112 595 387 108M107 741l393 111M199 452l298 79M269 357v184M402 445v167M266 643v139" />
+<path d="m601 731 332-188M604 841l332-186M695 573v104M772 635v109M854 505v83M864 700v80M695 794v105" />
+</g>
+<path d="m104 742-34 25v89l98 36 34-23v-91Z" fill="#b4b0bb" />
+<path d="m77 775 89 29v77l-89-29Z" fill="#8e8997" stroke="none" />
+<path d="m850 728 83-56 30 21v88l-99 59-24-24Z" fill="#a6a2af" />
+<path d="m866 749 88-51v77l-88 53Z" fill="#8b8596" stroke="none" />
+</g>
+<g id="brewery-roof-structure">
+<path d="M63 492 330 155 663 571 585 650 332 311 132 563Z" fill="#a75313" />
+<path d="m73 489 256-317 32 45-229 291Z" fill="#b76016" stroke="none" />
+<path d="m493 476 88 104v62l-80-31Z" fill="#b87142" stroke="none" />
+<path d="m26 446 176-132 55-87 338-207 400 335 6 67-377 195-282-350L72 527l-46-12Z" fill="#ae1715" />
+</g>
+<g id="brewery-roof-tiles" stroke-width="12">
+<path d="m20 448 74-57 76 27-97 108-53-18Z" fill="#f4382d" />
+<path d="m90 332 85-61 106 27-108 121-82-25Z" fill="#f43a2b" />
+<path d="m166 247 90-62 101 43-106 103-85-31Z" fill="#ff4732" />
+<path d="m348 270 26-53 121-48 67 69-2 47-113 77-28-15Z" fill="#c4231d" />
+<path d="m376 219 119-49 67 69-116 57Z" fill="#ff4431" stroke="none" />
+<path d="m495 169 122-52 82 66 1 48-132 54-7-45Z" fill="#b71c17" />
+<path d="m503 168 114-44 77 62-123 53Z" fill="#fa3828" stroke="none" />
+<path d="m451 340 113-53 52-19 59 81v49l-141 78-18-19Z" fill="#c3201b" />
+<path d="m460 340 147-65 62 75-132 69Z" fill="#ff4432" stroke="none" />
+<path d="m609 268 91-43 88 66 2 49-113 60-2-49Z" fill="#c7211a" />
+<path d="m615 268 86-37 80 62-93 54Z" fill="#f9382b" stroke="none" />
+<path d="m702 223 131-40 70 60v48l-109 53-4-52Z" fill="#b61c16" />
+<path d="m715 220 114-30 69 55-95 48Z" fill="#f83b29" stroke="none" />
+<path d="m526 494 15-27 92-44 79 78v53l-89 64-28-12Z" fill="#bd201b" />
+<path d="m539 472 94-42 74 73-82 47Z" fill="#ff4937" stroke="none" />
+<path d="m638 422 116-59 77 72v60l-114 61-5-55Z" fill="#c1221c" />
+<path d="m647 423 109-53 69 66-103 65Z" fill="#ff3e2f" stroke="none" />
+<path d="m756 363 87-47 88 72v65l-97 47-3-65Z" fill="#c6211c" />
+<path d="m765 364 78-41 82 68-84 44Z" fill="#ff4432" stroke="none" />
+<path d="m847 312 55-29 102 76v69l-64 33-8-70Z" fill="#b91c18" />
+<path d="m859 313 44-23 94 72-54 32Z" fill="#ff4232" stroke="none" />
+<path d="m238 156 251-99 77 42v46l-219 137-108-37Z" fill="#c6251d" />
+<path d="m245 158 242-94 73 37-214 94Z" fill="#ff4834" stroke="none" />
+<path d="m347 195 213-94v43l-179 74-23 58-11 3Z" fill="#a91914" stroke="none" />
+<path d="m490 58 102-42 96 39-111 90-11-46Z" fill="#d1281f" />
+<path d="m502 59 91-35 78 31-97 42Z" fill="#ff4834" stroke="none" />
+</g>
+<g id="brewery-chimney">
+<path d="m677 110 166-31v136l-89 48-55-42Z" fill="#9b98a4" />
+<path d="m756 142 83-33v106l-83 42Z" fill="#777481" stroke="none" />
+<path d="m800 143 1 90" fill="none" stroke="#514e58" stroke-width="10" />
+<path d="m639 58 111-50 119 44-1 69-111 57-117-49Z" fill="#d0cdd3" />
+<path d="m647 66 109 45v59l-109-45Z" fill="#aaa6b1" stroke="none" />
+<path d="m756 111 104-51v59l-104 51Z" fill="#797582" stroke="none" />
+<path d="m695 61 57-24 61 22-58 27Z" fill="#161519" stroke-width="8" />
+<path d="m695 61 57-24v21l-32 15Z" fill="#595660" stroke="none" />
+<path d="m752 37 61 22-26 12-35-13Z" fill="#43414c" stroke="none" />
+</g>
+<g id="brewery-door">
+<path d="m165 594 317 93v262l-95 26-222-75Z" fill="#8a3b0d" />
+<path d="m245 637 149 45v270l-149-46Z" fill="#bd5717" />
+<path d="m252 683 135 42v212l-135-40Z" fill="#cf631c" stroke="none" />
+<path d="m299 662 1 259m49-243v258" fill="none" stroke="#98400f" stroke-width="8" />
+<path d="m170 608 67 21v265l-67-23Z" fill="#a64a0e" />
+<path d="m399 675 77 19v253l-77-17Z" fill="#98400f" />
+<path d="m161 552 46-26 266 72-4 77-308-72Z" fill="#aa4f0e" />
+<path d="m169 551 39-17 257 68-43 23Z" fill="#e67f23" stroke="none" />
+<path d="m56 518 70-24 58 22v69l-49 30-79-22Z" fill="#ab5213" />
+<path d="m62 519 65-17 49 16-42 22Z" fill="#f2973d" stroke="none" />
+<path d="m134 541 43-22v65l-43 23Z" fill="#8e3e0b" stroke="none" />
+<path d="m417 601 51-33 81 25v72l-51 37-81-24Z" fill="#a95214" />
+<path d="m426 602 43-25 71 22-45 25Z" fill="#ff9d3c" stroke="none" />
+<path d="m497 626 44-24v59l-44 29Z" fill="#89400e" stroke="none" />
+<path d="m151 851 26-20 59 21v60l-22 22-63-22Z" fill="#bc682e" />
+<path d="m157 850 20-12 52 18-18 12Z" fill="#ffac60" stroke="none" />
+<path d="m375 915 25-21 72 25v57l-26 24-71-25Z" fill="#bc682e" />
+<path d="m382 917 20-15 63 21-22 15Z" fill="#ffaf65" stroke="none" />
+<path d="m327 777 19-12 35 11 7 14v34l-20 10-41-13Z" fill="#f9a51b" stroke-width="12" />
+<path d="m333 779 15-8 30 10-14 10Z" fill="#ffed45" stroke="none" />
+</g>
+<g id="brewery-side-window">
+<path d="m781 594 112-63 10 7v143l-108 64-14-8Z" fill="#a75511" />
+<path d="m800 605 83-47v113l-83 48Z" fill="#fff329" stroke="#743607" stroke-width="9" />
+<path d="m843 584v110m-43-34 82-48" fill="none" stroke="#874006" stroke-width="12" />
+<path d="m786 600 5 128" fill="none" stroke="#dc7a1a" stroke-width="7" />
+</g>
+<g id="brewery-front-window">
+<path d="m274 354 141 29v145l-141-28Z" fill="#b76414" />
+<path d="m299 375 102 23v109l-102-24Z" fill="#fff52b" stroke="#8b4708" stroke-width="9" />
+<path d="m351 389v106m-49-62 95 23" fill="none" stroke="#8d4607" stroke-width="13" />
+</g>
+<g id="brewery-cauldron">
+<path d="m501 949 41-15 29 20v40l-29 16-41-17Z" fill="#373045" />
+<path d="m702 953 31-12 26 17v33l-29 17-28-17Z" fill="#393246" />
+<path d="M516 802C482 821 467 852 474 891C480 944 536 981 631 987C719 993 785 954 798 900C812 851 786 814 757 795Z" fill="url(#brewery-pot)" />
+<path d="M501 824 546 839 526 877 531 932 546 950 501 928 484 890 486 854Z" fill="#51465f" stroke="none" />
+<path d="m547 841 114 8 12 49-42 3-104-24Z" fill="#41394f" stroke="none" />
+<path d="M777 770C777 808 714 850 638 850C560 850 503 823 503 782V766Z" fill="#282232" />
+<ellipse cx="638" cy="768" rx="135" ry="57" fill="#524963" />
+<ellipse cx="639" cy="771" rx="98" ry="35" fill="#0c1720" stroke-width="10" />
+<path d="M548 775C568 741 711 739 731 777C721 808 565 815 548 775Z" fill="#00e5ff" stroke="none" />
+<ellipse cx="635" cy="783" rx="68" ry="14" fill="#19f4ff" stroke="none" />
+</g>
+</g>
+<g id="brewery-potion-bubbles" stroke="#06afce" stroke-width="7">
+<circle cx="598" cy="756" r="21" fill="#00dcf5" />
+<circle cx="673" cy="746" r="32" fill="#00dff8" />
+<circle cx="640" cy="679" r="21" fill="#02d8f1" />
+<circle cx="687" cy="632" r="18" fill="#00d8f3" />
+<g fill="#bcffff" stroke="none">
+<ellipse cx="593" cy="748" rx="8" ry="7" />
+<ellipse cx="666" cy="733" rx="12" ry="10" />
+<ellipse cx="635" cy="671" rx="8" ry="7" />
+<ellipse cx="682" cy="625" rx="6" ry="6" />
+</g>
+</g>
+</svg>
