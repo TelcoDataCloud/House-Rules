@@ -1117,3 +1117,23 @@ Asa, 16:21: starting planks raised 10 to 24 (`POCKETS` in
 anyone has harvested. Asa, 16:29: 5 potion on night 1 is too easy, make it
 3: brewers (and cured cows and pigs) make one potion a day, one trip
 (`trips: 1` on the job in `js/work.js`), so night 1 is 2 start + 1.
+
+### Z10 The map (8 Nov, evening)
+
+Asa: the town area was too basic. The flat grass and woods tiles are
+gone: `art/map.svg` is one painted Higgsfield SVG (50 KB) of the whole
+world, stretched to the 24 by 16 grid, with a dirt track from the north,
+a pond top left, boulders bottom left, a stream down the right with one
+plank bridge, stumps, mushrooms and forest all round. Asa picked the
+second of two variants (`art/map-alt.svg` is the other). `data/map.js`
+draws the same land as a letter picture (`~` water, `=` bridge, `#`
+rocks, `o` pond, `:` track), read off the painting with
+`tools/read-map.py`. Water and rocks are solid, you cannot build on them;
+the pond slows waders; anyone on the wrong bank walks to the bridge first
+(`viaBridge` in `js/zombies.js`), so the bridge is a choke point. New
+**stone**: build a **mine** next to the boulders (6 planks), a **miner**
+job digs 2 stone a trip, a **stone wall** costs 2 stone and cannot be dug
+under, jumped or burped flat (plank walls can now be burped flat).
+**Cottages** replace beds (4 planks, two villagers each, chimney smoke);
+the village starts with two. A sixth how-to card for stone. Six more
+sprites.
