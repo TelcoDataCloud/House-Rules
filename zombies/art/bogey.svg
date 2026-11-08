@@ -1,0 +1,88 @@
+<!-- bogey: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bogey-skin" x1="0" y1="0" x2="1" y2="0.6">
+<stop stop-color="#b4ed27" /><stop offset="1" stop-color="#8ed91a" />
+</linearGradient>
+</defs>
+
+<g stroke="#080a03" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+<g id="bogey-legs">
+<path d="M339 692L510 690 547 873 514 875 532 918 598 945 600 1009 492 1018 438 987 439 922 450 916 441 878 435 741 411 743 368 922 381 927 382 991 334 1018 225 1008 226 947 286 915 301 861 278 866Z" fill="#8ecb16" />
+<path d="M339 691L510 692 547 873 516 875 507 832 477 837 479 880 435 884 428 743 411 744 375 850 356 844 345 879 323 875 328 859 279 866 309 786Z" fill="#7c39a9" />
+<path d="M429 744L462 740 477 878 435 884Z" fill="#532177" stroke="none" />
+<path d="M496 709L514 713 547 872 521 873Z" fill="#643086" stroke="none" />
+<path d="M310 788L340 792 321 858 281 862Z" fill="#a0e422" stroke-width="7" />
+<path d="M297 877L326 878 325 895 350 899 343 925 289 919Z" fill="#a8e526" stroke="none" />
+<path d="M451 883L476 881 478 839 505 834 530 918 477 931 449 921Z" fill="#6ca108" stroke="none" />
+<path d="M228 947L333 952 377 927 291 920Z" fill="#b0ee32" stroke="none" />
+<path d="M231 951L333 958 333 1010 231 1002Z" fill="#6b9f09" stroke="none" />
+<path d="M333 958L375 930 375 986 333 1010Z" fill="#396c00" stroke="none" />
+<path d="M446 929L493 955 595 947 530 921Z" fill="#b1ec32" stroke="none" />
+<path d="M446 936L494 959 494 1010 446 985Z" fill="#3e7100" stroke="none" />
+<path d="M495 958L593 951 594 1003 495 1010Z" fill="#6a9c09" stroke="none" />
+</g>
+<g id="bogey-shirt">
+<path d="M272 408L367 419 487 423 546 430 633 477 611 506 598 530 574 582 533 550 535 654 543 716 494 714 488 680 443 680 443 645 412 645 402 698 378 698 375 678 363 675 354 710 313 708 335 627 348 565 321 592 294 572 266 560 237 547 190 510Z" fill="#06bfc0" />
+<path d="M273 426L204 504 232 505 266 464 278 480 250 548 301 575 350 533 337 638 367 642 379 560 420 557 421 520 458 514 445 435Z" fill="#00837e" stroke="none" />
+<path d="M496 432L499 478 476 483 473 511 440 516 437 487 408 488 403 440Z" fill="#78a808" stroke="#477c04" stroke-width="6" />
+<path d="M514 579L470 581 469 611 490 612 492 640 514 640Z" fill="#7caa0a" stroke="#4f8d0c" stroke-width="5" />
+<path d="M537 454L570 477 557 497 591 530 573 549 578 568 537 539Z" fill="#008b87" stroke="none" />
+<path d="M494 432L530 444 533 550M349 565L368 536" fill="none" stroke-width="10" />
+</g>
+<g id="bogey-flicking-hand">
+<path d="M580 498L603 508 649 512 686 436 673 411 688 350Q692 338 722 339L752 285Q772 248 780 247 809 248 829 273L779 337Q812 338 824 366L825 384Q842 394 843 405 827 449 800 467L775 479 668 600 576 540 595 528Z" fill="url(#bogey-skin)" />
+<path d="M722 339L748 351 791 285 818 278 780 256Z" fill="#b6ef3d" stroke="none" />
+<path d="M739 358L763 372 754 394 729 415 730 437 715 451 746 471 666 586 608 552 668 594 774 475 800 462 819 427 789 441 770 424 747 416 758 395Z" fill="#76ad12" stroke="none" />
+<path d="M690 353L723 361 709 377 704 399 728 417 719 438 683 410Z" fill="#a8e731" stroke="none" />
+<path d="M723 340Q752 352 768 373L748 401Q744 414 731 409L710 394" fill="none" stroke-width="11" />
+<path d="M778 337L755 352M825 384Q798 389 773 427L756 417 744 404M773 427L788 455Q806 452 818 436" fill="none" stroke-width="10" />
+<path d="M749 303L768 312" fill="none" stroke="#315e00" stroke-width="7" />
+<path d="M783 351L803 365 786 381 770 366Z" fill="#b3ed3e" stroke="none" />
+<path d="M818 392L831 406 808 423 796 413Z" fill="#b3ec3b" stroke="none" />
+</g>
+<g id="bogey-head">
+<path d="M170 128L254 28 601 8 666 332 595 411 353 458 209 398Z" fill="url(#bogey-skin)" />
+<path d="M170 128L254 28 246 154 254 301 291 300 275 376 348 449 211 397Z" fill="#5a9708" stroke="none" />
+<path d="M176 132L248 48 244 124 218 135 222 182 187 201Z" fill="#3e7a00" stroke="none" />
+<path d="M194 254L221 240 236 314 205 329Z" fill="#357100" stroke="none" />
+<path d="M216 391L259 371 276 402 313 429Z" fill="#275a00" stroke="none" />
+<path d="M332 28L334 105 391 102 390 67 447 62 447 22Z" fill="#649c08" stroke="none" />
+<path d="M258 37L271 35 257 113 250 116Z" fill="#c0f343" stroke="none" />
+<path d="M600 339L654 329 591 403 580 405Z" fill="#326600" stroke="none" />
+<g id="bogey-eyes" stroke-width="8">
+<path d="M280 165Q260 198 281 242L393 221 398 168Z" fill="#fff9cc" />
+<path d="M281 179L350 170 351 184 277 195Z" fill="#f6df96" stroke="none" />
+<path d="M355 166L386 169 386 193 355 194Z" fill="#070800" stroke-width="6" />
+<path d="M466 141Q453 194 491 226L593 203Q611 162 582 122Z" fill="#fff9cc" />
+<path d="M472 149L553 132 556 145 471 167Z" fill="#f4df95" stroke="none" />
+<path d="M555 131L580 125Q595 138 597 159L561 165Z" fill="#050600" />
+<path d="M275 126L408 137 403 178 266 169Z" fill="#3f7705" stroke="#396a07" />
+<path d="M450 107L585 79 598 119 459 147Z" fill="#417b00" stroke="#356600" />
+</g>
+<path d="M278 244Q317 268 348 246M489 233Q543 260 596 204" fill="#77b00b" stroke="#77b00b" stroke-width="7" />
+<path d="M373 283Q479 321 600 242 590 309 558 370 493 416 423 375Z" fill="#570b12" stroke-width="10" />
+<path d="M448 294L451 331Q452 340 463 338L507 330 503 288Z" fill="#fff6c2" stroke-width="7" />
+<path d="M524 283L535 315 578 302 572 265Z" fill="#fff7ce" stroke-width="7" />
+<path d="M474 392L470 365Q469 354 494 352L506 351 514 364 512 349 535 345Q541 344 544 358L551 381Q519 395 474 392Z" fill="#f58c81" stroke-width="6" />
+<path d="M478 380L499 377 500 359 505 358 513 371 539 363 545 380 514 390 478 390Z" fill="#ff9e8c" stroke="none" />
+<path d="M590 231Q606 237 615 246" fill="none" stroke-width="8" />
+<path d="M344 281L337 222Q336 213 347 211L447 201 461 263" fill="#80b715" stroke="#4e8706" stroke-width="11" />
+<path d="M370 237L425 230 429 264 376 276Z" fill="#080b00" stroke-width="14" />
+</g>
+<g id="bogey-nose-picking-hand">
+<path d="M294 312L329 309 367 254Q380 232 402 243 425 250 415 269L372 332Q389 326 404 345 417 346 432 362L420 405 391 434 362 445 266 615Q227 600 198 576L218 510 237 510 275 416 262 373Z" fill="url(#bogey-skin)" />
+<path d="M368 259L390 264 405 274 413 257 393 246 380 247Z" fill="#b7ef40" stroke="none" />
+<path d="M294 321L323 320 308 349Z" fill="#71ac14" stroke="none" />
+<path d="M406 348L390 356 402 337Z" fill="#6ca60e" stroke="none" />
+<path d="M428 366L384 425 343 440 246 599 262 607 359 438 389 431 415 402Z" fill="#6ca40e" stroke="none" />
+<path d="M223 514L239 515 231 532 215 530Z" fill="#6fa40f" stroke="none" />
+</g>
+</g>
+<g id="bogey-flying-bogey" stroke-linecap="round" stroke-linejoin="round">
+<path d="M767 217Q792 164 846 156M798 220Q818 192 851 188" fill="none" stroke="#127e07" stroke-width="14" />
+<path d="M883 145Q912 104 941 102 969 98 983 122 1000 149 975 172 956 188 926 175 918 170 902 178 881 187 874 174 866 160 883 145Z" fill="#8de900" stroke="#080b02" stroke-width="10" />
+<path d="M882 163Q886 175 901 169L918 161Q930 157 947 169 972 178 982 145L978 130Q977 155 955 159L926 152Q906 149 895 161Z" fill="#64c500" />
+<path d="M927 124Q940 110 954 118 966 124 960 132 957 136 944 134 926 139 927 124Z" fill="#f0ffb0" />
+</g>
+</svg>
