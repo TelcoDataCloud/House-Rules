@@ -1,0 +1,117 @@
+<!-- cowfriend: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Happy blocky cow</title>
+<defs>
+<linearGradient id="cowfriend-white-grad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#ffffff" />
+<stop offset="1" stop-color="#f5f2f2" />
+</linearGradient>
+<linearGradient id="cowfriend-black-grad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#363635" />
+<stop offset="1" stop-color="#20201f" />
+</linearGradient>
+<linearGradient id="cowfriend-pink-grad" x1="0" y1="0" x2="0.8" y2="1">
+<stop offset="0" stop-color="#ffa3b0" />
+<stop offset="1" stop-color="#fa8194" />
+</linearGradient>
+<linearGradient id="cowfriend-gold-grad" x1="0" y1="0" x2="1" y2="0.8">
+<stop offset="0" stop-color="#ffe36a" />
+<stop offset="0.45" stop-color="#ffc521" />
+<stop offset="1" stop-color="#ffb510" />
+</linearGradient>
+</defs>
+
+<g stroke="#050504" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="cowfriend-tail">
+<path d="M791 501L838 506 868 440 910 459 881 539 830 581Z" fill="#fff" />
+<path d="M839 547L872 519 896 466 910 459 881 539 830 581Z" fill="#ccc7c5" stroke="none" />
+<path d="M854 430L863 384 913 343 992 366 977 452 930 483 910 478 900 455 871 443 863 462Z" fill="url(#cowfriend-black-grad)" />
+<path d="M865 427L874 387 915 356 978 371 935 405 917 446Z" fill="#3e3e3d" stroke="none" />
+</g>
+<g id="cowfriend-rear-legs">
+<path d="M271 750L422 767 409 984Q409 995 395 995L267 997Z" fill="#ccc7c5" />
+<path d="M286 918L411 920 407 987 278 989Z" fill="#3b3b3b" stroke="none" />
+<path d="M386 824L416 824 406 987 367 987Z" fill="#202020" stroke="none" opacity=".5" />
+<path d="M681 764L842 757 877 993Q878 1003 866 1003L707 1004Q697 1004 696 990Z" fill="#f8f5f5" />
+<path d="M701 800L740 795 770 995 708 995Z" fill="#c8c3c2" stroke="none" />
+<path d="M702 922L862 919 871 994 708 996Z" fill="#353535" stroke="none" />
+<path d="M703 925L754 925 766 995 708 995Z" fill="#2a2a29" stroke="none" />
+</g>
+<g id="cowfriend-body">
+<path d="M188 500L274 451 684 411 737 434 821 483Q828 487 830 505L868 774Q869 782 856 785L665 831 675 1002Q676 1014 661 1015L500 1015Q487 1015 487 1002L484 832 285 831 278 1001Q278 1015 263 1016L105 1014Q88 1014 91 998L120 786 106 780 140 538Q141 531 151 524Z" fill="url(#cowfriend-white-grad)" />
+<path d="M155 526L191 502 245 529 255 581 214 571Z" fill="#d9d5d4" stroke="none" />
+<path d="M650 445L737 443 774 500 777 596 730 609 731 686 617 700 614 598Z" fill="url(#cowfriend-black-grad)" stroke="none" />
+<path d="M134 613L203 622 203 682 269 690 267 758 215 754 209 807 113 787Z" fill="url(#cowfriend-black-grad)" stroke="none" />
+<path d="M840 632L782 645 784 709 742 715 744 813 862 782Z" fill="url(#cowfriend-black-grad)" stroke="none" />
+<path d="M258 785L285 787 275 1004 228 1006Z" fill="#d0cbca" stroke="none" />
+<path d="M493 823L529 817 540 1008 493 1008Z" fill="#d0cbca" stroke="none" />
+<path d="M110 921L277 927 271 1007 98 1006Z" fill="#3a3a3a" stroke="none" />
+<path d="M243 925L277 927 271 1007 228 1007Z" fill="#292929" stroke="none" />
+<path d="M493 924L661 925 668 1007 493 1007Z" fill="#353535" stroke="none" />
+<path d="M494 925L534 925 540 1007 494 1007Z" fill="#292929" stroke="none" />
+<path d="M289 791L285 831M654 778L665 831" fill="none" stroke-width="8" stroke-linecap="butt" />
+</g>
+<g id="cowfriend-collar">
+<path d="M247 533L665 532 656 608Q656 615 646 620 453 705 265 620L257 614Z" fill="#f5161e" />
+<path d="M255 544Q430 630 659 548L651 581Q453 655 260 578Z" fill="#bb0008" stroke="none" />
+<path d="M265 579L289 589 298 627 268 614Z" fill="#ff2630" stroke="none" />
+<path d="M619 590L653 579 649 611 613 627Z" fill="#d70008" stroke="none" />
+</g>
+<g id="cowfriend-horns">
+<path d="M204 136L198 56Q198 50 205 44L244 10Q248 7 256 8L292 8Q300 9 301 22L315 100 255 155Z" fill="#ffd17a" />
+<path d="M208 61L251 22 277 22 273 16 252 16 209 52Z" fill="#ffe6a2" stroke="none" />
+<path d="M273 23L292 17 305 99 282 126Z" fill="#e49934" stroke="none" />
+<path d="M207 112L249 107 269 141 253 151 207 134Z" fill="#ffbb50" stroke="none" />
+<path d="M636 91L648 22Q649 8 660 8L691 8Q698 7 704 12L746 47Q752 51 751 59L747 133 690 158Z" fill="#ffcd70" />
+<path d="M657 19L677 20 665 96 648 108Z" fill="#ffbc50" stroke="none" />
+<path d="M724 54L744 52 738 127 714 142 685 118 719 108Z" fill="#eaa03c" stroke="none" />
+</g>
+<g id="cowfriend-ears">
+<path d="M254 151L173 119Q167 116 156 120L39 147Q29 149 32 160L43 263Q43 269 52 275L86 298Q91 301 103 299L239 281Z" fill="url(#cowfriend-black-grad)" />
+<path d="M42 157L73 188 171 166 247 190 253 159 167 126Z" fill="#393938" stroke="none" />
+<path d="M76 195L168 194 244 215 234 282 93 299 78 289Z" fill="url(#cowfriend-pink-grad)" stroke-width="8" />
+<path d="M81 202L168 203 239 222 234 245 170 224 81 220Z" fill="#df6278" stroke="none" />
+<path d="M207 234L237 222 231 278 203 282Z" fill="#eb7488" stroke="none" />
+<path d="M696 151L774 120Q782 116 793 120L910 147Q920 149 917 161L907 262Q906 269 898 274L867 297Q862 302 849 299L715 283Z" fill="url(#cowfriend-black-grad)" />
+<path d="M704 160L782 127 906 157 875 188 777 166 702 190Z" fill="#3c3c3b" stroke="none" />
+<path d="M706 218L779 198 869 196 865 291 855 299 716 282Z" fill="url(#cowfriend-pink-grad)" stroke-width="8" />
+<path d="M711 222L781 203 864 202 864 220 790 223 742 234 746 283 719 279Z" fill="#e7687f" stroke="none" />
+</g>
+<g id="cowfriend-head">
+<path d="M278 78Q266 79 264 94L168 472Q165 482 172 491L214 543Q217 548 231 548L681 545Q689 545 694 539L730 498Q734 494 733 484L731 290 693 146 670 91Q666 77 653 77Z" fill="url(#cowfriend-white-grad)" />
+<path d="M246 197L232 361 187 370 199 284 234 279Z" fill="#262625" stroke="none" />
+<path d="M438 83L656 83 672 121 694 166 713 283 730 291 726 359 699 340 693 279 665 260 662 216 509 212 509 160 430 155Z" fill="url(#cowfriend-black-grad)" stroke="none" />
+<path d="M665 117L692 172 706 277 684 264Z" fill="#383837" stroke="none" />
+<path d="M674 270L693 281 699 340 726 358 725 490 686 531 628 537 631 487 686 474Z" fill="#d1ccca" stroke="none" />
+<path d="M176 482L261 486 279 537 222 538Z" fill="#c6c1bf" stroke="none" />
+<path d="M278 274C291 187 397 176 409 282L386 281C372 227 323 227 301 275Z" fill="#000" stroke="none" />
+<path d="M520 289C535 209 630 201 645 295L623 294C606 247 563 249 542 290Z" fill="#000" stroke="none" />
+</g>
+<g id="cowfriend-muzzle">
+<path d="M318 316L574 316Q580 316 586 322L627 361Q634 366 633 376L629 535Q629 541 623 547L600 570Q594 577 582 577L315 579Q305 579 299 572L278 550 263 507 264 370Q264 364 270 358L307 323Q312 317 318 316Z" fill="url(#cowfriend-pink-grad)" stroke-width="14" />
+<path d="M273 370L319 330 565 330 602 365 623 367 579 323 317 323 272 364Z" fill="#ffd3d9" stroke="none" />
+<path d="M272 504L291 549 312 569 589 568 621 537 626 369 603 369 598 501 583 514 319 517Z" fill="#df6076" stroke="none" />
+<rect x="345" y="362" width="40" height="50" rx="7" fill="#872034" stroke="none" />
+<path d="M352 363L362 376 362 406 353 410 346 404 346 369Z" fill="#9b2940" stroke="none" />
+<rect x="497" y="362" width="39" height="50" rx="7" fill="#7f1c2c" stroke="none" />
+<path d="M503 364L513 376 513 411 503 410 498 404 498 369Z" fill="#98273b" stroke="none" />
+<path d="M355 445Q447 454 532 445C520 504 498 538 448 536 396 535 367 504 355 445Z" fill="#771422" stroke-width="12" />
+<path d="M385 496Q441 453 505 497 482 531 449 530 410 531 385 496Z" fill="#f5657d" stroke="none" />
+<path d="M352 442Q448 450 536 442" fill="none" stroke-width="8" stroke-linecap="butt" />
+</g>
+<g id="cowfriend-bell">
+<path d="M418 647Q419 604 435 579L482 579 498 585Q482 608 480 650Z" fill="#ffc723" stroke-width="11" />
+<path d="M437 588L477 588 472 602 430 602Z" fill="#ffdf54" stroke="none" />
+<path d="M475 600L486 589 477 643 466 643Z" fill="#e79a06" stroke="none" />
+<path d="M386 649L493 649Q503 649 511 656L529 669 559 793Q563 803 550 809 454 846 345 813 329 807 334 792L367 665Q370 650 386 649Z" fill="url(#cowfriend-gold-grad)" stroke-width="13" />
+<path d="M379 664L350 782 345 791 375 670Z" fill="#ffe66c" stroke="none" />
+<path d="M504 663L518 766 535 789 549 794 523 673Z" fill="#e99a06" stroke="none" />
+<path d="M365 770Q446 763 515 771L536 793Q451 833 354 793Z" fill="#a56800" stroke="none" />
+<path d="M371 770L403 769 396 804 355 792Z" fill="#b57600" stroke="none" />
+<path d="M411 683Q412 675 402 675L394 675Q389 675 388 683L377 734Q375 743 381 743L395 743Q401 743 403 737Z" fill="#fff0b0" stroke="none" />
+<path d="M418 773Q405 789 409 806C414 844 469 845 480 809Q486 790 473 773" fill="#ffbd16" stroke-width="12" />
+<path d="M417 793Q419 811 437 817 456 823 466 805L464 785 424 780Z" fill="#ffcd35" stroke="none" />
+<ellipse cx="430" cy="789" rx="7" ry="8" fill="#ffec95" stroke="none" />
+</g>
+</g>
+</svg>

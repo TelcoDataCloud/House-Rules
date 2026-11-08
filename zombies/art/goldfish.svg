@@ -1,0 +1,132 @@
+<!-- goldfish: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy zombie goldfish flopping out of a bowl</title>
+<defs>
+<linearGradient id="goldfish-glass-grad" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#59d4ff" /><stop offset="1" stop-color="#b3f4ff" />
+</linearGradient>
+<linearGradient id="goldfish-water-grad" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#0097cb" /><stop offset="1" stop-color="#00b9f5" />
+</linearGradient>
+<linearGradient id="goldfish-fish-grad" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#ffcc00" /><stop offset="0.55" stop-color="#ff9000" /><stop offset="1" stop-color="#e34f00" />
+</linearGradient>
+<linearGradient id="goldfish-slime-grad" x1="0" y1="0" x2="1" y2="0.8">
+<stop stop-color="#d9f00c" /><stop offset="1" stop-color="#8da607" />
+</linearGradient>
+</defs>
+
+<g stroke="#080907" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="goldfish-back-fins">
+<path d="M440 284 337 266 346 203 389 185 368 170 400 113 451 104 422 65 501 23 599 14 638 92 728 67 761 119 620 225Z" fill="#ff8d00" />
+<path d="m350 205 39-17 46 32-31 34Z" fill="#ffc500" stroke="none" />
+<path d="m400 119 37 39 44-24-28-24Z" fill="#ffcc00" stroke="none" />
+<path d="m422 65 79-40 58 96-68 35Z" fill="#ff7900" stroke="none" />
+<path d="m508 28 50 87 68-29-29-64Z" fill="#ffba00" stroke="none" />
+<path d="m536 80 61-16 25 24-65 29Z" fill="#ff9700" stroke="none" />
+<path d="m562 27 28 57" fill="none" stroke="#ffdd20" stroke-width="5" />
+<path d="m506 30 49 84" fill="none" stroke="#c85a00" stroke-width="8" />
+<path d="m678 89 47-13 25 41-52 30Z" fill="#ffb900" stroke="none" />
+<path d="m710 85 24 44" fill="none" stroke="#ffce0a" stroke-width="6" />
+<path d="m718 465 59-68 104 25 22 44-53 65-24 9-65-41Z" fill="#ff8c00" />
+<path d="m757 454 62 71 27 4 52-62-78 22Z" fill="#e85a00" stroke="none" />
+<path d="m781 421 18 29 91 16-47-26Z" fill="#ffc400" stroke="none" />
+<path d="m781 458 44 17 38 43" fill="none" stroke="#ffac00" stroke-width="12" />
+</g>
+<g id="goldfish-tail">
+<path d="m328 358-94-110-125-37-45 66 58 115 29-1-2 33-53 49 17 82 129-71 87-69Z" fill="#ff8d00" />
+<path d="m73 276 139 12 96 69-73-103-122-33Z" fill="#ffbd00" stroke="none" />
+<path d="m76 283 135 10 87 68-62-15 58 28-173 12Z" fill="#ff7900" stroke="none" />
+<path d="m103 335 106-1 15 105-119 34 48-48 5-36-34-3Z" fill="#ffba00" stroke="none" />
+<path d="m103 484 194-72-56 65-122 67Z" fill="#e75200" stroke="none" />
+<path d="m160 392 139-1-77 26-68 9Z" fill="#ff9e00" stroke="none" />
+<path d="m74 277 137 13 87 67M103 475l117-36 79-41" fill="none" stroke="#e77600" stroke-width="6" />
+<path d="m212 286 18-30" fill="none" stroke="#ffe02c" stroke-width="5" />
+</g>
+<g id="goldfish-body">
+<path d="M300 358q67-30 122-132 75-78 160-111l145-48 35 52 64 103 25 39-25 43-24 83 17 28-13 30-77 29-115 42-48 92-34 79-144 6 37-94 19-44-75-32-8-68-59-34Z" fill="url(#goldfish-fish-grad)" />
+<path d="m421 228 73-60 89-45 79-29 27 63-79 45-64 67-27 12 2 40-26 5-19-84-17 5 4 35-24 3Z" fill="url(#goldfish-slime-grad)" stroke="none" />
+<path d="m662 113 41 62-23 33-29-43-24-30Z" fill="#c5cd0a" stroke="none" />
+<path d="m580 180 71 22 42 39-46 43-38 89-23 3-1-36-29 1-9-68-24-2-7-31Z" fill="#b2c508" stroke="none" />
+<path d="m385 324 38-20 10 29 12 28-20 12-7-22-14 3 4 28-15 5-9-30-23 8-4-24Z" fill="#b6c716" stroke="none" />
+<path d="m333 377 23-3 4 45 26 13-17 17-29-25Z" fill="#9ab317" stroke="none" />
+<path d="m337 345 11 1 4 29-13 3Z" fill="#ffd212" stroke="none" />
+<path d="m538 475 19-20 13 34 39-10 17 25-37 19-60 1-11-17 24-11Z" fill="#a2b00a" stroke="none" />
+<path d="m481 524 42 27 58-9-20 38-33 8-8 32-28 12-38-15Z" fill="#d65500" stroke="none" />
+<path d="m430 567 45 10-19 39-21 20-8 26-22-7-17 38 141-4 27-72-36 10 15-39-8-1-27 27-31-1 12-39-39-23Z" fill="#afbb0a" stroke="none" />
+<path d="m444 642 20 17-9 26-32-1Z" fill="#ff7c00" stroke="none" />
+<path d="m422 228 14 57 26-6-5-35 17-5 19 86 29-4-3-42M557 314l2 30 27-1 3 44 22 2 9-23" fill="none" stroke="#8a9a12" stroke-width="8" />
+<path d="M301 360q-8 25 0 56" fill="none" stroke="#b74e00" stroke-width="8" />
+</g>
+<g id="goldfish-front-fin">
+<path d="m374 457 133-76 44 5 1 38-89 154-96-21Z" fill="#ff9700" />
+<path d="m381 462 122-72-82 82-45 70Z" fill="#ffc600" stroke="none" />
+<path d="m379 549 61-9 106-143-5 34-80 137Z" fill="#ff7900" stroke="none" />
+<path d="m381 540 58-69 58-52" fill="none" stroke="#d15a00" stroke-width="6" />
+</g>
+<g id="goldfish-face">
+<path d="m646 332 23-20 116-45 47-14 16 9-22 43-23 84 14 23-13 29-125 51-63-30 5-70Z" fill="url(#goldfish-slime-grad)" />
+<path d="m672 316 136-47-26 65-18 53 21 15-112 44-22-10 6-65Z" fill="#550c0b" stroke="#354006" stroke-width="9" />
+<path d="m673 324 114-43-26 88-33 1-67 27Z" fill="#650e0e" stroke="none" />
+<path d="m660 397 40-20 36-9 18 8 30 27-112 42-18-12Z" fill="#f24e5d" stroke="none" />
+<path d="m665 404 18-10 31 33-41 14-17-11Z" fill="#d63245" stroke="none" />
+<path d="m699 380 26 17" fill="none" stroke="#bd2935" stroke-width="6" />
+<path d="m637 340-17 104 57 25 123-46" fill="none" stroke="#d7ee32" stroke-width="12" />
+<path d="m708 210 12-91 108-31 48 80-31 72-59 10Z" fill="#fff4d4" />
+<path d="m715 210 82-28 71-12-25 61-57 11Z" fill="#f3d8a1" stroke="none" />
+<path d="m797 182-12 55-66-27Z" fill="#f9e3b5" stroke="none" />
+<path d="m786 113 36-15-11 40-26 2Z" fill="#fffdf0" stroke="none" />
+<path d="m745 135 38 9-12 39-39-10Z" fill="#050604" stroke="none" />
+<path d="m514 220 24-44 99-52 76 101-17 39-113 58Z" fill="#fff5d5" />
+<path d="m522 221 22-34 61 90 96-46-11 28-105 53Z" fill="#f5d9a4" stroke="none" />
+<path d="m564 186 22-11 12 24-22 12Z" fill="#fffdef" stroke="none" />
+<path d="m604 163 27-16 17 24-27 12Z" fill="#fff" stroke="none" />
+<path d="m625 203 34-19 22 35-35 20Z" fill="#040503" stroke="none" />
+</g>
+<g id="goldfish-air-splashes" fill="#38ccf5" stroke-width="12">
+<path d="M303 239q-41-51-101-56-58-4-60-41-2-30 29-42 39-15 77 23 48 45 55 116Z" />
+<path d="M351 119q-22-32-57-37-33-5-33-31 0-24 24-30 28-7 49 24 26 37 17 74Z" />
+<path d="M855 367q4-56 45-88 33-23 57 0 23 25-2 44-11 9-39 10-33 5-61 34Z" />
+<path d="M810 596q48-51 83-33 44 9 40 35-4 25-30 21-19-3-39-15-25-13-54-8Z" />
+<path d="M789 623q29-5 45 14 17 21-1 32-20 13-29-9Z" />
+<path d="M339 534q-13-20-31-24-23-7-10-27 14-16 30 3 18 23 11 48Z" stroke-width="9" />
+</g>
+<g fill="#d0faff" stroke="none">
+<ellipse cx="191" cy="124" rx="23" ry="14" />
+<ellipse cx="296" cy="40" rx="15" ry="10" />
+<ellipse cx="933" cy="288" rx="16" ry="10" />
+<ellipse cx="907" cy="579" rx="17" ry="10" transform="rotate(25 907 579)" />
+<ellipse cx="311" cy="490" rx="10" ry="6" transform="rotate(30 311 490)" />
+<path d="m815 637 13 8 1 10q-13-1-14-18Z" />
+</g>
+<g id="goldfish-bowl">
+<path d="M242 671q-65 72-66 140-3 116 123 190 79 25 344 11 126-26 146-166 11-87-66-171Z" fill="url(#goldfish-glass-grad)" />
+<path d="M251 699q-55 65-44 146 14 83 108 134 159 27 321 4 102-46 117-138 10-80-57-143Z" fill="url(#goldfish-water-grad)" stroke="none" />
+<path d="M252 702q-28 36-37 61 49-9 76 6 72 50 154-40l40-21Z" fill="#008fc4" stroke="none" />
+<path d="M252 702q-33 26-37 56 96 34 128-23l7 14 11-31Z" fill="#00afe7" stroke="none" />
+<path d="M279 798q56 38 116 6 55-30 98-6 87 53 156 16 61-35 104-20-10-54-58-92l-210 6-119 25Z" fill="#56d9f6" fill-opacity="0.8" stroke="none" />
+<path d="M278 799q49 30 108 4 56-28 100-5 86 52 153 17 70-39 114-24" fill="none" stroke="#a0edfa" stroke-width="17" />
+<path d="M640 734q47 128-29 211l-50 44 84-6q104-56 110-151-3-74-62-125Z" fill="#04b9ed" stroke="none" />
+<path d="m641 738 53-17q20 24 29 58l-55 18q-5-33-27-59Z" fill="#fff" stroke="none" />
+<path d="m257 721 44 16q-37 64-21 132h-44q-31-74 21-148Z" fill="#fff" stroke="none" />
+<path d="m247 890 39-1 22 43h-32q-22-23-29-42Z" fill="#fff" stroke="none" />
+</g>
+<g id="goldfish-bowl-splashes">
+<path d="M318 676q-8-70-53-88-13-5-39 2-32 9-38-19-7-31 27-42 54-17 94 31 23 28 39 62-8-38 8-44 23-11 48 48l-19 56Z" fill="#16c9f4" stroke-width="12" />
+<path d="M209 545q42-16 80 22 29 28 47 66l-7 32-12-2q-8-64-49-79-28-9-43 0-27 5-28-15Z" fill="#57ddf8" stroke="none" />
+<path d="m359 604 16 12-4 58 26 3-8-46-18-35Z" fill="#00b8ed" stroke="none" />
+<path d="M562 635q19-66 45-62 30 6 6 51 44-82 76-99 40-21 62 3 21 27-11 38-62 9-86 98l-4 22-179 3q33-61 91-54Z" fill="#27cef4" stroke-width="12" />
+<path d="M477 676q54-57 95-59 32-2 36 22-1 19-21 13-14-19-47-4l-33 31Z" fill="#6be0f9" stroke="none" />
+<path d="M623 622q43-77 69-90 23-14 44-3-48 7-78 52l-24 43Z" fill="#62dffa" stroke="none" />
+<ellipse cx="723" cy="535" rx="16" ry="8" fill="#dbfbff" stroke="none" />
+<ellipse cx="223" cy="551" rx="18" ry="10" fill="#d3faff" stroke="none" transform="rotate(-20 223 551)" />
+<ellipse cx="363" cy="593" rx="8" ry="7" fill="#92edff" stroke="none" />
+<ellipse cx="585" cy="624" rx="15" ry="10" fill="#c3f7ff" stroke="none" />
+</g>
+<g id="goldfish-bowl-rim">
+<path d="M275 603q-54 14-53 46 0 37 96 59 90 24 217 15 135-7 188-40 29-17 25-41-5-25-65-42l-12 24q34 9 31 20-23 25-160 34-160 14-252-20-39-14-13-27l22-9Z" fill="url(#goldfish-glass-grad)" stroke-width="15" />
+<path d="M240 641q-10 24 83 42 107 24 255 9 123-11 153-42" fill="none" stroke="#d7faff" stroke-width="18" />
+<path d="M287 658q78 30 224 23 137-3 187-32" fill="none" stroke="#060a08" stroke-width="8" />
+</g>
+</g>
+</svg>
