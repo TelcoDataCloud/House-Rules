@@ -251,7 +251,7 @@ export function updateZombies(dt) {
 
     // grabbing the hero
     const hd = Math.hypot(state.hero.x - z.x, state.hero.y - z.y);
-    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0) {
+    if (hd < 0.9 && z.grabT <= 0 && state.hero.down <= 0 && !(state.hero.blink > 0)) {
       z.grabT = 1.5;
       hurtHero();
     }
@@ -259,7 +259,7 @@ export function updateZombies(dt) {
     // carrying someone off
     if (z.carrying) { z.carrying.x = z.x + 0.5; z.carrying.y = z.y - 0.3; drawVillager(z.carrying); }
     if (z.leaving && (z.x < 0.3 || z.y < 0.3 || z.x > COLS - 0.3 || z.y > ROWS - 0.3)) {
-      if (z.carrying) { state.taken.push({ job: z.carrying.job, kind: 'bob' }); removeVillager(z.carrying); }
+      if (z.carrying) { state.taken.push({ job: z.carrying.job, kind: 'bob', name: z.carrying.name }); say(LINES.taken.replace('{name}', z.carrying.name), true); removeVillager(z.carrying); }
       remove(z);
       continue;
     }
@@ -290,8 +290,8 @@ export function hurtHero() {
   burst(h.x, h.y - 0.6, 'OW');
   blip('bonk');
   if (h.hearts <= 0) {
-    if (diff.heroDowns) { h.down = 10; say(LINES.heroDown); }
-    else { h.hearts = 1; }
+    if (diff.heroDowns) { h.down = 10; say(LINES.heroDown, true); }
+    else { h.hearts = 2; h.blink = 2; burst(h.x, h.y - 1, LINES.gotUp); say(LINES.gotUp, true); }
   }
   h.lastHurt = state.time;
 }
@@ -312,7 +312,10 @@ export function whackAt(x, y) {
       n++;
     }
   });
-  if (n) { burst(x, y - 0.8, pick(LINES.whack)); blip('bonk'); }
+  if (n) {
+    burst(x, y - 0.8, pick(LINES.whack)); blip('bonk');
+    if (!state.whackedOnce) { state.whackedOnce = true; say(LINES.firstWhack); import('./hud.js').then((m) => m.banner(LINES.firstWhack, 2200)); }
+  }
   return n;
 }
 
