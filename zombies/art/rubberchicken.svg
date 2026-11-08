@@ -1,0 +1,58 @@
+<!-- rubberchicken: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Floppy rubber chicken club</title>
+<desc>A chunky yellow rubber chicken with a red comb, wide eyes and an open orange beak, angled upward from its dangling legs.</desc>
+
+<g stroke="#10100c" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+<g id="rubberchicken-legs">
+<path d="M367 679 426 712 328 885 299 926 247 905 268 852Z" fill="#ff8b08" />
+<path d="m378 704 25 15-91 165-30-15Z" fill="#df6405" stroke="none" />
+<path d="m278 851 50 29-18 44-12 54-35 6-5-41-30 32-33-19 33-45-45 14-22-31 70-39 19-30Z" fill="#ff8b08" />
+<path d="m260 901-32 52-18-8 32-43Zm23 23-10 46 16-2 10-46Z" fill="#e66b05" stroke="none" />
+<path d="m457 716 53 23-62 162-27 43-49-22 20-61Z" fill="#ff990a" />
+<path d="m476 738 22 9-57 143-24-13Z" fill="#e46c05" stroke="none" />
+<path d="m395 873 48 18-12 45 7 49-34 9-18-40-17 35-35-8 11-51-37 24-28-27 65-48 21-33Z" fill="#ff8c08" />
+<path d="m387 946-17 32-23-4 18-42Zm22-16 17 43-17 7-15-48Z" fill="#e66c06" stroke="none" />
+</g>
+<g id="rubberchicken-comb">
+<path d="m749 189-55-35 4-46 28-14-26-22 1-23 59-40 31 8 31 41 6-44 57-1 27 37-12 27 13 20-25 62-62 42Z" fill="#fa2528" />
+<path d="m727 97 40 32-13 41-43-27 2-29Zm153-70-10 43 24 10 12-27Zm-72 50-23-48-24-7 36 62Z" fill="#d5131b" stroke="none" />
+<path d="m727 94 29 25m66-61 4 28" fill="none" />
+</g>
+<g id="rubberchicken-body">
+<path d="m752 163-44 39-33 61-9 34 13 33-66 67-22-20-54 4-71 56-46 49-42 72-31 77-3 49 20 35 48 28 24 34 42 21 42-7 32-28 43-7 47-35 37-55 31-68-16-31 14-51 9-66 44-81 51-68 36-65-20-51-42-35Z" fill="#ffdc08" />
+<path d="m752 163-44 39-33 61-9 34 13 33-66 67-22-20-54 4-71 56-46 49-42 72-31 77-3 49 20 35 48 28 24 34 42 21 42-7 32-28 43-7 47-35 37-55 31-68-16-31 14-51 9-66 44-81 51-68 36-65-20-51-42-35Z" fill="none" />
+<path d="m388 588 23 27 43 19 37 1 38-17 44-42 43-69 38-86-17 91-36 80-49 67-42 27-27 31-25-8-27-37-42-24-14-25Z" fill="#efb300" stroke="none" />
+<path d="m536 397 29-1-57 45-48 53-42 68-29 69-14-22 26-70 43-69 47-45Z" fill="#ffe94b" stroke="none" />
+<path d="m587 412-49 44-43 52-38 66-39-3-25-22 31-60 43-48 59-48 48-1Z" fill="#ffdb05" stroke="none" />
+<path d="m553 421-49 43-42 51-35 53-28-4 43-72 42-45 50-43Z" fill="#e9a600" stroke="none" />
+<path d="m587 412-49 44-43 52-38 66-39-3" fill="none" stroke-width="11" />
+<path d="m641 530 24 31-28 64-37 51-38 27-32-24 28-32 28-42 24-51Z" fill="#ffcd07" />
+<path d="m641 547 11 17-27 55-33 44-28 23-19-11 32-35 29-43Z" fill="#efa800" stroke="none" />
+<path d="m396 684 29 19 23 29-24 26-25-25-28-13Z" fill="#ffcb05" />
+<path d="m471 720 24 22-28 28-23-7-19-27 25-23Z" fill="#ffcf08" />
+</g>
+<g id="rubberchicken-wattle">
+<path d="m727 358-35 64-15 52-29 3-19-15-8-21 25-46 41-50Z" fill="#ef2528" />
+<path d="m689 391-22 63-10 11-21-14 28-45Z" fill="#ff4141" stroke="none" />
+<path d="m733 368-6 51-22 69-29 9-21-15 15-46 26-64Z" fill="#e62025" />
+<path d="m708 389-13 58-15 37 17-4 19-63Z" fill="#b91319" stroke="none" />
+</g>
+<g id="rubberchicken-face">
+<path d="m756 160 40-15 49 25 25 32-32 53-43 40-39-12-40-32 10-45Z" fill="#ffdd06" stroke="none" />
+<path d="m769 230 70-1 41 43-67 116-75-23-33-20Z" fill="#ff8b08" />
+<path d="m765 263 52 18-41 76-46-14Z" fill="#4c0d0e" stroke-width="10" />
+<path d="m746 309 17 6 10 15-1 19-35-11Z" fill="#f4495c" stroke="none" />
+<path d="m811 283 18-4-43 86-64-21 8-12 44 19Z" fill="#dd5c03" stroke="none" />
+<path d="m786 201 39-31 39-2 33 25 27 37-26 15-54-20-70 1-42 13Z" fill="#ff9209" />
+<path d="m774 225 58-18 31 1 44 22-10 7-54-19Z" fill="#f77704" stroke="none" />
+<path d="m803 180 23-9 35 5 22 16-49-3Z" fill="#ffae24" stroke="none" />
+<path d="m807 160 7-36 27-15 29 8 34 24-8 30-20 28-42-15Z" fill="#fff" />
+<path d="m809 159 27 15 40 16-5 8-39-13Z" fill="#d9d9d3" stroke="none" />
+<path d="m729 192 9-36 19-31 27-5 32 17-4 38-19 34-30-1Z" fill="#fff" />
+<path d="m736 185 29 14 28 1-4 10-28-1-32-17Z" fill="#d9d9d3" stroke="none" />
+<path d="m774 147 19 7-9 22-19-8Z" fill="#080b09" stroke="none" />
+<path d="m859 140 18 9-10 21-17-9Z" fill="#080b09" stroke="none" />
+</g>
+</g>
+</svg>

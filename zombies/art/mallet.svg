@@ -1,0 +1,88 @@
+<!-- mallet: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Cartoon carnival mallet</title>
+
+<g stroke="#080807" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+<g id="mallet-barrel">
+<path d="M93 294 132 176 194 102 275 74 443 54 530 42 647 38 693 21 794 39 863 60 918 119 946 224 944 329 921 439 867 523 782 553 655 548 551 558 387 552 257 536 157 505 107 419Z" fill="#fa9906" />
+<path d="M93 294 281 288 556 270 774 268 780 391 565 438 304 451 107 419Z" fill="#df7400" stroke="none" />
+<path d="m107 419 197 25 263-14 213-39 32 96-76 47-185 24-164-6-130-16-100-31Z" fill="#a74600" stroke="none" />
+<path d="m132 176 150-33 313-28 208 21 60-76-69-21-101-18-46 17-117 4-87 12-168 20-81 28Z" fill="#ffa910" stroke="none" />
+<path d="m106 287 177-9 285-22 211 6-2-53-222-9-265 25-167-4Z" fill="#ffad15" stroke="none" />
+<path d="m291 405 274-30 213-43 2 59-215 47-261 13Z" fill="#a64a00" stroke="none" />
+<path d="m132 176 153-32 130-23 182-8 206 23M98 292l186-4 134-12 149-8 207 0M110 416l125 28 159 7 170-13 215-47M812 487l-86 32-147 20" fill="none" stroke="#592200" stroke-width="13" />
+<path d="m863 60-60 76-30 132 6 123 33 96 55 36 54-84 23-110 2-105-28-105Z" fill="#e67d00" stroke="#552200" stroke-width="11" />
+<path d="m780 357 151-185 15 52-2 105-23 110-54 84-55-36-31-91Z" fill="#ff9f0b" stroke="none" />
+<path d="m781 359 150-187 5 24-155 190Z" fill="#b65a00" stroke="none" />
+<path d="m811 487 124-169-14 121-54 84Z" fill="#ed8800" stroke="none" />
+<path d="m863 60-60 76-30 132 6 123 33 96 55 36" fill="none" stroke="#5a2300" stroke-width="11" />
+<path d="M93 294 132 176 194 102 275 74 443 54 530 42 647 38 693 21 794 39 863 60 918 119 946 224 944 329 921 439 867 523 782 553 655 548 551 558 387 552 257 536 157 505 107 419Z" fill="none" />
+</g>
+<g id="mallet-left-iron-band">
+<path d="m239 83 37-41 108-15 59 27-60 15-49 59-30 62-27 105 5 81 25 86 24 43 43 43-13 7-108-2-37-40-30-50-23-65-9-61-1-37 17-78 28-69Z" fill="#777078" />
+<path d="m239 83 37-41 108-15-49 56-42 96-108 4Z" fill="#928b95" stroke="none" />
+<path d="m384 27 59 27-60 15-49 59-30 62-11-11 42-96Z" fill="#4b454f" stroke="none" />
+<path d="m155 298 122-3 5 81 25 86 24 43 43 43-13 7-108-2-37-40-30-50-23-65Z" fill="#625b65" stroke="none" />
+<path d="m173 406 120-13 14 69 24 43 43 43-13 7-108-2-37-40-30-50Z" fill="#4b454e" stroke="none" />
+<path d="m239 83 37-41 108-15 59 27-60 15-49 59-30 62-27 105 5 81 25 86 24 43 43 43-13 7-108-2-37-40-30-50-23-65-9-61-1-37 17-78 28-69Z" fill="none" />
+</g>
+<g id="mallet-handle-socket">
+<path d="m386 475 128-8 62 65-9 55-37 14-128-16-35-56Z" fill="#d96a00" stroke-width="14" />
+<path d="m386 475 128-8-11 56-136 6Z" fill="#f18a00" stroke="none" />
+<path d="m514 467 62 65-9 55-37 14-27-78Z" fill="#9d3500" stroke="none" />
+<path d="m367 529 136-6 27 78-128-16Z" fill="#b44800" stroke="none" />
+<path d="m386 475 128-8 62 65-9 55-37 14-128-16-35-56Z" fill="none" stroke-width="13" />
+</g>
+<g id="mallet-right-iron-band">
+<path d="m653 39 28-30 117 5 43 41-48-3-42 48-33 69-19 72-1 69 7 72 20 75 23 48 42 47-12 8-120 12-35-39-24-43-24-75-12-58-5-62 17-91 28-67 29-48Z" fill="#77717c" />
+<path d="m653 39 28-30 117 5-47 53-43 104-127 0 28-67Z" fill="#9b939f" stroke="none" />
+<path d="m798 14 43 41-48-3-42 48-33 69-10 2 43-104Z" fill="#534d57" stroke="none" />
+<path d="m558 298 140-10 7 94 20 75 23 48 42 47-12 8-120 12-35-39-24-43-24-75-12-58Z" fill="#635d68" stroke="none" />
+<path d="m574 410 134-20 17 67 23 48 42 47-12 8-120 12-35-39-24-43Z" fill="#4e4853" stroke="none" />
+<path d="m653 39 28-30 117 5 43 41-48-3-42 48-33 69-19 72-1 69 7 72 20 75 23 48 42 47-12 8-120 12-35-39-24-43-24-75-12-58-5-62 17-91 28-67 29-48Z" fill="none" />
+</g>
+</g>
+<g id="mallet-iron-rivets" stroke="#090909" stroke-width="4" stroke-linejoin="round">
+<path d="m238 110 33-47 56 0 6 13-29 47-62 0Z" fill="#080808" />
+<path d="m238 110 33-47 56 0-29 47Z" fill="#c1bac6" />
+<path d="m271 63 56 0-19 18-44 0Z" fill="#e0dbe2" stroke="none" />
+<path d="m252 94 48 1-2 15-60 0Z" fill="#716a76" stroke="none" />
+<path d="m190 218 65 0 9 12-10 67-66 0-10-13Z" fill="#090909" />
+<path d="m190 218 65 0-9 67-68-1Z" fill="#b8b1bd" />
+<path d="m190 218 65 0-20 14-37 0Z" fill="#e4dfe6" stroke="none" />
+<path d="m235 232 20-14-9 67-13-18Z" fill="#99929e" stroke="none" />
+<path d="m178 284 20-17 35 0 13 18Z" fill="#736c79" stroke="none" />
+<path d="m189 402 66-5 13 13 14 55-69 7-8-10Z" fill="#090909" />
+<path d="m189 402 66-5 17 59-65 8Z" fill="#bfb7c5" />
+<path d="m189 402 66-5-14 17-38 2Z" fill="#e0dbe4" stroke="none" />
+<path d="m255 397 17 59-22-12-9-30Z" fill="#97909e" stroke="none" />
+<path d="m207 464 10-16 33-4 22 12Z" fill="#726a7a" stroke="none" />
+<path d="m636 100 29-54 67 4 6 14-27 50-71-3Z" fill="#080808" />
+<path d="m636 100 29-54 67 4-28 53Z" fill="#c2bbc8" />
+<path d="m665 46 67 4-24 16-47-1Z" fill="#e4dfe6" stroke="none" />
+<path d="m656 83 39 1 9 19-68-3Z" fill="#7c7482" stroke="none" />
+<path d="m695 84 37-34-28 53Z" fill="#99909f" stroke="none" />
+<path d="m598 212 73 0 8 15-8 65-71 0-9-12Z" fill="#080808" />
+<path d="m598 212 73 0-8 69-72-1Z" fill="#beb7c4" />
+<path d="m598 212 73 0-23 15-39 0Z" fill="#e6e1e9" stroke="none" />
+<path d="m648 227 23-15-8 69-15-18Z" fill="#9a929f" stroke="none" />
+<path d="m591 280 19-17 38 0 15 18Z" fill="#7a7281" stroke="none" />
+<path d="m600 400 73-7 12 14 11 56-72 9-9-10Z" fill="#080808" />
+<path d="m600 400 73-7 13 63-69 9Z" fill="#bfb8c6" />
+<path d="m600 400 73-7-19 18-39 4Z" fill="#e7e2ea" stroke="none" />
+<path d="m654 411 19-18 13 63-23-14Z" fill="#958c9c" stroke="none" />
+<path d="m617 465 13-19 33-4 23 14Z" fill="#746b7e" stroke="none" />
+</g>
+<g id="mallet-handle" stroke="#070706" stroke-linejoin="round" stroke-linecap="round">
+<path d="m405 545 87-2 42 35-68 410-23 24-128-1-13-9-22-34 1-14Z" fill="#ed8a05" stroke-width="19" />
+<path d="m405 545 48 1-108 415-65-1Z" fill="#ffa511" stroke="none" />
+<path d="m492 543 42 35-68 410-23 24-38-50Z" fill="#a94700" stroke="none" />
+<path d="m280 960 125 2 38 50-128-1-13-9Z" fill="#812600" stroke="none" />
+<path d="m356 695-66 224c41-18 90-32 126-25 21 6 41 15 59 30l44-241c-21-13-38-18-52-17-41 2-77 11-111 29Z" fill="#ff0809" stroke-width="11" />
+<path d="m467 666-51 228c21 6 41 15 59 30l44-241c-21-13-38-18-52-17Z" fill="#c40000" stroke="none" />
+<path d="m336 768-22 73c58-27 119-44 185-34l11-63c-56-17-119 0-174 24Z" fill="#c70000" stroke="none" />
+<path d="m451 740-14 64c20-2 41-1 62 3l11-63c-21-6-40-7-59-4Z" fill="#940000" stroke="none" />
+<path d="M336 768c55-24 118-41 174-24M314 841c58-27 119-44 185-34" fill="none" stroke-width="11" />
+<path d="m405 545 87-2 42 35-68 410-23 24-128-1-13-9-22-34 1-14Z" fill="none" stroke-width="17" />
+</g>
+</svg>
