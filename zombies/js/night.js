@@ -34,12 +34,13 @@ export function startNight(whenDone) {
   state.time = 0;
   state.taken = [];
   state.curedTonight = 0;
+  state.joined = [];
   state.gasAt = null;
   state.brokeTonight = 0;
   document.getElementById('stage').classList.add('is-night');
   const hasCatapult = [...state.things.values()].some((t) => t.does === 'catapult');
   const hasBell = [...state.things.values()].some((t) => t.does === 'bell');
-  document.getElementById('help').innerHTML = 'Click a square to run there, or <kbd>WASD</kbd>. <b>WHACK</b> stuns a zombie next to you. <b>POTION</b> cures the nearest one.'
+  document.getElementById('help').innerHTML = 'Tap to run. <b>WHACK</b> stuns. <b>POTION</b> cures.'
     + (hasCatapult ? ' Press and drag from the catapult to aim.' : '') + (hasBell ? ' <kbd>B</kbd> rings the bell.' : '');
   paused = false;
   sendToBed();
@@ -58,8 +59,8 @@ export function startNight(whenDone) {
 }
 
 export function wireNightButtons() {
-  document.getElementById('btn-whack').addEventListener('click', () => { if (state.phase === 'night') hero.whack(); });
-  document.getElementById('btn-potion').addEventListener('click', () => { if (state.phase === 'night') { hero.throwPotion(); drawCounts(); } });
+  document.getElementById('btn-whack').addEventListener('click', (e) => { e.currentTarget.blur(); if (state.phase === 'night') hero.whack(); });
+  document.getElementById('btn-potion').addEventListener('click', (e) => { e.currentTarget.blur(); if (state.phase === 'night') { hero.throwPotion(); drawCounts(); } });
 }
 
 // At night the build bar turns into the ammo picker
@@ -154,18 +155,28 @@ export function stopNight() {
 }
 
 // mouse and touch during the night
+// Finger or mouse goes down: on the catapult it starts an aim and the
+// camera hands every move to us until the finger lifts ('hold').
 export function nightDown(ev) {
   const p = pointToTile(ev);
   const t = thingAt(p.col, p.row);
-  if (t && t.does === 'bell') { ringBell(t); return; }
   if (t && t.does === 'catapult') {
     if (!t.crewMember || !state.villagers.includes(t.crewMember)) { banner('needs a villager', 1200); return; }
-    catapult.startAim(t);
-    return;
+    if (catapult.startAim(t)) return 'hold';
   }
-  // click a zombie next to you: whack. Never potion by accident.
-  if (state.zombies.some((z) => Math.hypot(z.x - p.x, z.y - p.y) < 1 && Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 1.4)) {
-    hero.whack();
+  return undefined;
+}
+
+// A real tap (no drag): ring a bell, whack a zombie in reach, run
+// toward a zombie out of reach, or run to the square. Never potion.
+export function nightTap(ev) {
+  const p = pointToTile(ev);
+  const t = thingAt(p.col, p.row);
+  if (t && t.does === 'bell') { ringBell(t); return; }
+  const z = state.zombies.find((o) => !o.pit && Math.hypot(o.x - p.x, o.y - p.y) < 1);
+  if (z) {
+    if (Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 1.4) hero.whack();
+    else hero.runTo(z.x, z.y);
     return;
   }
   hero.runTo(p.x, p.y);

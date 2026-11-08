@@ -11,12 +11,13 @@ import { state, fresh } from './state.js';
 import { LINES } from '../data/lines.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { START as START_THINGS } from '../data/traps.js';
-import { WIN_AT } from '../data/villagers.js';
+import { WIN_AT, JOBS } from '../data/villagers.js';
 import { loadArt, icon } from './art.js';
 import { drawGround, placeThing, clearThings } from './grid.js';
 import { startVillage } from './villagers.js';
-import { startDay, nightFallsPressed, dayClick, dayHover, clearHover } from './day.js';
-import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightMove, nightUp, checkWin } from './night.js';
+import { startDay, stopDay, nightFallsPressed, dayClick, dayHover, clearHover } from './day.js';
+import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightTap, nightMove, nightUp, checkWin } from './night.js';
+import { setupCamera, setAiming, startView } from './camera.js';
 import * as hero from './hero.js';
 import { say } from './voice.js';
 import { saveGame, loadGame, hasSave, clearSave } from './save.js';
@@ -68,6 +69,7 @@ function newGame() {
   START_THINGS.forEach((s) => placeThing(s.thing, s.col, s.row));
   startVillage();
   show(null);
+  startView();
   day();
 }
 
@@ -78,6 +80,7 @@ function continueGame() {
   if (!loadGame()) { titleScreen(); return; }
   seenHowTo = true;
   show(null);
+  startView();
   startDay(night, true);
 }
 
@@ -86,6 +89,7 @@ function day() {
 }
 
 function night() {
+  stopDay();
   startNight(dawnResult);
 }
 
@@ -98,8 +102,12 @@ function dawnResult() {
   const taken = state.taken.length ? `<p>${icon('zombieicon')} ${state.taken.map((t) => t.name || t.job).join(', ')} carried off. Cure them tomorrow.</p>` : '';
   const broke = state.brokeTonight ? `<p>${icon('plank')} ${state.brokeTonight} traps broke</p>` : '';
   const pits = state.zombies.length ? `<p>${icon('pit')} ${state.zombies.length} waiting in pits</p>` : '';
+  const joined = (state.joined || []).length ? `<p>${icon('villager')} Joined: ${state.joined.map((j) => `${j.name} the ${(JOBS[j.job] || { name: j.job }).name.toLowerCase()}`).join(', ')}</p>` : '';
+  const beds = [...state.things.values()].filter((t) => t.does === 'bed').length;
+  const noBed = state.villagers[beds];
+  const bedLine = noBed ? `<p>${icon('bed')} ${LINES.noBedFor.replace('{name}', noBed.name)}</p>` : '';
   $('result-counts').innerHTML =
-    `<p>${icon('bucket')} ${state.curedTonight} cured tonight</p>` +
+    `<p>${icon('bucket')} ${state.curedTonight} cured tonight</p>` + joined + bedLine +
     `<p>${icon('villager')} Village ${n} / ${WIN_AT}</p>` + taken + pits + broke;
   $('result-tip').textContent = justWon
     ? `You won! Keep going for a village of ${WIN_AT * 2}, or play again on ${state.mode === 'easy' ? 'Hard' : 'Easy'}.`
@@ -124,8 +132,8 @@ function wire() {
   $('how-btn').addEventListener('click', () => howToScreen(titleScreen));
   $('how-done').addEventListener('click', () => { const f = afterHowTo; afterHowTo = null; if (f) f(); });
   $('next-day').addEventListener('click', nextDay);
-  $('play-again').addEventListener('click', () => { clearSave(); titleScreen(); });
-  $('to-title').addEventListener('click', () => { stopNight(); titleScreen(); });
+  $('play-again').addEventListener('click', () => { stopDay(); clearSave(); titleScreen(); });
+  $('to-title').addEventListener('click', () => { stopDay(); stopNight(); titleScreen(); });
   $('night-falls').addEventListener('click', nightFallsPressed);
   $('pause-btn').addEventListener('click', () => { if (state.phase === 'night') pauseNight(!isPaused()); });
   $('resume').addEventListener('click', () => pauseNight(false));
@@ -136,15 +144,20 @@ function wire() {
   wireNightButtons();
 
   const village = $('village');
-  village.addEventListener('pointerdown', (ev) => {
-    if (state.phase === 'day') dayClick(ev);
-    else if (state.phase === 'night' && !isPaused()) { nightDown(ev); ev.preventDefault(); }
+  // the camera decides what is a tap, a drag (pan) or a pinch
+  setupCamera((ev, kind) => {
+    if (kind === 'down') {
+      if (state.phase === 'night' && !isPaused()) { const r = nightDown(ev); setAiming(r === 'hold'); return r; }
+      return undefined;
+    }
+    if (kind === 'move') { if (state.phase === 'night') nightMove(ev); return; }
+    if (kind === 'up') { if (state.phase === 'night') nightUp(); setAiming(false); return; }
+    if (kind === 'tap') {
+      if (state.phase === 'day') dayClick(ev);
+      else if (state.phase === 'night' && !isPaused()) nightTap(ev);
+    }
   });
-  village.addEventListener('pointermove', (ev) => {
-    if (state.phase === 'day') dayHover(ev);
-    else if (state.phase === 'night') nightMove(ev);
-  });
-  window.addEventListener('pointerup', () => { if (state.phase === 'night') nightUp(); });
+  village.addEventListener('pointermove', (ev) => { if (state.phase === 'day') dayHover(ev); });
   village.addEventListener('pointerleave', clearHover);
   village.addEventListener('contextmenu', (e) => e.preventDefault());
   hero.listen();
