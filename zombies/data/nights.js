@@ -25,7 +25,8 @@ export const NIGHTS = [
 export const GIANT_FROM = { easy: 5, hard: 3 };
 
 // The moon (Hard only). 8 nights round. 0 is new moon, 4 is full.
+// "maybe" comes with the given chance (0.6 is 6 times in 10).
 export const MOON = {
   full: { speed: 1.4, torch: 0.5, extra: ['werewolf'] },
-  new:  { speed: 0.7, torch: 1.0, extra: [] },
+  new:  { speed: 0.7, torch: 1.0, extra: [], maybe: ['vampire'], chance: 0.6 },
 };

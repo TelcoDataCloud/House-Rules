@@ -23,6 +23,8 @@ export const LINES = {
   noPotion: 'No potion left. Trap them!',
   taken: '{name} was carried off. Cure them tomorrow.',
   heroDown: 'Oof. Sit down a bit.',
+  bitten: 'Bitten! They come back as a vampire.',
+  broken: '{n} traps broke. Builders fix them in the morning.',
   win: 'A FULL VILLAGE! You did it.',
   tip: [
     'Pits hold three. Pour potion in tomorrow.',

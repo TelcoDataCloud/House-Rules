@@ -65,6 +65,7 @@
 
 .gascloud { fill: var(--gas); pointer-events: none; }
 .dropped { pointer-events: none; }
+.thing.broken { opacity: 0.35; filter: grayscale(0.7); }
 .bubble { fill: var(--panel); stroke: var(--ink); stroke-width: 2.5; paint-order: stroke; font-family: var(--font); }
 
 .arc { fill: none; stroke: var(--button); stroke-width: 4; stroke-dasharray: 8 10; pointer-events: none; }

@@ -17,6 +17,7 @@ export const JOBS = {
   brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery' },
   lookout: { name: 'Lookout', art: 'lookout', makes: null },
   crew:    { name: 'Crew',    art: 'builder', makes: null },
+  nightshift: { name: 'Night shift', art: 'vampire', makes: 'planks', amount: 2 },
   giant:   { name: 'Giant',   art: 'giantfriend', makes: 'planks', amount: 6 },
 };
 

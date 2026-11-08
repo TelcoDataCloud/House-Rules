@@ -49,5 +49,6 @@ export const DIFFICULTY = {
     moon: true,
     potionCostCarrots: 4,
     mix: ['bob', 'bob', 'hopper', 'hopper', 'digger', 'snot', 'gasbag', 'bogey', 'eyeball', 'loosebits', 'vomit'],
+    bellEvery: 20,
   },
 };

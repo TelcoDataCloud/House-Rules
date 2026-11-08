@@ -23,6 +23,10 @@
              'burp' (a burp flattens fences nearby)
    heavy     true means the spoon does not budge him
    size      how big to draw it (1 is normal)
+   quiet     true means no groaning, he sneaks
+   bites     true means a villager he reaches turns, no carrying
+   hates     a trap word he cannot pass: 'garlic' (data/traps.js)
+   fears     what sends him running: 'silver' (the silver bell)
    =========================================================== */
 
 export const ZOMBIES = {
@@ -133,8 +137,21 @@ export const ZOMBIES = {
     cure: 2,
     wants: 'anyone',
     jumps: true,
+    fears: 'silver',
     line: ['AWOOO', 'where are my trousers', 'howl'],
     becomes: 'builder',
+  },
+  vampire: {
+    name: 'Vampire',
+    art: 'vampire',
+    speed: 1.7,
+    cure: 2,
+    wants: 'bed',
+    quiet: true,
+    bites: true,
+    hates: 'garlic',
+    line: ['...', 'bleh', 'sunscreen'],
+    becomes: 'nightshift',
   },
   giant: {
     name: 'Giant Gary',

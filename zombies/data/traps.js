@@ -29,6 +29,10 @@
             'catapult' you aim and fire it
             'tower'   the lookout stands here
    hard     true means it only shows on Hard
+   uses     Hard only: how many times it works before it breaks
+            (builders fix broken traps in the morning, or click
+            one and pay a plank)
+   needsJob a villager job that must live here before you can build it
    =========================================================== */
 
 export const TRAPS = {
@@ -36,20 +40,26 @@ export const TRAPS = {
   fence:   { name: 'Fence',     art: 'fence',   planks: 1, crew: 0, does: 'hold', seconds: 8 },
   torch:   { name: 'Torch',     art: 'torch',   planks: 1, crew: 0, does: 'scare', reach: 2 },
   mud:     { name: 'Mud pit',   art: 'mud',     planks: 1, crew: 0, does: 'slow', slow: 0.35 },
-  pit:     { name: 'Pit trap',  art: 'pit',     planks: 2, crew: 0, does: 'pit', holds: 3 },
+  pit:     { name: 'Pit trap',  art: 'pit',     planks: 2, crew: 0, does: 'pit', holds: 3, uses: 2 },
   brains:  { name: 'Brains',    art: 'brains',  planks: 2, crew: 0, does: 'circle' },
-  tramp:   { name: 'Trampoline', art: 'tramp',  planks: 3, crew: 0, does: 'bounce', tiles: 5 },
-  spin:    { name: 'Spin door', art: 'spin',    planks: 3, crew: 0, does: 'spin', seconds: 5 },
-  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop' },
-  honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15 },
-  scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20 },
-  log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log' },
+  tramp:   { name: 'Trampoline', art: 'tramp',  planks: 3, crew: 0, does: 'bounce', tiles: 5, uses: 4 },
+  spin:    { name: 'Spin door', art: 'spin',    planks: 3, crew: 0, does: 'spin', seconds: 5, uses: 4 },
+  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop', uses: 1 },
+  honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3 },
+  scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3 },
+  log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1 },
   bed:     { name: 'Bed',       art: 'bed',     planks: 2, crew: 0, does: 'bed' },
   farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm' },
   catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult' },
   // These only show on Hard
-  bell:    { name: 'Bell tower', art: 'bell',   planks: 5, crew: 1, does: 'bell', hard: true },
-  garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'hold', seconds: 30, hard: true },
+  bell:    { name: 'Bell tower', art: 'bell',  planks: 5, crew: 1, does: 'bell', reach: 9, seconds: 6, hard: true },
+  garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'garlic', hard: true },
+  silver:  { name: 'Silver bell', art: 'silver', planks: 3, crew: 0, does: 'silver', reach: 4, hard: true },
+  ice:     { name: 'Ice slide', art: 'ice',     planks: 2, crew: 0, does: 'ice', tiles: 4, uses: 4, hard: true },
+  mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 20, uses: 2, hard: true },
+  dawn:    { name: 'Dawn mirror', art: 'dawn',  planks: 4, crew: 0, does: 'dawn', reach: 2, from: 0.7, hard: true },
+  sprinkler: { name: 'Sprinkler', art: 'sprinkler', planks: 6, crew: 2, does: 'sprinkler', reach: 2, seconds: 15, hard: true },
+  net:     { name: 'Giant net',  art: 'net',    planks: 4, crew: 0, does: 'net', needsJob: 'giant', hard: true },
 };
 
 // The things the village starts with. Row and column are squares
