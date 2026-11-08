@@ -1,0 +1,145 @@
+<!-- sprinkler: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Blue potion sprinkler tower</title>
+<defs>
+<linearGradient id="sprinkler-potion" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#009de9" /><stop offset="1" stop-color="#00fff0" />
+</linearGradient>
+<linearGradient id="sprinkler-metal" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#bcbfce" /><stop offset="1" stop-color="#666779" />
+</linearGradient>
+<linearGradient id="sprinkler-wood" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#f48e32" /><stop offset="1" stop-color="#aa451b" />
+</linearGradient>
+</defs>
+
+<g stroke="#090c10" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+<g id="sprinkler-wooden-support">
+<path d="M288 671L359 693 343 858 270 896Z" fill="#914019" />
+<path d="M674 696L744 670 771 880 701 911Z" fill="#9f441b" />
+<path d="M205 780L273 744 532 863 523 923Z" fill="#8f3918" />
+<path d="M527 861L783 735 805 799 539 938Z" fill="#ab461b" />
+<path d="M264 823L331 758 412 752 330 832Z" fill="#ff9f43" />
+<path d="M603 866L688 726 743 750 660 894Z" fill="#ed7c28" />
+<path d="M317 719L372 701 483 872 451 894Z" fill="#bd541c" />
+<path d="M259 825L530 935 528 984 258 871Z" fill="#df742a" />
+<path d="M259 825L316 808 577 913 530 935Z" fill="#ffab50" />
+<path d="M536 934L789 809 792 855 539 985Z" fill="#c15a20" />
+<path d="M536 934L576 887 751 800 789 809Z" fill="#ffa548" />
+<path d="M184 717L254 739 237 938 165 907Z" fill="url(#sprinkler-wood)" />
+<path d="M254 739L292 717 297 903 237 938Z" fill="#813413" />
+<path d="M769 735L832 711 852 886 788 921 773 905Z" fill="url(#sprinkler-wood)" />
+<path d="M740 725L769 735 788 921 724 894Z" fill="#8c3716" />
+<path d="M159 670L222 630 298 670 234 709Z" fill="#ffad52" />
+<path d="M159 670L234 709 234 771 159 740Z" fill="#e57b2d" />
+<path d="M234 709L298 670 298 730 234 771Z" fill="#9f4419" />
+<path d="M730 670L789 634 854 668 785 710Z" fill="#ffa64a" />
+<path d="M730 670L785 710 785 769 730 733Z" fill="#bd571f" />
+<path d="M785 710L854 668 854 732 785 769Z" fill="#db6c25" />
+<path d="M472 840L587 840 607 981 534 1014 459 984Z" fill="url(#sprinkler-wood)" />
+<path d="M534 883L587 854 607 981 534 1014Z" fill="#a84a20" stroke="none" />
+<path d="M458 783L530 750 609 780 535 819Z" fill="#ffb457" />
+<path d="M458 783L535 819 535 886 458 851Z" fill="#ed8330" />
+<path d="M535 819L609 780 609 846 535 886Z" fill="#c86424" />
+</g>
+<g id="sprinkler-tank">
+<path d="M197 570C224 498 355 459 510 459S795 503 824 570L824 629C801 716 655 774 511 774 361 774 225 719 195 640Z" fill="url(#sprinkler-metal)" />
+<path d="M210 414L811 412 811 560C796 644 663 714 510 715 357 715 230 653 210 573Z" fill="url(#sprinkler-potion)" />
+<path d="M244 490L244 618M336 536L336 677M496 567L496 711M688 535L688 676M780 487L780 614" fill="none" stroke="#007cbe" stroke-width="12" />
+<path d="M202 561C213 642 359 719 510 719 660 719 800 650 819 565" fill="none" stroke="#101115" />
+<path d="M205 600C253 677 368 728 510 733 658 731 770 684 816 607" fill="none" stroke="#d1d0dc" stroke-width="12" />
+<path d="M201 390C245 308 370 282 511 282 657 282 785 324 820 394L821 447C797 530 655 590 511 590 357 590 235 536 198 458Z" fill="url(#sprinkler-metal)" />
+<path d="M204 423C254 504 378 548 511 548 652 548 767 501 815 431" fill="none" stroke="#c4c5d2" stroke-width="11" />
+<path d="M219 246C299 169 397 138 511 138 633 138 742 177 806 248L814 373C789 467 651 538 503 538 355 538 230 473 207 402Z" fill="url(#sprinkler-wood)" />
+<path d="M219 246C296 172 403 138 511 138 629 138 744 179 806 248L773 309C718 250 619 219 510 219 397 219 310 254 252 309Z" fill="#ff9b40" />
+<path d="M219 246L267 257M295 190L339 207M404 153L431 178M599 151L584 178M727 196L687 214M806 248L764 262" fill="none" stroke="#9f461a" stroke-width="10" />
+<path d="M245 392L245 447M336 450L336 507M498 474L497 537M687 448L688 504M780 391L779 447" fill="none" stroke="#703110" stroke-width="11" />
+<ellipse cx="512" cy="335" rx="239" ry="119" fill="url(#sprinkler-potion)" />
+<path d="M246 394C309 438 404 482 510 483 619 483 709 447 779 397L751 374C703 426 606 453 512 454 406 452 320 427 275 377Z" fill="#ffab51" stroke="none" />
+<path d="M273 335C273 401 380 454 512 454S751 401 751 335" fill="none" />
+<ellipse cx="392" cy="346" rx="34" ry="23" fill="#70fff8" stroke="#06edea" stroke-width="7" />
+<path d="M505 405C537 376 633 342 662 351 698 367 638 404 595 420 553 435 486 434 505 405Z" fill="#46fff3" stroke="none" />
+<ellipse cx="284" cy="575" rx="15" ry="21" transform="rotate(-40 284 575)" fill="#68fff6" stroke="#16e9eb" stroke-width="6" />
+<ellipse cx="398" cy="620" rx="27" ry="17" fill="#6ffff6" stroke="#13eeed" stroke-width="6" />
+<path d="M548 644C581 619 640 593 654 606 679 628 613 668 576 672 546 675 527 665 548 644Z" fill="#3cfff3" stroke="none" />
+<ellipse cx="733" cy="573" rx="15" ry="23" transform="rotate(43 733 573)" fill="#48fff3" stroke="none" />
+</g>
+<g id="sprinkler-sprinkler">
+<path d="M464 220L564 220 564 316C553 346 481 345 464 318Z" fill="url(#sprinkler-metal)" />
+<path d="M516 245L564 234 564 316C557 327 538 334 516 335Z" fill="#525264" stroke="none" />
+<path d="M458 241L481 220 547 220 575 241 574 257 544 275 486 274 458 259Z" fill="#656578" />
+<path d="M345 90L444 141 444 183 345 136Z" fill="#78788e" />
+<path d="M345 90L367 85 460 128 444 149Z" fill="#b9bac9" stroke="none" />
+<path d="M584 139L674 88 701 109 590 181Z" fill="#838397" />
+<path d="M590 139L674 94 695 108 590 163Z" fill="#bdbdcc" stroke="none" />
+<path d="M442 126L514 87 590 124 590 204C572 223 544 237 515 236 482 234 457 222 442 207Z" fill="url(#sprinkler-metal)" />
+<path d="M442 126L514 87 590 124 590 150 545 172 514 177 479 166 442 148Z" fill="#babdcb" stroke="none" />
+<path d="M515 177L545 172 590 150 590 204C568 224 543 234 515 236Z" fill="#747589" stroke="none" />
+<path d="M471 99L514 77 557 99 557 135 515 156 471 135Z" fill="#0065cc" stroke-width="10" />
+<path d="M471 99L514 77 557 99 515 121Z" fill="#06baf6" stroke="none" />
+<path d="M515 121L557 99 557 135 515 156Z" fill="#0052a5" stroke="none" />
+<path d="M346 236L473 179 473 224 352 282Z" fill="#818195" />
+<path d="M346 236L454 184 473 193 366 248Z" fill="#bdbecc" stroke="none" />
+<path d="M555 186L679 242 677 283 555 225Z" fill="#7d7e94" />
+<path d="M555 186L573 181 695 236 677 254Z" fill="#bfc0ce" stroke="none" />
+<path d="M306 80L345 59 383 78 383 123 344 146 306 128Z" fill="#005bd1" />
+<path d="M306 80L345 59 383 78 344 101Z" fill="#00bdf9" />
+<path d="M344 101L383 78 383 123 344 146Z" fill="#003e94" stroke="none" />
+<path d="M647 78L682 59 722 80 722 128 684 147 647 125Z" fill="#0058c3" />
+<path d="M647 78L682 59 722 80 684 100Z" fill="#09c2fc" />
+<path d="M300 239L338 218 379 239 379 285 340 309 300 289Z" fill="#0076e6" />
+<path d="M300 239L338 218 379 239 340 262Z" fill="#00c9fa" />
+<path d="M340 262L379 239 379 285 340 309Z" fill="#0053b5" stroke="none" />
+<path d="M647 240L685 219 725 241 725 288 684 310 647 290Z" fill="#006ad8" />
+<path d="M647 240L685 219 725 241 684 263Z" fill="#08c4f9" />
+<path d="M305 272L318 267 330 276 329 288 313 295 303 286Z" fill="#18dcff" stroke-width="7" />
+<path d="M701 272L713 267 728 277 725 292 712 294 701 285Z" fill="#16d7ff" stroke-width="7" />
+</g>
+<g id="sprinkler-rotation" fill="#32fff4" stroke="#008dd4" stroke-width="8">
+<path d="M433 77C467 41 523 25 571 35L572 22 619 59 574 83 573 63C520 47 476 55 433 77Z" />
+<path d="M601 270C569 310 505 325 456 307L452 319 422 281 460 262 462 280C514 295 559 289 601 270Z" />
+</g>
+<g id="sprinkler-water-droplets" fill="#00dffd" stroke="#008ed2" stroke-width="10">
+<path d="M215 46C176 7 149 9 131 26 113 44 122 64 140 63 163 62 177 48 215 46Z" />
+<path d="M300 65C290 31 265 8 247 15 226 22 233 42 250 47Z" />
+<path d="M233 77C188 76 154 102 158 123 161 142 182 147 197 125Z" />
+<path d="M132 88C81 93 38 119 35 145 30 176 58 181 79 161 98 142 96 120 132 88Z" />
+<path d="M283 78C270 64 252 77 258 86 265 98 283 93 294 87Z" />
+<path d="M726 65C736 31 761 7 780 15 800 23 790 43 774 48Z" />
+<path d="M809 45C843 5 882 12 899 31 916 53 896 69 875 61 849 51 835 47 809 45Z" />
+<path d="M791 77C836 77 870 103 867 123 862 144 840 144 828 125Z" />
+<path d="M901 89C955 95 989 122 990 149 991 178 966 182 948 164 929 145 932 125 901 89Z" />
+<path d="M735 81C748 67 772 77 768 87 763 100 742 92 735 87Z" />
+<path d="M281 285C253 259 223 263 207 276 192 290 205 310 224 306Z" />
+<path d="M284 305C253 318 231 343 240 361 250 380 269 366 276 345Z" />
+<path d="M180 288C146 269 98 280 82 304 66 328 83 345 103 337 126 327 138 304 180 288Z" />
+<path d="M211 324C176 333 137 363 140 386 144 414 166 412 179 389Z" />
+<path d="M108 368C69 383 29 412 25 440 21 474 51 486 74 461 93 441 84 411 108 368Z" />
+<path d="M744 285C773 259 804 264 817 279 830 297 815 311 798 305Z" />
+<path d="M739 303C772 317 795 343 785 362 774 380 755 367 749 343Z" />
+<path d="M846 287C881 271 927 282 942 305 958 328 942 344 922 337 898 327 889 306 846 287Z" />
+<path d="M812 324C849 334 885 363 882 386 879 413 856 412 844 389Z" />
+<path d="M918 369C959 383 996 414 999 442 1003 474 976 486 953 463 934 443 940 414 918 369Z" />
+</g>
+<g id="sprinkler-water-glints" fill="#86fff8">
+<ellipse cx="147" cy="33" rx="12" ry="8" transform="rotate(-30 147 33)" />
+<ellipse cx="251" cy="27" rx="8" ry="7" />
+<ellipse cx="183" cy="105" rx="9" ry="12" transform="rotate(35 183 105)" />
+<ellipse cx="64" cy="129" rx="10" ry="16" transform="rotate(33 64 129)" />
+<ellipse cx="774" cy="28" rx="10" ry="7" />
+<ellipse cx="877" cy="33" rx="12" ry="8" transform="rotate(32 877 33)" />
+<ellipse cx="842" cy="111" rx="9" ry="15" transform="rotate(-35 842 111)" />
+<ellipse cx="959" cy="131" rx="11" ry="16" transform="rotate(-32 959 131)" />
+<ellipse cx="225" cy="283" rx="12" ry="7" transform="rotate(-19 225 283)" />
+<ellipse cx="104" cy="304" rx="13" ry="9" transform="rotate(-39 104 304)" />
+<ellipse cx="257" cy="334" rx="9" ry="15" transform="rotate(24 257 334)" />
+<ellipse cx="163" cy="369" rx="9" ry="15" transform="rotate(22 163 369)" />
+<ellipse cx="54" cy="425" rx="10" ry="17" transform="rotate(28 54 425)" />
+<ellipse cx="799" cy="282" rx="12" ry="8" transform="rotate(19 799 282)" />
+<ellipse cx="921" cy="304" rx="13" ry="9" transform="rotate(39 921 304)" />
+<ellipse cx="765" cy="335" rx="8" ry="14" transform="rotate(-24 765 335)" />
+<ellipse cx="855" cy="369" rx="9" ry="15" transform="rotate(-22 855 369)" />
+<ellipse cx="971" cy="425" rx="10" ry="17" transform="rotate(-28 971 425)" />
+</g>
+</g>
+</svg>

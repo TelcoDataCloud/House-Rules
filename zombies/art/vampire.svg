@@ -1,0 +1,151 @@
+<!-- vampire: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Sunscreen vampire</title>
+<defs>
+<linearGradient id="vampire-skin" x1="0" y1="0" x2=".8" y2="1">
+<stop stop-color="#f8c7ff" /><stop offset="1" stop-color="#c686d7" />
+</linearGradient>
+<linearGradient id="vampire-black" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#393940" /><stop offset="1" stop-color="#101013" />
+</linearGradient>
+<linearGradient id="vampire-red" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#fa0b19" /><stop offset="1" stop-color="#af0010" />
+</linearGradient>
+<linearGradient id="vampire-lens" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#455271" /><stop offset="1" stop-color="#24283e" />
+</linearGradient>
+<linearGradient id="vampire-gold" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#fff475" /><stop offset=".45" stop-color="#ffca13" /><stop offset="1" stop-color="#ef8e00" />
+</linearGradient>
+</defs>
+
+<g stroke="#080808" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+<g id="vampire-cape">
+<path d="M231 306 Q135 316 51 347 L137 471 75 681 7 933 Q44 975 95 1002 L95 960 Q194 904 234 916 L395 957 Q513 935 611 955 L742 917 Q779 903 917 966 L926 1006 Q983 974 1016 934 L944 747 888 478 947 354 Q868 322 789 315 L682 460 331 469Z" fill="url(#vampire-black)" />
+<path d="M58 350 L184 451 262 439 311 593 190 796 95 959 112 768 163 511Z" fill="#ed0613" />
+<path d="M805 322 L939 355 814 456 757 491 682 605 826 805 918 967 909 785 859 511Z" fill="#ef0313" />
+<path d="M185 450 L239 444 364 595 436 703 391 955 240 917 Q189 908 95 959 L122 769Z" fill="url(#vampire-red)" />
+<path d="M818 450 L754 452 638 602 573 733 612 956 742 918 Q778 903 918 967 L891 762Z" fill="url(#vampire-red)" />
+<path d="M239 705 L180 913 240 917 365 947 420 748Z" fill="#a90011" stroke="none" />
+<path d="M700 718 L755 918 824 927 775 748Z" fill="#a0000c" stroke="none" />
+<path d="M433 850 L535 849 569 947 Q506 940 428 951Z" fill="#b8000e" />
+</g>
+<g id="vampire-legs">
+<path d="M313 777 L465 820 416 964 244 963Z" fill="url(#vampire-black)" />
+<path d="M376 824 L444 865 420 940 333 944Z" fill="#17171b" stroke="none" />
+<path d="M555 821 L680 786 746 950 576 970Z" fill="url(#vampire-black)" />
+<path d="M572 860 L604 944 576 950 550 860Z" fill="#141417" stroke="none" />
+<path d="M211 943 L281 932 423 938 418 1010 195 1017Z" fill="#25252c" />
+<path d="M221 952 L336 949 328 1010 207 1010Z" fill="#404048" stroke="none" />
+<path d="M336 946 L421 947 412 1007 370 1010 383 987 361 988 349 1011 328 1010Z" fill="#111114" stroke="none" />
+<path d="M564 939 L711 935 779 947 793 1018 566 1012Z" fill="#24242b" />
+<path d="M656 948 L774 955 785 1010 663 1010Z" fill="#3d3d45" stroke="none" />
+<path d="M571 951 L653 947 660 1010 629 1010 617 989 595 987 604 1010 572 1006Z" fill="#101013" stroke="none" />
+</g>
+<g id="vampire-torso">
+<path d="M360 548 L657 552 706 801 619 847 557 869 513 829 459 869 401 832 285 797Z" fill="url(#vampire-black)" />
+<path d="M451 626 L513 647 606 647 619 824 557 869 514 830 459 868 404 829Z" fill="#a81024" />
+<path d="M439 700 L514 648 609 718 606 742 514 680 431 752Z" fill="#cb1a30" stroke="none" />
+<path d="M504 678 L523 696 539 679 522 665Z" fill="#df3045" stroke="none" />
+<path d="M433 625 L463 645 403 848 289 799 330 637Z" fill="url(#vampire-black)" />
+<path d="M599 628 L657 636 705 801 618 846Z" fill="url(#vampire-black)" />
+<path d="M442 594 L517 630 608 593 617 723 516 657 419 728Z" fill="white" />
+<path d="M431 605 L471 637 429 663Z M600 605 L561 638 610 664Z" fill="#e5dcdf" stroke="none" />
+<rect x="509" y="711" width="37" height="38" rx="4" fill="url(#vampire-gold)" stroke="#830a16" stroke-width="5" />
+<rect x="509" y="770" width="37" height="37" rx="4" fill="url(#vampire-gold)" stroke="#830a16" stroke-width="5" />
+</g>
+<g id="vampire-collar">
+<path d="M184 263 L307 289 453 524 514 628 Q395 594 282 520 L216 400Z" fill="#f2b8fa" />
+<path d="M226 303 L299 353 311 427 246 375Z" fill="#c07bcf" stroke="none" />
+<path d="M829 271 L711 292 584 527 514 628 Q644 603 787 407Z" fill="#eab0f5" />
+<path d="M788 311 L741 337 728 414 766 380Z" fill="#b570c5" stroke="none" />
+<path d="M277 419 L294 497 465 605 516 628 419 528 323 430Z" fill="#f00917" />
+<path d="M738 418 L716 490 585 603 516 628 617 517 700 436Z" fill="#e4000c" />
+<path d="M253 521 L329 553 467 624 339 684 215 714 182 650Z" fill="url(#vampire-black)" />
+<path d="M260 566 L441 625 343 647Z" fill="#46464d" stroke="none" />
+<path d="M764 518 L698 556 579 626 685 681 793 715 834 647Z" fill="url(#vampire-black)" />
+<path d="M754 563 L599 626 716 654Z" fill="#414149" stroke="none" />
+</g>
+<g id="vampire-head">
+<path d="M304 130 L401 109 566 123 703 135 741 254 733 401 720 477 Q694 529 626 553 L410 558 Q337 543 284 487 L278 417 300 380 291 256Z" fill="url(#vampire-skin)" />
+<path d="M293 425 L318 421 338 486 384 514 391 546 340 527 290 486Z" fill="#b978ca" stroke="none" />
+<path d="M717 432 L690 452 677 508 635 546 Q709 526 722 479Z" fill="#b678ca" stroke="none" />
+<path d="M324 354 Q334 350 350 355 Q341 378 359 378 Q377 370 407 375 Q439 349 473 367 Q508 376 532 367 L579 367 Q601 363 615 364 Q641 357 659 378 Q687 373 698 388 Q708 384 706 370 Q715 367 729 389 Q744 413 731 433 Q721 449 699 442 Q717 465 709 486 Q706 510 684 515 L656 505 Q652 541 622 552 L413 548 Q375 549 372 516 Q341 523 324 504 Q306 480 327 448 L348 426 Q312 440 303 416 Q291 382 324 354Z" fill="#e0c6fa" stroke="none" />
+<path d="M324 360 Q337 352 349 353 Q338 376 357 381 Q381 382 403 376 Q439 350 476 366 Q499 373 521 371 L585 371 Q606 362 624 368 Q642 372 655 385 Q675 377 695 393 Q708 397 711 380 Q733 393 734 413 Q728 438 705 428 L675 413 Q657 410 641 390 Q643 413 667 421 Q685 428 691 445 Q709 463 705 482 Q703 510 677 502 L650 489 Q658 533 624 539 L413 536 Q377 533 386 488 Q353 506 335 493 Q315 475 338 446 Q355 426 380 421 Q403 420 418 391 Q393 405 372 402 Q346 410 329 418 Q309 423 305 405 Q301 379 324 360Z" fill="white" stroke="none" />
+<path d="M365 456 Q391 451 407 431 Q401 458 377 458Z M651 445 Q669 447 665 465Z" fill="#e6d5fa" stroke="none" />
+<path d="M367 187 Q389 165 431 177 L542 206 613 177 Q652 167 686 183 Q701 195 687 207 Q666 203 646 214 Q643 242 613 243 Q589 238 579 260 Q547 301 511 266 Q493 240 470 243 Q435 245 429 217 Q405 204 386 210 Q361 214 367 187Z" fill="#dfc7fc" stroke="none" />
+<path d="M372 186 Q394 171 429 176 L538 203 615 180 Q653 169 684 182 Q701 195 685 201 Q664 195 651 202 Q636 205 642 216 Q638 233 614 232 Q588 230 576 251 Q549 283 521 256 Q501 228 471 231 Q445 233 433 216 Q435 205 423 201 Q409 193 390 199 Q364 208 368 193Z" fill="white" stroke="none" />
+<path d="M514 314 Q504 353 511 394 Q522 421 561 418 Q590 417 595 389 L573 331Z" fill="#be83d2" stroke="none" />
+<path d="M525 323 Q526 303 545 303 Q561 301 567 319 L587 374 Q594 397 574 399 L539 398 Q520 397 523 376Z" fill="#dfc6f6" stroke="none" />
+<path d="M531 312 Q544 299 558 311 L582 371 Q588 385 574 386 L541 385 Q529 385 530 374Z" fill="white" stroke="none" />
+<g fill="#050505" stroke="none">
+<path d="M353 268 L378 231 Q452 259 507 299 L518 285 Q519 306 506 326 L389 272 369 265Z" />
+<path d="M569 285 L580 300 Q639 255 690 233 L711 268 697 265 580 326 Q571 308 569 285Z" />
+<path d="M372 291 Q436 303 494 333 L493 341 Q431 338 373 362 L367 343 439 326 366 311Z" />
+<path d="M694 293 L700 313 625 328 Q666 333 698 346 L690 364 Q636 341 588 342 L586 334 Q633 306 694 293Z" />
+</g>
+<path d="M421 493 Q426 449 443 417 Q451 402 473 410 Q542 433 600 414 Q622 407 625 426 Q627 466 615 508 Q610 525 588 521 Q515 507 453 513 Q419 520 421 493Z" fill="#400910" stroke-width="10" />
+<path d="M432 487 Q473 456 520 474 Q571 482 598 520 Q520 507 453 514 Q431 515 425 505Z" fill="#f8475d" stroke="none" />
+<path d="M460 413 L475 473 501 419Z" fill="white" stroke-width="7" />
+<path d="M575 422 L594 473 613 418Z" fill="white" stroke-width="7" />
+</g>
+<g id="vampire-hair">
+<path d="M279 73 Q234 106 193 164 L216 269 289 289 299 350 319 343 319 254 341 215 326 175 Q375 147 422 164 Q480 178 545 223 Q606 171 649 163 Q687 154 724 176 L712 215 732 252 731 292 768 277 802 140 Q799 101 741 73 L706 41 354 36Z" fill="#0a0a0c" />
+<path d="M283 89 L242 132 205 166 213 207 244 179 260 137Z" fill="#44444e" stroke="none" />
+<path d="M320 180 L337 212 292 236 227 269 257 229Z" fill="#37373f" stroke="none" />
+<path d="M263 213 L276 239 292 232 284 204Z" fill="#494950" stroke="none" />
+<path d="M312 113 Q403 61 488 79 L545 215 Q458 111 345 140 L278 163Z" fill="#25252c" stroke="none" />
+<path d="M486 65 L524 64 553 110 545 215 474 119Z" fill="#33333b" stroke="none" />
+<path d="M492 97 L529 94 546 133 492 134 473 113Z" fill="#494951" stroke="none" />
+<path d="M555 133 L603 125 546 214Z" fill="#44444e" stroke="none" />
+<path d="M588 93 L686 104 767 148 740 105 682 76Z" fill="#282830" stroke="none" />
+<path d="M746 176 L770 191 790 142 760 116Z" fill="#3e3e47" stroke="none" />
+<path d="M723 189 L763 216 769 250 735 224Z" fill="#404047" stroke="none" />
+</g>
+<g id="vampire-sunglasses">
+<path d="M284 45 L301 62 256 190 Q246 204 237 191Z" fill="#34343d" stroke-width="11" />
+<path d="M719 51 L740 65 768 183 Q769 199 754 193 L718 89Z" fill="#32323a" stroke-width="11" />
+<path d="M281 29 Q388 -1 482 12 L491 23 Q510 15 531 22 L539 11 Q635 -1 730 28 L734 53 719 62 Q713 111 696 125 Q675 137 575 124 Q546 120 536 80 L526 52 Q510 39 492 53 L476 93 Q467 121 445 125 Q350 140 324 127 Q307 124 295 67 L280 56Z" fill="url(#vampire-black)" stroke-width="13" />
+<path d="M289 32 Q386 8 477 19 L483 36 Q416 23 341 37 L313 57 301 52 290 53Z" fill="#53535d" stroke="none" />
+<path d="M540 20 Q636 10 726 32 L726 43 704 48 Q647 22 552 35 L535 43Z" fill="#55555d" stroke="none" />
+<path d="M484 27 L497 29 511 25 532 29 526 44 Q507 36 491 47Z" fill="#4a4a53" stroke="none" />
+<path d="M319 43 Q343 28 411 26 Q455 24 466 32 Q478 41 454 92 Q450 105 429 109 Q367 121 332 112 Q321 107 316 66 Q312 50 319 43Z" fill="url(#vampire-lens)" stroke-width="7" />
+<path d="M557 31 Q622 21 684 37 Q701 41 700 51 Q698 89 687 109 Q677 119 609 110 Q567 109 562 94 Q551 68 549 47 Q547 35 557 31Z" fill="url(#vampire-lens)" stroke-width="7" />
+<path d="M386 32 L417 31 355 110 334 109 330 102Z" fill="#8596cb" stroke="none" />
+<path d="M623 32 L654 35 594 103 573 98 571 92Z" fill="#8695c9" stroke="none" />
+</g>
+<g id="vampire-arms">
+<path d="M57 645 L35 715 75 769 122 814 216 773 248 667 155 621Z" fill="url(#vampire-black)" />
+<path d="M49 704 L68 678 118 705 225 673 213 721 120 754Z" fill="white" stroke-width="10" />
+<path d="M61 718 L119 742 208 717 210 735 119 760Z" fill="#e0d7db" stroke="none" />
+<path d="M48 730 L82 754 119 803 118 758Z" fill="#474750" stroke="none" />
+<path d="M777 659 L856 626 954 649 963 727 868 811 786 769Z" fill="url(#vampire-black)" />
+<path d="M790 672 L887 708 946 667 949 713 883 759 797 727Z" fill="white" stroke-width="10" />
+<path d="M800 706 L882 736 935 706 940 724 883 760 798 733Z" fill="#e3dadf" stroke="none" />
+<path d="M884 758 L949 720 929 753 867 802Z" fill="#41414a" stroke="none" />
+</g>
+<g id="vampire-hands">
+<path d="M89 470 L147 454 190 484 202 533 152 553 132 531 126 522 113 518 129 559 141 593 99 615 78 590 66 584 72 604 103 622 139 594 124 547 76 520 23 547 30 615 94 701 Q106 711 130 702 L185 683 227 662 264 635 286 655 328 637 322 577 279 562 232 578 218 533 207 500 222 508 226 525 277 514 277 467 233 443 181 455 170 474Z" fill="url(#vampire-skin)" stroke-width="12" />
+<path d="M28 549 L77 530 119 552 76 570Z M96 476 L147 462 183 485 147 504Z M185 463 L232 451 267 470 231 481Z M237 583 L280 570 313 582 279 596Z" fill="#ffe0ff" stroke="none" />
+<path d="M150 508 L186 492 194 530 153 545Z" fill="#efb9f9" stroke="none" />
+<path d="M231 483 L269 474 270 512 233 521Z" fill="#efbafa" stroke="none" />
+<path d="M279 598 L315 586 320 633 290 643Z" fill="#f1bafa" stroke="none" />
+<path d="M182 610 L230 582 245 624 221 654 189 673Z" fill="#dda2eb" stroke="none" />
+<path d="M264 619 L271 641" fill="none" stroke-width="7" />
+<path d="M773 471 L818 453 866 469 873 487 897 468 949 490 951 543 963 540 1005 566 994 635 928 704 Q918 717 897 711 L853 696 807 669 770 644 750 631 732 647 701 627 714 575 755 558 795 579 807 547 800 529 781 532 756 521Z" fill="url(#vampire-skin)" stroke-width="12" />
+<path d="M778 478 L819 462 854 476 815 490Z M858 496 L896 477 939 495 897 516Z M908 574 L961 549 994 571 944 586Z M720 581 L755 568 787 584 752 598Z" fill="#ffe0ff" stroke="none" />
+<path d="M815 490 L853 478 842 500 823 510 815 530 793 523Z" fill="#edb7f6" stroke="none" />
+<path d="M897 516 L940 500 940 541 907 550 910 533 925 526 904 531 896 553 885 561 843 543 851 512Z" fill="#eab0f5" stroke="none" />
+<path d="M945 586 L993 575 984 627 965 648 953 634 961 608 944 613 932 634 891 614 908 580 929 583Z" fill="#edb7f7" stroke="none" />
+<path d="M794 593 L846 614 829 681 797 665 771 638 779 617Z" fill="#d59ae5" stroke="none" />
+<path d="M760 636 L766 619" fill="none" stroke-width="7" />
+</g>
+<g id="vampire-brooch">
+<path d="M469 595 L484 581 558 581 573 599 573 642 560 658 485 658 469 643Z" fill="#eca412" stroke-width="9" />
+<path d="M478 599 L491 589 551 589 564 602 564 638 552 649 489 649 479 639Z" fill="url(#vampire-gold)" stroke="none" />
+<path d="M479 599 L491 589 551 589 538 602 491 602 491 638 480 638Z" fill="#ffed73" stroke="none" />
+<path d="M492 639 L532 594 544 594 503 640Z M509 642 L551 596 556 600 517 643Z" fill="#fff290" stroke="none" />
+<path d="M554 607 L564 600 564 637 551 650 493 650 505 640 552 640Z" fill="#ee9c00" stroke="none" />
+</g>
+</g>
+</svg>
