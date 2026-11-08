@@ -16,10 +16,11 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { POCKETS } from '../data/villagers.js';
 import { placeThing, removeThing, thingAt, pointToTile, isEdge, el, buildable, nearRock } from './grid.js';
 import { buildBar, drawCounts, drawDay, drawSun, lookoutSay, helpSay, banner, flashCount } from './hud.js';
-import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds } from './villagers.js';
+import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds, assignHomes } from './villagers.js';
 import { JOBS } from '../data/villagers.js';
 import { startWork, updateWork, retask } from './work.js';
 import { tonight, cure } from './zombies.js';
+import { nextWeapon } from './combat.js';
 import { burst } from './fx.js';
 import { say, blip } from './voice.js';
 import { mend, fixTrap } from './hard.js';
@@ -93,6 +94,22 @@ function dayTick(now) {
 }
 
 export function stopDay() { cancelAnimationFrame(raf); closePicker(); }
+
+// Buy the next weapon
+export function buyWeapon() {
+  const next = nextWeapon();
+  if (!next) return;
+  if (state.planks < next.planks) { flashCount('planks'); helpSay(`The ${next.name} needs ${next.planks} planks.`); return; }
+  if ((state.stone || 0) < (next.stone || 0)) { flashCount('stone'); helpSay(`The ${next.name} needs ${next.stone} stone. Build a mine.`); return; }
+  state.planks -= next.planks;
+  state.stone = (state.stone || 0) - (next.stone || 0);
+  state.weapon = (state.weapon || 0) + 1;
+  helpSay(`<b>${next.name}!</b> Stuns for ${next.stun} seconds and whacks them ${next.knock} squares.`);
+  say(next.name);
+  blip('cheer');
+  drawCounts();
+  saveGame();
+}
 
 export function nightFallsPressed() {
   closePicker();
@@ -190,6 +207,7 @@ export function dayClick(ev) {
     state.stone += TRAPS[here.kind].stone || 0;
     removeThing(p.col, p.row);
     burst(p.col + 0.5, p.row + 0.5, 'back');
+    rehome();
     drawCounts();
     return;
   }
@@ -214,7 +232,15 @@ export function dayClick(ev) {
     c.x = p.col + 0.2 + i * 0.6; c.y = p.row - 0.4; drawVillager(c);
   });
   blip('bonk');
+  rehome();
   drawCounts();
+}
+
+// Something was built or taken away: anyone whose patch is now covered moves
+function rehome() {
+  assignBeds();
+  assignHomes();
+  state.villagers.forEach((v) => { if (!v.task) { v.x = v.home.x; v.y = v.home.y; drawVillager(v); } });
 }
 
 // A see-through copy of the thing follows the pointer

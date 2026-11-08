@@ -11,6 +11,7 @@ import { TRAPS } from '../data/traps.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { WIN_AT } from '../data/villagers.js';
 import { LINES } from '../data/lines.js';
+import { weapon, nextWeapon } from './combat.js';
 
 export function drawCounts() {
   document.getElementById('counts').innerHTML =
@@ -19,7 +20,9 @@ export function drawCounts() {
     `<span id="count-carrots">${icon('carrot')} Carrots ${state.carrots}</span>` +
     `<span id="count-potion">${icon('bucket')} Potion ${state.potion}</span>` +
     (state.stone || [...state.things.values()].some((t) => t.does === 'mine') ? `<span id="count-stone">${icon('stone')} Stone ${state.stone}</span>` : '') +
+    (state.socks ? `<span id="count-socks">${icon('sock')} Socks ${state.socks}</span>` : '') +
     (state.phase === 'night' ? `<span>${icon('zombieicon')} Zombies ${state.zombies.filter((z) => !z.pit).length}</span>` : '');
+  drawUpgrade();
   const pc = document.getElementById('btn-potion-count');
   if (pc) pc.textContent = state.potion;
   drawHearts();
@@ -33,6 +36,20 @@ export function flashCount(which) {
   e.classList.remove('flash');
   void e.offsetWidth;
   e.classList.add('flash');
+}
+
+// The weapon button: what you have, and what the next one costs
+export function drawUpgrade() {
+  const b = document.getElementById('upgrade-btn');
+  if (!b) return;
+  const next = nextWeapon();
+  b.hidden = state.phase !== 'day';
+  const now = weapon();
+  if (!next) { b.innerHTML = `${icon(now.art, 26)} ${now.name}`; b.disabled = true; return; }
+  const cost = `${next.planks} ${icon('plank', 16)}` + (next.stone ? ` ${next.stone} ${icon('stone', 16)}` : '');
+  b.innerHTML = `${icon(now.art, 26)} Upgrade to ${icon(next.art, 26)} <b>${next.name}</b> ${cost}`;
+  b.disabled = false;
+  b.classList.toggle('cannot', state.planks < next.planks || (state.stone || 0) < (next.stone || 0));
 }
 
 export function drawHearts() {

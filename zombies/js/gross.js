@@ -104,16 +104,6 @@ export const TRICKS = {
   },
 };
 
-// When the spoon lands on a zombie with a trick
-export function onWhack(z) {
-  if (z.data.trick === 'loosebits' && !z.arm) {
-    const a = Math.random() * Math.PI * 2;
-    z.arm = dropThing('arm', z.x, z.y, 10);
-    z.arm.vx = Math.cos(a) * 3; z.arm.vy = Math.sin(a) * 3;
-    burst(z.x, z.y - 0.6, 'ARM OFF');
-    blip('twang');
-  }
-}
 
 // Fences that were burped flat stand up again
 export function updateFlattened(dt) {

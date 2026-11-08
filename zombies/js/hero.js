@@ -2,16 +2,18 @@
    HERO: you, with a wooden spoon and a bucket
 
    WASD or the arrows to run, click a square to run there.
-   Space whacks the nearest zombie (dizzy, not cured). E throws
+   Space whacks (js/combat.js; hold it and let go to spin). E throws
    a bucket of potion at the nearest zombie, if you have one.
    Five hearts; lose them all and you sit down for ten seconds.
    =========================================================== */
 
-import { state, TILE, COLS, ROWS } from './state.js';
+import { state, TILE, COLS, ROWS, CENTRE } from './state.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { LINES } from '../data/lines.js';
 import { el, blocked } from './grid.js';
-import { whackAt, cure } from './zombies.js';
+import { cure } from './zombies.js';
+import { swing, holdDown, holdUp, weaponLook } from './combat.js';
+import { follow } from './camera.js';
 import { burst } from './fx.js';
 import { say } from './voice.js';
 import { drawHearts } from './hud.js';
@@ -30,8 +32,9 @@ export function makeHero() {
   const body = el('g', { class: 'body' });
   body.appendChild(el('use', { href: '#art-hero', width: 48, height: 52, x: -4, y: -8 }));
   elHero.appendChild(body);
+  weaponLook(elHero);
   document.getElementById('mobs').appendChild(elHero);
-  state.hero.x = 12; state.hero.y = 9; state.hero.hearts = 5; state.hero.down = 0;
+  state.hero.x = CENTRE.x; state.hero.y = CENTRE.y + 1; state.hero.hearts = 5; state.hero.down = 0;
   goal = null;
   draw();
 }
@@ -41,11 +44,11 @@ export function listen() {
     if (state.phase !== 'night') return;
     const k = e.key.toLowerCase();
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) { keys.add(k); goal = null; e.preventDefault(); }
-    if (k === ' ') { whack(); e.preventDefault(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); }
+    if (k === ' ') { if (!e.repeat) holdDown(); e.preventDefault(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); }
     if (k === 'e') { throwPotion(); e.preventDefault(); }
     if (k === 'b') { const bell = [...state.things.values()].find((t) => t.does === 'bell' && !t.broken); if (bell) ringBell(bell); }
   });
-  window.addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
+  window.addEventListener('keyup', (e) => { keys.delete(e.key.toLowerCase()); if (e.key === ' ' && state.phase === 'night') holdUp(); });
 }
 
 export function runTo(x, y) { goal = { x, y }; }
@@ -93,14 +96,11 @@ export function update(dt) {
 }
 
 function draw() {
+  follow(state.hero.x, state.hero.y);
   elHero.setAttribute('transform', `translate(${state.hero.x * TILE - 20} ${state.hero.y * TILE - 36})`);
 }
 
-export function whack() {
-  if (state.hero.down > 0) return;
-  const h = state.hero;
-  if (!whackAt(h.x, h.y)) burst(h.x, h.y - 0.8, 'swish');
-}
+export function whack() { return swing(false); }
 
 export function throwPotion(at) {
   const h = state.hero;

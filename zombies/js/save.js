@@ -19,7 +19,7 @@ export function saveGame() {
   try {
     const data = {
       mode: state.mode, night: state.night, moonDay: state.moonDay,
-      planks: state.planks, carrots: state.carrots, potion: state.potion, stone: state.stone || 0,
+      planks: state.planks, carrots: state.carrots, potion: state.potion, stone: state.stone || 0, weapon: state.weapon || 0, socks: state.socks || 0,
       villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
       things: [...state.things.values()].map((t) => ({ kind: t.kind, col: t.col, row: t.row, broken: !!t.broken, wear: t.wear || 0 })),
     };
@@ -43,7 +43,7 @@ export function loadGame() {
   state.mode = data.mode;
   state.night = data.night;
   state.moonDay = data.moonDay;
-  state.planks = data.planks; state.carrots = data.carrots; state.potion = data.potion; state.stone = data.stone || 0;
+  state.planks = data.planks; state.carrots = data.carrots; state.potion = data.potion; state.stone = data.stone || 0; state.weapon = data.weapon || 0; state.socks = data.socks || 0;
   clearThings();
   document.getElementById('mobs').innerHTML = '';
   state.villagers = [];
