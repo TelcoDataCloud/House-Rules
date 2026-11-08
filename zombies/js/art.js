@@ -18,6 +18,7 @@ const NAMES = [
   'vampire', 'silver', 'ice', 'mirror', 'dawn', 'sprinkler', 'net',
   'cow', 'chicken', 'sheep', 'pig', 'horse', 'goldfish', 'pumpkinking',
   'cowfriend', 'chickenfriend', 'sheepfriend', 'pigfriend', 'pumpkinfarmer',
+  'map', 'cottage', 'boulders', 'mine', 'stonewall', 'stone', 'miner',
 ];
 
 export async function loadArt() {

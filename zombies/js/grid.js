@@ -9,6 +9,29 @@
 
 import { state, key, COLS, ROWS, TILE } from './state.js';
 import { TRAPS } from '../data/traps.js';
+import { WATER, BRIDGE, ROCKS, POND } from '../data/map.js';
+
+// Where the stream is on each row (its left edge), so we know which bank a point is on
+const STREAM_COL = [];
+for (let r = 0; r < ROWS; r++) {
+  const cols = WATER.filter(([c, rr]) => rr === r).map(([c]) => c).concat(BRIDGE.filter(([c, rr]) => rr === r).map(([c]) => c));
+  STREAM_COL[r] = cols.length ? Math.min(...cols) : 99;
+}
+export function eastBank(x, y) { const r = Math.max(0, Math.min(ROWS - 1, Math.floor(y))); return x >= STREAM_COL[r] + 0.5; }
+// The middle of the bridge, and a step off each end
+const bx = BRIDGE.map(([c]) => c), by = BRIDGE.map(([, r]) => r);
+export const BRIDGE_MID = { y: (Math.min(...by) + Math.max(...by) + 1) / 2, west: Math.min(...bx) - 0.6, east: Math.max(...bx) + 1.6 };
+
+const setOf = (list) => new Set(list.map(([c, r]) => c + ',' + r));
+const WATER_SET = setOf(WATER), ROCK_SET = setOf(ROCKS), POND_SET = setOf(POND), BRIDGE_SET = setOf(BRIDGE);
+export function isWater(col, row) { return WATER_SET.has(col + ',' + row); }
+export function isRock(col, row) { return ROCK_SET.has(col + ',' + row); }
+export function isPond(col, row) { return POND_SET.has(col + ',' + row); }
+export function isBridge(col, row) { return BRIDGE_SET.has(col + ',' + row); }
+// Rocks nearby? (for building a mine)
+export function nearRock(col, row) { return [[1,0],[-1,0],[0,1],[0,-1]].some(([dc, dr]) => isRock(col + dc, row + dr)); }
+// Can you build on this square at all?
+export function buildable(col, row) { return !isEdge(col, row) && !isWater(col, row) && !isRock(col, row) && !isPond(col, row) && !isBridge(col, row); }
 
 const SVG = 'http://www.w3.org/2000/svg';
 export const EDGE = 2;   // how many squares of woods round the edge
@@ -26,16 +49,21 @@ export function isEdge(col, row) {
 export function drawGround() {
   const ground = document.getElementById('ground');
   ground.innerHTML = '';
+  // the painted map first (art/map.svg), stretched to the grid
+  const map = el('svg', { viewBox: '0 0 1024 688', preserveAspectRatio: 'none', x: 0, y: 0, width: COLS * TILE, height: ROWS * TILE, class: 'map' });
+  map.appendChild(el('use', { href: '#art-map', width: 1024, height: 688 }));
+  ground.appendChild(map);
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
       const tile = el('rect', {
         x: col * TILE, y: row * TILE, width: TILE, height: TILE,
-        class: 'tile' + ((col + row) % 2 ? ' alt' : '') + (isEdge(col, row) ? ' edge' : ''),
+        class: 'tile' + (isEdge(col, row) ? ' edge' : '') + (isWater(col, row) ? ' water' : '') + (isRock(col, row) ? ' rock' : ''),
         'data-col': col, 'data-row': row,
       });
       ground.appendChild(tile);
-      if (isEdge(col, row) && ((col * 31 + row * 17 + 3) % 5 === 0)) {
-        ground.appendChild(el('use', { href: '#art-tree', class: 'tree', 'data-col': col, 'data-row': row, x: col * TILE - 8, y: row * TILE - 16, width: TILE + 16, height: TILE + 16 }));
+      // invisible markers for the trees builders chop (the map draws the forest)
+      if (isEdge(col, row) && col < 19 && ((col * 31 + row * 17 + 3) % 5 === 0)) {
+        ground.appendChild(el('rect', { class: 'tree', 'data-col': col, 'data-row': row, x: col * TILE, y: row * TILE, width: TILE, height: TILE, fill: 'none', 'pointer-events': 'none' }));
       }
     }
   }
@@ -54,6 +82,12 @@ export function placeThing(kind, col, row) {
   const thing = { kind, col, row, el: g, used: false, held: [], crew: 0, hp: 3, does: data.does, data };
   state.things.set(key(col, row), thing);
   if (data.does === 'scare') drawGlow(thing);
+  // cottages puff smoke from the chimney (top right of the picture)
+  if (data.does === 'bed') {
+    const smoke = el('g', { class: 'smoke' });
+    [0, 1, 2].forEach((i) => smoke.appendChild(el('circle', { cx: TILE - 4, cy: -2, r: 4, style: `animation-delay: ${i * 0.9}s` })));
+    g.appendChild(smoke);
+  }
   return thing;
 }
 
@@ -76,9 +110,10 @@ function drawGlow(thing) {
 // Can something walk onto this square?
 export function blocked(col, row, who) {
   if (col < 0 || row < 0 || col >= COLS || row >= ROWS) return true;
+  if (isWater(col, row) || isRock(col, row)) return true;
   const t = thingAt(col, row);
   if (!t) return false;
-  if (t.does === 'block') return !(who && (who.digs || who.big));
+  if (t.does === 'block') return !(t.down > 0) && !(who && ((who.digs && !t.data.stone) || who.big));
   if (t.does === 'garlic') return !!(who && who.data && who.data.hates === 'garlic');
   if (t.broken) return false;
   if (t.does === 'hold') return !(t.down > 0) && !(who && (who.jumps || who.digs || who.climbed === t));

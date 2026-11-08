@@ -93,7 +93,7 @@ export const TRICKS = {
       z.trickT = 10;
       let n = 0;
       for (const t of state.things.values()) {
-        if (t.does === 'hold' && Math.hypot(t.col + 0.5 - z.x, t.row + 0.5 - z.y) < 3.5) {
+        if ((t.does === 'hold' || (t.does === 'block' && !t.data.stone)) && Math.hypot(t.col + 0.5 - z.x, t.row + 0.5 - z.y) < 3.5) {
           t.down = 15; t.el.style.transform = 'rotate(80deg)'; t.el.style.opacity = 0.6; n++;
         }
       }

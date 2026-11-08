@@ -14,7 +14,7 @@ import { ZOMBIES } from '../data/zombies.js';
 import { LINES } from '../data/lines.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { POCKETS } from '../data/villagers.js';
-import { placeThing, removeThing, thingAt, pointToTile, isEdge, el } from './grid.js';
+import { placeThing, removeThing, thingAt, pointToTile, isEdge, el, buildable, nearRock } from './grid.js';
 import { buildBar, drawCounts, drawDay, drawSun, lookoutSay, helpSay, banner, flashCount } from './hud.js';
 import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds } from './villagers.js';
 import { JOBS } from '../data/villagers.js';
@@ -130,7 +130,7 @@ function openPicker(v, ev) {
   const box = document.createElement('div');
   box.className = 'job-picker';
   box.innerHTML = `<p><b>${v.name}</b> the ${(JOBS[v.job] || { name: v.job }).name.toLowerCase()}</p>` +
-    ['farmer', 'builder', 'brewer'].map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('') +
+    ['farmer', 'builder', 'brewer', 'miner'].filter((j) => j !== 'miner' || [...state.things.values()].some((t) => t.does === 'mine')).map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('') +
     '<button type="button" class="quiet" data-job="">Close</button>';
   box.addEventListener('click', (e) => {
     const b = e.target.closest('button');
@@ -184,9 +184,10 @@ export function dayClick(ev) {
   }
   // take something back (not the last bed, the village needs it)
   if (here && TRAPS[here.kind] && !here.held.length) {
-    if (here.kind === 'bed' && [...state.things.values()].filter((t) => t.does === 'bed').length <= 1) { cannot(p, 'Keep one bed'); return; }
+    if (here.kind === 'bed' && [...state.things.values()].filter((t) => t.does === 'bed').length <= 1) { cannot(p, 'Keep one cottage'); return; }
     state.villagers.filter((v) => v.crewOf === here).forEach((c) => { c.job = c.oldJob || 'farmer'; c.crewOf = null; placeAtWork(c); drawVillager(c); });
     state.planks += TRAPS[here.kind].planks;
+    state.stone += TRAPS[here.kind].stone || 0;
     removeThing(p.col, p.row);
     burst(p.col + 0.5, p.row + 0.5, 'back');
     drawCounts();
@@ -194,8 +195,10 @@ export function dayClick(ev) {
   }
   if (!state.picked) return;
   const t = TRAPS[state.picked];
-  if (here || isEdge(p.col, p.row) || p.col < 0 || p.row < 0) { cannot(p, 'Not here'); return; }
+  if (here || !buildable(p.col, p.row)) { cannot(p, 'Not here'); return; }
+  if (t.nearRock && !nearRock(p.col, p.row)) { cannot(p, 'Next to the boulders'); return; }
   if (state.planks < t.planks) { cannot(p, 'Need planks', 'planks'); return; }
+  if (state.stone < (t.stone || 0)) { cannot(p, 'Need stone', 'stone'); return; }
   if (t.needsJob && !state.villagers.some((v) => v.job === t.needsJob)) { cannot(p, 'Needs a ' + t.needsJob); return; }
   const crew = [];
   if (t.crew) {
@@ -204,6 +207,7 @@ export function dayClick(ev) {
     crew.push(...free.slice(0, t.crew));
   }
   state.planks -= t.planks;
+  state.stone -= t.stone || 0;
   const thing = placeThing(state.picked, p.col, p.row);
   crew.forEach((c, i) => {
     c.oldJob = c.job; c.job = 'crew'; c.crewOf = thing; thing.crewMember = c;
@@ -224,7 +228,7 @@ export function dayHover(ev) {
   const tile = document.querySelector(`.tile[data-col="${p.col}"][data-row="${p.row}"]`);
   if (!tile) return;
   hoverTile = tile;
-  const bad = thingAt(p.col, p.row) || isEdge(p.col, p.row);
+  const bad = thingAt(p.col, p.row) || !buildable(p.col, p.row);
   tile.classList.add(bad ? 'bad' : 'hover');
   if (!bad) {
     const t = TRAPS[state.picked];
