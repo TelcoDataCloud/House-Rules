@@ -1,1 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="2" width="32" height="5" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 7 v6" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="20" cy="22" rx="12" ry="10" fill="var(--pumpkin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 12 v20 M13 14 q0 16 0 16 M27 14 q0 16 0 16" stroke="var(--ink)" stroke-width="1.5" fill="none"/><rect x="18" y="8" width="4" height="5" fill="var(--carrot-leaf)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- drop: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden frame with hanging pumpkin over a village path</title>
+<defs>
+<linearGradient id="drop-wood" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#8c450e" />
+<stop offset="1" stop-color="#bb6517" />
+</linearGradient>
+<linearGradient id="drop-orange" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#ff5900" />
+<stop offset="1" stop-color="#ff8b00" />
+</linearGradient>
+</defs>
+
+<g stroke="#10100c" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+<g id="drop-path">
+<path d="M268 740 525 663 803 865 804 904 476 990 273 797Z" fill="#8e7b72" />
+<path d="M268 740 525 663 803 865 476 962Z" fill="#c9b2a2" />
+<path d="m268 740 72-22 56 42-73 24Z" fill="#b49a8d" stroke="none" />
+<path d="m349 716 176-53 62 47-190 51Z" fill="#c3a99c" stroke="none" />
+<path d="m329 790 101-29 60 55-102 32Z" fill="#dbc3b0" stroke="none" />
+<path d="m438 759 146-42 59 43-147 48Z" fill="#d7beac" stroke="none" />
+<path d="m395 856 104-33 61 53-107 35Z" fill="#bda395" stroke="none" />
+<path d="m508 820 143-47 73 53-157 49Z" fill="#dbc2ae" stroke="none" />
+<path d="m461 917 165-52 68 59-218 66Z" fill="#c6ab9b" stroke="none" />
+<path d="m636 862 96-30 71 53-106 36Z" fill="#b69a8e" stroke="none" />
+<path d="m340 718 56 43 191-51m-264 74 107-23 60 55-102 32m108-40 147-48m-247 96 103-33 61 53-107 35m114-36 157-49m-98 39 68 59" fill="none" stroke="#8c7970" stroke-width="10" />
+<path d="m268 740 208 222 327-97" fill="none" />
+</g>
+<g id="drop-stone-footings">
+<path d="m76 756 149-47 114 95 1 91-156 58L76 858Z" fill="#626268" />
+<path d="m76 756 109 89 154-41-113-95Z" fill="#9d999c" />
+<path d="m185 845 155-41v91l-156 58Z" fill="#7d7d83" />
+<path d="m81 690 152-47 102 90v68l-152 43-102-87Z" fill="#858388" />
+<path d="m81 690 102 88 152-45-102-90Z" fill="#c2b9b6" stroke-width="10" />
+<path d="M183 778v66M139 815v99m119-91 1 101" fill="none" stroke="#4f5055" stroke-width="10" />
+<path d="m693 643 145-47 103 95v72l-152 48-101-88Z" fill="#64656b" />
+<path d="m789 736 152-45v72l-152 48Z" fill="#818187" />
+<path d="m695 584 140-47 102 70v71l-147 49-95-82Z" fill="#838188" />
+<path d="m695 584 95 80 147-57-102-70Z" fill="#c6beba" stroke-width="10" />
+<path d="M790 664v63m-47-31-1 73m120-65 2 82" fill="none" stroke="#515258" stroke-width="10" />
+</g>
+<g id="drop-wooden-frame">
+<path d="m130 259 89-31 58 39v457l-92 29-55-48Z" fill="url(#drop-wood)" />
+<path d="m130 259 55 44v450l-55-48Z" fill="#78400f" stroke="none" />
+<path d="m185 303 92-36v59l-92 28Z" fill="#8e450e" stroke="none" />
+<path d="m130 259 89-31 58 39v457l-92 29-55-48Z" fill="none" />
+<path d="m737 163 85-25 55 38-2 427-83 28-55-45Z" fill="url(#drop-wood)" />
+<path d="m737 163 55 44v424l-55-45Z" fill="#76390c" stroke="none" />
+<path d="m792 207 85-31v57l-85 23Z" fill="#8c440e" stroke="none" />
+<path d="m737 163 85-25 55 38-2 427-83 28-55-45Z" fill="none" />
+<path d="m256 319 56-68 105-36 28 18-189 242Z" fill="#a95410" />
+<path d="m256 319 56-68 105-36-157 164Z" fill="#df8a22" stroke="none" />
+<path d="m623 194 66-25 116 94v104l-65-40Z" fill="#ae5911" />
+<path d="m623 194 66-25 38 31-67 17Z" fill="#8a400b" stroke="none" />
+<path d="m660 217 145 150V263l-78-63Z" fill="#bd6917" stroke="none" />
+<path d="m623 194 66-25 116 94v104l-65-40Z" fill="none" />
+<path d="m226 553 2 175m603-350-4 218" fill="none" stroke="#87410d" stroke-width="7" />
+<path d="m154 148 575-111 109 62-620 173-64-41Z" fill="#ffb33e" />
+<path d="m218 190 617-112v105L218 291Z" fill="#9a4c10" />
+<path d="m218 190 617-112" fill="none" stroke="#ffc05b" stroke-width="4" />
+<path d="m154 148 575-111 106 41v105L218 291l-64-60Z" fill="none" />
+<path d="m728 28 106-19 83 54-1 115-103 20-85-66Z" fill="#ad5813" />
+<path d="m728 28 106-19 83 54-104 21Z" fill="#f8a632" stroke="none" />
+<path d="m813 84 104-21-1 115-103 20Z" fill="#b96418" stroke="none" />
+<path d="m728 28 106-19 83 54-1 115-103 20-85-66Z" fill="none" />
+<path d="M813 84v106" fill="none" stroke="#74370c" stroke-width="6" />
+<path d="m94 156 40-13v-13l116-42 73 57v109l-119 38-48 27-62-43Z" fill="#9c4c0e" />
+<path d="m94 156 63 48 47-15-70-46Z" fill="#ffc058" stroke="none" />
+<path d="m134 130 116-42 73 57-119 40Z" fill="#f2a033" stroke="none" />
+<path d="m94 156 63 48v115l-63-43Z" fill="#91450c" stroke="none" />
+<path d="m157 204 47-15v103l-48 27Z" fill="#bb681a" stroke="none" />
+<path d="m94 156 40-13v-13l116-42 73 57v109l-119 38-48 27-62-43Z" fill="none" />
+<path d="m134 143 70 46v103m0-107 119-40" fill="none" stroke="#693309" stroke-width="8" />
+</g>
+<g id="drop-rope" stroke-width="12">
+<path d="M503 209c-4 18-5 30-1 45-5 15-4 28 0 41-5 15-3 28 0 40-4 16-2 32 3 48l3 24 45-7-1-24c5-14 6-29 1-43 5-15 4-28 0-40 5-15 4-28 0-41 6-17 2-38-3-51Z" fill="#e5a839" />
+<path d="M507 269q24-12 43-31m-43 69q28-16 43-31m-43 68q27-14 43-30m-41 66q25-10 41-29" fill="none" stroke="#95601d" stroke-width="8" />
+<path d="M528 53q27-38 62-8c30 25 39 59 38 103 0 38-10 69-31 72-11 2-23-2-32-11 16-28 18-53 10-83-7-30-21-53-47-73Z" fill="#f5c155" />
+<path d="M483 59q25-30 54-9c34 24 49 60 48 106 0 39-7 67-29 70-14 2-26-4-34-13 16-30 17-60 9-87-9-31-25-52-48-67Z" fill="#f7c352" />
+<path d="M426 91q8-36 36-37c26-3 53 28 66 62 13 33 13 81-1 106-10 18-30 23-48 8l-8-9 15-7c10-32 9-56-2-83-10-24-25-39-35-38Z" fill="#f5bf4e" />
+<path d="M444 75q31 4 48 48m3 20q10 29 5 47m1-130q27 14 42 49m11 21q8 25 4 46m-9-122q29 13 42 46m12 21q7 26 3 48" fill="none" stroke="#ffda76" stroke-width="18" />
+</g>
+<g id="drop-pumpkin">
+<path d="m417 434 5-23 49-16 32 9 47-11 48 2 42 30 28 34v99l-20 26-23 9-9 27-65 22-28-10-21 12-62-12-15-13-7-20-25-10-22-29v-96Z" fill="#ec5900" />
+<path d="m417 434 5-23 49-16 32 9 47-11 48 2 42 30 28 34-45 23-68 23-53-1-78-14-43-26Z" fill="#ffb500" stroke="none" />
+<path d="m422 411 39 16 42-23-32-9Z" fill="#ff8c00" stroke="none" />
+<path d="m585 414 55 11 13 17-54-7Z" fill="#ff8a00" stroke="none" />
+<path d="m381 464 43 26v106l-21-7-22-29Z" fill="#ff6500" stroke="none" />
+<path d="m424 490 23-26 26 7-26 28v102l19 30-25-8-16-24Z" fill="#c54200" stroke="none" />
+<path d="m447 499 55 11 27-9v114l-27 20-36-10-19-24Z" fill="url(#drop-orange)" stroke="none" />
+<path d="m502 510 27-9-16-34-40 4-26 28Z" fill="#ffbd00" stroke="none" />
+<path d="m513 467 23 1 19 35v111l-5 28-27-10 6-17V501Z" fill="#c84700" stroke="none" />
+<path d="m555 503 64-18v112l-9 20-60 20 5-23Z" fill="#ff7900" stroke="none" />
+<path d="m536 468 43-20 24 11 16 26-64 18Z" fill="#ffb800" stroke="none" />
+<path d="m579 448 23-10 17 17 17 21v108l-17 13V485l-16-26Z" fill="#d54a00" stroke="none" />
+<path d="m636 476 32-17v99l-20 26-12 4Z" fill="#ff7c00" stroke="none" />
+<path d="m417 434 5-23 49-16 32 9 47-11 48 2 42 30 28 34v99l-20 26-23 9-9 27-65 22-28-10-21 12-62-12-15-13-7-20-25-10-22-29v-96Z" fill="none" />
+<path d="m472 387 54-22 57 26v48l-70 19-41-24Z" fill="#477900" stroke-width="11" />
+<path d="m472 387 41 27 70-23-57-26Z" fill="#94c51a" stroke="none" />
+<path d="m513 414 70-23v48l-70 19Z" fill="#578c06" stroke="none" />
+<path d="m472 387 54-22 57 26v48l-70 19-41-24Z" fill="none" stroke-width="11" />
+<path d="m506 367 2 22q20 12 43-3l1-19" fill="#efbc4d" stroke-width="9" />
+</g>
+</g>
+</svg>

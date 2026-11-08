@@ -1,1 +1,142 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="28" width="32" height="8" rx="2" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 28 l14 -20" stroke="var(--wood)" stroke-width="5" stroke-linecap="round"/><path d="M10 28 l14 -20" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/><circle cx="26" cy="7" r="5" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 28 l4 -10 M26 28 l-8 -10" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- catapult: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Pumpkin-loaded wooden catapult</title>
+<defs>
+<linearGradient id="catapult-wood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffac3e" /><stop offset="0.5" stop-color="#e98726" /><stop offset="1" stop-color="#bc651d" /></linearGradient>
+<linearGradient id="catapult-iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9696a3" /><stop offset="1" stop-color="#5d5c65" /></linearGradient>
+<linearGradient id="catapult-pumpkin" x1="0" y1="0" x2="1" y2=".6"><stop stop-color="#ffad00" /><stop offset=".5" stop-color="#ff8c00" /><stop offset="1" stop-color="#d85a00" /></linearGradient>
+</defs>
+
+<g stroke="#090806" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+
+<path d="M323 427 431 402 879 532 866 613 763 646 329 501Z" fill="#8c4918" />
+<path d="m341 421 89-26 449 137-82 53Z" fill="url(#catapult-wood)" />
+<path d="m797 585 82-53-13 81-103 33Z" fill="#713a14" />
+
+<path d="m31 677 33-78 63-36 69 13 35 63-4 83-43 64-68 31-62-29-26-43Z" fill="#693b19" />
+<path d="m40 678 37-66 58-30 59 19 23 62-11 66-43 56-52 17-58-32Z" fill="#a4612e" stroke-width="8" />
+<path d="m40 678 64 27 101 24M77 612l65 29" fill="none" stroke="#7c421e" stroke-width="8" />
+<path d="m807 550 62-39 73 27 1 58-68 40-69-23Z" fill="#505057" />
+<path d="m807 550 62-30 65 23-66 39Z" fill="#92909c" stroke="none" />
+
+<path d="m128 684 426-239 64 35-410 280-80-21Z" fill="#a45b1f" />
+<path d="m130 683 424-238 64 35-410 247Z" fill="url(#catapult-wood)" />
+<path d="m445 808 403-258 66 34-2 88-397 270-69-41Z" fill="#985019" />
+<path d="m446 808 402-258 66 34-406 280Z" fill="url(#catapult-wood)" />
+<path d="m508 864 406-280-2 88-397 270Z" fill="#914916" stroke-width="8" />
+
+<path d="m284 438 72-38 129 257-73 53-48-55Z" fill="#713b13" />
+<path d="m286 439 39 12 109 230-35-22Z" fill="#93501a" stroke="none" />
+<path d="m577 480 64-23 111 209-55 45-47-20Z" fill="#96521b" />
+<path d="m577 480 42 28 78 203-47-20Z" fill="#713a13" stroke="none" />
+
+<path d="m410 396 245-188 67 32 4 64-232 175-61-22Z" fill="#854315" />
+<path d="m410 396 245-188 67 32-234 185Z" fill="url(#catapult-wood)" />
+<path d="m488 425 234-185 4 64-232 175Z" fill="#874313" stroke-width="8" />
+
+<path d="m619 129 79-77 79-28 68 5 91 47 37 59-22 101-83 76-95 19-87-25-53-63-17-42Z" fill="#754014" />
+<path d="m619 129 79-77 79-28 68 5 91 47 37 59-17 58-76 59-118 10-116-58Z" fill="#bd6e23" />
+<path d="m665 129 52-58 68-25 63 7 62 38 26 43-15 43-69 45-81 4-93-44Z" fill="#40280e" stroke-width="11" />
+<path d="m646 204 116 58 118-10-13 54-100 17-44-16Z" fill="#6c3814" stroke="none" />
+<path d="m646 204 116 58 118-10 76-59" fill="none" stroke="#e49844" stroke-width="3" />
+<path d="m762 264 1 47" fill="none" stroke="#8e4c1b" stroke-width="7" />
+
+<path d="M687 181c-12-33-6-69 9-98 8-17 19-28 34-30 18-21 44-29 62-24 21-1 47 5 62 19 27-1 48 16 57 42 13 29 11 59 4 89l-52 37-89 7-48-19Z" fill="url(#catapult-pumpkin)" stroke-width="10" />
+<path d="M732 56c-19 22-21 36 4 49 20 24 48 29 79 29 42 1 75-9 86-28 4-16-8-30-20-33-15-14-32-16-51-15-31-17-64-19-98-2Z" fill="#ffb300" stroke="none" />
+<path d="M733 58c26-9 55 4 74 25M882 70c-28-6-49 5-66 17" fill="none" stroke="#e88100" stroke-width="10" />
+<path d="M734 108c-13 25-17 55-15 88M809 97c-4 37-6 81-14 117M849 96c29 18 37 42 19 112" fill="none" stroke="#bd5300" stroke-width="12" />
+<path d="m787 80 16-49 31-25 30 14-3 26-20 10-7 30-22 7Z" fill="#42750c" stroke-width="11" />
+<path d="m803 31 31-19 23 12-28 14-17 48-18-7Z" fill="#6eaa16" stroke="none" />
+
+<path d="m105 674 123-363 88-49 76 30 25 75-90 83-84 247-65 35Z" fill="#8b4919" />
+<path d="m105 674 123-363 74 27-124 368Z" fill="url(#catapult-wood)" />
+<path d="m228 311 88-49 76 30-90 46Z" fill="url(#catapult-wood)" />
+<path d="m223 313 79 25-19 105-85-36Z" fill="url(#catapult-iron)" />
+<ellipse cx="250" cy="379" rx="18" ry="22" fill="#52515a" stroke="none" />
+<ellipse cx="248" cy="375" rx="17" ry="18" fill="#b6b6c1" stroke="none" />
+<path d="m239 365 13-6 12 10-13 2Z" fill="#d1d0db" stroke="none" />
+
+<path d="M312 360q21-31 48-26l199 75 7 91-39 24-199-74q-36-17-16-90Z" fill="#a65a1d" />
+<path d="m330 342 220 81-9 28-230-70Z" fill="#ee9130" stroke="none" />
+<path d="m312 408 228 75-13 35-195-73Z" fill="#874513" stroke="none" />
+
+<path d="M420 342c-33-12-58 28-65 65-7 36 9 63 34 71l20 7c-22-23-21-48-10-78 10-31 29-49 48-51Z" fill="#efc47e" stroke-width="10" />
+<path d="M449 355c-30 1-51 39-58 71-5 29 3 55 27 65l23 8c-20-24-18-48-8-76 11-29 29-46 49-52Z" fill="#f6cd87" stroke-width="9" />
+<path d="M481 369c-29 3-51 36-56 70-6 30 2 54 24 64l23 7c-16-22-15-48-5-73 10-27 27-46 49-48Z" fill="#f8d292" stroke-width="9" />
+<path d="M417 355c-25 12-44 61-35 89M449 370c-25 17-37 55-33 79M480 387c-25 18-38 56-30 89" fill="none" stroke="#ffe0a4" stroke-width="13" />
+
+<path d="m451 826 79-398 55-38 70 27 32 96-47 29-70 246-62 77Z" fill="#854717" />
+<path d="m451 826 79-398 67 32-89 405Z" fill="url(#catapult-wood)" />
+<path d="m597 460 58-43-70-27-55 38Z" fill="url(#catapult-wood)" />
+<path d="m530 430 67 30 58-32 32 85-90 50-87-37Z" fill="url(#catapult-iron)" />
+<path d="m597 460 58-32 32 85-90 50Z" fill="#515159" stroke-width="7" />
+<path d="m533 431 65 29 53-30" fill="none" stroke="#b7b4ba" stroke-width="3" />
+<ellipse cx="556" cy="497" rx="20" ry="23" fill="#3c3c43" stroke="none" />
+<ellipse cx="553" cy="491" rx="17" ry="18" fill="#b8b8c3" stroke="none" />
+<path d="m542 480 12-4 11 9-13-1Z" fill="#d5d4de" stroke="none" />
+<ellipse cx="640" cy="495" rx="20" ry="22" fill="#38383e" stroke="none" />
+<ellipse cx="641" cy="489" rx="16" ry="18" fill="#bdbdc7" stroke="none" />
+
+<path d="m247 624 15-20 39-24 43 18 1 119-49 44-49-22Z" fill="#8a4618" />
+<path d="m251 622 44 20 46-43-40-19-39 24Z" fill="url(#catapult-wood)" stroke-width="8" />
+<path d="m295 642 1 113-45-17V626Z" fill="#a75a1d" stroke="none" />
+
+<path d="m425 499-103 158c-7 15-3 31 9 36l21-22 95-161Z" fill="#f5ce8a" stroke-width="9" />
+<path d="m425 514-90 146" fill="none" stroke="#ffe0a2" stroke-width="10" />
+
+<path d="m324 640 32-15 105 40 18 44-27 50-38 7-94-35c-18-19-16-65 4-91Z" fill="#9b5018" />
+<path d="M356 628c-25-9-45 25-49 52-5 29 4 51 26 59l22 8c-18-23-17-46-8-69 9-24 23-35 36-40Z" fill="#f6ce8a" stroke-width="9" />
+<path d="M384 638c-23-4-43 25-47 51-5 29 2 50 24 60l21 6c-16-23-15-44-6-68 8-21 21-34 34-38Z" fill="#f7d08c" stroke-width="9" />
+<path d="M412 648c-23-2-41 24-46 52-4 26 3 48 22 56l24 8c-18-24-14-47-6-69 7-18 18-31 32-34Z" fill="#f3c783" stroke-width="9" />
+
+<path d="m146 742 60-35 331 152-24 96-367-132Z" fill="#a65a1c" />
+<path d="m146 742 60-35 331 152-66 41Z" fill="url(#catapult-wood)" />
+<path d="m146 742 325 158v65L146 823Z" fill="#b96720" />
+<path d="m171 773 176 81M272 827l84 47" fill="none" stroke="#a95c20" stroke-width="8" />
+
+<path d="m61 699 49-33 72 37 31-11-1 28-61 39v107l-89-40Z" fill="#56565e" />
+<path d="m61 699 88 42 64-49-31 11-72-37Z" fill="#9696a4" stroke-width="7" />
+<path d="m61 699 88 42 2 125-89-40Z" fill="url(#catapult-iron)" stroke-width="8" />
+<ellipse cx="104" cy="773" rx="20" ry="22" fill="#45444b" stroke="none" />
+<ellipse cx="101" cy="767" rx="17" ry="18" fill="#bfc0ca" stroke="none" />
+<path d="m382 856 61-48 90 42 5 112-66 49-90-44Z" fill="#54545b" />
+<path d="m382 856 61-48 90 42-61 46Z" fill="#93939f" stroke-width="8" />
+<path d="m382 856 90 40v115l-90-44Z" fill="url(#catapult-iron)" stroke-width="8" />
+<path d="m397 851 74 36 51-38" fill="none" stroke="#c1bfca" stroke-width="3" />
+<ellipse cx="426" cy="926" rx="21" ry="24" fill="#49484e" stroke="none" />
+<ellipse cx="423" cy="919" rx="17" ry="19" fill="#bdbdc8" stroke="none" />
+
+<path d="m407 684 16-19 40-18 37 20-2 127-51 28-43-23Z" fill="#9b5018" />
+<path d="m407 684 37 20 56-37-37-20-40 18Z" fill="url(#catapult-wood)" stroke-width="8" />
+<path d="m407 684 37 20 3 118-43-23Z" fill="#b86922" stroke="none" />
+
+<path d="M486 700c-19-6-31 9-31 33s13 37 31 37l18-11 1-46Z" fill="#a2a2af" stroke-width="9" />
+<path d="m485 700 36 15 7 13v52l52 15-8 26-66-22-12-12v-47l-12-5Z" fill="#858592" stroke-width="10" />
+<path d="m485 700 36 15-15 15-24-10Z" fill="#c0bfcb" stroke="none" />
+<path d="m507 737 10-9v47l-10 8Z" fill="#b0aeba" stroke="none" />
+
+<path d="m547 852 34-68 44-24 60 17 52 45 11 34-5 58-41 70-65 34-57-16-26-25-13-64Z" fill="#633712" />
+<path d="m557 853 36-57 42-21 51 18 51 36-3 58-36 79-55 35-31-17-10-43Z" fill="#9a5724" stroke-width="9" />
+<path d="m557 853 36-57 42-21 51 18-58 53-26 95-50-23Z" fill="#ba7137" stroke="none" />
+<path d="m552 918 50 23 10 43 31 17-63-18Z" fill="#7d411a" stroke="none" />
+<path d="m628 846-26 95 10 43M557 853l47 20" fill="none" stroke="#754019" stroke-width="9" />
+<path d="m654 886 35-28 28 14-1 53-36 26-29-14Z" fill="#442b13" stroke-width="8" />
+<path d="m662 889 26-22 23 12-30 24Z" fill="#c7c6d0" stroke="none" />
+<path d="m662 889 19 14-1 39-20-10Z" fill="#858590" stroke="none" />
+<path d="m681 903 30-24-2 42-29 21Z" fill="#a8a7b2" stroke="none" />
+
+<path d="m823 672 36-73 33-30 37 3 43 17 26 43-4 72-31 59-60 38-62-22-18-54Z" fill="#6d3c17" />
+<path d="m836 672 34-66 31-24 28-2 40 19 22 37-5 63-32 60-50 31-24-21-12-48Z" fill="#9b5a28" stroke-width="9" />
+<path d="m836 672 34-66 31-24 28-2 40 19-44 24-30 42-27 56-39-18Z" fill="#ba743c" stroke="none" />
+<path d="m829 703 39 18 12 48 24 21-58-18Z" fill="#85471d" stroke="none" />
+<path d="m895 665-27 56 12 48M844 647l51 18" fill="none" stroke="#77401a" stroke-width="8" />
+<path d="m919 679 28-25 24 13-1 44-30 24-22-13Z" fill="#442c17" stroke-width="8" />
+<path d="m925 680 23-18 17 8-23 18Z" fill="#cbcad5" stroke="none" />
+<path d="m925 680 17 8-1 38-17-7Z" fill="#91909d" stroke="none" />
+<path d="m942 688 23-18-1 37-23 19Z" fill="#b2b1bd" stroke="none" />
+
+<path d="M529 758 590 779c14 5 20 18 13 34-7 15-17 20-30 15l-53-22c-13-7-11-35 9-48Z" fill="#bb681f" stroke-width="10" />
+<path d="m529 764 57 20c-9 5-13 14-13 28l-53-20c-6-10-1-22 9-28Z" fill="#e79031" stroke="none" />
+<path d="M590 784c-10 3-17 19-16 29" fill="none" stroke="#a65517" stroke-width="5" />
+</g>
+</svg>

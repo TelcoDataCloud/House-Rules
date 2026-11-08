@@ -1,13 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="12" y="7" width="6" height="6" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="23" y="6" width="5" height="7" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="15" cy="10" r="1.5" fill="var(--ink)"/><circle cx="26" cy="9" r="1.5" fill="var(--ink)"/><path d="M13 15 h12" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-<rect x="6" y="-1" width="28" height="7" rx="3" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="33" y="10" width="5" height="22" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="31" y="30" width="9" height="6" rx="1" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-</g></svg>
+<!-- digger: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="digger-skin" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#78b500" /><stop offset=".48" stop-color="#a4dd08" /><stop offset="1" stop-color="#92cb00" /></linearGradient>
+<linearGradient id="digger-mud" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#ad580c" /><stop offset="1" stop-color="#874006" /></linearGradient>
+<linearGradient id="digger-steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bcbcbc" /><stop offset=".5" stop-color="#969696" /><stop offset="1" stop-color="#626262" /></linearGradient>
+</defs>
+
+<g stroke="#090b07" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="digger-legs">
+<path d="M282 673L590 671 671 833 630 851 595 941 495 945 458 806 429 893 333 925 238 858 250 814Z" fill="#28558b" />
+<path d="M295 703L306 741 272 756 246 824 279 838 317 798 361 789 381 861 404 849 430 870 447 790 515 786 486 814 505 871 565 871 574 821 615 853 626 823 667 832 611 707 489 692Z" fill="#315f96" stroke="none" />
+<path d="M463 710L456 762 449 790M496 724L488 780" fill="none" stroke="#183d60" stroke-width="6" />
+<path d="M255 831L240 881Q221 846 190 879Q169 899 178 930Q143 925 123 959Q104 993 123 1008Q153 1035 231 1012Q260 1038 320 1027L413 1018Q446 1027 474 1009L513 967Q492 941 459 951Q441 928 421 939Q451 907 414 888L397 922 411 864 375 868 363 801 315 822 300 809 277 849Z" fill="url(#digger-mud)" />
+<path d="M496 876L573 878 577 826 615 855 627 828 649 832 677 911Q715 907 739 941Q774 928 801 952Q826 981 803 1005Q785 1026 737 1015Q697 1040 641 1020Q598 1036 555 1021Q496 1034 461 1015Q443 997 468 974Q485 952 512 958Q473 934 490 908L510 901Z" fill="url(#digger-mud)" />
+<path d="M286 957Q310 904 354 909Q393 912 411 967Q437 958 457 981Q485 955 524 953" fill="none" stroke="#803d05" stroke-width="10" />
+</g>
+<g id="digger-torso">
+<path d="M177 430L274 462 325 489 548 489 663 457 729 535 687 589 651 571 644 725 619 712 616 736 566 710 507 755 479 690 458 728 411 703 382 723 354 697 276 742 271 718 245 735 269 619 255 636 234 581 204 596 195 522 140 556 131 539 80 549Z" fill="#e5c9a6" />
+<path d="M267 469L244 516 224 553 204 576 202 596 239 580 255 636 278 600 297 516 308 705 278 741 271 717 248 735 268 619 268 536Z" fill="#bc9d7c" stroke="none" />
+<path d="M590 500L616 537 617 587 643 604 652 566 683 585 690 541 715 546 661 463Z" fill="#f1d9b8" stroke="none" />
+<path d="M384 494L536 504 530 534 510 542 512 577 494 565 477 613 455 565 425 587 425 540Z" fill="#85bd05" stroke-width="9" />
+<path d="M388 502L419 534 461 547 474 529 524 531 535 509Z" fill="#426c05" stroke="none" />
+<path d="M321 497L373 504 391 668 343 674Z" fill="#995000" />
+<path d="M337 529L374 536 386 656 348 658Z" fill="#b46708" stroke="none" />
+<path d="M539 511L586 509 589 667 546 668Z" fill="#a85405" />
+<path d="M552 544L584 542 585 657 553 657Z" fill="#b66a0b" stroke="none" />
+<path d="M326 665L406 663 408 735 330 737Z" fill="#a0a0a0" stroke-width="12" />
+<path d="M532 662L602 660 604 731 535 734Z" fill="#999" stroke-width="12" />
+<path d="M349 685H385V713H349ZM553 681H584V708H553Z" fill="#636363" stroke="none" />
+</g>
+<g id="digger-left-arm">
+<path d="M113 548L134 539 142 558 199 522 205 594 234 579 247 620 211 681 227 704 209 787 163 797 154 817 123 825 81 814 81 796 20 773 23 698Z" fill="url(#digger-skin)" />
+<path d="M31 700L88 729 129 745 169 716 215 709 202 780 169 787 176 720 149 747 149 816 123 817 127 746 90 738 82 792 56 780 60 730 45 775 25 768Z" fill="#7eac13" stroke="none" />
+<path d="M159 663L186 653 225 706 202 684Z" fill="#4a7405" stroke="none" />
+<path d="M204 593L234 581 245 620 210 677 181 655Z" fill="#548300" stroke="none" />
+</g>
+<g id="digger-right-arm">
+<path d="M649 551L679 570 700 552 742 580 779 634 735 685 688 706 650 664 622 624 629 589 649 604Z" fill="#80b509" />
+<path d="M689 581L717 570 750 606 725 630 691 647 675 608Z" fill="#a0ce20" stroke="none" />
+<path d="M633 628L679 675 719 663 739 680 687 702 651 660Z" fill="#426b03" stroke="none" />
+</g>
+<g id="digger-shovel">
+<path d="M807 376L877 395 762 950 687 928Z" fill="#a95300" />
+<path d="M823 395L850 399 737 928 708 924Z" fill="#bd6908" stroke="none" />
+<path d="M717 334Q746 224 781 181Q845 108 925 86Q995 156 1011 249Q1017 284 983 409L881 385 875 410 839 394 798 389 805 360Z" fill="url(#digger-steel)" />
+<path d="M728 328L789 201Q855 138 922 110L925 89Q831 119 779 184Z" fill="#d3d3d3" stroke="none" />
+<path d="M925 110L878 269 982 398 1000 289Q1004 214 925 110Z" fill="#717171" stroke="none" />
+<path d="M727 331L850 272 807 355Z" fill="#505050" stroke="none" />
+<path d="M850 272L879 271 884 378 873 402 840 389 806 385Z" fill="#939393" stroke="none" />
+<path d="M879 271L982 399 886 378Z" fill="#545454" stroke="none" />
+</g>
+<g id="digger-gripping-hand">
+<path d="M742 462L784 469 827 477 865 476 913 516 868 674 833 684 816 656 747 640 740 624 755 583 730 575 708 560Z" fill="url(#digger-skin)" />
+<path d="M783 471L770 521 813 529 847 538 866 550M766 526Q752 528 750 549L744 575 790 583 827 592 848 604M753 582L737 629 813 647 851 669" fill="none" stroke-width="12" />
+<path d="M868 485L879 520 859 575 849 610 833 650 858 673 868 671 906 520Z" fill="#507c05" stroke="none" />
+<path d="M746 477L732 523 728 557 750 565 757 522 774 478Z" fill="#a4d71a" stroke="none" />
+</g>
+<g id="digger-head">
+<path d="M244 300L219 302 193 330 199 409 255 416 264 459 296 491 409 511 536 518 649 503 660 413 694 406 697 318 660 306 665 216 616 171 323 169 230 242Z" fill="url(#digger-skin)" />
+<path d="M241 255L290 209 310 209 292 288 305 477 332 498 297 490 265 456 254 409 203 407 222 380 271 384 266 312 240 312Z" fill="#487901" stroke="none" />
+<path d="M223 329L266 327 264 311 221 312 204 335 206 396 226 378Z" fill="#b0e32a" stroke="none" />
+<path d="M662 319L686 328 684 393 662 402Z" fill="#a6d61b" stroke="none" />
+<path d="M306 218L407 188 514 181 640 205 644 243 536 219 455 220 329 258Z" fill="#75a500" stroke="none" />
+<path d="M318 270Q326 332 365 345Q419 359 454 307L443 247Z" fill="#4f7902" stroke="none" />
+<path d="M518 254Q505 315 565 330Q615 342 640 288L637 255Z" fill="#537e02" stroke="none" />
+<path d="M320 265L444 233Q470 286 449 309Q415 339 348 329Q323 312 320 265Z" fill="#fffbd0" stroke-width="10" />
+<path d="M519 227L641 256Q640 292 624 309Q574 326 522 298Q506 271 519 227Z" fill="#fffbd0" stroke-width="10" />
+<path d="M327 274L446 245 450 258 330 288ZM524 235L637 264 635 277 522 247Z" fill="#e6ce82" stroke="none" />
+<path d="M389 246L419 239 427 275 397 280ZM542 231L570 239 563 265 535 260Z" fill="#0b0d04" stroke="none" />
+<path d="M308 215L446 178 460 233 304 276M521 177L511 224 651 263 647 208Z" fill="#82b800" stroke-width="10" />
+<path d="M319 224L445 194 448 207 321 240ZM529 190L634 213 636 226 525 204Z" fill="#91c400" stroke="none" />
+<path d="M462 315L484 314 486 344 463 344ZM500 314H522L523 344H501Z" fill="#153900" stroke="none" />
+<path d="M340 353Q456 400 626 347L580 476Q465 494 371 445Z" fill="#4d0807" stroke-width="10" />
+<path d="M349 364L359 397 379 398 380 375ZM598 365L591 425 580 465 571 438Z" fill="#740f0b" stroke="none" />
+<path d="M397 450Q409 407 441 410Q462 410 479 426Q509 408 535 437L556 475Q467 484 397 450Z" fill="#c72f32" stroke-width="6" />
+<path d="M437 464Q453 432 478 440Q492 429 514 447L521 476Z" fill="#ea5150" stroke="none" />
+<path d="M382 371L442 381 436 433 377 427ZM540 374L591 362 596 394 546 402ZM519 437L571 436 575 476 518 477Z" fill="#fff9c7" stroke-width="7" />
+<path d="M385 375L438 383 437 392 384 387ZM547 379L589 369 590 379 549 389Z" fill="#e7d28e" stroke="none" />
+</g>
+<g id="digger-helmet">
+<path d="M226 157Q230 74 300 55L319 23 381 16 390 36 413 30Q467 -17 519 12L580 23 588 46Q644 54 661 134L695 150 724 222Q705 253 663 273L661 202Q478 146 279 201L230 250 236 299Q188 282 165 262L197 177Z" fill="url(#digger-steel)" />
+<path d="M176 259L280 201 225 258 234 291Z" fill="#414440" stroke="none" />
+<path d="M669 204L715 225 671 258Z" fill="#414440" stroke="none" />
+<path d="M302 57L322 121M387 35L395 113M579 47L592 115M281 133L276 190M616 128L631 173" fill="none" stroke="#60615e" stroke-width="8" />
+<path d="M321 31L336 116 350 114 335 42 381 36 379 24ZM265 80L280 124 278 95 273 75ZM547 27L573 31 576 43 550 40Z" fill="#c6c6c6" stroke="none" />
+<path d="M229 156L281 133Q461 85 662 134M197 178L230 158M179 252Q332 125 568 178L661 202" fill="none" stroke-width="10" />
+<path d="M422 148Q373 119 387 65Q397 17 444 3Q498 -15 533 26Q571 72 541 124L520 146" fill="#3c3e3b" stroke-width="13" />
+<path d="M421 140Q389 105 403 64Q421 15 468 16Q511 14 535 58Q551 107 519 139" fill="none" stroke="#555653" stroke-width="10" />
+<ellipse cx="474" cy="83" rx="59" ry="60" fill="#ffd900" stroke-width="7" />
+<path d="M453 28Q421 50 434 95Q449 133 488 122Q514 114 525 92Q521 127 493 138Q450 152 426 114Q399 64 435 34Z" fill="#f9b900" stroke="none" />
+<ellipse cx="484" cy="75" rx="28" ry="29" fill="#fffde2" stroke="none" />
+</g>
+</g>
+<g fill="#d47a2b">
+<path d="M162 975Q157 956 183 950Q211 947 215 972Q187 957 162 975Z" />
+<path d="M207 912Q197 891 215 880Q229 875 232 889Q214 888 207 912Z" />
+<path d="M256 900Q271 905 290 898Q283 912 268 911Q253 912 256 900Z" />
+<path d="M314 964Q311 939 337 934Q372 930 377 957Q346 941 314 964Z" />
+<path d="M396 999Q394 983 412 979Q433 974 438 997Q418 982 396 999Z" />
+<path d="M502 989Q501 970 522 966Q550 963 560 989Q529 973 502 989Z" />
+<path d="M550 901Q569 901 591 891Q595 907 574 910Q553 912 550 901Z" />
+<path d="M637 944Q636 922 661 916Q695 910 707 943Q671 925 637 944Z" />
+<path d="M734 981Q736 967 751 968Q770 967 773 983Q751 973 734 981Z" />
+</g>
+</svg>

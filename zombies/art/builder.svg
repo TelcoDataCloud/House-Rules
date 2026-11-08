@@ -1,13 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="15" cy="10" r="2" fill="var(--ink)"/><circle cx="25" cy="10" r="2" fill="var(--ink)"/><path d="M15 14 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-<rect x="7" y="-1" width="26" height="7" rx="3" fill="var(--button)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<!-- builder: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Friendly villager builder holding a hammer</title>
+<defs>
+<linearGradient id="builder-skin" x1="0" y1="0" x2="1" y2="0.7">
+<stop stop-color="#ffbe87" /><stop offset="1" stop-color="#ff9c68" />
+</linearGradient>
+<linearGradient id="builder-orange" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#ff8700" /><stop offset="1" stop-color="#ff5700" />
+</linearGradient>
+<linearGradient id="builder-wood" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#b36920" /><stop offset="1" stop-color="#87400b" />
+</linearGradient>
+<linearGradient id="builder-steel" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#bdbbc9" /><stop offset="1" stop-color="#777583" />
+</linearGradient>
+<linearGradient id="builder-yellow" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#fff422" /><stop offset="1" stop-color="#ffd000" />
+</linearGradient>
+</defs>
 
-</g></svg>
+<g stroke="#080806" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="builder-legs">
+<path d="M319 735 702 736 760 914 789 935 798 1015 560 1015 553 920 529 808 516 808 484 920 478 1008 405 1017 231 1015 239 934 271 914Z" fill="#1769cf" />
+<path d="m403 748 235 0 7 24-230 2-18 53-85-1 8-76Z" fill="#104fa4" stroke="none" />
+<path d="m460 786 53 16-30 120-62-8Z" fill="#10458d" stroke="none" />
+<path d="m532 802 42-15 44 129-62 8Z" fill="#10458d" stroke="none" />
+<path d="m271 914 151 1 61 6-5 87-73 9-174-2 8-81Z" fill="#75401e" />
+<path d="m271 914 151 1-17 27-165-1Z" fill="#a45c2d" stroke="none" />
+<path d="m422 915 61 6-5 87-73 9v-75Z" fill="#51280e" stroke="none" />
+<path d="m556 921 62-7 142 0 29 21 9 80H560Z" fill="#76401c" />
+<path d="m618 914 142 0 29 21 1 8H629Z" fill="#ab602e" stroke="none" />
+<path d="m556 921 62-7 11 29 4 72h-73Z" fill="#512a11" stroke="none" />
+</g>
+<g id="builder-shirt">
+<path d="m356 458-33-39-42 12-87 92-29 23 109 73 20-12 42 6-10 66 12 68 367 5 1-172 47 49 52-31 103-98-52-44-59-29-102 52Z" fill="url(#builder-orange)" />
+<path d="m317 431 36 29-49 106-41 40-82-57 33-48Z" fill="#ff7e00" stroke="none" />
+<path d="m353 473-21 131-45-4 24-32Z" fill="#d43800" stroke="none" />
+<path d="m370 470-31 198 25 1 28-196Z" fill="#ff9d00" stroke="none" />
+<path d="m669 480 18 198h-29l-6-196Z" fill="#d83c00" stroke="none" />
+<path d="m700 495 54 49 49-47 45-31-50-39Z" fill="#ff7200" stroke="none" />
+<path d="m702 500 34 81 34 39 28-31-43-45Z" fill="#d83d00" stroke="none" />
+<path d="m742 583 111-126 58 47-6 22-131 102Z" fill="#ff8300" />
+<path d="m756 552 42 34-24 42-32-45Z" fill="#eb6500" stroke="none" />
+</g>
+<g id="builder-hammer">
+<path d="m18 180 33-45L211 59l62 34 24 74-45 45-161 70-46-6Z" fill="url(#builder-steel)" />
+<path d="m51 137 160-70 3 15-155 72Z" fill="#d3d1db" stroke="none" />
+<path d="m211 67 31 90 49 9-22-67Z" fill="#585764" stroke="none" />
+<path d="m45 269 38-37 159-75 49 9-43 41-157 67Z" fill="#34333e" stroke="none" />
+<path d="m25 183 29-33 29 82-31 33Z" fill="#d0cedb" stroke="none" />
+<path d="m132 229 47-25 31 6 67 265-34 23-62-1Z" fill="url(#builder-wood)" />
+<path d="m142 245 42-17 56 233-48 27Z" fill="#a75b17" stroke="none" />
+<path d="m184 214 22 5 61 252-27-10Z" fill="#85420c" stroke="none" />
+</g>
+<g id="builder-left-hand">
+<path d="m236 299 60 38-20 78-44-19-15 52-44-2 9 50 51 8 42-27-20-72 29-7 36 53-29 67-56 52-63-38-77-80-5-9 42-129 74-1Z" fill="url(#builder-skin)" />
+<path d="m101 439 68-5 38 20-34-8 9 50 51 8 20-12 24 15-42 52-60-41-79-74Z" fill="#de8251" stroke="none" />
+<path d="m133 378 51-1 38 23" fill="none" stroke="#df8050" stroke-width="8" />
+<path d="m216 314 27 24-16 56 49 21" fill="none" stroke="#8e4c24" stroke-width="11" />
+</g>
+<g id="builder-suspenders">
+<path d="m404 465 29 5-18 67 37-12-15 108-61 8Z" fill="#65401f" />
+<path d="m600 475 61 1-5 165-57-2 2-108 36 14 5-67Z" fill="#644020" />
+<path d="m464 463 126 8-66 81Z" fill="url(#builder-skin)" />
+<path d="m475 478 97 3-19 21-63-2Z" fill="#d87a48" stroke="none" />
+<path d="m436 468 38 1 50 83-44-29-65 17Z" fill="#ff9400" stroke-width="11" />
+<path d="m591 470 49 6-2 69-63-23-51 30Z" fill="#ff9800" stroke-width="11" />
+</g>
+<g id="builder-belt">
+<path d="m317 679 405 2 17 66-432 1Z" fill="#653818" />
+<path d="m298 677 102-1-9 130-106-5 9-65-9 2Z" fill="url(#builder-wood)" />
+<path d="m298 680 95-1-17 59-89 0Z" fill="#bb7529" stroke="#110c05" stroke-width="10" />
+<path d="m307 691 71 0-9 42-70-2Z" fill="#c57b2b" stroke="none" />
+<path d="m325 715 20 0-5 19h-19Z" fill="#965012" stroke="none" />
+<path d="m638 679 97 1 12 61-6 3 8 61-106 4-13-65Z" fill="#a3601a" />
+<path d="m644 685 88 0 15 56-83 1Z" fill="#be7c30" stroke="#110c05" stroke-width="10" />
+<path d="m692 718 19-1 3 20h-19Z" fill="#a0601b" stroke="none" />
+<rect x="364" y="626" width="77" height="62" rx="8" fill="#aa6500" stroke="none" />
+<path d="m374 633 63 0-8 47-59 0Z" fill="#ffcb00" stroke="#d68e00" stroke-width="5" />
+<rect x="590" y="625" width="83" height="65" rx="9" fill="#aa6500" stroke="none" />
+<path d="m600 633 61 0 0 48-61 0Z" fill="#ffcd05" stroke="#de9800" stroke-width="5" />
+<rect x="452" y="664" width="129" height="95" rx="8" fill="url(#builder-steel)" stroke-width="13" />
+<path d="M463 676h107v7H469v62h-6Z" fill="#d6d4df" stroke="none" />
+<rect x="480" y="692" width="72" height="39" rx="3" fill="#5b5967" stroke="none" />
+<path d="M483 695h66" fill="none" stroke="#4d4b58" stroke-width="7" />
+</g>
+<g id="builder-right-hand">
+<path d="m903 525 51 57-38 82-62 87-63 35-46-40-12-16 4-26-16-23 45-55Z" fill="url(#builder-skin)" />
+<path d="m946 598-93 152-61 27-42-40-12-28 63 35Z" fill="#d77b49" stroke="none" />
+<path d="m734 687 66 57" fill="none" stroke="#9d5029" stroke-width="8" />
+</g>
+<g id="builder-head">
+<path d="m360 198-9 119 21 4-20 131 21 13 331 11 48-28 3-70 17-1 7-111-61-78Z" fill="#5b2b08" />
+<path d="m387 190 329 7 32 71-5 184-40 20-350-13Z" fill="url(#builder-skin)" />
+<path d="m389 191 326 7-1 26-326-7Z" fill="#e78652" stroke="none" />
+<path d="m715 219 28 33-4 197-36 18Z" fill="#e38350" stroke="none" />
+<path d="m366 452 72 3 88 17-153-7Z" fill="#d37a46" stroke="none" />
+<path d="m386 207-14 105-14 1 8-99Z" fill="#8b420d" stroke="none" />
+<path d="m717 207 23 18 7 91-29-2Z" fill="#86410f" stroke="#4a2106" stroke-width="9" />
+<path d="m745 252 22 17-6 101-15-3Z" fill="#4a2107" stroke="none" />
+<path d="m715 316 12 23-1-20Z" fill="#381b09" stroke="none" />
+<path d="m413 205 84-3-3 34-85 2Z" fill="#542607" stroke="#401d06" stroke-width="7" />
+<path d="m598 203 87 7-2 34-88-6Z" fill="#512507" stroke="#401d06" stroke-width="7" />
+<path d="m420 246 76 3-5 78-78-2Z" fill="#fff" stroke="none" />
+<path d="m595 251 91 3-5 77-91-3Z" fill="#fff" stroke="none" />
+<path d="m458 264 34 1-5 57-33 0Z" fill="#030504" stroke="#030504" stroke-width="8" />
+<path d="m615 268 32 0-5 58-32-1Z" fill="#030504" stroke="#030504" stroke-width="8" />
+<path d="M463 270h13l-1 14h-13ZM620 273h13v14h-13Z" fill="#fff" stroke="none" />
+<path d="M435 355q97 38 215 5-11 96-109 98-106 1-106-103Z" fill="#fff" stroke-width="11" />
+<path d="m497 270 77 1 14 15-8 119-80-1-16-14Z" fill="#ce6a3c" stroke="#6b3217" stroke-width="10" />
+<path d="m501 278 72 0-10 112-69-1Z" fill="#e7804c" stroke="none" />
+<path d="m573 278 9 12-7 110-73-2-9-9 70 1Z" fill="#ad502c" stroke="none" />
+</g>
+<g id="builder-hard-hat">
+<path d="m349 141 45-100 103-10 7-23 119 0 16 24 84 8 58 64 12 79 37 32-6 66-48 27-3-39-59-61-71-17-168-3-115 13-4 68-40-36 6-63Z" fill="url(#builder-yellow)" />
+<path d="m722 48 53 59 12 76-60-32Z" fill="#dc9400" stroke="none" />
+<path d="m352 146 130-12 20-112" fill="none" stroke="#d7a200" stroke-width="9" />
+<path d="m488 141 22-117 109-3" fill="none" stroke="#fff76a" stroke-width="7" />
+<path d="m625 23-18 118" fill="none" stroke="#986000" stroke-width="11" />
+<path d="m398 54 84-6-3 8-73 6-19 37Z" fill="#fff76b" stroke="none" />
+<path d="m411 61 44-3-11 37-47 1Z" fill="#fff876" stroke="none" />
+<path d="m638 44 80 5 4 12-86-9Z" fill="#fff673" stroke="none" />
+<path d="m323 173 35-19 92-11 161-2 113 12" fill="none" stroke="#fff66a" stroke-width="7" />
+<path d="m356 156-8 31-26 42-2-23Z" fill="#ffec20" stroke="none" />
+<path d="m322 230 30 29 6-48 37-16 93-11 153 3 74 16 59 65 3 30 42-19-51-63-43-24-104-14-133-3-128 9-34 9Z" fill="#d68c00" stroke="none" />
+<path d="m351 263 7-52 29-13 94-10 160 1 74 15 59 65 1 31" fill="none" stroke="#080806" stroke-width="13" />
+</g>
+</g>
+</svg>

@@ -1,1 +1,143 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="3" fill="var(--dirt)" stroke="var(--wood-dark)" stroke-width="2"/><path d="M10 30 l-3 -9 h6z" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 21 l-3 -5 M10 21 l3 -5" stroke="var(--carrot-leaf)" stroke-width="2.5"/><path d="M20 30 l-3 -9 h6z" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 21 l-3 -5 M20 21 l3 -5" stroke="var(--carrot-leaf)" stroke-width="2.5"/><path d="M30 30 l-3 -9 h6z" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M30 21 l-3 -5 M30 21 l3 -5" stroke="var(--carrot-leaf)" stroke-width="2.5"/></svg>
+<!-- farm: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Voxel carrot garden</title>
+
+<g id="farm-earth" stroke="#080704" stroke-width="15" stroke-linejoin="round">
+<path d="M12 674 329 147 1000 347Q1015 357 1014 380L1014 510 741 956 673 1018 553 1018 22 840Q10 836 10 820Z" fill="#71300c" />
+<path d="M670 932 1009 373 1014 510 741 956 673 1018Z" fill="#512005" stroke="none" />
+<path d="M17 710 670 932 670 1013 553 1014 19 833Z" fill="#71300c" stroke="none" />
+<path d="M49 722 109 744 109 862 49 842ZM208 777 273 800 273 916 208 894ZM373 833 438 855 438 969 373 947ZM552 895 615 916 615 1015 552 1014Z" fill="#652909" stroke="none" />
+<path d="M12 674Q12 662 27 644L267 212 322 147Q329 139 345 146L994 344Q1009 349 1015 377L740 859 670 936 148 789 107 751 13 716Z" fill="#a55127" />
+</g>
+<g id="farm-tilled-rows">
+<path d="M45 676 289 239 331 180 452 215 199 751Z" fill="#71310e" />
+<path d="M248 769 505 244 605 269 434 836Z" fill="#71310e" />
+<path d="M487 851 733 309 855 347 639 903Z" fill="#71310e" />
+<path d="M331 171 355 180 300 254 71 682 47 691 48 665 287 228Z" fill="#be6938" />
+<path d="M472 199 508 210 532 220 273 774 249 768 486 249Z" fill="#93431d" />
+<path d="M698 268 733 279 759 291 512 858 486 851 715 328Z" fill="#93431d" />
+<path d="M925 344 974 371 709 865 669 916 639 903 852 426Z" fill="#8d3e18" />
+<path d="M330 291 452 312 501 250 485 301 447 341 382 324ZM176 518 292 552 353 488 336 549 288 582 207 551ZM61 693 193 734 239 681 221 737 199 751Z" fill="#542305" />
+<path d="M547 370 662 413 718 348 700 399 665 434 588 413ZM420 594 543 631 592 574 575 628 548 653 457 628ZM305 795 427 833 475 783 457 822 434 836Z" fill="#542305" />
+<path d="M786 452 907 489 954 437 929 485 903 510 824 486ZM652 683 769 726 819 664 795 721 766 751 682 718ZM535 866 639 903 695 853 676 898 650 915Z" fill="#542305" />
+</g>
+
+<g id="farm-carrot-back-left" transform="translate(401 194)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-104-95-77-143-40-129-25-108-24-155-22-161 16-186 67-168 73-159 67-104 92-124 126-111 129-102 122-70 106-49 63-35 21 14Z" fill="#42b500" />
+<path d="M-94-96-72-134-42-123-55-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-17-151 17-176 65-160 32-128Z" fill="#a3e71d" stroke="none" />
+<path d="M-16-149 32-128 22-71-12-82Z" fill="#6cce00" stroke="none" />
+<path d="M32-128 65-160 59-106 20-52 21 7-10-2-12-82 22-71Z" fill="#168a00" stroke="none" />
+<path d="M22-52 63-86 88-113 119-102 87-70 54-80Z" fill="#a1e720" stroke="none" />
+<path d="M54-80 87-70 86-56 51-42 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-back-center" transform="translate(626 270)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-104-95-77-143-40-129-25-108-24-155-22-161 16-186 67-168 73-159 67-104 92-124 126-111 129-102 122-70 106-49 63-35 21 14Z" fill="#42b500" />
+<path d="M-94-96-72-134-42-123-55-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-17-151 17-176 65-160 32-128Z" fill="#a3e71d" stroke="none" />
+<path d="M-16-149 32-128 22-71-12-82Z" fill="#6cce00" stroke="none" />
+<path d="M32-128 65-160 59-106 20-52 21 7-10-2-12-82 22-71Z" fill="#168a00" stroke="none" />
+<path d="M22-52 63-86 88-113 119-102 87-70 54-80Z" fill="#a1e720" stroke="none" />
+<path d="M54-80 87-70 86-56 51-42 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-back-right" transform="translate(859 350)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-104-95-77-143-40-129-25-108-24-155-22-161 16-186 67-168 73-159 67-104 92-124 126-111 129-102 122-70 106-49 63-35 21 14Z" fill="#42b500" />
+<path d="M-94-96-72-134-42-123-55-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-17-151 17-176 65-160 32-128Z" fill="#a3e71d" stroke="none" />
+<path d="M-16-149 32-128 22-71-12-82Z" fill="#6cce00" stroke="none" />
+<path d="M32-128 65-160 59-106 20-52 21 7-10-2-12-82 22-71Z" fill="#168a00" stroke="none" />
+<path d="M22-52 63-86 88-113 119-102 87-70 54-80Z" fill="#a1e720" stroke="none" />
+<path d="M54-80 87-70 86-56 51-42 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-middle-left" transform="translate(263 420)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-143-35-129-20-108-21-150 16-174 70-156 77-147 70-103 95-119 126-105 130-97 123-65 107-44 64-30 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-134-38-123-51-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-164 67-147 35-119Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-119 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-119 67-147 61-102 21-47 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-47 64-81 91-108 120-96 88-65 55-75Z" fill="#a1e720" stroke="none" />
+<path d="M55-75 88-65 87-51 52-37 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-middle-center" transform="translate(502 506)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-139-35-125-20-104-21-150 16-174 70-156 77-147 70-103 95-119 126-105 130-97 123-65 107-44 64-30 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-130-38-119-51-83Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-164 67-147 35-119Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-119 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-119 67-147 61-102 21-47 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-47 64-81 91-108 120-96 88-65 55-75Z" fill="#a1e720" stroke="none" />
+<path d="M55-75 88-65 87-51 52-37 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-middle-right" transform="translate(737 590)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-139-35-125-20-104-21-150 16-174 70-156 77-147 70-103 95-119 126-105 130-97 123-65 107-44 64-30 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-130-38-119-51-83Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-164 67-147 35-119Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-119 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-119 67-147 61-102 21-47 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-47 64-81 91-108 120-96 88-65 55-75Z" fill="#a1e720" stroke="none" />
+<path d="M55-75 88-65 87-51 52-37 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-front-left" transform="translate(149 632) scale(.96)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-139-35-125-20-104-21-150 16-166 70-148 77-139 70-95 95-111 126-97 130-89 123-57 107-40 64-27 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-130-38-119-51-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-156 67-139 35-111Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-111 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-111 67-139 61-94 21-43 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-43 64-73 91-100 120-88 88-57 55-67Z" fill="#a1e720" stroke="none" />
+<path d="M55-67 88-57 87-45 52-33 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-front-center" transform="translate(385 716) scale(.96)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-139-35-125-20-104-21-150 16-166 70-148 77-139 70-95 95-111 126-97 130-89 123-57 107-40 64-27 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-130-38-119-51-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-156 67-139 35-111Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-111 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-111 67-139 61-94 21-43 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-43 64-73 91-100 120-88 88-57 55-67Z" fill="#a1e720" stroke="none" />
+<path d="M55-67 88-57 87-45 52-33 22 7Z" fill="#58c600" stroke="none" />
+</g>
+
+<g id="farm-carrot-front-right" transform="translate(620 802) scale(.96)" stroke="#050702" stroke-width="13" stroke-linejoin="round">
+<path d="M-89 34-70-7-37-29 46-9 82 25 81 63 28 129-27 116-91 94Z" fill="#ff7800" />
+<path d="M-84 34-17 52 22 64 76 24 45-7-35-23-64-2Z" fill="#ff9e00" stroke="none" />
+<path d="M22 64 76 24 74 63 23 121Z" fill="#ef5d00" stroke="none" />
+<path d="M-37 2-52-45-92-65-100-95-72-139-35-125-20-104-21-150 16-166 70-148 77-139 70-95 95-111 126-97 130-89 123-57 107-40 64-27 21 14Z" fill="#42b500" />
+<path d="M-90-96-68-130-38-119-51-87Z" fill="#a3e71d" stroke="none" />
+<path d="M-13-146 17-156 67-139 35-111Z" fill="#a3e71d" stroke="none" />
+<path d="M-14-144 35-111 23-68-10-80Z" fill="#6cce00" stroke="none" />
+<path d="M35-111 67-139 61-94 21-43 21 7-10-2-10-80 23-68Z" fill="#168a00" stroke="none" />
+<path d="M22-43 64-73 91-100 120-88 88-57 55-67Z" fill="#a1e720" stroke="none" />
+<path d="M55-67 88-57 87-45 52-33 22 7Z" fill="#58c600" stroke="none" />
+</g>
+<path d="M18 696 107 734 150 772 669 921 708 879 670 936 148 789 107 751 18 718Z" fill="#a55127" />
+<path d="M150 789 220 813 282 821M566 916 669 937" fill="none" stroke="#c77a47" stroke-width="3" stroke-linejoin="round" />
+</svg>

@@ -1,1 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M20 36 l-9 -22 h18z" fill="var(--carrot)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M20 14 l-6 -8 M20 14 l6 -8 M20 14 v-9" stroke="var(--carrot-leaf)" stroke-width="3" stroke-linecap="round"/></svg>
+<!-- carrot: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <title>Blocky orange carrot game icon</title>
+  
+  <g id="carrot-carrot">
+    <path d="M382 323 589 403 702 470 668 614 591 655 575 738 434 817 417 865 248 962 145 1015 54 974 60 908 77 811 123 771 108 721 150 621 199 583 197 512 269 378Z" fill="#f87800" stroke="#080906" stroke-width="23" stroke-linejoin="round" />
+    <g id="carrot-orange-facets">
+      <path d="M269 378 382 334 587 411 652 478 566 513Z" fill="#ff9b08" />
+      <path d="M342 352 493 421 440 449 275 383Z" fill="#ffb522" />
+      <path d="M566 513 652 478 661 608 530 659Z" fill="#cd4700" />
+      <path d="M652 478 691 474 661 608Z" fill="#b83300" />
+      <path d="M208 513 237 459 404 534 363 571Z" fill="#ffae15" />
+      <path d="M208 513 247 520 209 588Z" fill="#be3e00" />
+      <path d="M209 588 363 571 530 659 450 614 408 697 350 682 297 707 156 638 160 625Z" fill="#ff8500" />
+      <path d="M156 638 193 600 343 672 297 707Z" fill="#ffb11b" />
+      <path d="M450 614 530 659 500 769 331 849 365 710 350 682 408 697Z" fill="#d64a00" />
+      <path d="M530 659 589 638 565 730 500 769Z" fill="#ae3000" />
+      <path d="M118 721 157 725 133 774Z" fill="#b93b00" />
+      <path d="M87 814 133 774 240 821 197 861Z" fill="#ffac13" />
+      <path d="M87 814 197 861 159 950 70 910Z" fill="#ff8100" />
+      <path d="M197 861 240 821 265 812 239 955 159 950Z" fill="#e35b00" />
+      <path d="M265 812 331 849 426 805 407 858 239 955Z" fill="#af3100" />
+      <path d="M70 910 159 950 144 1003 65 968Z" fill="#d04a00" />
+      <path d="M159 950 194 978 144 1003Z" fill="#b23600" />
+      <path d="M159 950 239 955 194 978Z" fill="#cc4700" />
+    </g>
+  </g>
+  <g id="carrot-leafy-top" stroke="#080a04" stroke-width="22" stroke-linejoin="round">
+    <path d="M477 173 495 42 601 8 752 48 734 152 675 175 658 244 621 279 573 384 507 362Z" fill="#39ad00" />
+    <path d="M495 46 614 97 748 51 601 19Z" fill="#9be60b" stroke="none" />
+    <path d="M503 49 614 97 576 272 531 211 486 176Z" fill="#73d000" stroke="none" />
+    <path d="M614 97 741 55 725 145 666 167 649 240 607 272 568 365 551 362Z" fill="#096700" stroke="none" />
+    <path d="M472 389 414 368 416 324 324 299 324 233 252 225 258 115 341 60 456 96 453 143 488 155 551 213 525 340 563 356 538 399 500 376Z" fill="#2da500" />
+    <path d="M267 122 342 71 445 103 442 148 484 162 551 213 493 249 349 196 382 161Z" fill="#8cde00" stroke="none" />
+    <path d="M267 122 382 161 349 196 493 249 472 388 425 361 428 316 335 291 334 240 263 216Z" fill="#249e00" stroke="none" />
+    <path d="M493 249 551 213 524 340 504 336 493 378 472 388Z" fill="#0c7500" stroke="none" />
+    <path d="M538 400 619 266 704 200 744 218 815 157 969 223 964 320 885 396 819 366 756 440 672 403 637 444 616 432 589 431Z" fill="#76d500" />
+    <path d="M550 399 627 271 706 211 747 230 817 168 959 226 890 296 817 263 759 330 680 294 615 389 590 431Z" fill="#8bdf00" stroke="none" />
+    <path d="M680 294 759 330 756 428 666 387 637 434 615 425 590 431Z" fill="#269f00" stroke="none" />
+    <path d="M759 330 817 263 809 374 756 428Z" fill="#0b7300" stroke="none" />
+    <path d="M817 263 890 296 884 384 809 351Z" fill="#269e00" stroke="none" />
+    <path d="M890 296 959 226 953 315 884 384Z" fill="#086900" stroke="none" />
+    <path d="M666 387 678 392 650 428 637 434 615 425 623 415Z" fill="#096d00" stroke="none" />
+    <path d="M507 337 562 357 538 399 500 376Z" fill="#096c00" stroke="none" />
+  </g>
+</svg>
