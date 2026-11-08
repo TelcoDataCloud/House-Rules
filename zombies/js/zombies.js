@@ -19,6 +19,7 @@ import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
 import { TRICKS, onWhack, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
+import { updateHard } from './hard.js';
 
 let nextId = 1;
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -32,9 +33,10 @@ export function tonight() {
   for (let i = 0; i < count; i++) kinds.push(pick(diff.mix));
   plan.extra.forEach((k) => kinds.push(k));
   // anyone carried off last night comes back tonight, as a zombie
-  state.taken.forEach(() => kinds.push('bob'));
+  state.taken.forEach((t) => kinds.push(t.kind || 'bob'));
   const moon = moonTonight();
   if (moon) moon.extra.forEach((k) => kinds.push(k));
+  if (moon && moon.maybe && Math.random() < (moon.chance || 0.5)) moon.maybe.forEach((k) => kinds.push(k));
   // for testing: ?horde=bogey,eyeball picks tonight's zombies by hand
   if (window.ZOMBIES.horde) return { kinds: window.ZOMBIES.horde, side: plan.side, moon };
   if (state.night >= GIANT_FROM[state.mode] && (state.night - GIANT_FROM[state.mode]) % 2 === 0) kinds.push('giant');
@@ -147,6 +149,7 @@ function nearestThing(z, does) {
 export function updateZombies(dt) {
   updateDropped(dt);
   updateFlattened(dt);
+  updateHard(dt);
   const diff = DIFFICULTY[state.mode];
   const moon = moonTonight();
   const torchPower = moon ? moon.torch : 1;
@@ -200,8 +203,8 @@ export function updateZombies(dt) {
         if (t.does !== 'scare') continue;
         const tx = t.col + 0.5 - z.x, ty = t.row + 0.5 - z.y;
         const d = Math.hypot(tx, ty);
-        const reach = (t.data.reach || 2) * torchPower;
-        if (d < reach && d > 0.01) { dx -= tx / d * (1.6 * (1 - d / reach)); dy -= ty / d * (1.6 * (1 - d / reach)); }
+        const reach = (t.data.reach || 2) * torchPower * (z.data.quiet ? 2 : 1);
+        if (d < reach && d > 0.01) { const push = (z.data.quiet ? 3 : 1.6) * (1 - d / reach); dx -= tx / d * push; dy -= ty / d * push; if (z.data.quiet && d < 1.5 && Math.random() < dt) burst(z.x, z.y - 0.6, 'hsss'); }
       }
       const n = Math.hypot(dx, dy) || 1; dx /= n; dy /= n;
     }
@@ -256,7 +259,7 @@ export function updateZombies(dt) {
     // carrying someone off
     if (z.carrying) { z.carrying.x = z.x + 0.5; z.carrying.y = z.y - 0.3; drawVillager(z.carrying); }
     if (z.leaving && (z.x < 0.3 || z.y < 0.3 || z.x > COLS - 0.3 || z.y > ROWS - 0.3)) {
-      if (z.carrying) { state.taken.push(z.carrying.job); removeVillager(z.carrying); }
+      if (z.carrying) { state.taken.push({ job: z.carrying.job, kind: 'bob' }); removeVillager(z.carrying); }
       remove(z);
       continue;
     }
@@ -270,6 +273,7 @@ function nearestEdge(z) {
 }
 
 function mutter(z, dt) {
+  if (z.data.quiet) return;
   z.bubbleT -= dt;
   if (z.bubbleT <= 0) {
     z.bubbleT = 6 + Math.random() * 8;
