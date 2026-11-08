@@ -207,3 +207,13 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
 
 /* ---------- pause ---------- */
 .screen.pause { background: rgba(10, 12, 30, 0.6); }
+
+/* ---------- tablets and phones ---------- */
+@media (max-width: 900px) {
+  .top { padding-right: 12px; padding-top: 60px; }   /* the corner buttons sit above instead of beside */
+  .bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .bar .thing { flex: 0 0 auto; }
+  .night-buttons button { min-height: 72px; font-size: 1.7rem; }
+  .night-buttons { position: sticky; bottom: 8px; z-index: 5; }
+  .game { padding: 6px; }
+}

@@ -28,6 +28,10 @@
    bites     true means a villager he reaches turns, no carrying
    hates     a trap word he cannot pass: 'garlic' (data/traps.js)
    fears     what sends him running: 'silver' (the silver bell)
+   steals    'carrots' means it runs off with a carrot when it reaches the farm
+   harmless  true means it never grabs the hero
+   throws    'pumpkin' (the king): a pumpkin lands on a villager's head and
+             zombies cannot see him for a while
    =========================================================== */
 
 export const ZOMBIES = {
@@ -166,6 +170,85 @@ export const ZOMBIES = {
     hates: 'garlic',
     line: ['...', 'bleh', 'sunscreen'],
     becomes: 'nightshift',
+  },
+  cow: {
+    name: 'Zombie Cow',
+    tip: 'A zombie cow. Moos backwards. Cure it for milk.',
+    art: 'cow',
+    speed: 0.9,
+    cure: 1,
+    wants: 'farm',
+    line: ['oom', 'oooom', 'ooM'],
+    becomes: 'cow',
+  },
+  chicken: {
+    name: 'Zombie Chicken',
+    tip: 'Zombie chickens steal carrots one at a time.',
+    art: 'chicken',
+    speed: 2.4,
+    cure: 1,
+    wants: 'farm',
+    steals: 'carrots',
+    harmless: true,
+    line: ['bwok', 'bwaaak', 'egg?'],
+    becomes: 'chicken',
+  },
+  sheep: {
+    name: 'Zombie Sheep',
+    tip: 'A zombie sheep. Its wool keeps falling off.',
+    art: 'sheep',
+    speed: 1.0,
+    cure: 1,
+    wants: 'bed',
+    harmless: true,
+    line: ['baa', 'baaaa', 'itchy'],
+    becomes: 'sheep',
+  },
+  pig: {
+    name: 'Zombie Pig',
+    tip: 'Zombie pigs dig under fences. Cure one for truffles.',
+    art: 'pig',
+    speed: 1.6,
+    cure: 1,
+    wants: 'farm',
+    digs: true,
+    line: ['oink', 'snort', 'mud'],
+    becomes: 'pig',
+  },
+  horse: {
+    name: 'Zombie Horse',
+    tip: 'A zombie horse! The rider falls off at every fence.',
+    art: 'horse',
+    speed: 3.0,
+    cure: 2,
+    wants: 'bed',
+    rider: true,
+    line: ['neigh', 'whoa', 'hold on'],
+    becomes: 'builder',
+  },
+  goldfish: {
+    name: 'Zombie Goldfish',
+    tip: 'A zombie goldfish. In a bowl. Somehow.',
+    art: 'goldfish',
+    speed: 2.0,
+    cure: 1,
+    wants: 'anyone',
+    harmless: true,
+    line: ['blub', 'glub', 'flop'],
+    becomes: 'farmer',
+  },
+  pumpkinking: {
+    name: 'Pumpkin King',
+    tip: 'THE PUMPKIN KING. Catapult only. His pumpkins hide villagers from zombies.',
+    art: 'pumpkinking',
+    speed: 0.45,
+    cure: 3,
+    wants: 'bed',
+    jumps: true,
+    big: true,
+    throws: 'pumpkin',
+    line: ['BOW TO THE GOURD', 'squash you', 'pie time'],
+    becomes: 'pumpkinfarmer',
   },
   giant: {
     name: 'Giant Gary',
