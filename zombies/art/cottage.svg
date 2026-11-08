@@ -1,0 +1,112 @@
+<!-- cottage: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Cosy thatched village cottage</title>
+<defs>
+<linearGradient id="cottage-thatch" x1="0" y1="0" x2="0.5" y2="1">
+<stop stop-color="#ffd137" />
+<stop offset="0.48" stop-color="#ffb600" />
+<stop offset="1" stop-color="#ff8700" />
+</linearGradient>
+<linearGradient id="cottage-wood" x1="0" y1="0" x2="1" y2="0.6">
+<stop stop-color="#ac511c" />
+<stop offset="1" stop-color="#813613" />
+</linearGradient>
+<linearGradient id="cottage-doorwood" x1="0" y1="0" x2="1" y2="0">
+<stop stop-color="#dc6505" />
+<stop offset="0.5" stop-color="#bd4b00" />
+<stop offset="1" stop-color="#e86b07" />
+</linearGradient>
+<linearGradient id="cottage-archwood" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#d8873c" />
+<stop offset="0.5" stop-color="#a65320" />
+<stop offset="1" stop-color="#8d4118" />
+</linearGradient>
+</defs>
+
+<g stroke="#080806" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<g id="cottage-walls">
+<path d="M55 525 345 283 708 608 702 1007 56 899Q47 897 47 886V566Z" fill="#ffe6ad" />
+<path d="M700 615 963 478 957 819Q956 832 941 843L707 1009Z" fill="#efba7d" />
+<path d="M753 698 912 600 908 701 754 811Z" fill="#f5c791" stroke="none" />
+<path d="M754 815 910 705 909 750 753 863Z" fill="url(#cottage-wood)" />
+<path d="M753 938 912 824 911 867 753 986Z" fill="#753418" />
+<path d="M908 579 963 548 956 819Q949 839 911 855Z" fill="url(#cottage-wood)" />
+<path d="M48 556 105 539 107 905 56 897Q48 895 48 881Z" fill="url(#cottage-wood)" />
+<path d="M105 865 249 891 252 934 105 904Z" fill="#773817" />
+<path d="M524 946 661 972 661 1007 524 985Z" fill="#743514" />
+<path d="M214 598 256 606 255 960 211 946Z" fill="url(#cottage-wood)" />
+<path d="M476 650 524 660 524 985 478 977Z" fill="url(#cottage-wood)" />
+<path d="M661 685 754 681 753 976Q737 999 705 1010L662 1003Z" fill="url(#cottage-wood)" />
+<path d="M667 705 704 715 704 996 667 991Z" fill="#a55020" stroke="none" />
+</g>
+<g id="cottage-gable">
+<path d="M100 576 334 288 638 675Z" fill="#ffe7b0" />
+<path d="M112 535 333 310 330 356 151 539Z" fill="#713015" />
+<path d="M247 429 276 400 359 516 338 552 269 538 204 465 221 445Z" fill="url(#cottage-wood)" />
+<path d="M391 539 481 458 515 500 433 577 390 570Z" fill="url(#cottage-wood)" />
+<path d="M320 347 343 314 397 378 396 592 320 576Z" fill="url(#cottage-wood)" />
+<path d="M334 350 375 378 375 575 334 567Z" fill="#924015" stroke="none" />
+<path d="M100 576 121 534 579 622 638 686 101 601Z" fill="url(#cottage-wood)" />
+<path d="M113 535 572 621 595 641 114 552Z" fill="#cf7738" stroke="none" />
+</g>
+<g id="cottage-windows" stroke-width="13">
+<path d="M105 594 212 614 211 648 105 631Z" fill="#fff1c9" stroke="none" />
+<path d="M97 640 119 631 216 651 216 783 201 795 98 772Z" fill="#ad4d15" />
+<path d="M114 655 195 671 194 775 112 758Z" fill="#39c4f4" stroke-width="9" />
+<path d="M122 666 149 671 121 702ZM160 712 189 682 189 708 163 735ZM122 741 146 721 147 752 122 751ZM163 754 188 730 188 763Z" fill="#0ba6e1" stroke="none" />
+<path d="M154 666 154 765M113 706 194 723" fill="none" stroke="#71330d" stroke-width="10" />
+<path d="M84 771 103 763 214 785 214 819 196 828 84 807Z" fill="#b96222" />
+<path d="M90 772 198 793 210 786 106 767Z" fill="#e39149" stroke="none" />
+<path d="M528 682 651 706 651 738 529 715Z" fill="#fff0c2" stroke="none" />
+<path d="M521 722 536 713 655 741 655 876 641 885 521 859Z" fill="#9d4612" />
+<path d="M536 741 636 762 636 863 535 841Z" fill="#30bff0" stroke-width="9" />
+<path d="M544 751 575 757 544 787ZM592 797 628 770 628 792 595 821ZM544 830 576 802 576 840ZM597 849 628 821 628 854Z" fill="#08a5df" stroke="none" />
+<path d="M586 754 586 852M536 792 635 815" fill="none" stroke="#74310c" stroke-width="11" />
+<path d="M506 863 526 856 664 885 664 916 646 928 506 898Z" fill="#b76829" />
+<path d="M513 864 647 893 660 885 530 859Z" fill="#e2954b" stroke="none" />
+</g>
+<g id="cottage-round-door">
+<path d="M245 940C212 889 203 824 225 759 248 690 306 653 357 664 435 676 490 749 495 828 500 891 476 954 443 978L406 971 291 948Z" fill="url(#cottage-archwood)" stroke-width="13" />
+<path d="M245 927C225 872 222 819 240 767 259 711 303 676 349 679 395 681 433 711 458 748 434 696 396 671 355 665 304 657 246 695 225 759 203 824 212 889 245 940L279 946Z" fill="#d78a43" stroke="none" />
+<path d="M294 948C264 910 252 856 262 806 269 759 301 712 340 712 391 709 433 762 446 816 460 871 441 935 405 970Z" fill="url(#cottage-doorwood)" stroke-width="12" />
+<path d="M307 726 307 945M356 718 356 958M404 747 404 959" fill="none" stroke="#9c3d03" stroke-width="9" />
+<path d="M270 803C278 771 289 748 305 736L305 942 294 939C270 900 257 847 270 803Z" fill="#e56b05" stroke="none" />
+<path d="M347 804 363 797 386 804 386 845 368 852 347 843Z" fill="#a55608" stroke-width="9" />
+<path d="M393 828C419 860 395 900 364 894 332 889 317 860 332 834 340 818 350 815 359 822L358 836C338 848 344 875 363 878 383 882 394 858 382 845Z" fill="#ffc225" stroke="#743801" stroke-width="8" />
+<path d="M344 834C328 855 339 880 358 885M387 842C396 857 390 874 377 881" fill="none" stroke="#ffe263" stroke-width="6" />
+<path d="M346 810 361 804 380 810 379 843 347 836Z" fill="#ffc32a" stroke="#8f4907" stroke-width="6" />
+<path d="M351 814 365 816 365 835 351 832Z" fill="#ffdc4b" stroke="none" />
+</g>
+<g id="cottage-thatch-roof">
+<path d="M102 351 26 420Q10 434 17 462L22 479Q0 511 10 536L23 561Q30 575 49 564C77 553 102 525 109 488L119 506Q133 515 157 486C180 459 188 423 194 394L279 311 242 219Z" fill="url(#cottage-thatch)" />
+<path d="M25 449 101 382 151 329 123 380 100 400 41 448Z" fill="#ffd83e" stroke="none" />
+<path d="M26 474 51 456 22 498Z" fill="#d77100" stroke="none" />
+<path d="M102 359Q91 339 105 306 107 299 127 283L227 194 329 238 337 284C317 324 302 357 273 379Q245 403 231 384L225 350C214 376 193 402 174 400L149 398Q128 392 138 368L143 346 123 371Q111 378 102 359Z" fill="url(#cottage-thatch)" />
+<path d="M110 324 234 216 249 225 114 335Z" fill="#ffd843" stroke="none" />
+<path d="M337 270Q361 321 392 358 410 385 420 347L430 376Q443 401 452 377C467 417 487 469 508 470L525 444C527 495 536 574 567 600 590 620 607 614 610 581 626 628 646 687 681 707 703 719 731 718 733 681L748 698Q759 709 779 695L806 677Q821 665 816 633L833 651Q844 656 862 643L880 631Q889 625 884 600L897 613Q909 615 931 598 947 588 942 555L954 570Q967 572 986 553 1012 536 1015 517 1016 493 997 451 1010 417 1004 403 971 358 895 281L701 235 597 168 479 197Z" fill="url(#cottage-thatch)" />
+<path d="M358 284 385 282 408 361Q394 382 376 352Z" fill="#ff9400" stroke="none" />
+<path d="M450 326 510 402Q522 420 539 415L578 400Q589 396 585 382L577 342 612 380Q623 390 638 384L680 368Q691 365 684 351L682 342 702 359 742 342 759 362 703 387 699 399 637 425Q618 431 604 411L604 427 541 452 524 491 517 445Q493 482 481 441Z" fill="#ee7600" stroke="none" />
+<path d="M607 533 658 582 717 552Q734 546 727 523L717 488 759 529Q766 536 779 527L809 510Q819 505 814 486L811 470 841 494 924 449Q942 442 934 421L921 391 961 427Q968 433 978 426L1003 413 996 450 974 458 952 436 951 468 855 523Q846 527 831 511L828 536 785 561Q767 571 749 548L747 572 670 615 653 587Z" fill="#cb6100" stroke="none" />
+<path d="M215 213Q195 204 209 178L250 109Q261 92 299 78 310 72 325 77L378 89Q393 93 414 88 522 63 640 21 656 15 667 20L700 33Q716 41 717 53L681 150 604 181Q584 192 567 173 573 190 554 197L493 217Q479 221 470 205 471 228 457 237 420 253 392 255 374 256 365 244L361 266Q357 286 338 286 311 286 290 276 274 268 281 240L280 224Q273 242 257 237Z" fill="url(#cottage-thatch)" />
+<path d="M219 166 253 113Q263 94 308 84L383 101Q396 104 427 96 543 68 652 27 662 26 691 39L704 47Q570 110 385 151 371 154 372 175L376 232 366 216 356 268 342 274 367 167Q372 152 357 148L284 123Q267 116 256 128Z" fill="#ffd438" stroke="none" />
+<path d="M379 264Q422 260 460 244 479 238 480 220L490 225 564 201Q577 197 578 188 588 203 606 196L681 169 680 151 606 179Q586 186 568 170 569 191 550 197L490 216Q479 220 470 207 473 232 453 240L392 254 374 251Z" fill="#d76300" stroke="none" />
+</g>
+<g id="cottage-stone-chimney">
+<path d="M689 143 899 125 896 337 805 381 736 323 730 297Q727 271 691 258Z" fill="#7d777e" stroke-width="15" />
+<path d="M697 158 765 182 765 236 697 215Z" fill="#b0aab1" stroke="#625c63" stroke-width="9" />
+<path d="M769 183 804 193 830 181 830 235 802 251 768 239Z" fill="#8b858d" stroke="#625c63" stroke-width="9" />
+<path d="M834 179 894 153 894 204 832 238Z" fill="#99939b" stroke="#625c63" stroke-width="9" />
+<path d="M697 224 736 237 735 276 698 255Z" fill="#b0aab1" stroke="#625c63" stroke-width="9" />
+<path d="M744 246 801 266 850 241 850 296 799 324 744 303Z" fill="#aaa4ac" stroke="#625c63" stroke-width="9" />
+<path d="M854 239 892 215 892 276 851 297Z" fill="#8e8790" stroke="#625c63" stroke-width="9" />
+<path d="M772 320 801 333 825 320 825 362 805 374 772 348Z" fill="#9f99a2" stroke="#625c63" stroke-width="8" />
+<path d="M829 319 893 285 892 334 830 364Z" fill="#827b85" stroke="#625c63" stroke-width="8" />
+<path d="M677 66 782 19Q793 12 807 17L916 57Q925 60 924 75L923 123Q924 133 910 139L809 185Q798 190 786 186L679 149Q666 145 666 130L666 85Q666 72 677 66Z" fill="#aaa5ac" />
+<path d="M799 122 915 71 915 121Q915 127 904 132L802 179Z" fill="#77717b" stroke="none" />
+<path d="M675 79 789 120Q798 124 806 120L914 71 797 27Z" fill="#d3d0d3" stroke="none" />
+<path d="M726 76 795 47 865 71 796 98Z" fill="#302d32" stroke="#080806" stroke-width="8" />
+<path d="M733 75 795 49 795 70 771 86Z" fill="#4a464c" stroke="none" />
+<path d="M795 49 854 70 823 82 795 70Z" fill="#625c65" stroke="none" />
+</g>
+</g>
+</svg>
