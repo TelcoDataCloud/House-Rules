@@ -255,3 +255,9 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
 }
 .bar .thing .cost { white-space: nowrap; display: flex; align-items: center; gap: 2px; }
 .bar .thing .cost svg { width: 18px; height: 18px; }
+
+/* the weapon upgrade button */
+.upgrade-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.95rem; background: var(--panel); padding: 6px 12px; }
+.upgrade-btn svg { vertical-align: middle; }
+.upgrade-btn.cannot { opacity: 0.6; }
+.upgrade-btn[hidden] { display: none; }

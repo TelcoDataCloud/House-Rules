@@ -37,6 +37,7 @@
    stone    how many stone it costs (as well as planks)
    holds    for a cottage: how many villagers sleep in it
    nearRock true means it can only go next to the boulders (the mine)
+   auto     for the catapult: seconds between the pumpkins it throws by itself
    from     Easy only: the first night this shows on the bar (1 if missing)
    =========================================================== */
 
@@ -57,7 +58,7 @@ export const TRAPS = {
   bed:     { name: 'Cottage',   art: 'cottage', planks: 4, crew: 0, does: 'bed', holds: 2, what: 'Two villagers sleep here. Zombies want these.' },
   mine:    { name: 'Mine',      art: 'mine',    planks: 6, crew: 0, does: 'mine', nearRock: true, what: 'Build it next to the boulders. Miners dig stone here.', from: 4 },
   farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm', what: 'Carrots grow here. Carrots make potion.' },
-  catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult', what: 'Fling pumpkins or potion far. One villager has to work it.', from: 3 },
+  catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult', auto: 5, what: 'Throws pumpkins by itself every few seconds. Drag from it to aim potion. One villager works it.', from: 3 },
   brewery: { name: 'Brewery',   art: 'brewery', planks: 8, crew: 0, does: 'brewery', what: 'One brewer at a time cooks potion here. Build another for a second brewer.', from: 2 },
   // These only show on Hard
   bell:    { name: 'Bell tower', art: 'bell',  planks: 5, crew: 1, does: 'bell', reach: 9, seconds: 6, hard: true, what: 'Ring it and every zombie comes to look. One villager rings it.' },
@@ -73,11 +74,11 @@ export const TRAPS = {
 // The things the village starts with. Row and column are squares
 // on the grid, counted from the top left corner.
 export const START = [
-  { thing: 'brewery', col: 11, row: 7 },
-  { thing: 'well',    col: 12, row: 8 },
-  { thing: 'bed', col: 9,  row: 6 }, { thing: 'bed', col: 14, row: 6 },
-  { thing: 'farm', col: 10, row: 10 }, { thing: 'farm', col: 11, row: 10 },
-  { thing: 'farm', col: 12, row: 10 }, { thing: 'farm', col: 13, row: 10 },
-  { thing: 'torch', col: 8, row: 5 }, { thing: 'torch', col: 15, row: 5 },
-  { thing: 'torch', col: 8, row: 11 }, { thing: 'torch', col: 15, row: 11 },
+  { thing: 'brewery', col: 17, row: 11 },
+  { thing: 'well',    col: 18, row: 12 },
+  { thing: 'bed', col: 15,  row: 10 }, { thing: 'bed', col: 20, row: 10 },
+  { thing: 'farm', col: 16, row: 14 }, { thing: 'farm', col: 17, row: 14 },
+  { thing: 'farm', col: 18, row: 14 }, { thing: 'farm', col: 19, row: 14 },
+  { thing: 'torch', col: 14, row: 9 }, { thing: 'torch', col: 21, row: 9 },
+  { thing: 'torch', col: 14, row: 15 }, { thing: 'torch', col: 21, row: 15 },
 ];

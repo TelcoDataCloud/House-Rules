@@ -118,3 +118,24 @@
 .smoke circle { fill: rgba(240, 240, 240, 0.7); animation: puff 2.7s infinite ease-out; transform-box: fill-box; transform-origin: center; }
 @keyframes puff { from { transform: translate(0, 0) scale(0.6); opacity: 0.8; } to { transform: translate(6px, -26px) scale(1.8); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .smoke { display: none; } }
+
+/* each villager's own patch of ground, by day */
+.home-box { fill: rgba(255, 245, 200, 0.28); stroke: rgba(80, 50, 20, 0.55); stroke-width: 2; stroke-dasharray: 5 4; }
+.home-name { font: 800 9px var(--font); fill: var(--ink); opacity: 0.75; pointer-events: none; }
+.stage.is-night #homes { display: none; }
+
+/* combat */
+.hero .weapon { transform-box: fill-box; transform-origin: 20% 90%; }
+.hero .weapon.swing { animation: swing 220ms ease-out; }
+.hero .weapon.spin { animation: spinweapon 450ms ease-out; }
+@keyframes swing { 0% { transform: rotate(-70deg); } 60% { transform: rotate(60deg); } 100% { transform: rotate(0); } }
+@keyframes spinweapon { from { transform: rotate(0); } to { transform: rotate(720deg); } }
+.hero.charging .body { filter: drop-shadow(0 0 6px #ffd23f) drop-shadow(0 0 10px #ffd23f); }
+.stage.shake { animation: shake 160ms; }
+.stage.shake2 { animation: shake2 260ms; }
+@keyframes shake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(-4px, 2px); } 50% { transform: translate(3px,-3px); } 75% { transform: translate(-2px, 1px); } }
+@keyframes shake2 { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-8px, 4px); } 40% { transform: translate(7px,-5px); } 60% { transform: translate(-5px, 3px); } 80% { transform: translate(3px,-2px); } }
+.loot { animation: lootbob 900ms infinite ease-in-out; transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 4px #fff6a0); }
+@keyframes lootbob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.dropped.crawling { animation: struggle 300ms infinite; }
+@media (prefers-reduced-motion: reduce) { .hero .weapon.swing, .hero .weapon.spin, .loot, .dropped.crawling { animation: none; } }
