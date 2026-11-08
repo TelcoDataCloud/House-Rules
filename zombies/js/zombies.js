@@ -80,7 +80,7 @@ function makeZombie(kind, side, i) {
   z.el = el('g', { class: 'mob zombie walking zombie-' + kind });
   const body = el('g', { class: 'body' });
   const w = z.big ? 80 : 40, h = z.big ? 100 : 44;
-  body.appendChild(el('use', { href: '#art-' + data.art, width: w, height: h, x: z.big ? -20 : 0, y: z.big ? -56 : 0 }));
+  body.appendChild(el('use', { href: '#art-' + data.art, width: w, height: h, x: z.big ? -20 : -4, y: z.big ? -56 : -8 }));
   z.el.appendChild(body);
   const stars = el('g', { class: 'stars' });
   const t = el('text', { x: 20, y: 2, 'font-size': 10, 'text-anchor': 'middle', fill: 'var(--button)' });

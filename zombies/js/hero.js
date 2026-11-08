@@ -25,7 +25,7 @@ export function makeHero() {
   if (elHero) elHero.remove();
   elHero = el('g', { class: 'mob hero' });
   const body = el('g', { class: 'body' });
-  body.appendChild(el('use', { href: '#art-hero', width: 40, height: 44 }));
+  body.appendChild(el('use', { href: '#art-hero', width: 48, height: 52, x: -4, y: -8 }));
   elHero.appendChild(body);
   document.getElementById('mobs').appendChild(elHero);
   state.hero.x = 12; state.hero.y = 9; state.hero.hearts = 5; state.hero.down = 0;

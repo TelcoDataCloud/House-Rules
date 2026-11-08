@@ -24,16 +24,16 @@
 .sprite-sheet { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* ground squares */
-.tile { fill: var(--grass); stroke: var(--grass-line); stroke-width: 1; }
-.tile.alt { fill: var(--grass-dark); }
-.tile.edge { fill: var(--woods); stroke: none; }
-.tile.hover { fill: var(--button); }
-.tile.bad { fill: var(--cloth); }
+.tile { fill: url(#pat-grass); stroke: none; }
+.tile.alt { fill: url(#pat-grass); }
+.tile.edge { fill: url(#pat-woods); stroke: none; }
+.tile.hover { fill: var(--button); opacity: 0.8; }
+.tile.bad { fill: var(--cloth); opacity: 0.8; }
 
 /* night */
 .night-tint { fill: var(--night-tint); pointer-events: none; opacity: 0; transition: opacity 1500ms; }
 .stage.is-night .night-tint { opacity: 1; }
-.torch-glow { fill: var(--torch-glow); pointer-events: none; opacity: 0; transition: opacity 1500ms; }
+.torch-glow { fill: url(#glow-torch); pointer-events: none; opacity: 0; transition: opacity 1500ms; }
 .stage.is-night .torch-glow { opacity: 1; }
 
 /* everyone walking about */

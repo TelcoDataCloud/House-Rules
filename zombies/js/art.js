@@ -13,7 +13,7 @@ const NAMES = [
   'wall', 'fence', 'torch', 'mud', 'pit', 'brains', 'tramp', 'spin', 'drop',
   'honey', 'scare', 'log', 'bed', 'farm', 'brewery', 'well', 'catapult', 'bell',
   'garlic', 'pumpkin', 'bucket', 'carrot', 'plank', 'heart', 'villager',
-  'zombieicon', 'tree',
+  'zombieicon', 'tree', 'grass', 'woods',
 ];
 
 export async function loadArt() {

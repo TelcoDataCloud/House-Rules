@@ -25,7 +25,7 @@ export function drawHearts() {
   const h = document.getElementById('hearts');
   let out = '';
   for (let i = 0; i < 5; i++) {
-    out += `<svg style="color:${i < state.hero.hearts ? 'var(--heart)' : 'var(--heart-off)'}"><use href="#art-heart"></use></svg>`;
+    out += `<svg style="${i < state.hero.hearts ? '' : 'filter: grayscale(1); opacity: 0.4'}"><use href="#art-heart"></use></svg>`;
   }
   h.innerHTML = out;
   h.setAttribute('aria-label', `${state.hero.hearts} hearts`);

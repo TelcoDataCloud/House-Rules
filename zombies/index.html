@@ -72,6 +72,11 @@
   <div class="stage" id="stage">
     <!-- The village. Drawn by js/grid.js. -->
     <svg class="village" id="village" viewBox="0 0 960 640" aria-label="The village">
+      <defs>
+        <pattern id="pat-grass" width="80" height="80" patternUnits="userSpaceOnUse"><use href="#art-grass" width="80" height="80"></use></pattern>
+        <radialGradient id="glow-torch"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.75"/><stop offset="0.5" stop-color="#ffb347" stop-opacity="0.35"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+        <pattern id="pat-woods" width="80" height="80" patternUnits="userSpaceOnUse"><use href="#art-woods" width="80" height="80"></use></pattern>
+      </defs>
       <g id="ground"></g>
       <g id="things"></g>
       <g id="mobs"></g>

@@ -34,8 +34,8 @@ export function drawGround() {
         'data-col': col, 'data-row': row,
       });
       ground.appendChild(tile);
-      if (isEdge(col, row) && (col * 7 + row * 13) % 5 === 0) {
-        ground.appendChild(el('use', { href: '#art-tree', x: col * TILE, y: row * TILE, width: TILE, height: TILE }));
+      if (isEdge(col, row) && ((col * 31 + row * 17 + 3) % 5 === 0)) {
+        ground.appendChild(el('use', { href: '#art-tree', x: col * TILE - 8, y: row * TILE - 16, width: TILE + 16, height: TILE + 16 }));
       }
     }
   }
@@ -49,7 +49,7 @@ export function thingAt(col, row) {
 export function placeThing(kind, col, row) {
   const data = TRAPS[kind] || { art: kind, does: kind };
   const g = el('g', { class: 'thing thing-' + kind, transform: `translate(${col * TILE} ${row * TILE})` });
-  g.appendChild(el('use', { href: '#art-' + (data.art || kind), width: TILE, height: TILE }));
+  g.appendChild(el('use', { href: '#art-' + (data.art || kind), width: TILE + 8, height: TILE + 8, x: -4, y: -6 }));
   document.getElementById('things').appendChild(g);
   const thing = { kind, col, row, el: g, used: false, held: [], crew: 0, hp: 3, does: data.does, data };
   state.things.set(key(col, row), thing);
@@ -66,7 +66,7 @@ export function removeThing(col, row) {
 }
 
 function drawGlow(thing) {
-  const r = (thing.data.reach || 2) * TILE;
+  const r = (thing.data.reach || 2) * TILE * 1.3;
   thing.glow = el('circle', {
     class: 'torch-glow', cx: thing.col * TILE + TILE / 2, cy: thing.row * TILE + TILE / 2, r,
   });
