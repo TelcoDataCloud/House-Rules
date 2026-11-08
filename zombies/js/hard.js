@@ -115,11 +115,11 @@ export function updateHard(dt) {
 // The vampire reaches a bed
 export function bite(z, v) {
   v.taken = true;
-  state.taken.push({ job: v.job, kind: z.kind });
+  state.taken.push({ job: v.job, kind: z.kind, name: v.name });
   v.el.remove();
   state.villagers = state.villagers.filter((p) => p !== v);
   burst(z.x, z.y - 0.8, 'CHOMP');
   blip('groan');
-  say(LINES.bitten);
+  say(LINES.bitten.replace('{name}', v.name), true);
   z.bedSince = 0;
 }

@@ -33,33 +33,35 @@
             (builders fix broken traps in the morning, or click
             one and pay a plank)
    needsJob a villager job that must live here before you can build it
+   what     one short line for kids: what it does (shows when you pick it)
+   from     Easy only: the first night this shows on the bar (1 if missing)
    =========================================================== */
 
 export const TRAPS = {
-  wall:    { name: 'Wall',      art: 'wall',    planks: 2, crew: 0, does: 'block' },
-  fence:   { name: 'Fence',     art: 'fence',   planks: 1, crew: 0, does: 'hold', seconds: 8 },
-  torch:   { name: 'Torch',     art: 'torch',   planks: 1, crew: 0, does: 'scare', reach: 2 },
-  mud:     { name: 'Mud pit',   art: 'mud',     planks: 1, crew: 0, does: 'slow', slow: 0.35 },
-  pit:     { name: 'Pit trap',  art: 'pit',     planks: 2, crew: 0, does: 'pit', holds: 3, uses: 2 },
-  brains:  { name: 'Brains',    art: 'brains',  planks: 2, crew: 0, does: 'circle' },
-  tramp:   { name: 'Trampoline', art: 'tramp',  planks: 3, crew: 0, does: 'bounce', tiles: 5, uses: 4 },
-  spin:    { name: 'Spin door', art: 'spin',    planks: 3, crew: 0, does: 'spin', seconds: 5, uses: 4 },
-  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop', uses: 1 },
-  honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3 },
-  scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3 },
-  log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1 },
-  bed:     { name: 'Bed',       art: 'bed',     planks: 2, crew: 0, does: 'bed' },
-  farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm' },
-  catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult' },
+  wall:    { name: 'Wall',      art: 'wall',    planks: 2, crew: 0, does: 'block', what: 'Zombies cannot get past it.' },
+  fence:   { name: 'Fence',     art: 'fence',   planks: 1, crew: 0, does: 'hold', seconds: 8, what: 'Holds a zombie for a bit, then he climbs over.' },
+  torch:   { name: 'Torch',     art: 'torch',   planks: 1, crew: 0, does: 'scare', reach: 2, what: 'Zombies walk away from the light.' },
+  mud:     { name: 'Mud pit',   art: 'mud',     planks: 1, crew: 0, does: 'slow', slow: 0.35, what: 'Zombies go slow in it.', from: 2 },
+  pit:     { name: 'Pit trap',  art: 'pit',     planks: 2, crew: 0, does: 'pit', holds: 3, uses: 2, what: 'Holds 3 zombies. Pour potion in tomorrow.' },
+  brains:  { name: 'Brains',    art: 'brains',  planks: 2, crew: 0, does: 'circle', what: 'One zombie walks round it all night.', from: 2 },
+  tramp:   { name: 'Trampoline', art: 'tramp',  planks: 3, crew: 0, does: 'bounce', tiles: 5, uses: 4, what: 'Boing! The zombie flies back.', from: 2 },
+  spin:    { name: 'Spin door', art: 'spin',    planks: 3, crew: 0, does: 'spin', seconds: 5, uses: 4, what: 'In, round, and back out. Confused.', from: 4 },
+  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop', uses: 1, what: 'A pumpkin on the head. He cannot see.', from: 4 },
+  honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3, what: 'Stuck fast for a while.', from: 3 },
+  scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3, what: 'Zombies think it is a villager and crowd it.', from: 3 },
+  log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1, what: 'Rolls along the row and knocks them over. Once.', from: 3 },
+  bed:     { name: 'Bed',       art: 'bed',     planks: 2, crew: 0, does: 'bed', what: 'A villager sleeps here. Zombies want these.' },
+  farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm', what: 'Carrots grow here. Carrots make potion.' },
+  catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult', what: 'Fling pumpkins or potion far. One villager has to work it.', from: 3 },
   // These only show on Hard
-  bell:    { name: 'Bell tower', art: 'bell',  planks: 5, crew: 1, does: 'bell', reach: 9, seconds: 6, hard: true },
-  garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'garlic', hard: true },
-  silver:  { name: 'Silver bell', art: 'silver', planks: 3, crew: 0, does: 'silver', reach: 4, hard: true },
-  ice:     { name: 'Ice slide', art: 'ice',     planks: 2, crew: 0, does: 'ice', tiles: 4, uses: 4, hard: true },
-  mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 20, uses: 2, hard: true },
-  dawn:    { name: 'Dawn mirror', art: 'dawn',  planks: 4, crew: 0, does: 'dawn', reach: 2, from: 0.7, hard: true },
-  sprinkler: { name: 'Sprinkler', art: 'sprinkler', planks: 6, crew: 2, does: 'sprinkler', reach: 2, seconds: 15, hard: true },
-  net:     { name: 'Giant net',  art: 'net',    planks: 4, crew: 0, does: 'net', needsJob: 'giant', hard: true },
+  bell:    { name: 'Bell tower', art: 'bell',  planks: 5, crew: 1, does: 'bell', reach: 9, seconds: 6, hard: true, what: 'Ring it and every zombie comes to look. One villager rings it.' },
+  garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'garlic', hard: true, what: 'Vampires cannot cross it.' },
+  silver:  { name: 'Silver bell', art: 'silver', planks: 3, crew: 0, does: 'silver', reach: 4, hard: true, what: 'The werewolf runs away from it.' },
+  ice:     { name: 'Ice slide', art: 'ice',     planks: 2, crew: 0, does: 'ice', tiles: 4, uses: 4, hard: true, what: 'Zombies slide right off it.' },
+  mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 20, uses: 2, hard: true, what: 'A zombie waves at himself for ages.' },
+  dawn:    { name: 'Dawn mirror', art: 'dawn',  planks: 4, crew: 0, does: 'dawn', reach: 2, from: 0.7, hard: true, what: 'Late in the night, zombies near it go home early.' },
+  sprinkler: { name: 'Sprinkler', art: 'sprinkler', planks: 6, crew: 2, does: 'sprinkler', reach: 2, seconds: 15, hard: true, what: 'Cures one zombie nearby now and then. Two villagers run it.' },
+  net:     { name: 'Giant net',  art: 'net',    planks: 4, crew: 0, does: 'net', needsJob: 'giant', hard: true, what: 'Catches Giant Gary. Needs a giant villager to set up.' },
 };
 
 // The things the village starts with. Row and column are squares

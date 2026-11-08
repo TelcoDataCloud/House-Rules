@@ -35,7 +35,7 @@ export function snotScreen() {
   s.classList.remove('on');
   void s.offsetWidth;
   s.classList.add('on');
-  setTimeout(() => s.classList.remove('on'), 5200);
+  setTimeout(() => s.classList.remove('on'), 1700);
 }
 
 export function clearFx() { fx().innerHTML = ''; }

@@ -24,6 +24,7 @@
    heavy     true means the spoon does not budge him
    size      how big to draw it (1 is normal)
    quiet     true means no groaning, he sneaks
+   tip       what the lookout says the first night this one comes
    bites     true means a villager he reaches turns, no carrying
    hates     a trap word he cannot pass: 'garlic' (data/traps.js)
    fears     what sends him running: 'silver' (the silver bell)
@@ -32,6 +33,7 @@
 export const ZOMBIES = {
   bob: {
     name: 'Plain Bob',
+    tip: 'Plain Bobs are slow. Whack, then potion.',
     art: 'bob',
     speed: 1.2,
     cure: 1,
@@ -41,15 +43,18 @@ export const ZOMBIES = {
   },
   hopper: {
     name: 'Hopper',
+    tip: 'Hoppers jump fences!',
     art: 'hopper',
     speed: 2.6,
     cure: 1,
     wants: 'farm',
+    jumps: true,
     line: ['boing', 'boing boing', 'wheee'],
     becomes: 'builder',
   },
   digger: {
     name: 'Digger',
+    tip: 'Diggers go under walls. Use mud or a pit.',
     art: 'digger',
     speed: 1.0,
     cure: 1,
@@ -60,6 +65,7 @@ export const ZOMBIES = {
   },
   snot: {
     name: 'Snot Bucket',
+    tip: 'Snot Buckets throw snot. Keep moving.',
     art: 'snot',
     speed: 1.1,
     cure: 1,
@@ -70,6 +76,7 @@ export const ZOMBIES = {
   },
   gasbag: {
     name: 'Gas Bag',
+    tip: 'Gas Bags let one go. Hold your nose.',
     art: 'gasbag',
     speed: 0.8,
     cure: 2,
@@ -80,6 +87,7 @@ export const ZOMBIES = {
   },
   bogey: {
     name: 'Bogey Bomber',
+    tip: 'Bogey Bombers flick. Ew.',
     art: 'bogey',
     speed: 2.2,
     cure: 1,
@@ -90,6 +98,7 @@ export const ZOMBIES = {
   },
   eyeball: {
     name: 'Eyeball Roll',
+    tip: 'Eyeball Roll chases his own eye.',
     art: 'eyeball',
     speed: 1.3,
     cure: 1,
@@ -100,6 +109,7 @@ export const ZOMBIES = {
   },
   loosebits: {
     name: 'Loose Bits',
+    tip: 'Whack Loose Bits and his arm comes off.',
     art: 'loosebits',
     speed: 1.2,
     cure: 1,
@@ -110,6 +120,7 @@ export const ZOMBIES = {
   },
   vomit: {
     name: 'Vomit Comet',
+    tip: 'Vomit Comet makes puddles. Everyone slides.',
     art: 'vomit',
     speed: 1.0,
     cure: 1,
@@ -120,6 +131,7 @@ export const ZOMBIES = {
   },
   burplord: {
     name: 'Burp Lord',
+    tip: 'The Burp Lord burps fences flat. Potion only.',
     art: 'burplord',
     speed: 0.7,
     cure: 2,
@@ -132,6 +144,7 @@ export const ZOMBIES = {
   },
   werewolf: {
     name: 'Werewolf',
+    tip: 'A werewolf! The silver bell sends him off.',
     art: 'werewolf',
     speed: 3.2,
     cure: 2,
@@ -143,6 +156,7 @@ export const ZOMBIES = {
   },
   vampire: {
     name: 'Vampire',
+    tip: 'A vampire! Garlic stops him. Torches too.',
     art: 'vampire',
     speed: 1.7,
     cure: 2,
@@ -155,6 +169,7 @@ export const ZOMBIES = {
   },
   giant: {
     name: 'Giant Gary',
+    tip: 'Giant Gary. Only the catapult reaches him.',
     art: 'giant',
     speed: 0.5,
     cure: 3,
