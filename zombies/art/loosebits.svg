@@ -1,0 +1,105 @@
+<!-- loosebits: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Panicked hopping block zombie</title>
+<defs>
+<linearGradient id="loosebits-skin" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#ceff43" /><stop offset="1" stop-color="#a5d916" />
+</linearGradient>
+<linearGradient id="loosebits-shirt" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#ff9414" /><stop offset="1" stop-color="#ff7900" />
+</linearGradient>
+</defs>
+
+<g stroke="#080a04" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+
+<path d="M342 604 446 610 468 703 409 770 374 768 344 880 228 858 174 751 204 682 285 676Z" fill="#a9df20" />
+<path d="m341 632 60 19 13 69-70 160-47-120 25-67-36-17Z" fill="#739c08" stroke="none" />
+<path d="m205 684 80-8 36 18-25 67-120-10Z" fill="#caff4b" stroke="none" />
+<path d="m176 751 120 10 48 119-116-22Z" fill="#4b6700" stroke="none" />
+<path d="m285 676 37 18 26 57" fill="none" stroke-width="10" />
+
+<path d="m546 704 139 53-42 100-21 37-36 35 24 34-15 48-117 1-13-55 27-81Z" fill="#a2d31c" />
+<path d="m543 805-53 125 4 33-16 49-13-55 27-81Z" fill="#668b05" stroke="none" />
+<path d="m594 864-8 65-50 1 29-74Z" fill="#5a7a04" stroke="none" />
+<path d="m490 930 96-1 24 34-116 0Z" fill="#b9ed32" stroke="none" />
+<path d="m494 963 116 0-15 48-117 1Z" fill="#749600" stroke="none" />
+
+<path d="M338 581 Q399 557 453 580 L522 596 657 650 703 747 688 785 662 771 650 792 626 784 609 835 634 837 644 871 636 897 600 895 563 906 555 884 535 884 557 825 521 835 524 819 483 841 530 724 460 716 409 770 407 731 418 688 408 652 383 637 340 657 345 626 286 642Z" fill="#85401f" />
+<path d="m338 581-52 61 59-16-5 31 43-20 25 15 10 36-11 43 57-72 46 27 23-84-80-22Q391 559 338 581Z" fill="#8e4827" stroke="none" />
+<path d="m460 716 4-57 46 27 29 23 24-39 64 47 61 68-26-14-12 21-24-8-18 51-28 45 13-67-36 12-36 10 3-16-41 22 47-117Z" fill="#693016" stroke="none" />
+<path d="m541 772-36 49-22 20 47-117 34 5 26 35 32-39 40 46-12 21-24-8-18 51 26 2 10 34-8 26-36-2-37 11-8-22-20 0 22-59-36 10Z" fill="#85401f" stroke="none" />
+
+<path d="m324 363 104 39 197-26 119-28 43 10 62 17-18 15 24 30-41 6-7 102-34-21-14 19-38-18 42 217-52-22-20 80-70-107-26 43-47-25 6-32-43 29 15-88-58 0 28-51-77 27 27-79-62 17-2-20-56 38-14-1-6-16-44 18-5-40-47 1 1-46 51-94Z" fill="url(#loosebits-shirt)" />
+<path d="m217 474 1 43 47-1 0 27 49-28 16 20 34-42 36-7-22 36 53-13 22-34 17 10 68-15 13-60-113-8-104-39-54 35Z" fill="#c95806" stroke="none" />
+<path d="m653 398 91-50 43 10-18 14-17 40-88 30Z" fill="#c95203" stroke="none" />
+<path d="m707 447 27 61 25 18 14-19 34 21-19-62-42 20Z" fill="#c75703" stroke="none" />
+<path d="m704 559 34 86 25 80-52-22-20 80-70-107 69 78Z" fill="#dd6200" stroke="none" />
+<path d="m513 438 1 31 38 5 0 36 26 0 23 40 13-62 41-4 5-79Z" fill="#a8db20" stroke-width="10" />
+<path d="m514 469 37 5 102-27 7-42-147 33Z" fill="#507700" stroke="none" />
+<path d="m635 574 29 5 10-16 24 2 3 51-17 4-12 47-28-34-27 4Z" fill="#a5d71c" stroke-width="9" />
+<path d="m635 574 29 5 10-16 24 2 1 25-23 2-10 17-30-4-9 30-10 2Z" fill="#608703" stroke="none" />
+
+<path d="M792 389 Q841 398 832 448 827 477 799 490 L787 456 787 421Z" fill="#729b06" stroke-width="11" />
+<path d="m805 406 14 13-5 33-14 17-8-31Z" fill="#95bd12" stroke="none" />
+<g fill="none" stroke="#0b1005" stroke-width="19">
+<path d="m793 388 23 16" /><path d="m775 421 25 14" /><path d="m766 458 25 9" />
+</g>
+<g fill="none" stroke="#fff3b0" stroke-width="11">
+<path d="m793 388 23 16" /><path d="m775 421 25 14" /><path d="m766 458 25 9" />
+</g>
+
+<path d="m328 460-28 4 7 16-11 17-8-12-50-21-70-45-29 6-32-20-27 39-51-9-5-43 33-44 76-5-37-46-13 27-49-13 4-47 25-23 31-25 43 20-2-29 23-31 53-10 35 28-29 59 5 39 12 34 64-2 9 42 22 6Q344 411 328 460Z" fill="url(#loosebits-skin)" />
+<path d="m39 264 47 15-3 45-49-13Z" fill="#99cb17" stroke="none" />
+<path d="m86 279 43-29 19 49-52-2Z" fill="#739c08" stroke="none" />
+<path d="m141 210 47 8 3 45-53-5Z" fill="#98ca13" stroke="none" />
+<path d="m188 218 59-20-29 59-27 6Z" fill="#557900" stroke="none" />
+<path d="m150 264 23 50-5-53Z" fill="#1f3200" stroke="none" />
+<path d="m123 298 38 38-28 24-21-18Z" fill="#86b10e" stroke="none" />
+<path d="m110 350 23 10 27-28 51-27 16 29-38 42-32 49-20-2-29-20-28 41-3-44-53-8 33-44Z" fill="#a1d01b" stroke="none" />
+<path d="m77 400 35-31 21 1-13 34-13 1-27 39Z" fill="#608807" stroke="none" />
+<path d="m157 425 31-49 42-39 7 33 59 24-51 20-30 25Z" fill="#759d08" stroke="none" />
+<path d="m190 431 55-17 55 36 28-2 0 12-28 4 7 16-11 17-8-12-50-21Z" fill="#628703" stroke="none" />
+<path d="m225 328 47-6 26 4 2 64-29 10-32-5-18-15Z" fill="#cdff42" stroke-width="11" />
+<path d="m268 328 30-2 2 64-29 10-32-5-18-15 47-3Z" fill="#9ed31b" stroke="none" />
+
+<path d="m349 223-50 14 28 101 59-4Z" fill="#96be17" />
+<path d="m311 264 39-6 17 47-31 4Z" fill="#607e04" stroke="none" />
+
+<path d="M313 90 336 56 Q488 14 671 12 L738 67 753 351 745 387 428 455 346 252Z" fill="#aee21c" />
+<path d="m671 12 67 55 15 284-8 36-38-190Z" fill="#557900" stroke="none" />
+<path d="m313 90 23-34 70-16 1 36-31 6 0 28-22 5-7-30Z" fill="#547603" stroke-width="7" />
+<path d="m348 117 29-7-1-28 31-6-1-36Q544 15 671 12L745 387 428 455 346 252 313 90 347 85Z" fill="url(#loosebits-skin)" stroke="none" />
+<path d="m349 116 27-6 0-28 31-6-1-30" fill="none" stroke-width="7" />
+<path d="m729 168 57-7 11 18-2 98-61 11" fill="#9fce18" />
+<path d="m751 203 31-5 5 49-32 4Z" fill="#5e8103" stroke="none" />
+<path d="m782 168 15 11-2 98-13-30Z" fill="#779d08" stroke="none" />
+
+<path d="m381 253 22-23 105-4 4 27-113 46-19-24Z" fill="#7ba50b" stroke="none" />
+<path d="m554 204 129-20 6 42-80 7-46-9Z" fill="#698c06" stroke="none" />
+
+<path d="M368 169 Q422 138 479 131 Q503 167 513 231 L398 270 Q374 232 368 169Z" fill="#fffbdc" stroke-width="11" />
+<path d="M553 115 Q607 95 657 108 Q678 153 676 203 L566 219 Q546 180 553 115Z" fill="#fffbdc" stroke-width="10" />
+<path d="M377 220 Q404 257 425 255 L506 230 398 270Z" fill="#f3e5ac" stroke="none" />
+<path d="m558 179 21 31 94-13 3 6-110 16Z" fill="#f3e5ac" stroke="none" />
+<path d="m455 191 15-4 6 17-17 5Z" fill="#050702" stroke-width="6" />
+<path d="m585 162 15-3 4 17-16 3Z" fill="#050702" stroke-width="6" />
+<path d="M398 126 Q447 108 469 71 L480 94 Q449 129 405 143Z" fill="#050702" stroke-width="4" />
+<path d="m556 54-2 26q48 22 109 24l-6-21q-57 0-101-29Z" fill="#050702" stroke-width="4" />
+
+<path d="m509 213 47-12 15 49-51 14Z" fill="#91b915" stroke="#314800" stroke-width="7" />
+<path d="m511 215 11 35 43-9-9-40Z" fill="#a9d424" stroke="none" />
+<path d="m520 264 48-12" fill="none" stroke="#4b6a03" stroke-width="8" />
+
+<path d="M442 299 644 245 Q675 234 688 271 Q709 318 711 344 Q713 361 691 368 L480 419 Q451 425 441 402 Q424 367 420 329 Q415 307 442 299Z" fill="#4b0013" stroke-width="10" />
+<path d="M511 372 Q540 338 572 353 Q612 315 651 344 L681 368 548 401Z" fill="#e7384c" stroke="none" />
+<path d="M528 368 Q553 350 578 365 Q606 332 646 344 L662 374 547 402Z" fill="#f64759" stroke="none" />
+<g fill="#fffbda" stroke-width="6">
+<path d="m452 299 49-8 8 42-47 8Z" />
+<path d="m544 281 49-15 11 42-43 14Z" />
+<path d="m615 256 29-11q10-3 17 2l9 32-39 13Z" />
+<path d="m490 380 40-11 15 34-48 12Z" />
+<path d="m637 345 41-11q5-1 7 6l8 29-47 10Z" />
+</g>
+<path d="m455 303 47-8 3 13-47 8Zm93-18 45-14 4 13-45 15Zm72-25 25-9 15-1 3 10-38 13Z" fill="#eee0a7" stroke="none" />
+</g>
+</svg>
