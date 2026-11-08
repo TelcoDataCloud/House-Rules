@@ -1,11 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100">
-<g class="stars"><text x="40" y="6" font-size="16" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="18" y="76" width="18" height="24" rx="4" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="44" y="76" width="18" height="24" rx="4" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="12" y="38" width="56" height="40" rx="8" fill="var(--zombie-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="0" y="42" width="13" height="30" rx="5" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="67" y="42" width="13" height="30" rx="5" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="14" y="4" width="52" height="36" rx="9" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="24" y="14" width="10" height="10" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="44" y="12" width="9" height="12" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="29" cy="19" r="2.5" fill="var(--ink)"/><circle cx="49" cy="18" r="2.5" fill="var(--ink)"/>
-<path d="M26 30 h26" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-</g></svg>
+<!-- giant: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy green zombie giant</title>
+<defs>
+<linearGradient id="giant-skin" x1="0" y1="0" x2=".7" y2="1">
+<stop stop-color="#a9df39" />
+<stop offset="1" stop-color="#8ecb2c" />
+</linearGradient>
+<linearGradient id="giant-purple" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#8d30b2" />
+<stop offset="1" stop-color="#65218a" />
+</linearGradient>
+</defs>
+
+<g stroke="#080b05" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
+<g id="giant-legs">
+<path d="M149 603L361 566 458 633 447 828 318 905 77 810Z" fill="url(#giant-skin)" />
+<path d="M368 600L458 647 446 826 343 775Z" fill="#5a8b19" stroke="none" />
+<path d="M88 798Q183 686 348 735L402 793 193 845Z" fill="#608f1c" stroke="none" />
+<path d="M567 630L694 569 856 612 911 797 756 880 553 839Z" fill="url(#giant-skin)" />
+<path d="M567 638L658 603 678 736 554 834Z" fill="#5a8e19" stroke="none" />
+<path d="M678 735Q809 697 901 787L784 818Z" fill="#608f1c" stroke="none" />
+</g>
+<g id="giant-shorts">
+<path d="M214 441L338 420 713 425 796 455 889 620Q901 643 904 674L877 702 852 653 855 676 812 663 799 626 742 623 733 596 643 618 648 651 600 672 594 649 561 675 562 696 547 737 529 722 525 635 494 635 483 711 458 723 451 680 437 645 439 663 400 635 405 604 363 590 327 589 315 626 258 632 266 601 194 616 185 645 141 660 145 642 118 697 97 672Q90 662 101 641Z" fill="url(#giant-purple)" />
+<path d="M325 452Q406 498 445 558L438 650 466 705 492 635 497 583 570 581 530 630 530 713 550 729 561 694 560 677 596 650 588 567Q634 502 702 472L586 469 449 486Z" fill="#4a1b64" stroke="none" />
+<path d="M496 584L494 633 529 633 571 580 528 628 496 628Z" fill="#251132" stroke="none" />
+<path d="M178 530L249 505 222 565 148 593Z" fill="url(#giant-skin)" stroke-width="7" />
+<path d="M746 528L821 543 848 597 765 581Z" fill="url(#giant-skin)" stroke-width="7" />
+<path d="M179 531L247 507 239 524 183 545 158 586 149 592Z" fill="#57841a" stroke="none" />
+<path d="M748 530L821 544 828 557 756 541Z" fill="#59891b" stroke="none" />
+</g>
+<g id="giant-torso">
+<path d="M274 125L333 91 392 93Q418 78 430 93L477 85 580 87 614 97 695 98 755 133 789 226 752 315 819 418 826 448 804 473 765 452 749 468 622 510 454 514 308 460 288 435 211 463 190 440 190 423 263 281 239 208Z" fill="#06bfc4" />
+<path d="M275 144L319 166 338 208 293 287 251 333 209 416 191 432 258 394 276 355 333 336 350 287 386 280 378 309 419 302 431 265 457 206 420 211 425 192 382 200 385 174 415 108 468 103 571 103 624 110 659 174 653 197 643 192 648 214 625 210 646 257 664 266 678 309 708 318 703 292 721 304 755 393 786 413 806 468 823 447 796 417 747 326 703 221 699 177 662 121 635 103 699 104 750 134 781 214 751 313 817 421 804 439 785 420 767 454 752 466 620 509 454 512 308 458 288 435 212 460 226 425 258 396 272 358 333 336 350 288 386 279 378 309 419 302 431 265 442 260 454 214 419 216 422 194 382 201 337 213 324 179 290 151Z" fill="#008e91" stroke="none" />
+<path d="M416 106L472 101 575 103 624 110 661 174 651 200 640 195 648 214 626 211 646 258 663 267 678 308 707 317 703 294 721 305 755 393 787 415 798 458 764 451 750 467 622 510 454 514 308 460 288 435 210 461 224 426 257 395 272 358 333 337 350 288 386 279 378 309 420 302 431 265 441 260 456 206 420 212 424 192 382 199 384 174Z" fill="url(#giant-skin)" stroke-width="6" />
+<path d="M385 174L534 165 659 174 651 200 640 195 649 213 534 169 420 205 424 192 383 199Z" fill="#62901b" stroke="none" />
+<path d="M293 366Q334 409 397 429 555 414 685 429L752 393 785 416 795 455 764 446 750 462 621 506 455 508 310 454 284 414 294 435 215 455 225 428 259 400 272 359Z" fill="#5e8d18" stroke="none" />
+<path d="M441 261Q553 229 648 259" fill="none" stroke-width="6" />
+<path d="M522 362L566 361 566 390 522 391Z" fill="#467511" stroke="none" />
+<path d="M273 142L296 152M311 167L322 181M339 201L340 176 365 136M381 111L397 94M609 99L637 105 654 116M704 210L713 181 736 159" fill="none" stroke-width="5" />
+</g>
+<g id="giant-left-arm">
+<path d="M273 143Q313 150 331 209L290 293 238 331 159 345Q149 345 138 332L98 283 87 214 120 164 202 156Z" fill="url(#giant-skin)" />
+<path d="M101 256L148 281 235 218 269 251 325 209 290 291 236 327 160 338 124 300Z" fill="#5c8a1b" stroke="none" />
+<path d="M98 280L51 284 17 266Q7 261 6 247L10 207Q11 190 27 192L89 197 31 171 11 145Q5 136 13 126L44 94Q52 84 63 92L120 134 88 61Q83 51 94 42L131 23Q145 16 152 26L174 61 196 108 216 68Q221 56 234 56L258 55Q267 55 275 67L292 93Q298 104 292 115L248 165 242 191 229 215 153 273 126 287Z" fill="url(#giant-skin)" />
+<path d="M104 91L166 60 184 109 137 139Z" fill="#5c8a1d" stroke="none" />
+<path d="M167 81L181 108 151 128 138 108 142 98Z" fill="#527e17" stroke="none" />
+<path d="M42 161L83 128 125 160 98 195Z" fill="#6b9b21" stroke="none" />
+<path d="M18 210L61 211 58 238 93 233 94 266 49 279 54 247 59 210Z" fill="#63931c" stroke="none" />
+<path d="M221 67L251 107 288 101 244 153 219 144 199 112Z" fill="#62911b" stroke="none" />
+<path d="M98 216L103 258 128 273 236 193 226 216 152 276 126 287 98 278Z" fill="#416c15" stroke="none" />
+</g>
+<g id="giant-right-arm">
+<path d="M752 148Q718 165 700 213L737 286 777 332 852 350Q867 351 880 335L927 279 938 220 902 159 815 151Z" fill="url(#giant-skin)" />
+<path d="M738 228L764 261 805 214 838 251 907 281 877 331 856 344 782 329 740 280 708 217Z" fill="#59891b" stroke="none" />
+<path d="M926 281L969 291Q978 296 988 288L1009 275Q1018 269 1017 254L1015 225Q1014 212 1001 211L943 205 1000 181Q1007 179 1011 168L1018 149Q1022 141 1013 133L987 110Q978 103 968 110L919 147 950 76Q955 64 943 57L909 40Q895 33 888 44L868 82 847 119 823 92Q817 84 806 86L779 89Q770 90 764 101L751 125Q745 136 753 147L791 185 799 213 818 237 894 282 922 290Z" fill="url(#giant-skin)" />
+<path d="M878 75L938 100 916 147 886 128 863 110Z" fill="#5a871a" stroke="none" />
+<path d="M913 93L930 102 913 139 894 126 906 111Z" fill="#527c18" stroke="none" />
+<path d="M920 164L960 137 998 165 940 193Z" fill="#699a21" stroke="none" />
+<path d="M752 138L791 135 822 163 843 127 811 182 799 202 790 182Z" fill="#56831a" stroke="none" />
+<path d="M938 212L975 227 975 280 942 269 933 249Z" fill="#6b9d21" stroke="none" />
+<path d="M800 204L823 225 898 270 916 268 937 249 929 277 916 291 896 287 816 241 799 216Z" fill="#416d15" stroke="none" />
+</g>
+<g id="giant-head">
+<path d="M461 107L456 18 472 9 487 10 491 7 508 7 514 11 530 9 529 6 560 5 565 12 568 107 549 116 492 113Z" fill="#709e23" stroke-width="8" />
+<path d="M457 19L472 12 476 110 462 108Z" fill="#3d6413" stroke="none" />
+<path d="M478 14L488 14 488 23 504 21 504 12 515 15 516 27 530 26 530 17 545 16 546 24 559 24 559 11 535 11 535 16 513 17 505 11 491 13 491 18 479 18Z" fill="#31580c" stroke="none" />
+<path d="M464 30L474 26 475 40 466 42 466 61 461 61M480 40L480 29 490 29 490 36M548 28L559 27 560 38 550 38" fill="none" stroke="#486e15" stroke-width="6" stroke-linecap="butt" />
+<path d="M482 42L509 37 514 64 485 70Z" fill="#fff" stroke-width="4" />
+<path d="M526 35L553 30 558 57 532 63Z" fill="#fff" stroke-width="4" />
+<path d="M499 48L504 48 504 54 499 54ZM536 43L541 43 541 49 536 49Z" fill="#080b05" stroke="none" />
+<path d="M488 100L489 80Q490 74 503 73L541 72Q552 73 554 84L556 101Z" fill="#340e05" stroke-width="4" />
+<path d="M503 90L514 89 514 99 503 99ZM527 72L537 72 537 81 528 81Z" fill="#e7df7e" stroke="none" />
+<path d="M535 94Q545 87 551 94 558 99 559 111 558 120 549 118L540 114Z" fill="#ef5262" stroke="#5e1d17" stroke-width="3" />
+<path d="M547 97L550 111" fill="none" stroke="#b92f42" stroke-width="3" />
+</g>
+<g id="giant-feet">
+<path d="M80 800Q41 824 30 864 9 892 8 915L8 960Q8 980 35 981L52 978Q54 998 86 998L113 993Q118 1010 154 1010L191 1005Q199 1016 239 1016L278 1013 305 998Q315 1017 349 1017L449 1015Q488 1013 490 975L491 907Q493 846 450 800 406 746 351 735 223 727 80 800Z" fill="url(#giant-skin)" />
+<path d="M13 908L49 917 54 974 34 978Q12 976 12 956ZM57 921L107 924 112 988Q89 1002 59 989ZM118 922L193 924 195 1001Q160 1012 119 999ZM202 923L286 925 302 900 305 980 282 1008Q242 1021 201 1006ZM313 918L454 917 480 879 487 903 485 974Q484 1007 449 1009L344 1010Q311 1009 311 985Z" fill="#79ad23" stroke="none" />
+<path d="M14 910L32 914 33 975 14 968ZM118 925L137 926 137 1004 119 998ZM202 925L225 925 222 1010 203 1005ZM315 919L337 918 337 1009Q312 1005 313 983ZM455 919L483 887 487 914 484 976Q483 1000 456 1008Z" fill="#609119" stroke="none" />
+<path d="M32 865Q54 852 78 869M51 975L52 921Q61 891 80 868 103 853 128 869M113 992L114 924 146 862Q178 848 206 867M194 1003L196 924 225 856Q267 837 299 858M305 997L307 918 330 843Q386 819 443 845" fill="none" stroke-width="7" />
+<path d="M552 823Q590 762 669 740 768 718 900 788L956 826Q973 841 981 864 1014 887 1016 914L1016 960Q1017 981 974 983 967 998 938 997L912 993Q902 1010 866 1009L831 1005Q814 1018 779 1016L742 1014 718 1000Q703 1018 671 1017L572 1013Q534 1011 530 976L530 909Q527 862 552 823Z" fill="url(#giant-skin)" />
+<path d="M538 881L570 917 713 916 718 981Q713 1009 674 1011L572 1008Q539 1006 537 975ZM738 925L826 924 834 994Q815 1015 745 1009L722 985 720 902ZM838 924L909 924 913 990Q885 1010 837 1001ZM919 924L970 918 974 978Q958 1000 919 988ZM980 918L1010 908 1011 956Q1013 977 981 977Z" fill="#79ad23" stroke="none" />
+<path d="M537 883L569 917 569 1005Q540 1001 537 974ZM740 926L760 925 761 1012 742 1008 725 993ZM838 925L855 925 854 1005 837 1001ZM921 925L936 923 936 990 919 988ZM981 920L995 916 995 973 979 977Z" fill="#63931c" stroke="none" />
+<path d="M718 998L720 917 696 845Q650 818 583 844M831 1004L831 924 802 861Q766 839 728 857M912 992L914 925 879 864Q844 850 820 867M974 979L975 919 945 870Q919 855 895 869M981 864Q959 858 948 868" fill="none" stroke-width="7" />
+</g>
+</g>
+</svg>

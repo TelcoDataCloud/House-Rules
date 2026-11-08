@@ -1,13 +1,95 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="15" cy="10" r="2" fill="var(--ink)"/><circle cx="25" cy="10" r="2" fill="var(--ink)"/><path d="M15 14 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-<rect x="5" y="-1" width="30" height="7" rx="3" fill="var(--fur)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<!-- giantfriend: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
 
-</g></svg>
+<g stroke="#100d09" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+<g id="giantfriend-hair">
+<path d="M251 304 226 267 250 231 206 235 220 187 259 164 284 123 246 129 271 66 318 55 352 43 338 14 424 8 489 10 514 32 512 11 561 39 560 48 596 49 622 100 666 116 656 151 690 201 658 226 637 214 660 258 611 281 586 318Z" fill="#713109" />
+<path d="m252 119 28-42 76-17 39-33 91-10-121 10 7 18 44-2-62 18-32 32 21-14-38 62-23 31 12-49Z" fill="#cc6a23" stroke="none" />
+<path d="m221 223 13-31 48-22-10 36 30-8-18 45-29 16 15-43Z" fill="#b25a1e" stroke="none" />
+<path d="m305 166 28-34 7 115-20 21 13 30-71 6 12-44 27-12Z" fill="#512306" stroke="none" />
+<path d="m592 159 41 12 24 24-30-9 8 42-18 28-27 22Z" fill="#4b2108" stroke="none" />
+</g>
+<g id="giantfriend-legs">
+<path d="m210 787-28 118-31 15-9 92h266l2-84 16-128Z" fill="#663720" />
+<path d="m352 803-12 96 60 29 24-121Z" fill="#442311" stroke="none" />
+<path d="m151 919 34-20 153 1 67 28-1 82H143Z" fill="#793b17" />
+<path d="m186 905-26 19 161 5 20-23Z" fill="#a05225" stroke="none" />
+<path d="m324 930 77 4-2 69h-79Z" fill="#5d290c" stroke="none" />
+<path d="m494 799 17 126-6 8 1 79h282l-7-94-34-18-22-107Z" fill="#65351f" />
+<path d="m507 815 67-5 15 93-74 23Z" fill="#472211" stroke="none" />
+<path d="m510 928 71-27 167-2 33 19 6 94H505v-80Z" fill="#793c19" />
+<path d="m585 906 17 21 166-1-23-19Z" fill="#a15428" stroke="none" />
+<path d="m513 936 80-27 10 95h-91Z" fill="#602c10" stroke="none" />
+</g>
+<g id="giantfriend-body">
+<path d="m217 303 104-17 73 26 163-6 43-15 64-35 65 58-26 197 5 130 49 166-36 10-140-24-86 18-14-98h-15l-22 99-173-27-95 22 46-118 50-89 9-53-19-139Z" fill="#874329" />
+<path d="m226 310 72-13 42 23 34 40 57 12 10 37 42 5 13 52 12-54 38-4 22-58 53-10-29 183-58 13-17 80 12 76 18 53 38-9-31-132 60 30 52 45 7 22 66 10-14-57-12-117 26-184-42-27-25 7-54 31-72 5-36 16-66-14-54-21-34-18Z" fill="#60301c" stroke="none" />
+<path d="m297 347 20 131 70-1-55 45-53 20 11-65 15-117Z" fill="#a75a39" stroke="none" />
+<path d="m321 627-47 149 28-126 18-23 78-8Z" fill="#ac6040" stroke="none" />
+<path d="m410 611-42 136 36 5 40-143Z" fill="#63301b" stroke="none" />
+<path d="m389 325 7 21 31 10 5 31 40 6 14 51 10-1 9-53 23-4 3-37 29-11-3-24Z" fill="#f6a367" stroke="none" />
+<path d="m403 335 151-15-7 30-45 22-71-4-1-16Z" fill="#cf7143" stroke="none" />
+<path d="m278 552 56-10 192-4 70 13-9 59-75-9-182 4-65 13Z" fill="#492612" />
+<path d="m335 548-8 51 230-3 7-47Z" fill="#693a20" stroke="none" />
+<path d="m419 529 107-2 1 90H415Z" fill="#edaa36" stroke-width="9" />
+<path d="m428 540 89-5v12h-78v59h-12Z" fill="#ffd16b" stroke="none" />
+<path d="M446 555h53v33h-53Z" fill="#633619" stroke-width="7" />
+</g>
+<g id="giantfriend-left-arm">
+<path d="m134 309 32-5 58 3 72 47-17 85-20 119-22 13-58-11-151-46 44-96Z" fill="#874329" />
+<path d="m139 315 20 1-60 166-60 29Z" fill="#b45e3e" stroke="none" />
+<path d="m260 344 30 17-17 68-32 85-31-47Z" fill="#68301b" stroke="none" />
+<path d="m48 518 51-32 138 52-12 115 1 52-49 74-13 3-131-31-19-40 5-66Z" fill="#ffa46b" />
+<path d="m52 530 45-27-14 163-60 43Z" fill="#ffc080" stroke="none" />
+<path d="m83 666 136 37-48 69-134-28Z" fill="#cb6c40" stroke="none" />
+</g>
+<g id="giantfriend-face">
+<path d="m332 142 47-46 141-19 60 41 12 56 5 136-41 20-202 2-17-9-7-76Z" fill="#ffac72" />
+<path d="m342 148 30-33 45-6-22 32 64 10 24-57 65-2 26 49 11 78 8 15-1-86-23-49-64-25-90 21-70 37Z" fill="#ea8a51" stroke="none" />
+<path d="m341 233 28-8h60v13h-96Z" fill="#ffbe83" stroke="none" />
+<path d="m509 220 62-2 20 13h-80Z" fill="#ffc184" stroke="none" />
+<path d="m366 175 66-3v51l-63 3Z" fill="#fff" stroke="none" />
+<path d="m497 170 66-3v52l-65 2Z" fill="#fff" stroke="none" />
+<path d="m398 186 34-2v39l-32 1Z" fill="#196e2a" stroke="none" />
+<path d="m498 183 33-1 2 38h-35Z" fill="#14662a" stroke="none" />
+<path d="m366 177 65-1v11l-64 5Zm132-6 65-2v14l-65-1Z" fill="#b8c3bd" stroke="none" />
+<path d="m356 147 82-2 1 25-82 4Zm135-3 70-6 9 13v15l-78 1Z" fill="#3b1d0c" stroke-width="10" />
+<path d="M380 257c17 23 54 26 83 26 40 0 79-8 91-31" fill="none" stroke="#48200b" stroke-width="12" />
+<path d="m441 195 55-3 13 108-16 5-56-1Z" fill="#e98b54" stroke="#a65329" stroke-width="9" />
+<path d="m443 201 47-1 10 94-57 3Z" fill="#ef975e" stroke="none" />
+<path d="m439 302 64-3" fill="none" stroke="#7f371b" stroke-width="10" />
+<path d="m285 165 21-49-57 12 25-58 78-22-13-33 83-6 67 4 31 27-7-27 48 28-3 11 36-1 28 63 38 15-9 29-35-12 8 33-35-10-18-46-11-26-39 7-40-2-22 33-43-1 9-42-24 18-21 27-42 3-24 43Z" fill="#944513" stroke-width="9" />
+<path d="m277 79 75-17-31 34 58-36 33-1-32 15-28 29-16 27 11-35 20-27-27 6-34 11-28 27-21 8Z" fill="#cb7029" stroke="none" />
+<path d="m428 80 11-5-13 45 30-1 22-35 22-19-10 27-17 24-12 14-44-1Z" fill="#6e2e09" stroke="none" />
+<path d="m528 68 28-13 33 3 16 43 13 42-31-9-18-46-10-8-34 8Z" fill="#b35a1c" stroke="none" />
+</g>
+<path id="giantfriend-right-sleeve" d="m854 240 24-9 60 22 37 64 33 68-17 31-129-28-40-71Z" fill="#874128" />
+<path d="m880 243 48 19 61 112-75-44-42 31Z" fill="#a85736" stroke="none" />
+<g id="giantfriend-wall">
+<path d="m552 308 57-29 36 13 1 38 9-5v-61l61-32 31 13 12 39v-73l65-29 36 19-1 102-36 41-263 110Z" fill="#afb2b4" />
+<path d="m566 313 39-19-2 44 24-9v38l-60 31Zm104-43 36-18v47l17-9v37l-53 25Zm105-51 37-15 1 41 15-5v42l-53 27Z" fill="#d0d2d2" stroke="none" />
+<path d="m825 190 29 17-2 91-28-15Zm-109 51 27 11v31l-27 11Zm-102 46 24 10-1 36-23 10Z" fill="#858c93" stroke="none" />
+<path d="m550 402 271-122 45 19v41l-43 12-2 205-84 49 58 21-67 41-160-30-13-208Z" fill="#975317" />
+<path d="m611 412 172-69 7 223-164 66Z" fill="#afb4b9" stroke-width="9" />
+<path d="m618 424 160-67 2 25-161 68Z" fill="#848e98" stroke="none" />
+<g fill="none" stroke="#737e88" stroke-width="10" stroke-linecap="butt">
+<path d="m619 491 163-66M624 556l161-71M628 613l157-67M701 391l3 64M661 475l3 64M746 439l4 61M705 522l3 60" />
+</g>
+<path d="m568 441 43-20 10 197-49 18Z" fill="#ba7528" stroke-width="8" />
+<path d="m575 445 15-6 8 179-20 8Z" fill="#df9637" stroke="none" />
+<path d="m781 345 40-17 28 13-2 111-27 62-31 35Z" fill="#bd7729" stroke-width="8" />
+<path d="m790 348 22-8v178l-16 19Z" fill="#d78b31" stroke="none" />
+<path d="m547 402 274-121 44 18v40l-43-16-274 117Z" fill="#e69a32" stroke-width="10" />
+<path d="m556 406 258-115 1 27-258 111Z" fill="#f5b34b" stroke="none" />
+<path d="m823 291 32 12v26l-29-12Z" fill="#cc7d21" stroke="none" />
+<path d="m579 637 201-73 39 34-123 64Z" fill="#764015" stroke-width="8" />
+<path d="m609 640 173-64 16 19-141 54Z" fill="#975b25" stroke="none" />
+</g>
+<g id="giantfriend-holding-arm">
+<path d="m914 333 67 40 27 65-42 84-43 71-103 43-12-1-39-33-29-44-2-54 79-44 37-62Z" fill="#ffa56c" />
+<path d="m746 509 86-46 63-101 24-13 2 23-74 127-99 56Z" fill="#ffbd80" stroke="none" />
+<path d="m747 559 99-60 70 89-99 41-13-5-40-39Z" fill="#cd6e43" stroke="none" />
+<path d="m852 495 68 89 39-66 40-80-24-56-51-27Z" fill="#f9a069" stroke="none" />
+</g>
+</g>
+</svg>

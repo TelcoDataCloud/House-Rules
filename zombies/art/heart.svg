@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M20 36 l-14 -14 q-5 -9 4 -13 q6 -2 10 5 q4 -7 10 -5 q9 4 4 13z" fill="currentColor" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- heart: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Chunky red voxel heart</title>
+
+<g stroke-linejoin="round">
+<path d="M21 253 98 208 98 113 247 31 454 80 458 179 519 216 573 179 573 91 767 27 947 103 947 217 1003 243 1003 528 915 573 915 679 781 735 782 804 639 862 639 923 485 1006 333 930 333 865 208 813 208 731 98 689 98 572 21 546Z" fill="#ff0000" stroke="#050504" stroke-width="31" />
+<g fill="#ff3e40">
+<path d="M36 261 113 216 113 123 249 47 440 92 334 173 113 123 113 216 77 276Z" />
+<path d="M587 101 767 43 932 113 783 189Z" />
+<path d="M346 254 444 190 520 234 587 190 663 234 500 341Z" />
+<path d="M789 312 935 228 987 253 843 341Z" />
+</g>
+<path d="M334 173 440 92 444 190 346 254Z" fill="#a40003" />
+<path d="M783 189 932 113 935 228 789 312Z" fill="#a30003" />
+<path d="M843 341 987 253 987 519 843 586Z" fill="#b60002" />
+<path d="M113 559 180 577 182 653 331 680 331 795 485 857 485 989 348 920 348 856 223 803 223 720 113 679Z" fill="#bb0003" />
+<path d="M485 857 595 795 595 690 719 702 719 564 843 586 900 560 900 669 762 722 766 794 624 850 624 913 485 989Z" fill="#980002" />
+<path d="M719 564 843 586 843 688 762 722 719 702Z" fill="#b60002" />
+<path d="M843 586 900 560 900 669 843 692Z" fill="#8c0002" />
+<path d="M89 294 194 189 302 209 302 283 180 331 180 410 89 433Z" fill="#ffffff" />
+<path d="M197 426 264 411 264 479 197 497Z" fill="#ffbfbd" />
+</g>
+</svg>

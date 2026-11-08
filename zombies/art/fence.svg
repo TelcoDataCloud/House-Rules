@@ -1,1 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="6" y="6" width="5" height="32" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="29" y="6" width="5" height="32" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="2" y="13" width="36" height="5" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="2" y="26" width="36" height="5" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- fence: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden palisade wall with rope ties</title>
+
+<g stroke="#080805" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="fence-pickets">
+<path d="M270 302 332 212Q345 192 358 210L433 305 431 873Q432 891 416 898L322 930Q308 935 296 925L268 902Z" fill="#c66417" />
+<path d="m431 298 55-113q12-21 26-4l74 96 0 555q0 19-17 25l-91 33q-13 5-24-5l-27-25Z" fill="#cc6817" />
+<path d="m585 253 46-108q12-22 26-3l74 97-12 563q0 23-18 30l-75 24q-12 4-23-5l-21-20Z" fill="#cd6919" />
+<path d="m710 213 34-57q10-19 21-3l53 83q7 10 7 27l-6 508q0 17-12 24l-53 17q-12 5-22-4l-15-12 12-555Z" fill="#cb6317" />
+</g>
+</g>
+<g id="fence-wood-shading">
+<path d="m278 326 41 30-6 565-35-27Z" fill="#86401e" />
+<path d="m319 357 73-40 37-13-5 577-37 15 8-379-22 119 12-221-18-69Z" fill="#d36d18" />
+<path d="m444 316 31 22-5 543-34-26Z" fill="#8c411d" />
+<path d="m474 338 76-44 29-15-6 553-67 37-6-182 11-140-42 80Z" fill="#d4711b" />
+<path d="m598 282 20 14-5 548-23-16Z" fill="#90431f" />
+<path d="m619 297 61-39 44-18-11 563-25 24 0-291-23 110-29-52Z" fill="#d36d1a" />
+<path d="m737 274 13 9-7 520-16-12Z" fill="#8e411e" />
+<path d="m752 280 63-40-3 532-39 20 1-141 16-83-26 45Z" fill="#d5711c" />
+<path d="m317 365 28-155 81 97Z" fill="#ffca68" />
+<path d="m279 305 64-96-26 155-38-27Z" fill="#f49b31" />
+<path d="m445 305 52-123-24 157Z" fill="#f49b32" />
+<path d="m473 339 26-157 81 98Z" fill="#ffcc70" />
+<path d="m574 249 69-107-25 155Z" fill="#f49d35" />
+<path d="m618 297 26-155 76 97Z" fill="#ffcb70" />
+<path d="m718 212 35-54-5 124-13-7-1-35Z" fill="#f9a337" />
+<path d="m748 282 6-124 59 82Z" fill="#ffca69" />
+<g fill="#a44b10">
+<path d="m375 334 18-10-16 97Z" />
+<path d="m391 510 19-8-35 133Z" />
+<path d="m314 738 44-106-15 143 0 138-29 9Z" />
+<path d="m386 892 20-107-4 101Z" />
+<path d="m545 297 3 54 15 66 17-69-1 79-43 15-23-74-3-51Z" />
+<path d="m470 628 41-80-11 166 3 156-31 11Z" />
+<path d="m655 275 22-13-14 102Z" />
+<path d="m615 505 23-17-1 107-22-37Z" />
+<path d="m660 670 27-133 2 111-20 74Z" />
+<path d="m747 481 21-10-1 63-20-29Z" />
+<path d="m771 649 20-82-1 105-19 14Z" />
+</g>
+</g>
+<g id="fence-cross-ropes" stroke="#080805" stroke-width="13" stroke-linejoin="round">
+<path d="M252 471Q277 461 300 466L883 319 902 373 310 525Q282 530 255 525Z" fill="#ffc763" />
+<path d="M255 756Q281 745 307 750L883 605 902 658 310 811Q279 816 257 810Z" fill="#ffc763" />
+</g>
+<g fill="#e2a141">
+<path d="M278 496Q315 513 346 495L874 362 887 374 312 520 279 520Z" />
+<path d="M279 780Q315 799 347 780L875 648 888 660 312 806 280 807Z" />
+</g>
+<g fill="none" stroke="#a86c26" stroke-width="10">
+<path d="M304 467C348 466 347 521 401 501M397 444C440 442 443 499 495 477M491 420C535 419 538 475 589 454M587 396C629 396 633 451 685 430M681 372C726 370 729 428 780 407M776 348C818 349 823 403 874 382" />
+<path d="M306 751C349 750 351 806 403 785M400 728C445 726 447 782 499 761M495 704C538 702 542 758 593 738M589 680C634 678 638 735 689 714M685 656C728 655 733 711 784 690M780 632C824 631 828 687 878 666" />
+</g>
+<g id="fence-end-posts" stroke="#080805" stroke-width="15" stroke-linejoin="round">
+<path d="M760 134Q756 117 771 106L862 59Q876 51 891 60L969 108Q984 117 983 136L970 765Q970 784 954 791L878 824Q865 830 852 822L816 798 825 246Z" fill="#bd5a12" />
+<path d="M43 309Q37 289 56 278L154 231Q168 223 183 233L260 282Q275 291 273 310L266 922Q265 941 249 948L168 978Q153 984 139 974L65 922Q54 914 55 898Z" fill="#bc5913" />
+</g>
+<g id="fence-end-post-facets">
+<path d="m768 141 100 51-6 624-37-23 9-550Z" fill="#86401f" />
+<path d="m869 190 105-50-10 622q0 12-14 18l-72 33-13 0Z" fill="#cb6616" />
+<path d="m935 159 7-3-6 142-25 91 3-99 21-61Z" fill="#a2490c" />
+<path d="m905 412 14-20-15 64Z" fill="#a2490c" />
+<path d="m937 460 1 57 24-42-4 96-55 58 1-74Z" fill="#a64a0e" />
+<path d="m904 692 20-10-20 78Z" fill="#a64a0e" />
+<path d="m51 318 91 49 3 599-79-54q-5-4-5-14Z" fill="#813d1e" />
+<path d="m142 367 121-52-7 607q1 11-12 16l-77 31-23 0Z" fill="#ce6919" />
+<path d="m67 327 27 11 11 99 12-84 22 12 3 101-13-12-13-41-10 58-12-81Z" fill="#6d3219" />
+<path d="m143 463 19-9 23-51 20 50-8 105-20-37-15 30-17-3Z" fill="#a54d12" />
+<path d="m205 341 8 97 42-68 4-54Z" fill="#c05a10" />
+<path d="m144 769 42-81 20-64-7 118 8 72-40 29-2 125-20 0Z" fill="#a74b10" />
+<path d="m232 687 25-52-3 266-43 50 19-124Z" fill="#a94c0e" />
+<path d="m116 665 27 37-1 84-24-42Z" fill="#6e3218" />
+<path d="m109 949 11-80 14 98Z" fill="#6e3218" />
+</g>
+<g id="fence-cut-ends" stroke="#080805" stroke-width="15" stroke-linejoin="round">
+<path d="M55 278 154 231Q169 224 184 234L259 282Q283 300 262 318L159 364Q144 372 130 363L54 319Q30 301 55 278Z" fill="#ffbe58" />
+<path d="m774 106 88-47q14-8 29 1l78 48q24 17 6 35l-94 50q-13 7-27-2l-82-49q-25-17 2-36Z" fill="#ffbd56" />
+</g>
+<g fill="none" stroke="#d17b28" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
+<path d="m183 300-32 13-22-14 37-15M182 270l48 32-81 39-62-43 77-37q6-3 12 1l6 8" />
+<path d="m903 125-32 15-25-15 34-15M885 89l58 38-73 37-67-42 66-34q8-5 16 1Z" />
+</g>
+<g id="fence-post-rope-wraps" stroke="#080805" stroke-width="13" stroke-linejoin="round">
+<path d="M49 424Q22 440 28 478Q22 513 51 528L123 564Q149 578 180 566L251 542Q280 532 282 502Q292 467 268 439L264 476 170 507Q153 515 139 507L60 464Z" fill="#f9bd55" />
+<path d="M50 712Q25 727 31 762Q25 792 51 808L125 850Q149 864 178 853L251 827Q280 818 282 787Q289 756 267 729L262 763 170 795Q154 803 140 795L59 750Z" fill="#f9bd55" />
+<path d="M820 313Q803 337 826 374Q844 408 879 402L959 379Q989 370 993 342Q1007 306 980 270L976 292Q969 313 947 324L883 348Q869 354 855 346Z" fill="#f9bd55" />
+<path d="M821 598Q802 624 826 657Q846 691 880 686L960 664Q989 655 992 628Q1004 594 974 561L972 581Q966 600 947 610L883 635Q870 641 855 633Z" fill="#f9bd55" />
+</g>
+<g fill="#ffd078">
+<path d="M65 472 112 497Q129 531 153 545Q176 551 197 538L222 530Q231 540 246 542L177 562Q150 572 128 558L91 537Q69 514 65 472Z" />
+<path d="m65 759 46 25q21 36 44 47 21 12 44-7l24-6 23 8-69 24q-25 10-49-5l-36-21q-25-25-27-65Z" />
+<path d="m848 346 29 12 39-13q21 23 47 18-17 24-47 17l-25-14q-30 35-43-20Z" />
+<path d="m848 633 30 12 39-14q20 24 45 18-20 25-48 17l-24-14q-28 34-42-19Z" />
+</g>
+<g fill="none" stroke="#a36a25" stroke-width="9" stroke-linecap="round">
+<path d="M63 473Q56 510 86 545M108 495Q120 539 150 563M171 506Q197 513 220 530Q246 537 273 516M231 491Q257 502 277 488" />
+<path d="M64 760Q57 797 88 828M109 783Q122 826 151 850M171 795Q199 803 220 818Q244 827 274 802M229 779Q256 790 277 775" />
+<path d="M878 350Q899 354 918 370Q947 388 979 363M944 327Q970 341 989 331" />
+<path d="M878 637Q898 639 919 655Q948 674 978 649M944 614Q968 629 989 620" />
+</g>
+</svg>

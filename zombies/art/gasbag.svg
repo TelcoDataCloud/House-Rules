@@ -1,11 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="9" y="36" width="8" height="8" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="23" y="36" width="8" height="8" rx="2" fill="var(--mud)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<ellipse cx="20" cy="26" rx="18" ry="13" fill="var(--zombie-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="9" y="2" width="22" height="16" rx="5" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="13" y="7" width="5" height="5" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="22" y="7" width="5" height="5" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="16" cy="10" r="1.3" fill="var(--ink)"/><circle cx="25" cy="9" r="1.3" fill="var(--ink)"/>
-<ellipse cx="20" cy="15" rx="3" ry="1.5" fill="var(--ink)"/>
-<circle cx="37" cy="33" r="4" fill="var(--gas)"/><circle cx="39" cy="27" r="3" fill="var(--gas)"/>
-</g></svg>
+<!-- gasbag: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gasbag-skin" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#89d62b" />
+<stop offset="1" stop-color="#72c324" />
+</linearGradient>
+<linearGradient id="gasbag-shirt" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#00d5d5" />
+<stop offset="1" stop-color="#00b7b4" />
+</linearGradient>
+<linearGradient id="gasbag-pants" x1="0" y1="0" x2="0.8" y2="1">
+<stop stop-color="#6039cf" />
+<stop offset="1" stop-color="#362081" />
+</linearGradient>
+</defs>
+
+<g id="gasbag-fart-cloud" stroke="#418715" stroke-width="12" stroke-linejoin="round">
+<path d="M855 659 L913 626 C892 602 899 590 914 599 C921 565 952 562 970 574 C987 584 991 602 984 615 C1018 618 1027 652 1008 680 C1001 689 990 694 981 694 C1002 732 957 758 932 730 C908 748 887 724 897 704 L852 698" fill="#b8ff53" />
+</g>
+<path d="M852 674 L906 657 L935 662 L860 684 Z M859 696 L906 695 L895 712 L854 704 Z" fill="#7fc429" />
+<g stroke="#080907" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+<g id="gasbag-legs">
+<path d="M144 829 L113 978 L254 1018 L331 995 L355 906 Z" fill="#5730c0" />
+<path d="M278 898 L254 1018 L331 995 L355 906 Z" fill="#342075" stroke="none" />
+<path d="M144 829 L113 978 L254 1018 L331 995 L355 906 Z" fill="none" />
+<path d="M504 914 L526 995 L637 1018 L766 979 L739 830 Z" fill="#5931c2" />
+<path d="M504 914 L526 995 L637 1018 L594 902 Z" fill="#342076" stroke="none" />
+<path d="M504 914 L526 995 L637 1018 L766 979 L739 830 Z" fill="none" />
+</g>
+<g id="gasbag-body">
+<path d="M313 162 C393 130 555 116 661 159 C777 198 856 352 871 508 C892 689 814 847 675 908 C551 964 370 951 250 910 C112 864 40 748 31 605 C20 459 102 260 224 158 Z" fill="url(#gasbag-shirt)" />
+<path d="M58 451 C63 619 137 757 302 795 C499 856 721 808 855 672 C824 781 762 870 657 914 C501 976 306 935 213 893 C78 828 12 658 34 536 Z" fill="#00a49e" stroke="none" />
+<path d="M169 402 C220 279 438 238 608 358 C438 295 276 342 169 402 Z" fill="#00eeee" stroke="none" />
+<path d="M56 695 C155 743 308 762 442 766 C613 765 730 745 840 722 C796 832 724 900 615 927 C474 967 311 932 229 901 C148 869 88 789 56 695 Z" fill="url(#gasbag-pants)" stroke-width="10" />
+<path d="M35 582 C65 559 110 544 156 533 L159 499 C195 492 232 489 269 488 L266 537 L342 536 L345 508 C456 504 564 514 648 536 L649 472 C688 480 725 492 758 505 L759 557 C797 571 835 592 866 613 C859 657 846 697 831 733 C784 764 741 791 689 811 L690 785 C660 795 631 803 599 809 L597 843 C510 866 406 870 323 853 L320 825 C284 820 249 813 220 803 L221 824 C193 814 163 800 142 786 L139 752 C108 739 79 723 57 706 C43 667 35 627 35 582 Z" fill="url(#gasbag-skin)" stroke-width="9" />
+<path d="M74 563 C97 693 230 775 413 781 C581 788 738 704 793 604 L766 568 L862 615 C857 654 843 702 831 729 C785 763 738 791 689 811 L690 785 L599 809 L597 843 C510 866 406 870 323 853 L320 825 C284 820 249 813 220 803 L221 824 C193 814 163 800 142 786 L139 752 L57 706 C41 664 36 623 37 586 Z" fill="#55951a" stroke="none" />
+<path d="M380 677 L428 677 L428 718 L380 718 Z" fill="#3f7e14" stroke="none" />
+<path d="M380 677 L393 693 L393 707 L380 718 Z" fill="#579b1c" stroke="none" />
+</g>
+<g id="gasbag-left-arm">
+<path d="M222 158 L312 162 L345 202 L289 237 L194 335 L87 276 Q83 268 89 261 Q147 203 222 158 Z" fill="url(#gasbag-shirt)" />
+<path d="M222 158 Q268 202 289 237" fill="none" stroke-width="10" />
+<path d="M178 293 L270 215 L310 218 L194 335 Z" fill="#009e9d" stroke="none" />
+<path d="M91 273 Q133 275 179 294 L194 326 L107 485 L29 470 L7 400 Z" fill="url(#gasbag-skin)" />
+<path d="M177 295 L87 423 L105 481 L194 326 Z" fill="#5b991c" stroke="none" />
+<path d="M7 400 L87 423 L105 481 L29 470 Z" fill="#386b12" stroke="none" />
+</g>
+<g id="gasbag-right-arm">
+<path d="M661 201 Q697 175 743 157 Q752 153 765 167 Q827 212 879 271 L849 318 L705 373 L621 249 Z" fill="url(#gasbag-shirt)" />
+<path d="M661 202 L752 304 L705 373 L621 249 Z" fill="#00a4a2" stroke="none" />
+<path d="M751 305 Q809 282 873 277 L951 400 L921 482 L795 520 L709 368 Z" fill="url(#gasbag-skin)" />
+<path d="M751 305 L832 438 L795 520 L709 368 Z" fill="#579719" stroke="none" />
+<path d="M832 438 L951 400 L921 482 L795 520 Z" fill="#366b0f" stroke="none" />
+</g>
+<g id="gasbag-head">
+<path d="M399 215 L503 224 L487 258 L381 252 Z" fill="#74bd22" stroke-width="8" />
+<path d="M399 215 L503 224 L496 238 L391 233 Z" fill="#8cda34" stroke="none" />
+<path d="M367 40 L426 7 L594 17 L600 25 L599 160 L552 216 L366 204 Z" fill="#305d0c" />
+<path d="M367 40 L426 7 L594 17 L553 52 Z" fill="#6da524" />
+<path d="M367 40 L553 52 L552 216 L367 208 Z" fill="url(#gasbag-skin)" stroke-width="9" />
+<path d="M385 74 L442 77 L443 126 L385 123 Z M477 80 L535 84 L535 130 L477 127 Z" fill="#f5f67a" stroke="none" />
+<path d="M392 107 Q411 78 433 109 M486 111 Q504 84 525 110" fill="none" stroke-width="11" />
+<path d="M419 139 L436 140 L436 151 L448 151 L448 140 L466 141 L466 152 L483 150 L488 182 L474 190 L472 180 L461 180 L461 190 L447 189 L447 181 L432 181 L431 190 L420 189 Z" fill="#050703" stroke="none" />
+<path d="M439 180 C438 168 450 165 455 174 C463 163 476 169 478 180 Z" fill="#b92b43" stroke="none" />
+<path d="M419 140 L427 140 L428 153 Z" fill="#284d0a" stroke="none" />
+<path d="M427 159 C422 129 394 111 365 117 C335 120 311 140 313 168 C312 199 337 219 370 219 C401 219 424 195 427 173 Z" fill="url(#gasbag-skin)" stroke-width="10" />
+<path d="M318 163 C323 191 344 205 373 202 C394 201 411 192 422 179 C414 203 394 219 368 216 C336 219 315 199 318 163 Z" fill="#53911a" stroke="none" />
+<path d="M335 149 C346 123 382 118 402 142 C378 132 357 137 335 149 Z" fill="#b6f65d" stroke="none" />
+<path d="M484 160 C490 130 511 117 543 117 C577 117 600 138 601 166 C600 198 576 222 544 223 C510 225 485 204 482 179 Z" fill="url(#gasbag-skin)" stroke-width="10" />
+<path d="M487 178 C500 201 526 211 552 207 C576 203 589 185 596 162 C602 193 578 219 549 220 C519 224 491 208 487 178 Z" fill="#54941a" stroke="none" />
+<path d="M498 146 C518 122 556 120 578 145 C548 132 525 137 498 146 Z" fill="#b3ed58" stroke="none" />
+</g>
+</g>
+</svg>
