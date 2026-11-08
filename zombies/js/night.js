@@ -24,6 +24,7 @@ import { ringBell } from './hard.js';
 
 let raf = 0;
 let last = 0;
+let paused = false;
 let onDawn = null;
 let dawnTimer = 0;
 
@@ -36,7 +37,11 @@ export function startNight(whenDone) {
   state.gasAt = null;
   state.brokeTonight = 0;
   document.getElementById('stage').classList.add('is-night');
-  document.getElementById('help').innerHTML = '<kbd>WASD</kbd> run. <kbd>Space</kbd> whack. <kbd>E</kbd> potion. Press and drag from the catapult to aim.';
+  const hasCatapult = [...state.things.values()].some((t) => t.does === 'catapult');
+  const hasBell = [...state.things.values()].some((t) => t.does === 'bell');
+  document.getElementById('help').innerHTML = 'Click a square to run there, or <kbd>WASD</kbd>. <b>WHACK</b> stuns a zombie next to you. <b>POTION</b> cures the nearest one.'
+    + (hasCatapult ? ' Press and drag from the catapult to aim.' : '') + (hasBell ? ' <kbd>B</kbd> rings the bell.' : '');
+  paused = false;
   sendToBed();
   hero.makeHero();
   spawnHorde(getPlan());
@@ -50,6 +55,11 @@ export function startNight(whenDone) {
   dawnTimer = 0;
   cancelAnimationFrame(raf);
   raf = requestAnimationFrame(tick);
+}
+
+export function wireNightButtons() {
+  document.getElementById('btn-whack').addEventListener('click', () => { if (state.phase === 'night') hero.whack(); });
+  document.getElementById('btn-potion').addEventListener('click', () => { if (state.phase === 'night') { hero.throwPotion(); drawCounts(); } });
 }
 
 // At night the build bar turns into the ammo picker
@@ -73,6 +83,7 @@ function ammoBar() {
 }
 
 function tick(now) {
+  if (paused) { last = now; raf = requestAnimationFrame(tick); return; }
   const dt = Math.min(0.05, (now - last) / 1000) * (window.ZOMBIES.fast || 1);
   last = now;
   const diff = DIFFICULTY[state.mode];
@@ -128,7 +139,16 @@ function finish() {
   if (onDawn) onDawn();
 }
 
+export function pauseNight(on) {
+  paused = on;
+  document.getElementById('screen-pause').hidden = !on;
+  if (on && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+export function isPaused() { return paused; }
+
 export function stopNight() {
+  paused = false;
+  document.getElementById('screen-pause').hidden = true;
   cancelAnimationFrame(raf);
   clearZombies();
 }
@@ -143,12 +163,7 @@ export function nightDown(ev) {
     catapult.startAim(t);
     return;
   }
-  // throw potion at a zombie you click, if close, else run there
-  if (state.potion > 0 && state.zombies.some((z) => Math.hypot(z.x - p.x, z.y - p.y) < 1 && Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 3.5)) {
-    hero.throwPotion(p);
-    drawCounts();
-    return;
-  }
+  // click a zombie next to you: whack. Never potion by accident.
   if (state.zombies.some((z) => Math.hypot(z.x - p.x, z.y - p.y) < 1 && Math.hypot(z.x - state.hero.x, z.y - state.hero.y) < 1.4)) {
     hero.whack();
     return;

@@ -19,6 +19,7 @@
 <svg id="sprites" class="sprite-sheet" aria-hidden="true" focusable="false"></svg>
 
 <div class="toolbar">
+  <button type="button" id="pause-btn" class="toggle" aria-label="Pause" title="Pause" hidden>&#9208;</button>
   <button type="button" id="theme-toggle" class="toggle" aria-label="Switch to dark theme" title="Light or dark">&#127769;</button>
   <button type="button" id="sound-toggle" class="toggle" aria-label="Turn sound off" title="Sound">&#128266;</button>
 </div>
@@ -41,10 +42,21 @@
       <button type="button" class="mode" data-mode="hard" aria-pressed="false">Hard</button>
     </div>
     <p class="mode-note" id="mode-note"></p>
-    <button type="button" class="go" id="start">PLAY</button>
-    <div class="milestones" id="milestones" aria-label="Build progress"></div>
-    <p class="milestones-note" id="milestones-note"></p>
+    <div class="title-buttons">
+      <button type="button" class="go" id="continue" hidden>CONTINUE</button>
+      <button type="button" class="go" id="start">PLAY</button>
+      <button type="button" class="quiet" id="how-btn">How to play</button>
+    </div>
     <p class="other-games">Also by Asa and Hendrix: <a href="../">Trap House</a> and <a href="../space/">Star Base</a></p>
+  </div>
+</section>
+
+<!-- HOW TO PLAY -->
+<section class="screen" id="screen-how" hidden>
+  <div class="box">
+    <h2>HOW TO PLAY</h2>
+    <div class="how-cards" id="how-cards"></div>
+    <button type="button" class="go" id="how-done">GOT IT</button>
   </div>
 </section>
 
@@ -55,7 +67,17 @@
     <div class="result-counts" id="result-counts"></div>
     <p id="result-tip" class="tagline"></p>
     <button type="button" class="go" id="next-day">NEXT DAY</button>
+    <button type="button" class="go" id="play-again" hidden>PLAY AGAIN</button>
     <button type="button" class="quiet" id="to-title">Title</button>
+  </div>
+</section>
+
+<!-- PAUSE -->
+<section class="screen pause" id="screen-pause" hidden>
+  <div class="box">
+    <h2>PAUSED</h2>
+    <button type="button" class="go" id="resume">RESUME</button>
+    <button type="button" class="quiet" id="pause-title">Title</button>
   </div>
 </section>
 
@@ -63,22 +85,27 @@
   <div class="top">
     <div class="day" id="day-label">DAY 1</div>
     <div class="counts" id="counts"></div>
-    <div class="hearts" id="hearts" aria-label="Hearts"></div>
-    <div class="skybar" id="skybar"><div class="sun" id="sun"></div></div>
+    <div class="hearts" id="hearts" aria-label="Hearts" hidden></div>
+    <div class="sky" id="sky">
+      <span class="sky-label" id="sky-label">Day</span>
+      <div class="skybar" id="skybar"><div class="sun" id="sun"></div></div>
+    </div>
     <div class="moon-strip" id="moon-strip" hidden></div>
     <p class="lookout-line" id="lookout-line"></p>
+    <button type="button" class="go night-btn" id="night-falls">NIGHT FALLS</button>
   </div>
 
   <div class="stage" id="stage">
     <!-- The village. Drawn by js/grid.js. -->
     <svg class="village" id="village" viewBox="0 0 960 640" aria-label="The village">
       <defs>
-        <pattern id="pat-grass" width="80" height="80" patternUnits="userSpaceOnUse"><use href="#art-grass" width="80" height="80"></use></pattern>
         <radialGradient id="glow-torch"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.75"/><stop offset="0.5" stop-color="#ffb347" stop-opacity="0.35"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+        <pattern id="pat-grass" width="80" height="80" patternUnits="userSpaceOnUse"><use href="#art-grass" width="80" height="80"></use></pattern>
         <pattern id="pat-woods" width="80" height="80" patternUnits="userSpaceOnUse"><use href="#art-woods" width="80" height="80"></use></pattern>
       </defs>
       <g id="ground"></g>
       <g id="things"></g>
+      <g id="ghost"></g>
       <g id="mobs"></g>
       <g id="fx"></g>
       <rect class="night-tint" x="0" y="0" width="960" height="640"></rect>
@@ -90,10 +117,14 @@
     <div class="down-timer" id="down-timer" hidden></div>
   </div>
 
+  <!-- the big buttons for the night, for fingers and mice -->
+  <div class="night-buttons" id="night-buttons" hidden>
+    <button type="button" id="btn-whack">WHACK <small>Space</small></button>
+    <button type="button" id="btn-potion">POTION <span id="btn-potion-count">0</span> <small>E</small></button>
+  </div>
+
   <div class="bar" id="bar"></div>
-  <p class="help" id="help">
-    <kbd>WASD</kbd> or <kbd>arrows</kbd> to run. <kbd>Space</kbd> whack. <kbd>E</kbd> throw potion. <kbd>B</kbd> ring the bell. Click the catapult to aim.
-  </p>
+  <p class="help" id="help"></p>
 </main>
 
 <script type="module" src="js/main.js"></script>
