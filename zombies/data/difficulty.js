@@ -19,6 +19,8 @@
    mix            which zombies can come (names from data/zombies.js)
    meet           Easy: a new zombie joins the mix on these nights, one at a
                   time, so there is one new thing to learn each night
+   trips          work trips each villager makes a day (then they rest)
+   bedlessHalfTrips  Hard: a villager with no bed only does half their trips
    barUnlocks     Easy: new things appear on the build bar night by night
                   (the "from" numbers in data/traps.js)
    =========================================================== */
@@ -37,6 +39,7 @@ export const DIFFICULTY = {
     aimAssist: true,
     moon: false,
     potionCostCarrots: 3,
+    trips: 3,
     mix: ['bob', 'bob', 'bob'],
     meet: { 2: 'hopper', 3: 'digger', 4: 'bogey', 5: 'eyeball', 6: 'loosebits', 7: 'vomit', 8: 'chicken', 9: 'cow', 10: 'pig', 11: 'sheep', 12: 'goldfish' },
     barUnlocks: true,
@@ -55,6 +58,8 @@ export const DIFFICULTY = {
     aimAssist: false,
     moon: true,
     potionCostCarrots: 4,
+    trips: 2,
+    bedlessHalfTrips: true,
     mix: ['bob', 'bob', 'hopper', 'hopper', 'digger', 'snot', 'gasbag', 'bogey', 'eyeball', 'loosebits', 'vomit', 'chicken', 'pig', 'cow'],
     bellEvery: 20,
   },

@@ -53,6 +53,7 @@ export const TRAPS = {
   bed:     { name: 'Bed',       art: 'bed',     planks: 2, crew: 0, does: 'bed', what: 'A villager sleeps here. Zombies want these.' },
   farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm', what: 'Carrots grow here. Carrots make potion.' },
   catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult', what: 'Fling pumpkins or potion far. One villager has to work it.', from: 3 },
+  brewery: { name: 'Brewery',   art: 'brewery', planks: 8, crew: 0, does: 'brewery', what: 'One brewer at a time cooks potion here. Build another for a second brewer.', from: 2 },
   // These only show on Hard
   bell:    { name: 'Bell tower', art: 'bell',  planks: 5, crew: 1, does: 'bell', reach: 9, seconds: 6, hard: true, what: 'Ring it and every zombie comes to look. One villager rings it.' },
   garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'garlic', hard: true, what: 'Vampires cannot cross it.' },

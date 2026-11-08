@@ -11,12 +11,13 @@
    needs      a thing the job needs to work (from data/traps.js)
    cheap      potion from half the carrots (the cow's milk)
    free       potion from no carrots at all (the pig's truffle)
+   (what each job makes per trip, and where, is in js/work.js)
    =========================================================== */
 
 export const JOBS = {
-  farmer:  { name: 'Farmer',  art: 'farmer',  makes: 'carrots', amount: 2 },
-  builder: { name: 'Builder', art: 'builder', makes: 'planks',  amount: 3 },
-  brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery' },
+  farmer:  { name: 'Farmer',  art: 'farmer',  makes: 'carrots', amount: 2, does: 'They will grow carrots.' },
+  builder: { name: 'Builder', art: 'builder', makes: 'planks',  amount: 3, does: 'They will chop wood.' },
+  brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery', does: 'They will cook potion.' },
   lookout: { name: 'Lookout', art: 'lookout', makes: null },
   crew:    { name: 'Crew',    art: 'builder', makes: null },
   nightshift: { name: 'Night shift', art: 'vampire', makes: 'planks', amount: 2 },
@@ -33,7 +34,8 @@ export const JOBS = {
 export const START = ['farmer', 'farmer', 'builder', 'brewer'];
 
 // What you start the game holding
-export const POCKETS = { planks: 10, carrots: 6, potion: 2 };
+// Enough planks to fence and pit a first night before anyone has worked
+export const POCKETS = { planks: 24, carrots: 6, potion: 2 };
 
 // How many villagers you need to win the first level
 export const WIN_AT = 12;

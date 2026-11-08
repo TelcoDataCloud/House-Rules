@@ -30,12 +30,14 @@ export const LINES = {
   firstWhack: 'BONK! Stunned. Potion cures them.',
   noBed: 'Build a bed first. Villagers need somewhere to sleep.',
   start: 'You start with {planks} planks, {carrots} carrots and {potion} potion.',
-  morning: 'Farmers grew {carrots} carrots. Builders made {planks} planks. Brewer cooked {potion} potion.',
+  noBedFor: '{name} has no bed! Build one.',
+  joined: 'POP! {name} the {job} joined the village. {does}',
   howTo: [
     { art: 'wall',  head: 'DAY: BUILD', text: 'Pick a thing. Click a square. Walls stop zombies. Pits catch them.' },
     { art: 'hero',  head: 'NIGHT: RUN', text: 'Zombies come. Click where to run, or WASD. The WHACK button stuns one. Stunned is not cured!' },
     { art: 'bucket', head: 'POTION CURES', text: 'The POTION button cures the nearest zombie. He joins your village! Potion is rare, so trap the rest.' },
-    { art: 'pit',   head: 'MORNING', text: 'Click a pit with zombies in it to pour potion in. Farmers grow carrots. Carrots make potion.' },
+    { art: 'pit',   head: 'MORNING', text: 'Click a pit with zombies in it to pour potion in. Tap a villager to give them a job.' },
+    { art: 'villager', head: 'CURE PEOPLE TO GROW', text: 'Potion turns a zombie into a villager. Villagers collect carrots and wood. More people means more buildings and more potion.' },
   ],
   tip: [
     'Pits hold three. Pour potion in tomorrow.',

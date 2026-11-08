@@ -217,3 +217,39 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
   .night-buttons { position: sticky; bottom: 8px; z-index: 5; }
   .game { padding: 6px; }
 }
+
+/* ---------- the job picker ---------- */
+.job-picker {
+  position: absolute; z-index: 6; width: 190px; padding: 10px;
+  background: var(--panel); border: var(--ink-w) solid var(--ink); border-radius: var(--radius);
+  box-shadow: 0 5px 0 var(--ink); display: flex; flex-direction: column; gap: 6px;
+}
+.job-picker p { margin: 0 0 4px; font-weight: 800; }
+.job-picker button { min-height: 44px; padding: 4px 10px; }
+.hearts[hidden] { display: none; }
+.mob.working .body { animation: wobble 500ms infinite; }
+.bar { position: relative; }
+.bar::after {
+  content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 36px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--wood)); border-radius: 0 var(--radius) var(--radius) 0;
+}
+.bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+.bar .thing { flex: 0 0 auto; }
+.help { font-size: 0.95rem; }
+
+.bar { align-items: flex-start; }
+.bar .thing { height: 112px; justify-content: center; }
+@media (max-width: 700px) {
+  .banner { font-size: 1.7rem; }
+  .bar .thing { width: 84px; height: 104px; }
+}
+
+@media (max-width: 700px) {
+  .top { gap: 8px; padding-top: 58px; }
+  .top .day { font-size: 1.2rem; min-width: 0; }
+  .counts { font-size: 1rem; gap: 8px; }
+  .counts svg { width: 24px; height: 24px; }
+  .hearts svg { width: 20px; height: 20px; }
+  .lookout-line { font-size: 0.95rem; }
+  .night-btn { font-size: 1.3rem; }
+}
