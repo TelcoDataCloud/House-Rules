@@ -16,6 +16,8 @@ const NAMES = [
   'zombieicon', 'tree', 'grass', 'woods',
   'bogey', 'eyeball', 'eye', 'loosebits', 'arm', 'vomit', 'puddle', 'burplord', 'bogeyblob',
   'vampire', 'silver', 'ice', 'mirror', 'dawn', 'sprinkler', 'net',
+  'cow', 'chicken', 'sheep', 'pig', 'horse', 'goldfish', 'pumpkinking',
+  'cowfriend', 'chickenfriend', 'sheepfriend', 'pigfriend', 'pumpkinfarmer',
 ];
 
 export async function loadArt() {

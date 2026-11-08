@@ -63,7 +63,7 @@ export function ringBell(t) {
     }
   });
   burst(t.col + 0.5, t.row - 0.5, 'DONG');
-  blip('twang');
+  blip('dong');
   return true;
 }
 

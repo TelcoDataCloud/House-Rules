@@ -77,8 +77,9 @@ export function morning() {
     if (job.needs && ![...state.things.values()].some((t) => t.does === job.needs)) return;
     if (job.makes === 'potion') {
       let n = job.amount;
-      while (n > 0 && state.carrots >= diff.potionCostCarrots) {
-        state.carrots -= diff.potionCostCarrots; state.potion += 1; made.potion += 1; n--;
+      const cost = job.free ? 0 : job.cheap ? Math.ceil(diff.potionCostCarrots / 2) : diff.potionCostCarrots;
+      while (n > 0 && state.carrots >= cost) {
+        state.carrots -= cost; state.potion += 1; made.potion += 1; n--;
       }
     } else {
       state[job.makes] += job.amount;

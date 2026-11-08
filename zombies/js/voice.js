@@ -50,6 +50,8 @@ export function blip(kind) {
     splat: ['square', 400, 60, 0.3],
     twang: ['triangle', 300, 900, 0.3],
     yawn:  ['sine', 300, 150, 0.8],
+    dong:  ['triangle', 660, 330, 0.9],
+    cheer: ['square', 523, 1046, 0.5],
   }[kind] || ['sine', 440, 440, 0.2];
   o.type = set[0];
   o.frequency.setValueAtTime(set[1], t);

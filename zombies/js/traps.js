@@ -117,11 +117,15 @@ const ACT = {
   farm(z, t) {
     if (z.eatT > 0 || z.data.wants !== 'farm') return;
     z.eatT = 2;
-    if (state.carrots > 0) { state.carrots--; burst(z.x, z.y - 0.5, 'munch'); }
+    if (state.carrots > 0) {
+      state.carrots--;
+      if (z.data.steals) { z.leaving = true; z.goal = null; burst(z.x, z.y - 0.5, 'GOT ONE'); }
+      else burst(z.x, z.y - 0.5, 'munch');
+    }
   },
   bed(z, t) {
     const diff = DIFFICULTY[state.mode];
-    const v = state.villagers.find((p) => p.bed === t && !p.taken);
+    const v = state.villagers.find((p) => p.bed === t && !p.taken && !(p.pumpkin > 0));
     if (!v) return;
     const canTake = diff.takeVillagers && state.night >= (diff.takeFrom || 1) && state.villagers.filter((p) => !p.taken).length > KEEP_AT_LEAST;
     if (canTake && z.data.bites) {
