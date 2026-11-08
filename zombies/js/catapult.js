@@ -6,6 +6,11 @@
    circle shows where it lands. Easy snaps the landing to the
    nearest zombie. Hard adds a bit of wind. Pumpkin blinds,
    potion cures (and costs a bucket).
+
+   Autofire: a crewed catapult also lobs a pumpkin by itself at
+   the nearest zombie in range, every "auto" seconds (data/traps.js),
+   slower than aiming it yourself. Pumpkins only: it never spends
+   your potion.
    =========================================================== */
 
 import { state, TILE, COLS, ROWS } from './state.js';
@@ -78,8 +83,14 @@ export function fire() {
     state.potion--;
   }
   reload = RELOAD;
+  launch(from, to, ammo);
+}
+
+// Fling something from a catapult to a spot, along an arc
+function launch(from, to, kind) {
   blip('twang');
   burst(from.col + 0.5, from.row, 'TWANG');
+  const ammo = kind;
   // the shot flies along the same arc
   const shot = el('use', { class: 'shot', href: '#art-' + (ammo === 'potion' ? 'bucket' : 'pumpkin'), width: 30, height: 30 });
   document.getElementById('fx').appendChild(shot);
@@ -116,3 +127,24 @@ export function cancelAim() {
 
 export function update(dt) { if (reload > 0) reload -= dt; }
 export function isAiming() { return aim.on; }
+
+// Every frame: crewed catapults fire pumpkins by themselves, slowly
+export function autoFire(dt) {
+  for (const t of state.things.values()) {
+    if (t.does !== 'catapult' || t.broken) continue;
+    if (!t.crewMember || !state.villagers.includes(t.crewMember)) continue;
+    if (aim.on && aim.from === t) continue;          // you are aiming it yourself
+    t.autoT = (t.autoT ?? 2) - dt;
+    if (t.autoT > 0) continue;
+    const cx = t.col + 0.5, cy = t.row + 0.5;
+    let best = null, bd = RANGE;
+    state.zombies.forEach((z) => {
+      if (z.pit || z.leaving || z.blind > 0) return;
+      const d = Math.hypot(z.x - cx, z.y - cy);
+      if (d < bd) { bd = d; best = z; }
+    });
+    if (!best) { t.autoT = 0.5; continue; }
+    t.autoT = t.data.auto || 5;
+    launch(t, { x: best.x + (Math.random() - 0.5) * 0.6, y: best.y + (Math.random() - 0.5) * 0.6 }, 'pumpkin');
+  }
+}

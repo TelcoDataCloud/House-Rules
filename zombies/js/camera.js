@@ -9,10 +9,10 @@
    the day starts zoomed in on the middle of the village.
    =========================================================== */
 
-import { COLS, ROWS, TILE } from './state.js';
+import { COLS, ROWS, TILE, CENTRE } from './state.js';
 
 const W = COLS * TILE, H = ROWS * TILE;
-const MAX = 3;
+const MAX = 4;
 const cam = { x: 0, y: 0, scale: 1 };   // top left and zoom of the viewBox
 let svg = null;
 let onTap = null;        // called with the pointer event for a real tap
@@ -45,8 +45,24 @@ export function fit() { cam.scale = 1; cam.x = 0; cam.y = 0; apply(); }
 
 // A phone starts on the middle of the village
 export function startView() {
-  if (window.innerWidth < 700) { cam.scale = 2; cam.x = W / 2 - W / 4; cam.y = H / 2 - H / 4; apply(); }
-  else fit();
+  // start on the village; a phone zooms in further so squares are big enough to tap
+  cam.scale = window.innerWidth < 700 ? 2.8 : 1.6;
+  cam.x = CENTRE.x * TILE - (W / cam.scale) / 2;
+  cam.y = CENTRE.y * TILE - (H / cam.scale) / 2;
+  apply();
+}
+
+// Keep the hero on screen at night when zoomed in
+export function follow(x, y) {
+  if (cam.scale <= 1.05) return;
+  const vw = W / cam.scale, vh = H / cam.scale;
+  const px = x * TILE, py = y * TILE, m = 0.25;
+  let moved = false;
+  if (px < cam.x + vw * m) { cam.x = px - vw * m; moved = true; }
+  if (px > cam.x + vw * (1 - m)) { cam.x = px - vw * (1 - m); moved = true; }
+  if (py < cam.y + vh * m) { cam.y = py - vh * m; moved = true; }
+  if (py > cam.y + vh * (1 - m)) { cam.y = py - vh * (1 - m); moved = true; }
+  if (moved) apply();
 }
 
 function apply() {

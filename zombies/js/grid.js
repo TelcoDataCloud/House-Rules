@@ -1,7 +1,7 @@
 /* ===========================================================
    GRID: the squares, and the things sitting on them
 
-   The village is 24 squares across and 16 down. The outer two
+   The village is 36 squares across and 24 down. The outer three
    rows and columns are the dark wood where zombies come from.
    Every thing you build sits on one square. This file draws
    the ground, puts things on it and answers "what is here?".
@@ -18,9 +18,15 @@ for (let r = 0; r < ROWS; r++) {
   STREAM_COL[r] = cols.length ? Math.min(...cols) : 99;
 }
 export function eastBank(x, y) { const r = Math.max(0, Math.min(ROWS - 1, Math.floor(y))); return x >= STREAM_COL[r] + 0.5; }
-// The middle of the bridge, and a step off each end
-const bx = BRIDGE.map(([c]) => c), by = BRIDGE.map(([, r]) => r);
-export const BRIDGE_MID = { y: (Math.min(...by) + Math.max(...by) + 1) / 2, west: Math.min(...bx) - 0.6, east: Math.max(...bx) + 1.6 };
+// Each bridge: the row it is on, and a step off each end. Bridges are
+// rows of '=' in data/map.js; any number of them works.
+export const BRIDGES = [];
+[...new Set(BRIDGE.map(([, r]) => r))].sort((a, b) => a - b).forEach((r) => {
+  const cols = BRIDGE.filter(([, rr]) => rr === r).map(([c]) => c);
+  const last = BRIDGES[BRIDGES.length - 1];
+  if (last && last.rows.includes(r - 1)) { last.rows.push(r); last.y = (last.rows[0] + r + 1) / 2; return; }
+  BRIDGES.push({ rows: [r], y: r + 0.5, west: Math.min(...cols) - 0.6, east: Math.max(...cols) + 1.6 });
+});
 
 const setOf = (list) => new Set(list.map(([c, r]) => c + ',' + r));
 const WATER_SET = setOf(WATER), ROCK_SET = setOf(ROCKS), POND_SET = setOf(POND), BRIDGE_SET = setOf(BRIDGE);
@@ -34,7 +40,7 @@ export function nearRock(col, row) { return [[1,0],[-1,0],[0,1],[0,-1]].some(([d
 export function buildable(col, row) { return !isEdge(col, row) && !isWater(col, row) && !isRock(col, row) && !isPond(col, row) && !isBridge(col, row); }
 
 const SVG = 'http://www.w3.org/2000/svg';
-export const EDGE = 2;   // how many squares of woods round the edge
+export const EDGE = 3;   // how many squares of woods round the edge
 
 export function el(tag, attrs = {}) {
   const e = document.createElementNS(SVG, tag);
