@@ -79,9 +79,11 @@ export function blocked(col, row, who) {
   const t = thingAt(col, row);
   if (!t) return false;
   if (t.does === 'block') return !(who && (who.digs || who.big));
+  if (t.does === 'garlic') return !!(who && who.data && who.data.hates === 'garlic');
+  if (t.broken) return false;
   if (t.does === 'hold') return !(t.down > 0) && !(who && (who.jumps || who.digs || who.climbed === t));
   if (t.does === 'brewery' || t.does === 'well' || t.does === 'tower') return true;
-  if (t.does === 'catapult' || t.does === 'bell') return !who;   // zombies walk round it, the hero too
+  if (t.does === 'catapult' || t.does === 'bell' || t.does === 'sprinkler') return !who;   // zombies walk round it, the hero too
   return false;
 }
 

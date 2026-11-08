@@ -17,6 +17,7 @@ import { morning, wakeUp, placeAtWork, draw as drawVillager } from './villagers.
 import { tonight, cure } from './zombies.js';
 import { burst } from './fx.js';
 import { say, blip } from './voice.js';
+import { mend, fixTrap } from './hard.js';
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 let plan = null;
@@ -40,6 +41,7 @@ export function startDay(onNight) {
   }
 
   const made = morning();
+  const stillBroken = mend();
   wakeUp();
   plan = tonight();
   const line = pick(LINES.lookout).replace('{count}', plan.kinds.length).replace('{side}', plan.side === 'all' ? 'everywhere' : plan.side);
@@ -54,6 +56,7 @@ export function startDay(onNight) {
   if (made.carrots || made.planks || made.potion) {
     banner(`+${made.carrots} carrots  +${made.planks} planks  +${made.potion} potion`, 2500);
   }
+  if (stillBroken) { lookoutSay(`${stillBroken} traps still broken. Click one to mend it for a plank.`); }
 }
 
 export function getPlan() { return plan; }
@@ -74,9 +77,19 @@ export function dayClick(ev) {
     drawCounts();
     return;
   }
+  // mend a broken trap for a plank
+  if (here && here.broken) {
+    if (state.planks < 1) { burst(p.col + 0.5, p.row, 'need a plank'); return; }
+    state.planks--;
+    fixTrap(here);
+    burst(p.col + 0.5, p.row, 'mended');
+    blip('bonk');
+    drawCounts();
+    return;
+  }
   // take something back
   if (here && TRAPS[here.kind] && !here.held.length && here.kind !== 'bed' && here.kind !== 'farm') {
-    if (here.crewMember) { here.crewMember.job = here.crewMember.oldJob || 'farmer'; here.crewMember.crewOf = null; placeAtWork(here.crewMember); drawVillager(here.crewMember); }
+    state.villagers.filter((v) => v.crewOf === here).forEach((c) => { c.job = c.oldJob || 'farmer'; c.crewOf = null; placeAtWork(c); drawVillager(c); });
     state.planks += TRAPS[here.kind].planks;
     removeThing(p.col, p.row);
     burst(p.col + 0.5, p.row + 0.5, 'back');
@@ -87,17 +100,19 @@ export function dayClick(ev) {
   const t = TRAPS[state.picked];
   if (here || isEdge(p.col, p.row) || p.col < 0 || p.row < 0) { burst(p.col + 0.5, p.row + 0.5, 'not here'); return; }
   if (state.planks < t.planks) { burst(p.col + 0.5, p.row + 0.5, 'need planks'); return; }
-  let crew = null;
+  if (t.needsJob && !state.villagers.some((v) => v.job === t.needsJob)) { burst(p.col + 0.5, p.row + 0.5, 'needs a ' + t.needsJob); return; }
+  const crew = [];
   if (t.crew) {
-    crew = state.villagers.find((v) => v.job !== 'crew' && v.job !== 'brewer');
-    if (!crew) { burst(p.col + 0.5, p.row + 0.5, 'need a villager'); return; }
+    const free = state.villagers.filter((v) => v.job !== 'crew' && v.job !== 'brewer');
+    if (free.length < t.crew) { burst(p.col + 0.5, p.row + 0.5, `need ${t.crew} villagers`); return; }
+    crew.push(...free.slice(0, t.crew));
   }
   state.planks -= t.planks;
   const thing = placeThing(state.picked, p.col, p.row);
-  if (crew) {
-    crew.oldJob = crew.job; crew.job = 'crew'; crew.crewOf = thing; thing.crewMember = crew;
-    crew.x = p.col + 0.5; crew.y = p.row - 0.4; drawVillager(crew);
-  }
+  crew.forEach((c, i) => {
+    c.oldJob = c.job; c.job = 'crew'; c.crewOf = thing; thing.crewMember = c;
+    c.x = p.col + 0.2 + i * 0.6; c.y = p.row - 0.4; drawVillager(c);
+  });
   blip('bonk');
   drawCounts();
 }
