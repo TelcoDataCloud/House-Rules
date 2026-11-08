@@ -1090,3 +1090,30 @@ on every cure, a bell dong, tablet layout (corner buttons above the
 strip, scrolling build bar, sticky WHACK and POTION), Trap House's title
 now links to Star Base and Snot Moon. All milestone dots done. Not done:
 pinch zoom, a painted title backdrop (Asa to say).
+
+### Z9 Town builder (8 Nov, from Asa's second Grok list)
+
+The engine is now visible: every villager makes a fixed number of work
+trips a day (`trips` in `data/difficulty.js`: Easy 3, Hard 2), Day 1
+included. Farmers walk to a free carrot plot (one farmer per plot),
+builders to a tree on the woods edge, brewers to a free brewery (a second
+one is buildable, 8 planks), cured animals have their own trips. Each
+trip pops "+2 carrots" over their head, flashes the count and names them
+in the help line. `js/work.js`. The morning grant and the big overlay
+are gone; the Day sun bar is now a Work done meter. Tap a villager by day
+for a three button job picker. Beds are assigned each day; anyone without
+one is named at dawn and in the lookout line; on Hard they do half their
+trips and zombies go for them first. A cure says who joined and what
+they will do, and the Dawn screen lists them. Fifth how-to card. Camera
+in `js/camera.js`: pinch, drag to pan, double tap the same spot to zoom,
++ - and fit buttons, phones start zoomed on the middle. The build bar is
+one scrolling row with a fade. Night tap on a zombie: whack in reach,
+else run to it. Hearts really hidden by day. Night buttons give focus
+back so Space and E keep working. Economy note for Asa: Easy day 1 now
+makes 12 carrots, 9 planks and 3 potion, so night 1 has 5 potion for 6
+zombies; raise `potionCostCarrots` or lower `trips` if that is too kind.
+Asa, 16:21: starting planks raised 10 to 24 (`POCKETS` in
+`data/villagers.js`) so a basic first night village can be built before
+anyone has harvested. Asa, 16:29: 5 potion on night 1 is too easy, make it
+3: brewers (and cured cows and pigs) make one potion a day, one trip
+(`trips: 1` on the job in `js/work.js`), so night 1 is 2 start + 1.

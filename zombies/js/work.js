@@ -30,14 +30,15 @@ const HOME = { x: 12, y: 9 };
 const WALK = 2.2;          // squares a second
 const JOB_TIME = 1.4;      // seconds spent doing the job
 
-// Which workplace each job walks to, and what it makes there
+// Which workplace each job walks to, and what it makes there.
+// trips: a job that works slower than the others (potion is rare on purpose)
 const WORK = {
   farmer:  { at: 'farm',    makes: 'carrots', amount: 2, verb: 'picked' },
   builder: { at: 'tree',    makes: 'planks',  amount: 3, verb: 'chopped' },
-  brewer:  { at: 'brewery', makes: 'potion',  amount: 1, verb: 'cooked' },
+  brewer:  { at: 'brewery', makes: 'potion',  amount: 1, verb: 'cooked', trips: 1 },
   chicken: { at: 'farm',    makes: 'carrots', amount: 1, verb: 'scratched up' },
-  cow:     { at: 'brewery', makes: 'potion',  amount: 1, verb: 'milked', cheap: true },
-  pig:     { at: 'tree',    makes: 'potion',  amount: 1, verb: 'snuffled up', free: true },
+  cow:     { at: 'brewery', makes: 'potion',  amount: 1, verb: 'milked', cheap: true, trips: 1 },
+  pig:     { at: 'tree',    makes: 'potion',  amount: 1, verb: 'snuffled up', free: true, trips: 1 },
   sheep:   { at: 'tree',    makes: 'planks',  amount: 1, verb: 'rolled in' },
   nightshift: { at: 'tree', makes: 'planks',  amount: 2, verb: 'chopped' },
   giant:   { at: 'tree',    makes: 'planks',  amount: 6, verb: 'uprooted' },
@@ -48,7 +49,7 @@ const WORK = {
 export function startWork() {
   const diff = DIFFICULTY[state.mode];
   state.villagers.forEach((v) => {
-    v.trips = WORK[v.job] ? diff.trips : 0;
+    v.trips = WORK[v.job] ? Math.min(diff.trips, WORK[v.job].trips || diff.trips) : 0;
     if (diff.bedlessHalfTrips && !v.bed) v.trips = Math.ceil(v.trips / 2);
     v.task = null;
     v.busy = 0;
