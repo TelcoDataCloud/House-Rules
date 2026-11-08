@@ -10,14 +10,17 @@ import { state } from './state.js';
 
 let last = '', lastAt = 0;
 
-export function say(text) {
+// Lines wait their turn instead of talking over each other.
+// urgent: true jumps the queue (OW, carried off).
+export function say(text, urgent = false) {
   if (state.muted || !('speechSynthesis' in window)) return;
   const now = performance.now();
   if (text === last && now - lastAt < 3000) return;
   last = text; lastAt = now;
   const line = new SpeechSynthesisUtterance(text.replace(/[!{}]/g, '').toLowerCase());
   line.rate = 1.05; line.pitch = 1.1;
-  window.speechSynthesis.cancel();
+  if (urgent) window.speechSynthesis.cancel();
+  else if (window.speechSynthesis.pending) return;   // one waiting is plenty
   window.speechSynthesis.speak(line);
 }
 

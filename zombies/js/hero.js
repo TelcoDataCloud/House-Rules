@@ -60,6 +60,7 @@ export function update(dt) {
     if (h.down <= 0) { h.hearts = 3; t.hidden = true; elHero.classList.remove('down'); drawHearts(); }
     return;
   }
+  if (h.blink > 0) { h.blink -= dt; elHero.style.opacity = Math.floor(h.blink * 8) % 2 ? 0.3 : 1; if (h.blink <= 0) elHero.style.opacity = 1; }
   if (diff.heartsRegrow && h.hearts < 5 && state.time - (h.lastHurt || 0) > diff.heartsRegrow) {
     h.hearts++; h.lastHurt = state.time; drawHearts();
   }

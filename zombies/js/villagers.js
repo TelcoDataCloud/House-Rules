@@ -7,7 +7,7 @@
    =========================================================== */
 
 import { state, TILE } from './state.js';
-import { JOBS, POCKETS, START } from '../data/villagers.js';
+import { JOBS, POCKETS, START, NAMES } from '../data/villagers.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { el, thingAt } from './grid.js';
 
@@ -21,7 +21,7 @@ export function startVillage() {
 }
 
 export function addVillager(job, x, y) {
-  const v = { id: nextId++, job, x: x ?? 12, y: y ?? 8, el: null, taken: false, bed: null, name: job };
+  const v = { id: nextId++, job, x: x ?? 12, y: y ?? 8, el: null, taken: false, bed: null, name: NAMES[(nextId - 2) % NAMES.length] };
   v.el = el('g', { class: 'mob villager' });
   const body = el('g', { class: 'body' });
   body.appendChild(el('use', { href: '#art-' + (JOBS[job]?.art || 'farmer'), width: 48, height: 52, x: -4, y: -8 }));

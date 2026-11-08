@@ -46,6 +46,10 @@ export function fresh() {
   state.taken = [];
   state.curedTonight = 0;
   state.log = [];
+  state.wonAlready = false;
+  state.whackedOnce = false;
+  state.brokeTonight = 0;
+  state.dropped = [];
 }
 
 window.ZOMBIES = { state };
