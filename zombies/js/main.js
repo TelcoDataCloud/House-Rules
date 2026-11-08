@@ -103,7 +103,8 @@ function dawnResult() {
   const broke = state.brokeTonight ? `<p>${icon('plank')} ${state.brokeTonight} traps broke</p>` : '';
   const pits = state.zombies.length ? `<p>${icon('pit')} ${state.zombies.length} waiting in pits</p>` : '';
   const joined = (state.joined || []).length ? `<p>${icon('villager')} Joined: ${state.joined.map((j) => `${j.name} the ${(JOBS[j.job] || { name: j.job }).name.toLowerCase()}`).join(', ')}</p>` : '';
-  const beds = [...state.things.values()].filter((t) => t.does === 'bed').length;
+  let beds = 0;
+  for (const t of state.things.values()) if (t.does === 'bed') beds += t.data.holds || 1;
   const noBed = state.villagers[beds];
   const bedLine = noBed ? `<p>${icon('bed')} ${LINES.noBedFor.replace('{name}', noBed.name)}</p>` : '';
   $('result-counts').innerHTML =

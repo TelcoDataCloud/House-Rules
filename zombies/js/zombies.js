@@ -13,7 +13,21 @@ import { ZOMBIES } from '../data/zombies.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { NIGHTS, GIANT_FROM, MOON, KING_EVERY } from '../data/nights.js';
 import { LINES } from '../data/lines.js';
-import { el, blocked, thingAt, EDGE } from './grid.js';
+import { el, blocked, thingAt, EDGE, isPond, eastBank, BRIDGE_MID } from './grid.js';
+// The stream splits the map. Anyone on the wrong bank heads for the bridge first.
+export function viaBridge(from, goal) {
+  const goalEast = eastBank(goal.x, goal.y);
+  const goalEnd = goalEast ? BRIDGE_MID.east : BRIDGE_MID.west;
+  // on the bridge (or just at either end of it): walk off the side the goal is on
+  const onBridge = Math.abs(from.y - BRIDGE_MID.y) < 1.1 && from.x > BRIDGE_MID.west - 0.4 && from.x < BRIDGE_MID.east + 0.4;
+  if (onBridge) {
+    if (Math.abs(from.x - goalEnd) < 0.4) return goal;
+    return { ...goal, x: goalEnd, y: BRIDGE_MID.y };
+  }
+  if (eastBank(from.x, from.y) === goalEast) return goal;
+  // wrong bank: go to our end of the bridge first
+  return { ...goal, x: goalEast ? BRIDGE_MID.west : BRIDGE_MID.east, y: BRIDGE_MID.y };
+}
 import { stepOn } from './traps.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
@@ -193,6 +207,7 @@ export function updateZombies(dt) {
     else if (z.blind > 0) { z.blind -= dt; goal = { x: z.x + Math.cos(z.id + state.time * 2) * 3, y: z.y + Math.sin(z.id * 2 + state.time * 2) * 3 }; }
     else goal = target(z);
 
+    if (!goal.bait) goal = viaBridge(z, goal);
     let dx = goal.x - z.x, dy = goal.y - z.y;
     const dist = Math.hypot(dx, dy) || 1;
     dx /= dist; dy /= dist;
@@ -217,6 +232,8 @@ export function updateZombies(dt) {
     }
     if (z.spinT > 0) { z.spinT -= dt; dx = -dx; dy = -dy; }
 
+    // wading through the pond: slow, and the odd splash
+    if (isPond(Math.floor(z.x), Math.floor(z.y))) { z.slowOn = 0.35; if (Math.random() < dt * 0.5) burst(z.x, z.y - 0.6, 'sploosh'); }
     let speed = z.speed * (z.slowOn ? z.slowOn : 1) * (z.carrying ? 0.7 : 1) * (z.hopping ? 0.45 : 1);
     z.slowOn = 0;
     const step = speed * dt;
