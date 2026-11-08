@@ -1,13 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 44">
-<g class="stars"><text x="20" y="4" font-size="9" text-anchor="middle" fill="var(--button)">&#9733; &#9733; &#9733;</text></g>
-<g class="body">
-<rect x="10" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="22" y="34" width="8" height="10" rx="2" fill="var(--cloth-2)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="8" y="18" width="24" height="17" rx="4" fill="var(--cloth)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="2" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="31" y="20" width="7" height="12" rx="3" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="7" y="1" width="26" height="18" rx="5" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="15" cy="10" r="2" fill="var(--ink)"/><circle cx="25" cy="10" r="2" fill="var(--ink)"/><path d="M15 14 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-<rect x="6" y="0" width="28" height="7" rx="3" fill="var(--hair)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="34" y="16" width="4" height="16" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-</g></svg>
+<!-- hero: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Kid hero with wooden spoon</title>
+
+<g stroke="#090a08" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+<g id="hero-legs">
+<path d="M367 696 514 733 456 861 290 830Z" fill="#0068ce" />
+<path d="m464 724 50 9-58 128-53-12Z" fill="#003b92" stroke="none" />
+<path d="m528 735 141-39 57 126-165 37Z" fill="#0068ce" />
+<path d="m528 735 50-13 48 120-65 17Z" fill="#003b92" stroke="none" />
+<path d="m278 880-65 59-12 65 130 7 105-14V908Z" fill="#ed0010" />
+<path d="m384 907 52 1v89l-87 9-2-55Z" fill="#ad0008" stroke="none" />
+<path d="m273 908 22-8 41 7 25 10-13 12-40-13Z" fill="#fff" stroke="none" />
+<path d="M213 939q63-27 134 8l5 28 84-10v32l-105 14-130-7Z" fill="#fafafa" stroke-width="9" />
+<path d="m577 905-1 94 112 12 130-8-7-65-67-58Z" fill="#eb0010" />
+<path d="m577 905 51-10 55 52-9 29-98-10Z" fill="#ae0008" stroke="none" />
+<path d="m661 914 29-11 40-6 20 15-43 4-31 12Z" fill="#fff" stroke="none" />
+<path d="M576 965 673 975l6-29q61-32 132-8l7 65-130 8-112-12Z" fill="#fafafa" stroke-width="9" />
+<path d="m272 820 202 33-20 65-204-37Z" fill="#42acf2" />
+<path d="m410 843 64 10-20 65-64-12Z" fill="#1b7bc9" stroke="none" />
+<path d="m545 851 198-40 18 63-203 40Z" fill="#43aaf0" />
+<path d="m545 851 70-14 16 61-73 16Z" fill="#1978c8" stroke="none" />
+</g>
+<g id="hero-hood">
+<path d="m363 115 141-99 166-1 105 93 62 230-83 111-105 25-108 48-187-81-73-59 19-191Z" fill="#ff0011" />
+<path d="m739 196 47 108-55 124-117 42 140-21 83-111-62-230Z" fill="#b5000e" stroke="none" />
+<path d="m306 224-16 52 39 12-9 79 47 39 171 66 95-23 82-43 44-102-47-157-148-64-139 15Z" fill="#040604" stroke="none" />
+</g>
+<g id="hero-body">
+<path d="m369 443-59 49-22 54 17 87 46-13 20-57-22 112 5 31 158 34 167-28 14-41-42-187-37-30-61 39-61-43Z" fill="#fa0010" />
+<path d="m371 563-22 112 5 31 89 14 11-37-57-7 17-64 24-94Z" fill="#b6000c" stroke="none" />
+<path d="m369 452 62 17 12 23-41-15-59-9Z" fill="#c4000b" stroke="none" />
+<path d="m507 448 46 45 41-41Z" fill="#fff" />
+<path d="m651 484 96 62-60 95-23-75Z" fill="#ed0010" />
+<path d="m688 596 59-50-16 62-44 33-23-75Z" fill="#b5000a" stroke="none" />
+<path d="m487 612 132 1 28 67-9 38q-94 24-195 0Z" fill="#ed0010" stroke-width="10" />
+<path d="m443 718 13-37q93 15 191-1l-9 38q-99 24-195 0" fill="#af0009" stroke="none" />
+<path d="m487 612-44 106m176-105 28 67-9 38" fill="none" stroke-width="10" />
+<path d="m488 473 27 8-2 69 7 5-3 30-46-2 1-32 8-5 1-69Z" fill="#fafafa" stroke-width="9" />
+<path d="m592 479 21-7 16 77 7 5 3 29-42 4-5-31 6-6-12-66Z" fill="#fafafa" stroke-width="9" />
+<path d="m308 492 46 32 13 37-14 58-42 13-23-86Z" fill="#ef0010" />
+<path d="m314 562 53-1-14 58-42 13-13-41Z" fill="#b6000b" stroke="none" />
+<path d="m691 602 64-83 43 14 22 29-15 33-86 86-31-18-17-66Z" fill="#ef0010" />
+<path d="m691 602 35-35 36 31-43 83-31-18Z" fill="#b5000c" stroke="none" />
+</g>
+<g id="hero-face">
+<path d="m398 290-31-3-25 13 4 65 22 15 34-1Z" fill="#ffb96d" />
+<path d="m392 314-27 1 6 40 24 5Z" fill="#ff9350" stroke="none" />
+<path d="m677 281 39 6 23 11-14 73-23 11-40-5Z" fill="#ffc57e" />
+<path d="m679 309 35 3-11 43-30 1Z" fill="#ff9850" stroke="none" />
+<path d="m394 241 115-57 126-19 42 75-16 172-64 20q-121 7-202-26Z" fill="#ffc57c" />
+<path d="m397 253 52 22 92-31 94-46-1-33-125 19-115 57Z" fill="#ffac61" stroke="none" />
+<path d="m430 280 18-13 46 13-1 59-54 1-9-3Z" fill="#fff" stroke="none" />
+<path d="m458 277 29 2 9 16-3 39-36 1Z" fill="#060806" stroke-width="9" />
+<path d="M471 293h16v16h-16Z" fill="#fff" stroke="none" />
+<path d="m561 278 55-16 18 11-2 61-68 3Z" fill="#fff" stroke="none" />
+<path d="m571 279 22-10 15 12 1 45-37 2Z" fill="#040604" stroke-width="9" />
+<path d="M576 287h16v17h-16Z" fill="#fff" stroke="none" />
+<path d="m412 247 88 29-5 18-80-32Z" fill="#050705" stroke-width="10" />
+<path d="m553 274 74-36 11 18-80 32Z" fill="#050705" stroke-width="10" />
+<path d="M511 326h28l4 23-36 2v-20Z" fill="#ff9447" stroke="none" />
+<path d="M511 349h28" fill="none" stroke="#eb7e34" stroke-width="5" />
+<path d="m491 370 56-5 51-13q-2 24-11 38-40 15-83 6Z" fill="#fff" stroke-width="7" />
+<path d="M502 380q50 6 88-7" fill="none" stroke="#bbbdbb" stroke-width="5" />
+</g>
+<g id="hero-hair">
+<path d="m272 156 38-98 75-1 13-47 114 43 68 27 58 16 64 73 28 38-11 74-26-3-23 49-7-3 13-88-36-9-3-43-147 63-20-86-9 57-102 54-3-43 19-40-25 60-38 13-41-19 36-58Z" fill="#a93c00" />
+<path d="m398 10 62 23-21 86-155 14 26-75 75-1Z" fill="#ad4000" stroke="none" />
+<path d="m284 133 33-14 122 0 52 15-22 20-160 25-37-23Z" fill="#652100" stroke="none" />
+<path d="m460 33 70 28v37l-39 36-52-15Z" fill="#782800" stroke="none" />
+<path d="m530 98 76-5-19 57-111 47-7-43 22-20Z" fill="#ab3e00" stroke="none" />
+<path d="m606 93 32 3 7 38-10 51-147 63-12-51 111-47Z" fill="#602000" stroke="none" />
+<path d="m469 154-107 64 3 48 96-48Z" fill="#943000" stroke="none" />
+<path d="m645 144 41 9-15 43-32 26-4-37Z" fill="#9b3500" stroke="none" />
+<path d="m686 153 44 54-11 74-26-3-23 49-7-3 13-88-36-9 31-31Z" fill="#743000" stroke="none" />
+</g>
+<g id="hero-spoon">
+<path d="m185 442-22-73c-22-29-61-34-87-71-23-39-33-92-13-132 21-45 51-65 87-59 56 6 93 58 106 116 15 65-25 91-30 126l26 85 59 191q8 25-10 34-34 15-56-1Z" fill="#ffbd4c" />
+<path d="M77 159c-16 44-3 107 24 138 24 28 66 39 80 68l22 68 48-4-65 16-23-76c-22-29-61-34-87-71-23-39-33-92-13-132Z" fill="#e99223" stroke="none" />
+<path d="m239 573 19 61 40 7-3 12-50 5-24-76Z" fill="#ae5606" stroke="none" />
+<ellipse cx="163" cy="217" rx="66" ry="88" transform="rotate(-24 163 217)" fill="#a94700" stroke="none" />
+<ellipse cx="150" cy="241" rx="47" ry="65" transform="rotate(-30 150 241)" fill="#ce6410" stroke="none" />
+<path d="m233 587 57-13" fill="none" stroke="#bc660a" stroke-width="8" />
+</g>
+<g id="hero-hands">
+<path d="m247 429 19-5q23-4 27 5l19 58-13 15-27 1-16-33Z" fill="#ffc17a" />
+<path d="m286 498 20 29 9 36-10 24-18-1-9-41Z" fill="#ff9d54" stroke-width="10" />
+<path d="m252 429-40-1-36 11-29 20-6 38 15 51 27 61 42 13 2-29 31-17 34-7 6-8-12-40-12-43-11-4Z" fill="#ffc57e" />
+<path d="m185 596 40 26 2-29 31-17 34-7-3-12-52 13Z" fill="#ff9f58" stroke="none" />
+<path d="m204 486 26-9 33-3m-43 60 26-9 34-3" fill="none" stroke-width="7" stroke-linecap="butt" />
+<path d="m801 575 35 19 34 26 3 61-32 37-40 39-54-26-30-33-4-25 26-33 21-29Z" fill="#ffc47a" />
+<path d="m811 625 23 19-8-19-16-7-29 33-28 42-18 11-18-6 30 33 54 26 22-21-45-22-18-24Z" fill="#ff9c52" stroke="none" />
+<path d="m718 670 18 24 14 5 17-17 43-59 17 12" fill="none" stroke-width="9" />
+<path d="m778 667 25 12 23 30-29-17Z" fill="#ff9c52" stroke="none" />
+<path d="m767 693 26 19" fill="none" stroke="#ed8540" stroke-width="5" />
+</g>
+</g>
+</svg>

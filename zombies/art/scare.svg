@@ -1,1 +1,104 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="18" y="12" width="4" height="26" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="6" y="18" width="28" height="4" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="10" y="14" width="20" height="14" rx="3" fill="var(--cloth)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="9" r="7" fill="var(--straw)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="18" cy="8" r="1.2" fill="var(--ink)"/><circle cx="23" cy="8" r="1.2" fill="var(--ink)"/></svg>
+<!-- scare: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Smiling voxel scarecrow</title>
+
+<g stroke="#171006" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+<g id="scare-wooden-cross">
+<path d="M452 744 520 717 594 760 594 980 521 1014 452 982Z" fill="#a8612f" />
+<path d="M452 744 520 783 521 1014 452 982Z" fill="#78421f" stroke="none" />
+<path d="M520 783 594 760 520 717 452 744Z" fill="#c58246" stroke="none" />
+<path d="M48 579 918 312 977 354 975 416 99 699 48 663Z" fill="#99572a" />
+<path d="M48 579 918 312 977 354 102 622Z" fill="#c7844d" stroke="none" />
+<path d="M102 622 977 354 975 416 99 699Z" fill="#925025" stroke="none" />
+<path d="M48 579 918 312 977 354 975 416 99 699 48 663Z" fill="none" />
+</g>
+<g id="scare-straw" fill="#ffdc32">
+<path d="M294 319 248 357 273 384 335 340Z" />
+<path d="M327 331 282 404 321 427 366 355Z" />
+<path d="M353 350 343 395 373 411 394 353Z" fill="#efbe1e" />
+<path d="M385 349 360 449 407 459 433 353Z" />
+<path d="M425 328 426 431 469 423 454 319Z" />
+<path d="M691 244 718 331 751 308 723 254Z" />
+<path d="M712 224 781 278 755 306 702 262Z" />
+<path d="M209 524 149 541 168 572 254 554Z" />
+<path d="M249 551 157 596 178 633 276 578Z" />
+<path d="M259 588 181 688 224 709 286 612Z" />
+<path d="M252 622 240 676 279 688 298 613Z" fill="#edb91e" />
+<path d="M789 369 845 331 878 360 818 408Z" />
+<path d="M824 397 902 385 908 426 826 437Z" />
+<path d="M825 435 913 443 902 484 815 467Z" />
+<path d="M814 466 888 498 863 533 806 488Z" />
+<path d="M376 723 349 783 393 805 423 747Z" />
+<path d="M415 747 383 832 427 852 466 762Z" />
+<path d="M456 754 438 825 478 841 509 761Z" fill="#f1bd20" />
+<path d="M495 767 487 852 532 854 544 773Z" />
+<path d="M535 768 538 813 570 805 581 754Z" fill="#eab81a" />
+<path d="M551 757 559 827 605 813 589 737Z" />
+<path d="M594 736 597 792 632 797 636 733Z" fill="#efbc1e" />
+<path d="M614 724 637 824 684 803 652 715Z" />
+<path d="M658 690 674 763 717 746 688 671Z" />
+<g stroke="none" fill="#eabd22">
+<path d="M326 345 349 356 307 406Z" />
+<path d="M385 359 405 354 373 423Z" />
+<path d="M711 247 732 263 741 293Z" />
+<path d="M206 551 231 539 250 553 181 563Z" />
+<path d="M243 589 261 579 229 638Z" />
+<path d="M839 437 895 450 895 461 841 450Z" />
+<path d="M465 760 474 778 446 820Z" />
+<path d="M514 784 537 776 530 813Z" />
+<path d="M615 747 628 784 605 765Z" />
+</g>
+</g>
+<g id="scare-red-shirt">
+<path d="M270 498 380 458 457 483 641 411 713 375 775 351 835 408 825 544 766 568 742 548 690 568 725 701 679 672 669 724 633 739 601 703 576 750 494 779 482 717 438 770 356 722 376 633 344 646 274 689 267 570 183 512Z" fill="#ed2926" />
+<path d="M380 458 451 507 497 588 553 520 594 536 632 474 680 533 694 450 641 411 457 483Z" fill="#ff423a" />
+<path d="M270 498 349 545 344 646 274 689 267 570 183 512Z" fill="#f2312b" />
+<path d="M349 545 449 512 446 619 344 656Z" fill="#bb1c19" stroke="none" />
+<path d="M376 633 446 613 438 770 356 722Z" fill="#ae1c16" stroke="none" />
+<path d="M270 498 349 545 344 646" fill="none" />
+<path d="M183 512 267 570 274 689" fill="none" />
+<path d="M713 375 773 426 766 568 825 544 835 408 775 351Z" fill="#ff3e38" />
+<path d="M773 426 835 408 825 544 766 568Z" fill="#c51d1d" stroke="none" />
+<path d="M773 426 766 568" fill="none" />
+<path d="M694 450 773 426 763 544 690 568Z" fill="#bd1b19" stroke="none" />
+<path d="M694 450 686 524" fill="none" />
+<path d="M380 458 451 507 497 588 553 520" fill="none" />
+<path d="M632 474 680 533 694 450" fill="none" />
+<path d="M533 492 594 536 632 474Z" fill="#ffdb33" stroke-width="10" />
+<path d="M562 494 594 517 616 483Z" fill="#e6ac18" stroke="none" />
+<g fill="#ffdc80" stroke="#72280d" stroke-width="10">
+<path d="M582 561 609 552Q624 547 624 562L624 586Q624 594 616 597L585 608Q572 612 572 599L572 575Q572 565 582 561Z" />
+<path d="M582 636 610 626Q624 622 624 635L624 659Q624 668 616 671L583 683Q572 687 572 675L572 650Q572 640 582 636Z" />
+</g>
+</g>
+<g id="scare-head">
+<path d="M413 314 655 217 697 242 713 422 652 460 489 500 404 463 389 365Z" fill="#ffdb8b" />
+<path d="M413 314 458 321 489 500 404 463 389 365Z" fill="#bd914c" stroke="none" />
+<path d="M458 321 697 242 700 266 465 351Z" fill="#f6c568" stroke="none" />
+<path d="M458 321 489 500" fill="none" stroke-width="8" />
+<path d="M501 381Q492 342 520 335 547 324 557 361" fill="none" stroke-width="18" stroke-linecap="butt" />
+<path d="M634 334Q627 300 653 292 677 285 684 316" fill="none" stroke-width="18" stroke-linecap="butt" />
+<g stroke="none">
+<path d="M575 355 612 338 643 350 644 389 605 406 580 393Z" fill="#f68b29" />
+<path d="M575 355 605 367 605 406 580 393Z" fill="#bd581b" />
+<path d="M605 367 643 350 644 389 605 406Z" fill="#ee7020" />
+</g>
+<path d="M517 419Q559 459 617 436 665 418 680 375" fill="none" stroke-width="16" />
+<path d="M514 441 536 413M559 456 568 427M613 451 612 427M661 425 646 404M686 391 666 373" fill="none" stroke-width="10" stroke-linecap="butt" />
+</g>
+<g id="scare-straw-hat">
+<path d="M185 243 675 105 814 143 814 195 401 364 188 299Z" fill="#ffd43c" />
+<path d="M185 243 401 313 814 143 675 105Z" fill="#ffe354" stroke="none" />
+<path d="M401 313 814 143 814 195 401 364Z" fill="#f6b90d" stroke="none" />
+<path d="M185 243 401 313 401 364 188 299Z" fill="#b8810d" stroke="none" />
+<path d="M185 243 675 105 814 143 814 195 401 364 188 299Z" fill="none" />
+<path d="M303 80 485 9 626 49 679 164 441 261 302 220Z" fill="#ffce2d" />
+<path d="M303 80 440 125 626 49 485 9Z" fill="#ffe34c" stroke="none" />
+<path d="M303 80 440 125 441 261 302 220Z" fill="#b7800a" stroke="none" />
+<path d="M440 125 626 49 679 164 441 261Z" fill="#f6b60c" stroke="none" />
+<path d="M303 165 441 204 659 116 679 164 441 261 302 220Z" fill="#ed2926" stroke="#34170b" stroke-width="9" />
+<path d="M303 165 441 204 441 254 307 216Z" fill="#a81b16" stroke="none" />
+<path d="M303 80 485 9 626 49 679 164 441 261 302 220Z" fill="none" />
+</g>
+</g>
+</svg>
