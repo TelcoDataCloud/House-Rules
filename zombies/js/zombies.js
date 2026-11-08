@@ -18,6 +18,7 @@ import { stepOn } from './traps.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
+import { TRICKS, onWhack, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
 
 let nextId = 1;
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -34,6 +35,8 @@ export function tonight() {
   state.taken.forEach(() => kinds.push('bob'));
   const moon = moonTonight();
   if (moon) moon.extra.forEach((k) => kinds.push(k));
+  // for testing: ?horde=bogey,eyeball picks tonight's zombies by hand
+  if (window.ZOMBIES.horde) return { kinds: window.ZOMBIES.horde, side: plan.side, moon };
   if (state.night >= GIANT_FROM[state.mode] && (state.night - GIANT_FROM[state.mode]) % 2 === 0) kinds.push('giant');
   return { kinds, side: plan.side, moon };
 }
@@ -79,8 +82,9 @@ function makeZombie(kind, side, i) {
   };
   z.el = el('g', { class: 'mob zombie walking zombie-' + kind });
   const body = el('g', { class: 'body' });
-  const w = z.big ? 80 : 40, h = z.big ? 100 : 44;
-  body.appendChild(el('use', { href: '#art-' + data.art, width: w, height: h, x: z.big ? -20 : -4, y: z.big ? -56 : -8 }));
+  const s = data.size || 1;
+  const w = z.big ? 80 : 48 * s, h = z.big ? 100 : 52 * s;
+  body.appendChild(el('use', { href: '#art-' + data.art, width: w, height: h, x: z.big ? -20 : -4 - (w - 48) / 2, y: z.big ? -56 : -8 - (h - 52) }));
   z.el.appendChild(body);
   const stars = el('g', { class: 'stars' });
   const t = el('text', { x: 20, y: 2, 'font-size': 10, 'text-anchor': 'middle', fill: 'var(--button)' });
@@ -141,6 +145,8 @@ function nearestThing(z, does) {
 }
 
 export function updateZombies(dt) {
+  updateDropped(dt);
+  updateFlattened(dt);
   const diff = DIFFICULTY[state.mode];
   const moon = moonTonight();
   const torchPower = moon ? moon.torch : 1;
@@ -169,8 +175,11 @@ export function updateZombies(dt) {
       drawZ(z); continue;
     }
 
+    if (z.data.trick && TRICKS[z.data.trick]) TRICKS[z.data.trick](z, dt);
+
     let goal;
     if (z.leaving) goal = nearestEdge(z);
+    else if (z.goal) goal = z.goal;
     else if (z.blind > 0) { z.blind -= dt; goal = { x: z.x + Math.cos(z.id + state.time * 2) * 3, y: z.y + Math.sin(z.id * 2 + state.time * 2) * 3 }; }
     else goal = target(z);
 
@@ -198,7 +207,7 @@ export function updateZombies(dt) {
     }
     if (z.spinT > 0) { z.spinT -= dt; dx = -dx; dy = -dy; }
 
-    let speed = z.speed * (z.slowOn ? z.slowOn : 1) * (z.carrying ? 0.7 : 1);
+    let speed = z.speed * (z.slowOn ? z.slowOn : 1) * (z.carrying ? 0.7 : 1) * (z.hopping ? 0.45 : 1);
     z.slowOn = 0;
     const step = speed * dt;
     const nx = z.x + dx * step, ny = z.y + dy * step;
@@ -228,9 +237,14 @@ export function updateZombies(dt) {
       if (z.throwT <= 0) {
         z.throwT = 9 + Math.random() * 4;
         if (z.data.throws === 'snot' && Math.hypot(state.hero.x - z.x, state.hero.y - z.y) < 5) { snotScreen(); burst(z.x, z.y - 0.5, 'SPLORT'); blip('splat'); }
+        if (z.data.throws === 'bogey' && Math.hypot(state.hero.x - z.x, state.hero.y - z.y) < 5) flickBogey(z);
         if (z.data.throws === 'gas') { cloud(z.x, z.y, 2, 4); state.gasAt = { x: z.x, y: z.y, t: 4 }; burst(z.x, z.y - 0.5, 'PARP'); blip('groan'); }
       }
     }
+
+    // sliding in a puddle
+    const pud = puddleAt(z.x, z.y);
+    if (pud && z.slidT !== pud) { z.slidT = pud; z.dizzy = 2; z.flying = 0.4; z.flyX = dx * 2.5; z.flyY = dy * 2.5; burst(z.x, z.y - 0.6, 'WHOOPS'); blip('boing'); }
 
     // grabbing the hero
     const hd = Math.hypot(state.hero.x - z.x, state.hero.y - z.y);
@@ -283,7 +297,9 @@ export function whackAt(x, y) {
   state.zombies.forEach((z) => {
     if (z.pit || z.big) return;
     const d = Math.hypot(z.x - x, z.y - y);
+    if (d < 1.3 && z.data.heavy) { burst(z.x, z.y - 0.8, 'nope'); return; }
     if (d < 1.3) {
+      onWhack(z);
       z.dizzy = 3;
       z.bedSince = 0;
       const dx = z.x - x, dy = z.y - y, len = Math.hypot(dx, dy) || 1;
@@ -330,6 +346,8 @@ export function sendHome() {
 }
 
 export function clearZombies() {
+  (state.dropped || []).forEach((d) => d.el.remove());
+  state.dropped = [];
   state.zombies.forEach((z) => z.el.remove());
   state.zombies = [];
 }
