@@ -16,7 +16,13 @@
    digs      true means it goes under walls
    big       true means only the catapult can cure it
    becomes   the job the cured villager gets (data/villagers.js)
-   throws    a gross thing it throws at the hero: 'snot' or 'gas'
+   throws    a gross thing it throws at the hero: 'snot', 'gas' or 'bogey'
+   trick     a special habit: 'eyeball' (his eye rolls off and he chases it),
+             'loosebits' (drops an arm when whacked and hops after it),
+             'vomit' (spews a slippy puddle now and then),
+             'burp' (a burp flattens fences nearby)
+   heavy     true means the spoon does not budge him
+   size      how big to draw it (1 is normal)
    =========================================================== */
 
 export const ZOMBIES = {
@@ -67,6 +73,58 @@ export const ZOMBIES = {
     throws: 'gas',
     line: ['pardon', 'was that you', 'better out than in'],
     becomes: 'farmer',
+  },
+  bogey: {
+    name: 'Bogey Bomber',
+    art: 'bogey',
+    speed: 2.2,
+    cure: 1,
+    wants: 'anyone',
+    throws: 'bogey',
+    line: ['pick', 'flick', 'got a good one'],
+    becomes: 'builder',
+  },
+  eyeball: {
+    name: 'Eyeball Roll',
+    art: 'eyeball',
+    speed: 1.3,
+    cure: 1,
+    wants: 'bed',
+    trick: 'eyeball',
+    line: ['where did it go', 'eye eye', 'come back'],
+    becomes: 'lookout',
+  },
+  loosebits: {
+    name: 'Loose Bits',
+    art: 'loosebits',
+    speed: 1.2,
+    cure: 1,
+    wants: 'bed',
+    trick: 'loosebits',
+    line: ['oops', 'hang on', 'my arm'],
+    becomes: 'farmer',
+  },
+  vomit: {
+    name: 'Vomit Comet',
+    art: 'vomit',
+    speed: 1.0,
+    cure: 1,
+    wants: 'farm',
+    trick: 'vomit',
+    line: ['urp', 'bad pumpkin', 'oh no'],
+    becomes: 'farmer',
+  },
+  burplord: {
+    name: 'Burp Lord',
+    art: 'burplord',
+    speed: 0.7,
+    cure: 2,
+    wants: 'bed',
+    trick: 'burp',
+    heavy: true,
+    size: 1.7,
+    line: ['BUUURP', 'pardon me', 'more pop'],
+    becomes: 'builder',
   },
   werewolf: {
     name: 'Werewolf',

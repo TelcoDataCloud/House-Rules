@@ -17,8 +17,8 @@ export const NIGHTS = [
   { side: 'north', extra: [] },
   { side: 'east',  extra: ['hopper'] },
   { side: 'west',  extra: ['digger', 'hopper'] },
-  { side: 'south', extra: ['digger', 'digger'] },
-  { side: 'all',   extra: ['hopper', 'hopper', 'digger'] },
+  { side: 'south', extra: ['digger', 'burplord'] },
+  { side: 'all',   extra: ['hopper', 'hopper', 'digger', 'burplord'] },
 ];
 
 // Easy: the giant comes from this night. Hard: from this one.

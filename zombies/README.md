@@ -14,7 +14,7 @@ zombie joins your village and goes to work. Lives at `/zombies/`.
 - No build step. `python3 -m http.server 8000` in the repo, then open
   `localhost:8000/zombies/`.
 - Testing: `?fast=4` runs the night four times faster, `?mode=hard`
-  picks Hard. `ZOMBIES.state` in the console shows everything.
+  picks Hard, `?horde=bogey,eyeball,burplord` picks tonight's zombies. `ZOMBIES.state` in the console shows everything.
 
 Playwright note: the sandbox's headless Chromium crashes if an SVG file is
 parsed with `DOMParser` and `importNode`d into the page. `js/art.js` uses

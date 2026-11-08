@@ -64,6 +64,8 @@
 @keyframes splash { from { transform: scale(0.2); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
 
 .gascloud { fill: var(--gas); pointer-events: none; }
+.dropped { pointer-events: none; }
+.bubble { fill: var(--panel); stroke: var(--ink); stroke-width: 2.5; paint-order: stroke; font-family: var(--font); }
 
 .arc { fill: none; stroke: var(--button); stroke-width: 4; stroke-dasharray: 8 10; pointer-events: none; }
 .landing { fill: var(--potion-glow); stroke: var(--button); stroke-width: 3; pointer-events: none; }
