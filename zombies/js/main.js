@@ -126,6 +126,7 @@ function wire() {
   const q = new URLSearchParams(location.search);
   if (q.get('fast')) window.ZOMBIES.fast = Number(q.get('fast'));
   if (q.get('mode')) state.mode = q.get('mode');
+  if (q.get('horde')) window.ZOMBIES.horde = q.get('horde').split(',');
 }
 
 async function boot() {

@@ -108,6 +108,7 @@ function walkHome(dt) {
 
 function dawn() {
   state.phase = 'dawn';
+  (state.dropped || []).forEach((d) => { d.t = Math.min(d.t, 2); });
   document.getElementById('stage').classList.remove('is-night');
   catapult.cancelAim();
   sendHome();

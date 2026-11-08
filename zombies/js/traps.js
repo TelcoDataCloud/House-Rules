@@ -11,6 +11,7 @@ import { state, TILE } from './state.js';
 import { burst, splash } from './fx.js';
 import { blip } from './voice.js';
 import { DIFFICULTY } from '../data/difficulty.js';
+import { KEEP_AT_LEAST } from '../data/villagers.js';
 
 const ACT = {
   pit(z, t) {
@@ -88,7 +89,8 @@ const ACT = {
     const diff = DIFFICULTY[state.mode];
     const v = state.villagers.find((p) => p.bed === t && !p.taken);
     if (!v) return;
-    if (diff.takeVillagers && !z.carrying) {
+    const canTake = diff.takeVillagers && state.night >= (diff.takeFrom || 1) && state.villagers.filter((p) => !p.taken).length > KEEP_AT_LEAST;
+    if (canTake && !z.carrying) {
       // it takes three seconds of tugging: whack him off before then
       if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'heave'); }
       if (state.time - z.bedSince < 3) return;
