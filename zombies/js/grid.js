@@ -35,7 +35,7 @@ export function drawGround() {
       });
       ground.appendChild(tile);
       if (isEdge(col, row) && ((col * 31 + row * 17 + 3) % 5 === 0)) {
-        ground.appendChild(el('use', { href: '#art-tree', x: col * TILE - 8, y: row * TILE - 16, width: TILE + 16, height: TILE + 16 }));
+        ground.appendChild(el('use', { href: '#art-tree', class: 'tree', 'data-col': col, 'data-row': row, x: col * TILE - 8, y: row * TILE - 16, width: TILE + 16, height: TILE + 16 }));
       }
     }
   }

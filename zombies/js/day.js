@@ -16,7 +16,9 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { POCKETS } from '../data/villagers.js';
 import { placeThing, removeThing, thingAt, pointToTile, isEdge, el } from './grid.js';
 import { buildBar, drawCounts, drawDay, drawSun, lookoutSay, helpSay, banner, flashCount } from './hud.js';
-import { morning, wakeUp, placeAtWork, draw as drawVillager } from './villagers.js';
+import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds } from './villagers.js';
+import { JOBS } from '../data/villagers.js';
+import { startWork, updateWork, retask } from './work.js';
 import { tonight, cure } from './zombies.js';
 import { burst } from './fx.js';
 import { say, blip } from './voice.js';
@@ -27,8 +29,11 @@ const pick = (list) => list[Math.floor(Math.random() * list.length)];
 let plan = null;
 let hoverTile = null;
 let onNightHandler = null;
+let raf = 0;
+let last = 0;
+let picking = null;   // the villager whose job picker is open
 
-const DAY_HELP = 'Pick a thing on the bar, then click a square. Click a thing to take it back. Click a pit with zombies to pour potion in.';
+const DAY_HELP = 'Pick a thing, click a square. Tap a villager to change their job.';
 
 // loaded: true means this day came from a save, so the morning already happened
 export function startDay(onNight, loaded = false) {
@@ -46,10 +51,11 @@ export function startDay(onNight, loaded = false) {
     if (t.used && !t.broken) { t.used = false; t.el.style.opacity = 1; }
   }
 
-  // Day 1: no morning, just what you start with. After that the jobs make things.
-  let made = null, stillBroken = 0;
-  if (state.night > 1 && !loaded) { made = morning(); stillBroken = mend(); }
+  const stillBroken = state.night > 1 ? mend() : 0;
   wakeUp();
+  assignBeds();
+  startWork();
+  closePicker();
   plan = tonight();
 
   // the lookout: what is coming, the moon, and one new zombie to meet
@@ -65,25 +71,38 @@ export function startDay(onNight, loaded = false) {
   buildBar(pickThing);
   onNightHandler = onNight;
   drawDay();
-  drawSun(0.1);
+  drawSun(0);
   drawCounts();
-  if (made) {
-    banner(`+${made.carrots} carrots  +${made.planks} planks  +${made.potion} potion`, 2500);
-    helpSay(LINES.morning.replace('{carrots}', made.carrots).replace('{planks}', made.planks).replace('{potion}', made.potion) + ' ' + DAY_HELP);
-  } else {
-    banner(LINES.start.replace('{planks}', POCKETS.planks).replace('{carrots}', POCKETS.carrots).replace('{potion}', POCKETS.potion), 3000);
-  }
+  if (state.night === 1) helpSay(LINES.start.replace('{planks}', POCKETS.planks).replace('{carrots}', POCKETS.carrots).replace('{potion}', POCKETS.potion) + ' ' + DAY_HELP);
   if (stillBroken) lookoutSay(`${stillBroken} traps still broken. Click one to mend it for a plank.`);
+  const noBed = state.villagers.find((v) => !v.bed);
+  if (noBed) { lookoutSay(LINES.noBedFor.replace('{name}', noBed.name) + ' ' + line); say(LINES.noBedFor.replace('{name}', noBed.name)); }
   if (!loaded) saveGame();
+  last = performance.now();
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(dayTick);
 }
 
+// The day loop: villagers walk to work while you build
+function dayTick(now) {
+  if (state.phase !== 'day') return;
+  const dt = Math.min(0.05, (now - last) / 1000) * (window.ZOMBIES.fast || 1);
+  last = now;
+  updateWork(dt);
+  raf = requestAnimationFrame(dayTick);
+}
+
+export function stopDay() { cancelAnimationFrame(raf); closePicker(); }
+
 export function nightFallsPressed() {
+  closePicker();
   if (![...state.things.values()].some((t) => t.does === 'bed')) {
     banner(LINES.noBed, 2500);
     say(LINES.noBed);
     helpSay(LINES.noBed);
     return;
   }
+  cancelAnimationFrame(raf);
   if (onNightHandler) onNightHandler();
 }
 
@@ -104,8 +123,46 @@ function cannot(p, text, which) {
   if (which) flashCount(which);
 }
 
+// Tap a villager: a three button picker to change their job
+function openPicker(v, ev) {
+  closePicker();
+  picking = v;
+  const box = document.createElement('div');
+  box.className = 'job-picker';
+  box.innerHTML = `<p><b>${v.name}</b> the ${(JOBS[v.job] || { name: v.job }).name.toLowerCase()}</p>` +
+    ['farmer', 'builder', 'brewer'].map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('') +
+    '<button type="button" class="quiet" data-job="">Close</button>';
+  box.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.job) {
+      if (b.dataset.job === 'brewer' && ![...state.things.values()].some((t) => t.does === 'brewery')) { helpSay('No brewery to cook in.'); return; }
+      setJob(v, b.dataset.job);
+      retask(v);
+      helpSay(`<b>${v.name}</b> is a ${JOBS[v.job].name.toLowerCase()} now. ${JOBS[v.job].does || ''}`);
+      saveGame();
+    }
+    closePicker();
+    drawCounts();
+  });
+  const stage = document.getElementById('stage');
+  stage.appendChild(box);
+  const r = stage.getBoundingClientRect();
+  box.style.left = Math.min(r.width - 200, Math.max(0, ev.clientX - r.left - 90)) + 'px';
+  box.style.top = Math.max(0, ev.clientY - r.top - 120) + 'px';
+}
+
+export function closePicker() {
+  document.querySelectorAll('.job-picker').forEach((e) => e.remove());
+  picking = null;
+}
+
 export function dayClick(ev) {
   const p = pointToTile(ev);
+  if (picking) { closePicker(); return; }
+  // a villager under the pointer?
+  const v = state.villagers.find((x) => x.job !== 'crew' && Math.abs(x.x - p.x) < 0.6 && p.y > x.y - 1.1 && p.y < x.y + 0.3);
+  if (v && !state.picked) { openPicker(v, ev); return; }
   const here = thingAt(p.col, p.row);
   // cure a zombie in a pit
   if (here && here.does === 'pit' && here.held.length) {
