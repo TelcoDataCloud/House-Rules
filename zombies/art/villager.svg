@@ -1,1 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="10" y="4" width="20" height="16" rx="4" fill="var(--skin)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="16" cy="11" r="1.8" fill="var(--ink)"/><circle cx="24" cy="11" r="1.8" fill="var(--ink)"/><path d="M15 15 q5 3 10 0" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/><rect x="8" y="21" width="24" height="15" rx="4" fill="var(--carrot-leaf)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- villager: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Smiling straw-hat villager</title>
+<defs>
+<linearGradient id="villager-hat" x1="0" y1="0" x2="0.8" y2="1">
+<stop offset="0" stop-color="#ffe831" />
+<stop offset="1" stop-color="#ffcf08" />
+</linearGradient>
+<linearGradient id="villager-skin" x1="0" y1="0" x2="1" y2="0.6">
+<stop offset="0" stop-color="#ffae77" />
+<stop offset="1" stop-color="#ffa56b" />
+</linearGradient>
+<linearGradient id="villager-nose" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#e78539" />
+<stop offset="1" stop-color="#c26528" />
+</linearGradient>
+<linearGradient id="villager-shirt" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#fff1d3" />
+<stop offset="1" stop-color="#f5d59d" />
+</linearGradient>
+</defs>
+
+<g stroke="#050503" stroke-width="20" stroke-linejoin="round" stroke-linecap="round">
+<g id="villager-shoulders">
+<path d="M18 1016V969L103 786Q106 782 117 780L234 760 376 781 447 785 613 781 758 764 907 795 1006 982V1016Z" fill="url(#villager-shirt)" />
+<path d="M110 794 193 884 146 1006H28V971Z" fill="#e4c484" stroke="none" />
+<path d="M193 884 291 869 280 1006H146Z" fill="#f6d69e" stroke="none" />
+<path d="M784 779 906 802 854 875 795 861Z" fill="#ffefcf" stroke="none" />
+<path d="M795 861 854 875 894 1006H804Z" fill="#e4c283" stroke="none" />
+<path d="M302 894 693 894 724 1016H283Z" fill="#88350f" stroke="none" />
+<path d="M303 931 696 925" fill="none" stroke-width="17" />
+<path d="M232 764Q276 803 296 866L307 1002 407 1000Q411 883 377 794Z" fill="#8c350d" stroke-width="17" />
+<path d="M306 924 399 922 400 991 314 992Z" fill="#ffbf00" stroke="none" />
+<path d="M675 785Q696 845 700 922L702 995 798 993Q797 860 760 772Z" fill="#8c350d" stroke-width="17" />
+<path d="M706 918 785 916 789 985 710 986Z" fill="#ffbd00" stroke="none" />
+<path d="M444 780 615 778 617 852 571 854 571 895 519 896 515 856 451 856Z" fill="#b05b38" stroke-width="17" />
+<path d="M520 850H563V887H526Z" fill="#ef9260" stroke="none" />
+</g>
+<g id="villager-straw-hat">
+<path d="M190 244 195 140Q196 130 205 121L299 25Q307 16 321 16H731Q758 18 771 41L801 224 745 259 310 269Z" fill="url(#villager-hat)" />
+<path d="M205 137 310 29 306 148 200 235Z" fill="#df9700" stroke="none" />
+<path d="M310 60 451 58 456 143 306 149Z" fill="#ffb900" stroke="none" />
+<path d="M687 60 736 59 765 68 780 156 694 149Z" fill="#ffb800" stroke="none" />
+<path d="M201 232 306 147Q548 119 780 156L789 218 745 224 304 214Z" fill="#b51e16" stroke="none" />
+<path d="M201 232 306 147 305 207Z" fill="#820f08" stroke="none" />
+<path d="M50 285 289 215Q306 203 526 207L746 215 975 266Q982 267 984 279L1005 359Q1009 369 999 376L834 483 793 494 200 511Q181 514 165 505L19 418Q9 413 13 401L45 296Q47 288 50 285Z" fill="url(#villager-hat)" />
+<path d="M32 364 283 283Q463 268 760 283L991 342 996 364 831 477 794 486 197 503 176 500 23 411Z" fill="#cc8b00" stroke="none" />
+<path d="M789 327 989 371 831 477 798 485Z" fill="#a96a00" stroke="none" />
+</g>
+<g id="villager-head">
+<path d="M197 383 294 331Q304 326 322 325 507 309 735 326 772 328 789 337L807 739Q809 760 787 768L612 795 306 792Q295 790 286 785L196 728Z" fill="url(#villager-skin)" />
+<path d="M207 389 302 340V783L208 722Z" fill="#d86e43" stroke="none" />
+<path d="M207 722 302 699V782Z" fill="#c65e36" stroke="none" />
+<path d="M303 337Q501 315 743 336L779 344 781 360Q539 329 303 356Z" fill="#ed8553" stroke="none" />
+<path d="M336 350Q539 330 756 352L759 425Q546 398 337 423Z" fill="#592409" stroke="none" />
+<g id="villager-happy-eyes" fill="#020300" stroke="none">
+<path d="M354 536 358 482Q360 453 391 450L462 447Q491 448 500 478L505 535H472L468 501Q468 494 460 494 428 492 398 495 391 495 391 502L387 536Z" />
+<path d="M625 478Q632 450 655 449L720 451Q745 453 752 477L755 536H726L722 502Q721 496 715 496L664 494Q655 494 654 501L650 536H619Z" />
+</g>
+<g id="villager-smile">
+<path d="M425 607 507 624 646 621 687 610Q670 714 614 760 550 769 491 758 436 719 425 607Z" fill="#400408" stroke-width="16" stroke-linejoin="miter" />
+<path d="M454 700Q548 663 639 719 625 741 610 752 551 760 495 750 472 733 454 700Z" fill="#ff4f59" stroke="none" />
+</g>
+<g id="villager-blocky-nose">
+<path d="M504 412 605 413 645 539 644 675 540 678 507 657 508 546Z" fill="#9c431b" stroke="none" />
+<path d="M508 545 543 540 646 545 644 675 540 678 507 657Z" fill="#b85b26" stroke="#040401" stroke-width="15" stroke-linejoin="miter" />
+<path d="M505 412 605 413 645 539 543 540Z" fill="#e58a42" stroke="none" />
+<path d="M505 412 543 540 542 669 514 652 513 551Z" fill="#a85021" stroke="none" />
+<path d="M543 540 644 541 641 668 542 669Z" fill="url(#villager-nose)" stroke="none" />
+</g>
+</g>
+</g>
+</svg>

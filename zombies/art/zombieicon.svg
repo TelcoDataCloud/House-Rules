@@ -1,1 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="10" y="4" width="20" height="16" rx="4" fill="var(--zombie)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="13" y="8" width="5" height="5" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="22" y="8" width="5" height="5" fill="var(--zombie-eye)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="16" cy="11" r="1.2" fill="var(--ink)"/><circle cx="25" cy="10" r="1.2" fill="var(--ink)"/><rect x="8" y="21" width="24" height="15" rx="4" fill="var(--zombie-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- zombieicon: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy green block zombie</title>
+<defs>
+<linearGradient id="zombieicon-skin" x1="190" y1="240" x2="855" y2="755" gradientUnits="userSpaceOnUse">
+<stop stop-color="#a8ea20" />
+<stop offset="1" stop-color="#94d91a" />
+</linearGradient>
+<linearGradient id="zombieicon-side" x1="100" y1="300" x2="260" y2="650" gradientUnits="userSpaceOnUse">
+<stop stop-color="#4d880b" />
+<stop offset="1" stop-color="#689e0b" />
+</linearGradient>
+<linearGradient id="zombieicon-shirt" x1="365" y1="813" x2="650" y2="1024" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00c0d5" />
+<stop offset="1" stop-color="#00aabe" />
+</linearGradient>
+<linearGradient id="zombieicon-mouth" x1="399" y1="567" x2="615" y2="751" gradientUnits="userSpaceOnUse">
+<stop stop-color="#510918" />
+<stop offset="1" stop-color="#620d1c" />
+</linearGradient>
+</defs>
+
+<g id="zombieicon-shoulders" stroke="#030503" stroke-width="20" stroke-linejoin="miter">
+<path d="M14 967 55 831Q58 818 72 816L249 776 704 778 953 816Q964 818 968 833L1005 967 977 976 994 1024H29L44 974Z" fill="url(#zombieicon-shirt)" />
+</g>
+<g id="zombieicon-shirt-planes">
+<path d="m65 830 111-25 104 43-49 21Z" fill="#00d0e4" />
+<path d="m176 805 72-20 93 17 3 87-65-41Z" fill="#007c90" />
+<path d="m231 869 49-21-21 176h-56Z" fill="#007186" />
+<path d="m676 800 40-12 70 15-116 29Z" fill="#007e90" />
+<path d="m670 832 116-29 163 28-166 41Z" fill="#00c7dc" />
+<path d="m723 845 60 27 30 152h-59Z" fill="#007286" />
+<path d="m783 872 166-41 38 121-51 17-13-30-45 13 6 29-76 16Z" fill="#009bac" />
+</g>
+<g id="zombieicon-neck" stroke="#030503" stroke-width="18">
+<path d="m334 787 325-2-11 111-58 12v42h-88l-7 32-78-8 2-75-80-12Z" fill="#83cf13" />
+</g>
+<path d="m345 808 304-10-7 57-152 32-142-17Z" fill="#548c0a" />
+<path d="m348 870 142 17 151-32-3 31-56 15-91-5-142-17Z" fill="#92d91b" />
+<g id="zombieicon-arms" fill="#87d016" stroke="#030503" stroke-width="18">
+<path d="m19 1029 20-72 50 12 12-33 46 12-6 34 62 14-5 33" />
+<path d="m814 1029-9-33 78-16-5-33 46-12 13 35 46-10 21 69" />
+</g>
+<g id="zombieicon-head">
+<path d="M96 96Q96 77 125 71L316 42 684 13 875 65Q883 68 884 83L909 292 873 310 923 702 716 775 490 828 236 789 146 717 110 351 81 335Z" fill="url(#zombieicon-skin)" />
+<path d="m96 96 94 49 12 133 14 223 30 226-10 62-90-72-36-366-29-16Z" fill="url(#zombieicon-side)" />
+<path d="m96 96 29-25 191-29 368-29 170 48-658 73Z" fill="#b0ec29" />
+<path d="m109 98 88 36 5 144-18-5-7-126Z" fill="#1b590d" />
+<path d="m197 134 657-73 29 12 8 93-46 4 2 64-69 6-10-105-110 11 2 64-89 9-13-97-156 17 2 56-116 10 2 66-88 7Z" fill="#20680e" stroke="#16480b" stroke-width="5" />
+<path d="m110 351 92-34 14 184 30 226-88-17-26-186Z" fill="#5b920c" opacity=".48" />
+<path d="m158 710 331 68 1 50-254-39Z" fill="#72ac10" />
+<path d="m246 727-10 62-78-79Z" fill="#3f7409" />
+<g id="zombieicon-skin-marks" fill="#4c8a09">
+<path d="m176 507 105-12 11 87-106 10Z" />
+<path d="M500 478h48v57h-48Z" fill="#337b07" />
+<path d="M579 478h48v57h-48Z" fill="#347b08" />
+<path d="m834 542 57-8 14 104-96 13-8-56 40-7Z" />
+</g>
+<path d="m176 507 39-5 12 86-41 4Z" fill="#326609" />
+<g id="zombieicon-eyes" fill="#fffaf1" stroke="#020402" stroke-width="19" stroke-linejoin="round">
+<path d="M301 297 430 249Q478 231 497 277L535 383Q551 429 509 447L367 500Q319 516 298 471L260 371Q242 321 301 297Z" />
+<path d="M700 271 790 300Q855 320 837 376L807 464Q790 516 741 500L617 456Q570 442 589 392L618 318Q641 256 687 268Z" />
+</g>
+<g id="zombieicon-crossed-pupils" fill="#000">
+<rect x="429" y="303" width="72" height="72" rx="5" transform="rotate(-16 465 339)" />
+<rect x="608" y="374" width="69" height="69" rx="4" transform="rotate(16 642 408)" />
+</g>
+<g id="zombieicon-mouth-and-teeth">
+<path d="m343 551 207 28 189-31-25 163-128 31-83 6-110-21 8-65-67-23Z" fill="url(#zombieicon-mouth)" stroke="#030402" stroke-width="17" />
+<path d="m407 565 97 14-5 65-14 9-82-13Z" fill="#310b0d" />
+<path d="m408 568 88 12-8 63-83-9q-4 0-3-6Z" fill="#fffdb0" />
+<path d="m620 574 86-15 18 80-84 13-11-10Z" fill="#330b0c" />
+<path d="m620 575 86-15 8 65q1 5-4 6l-80 11Z" fill="#fffcb0" />
+<path d="m506 684 79-5 12 8 2 59-96 11Z" fill="#330b0c" />
+<path d="m507 682 75-3q4 0 4 5l1 63-85 10-1-68q0-6 6-7Z" fill="#fffcb0" />
+</g>
+<path d="M96 96Q96 77 125 71L316 42 684 13 875 65Q883 68 884 83L909 292 873 310 923 702 716 775 490 828 236 789 146 717 110 351 81 335Z" fill="none" stroke="#020302" stroke-width="27" stroke-linejoin="round" />
+</g>
+</svg>
