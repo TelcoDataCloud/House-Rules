@@ -24,9 +24,9 @@
 .sprite-sheet { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* ground squares */
-.tile { fill: url(#pat-grass); stroke: none; }
-.tile.alt { fill: url(#pat-grass); }
-.tile.edge { fill: url(#pat-woods); stroke: none; }
+/* the squares are invisible on top of the painted map; they only catch taps */
+.tile { fill: transparent; stroke: none; }
+.tile.edge, .tile.water, .tile.rock { fill: transparent; }
 .tile.hover { fill: var(--button); opacity: 0.8; }
 .tile.bad { fill: var(--cloth); opacity: 0.8; }
 
@@ -113,3 +113,8 @@
 /* zoom buttons in the corner of the village */
 .zoom-buttons { position: absolute; right: 8px; bottom: 8px; display: flex; flex-direction: column; gap: 6px; z-index: 4; }
 .zoom-buttons button { min-width: 48px; min-height: 48px; padding: 0; font-size: 1.5rem; font-weight: 800; }
+
+/* chimney smoke: three puffs that rise and fade, one after another */
+.smoke circle { fill: rgba(240, 240, 240, 0.7); animation: puff 2.7s infinite ease-out; transform-box: fill-box; transform-origin: center; }
+@keyframes puff { from { transform: translate(0, 0) scale(0.6); opacity: 0.8; } to { transform: translate(6px, -26px) scale(1.8); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .smoke { display: none; } }

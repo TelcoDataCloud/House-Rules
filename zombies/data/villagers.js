@@ -18,6 +18,7 @@ export const JOBS = {
   farmer:  { name: 'Farmer',  art: 'farmer',  makes: 'carrots', amount: 2, does: 'They will grow carrots.' },
   builder: { name: 'Builder', art: 'builder', makes: 'planks',  amount: 3, does: 'They will chop wood.' },
   brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery', does: 'They will cook potion.' },
+  miner:   { name: 'Miner',   art: 'miner',   makes: 'stone',   amount: 2, needs: 'mine', does: 'They will dig stone.' },
   lookout: { name: 'Lookout', art: 'lookout', makes: null },
   crew:    { name: 'Crew',    art: 'builder', makes: null },
   nightshift: { name: 'Night shift', art: 'vampire', makes: 'planks', amount: 2 },
@@ -35,7 +36,7 @@ export const START = ['farmer', 'farmer', 'builder', 'brewer'];
 
 // What you start the game holding
 // Enough planks to fence and pit a first night before anyone has worked
-export const POCKETS = { planks: 24, carrots: 6, potion: 2 };
+export const POCKETS = { planks: 24, carrots: 6, potion: 2, stone: 0 };
 
 // How many villagers you need to win the first level
 export const WIN_AT = 12;

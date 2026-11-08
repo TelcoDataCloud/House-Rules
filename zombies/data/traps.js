@@ -34,11 +34,15 @@
             one and pay a plank)
    needsJob a villager job that must live here before you can build it
    what     one short line for kids: what it does (shows when you pick it)
+   stone    how many stone it costs (as well as planks)
+   holds    for a cottage: how many villagers sleep in it
+   nearRock true means it can only go next to the boulders (the mine)
    from     Easy only: the first night this shows on the bar (1 if missing)
    =========================================================== */
 
 export const TRAPS = {
-  wall:    { name: 'Wall',      art: 'wall',    planks: 2, crew: 0, does: 'block', what: 'Zombies cannot get past it.' },
+  wall:    { name: 'Wall',      art: 'wall',    planks: 2, crew: 0, does: 'block', what: 'Zombies cannot get past it. Diggers go under.' },
+  stonewall: { name: 'Stone wall', art: 'stonewall', planks: 0, stone: 2, crew: 0, does: 'block', what: 'Nothing gets past, over or under it.', from: 4 },
   fence:   { name: 'Fence',     art: 'fence',   planks: 1, crew: 0, does: 'hold', seconds: 8, what: 'Holds a zombie for a bit, then he climbs over.' },
   torch:   { name: 'Torch',     art: 'torch',   planks: 1, crew: 0, does: 'scare', reach: 2, what: 'Zombies walk away from the light.' },
   mud:     { name: 'Mud pit',   art: 'mud',     planks: 1, crew: 0, does: 'slow', slow: 0.35, what: 'Zombies go slow in it.', from: 2 },
@@ -50,7 +54,8 @@ export const TRAPS = {
   honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3, what: 'Stuck fast for a while.', from: 3 },
   scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3, what: 'Zombies think it is a villager and crowd it.', from: 3 },
   log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1, what: 'Rolls along the row and knocks them over. Once.', from: 3 },
-  bed:     { name: 'Bed',       art: 'bed',     planks: 2, crew: 0, does: 'bed', what: 'A villager sleeps here. Zombies want these.' },
+  bed:     { name: 'Cottage',   art: 'cottage', planks: 4, crew: 0, does: 'bed', holds: 2, what: 'Two villagers sleep here. Zombies want these.' },
+  mine:    { name: 'Mine',      art: 'mine',    planks: 6, crew: 0, does: 'mine', nearRock: true, what: 'Build it next to the boulders. Miners dig stone here.', from: 4 },
   farm:    { name: 'Carrots',   art: 'farm',    planks: 1, crew: 0, does: 'farm', what: 'Carrots grow here. Carrots make potion.' },
   catapult:{ name: 'Catapult',  art: 'catapult', planks: 6, crew: 1, does: 'catapult', what: 'Fling pumpkins or potion far. One villager has to work it.', from: 3 },
   brewery: { name: 'Brewery',   art: 'brewery', planks: 8, crew: 0, does: 'brewery', what: 'One brewer at a time cooks potion here. Build another for a second brewer.', from: 2 },
@@ -70,8 +75,7 @@ export const TRAPS = {
 export const START = [
   { thing: 'brewery', col: 11, row: 7 },
   { thing: 'well',    col: 12, row: 8 },
-  { thing: 'bed', col: 9,  row: 6 }, { thing: 'bed', col: 9,  row: 8 },
-  { thing: 'bed', col: 14, row: 6 }, { thing: 'bed', col: 14, row: 8 },
+  { thing: 'bed', col: 9,  row: 6 }, { thing: 'bed', col: 14, row: 6 },
   { thing: 'farm', col: 10, row: 10 }, { thing: 'farm', col: 11, row: 10 },
   { thing: 'farm', col: 12, row: 10 }, { thing: 'farm', col: 13, row: 10 },
   { thing: 'torch', col: 8, row: 5 }, { thing: 'torch', col: 15, row: 5 },

@@ -253,3 +253,5 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
   .lookout-line { font-size: 0.95rem; }
   .night-btn { font-size: 1.3rem; }
 }
+.bar .thing .cost { white-space: nowrap; display: flex; align-items: center; gap: 2px; }
+.bar .thing .cost svg { width: 18px; height: 18px; }

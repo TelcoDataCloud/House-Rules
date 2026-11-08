@@ -37,6 +37,7 @@ export const LINES = {
     { art: 'hero',  head: 'NIGHT: RUN', text: 'Zombies come. Click where to run, or WASD. The WHACK button stuns one. Stunned is not cured!' },
     { art: 'bucket', head: 'POTION CURES', text: 'The POTION button cures the nearest zombie. He joins your village! Potion is rare, so trap the rest.' },
     { art: 'pit',   head: 'MORNING', text: 'Click a pit with zombies in it to pour potion in. Tap a villager to give them a job.' },
+    { art: 'stonewall', head: 'STONE', text: 'Build a mine by the boulders. Miners dig stone. Stone walls cannot be dug under or burped over.' },
     { art: 'villager', head: 'CURE PEOPLE TO GROW', text: 'Potion turns a zombie into a villager. Villagers collect carrots and wood. More people means more buildings and more potion.' },
   ],
   tip: [
