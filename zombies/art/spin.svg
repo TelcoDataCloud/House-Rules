@@ -1,1 +1,104 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="34" rx="4" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="8" y="8" width="11" height="26" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="21" y="8" width="11" height="26" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 20 q10 -8 20 0" stroke="var(--button)" stroke-width="3" fill="none"/></svg>
+<!-- spin: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden revolving door</title>
+<defs>
+<linearGradient id="spin-wood" x1="0" y1="0" x2="1" y2=".25">
+<stop stop-color="#bd611b" /><stop offset="1" stop-color="#77360f" />
+</linearGradient>
+<linearGradient id="spin-glass" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#9fe0fa" /><stop offset="1" stop-color="#4db6ef" />
+</linearGradient>
+<linearGradient id="spin-gold" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#ffe479" /><stop offset="1" stop-color="#ffc73e" />
+</linearGradient>
+</defs>
+
+<g stroke="#080704" stroke-width="15" stroke-linejoin="round" stroke-linecap="round">
+
+<path d="M92 231 114 171 263 74 449 41 573 41 754 73 907 170 932 234 850 302 726 211 569 172 452 172 306 211 180 304Z" fill="#ffad43" />
+<path d="m114 171 70 24 123-79-44-35Z" fill="#ee9630" stroke="none" />
+<path d="m754 81-37 35 120 79 70-24Z" fill="#f29d34" stroke="none" />
+<path d="m184 195 123-79 145-30 118 0 147 30 120 79 25 69-13 41-123-94-157-39H452l-146 39-126 93-18-42Z" fill="#874212" stroke="none" />
+<path d="m184 195 123-79v79L180 304l-18-42Z" fill="#76350f" stroke="none" />
+<path d="m717 116 120 79 25 69-13 41-123-94Z" fill="#79390f" stroke="none" />
+
+<path d="m179 304 127-93 146-39h117l157 39 123 94v400l-123 93-157 43H452l-146-43-127-93Z" fill="url(#spin-glass)" />
+<path d="m190 510 103-150v284L190 766Z" fill="#c2edff" stroke="none" />
+<path d="m740 273 88 63-88 131-70 16Z" fill="#b6e8fc" stroke="none" />
+<path d="M306 211v587m420-587v587" fill="none" stroke="#a05a22" stroke-width="25" />
+
+<path d="M451 76h118v722H451Z" fill="url(#spin-wood)" />
+<path d="M451 76h14v711h-14Z" fill="#b46a24" stroke="none" />
+<path d="M562 81h7v716h-7Z" fill="#62300e" stroke="none" />
+<path d="M448 9h126l2 65-8 15H455l-8-15Z" fill="url(#spin-gold)" />
+<path d="M455 56h113v24H455Z" fill="#b56a09" stroke="none" />
+
+<path d="m179 739 127-87 146-39h117l157 39 122 87 40 109-111 78-260 41-261-35-124-82Z" fill="#af6024" />
+<path d="m306 652 146-39h117l157 39 122 87-120 92-211 52-213-46-125-98Z" fill="#935021" stroke="none" />
+<path d="m132 850 124 82 261 35 260-41 111-78 3 51-112 79-262 39-264-28-123-87Z" fill="url(#spin-wood)" />
+<path d="m256 932 48-38 213 27 211-29 49 34-260 41Z" fill="#f49f36" stroke="none" />
+
+<path d="m241 258 49-32 222 116v423l-49 29-222-124Z" fill="url(#spin-wood)" />
+<path d="m241 258 49-32 222 116-49 29Z" fill="#ffa943" stroke="none" />
+<path d="m291 324 155 80v306l-155-86Z" fill="url(#spin-glass)" stroke="#3a210d" stroke-width="10" />
+<path d="m298 497 140-123v83L298 585Z" fill="#a9e2fa" stroke="none" />
+<path d="m242 263 44 24v359l-44 25Z" fill="#aa571b" stroke="none" />
+
+<path d="m512 342 224-116 49 32v412L561 794l-49-29Z" fill="url(#spin-wood)" />
+<path d="m512 342 224-116 49 32-224 113Z" fill="#ffa842" stroke="none" />
+<path d="m582 404 159-80v300l-159 86Z" fill="url(#spin-glass)" stroke="#3a210d" stroke-width="10" />
+<path d="m589 522 144-193v83L589 605Z" fill="#b4e6fc" stroke="none" />
+<path d="m754 303 18-11v369l-18 10Z" fill="#62300e" stroke="none" />
+
+<path d="m38 330 137-4-2 465-60 41-65-40Z" fill="url(#spin-wood)" />
+<path d="m48 369 64 43 2 387-59-29Z" fill="#ae5e20" stroke="none" />
+<path d="m112 412 61-40v419l-59 41Z" fill="#7a390f" stroke="none" />
+<path d="m31 771 68-38 80 39-2 71-68 57-78-55Z" fill="#e49c11" />
+<path d="m37 772 62-32 80 32-67 44Z" fill="#ffdc65" stroke="none" />
+<path d="m112 816 65-36v59l-65 48Z" fill="#b76c08" stroke="none" />
+<path d="m846 331 137-1-10 456-59 46-68-41Z" fill="url(#spin-wood)" />
+<path d="m847 373 64 39-1 387-64-30Z" fill="#ad5e20" stroke="none" />
+<path d="m911 412 65-43-10 402-56 28Z" fill="#78360f" stroke="none" />
+<path d="m834 772 79-39 79 38v72l-78 55-81-55Z" fill="#dfa015" />
+<path d="m840 772 72-32 73 32-71 42Z" fill="#ffdb60" stroke="none" />
+<path d="m914 814 71-42v66l-71 49Z" fill="#af6505" stroke="none" />
+
+<path d="m21 275 75-47 84 39 1 75-82 49-78-40Z" fill="#d8920e" />
+<path d="m21 275 75-47 84 39-80 48Z" fill="url(#spin-gold)" stroke="none" />
+<path d="m100 315 74-43v66l-74 44Z" fill="#af6506" stroke="none" />
+<path d="m843 268 85-40 74 47v76l-77 40-83-49Z" fill="#d7920d" />
+<path d="m849 272 79-36 67 39-70 40Z" fill="url(#spin-gold)" stroke="none" />
+<path d="m925 315 70-40v71l-70 36Z" fill="#b46b07" stroke="none" />
+
+<path d="M360 367c-79-14-134-42-135-91-2-58 69-105 170-127 119-26 246-9 331 42l34-23 25 123-143-42 34-22c-71-38-173-42-259-23-80 18-129 47-131 71-2 25 31 47 75 57Z" fill="#fff000" stroke-width="14" />
+<path d="M248 249c12-25 40-45 76-60l-2 10 16 3c-32 14-55 29-69 49Z" fill="#fff98a" stroke="none" />
+
+<path d="m437 796 74-41 80 41v41l-77 46-77-47Z" fill="#e8a21b" />
+<path d="m442 797 70-35 74 35-72 42Z" fill="#ffd359" stroke="none" />
+<path d="m514 839 71-42v34l-71 42Z" fill="#ae6506" stroke="none" />
+<path d="m470 368 44-24 43 23v417l-43 22-44-24Z" fill="url(#spin-wood)" />
+<path d="m514 397 36-22v405l-36 20Z" fill="#8c4516" stroke="none" />
+<path d="m476 398 10 6v378l-10-6Z" fill="#b86a25" stroke="none" />
+
+<path d="m207 477 226-118 44 25v395L256 910l-49-32Z" fill="url(#spin-wood)" />
+<path d="m207 477 226-118 44 25-226 120Z" fill="#ffb24c" stroke="none" />
+<path d="m214 488 37 23v390l-37-26Z" fill="#c66a20" stroke="none" />
+<path d="m291 540 148-83v256l-148 85Z" fill="url(#spin-glass)" stroke="#321c0a" stroke-width="11" />
+<path d="m297 666 136-188v83L297 755Z" fill="#afe5fc" stroke="none" />
+<path d="m291 798 148-85 16 10-151 91v33l-13 8Z" fill="#bb6c28" stroke="none" />
+<path d="m445 457 10-6v272l-16-10V461Z" fill="#6d330d" stroke="none" />
+
+<path d="m550 384 43-25 215 118v401l-48 32-210-130Z" fill="url(#spin-wood)" />
+<path d="m550 384 43-25 215 118-43 28Z" fill="#ffaf48" stroke="none" />
+<path d="m765 505 36-21v390l-36 27Z" fill="#9b4b12" stroke="none" />
+<path d="m586 457 140 83v261l-140-85Z" fill="url(#spin-glass)" stroke="#321c0a" stroke-width="11" />
+<path d="m592 626 128-164v83L592 719Z" fill="#afe5fc" stroke="none" />
+<path d="m641 747 79-103v52l-48 69Z" fill="#9bdefb" stroke="none" />
+<path d="m570 448 10 6v272l146 89v23l-156-94Z" fill="#b26725" stroke="none" />
+<path d="m739 545 11-7v291l-24-14V541Z" fill="#b15b1c" stroke="none" />
+
+<path d="m435 322 77-44 79 44v48l-77 51-79-49Z" fill="#e7a31e" />
+<path d="m442 325 70-39 72 39-71 40Z" fill="url(#spin-gold)" stroke="none" />
+<path d="m513 365 71-40v41l-71 46Z" fill="#b96d0b" stroke="none" />
+</g>
+</svg>

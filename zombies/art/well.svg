@@ -1,1 +1,107 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ellipse cx="20" cy="30" rx="14" ry="7" fill="var(--stone)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="20" cy="27" rx="8" ry="4" fill="var(--water)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="8" y="10" width="3" height="18" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><rect x="29" y="10" width="3" height="18" fill="var(--wood)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 11 l16 -8 l16 8z" fill="var(--wood-dark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<!-- well: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Village well with tiled wooden roof and bucket</title>
+
+<g stroke="#100d09" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+<g id="well-rear-timber">
+<path d="M135 351L164 322 350 502 323 533Z" fill="#c66c12" />
+<path d="M663 419L788 282 820 306 689 463Z" fill="#ec911c" />
+<path d="M257 442L679 348 697 396 274 491Z" fill="#663009" />
+</g>
+<g id="well-stone-base">
+<path d="M172 738L792 729 785 906Q768 944 727 969L614 1008 438 1018 281 990Q204 964 172 905Z" fill="#74767c" />
+<path d="M174 800L259 868 259 975Q209 963 172 905Z" fill="#85868c" />
+<path d="M264 873L438 910 438 1009Q362 1019 267 983Z" fill="#96979c" />
+<path d="M438 910L615 907 615 1007Q538 1023 438 1013Z" fill="#797c83" />
+<path d="M615 905L742 854 742 963Q698 996 615 1007Z" fill="#919399" />
+<path d="M742 855L791 790 785 906 742 959Z" fill="#666a70" />
+<path d="M166 656Q190 603 287 575L424 548Q574 526 690 576 785 611 815 677L817 765Q797 838 697 884 593 937 445 930 278 921 193 845L148 782 149 704Z" fill="#8b8e94" />
+<path d="M281 610Q425 541 591 574 702 593 720 670L686 737 544 799 403 791 292 732Z" fill="#454d56" />
+<path d="M290 619L396 584 396 681 292 732Z" fill="#5a626b" />
+<path d="M396 584L514 568 514 666 396 681Z" fill="#6e757d" />
+<path d="M514 568L635 590 635 686 514 666Z" fill="#575f67" />
+<path d="M635 590L710 642 720 679 686 737 635 706Z" fill="#72767b" />
+<path d="M286 729Q372 658 493 662 620 656 699 729L645 776 537 808 408 798Z" fill="#008ac9" />
+<path d="M350 777Q394 724 496 727 595 724 645 777L542 810 410 802Z" fill="#08b8f4" stroke="none" />
+<path d="M168 660Q179 615 279 583L314 618 284 679 211 711 164 689Z" fill="#bcbec2" />
+<path d="M279 583L361 560 397 591 395 668 314 701 284 679 314 618Z" fill="#aeb1b7" />
+<path d="M361 560L478 544 507 576 397 598Z" fill="#cacbcf" />
+<path d="M478 544Q571 540 635 568L631 610 507 576Z" fill="#c6c7cb" />
+<path d="M635 568Q725 589 769 631L711 666 631 610Z" fill="#b8bbc0" />
+<path d="M769 631Q809 654 817 697L787 739 705 720 711 666Z" fill="#c8c9cd" />
+<path d="M705 720L787 739 786 805Q751 853 697 879L642 781Z" fill="#8c8f96" />
+<path d="M705 720L787 739Q768 782 698 814L642 781Z" fill="#c5c6ca" stroke="none" />
+<path d="M642 781L698 814 697 879Q639 914 544 926L537 843 534 805Z" fill="#93969d" />
+<path d="M642 781L698 814Q644 846 552 856L534 805Z" fill="#c4c5c9" stroke="none" />
+<path d="M410 789L534 805 544 853 544 925Q455 937 373 913L373 837Z" fill="#93969d" />
+<path d="M410 789L534 805 544 853Q466 866 373 837Z" fill="#cdced1" stroke="none" />
+<path d="M222 730L313 747 410 789 373 837 373 913Q282 895 217 847L211 777Z" fill="#8c8f96" />
+<path d="M222 730L313 747 410 789 373 837Q289 816 219 772Z" fill="#c5c6ca" stroke="none" />
+<path d="M166 688L222 730 217 847Q173 820 148 782L149 705Z" fill="#8a8d93" />
+<path d="M166 688L222 730 219 772Q175 748 153 712Z" fill="#bfc1c6" stroke="none" />
+</g>
+<g id="well-posts">
+<path d="M623 595L706 570 778 604 778 642 696 670 623 633Z" fill="#c57416" />
+<path d="M623 595L705 570 778 604 696 634Z" fill="#ffbc4e" />
+<path d="M639 288L691 267 741 298 741 599 693 619 639 595Z" fill="#ce7212" />
+<path d="M691 292L741 298 741 599 693 619Z" fill="#ad5007" stroke="none" />
+<path d="M639 288L691 267 741 298 691 317Z" fill="#ffad32" />
+<path d="M185 689L271 662 342 699 342 739 253 769 185 729Z" fill="#c7771c" />
+<path d="M185 689L271 662 342 699 253 730Z" fill="#ffbd50" />
+<path d="M212 248L258 191 313 244 313 693 258 711 212 685Z" fill="#d87a13" />
+<path d="M258 230L313 244 313 693 258 711Z" fill="#a54a06" stroke="none" />
+</g>
+<g id="well-winch">
+<path d="M740 407L807 388Q831 390 839 407L839 526 848 533 848 551 815 559 789 545 789 441 756 456 739 445Z" fill="#777d85" />
+<path d="M753 406L811 394 827 405 772 419Z" fill="#b9bdc3" stroke="none" />
+<path d="M789 441L789 545 815 559 815 431Z" fill="#52575e" stroke="none" />
+<path d="M838 515L928 485Q940 483 973 505L973 545 873 578 845 564 845 541Z" fill="#d88119" />
+<path d="M838 515L932 485 973 505 872 537Z" fill="#ffc252" />
+<path d="M315 466L650 399Q673 397 679 422 685 448 668 457L315 530Z" fill="#bd6010" />
+<path d="M318 470L650 405Q665 403 672 425L318 498Z" fill="#e78b21" stroke="none" />
+<path d="M412 443Q426 405 457 415L539 397Q567 391 581 423 596 461 574 492L479 519Q439 532 417 497L450 487 453 461 445 442Z" fill="#f5d8a6" />
+<path d="M449 418Q475 425 487 463 498 499 478 514M481 411Q508 422 520 456 532 490 511 505M513 404Q538 415 550 447 565 478 546 498" fill="none" stroke="#6b4b2b" stroke-width="8" />
+<path d="M500 510L528 504 528 588Q525 606 512 608L499 600Z" fill="#ffe2ad" />
+</g>
+<g id="well-bucket">
+<path d="M427 646L450 619 553 612 596 641 585 762Q576 785 516 786 459 785 444 763Z" fill="#ba5c0b" />
+<path d="M451 651L463 762 489 774 481 656ZM494 654L501 776 532 778 534 653ZM550 650L544 772 570 765 585 645Z" fill="#ec8d20" stroke="none" />
+<path d="M427 646Q444 615 508 614 571 609 596 641L583 660Q517 692 436 667Z" fill="#f7a330" />
+<path d="M449 645Q468 623 516 625 554 623 577 645 519 680 449 655Z" fill="#693003" stroke-width="8" />
+<path d="M436 682Q513 715 590 678L587 707Q517 738 440 709Z" fill="#8d9399" stroke-width="9" />
+<path d="M443 744Q514 776 586 740L583 763Q525 797 446 769Z" fill="#8c9196" stroke-width="9" />
+<path d="M436 651L460 586Q463 578 474 576L495 571 504 589 477 596 454 660Z" fill="#a1a6ae" stroke-width="9" />
+<path d="M528 567L551 562Q562 561 567 573L597 635 578 643 550 585 529 590Z" fill="#9299a2" stroke-width="9" />
+</g>
+<g id="well-roof">
+<path d="M52 310L199 120 252 127 373 351 99 390 52 350Z" fill="#a9400a" />
+<path d="M52 310L153 180 186 213 58 359 52 350Z" fill="#f34b19" />
+<path d="M125 194L199 101 259 131 179 244 144 228Z" fill="#ec4816" />
+<path d="M68 352L224 145 263 158 101 385Z" fill="#e58a1d" />
+<path d="M224 145L263 158 393 389 350 409 235 210 254 180Z" fill="#f5a72c" />
+<path d="M263 157L290 134 788 73 845 149 845 174 911 244 911 274Q911 283 895 287L394 402 374 382Z" fill="#ac2e08" />
+<g fill="#ff561d">
+<path d="M263 157L289 136 450 116 510 208 509 228 339 266Z" />
+<path d="M450 116L615 94 680 181 677 203 510 228 510 208Z" />
+<path d="M615 94L788 73 845 149 845 169 677 203 680 181Z" />
+<path d="M338 266L445 242 506 331 502 368 393 396Z" />
+<path d="M445 242L591 212 655 300 653 336 502 368 506 331Z" />
+<path d="M591 212L747 181 813 266 812 303 653 336 655 300Z" />
+<path d="M747 181L845 161 911 244 911 274 812 303 813 266Z" />
+</g>
+<g fill="#c5350b" stroke="none">
+<path d="M338 240L506 208 503 228 338 266 321 282Z" />
+<path d="M517 210L676 181 673 199 514 227Z" />
+<path d="M686 180L839 151 839 167 680 198Z" />
+<path d="M402 355L499 332 498 364 394 389Z" />
+<path d="M513 335L648 305 647 331 508 363Z" />
+<path d="M662 306L807 272 806 298 660 329Z" />
+<path d="M820 271L905 248 905 273 819 295Z" />
+</g>
+<path d="M196 88Q199 70 215 58L734 6Q751 5 782 23L791 34 791 73 279 144 261 164 211 143Q195 137 196 123Z" fill="#bd6a16" />
+<path d="M215 58L734 6Q753 8 782 25L791 34 273 102Z" fill="#ffbf54" stroke="none" />
+<path d="M202 87Q203 76 215 65L273 102 270 148 260 158 212 139Q202 135 202 121Z" fill="#e39329" stroke="none" />
+<path d="M273 108L272 140" fill="none" stroke="#99500c" stroke-width="11" />
+</g>
+</g>
+</svg>
