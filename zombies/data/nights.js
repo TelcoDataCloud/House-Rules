@@ -16,10 +16,16 @@
 export const NIGHTS = [
   { side: 'north', extra: [] },
   { side: 'east',  extra: ['hopper'] },
-  { side: 'west',  extra: ['digger', 'hopper'] },
-  { side: 'south', extra: ['digger', 'burplord'] },
-  { side: 'all',   extra: ['hopper', 'hopper', 'digger', 'burplord'] },
+  { side: 'west',  extra: ['digger', 'hopper', 'chicken'] },
+  { side: 'south', extra: ['digger', 'burplord', 'cow'] },
+  { side: 'all',   extra: ['hopper', 'hopper', 'digger', 'pig', 'sheep'] },
+  { side: 'north', extra: ['burplord', 'horse', 'chicken', 'chicken'] },
+  { side: 'east',  extra: ['cow', 'pig', 'goldfish', 'hopper'] },
+  { side: 'all',   extra: ['horse', 'burplord', 'sheep', 'digger', 'digger'] },
 ];
+
+// The Pumpkin King comes every fifth night (5, 10, 15...)
+export const KING_EVERY = 5;
 
 // Easy: the giant comes from this night. Hard: from this one.
 export const GIANT_FROM = { easy: 5, hard: 3 };

@@ -38,7 +38,7 @@ export const DIFFICULTY = {
     moon: false,
     potionCostCarrots: 3,
     mix: ['bob', 'bob', 'bob'],
-    meet: { 2: 'hopper', 3: 'digger', 4: 'bogey', 5: 'eyeball', 6: 'loosebits', 7: 'vomit' },
+    meet: { 2: 'hopper', 3: 'digger', 4: 'bogey', 5: 'eyeball', 6: 'loosebits', 7: 'vomit', 8: 'chicken', 9: 'cow', 10: 'pig', 11: 'sheep', 12: 'goldfish' },
     barUnlocks: true,
   },
   hard: {
@@ -55,7 +55,7 @@ export const DIFFICULTY = {
     aimAssist: false,
     moon: true,
     potionCostCarrots: 4,
-    mix: ['bob', 'bob', 'hopper', 'hopper', 'digger', 'snot', 'gasbag', 'bogey', 'eyeball', 'loosebits', 'vomit'],
+    mix: ['bob', 'bob', 'hopper', 'hopper', 'digger', 'snot', 'gasbag', 'bogey', 'eyeball', 'loosebits', 'vomit', 'chicken', 'pig', 'cow'],
     bellEvery: 20,
   },
 };

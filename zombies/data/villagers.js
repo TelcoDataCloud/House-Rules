@@ -9,6 +9,8 @@
               'potion' or nothing)
    amount     how many
    needs      a thing the job needs to work (from data/traps.js)
+   cheap      potion from half the carrots (the cow's milk)
+   free       potion from no carrots at all (the pig's truffle)
    =========================================================== */
 
 export const JOBS = {
@@ -18,6 +20,12 @@ export const JOBS = {
   lookout: { name: 'Lookout', art: 'lookout', makes: null },
   crew:    { name: 'Crew',    art: 'builder', makes: null },
   nightshift: { name: 'Night shift', art: 'vampire', makes: 'planks', amount: 2 },
+  // cured animals live in the village too
+  cow:     { name: 'Cow',     art: 'cowfriend',     makes: 'potion',  amount: 1, cheap: true },
+  chicken: { name: 'Chicken', art: 'chickenfriend', makes: 'carrots', amount: 1 },
+  sheep:   { name: 'Sheep',   art: 'sheepfriend',   makes: 'planks',  amount: 1 },
+  pig:     { name: 'Pig',     art: 'pigfriend',     makes: 'potion',  amount: 1, free: true },
+  pumpkinfarmer: { name: 'Pumpkin farmer', art: 'pumpkinfarmer', makes: 'carrots', amount: 4 },
   giant:   { name: 'Giant',   art: 'giantfriend', makes: 'planks', amount: 6 },
 };
 
