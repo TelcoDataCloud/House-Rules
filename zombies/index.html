@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snot Moon</title>
+<meta name="description" content="Cure the zombies. Grow the village. A game by Asa and Hendrix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/game.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129503;</text></svg>">
+</head>
+<body>
+
+<!-- Every picture from the art folder is loaded into here once
+     by js/art.js. The village points at them with <use>. -->
+<svg id="sprites" class="sprite-sheet" aria-hidden="true" focusable="false"></svg>
+
+<div class="toolbar">
+  <button type="button" id="theme-toggle" class="toggle" aria-label="Switch to dark theme" title="Light or dark">&#127769;</button>
+  <button type="button" id="sound-toggle" class="toggle" aria-label="Turn sound off" title="Sound">&#128266;</button>
+</div>
+
+<!-- TITLE -->
+<section class="screen" id="screen-title">
+  <div class="box">
+    <svg class="title-art" viewBox="0 0 320 110" aria-hidden="true">
+      <circle cx="160" cy="70" r="60" fill="var(--moon)" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="135" cy="55" r="9" fill="var(--straw)" opacity="0.6"/><circle cx="180" cy="85" r="6" fill="var(--straw)" opacity="0.6"/>
+      <use href="#art-bob" x="140" y="62" width="40" height="44"/>
+      <use href="#art-hopper" x="190" y="70" width="36" height="40"/>
+      <use href="#art-fence" x="100" y="80" width="40" height="40"/><use href="#art-fence" x="220" y="80" width="40" height="40"/>
+      <use href="#art-torch" x="70" y="78" width="40" height="40"/><use href="#art-torch" x="255" y="78" width="40" height="40"/>
+    </svg>
+    <h1 id="title-name">SNOT MOON</h1>
+    <p class="tagline" id="title-tagline">Cure the zombies. Grow the village.</p>
+    <div class="modes" role="group" aria-label="Pick how hard">
+      <button type="button" class="mode" data-mode="easy" aria-pressed="true">Easy</button>
+      <button type="button" class="mode" data-mode="hard" aria-pressed="false">Hard</button>
+    </div>
+    <p class="mode-note" id="mode-note"></p>
+    <button type="button" class="go" id="start">PLAY</button>
+    <div class="milestones" id="milestones" aria-label="Build progress"></div>
+    <p class="milestones-note" id="milestones-note"></p>
+    <p class="other-games">Also by Asa and Hendrix: <a href="../">Trap House</a> and <a href="../space/">Star Base</a></p>
+  </div>
+</section>
+
+<!-- DAWN / RESULT -->
+<section class="screen" id="screen-result" hidden>
+  <div class="box">
+    <h2 id="result-title">DAWN</h2>
+    <div class="result-counts" id="result-counts"></div>
+    <p id="result-tip" class="tagline"></p>
+    <button type="button" class="go" id="next-day">NEXT DAY</button>
+    <button type="button" class="quiet" id="to-title">Title</button>
+  </div>
+</section>
+
+<main class="game" id="game" hidden>
+  <div class="top">
+    <div class="day" id="day-label">DAY 1</div>
+    <div class="counts" id="counts"></div>
+    <div class="hearts" id="hearts" aria-label="Hearts"></div>
+    <div class="skybar" id="skybar"><div class="sun" id="sun"></div></div>
+    <div class="moon-strip" id="moon-strip" hidden></div>
+    <p class="lookout-line" id="lookout-line"></p>
+  </div>
+
+  <div class="stage" id="stage">
+    <!-- The village. Drawn by js/grid.js. -->
+    <svg class="village" id="village" viewBox="0 0 960 640" aria-label="The village">
+      <g id="ground"></g>
+      <g id="things"></g>
+      <g id="mobs"></g>
+      <g id="fx"></g>
+      <rect class="night-tint" x="0" y="0" width="960" height="640"></rect>
+      <g id="glows"></g>
+      <g id="aim"></g>
+    </svg>
+    <div class="snot-screen" id="snot-screen"></div>
+    <div class="banner" id="banner"></div>
+    <div class="down-timer" id="down-timer" hidden></div>
+  </div>
+
+  <div class="bar" id="bar"></div>
+  <p class="help" id="help">
+    <kbd>WASD</kbd> or <kbd>arrows</kbd> to run. <kbd>Space</kbd> whack. <kbd>E</kbd> throw potion. Click the catapult to aim.
+  </p>
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
