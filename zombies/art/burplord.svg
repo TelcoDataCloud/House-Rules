@@ -1,0 +1,140 @@
+<!-- burplord: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy zombie king burping with a giant fizzy drink</title>
+<defs>
+<linearGradient id="burplord-skin" x1="0" y1="0" x2="0.9" y2="1">
+<stop stop-color="#b4ef35" />
+<stop offset="1" stop-color="#77bd24" />
+</linearGradient>
+<linearGradient id="burplord-mouth" x1="0" y1="0" x2="0" y2="1">
+<stop stop-color="#330914" />
+<stop offset="1" stop-color="#680b24" />
+</linearGradient>
+</defs>
+
+<g transform="translate(0 224) scale(1 .56)" stroke="#090b07" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+
+<g id="burplord-cape">
+<path d="M229 415Q126 443 75 574L9 888Q27 918 132 939L313 886 704 902Q898 974 1011 887 1001 739 936 455 900 399 820 381Z" fill="#df2631" />
+<path d="M79 578 116 641 48 901 12 886Z" fill="#f33e40" stroke="none" />
+<path d="M153 597 194 619 113 921 81 879Z" fill="#981b2c" stroke="none" />
+<path d="M904 559 967 687 1008 879 956 850Z" fill="#f93a40" stroke="none" />
+<path d="M899 810 963 830 943 905 869 905Z" fill="#941c2c" stroke="none" />
+</g>
+
+<g id="burplord-legs">
+<path d="M166 785 855 783 935 902 896 917 912 971 711 988 682 930 621 954 595 887 397 887 379 965 333 929 322 978 102 978 123 912Z" fill="#713d80" />
+<path d="M173 820 286 830 301 791 430 830 397 887 378 962 347 944 365 880 343 924 122 917Z" fill="#92549c" stroke="none" />
+<path d="M416 862 590 866 608 914 397 914Z" fill="#362039" stroke="none" />
+<path d="M724 832 859 801 915 894 882 909 854 879 804 890 805 926 740 945Z" fill="#92509a" stroke="none" />
+<path d="M124 921 168 922 179 891 218 895 212 923 268 929 278 897 314 902 307 933 342 942 326 980Q235 998 101 985Z" fill="#8dce2a" />
+<path d="m304 934 35 6-14 40-47 7Z" fill="#437d28" stroke="none" />
+<path d="m662 928 32-13-1-26 36 1 12 39 58-14-2-34 57-9-2-24 32-2 9 40 35-3 20 98q-123 22-264 9Z" fill="#8ac92b" />
+<path d="m665 930 74-1 19 57-74 4Z" fill="#427d29" stroke="none" />
+</g>
+
+<g id="burplord-torso">
+<path d="M361 596 780 593 872 814Q614 910 297 816Z" fill="url(#burplord-skin)" />
+<path d="m363 643 38 17-68 155 135 35-164-33Z" fill="#5b972b" stroke="none" />
+<path d="M302 810Q596 854 859 808L871 818Q609 906 299 819Z" fill="#4e892a" stroke="none" />
+<path d="m397 721 34 1-3 37-35-2Z M781 695l27 3 4 24-23 3 1 21-32-1-4-25 25-2Z" fill="#5a932d" stroke="none" />
+</g>
+
+<g id="burplord-collar">
+<path d="M74 531Q132 568 229 567L393 559 496 611 692 612 831 552 945 531 990 588 1015 697 1001 724 986 710 984 739 946 751 926 734 912 695 887 694 876 665 813 698 782 677 746 711 723 689 680 717 516 716 480 699 453 720 424 700 375 719 366 696 349 715 290 705 266 733 247 723 221 767 160 771 153 750 138 752 130 775 74 761 67 741 49 747 20 721Q-10 683 14 606Z" fill="#fff2c9" />
+<path d="M47 579Q74 620 182 623L310 603 410 645 491 667 703 665 836 608 958 584 973 632 898 635 799 664 757 652 682 690 493 690 373 667 293 674 241 714 135 707 50 686Z" fill="#ddc69f" stroke="none" />
+<path d="M369 565 494 607 694 610 833 546 854 588 806 619 812 642 794 652 780 630 715 660 692 701Q610 738 506 699L480 658 435 649 438 676 418 671 414 641 369 627Z" fill="#e52d37" />
+</g>
+
+<g id="burplord-head">
+<path d="M276 211 393 125 715 126 759 220 790 239 845 518Q797 564 705 597L689 646Q602 663 501 640L491 596 366 545 323 317 265 280Z" fill="url(#burplord-skin)" />
+<path d="M276 213 363 152 348 264 303 284 347 509 371 544 330 526 293 317 266 280Z" fill="#4d8c2d" stroke="none" />
+<path d="m362 152 91-26 144 1 15 40-92 53-170 48Z" fill="#94d62b" stroke="none" />
+<path d="m701 139 38 67-86-24-38-23Z" fill="#a6e337" stroke="none" />
+<path d="M498 599Q603 628 705 595L689 644Q595 662 502 640Z" fill="#4b892c" stroke="none" />
+<path d="m337 276 40-6 3 32-42 5Z M770 247l20 1 7 28-23-1Z" fill="#639e2c" stroke="none" />
+
+<path d="M381 225Q383 178 433 171 481 160 515 197L506 219Q447 216 381 242Z" fill="#fff2c7" />
+<path d="M383 222Q407 169 449 174 484 172 515 197" fill="none" stroke-width="18" />
+<path d="M627 207Q664 159 699 179L717 205Q672 193 633 216Z" fill="#fff1c9" />
+<path d="M627 205Q665 158 700 179L711 190" fill="none" stroke-width="18" />
+<path d="m541 205 20-1 2 26-23 2Z M585 203l15 1 10 25-20-1Z" fill="#102205" stroke-width="6" />
+<path d="m382 176 9-3 M515 166l7 1 M602 165l13 1 M703 166l4 1" fill="none" stroke="#376e23" stroke-width="11" />
+
+<path d="M393 518Q374 446 392 349 401 280 455 264 566 233 716 254 761 259 778 325L808 497 771 522Q692 571 579 568 471 567 393 518Z" fill="url(#burplord-mouth)" />
+<path d="M458 466Q437 405 480 364 522 326 550 351 556 357 550 372 535 405 568 409 606 411 586 375 573 351 607 343 658 331 680 386 698 419 685 458Z" fill="#240710" stroke="none" />
+
+<path d="m445 267 78-15 6 59-73 10Z" fill="#fff1c5" stroke-width="9" />
+<path d="m449 268 75-15 1 18-72 15Z" fill="#ddc49d" stroke="none" />
+<path d="m656 252 76 5 3 47-68 4Z" fill="#fff2c8" stroke-width="9" />
+<path d="m660 254 70 4 2 13-69-2Z" fill="#dec5a0" stroke="none" />
+
+<path d="M442 508Q435 456 478 438 537 411 582 449 630 410 676 443 726 476 717 533 639 576 518 552Z" fill="#ff5362" stroke="none" />
+<path d="M478 438Q509 449 531 498 551 543 617 561L519 552 464 526 443 509Q438 462 478 438Z" fill="#ce344c" stroke="none" />
+<path d="M581 449Q616 473 630 501" fill="none" stroke="#cc344a" stroke-width="10" />
+<path d="M658 451Q674 459 682 474" fill="none" stroke="#ff847f" stroke-width="15" />
+<path d="m430 490 60 2 5 62-74-22Z" fill="#fff1c6" stroke-width="9" />
+<path d="m426 518 66 24 3 12-74-22Z" fill="#c9bd95" stroke="none" />
+<path d="m736 476 45-8 16 47-60 30Z" fill="#fff0c3" stroke-width="9" />
+<path d="m739 524 52-25 6 16-60 30Z" fill="#c7b88e" stroke="none" />
+</g>
+
+<g id="burplord-crown">
+<path d="m339 167-35-65 26-17 17 25 30-17-18-44 58-25 23 47 29-10-7-25 26-8 24 81Z" fill="#ffdf20" />
+<path d="m310 104 20-11 35 63-25 10Z" fill="#ffb90a" stroke="none" />
+<path d="m375 52 36-17 15 33-36 15Z M470 43l14-6 19 65-22 8Z" fill="#fff25b" stroke="none" />
+<path d="m391 87 34-13 14 34-35 14Z" fill="#ee3940" stroke="#9c2524" stroke-width="6" />
+<path d="m397 88 25-8-7 21Z" fill="#ff7370" stroke="none" />
+</g>
+
+<g id="burplord-drink">
+<path d="M59 305Q41 272 75 259 174 223 266 253 291 259 295 291L325 323 377 607 371 641Q299 700 143 692L120 676 39 365Z" fill="#ff3c0a" />
+<path d="m60 315 62 17-14 41 40 247-44 9-65-264Z" fill="#ba240b" stroke="none" />
+<path d="m212 316 83-23 23 35-91 34Z" fill="#ff6930" stroke="none" />
+<path d="M135 479Q194 523 248 441 298 375 339 388L351 464Q309 448 271 516 220 593 155 574Z" fill="#ffdf18" stroke="none" />
+<path d="M124 650Q257 665 371 600L373 642Q296 702 139 691Z" fill="#dedfdd" />
+<path d="m143 667 48 3 6 20-53-1Z" fill="#b9baba" stroke="none" />
+<ellipse cx="177" cy="283" rx="116" ry="39" fill="#dedfdd" />
+<path d="M82 280Q168 241 273 276 240 301 130 302Z" fill="#91938f" stroke="none" />
+<path d="M90 282Q166 256 257 278" fill="none" stroke="#464944" stroke-width="8" />
+<path d="m165 297-39-58Q109 215 139 205 176 192 199 207L236 282 214 289 198 266 180 271 192 294Z" fill="#d9dbd8" />
+<path d="m163 234 25-7 17 25-29 6Z" fill="#fff" stroke-width="7" />
+<path d="m137 217 33-8 26 8-36 7 30 63-18 4Z" fill="#f3f4f0" stroke="none" />
+<g fill="#fff19a" stroke="none">
+<ellipse cx="186" cy="383" rx="24" ry="26" />
+<ellipse cx="244" cy="411" rx="15" ry="17" />
+<ellipse cx="270" cy="367" rx="10" ry="12" />
+<ellipse cx="213" cy="453" rx="12" ry="13" />
+<ellipse cx="314" cy="525" rx="9" ry="10" />
+<ellipse cx="326" cy="569" rx="15" ry="17" />
+<ellipse cx="282" cy="591" rx="19" ry="21" />
+<ellipse cx="244" cy="620" rx="9" ry="10" />
+</g>
+</g>
+
+<g id="burplord-hands">
+<path d="M17 457 55 425Q108 412 155 420L176 490 165 506 184 509 198 584 184 598 201 661Q133 705 57 682L36 660 10 531 24 514Z" fill="url(#burplord-skin)" />
+<path d="m20 524 29 17 10 83 44-7 16 72-62-7-21-22Z" fill="#4c882a" stroke="none" />
+<path d="m76 515 94-22 M96 603l88-21" fill="none" stroke="#264d19" stroke-width="15" />
+<path d="M844 495 865 493 889 441 977 440 1014 494 1000 563 1003 599 973 677Q922 698 866 659L845 609 855 578 835 558Z" fill="url(#burplord-skin)" />
+<path d="m895 492 54 15 8 27-72-22-18-14Z" fill="#447d27" stroke="none" />
+<path d="m842 557 70 22 8 18 35 11 25-59 20 12 3 38-30 78q-50 20-107-18l-21-50 10-31Z" fill="#417b28" stroke="none" />
+<path d="m849 556 49 20" fill="none" stroke="#254e19" stroke-width="10" />
+</g>
+
+<g id="burplord-clasps">
+<path d="m460 629 64 29-27 74-67-32Z" fill="#ffdc1c" stroke-width="11" />
+<path d="m460 640 15 45 42-24Z" fill="#fff674" stroke="none" />
+<path d="m475 685 20 40-58-27Z" fill="#ffad08" stroke="none" />
+<path d="m676 656 65-29 25 74-68 34Z" fill="#ffdf1b" stroke-width="11" />
+<path d="m685 658 35 28 18-47Z" fill="#fff775" stroke="none" />
+<path d="m720 686 37 13-54 28Z" fill="#ffae07" stroke="none" />
+</g>
+
+<g id="burplord-burp-rays" fill="#ffe620" stroke-width="13">
+<path d="m805 209 70-104 41 33-92 93Z" />
+<path d="m842 250 131-66 22 57-145 37Z" />
+<path d="m856 306 111 13-12 53-106-39Z" />
+</g>
+</g>
+</svg>

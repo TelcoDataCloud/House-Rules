@@ -1,0 +1,98 @@
+<!-- eyeball: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Goofy blocky green zombie</title>
+<defs>
+<linearGradient id="eyeball-skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a7e934" /><stop offset="1" stop-color="#82c527" /></linearGradient>
+<linearGradient id="eyeball-shirt" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#c34cbe" /><stop offset="1" stop-color="#90268f" /></linearGradient>
+<linearGradient id="eyeball-pants" x1="0" y1="0" x2="1" y2="0.8"><stop stop-color="#945336" /><stop offset="1" stop-color="#532c1c" /></linearGradient>
+</defs>
+
+<g stroke="#080a05" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<g id="eyeball-rear-leg">
+<path d="M512 813 646 828 665 950 555 989 504 939Z" fill="#73ac1a" />
+<path d="m511 844 45 28 1 110-51-44Z" fill="#427b14" stroke="none" />
+<path d="m475 671 175 21 23 171-119 41-63-23 7-64-7-26-39-9Z" fill="url(#eyeball-pants)" />
+<path d="m486 700 66 43-4 147-49-19 7-59-13-30-27-5Z" fill="#3f2419" stroke="none" />
+<path d="m551 774 98-61 8 68-20 7-4-22-19 10 1 19-24 9 3 24 24-5 5 16 17-16 8 7 15-7 6 35-114 39Z" fill="#75442c" stroke="none" />
+<path d="m590 803 24-10-1-19 20-9 6 19 17-7 5 44-17 8-5-9-17 19-5-17-24 7Z" fill="#83b51b" stroke-width="6" />
+</g>
+<g id="eyeball-shirt-body">
+<path d="m266 326 84 10 68 57 181-5 72-53 111-10 38 110-36 98-47 71-74-69-1 66 19 113-38 23-13-44-35-4-13 44-43 23-10-84-28 66-48-43-163 8-28 21-18-31 58-80 18-82-41 30-49 30-45-82 26-99Z" fill="url(#eyeball-shirt)" />
+<path d="m272 342 61 24 38 39-6 45-47-27-52-15Z" fill="#ce59c6" stroke="none" />
+<path d="m681 365 75-27 23 23-43 28-27 90 54 78-25 35-69-75-17-69Z" fill="#a736a2" stroke="none" />
+<path d="m653 465 16 83 51 43-41-8-17-53Z" fill="#611b6e" stroke="none" />
+<path d="m370 484-15 50-44 79-54 78 48-8 48-57 28-25 3-40 123-42-61-29Z" fill="#791c7f" stroke="none" />
+<path d="m565 578 35-10-1 36 42-10-1 16-38 19-1-20-42 11-1-12-24 10 2-13 27-9Z" fill="#8d238e" stroke="none" />
+<path d="m444 441 130-4-1 55-31 5-3 27-24 3-7 20-23 3-3-46-36 1Z" fill="#78ac1a" stroke-width="9" />
+<path d="m449 451 119-9-1 24-62 12-55-5Z" fill="#477d0f" stroke="none" />
+<path d="m580 536 43-6 1 47-19 1-5 5-22-2Z" fill="#9ac31d" stroke-width="6" />
+<path d="m326 648 13-19 9 2 7-28 27 4 12-26 34 4-3 37 34 3-2 33-24 1-5 25-90-3 9-27Z" fill="#91bd19" stroke-width="7" />
+</g>
+<g id="eyeball-left-arm">
+<path d="m112 447 149-61 49 73-38 58-120 27Z" fill="#315f0c" />
+<path d="m45 333 18-54q3-7 18-10l41-8q14-3 20 12l16 43 8 19 50-1 10-45 17-47 23 125 56 19q13 5 12 21l-1 33-26 44-53-20-4-32-7 23-113 36-14-29-17 17-11 23-52 5-16-63 11-36 53-13 6-16-20 5Z" fill="url(#eyeball-skin)" />
+<path d="m48 334 61-9 19 41-47 10Z" fill="#467c13" stroke="none" />
+<path d="m110 324 26-47 8 39-16 50Z" fill="#70a71c" stroke="none" />
+<path d="m14 438 57-4 14 57-52 5Z" fill="#679b19" stroke="none" />
+<path d="m72 435 17-30 17 36-21 44Z" fill="#447b11" stroke="none" />
+<path d="m163 230 65-3q13 1 16 12l-28 96-54 2-23-49Z" fill="#b9f74a" stroke-width="12" />
+<path d="m145 290 63-1 10 44-54-1Z" fill="#3a6c12" stroke="none" />
+<path d="m208 289 30-50 10 49-30 46Z" fill="#77ac1e" stroke="none" />
+<path d="m253 392 16-19 51 20-17 40-48-18Z" fill="#b5ed43" stroke="none" />
+<path d="m254 420 49 17-1 40-47-19Z" fill="#77ae20" stroke="none" />
+<path d="m136 337-18 37-25 6 52-1Z" fill="#284f0a" stroke="none" />
+<path d="m171 340 15 29-3-29Z" fill="#284f0a" stroke="none" />
+</g>
+<g id="eyeball-right-arm">
+<path d="m709 456 66-52 131 83-48 88-122-30-32-38Z" fill="#2d600c" />
+<path d="m701 383 19-14 40 9-5 31-38 18-25-15Z" fill="#b2eb3c" stroke-width="8" />
+<path d="m696 437 65-28 34-109 11-30 63-3 22 42q7-13 25-9l45 10q12 3 17 19l13 39-25 41-37 5 9 10 52 15q15 4 18 20l7 24-22 59-49-6-21-53-12-17-20 41-59-13-39-15-11 27-49 21-22-40Z" fill="url(#eyeball-skin)" />
+<path d="m701 439 30-15 35 27-43 25Z" fill="#b6ed42" stroke="none" />
+<path d="m724 478 43-24 4 54-48 17-22-38Z" fill="#75ac1a" stroke="none" />
+<path d="m891 345-17 65 39 9-17-45Z" fill="#659b18" stroke="none" />
+<path d="m909 359 77 14-24 38-53-7Z" fill="#3f7410" stroke="none" />
+<path d="m919 440 23 17 45 16-11 59-39-4-17-51-15-22Z" fill="#6ca11b" stroke="none" />
+<path d="m938 435 55 16 8 30-60-8-14-23Z" fill="#aff03a" stroke="none" />
+<path d="m806 265 55 1q13 0 17 12l17 48-24 43-52-1-23-49Z" fill="#b5f346" stroke-width="12" />
+<path d="m813 323 75 3-19 41-48-4Z" fill="#3b6b11" stroke="none" />
+<path d="m801 283 13 41 4 37-22-17-16 39Z" fill="#76ac1e" stroke="none" />
+<path d="m848 376-5 26 21-25Z" fill="#315b0b" stroke="none" />
+</g>
+<g id="eyeball-front-leg">
+<path d="m292 685 74-13 65 9 35 27 9 72-47 153-168-49-42-83Z" fill="url(#eyeball-pants)" />
+<path d="m297 691 129 17-42 119-155-25Z" fill="#895036" stroke="none" />
+<path d="m429 711 29 10 8 57-40 139-41-83Z" fill="#4e2a1c" stroke="none" />
+<path d="m213 805 64 8 24-27 32 3-6 30 63 9 40 104-25 77q-2 7-16 7l-185-10q-10 0-12-10l-25-96q-3-8 2-18Z" fill="url(#eyeball-skin)" />
+<path d="m174 894 188 15 36 97-196-8Z" fill="#295a0c" stroke="none" />
+<path d="m362 909 26-68 34 91-24 74Z" fill="#508b11" stroke="none" />
+</g>
+<g id="eyeball-head">
+<path d="M259 112 312 28q3-6 13-6L546 10l51 3 9 35 57 4 7 33 49 16-28 225-35 26-6 86-269 17-17-102-77-23Z" fill="#477e15" />
+<path d="m316 27 231-16 10 55 34 3 7 34 33 1 8 27 48 5-4 176-32 18-1 108-268 16-15-119-35-16Z" fill="url(#eyeball-skin)" stroke="none" />
+<path d="m356 28 3 29-24 3 3 48 41 1 1-26 27-1V58l28-3-3-32Z" fill="#619821" stroke="none" />
+<path d="m283 224 15-14 10 35-16-9-13 12Z" fill="#3f7510" stroke="none" />
+<path d="m687 235 9-9 12 24-8 68-18 22Z" fill="#396f0d" stroke="none" />
+<path d="m546 12 49-3q7 0 9 10l6 27 54 3 6 34 49 15q5 1 4 10l-5 37-21-5-12 20-4-28-47-2-6-28-31-2-7-30-38-1Z" fill="#f27c9d" stroke-width="12" />
+<path d="m558 20 16 16 5 21-7 8-16-1Z" fill="#cf5278" stroke="none" />
+<path d="m595 72 17-1 6 18 13-1 6 16 11 3 8 12 26 7-1 5-46-1-7-28-31-2Z" fill="#cb4b73" stroke="none" />
+<path d="m598 102-1 14 8-1 5-12" fill="none" stroke-width="12" />
+<path d="m350 187 3 110 9 9 48 1 38-8 25-32 1-99-10-21-69 24Z" fill="#5c9221" stroke="none" />
+<path d="m355 188 4 97 38 5 51-7 28-28-4-73-11-13-68 3Z" fill="#376810" stroke="none" />
+<path d="M347 195q-1-11 12-15l44-9 44 1q18 1 20 19l6 63-19 25-37 7-43 1q-13-1-18-14Z" fill="#fff7ab" stroke-width="9" />
+<path d="m362 199 16-15 55-5 21 10-44-1-29 10-17 26 1 38-10-20Z" fill="#fffbc7" stroke="none" />
+<path d="m417 214 26-2 2 27-27 3Z" fill="#030502" stroke-width="7" />
+<path d="m546 172 52 5 60 12q8 2 8 12l-7 88q0 8-11 8l-57-2-34-16-18-25 1-73Z" fill="#4e8618" stroke="none" />
+<path d="m638 212 24-14-5 90-35-22Z" fill="#407412" stroke="none" />
+<path d="m546 198q0-10 13-9l64 9q12 1 12 13l-3 52q0 12-13 12l-46-3-27-24Z" fill="#020401" stroke-width="12" />
+<path d="M355 156q57-10 107-49 7 9 12 23-45 36-111 45Z" fill="#020401" stroke-width="14" />
+<path d="M537 108q35 34 78 41l-4 11q-47-7-81-32Z" fill="#020401" stroke-width="14" />
+<path d="m499 266-14 30 16-1 1-29Z" fill="#020401" stroke-width="9" />
+<path d="m522 265 2 29 16 1-16-30Z" fill="#020401" stroke-width="8" />
+<path d="M407 421q-2-31 16-62 19-35 70-36 56-5 88 10 29 15 37 68 3 15-9 12-87-25-153-6Z" fill="#4f2027" stroke-width="9" />
+<path d="M468 400q24-27 55-24 32 2 53 26-55-9-108 2Z" fill="#ef6078" stroke="none" />
+<path d="m456 326 46-4-2 33-40 4Z" fill="#fff1a3" stroke-width="5" />
+<path d="m551 325 22 5 19 9-5 22-37-4Z" fill="#fff1a3" stroke-width="5" />
+<path d="m431 393 34-5 7 19-38 10Z" fill="#fff1a3" stroke-width="5" />
+</g>
+</g>
+</svg>
