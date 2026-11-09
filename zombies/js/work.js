@@ -165,7 +165,8 @@ function finishTrip(v) {
   }
   flashCount(w.makes);
   burst(v.x, v.y - 1, `+${made} ${w.makes}`);
-  blip('pop');
+  blip({ planks: 'chop', stone: 'mine', carrots: 'cloth', potion: 'drip' }[w.makes] || 'pop', { volume: 0.5 });
+  setTimeout(() => blip('coin', { volume: 0.35, rate: 1.3 }), 250);
   const job = JOBS[v.job] ? JOBS[v.job].name.toLowerCase() : v.job;
   helpSay(`<b>${v.name}</b> the ${job} ${w.verb} ${made} ${w.makes}.`);
   drawCounts();

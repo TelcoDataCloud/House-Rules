@@ -22,6 +22,8 @@ import { say, blip } from './voice.js';
 import { getPlan } from './day.js';
 import { ringBell } from './hard.js';
 import { updateCombat, clearCombat, holdDown, holdUp, swing } from './combat.js';
+import { startFolkNight, updateFolkNight, endFolkNight, pyjamaArmy } from './folk.js';
+import { setDrums } from './voice.js';
 
 let raf = 0;
 let last = 0;
@@ -47,6 +49,7 @@ export function startNight(whenDone) {
     + (hasCatapult ? ' Press and drag from the catapult to aim.' : '') + (hasBell ? ' <kbd>B</kbd> rings the bell.' : '');
   paused = false;
   sendToBed();
+  startFolkNight();
   hero.makeHero();
   spawnHorde(getPlan());
   ammoBar();
@@ -67,6 +70,7 @@ export function wireNightButtons() {
   wb.addEventListener('pointerdown', (e) => { e.preventDefault(); if (state.phase === 'night') holdDown(); });
   ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => wb.addEventListener(ev, () => { if (state.phase === 'night') holdUp(); }));
   wb.addEventListener('keydown', (e) => { if (e.key === 'Enter') swing(false); });
+  document.getElementById('btn-pillow').addEventListener('click', (e) => { e.currentTarget.blur(); pyjamaArmy(); });
   document.getElementById('btn-potion').addEventListener('click', (e) => { e.currentTarget.blur(); if (state.phase === 'night') { hero.throwPotion(); drawCounts(); } });
 }
 
@@ -106,6 +110,9 @@ function tick(now) {
     catapult.autoFire(dt);
     if (state.gasAt) state.gasAt.t -= dt;
     walkHome(dt);
+    updateFolkNight(dt);
+    // the drums get louder the more zombies are up and about
+    if (Math.floor(state.time) !== Math.floor(state.time - dt)) setDrums(state.zombies.filter((z) => !z.pit && !z.leaving && !(z.wait > 0)).length / 10);
     drawSun(state.time / diff.nightSeconds);
     if (Math.floor(state.time * 2) !== Math.floor((state.time - dt) * 2)) drawCounts();
     const anyLeft = state.zombies.some((z) => !z.pit && !z.leaving);
@@ -137,6 +144,7 @@ function dawn() {
   (state.dropped || []).forEach((d) => { d.t = Math.min(d.t, 2); });
   document.getElementById('stage').classList.remove('is-night');
   catapult.cancelAim();
+  endFolkNight();
   sendHome();
   banner('DAWN');
   say(LINES.dawn);
@@ -162,6 +170,7 @@ export function isPaused() { return paused; }
 export function stopNight() {
   paused = false;
   clearCombat();
+  endFolkNight();
   document.getElementById('screen-pause').hidden = true;
   cancelAnimationFrame(raf);
   clearZombies();

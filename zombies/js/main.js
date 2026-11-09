@@ -19,7 +19,7 @@ import { startDay, stopDay, nightFallsPressed, buyWeapon, dayClick, dayHover, cl
 import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightTap, nightMove, nightUp, checkWin } from './night.js';
 import { setupCamera, setAiming, startView } from './camera.js';
 import * as hero from './hero.js';
-import { say } from './voice.js';
+import { say, blip, loadSounds, warmSounds, playMusic, stopMusic, setMuted } from './voice.js';
 import { saveGame, loadGame, hasSave, clearSave } from './save.js';
 
 const $ = (id) => document.getElementById(id);
@@ -35,9 +35,11 @@ function show(id) {
 function titleScreen() {
   state.phase = 'title';
   $('title-name').textContent = LINES.title;
-  document.title = LINES.title[0] + LINES.title.slice(1).toLowerCase();
+  document.title = LINES.title.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+  $('title-credits').textContent = LINES.credits;
   $('title-tagline').textContent = LINES.tagline;
   $('continue').hidden = !hasSave();
+  stopMusic();
   modeNote();
   show('screen-title');
 }
@@ -81,16 +83,20 @@ function continueGame() {
   seenHowTo = true;
   show(null);
   startView();
+  playMusic('day');
   startDay(night, true);
 }
 
 function day() {
   startView();
+  playMusic('day');
   startDay(night);
 }
 
 function night() {
   stopDay();
+  blip('night');
+  playMusic('night');
   startNight(dawnResult);
 }
 
@@ -118,6 +124,8 @@ function dawnResult() {
   $('next-day').textContent = justWon ? 'KEEP GOING' : 'NEXT DAY';
   $('play-again').hidden = !won;
   say(justWon ? LINES.win : `${state.curedTonight} cured. ${n} villagers.`);
+  blip(justWon ? 'win' : 'dawn');
+  playMusic('day');
   show('screen-result');
 }
 
@@ -173,11 +181,12 @@ function wire() {
     $('theme-toggle').setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
   });
   $('sound-toggle').addEventListener('click', () => {
-    state.muted = !state.muted;
+    setMuted(!state.muted);
     $('sound-toggle').textContent = state.muted ? '🔇' : '🔊';
     $('sound-toggle').setAttribute('aria-label', state.muted ? 'Turn sound on' : 'Turn sound off');
-    if (state.muted && 'speechSynthesis' in window) window.speechSynthesis.cancel();
   });
+  // browsers only allow sound after the first tap or key, so get the sounds ready then
+  ['pointerdown', 'keydown'].forEach((type) => window.addEventListener(type, warmSounds));
 
   // for testing: ?fast=3 runs the night three times faster, ?mode=hard,
   // ?horde=bogey,eyeball picks tonight's zombies, ?skiphow skips the how-to
@@ -189,6 +198,7 @@ function wire() {
 }
 
 async function boot() {
+  loadSounds();   // no need to wait: the beeps cover until they arrive
   await loadArt();
   drawGround();
   wire();

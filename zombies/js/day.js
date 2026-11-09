@@ -16,7 +16,9 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { POCKETS } from '../data/villagers.js';
 import { placeThing, removeThing, thingAt, pointToTile, isEdge, el, buildable, nearRock } from './grid.js';
 import { buildBar, drawCounts, drawDay, drawSun, lookoutSay, helpSay, banner, flashCount } from './hud.js';
-import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds, assignHomes } from './villagers.js';
+import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds, assignHomes, drawHomes } from './villagers.js';
+import { chatLine, highFive, buyHat, hatsFor, rename, morningRequests, builtNear, startFolkDay, updateFolkDay } from './folk.js';
+import { icon } from './art.js';
 import { JOBS } from '../data/villagers.js';
 import { startWork, updateWork, retask } from './work.js';
 import { tonight, cure } from './zombies.js';
@@ -34,7 +36,7 @@ let raf = 0;
 let last = 0;
 let picking = null;   // the villager whose job picker is open
 
-const DAY_HELP = 'Pick a thing, click a square. Tap a villager to change their job.';
+const DAY_HELP = 'Pick a thing, click a square. Tap a villager to chat, change their job or buy them a hat.';
 
 // loaded: true means this day came from a save, so the morning already happened
 export function startDay(onNight, loaded = false) {
@@ -57,6 +59,8 @@ export function startDay(onNight, loaded = false) {
   assignBeds();
   startWork();
   closePicker();
+  if (!loaded) morningRequests();
+  startFolkDay();
   plan = tonight();
 
   // the lookout: what is coming, the moon, and one new zombie to meet
@@ -90,6 +94,7 @@ function dayTick(now) {
   const dt = Math.min(0.05, (now - last) / 1000) * (window.ZOMBIES.fast || 1);
   last = now;
   updateWork(dt);
+  updateFolkDay(dt);
   raf = requestAnimationFrame(dayTick);
 }
 
@@ -106,7 +111,7 @@ export function buyWeapon() {
   state.weapon = (state.weapon || 0) + 1;
   helpSay(`<b>${next.name}!</b> Stuns for ${next.stun} seconds and whacks them ${next.knock} squares.`);
   say(next.name);
-  blip('cheer');
+  blip('upgrade');
   drawCounts();
   saveGame();
 }
@@ -137,36 +142,56 @@ function pickThing(id) {
 function cannot(p, text, which) {
   burst(p.col + 0.5, p.row + 0.5, text);
   helpSay(text + '.');
+  blip('nope', { volume: 0.5 });
   if (which) flashCount(which);
 }
 
-// Tap a villager: a three button picker to change their job
+// Tap a villager: they say something, and you can change their
+// job, give them a high five, buy them a hat or give them a name.
 function openPicker(v, ev) {
   closePicker();
   picking = v;
+  const line = chatLine(v);
+  say(line);
   const box = document.createElement('div');
   box.className = 'job-picker';
+  const jobs = ['farmer', 'builder', 'brewer', 'miner'].filter((j) => j !== 'miner' || [...state.things.values()].some((t) => t.does === 'mine'));
   box.innerHTML = `<p><b>${v.name}</b> the ${(JOBS[v.job] || { name: v.job }).name.toLowerCase()}</p>` +
-    ['farmer', 'builder', 'brewer', 'miner'].filter((j) => j !== 'miner' || [...state.things.values()].some((t) => t.does === 'mine')).map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('') +
-    '<button type="button" class="quiet" data-job="">Close</button>';
+    `<p class="says">${line}</p>` +
+    `<div class="row">${jobs.map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('')}</div>` +
+    '<button type="button" data-do="five">High five!</button>' +
+    `<p class="small">Hats, paid in odd socks (you have ${state.socks || 0}):</p>` +
+    `<div class="row hats">${hatsFor().map((h) => `<button type="button" data-hat="${h.id}" aria-label="${h.name}, ${h.socks} socks" ${v.wear === h.id ? 'aria-pressed="true"' : ''} ${(state.socks || 0) < h.socks ? 'class="cannot"' : ''}>${icon(h.id, 30)}<span>${h.socks}</span></button>`).join('')}</div>` +
+    `<form class="row name-form"><label class="sr-only" for="vname">New name</label><input id="vname" maxlength="10" placeholder="New name" autocomplete="off"><button type="submit">Name</button></form>` +
+    '<button type="button" class="quiet" data-do="close">Close</button>';
   box.addEventListener('click', (e) => {
     const b = e.target.closest('button');
-    if (!b) return;
+    if (!b || b.type === 'submit') return;
     if (b.dataset.job) {
       if (b.dataset.job === 'brewer' && ![...state.things.values()].some((t) => t.does === 'brewery')) { helpSay('No brewery to cook in.'); return; }
       setJob(v, b.dataset.job);
       retask(v);
       helpSay(`<b>${v.name}</b> is a ${JOBS[v.job].name.toLowerCase()} now. ${JOBS[v.job].does || ''}`);
       saveGame();
+    } else if (b.dataset.do === 'five') {
+      highFive(v);
+    } else if (b.dataset.hat) {
+      if (!buyHat(v, b.dataset.hat)) return;
+      saveGame();
     }
     closePicker();
     drawCounts();
   });
+  box.querySelector('.name-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (rename(v, box.querySelector('#vname').value)) { drawHomes(); saveGame(); closePicker(); }
+  });
   const stage = document.getElementById('stage');
   stage.appendChild(box);
   const r = stage.getBoundingClientRect();
-  box.style.left = Math.min(r.width - 200, Math.max(0, ev.clientX - r.left - 90)) + 'px';
-  box.style.top = Math.max(0, ev.clientY - r.top - 120) + 'px';
+  const bw = box.offsetWidth || 250, bh = box.offsetHeight || 300;
+  box.style.left = Math.min(r.width - bw - 4, Math.max(4, ev.clientX - r.left - bw / 2)) + 'px';
+  box.style.top = Math.min(Math.max(4, r.height - bh - 4), Math.max(4, ev.clientY - r.top - bh / 2)) + 'px';
 }
 
 export function closePicker() {
@@ -195,7 +220,7 @@ export function dayClick(ev) {
     state.planks--;
     fixTrap(here);
     burst(p.col + 0.5, p.row, 'mended');
-    blip('bonk');
+    blip('build');
     drawCounts();
     return;
   }
@@ -231,8 +256,9 @@ export function dayClick(ev) {
     c.oldJob = c.job; c.job = 'crew'; c.crewOf = thing; thing.crewMember = c;
     c.x = p.col + 0.2 + i * 0.6; c.y = p.row - 0.4; drawVillager(c);
   });
-  blip('bonk');
+  blip('build');
   rehome();
+  builtNear(thing);
   drawCounts();
 }
 
