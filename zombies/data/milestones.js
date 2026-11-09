@@ -18,4 +18,5 @@ export const MILESTONES = [
   { id: 'Z10', name: 'Map',          done: true },
   { id: 'Z11', name: 'Fighting',     done: true },
   { id: 'Z12', name: 'Funny',        done: true },
+  { id: 'Z13', name: 'Smarter',      done: true },
 ];

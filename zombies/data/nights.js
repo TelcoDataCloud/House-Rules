@@ -15,8 +15,8 @@
 
 export const NIGHTS = [
   { side: 'north', extra: [] },
-  { side: 'east',  extra: ['hopper'] },
-  { side: 'west',  extra: ['digger', 'hopper', 'chicken'] },
+  { side: 'east',  extra: ['hopper', 'chicken'] },
+  { side: 'west',  extra: ['digger', 'hopper', 'chicken', 'cow'] },
   { side: 'south', extra: ['digger', 'burplord', 'cow'] },
   { side: 'all',   extra: ['hopper', 'hopper', 'digger', 'pig', 'sheep'] },
   { side: 'north', extra: ['burplord', 'horse', 'chicken', 'chicken'] },
@@ -28,7 +28,7 @@ export const NIGHTS = [
 export const KING_EVERY = 5;
 
 // Easy: the giant comes from this night. Hard: from this one.
-export const GIANT_FROM = { easy: 5, hard: 3 };
+export const GIANT_FROM = { easy: 4, hard: 3 };
 
 // The moon (Hard only). 8 nights round. 0 is new moon, 4 is full.
 // "maybe" comes with the given chance (0.6 is 6 times in 10).
