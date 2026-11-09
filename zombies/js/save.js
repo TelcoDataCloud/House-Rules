@@ -4,8 +4,10 @@
    Asa's call, 8 Nov 2026 (the one exception to "nothing
    persists", like Star Base's high score): refreshing after
    five nights should not throw the village away. The game is
-   saved at the start of each day, in localStorage, under one
-   key. CONTINUE on the title loads it. PLAY starts fresh and
+   saved in localStorage, under one key, at the start of each
+   day and again every few seconds in the day (Grok's playtest,
+   9 Nov: a reload lost the morning's work). A reload at night
+   goes back to the start of that day. CONTINUE on the title loads it. PLAY starts fresh and
    wipes it.
    =========================================================== */
 
@@ -20,8 +22,9 @@ export function saveGame() {
   try {
     const data = {
       mode: state.mode, night: state.night, moonDay: state.moonDay,
-      planks: state.planks, carrots: state.carrots, potion: state.potion, stone: state.stone || 0, weapon: state.weapon || 0, socks: state.socks || 0,
-      villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, wear: v.wear || null, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
+      planks: state.planks, carrots: state.carrots + state.villagers.reduce((n, v) => n + ((v.task && v.task.paid) || 0), 0), potion: state.potion, stone: state.stone || 0, weapon: state.weapon || 0, socks: state.socks || 0,
+      villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, wear: v.wear || null, trips: v.trips ?? null, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
+      tripsDone: state.tripsDone || 0,
       taken: state.taken || [], tipsOff: !!state.tipsOff, tipsSeen: state.tipsSeen || [],
       things: [...state.things.values()].map((t) => ({ kind: t.kind, col: t.col, row: t.row, broken: !!t.broken, wear: t.wear || 0 })),
     };
@@ -46,6 +49,9 @@ export function loadGame() {
   state.night = data.night;
   state.moonDay = data.moonDay;
   state.taken = data.taken || [];
+  // saved part way through a day: carry on with the trips that were left
+  state.resumeTrips = data.villagers.every((s) => typeof s.trips === 'number');
+  state.tripsDone = data.tripsDone || 0;
   state.tipsOff = !!data.tipsOff; state.tipsSeen = data.tipsSeen || [];
   state.planks = data.planks; state.carrots = data.carrots; state.potion = data.potion; state.stone = data.stone || 0; state.weapon = data.weapon || 0; state.socks = data.socks || 0;
   clearThings();
@@ -60,6 +66,7 @@ export function loadGame() {
     const v = addVillager(s.job);
     v.name = s.name;
     v.wear = s.wear || null;
+    v.trips = s.trips ?? null;
     drawWear(v);
     v.oldJob = s.oldJob;
     if (s.crewAt) {

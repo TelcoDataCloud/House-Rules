@@ -7,16 +7,17 @@
    =========================================================== */
 
 import { state, TILE, CENTRE } from './state.js';
-import { JOBS, POCKETS, START, NAMES } from '../data/villagers.js';
+import { JOBS, POCKETS, POCKETS_HARD, START, NAMES } from '../data/villagers.js';
 import { el, thingAt, buildable } from './grid.js';
 
 let nextId = 1;
 
 export function startVillage() {
-  state.planks = POCKETS.planks;
-  state.carrots = POCKETS.carrots;
-  state.potion = POCKETS.potion;
-  state.stone = POCKETS.stone || 0;
+  const pockets = state.mode === 'hard' ? POCKETS_HARD : POCKETS;
+  state.planks = pockets.planks;
+  state.carrots = pockets.carrots;
+  state.potion = pockets.potion;
+  state.stone = pockets.stone || 0;
   START.forEach((job) => addVillager(job));
 }
 

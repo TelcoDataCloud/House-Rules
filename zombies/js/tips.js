@@ -47,6 +47,7 @@ export function checkTips() {
     if (state.night >= 1 && !things.some((t) => t.does === 'brewery')) tip('brewery');
     else if (!state.villagers.some((v) => v.job === 'brewer')) tip('brewer');
     if (state.carrots >= 20) tip('carrots');
+    if (state.villagers.some((v) => !v.bed)) tip('bed');
     if (state.night >= 2 && !things.some((t) => t.does === 'mine')) tip('mine');
     if (things.some((t) => t.held && t.held.length)) tip('pit');
     if (state.socks > 0) tip('socks');
