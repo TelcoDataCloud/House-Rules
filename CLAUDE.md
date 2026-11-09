@@ -110,6 +110,8 @@ These are not preferences. They are what makes the project teachable.
   content must never require touching anything in `js/`.
 - **Nothing persists.** No localStorage, no backend, no save games. Refresh
   is a fresh night. Game state lives in the one object in `js/state.js`.
+  **Exception: Star Base keeps its best score in localStorage**
+  (`space/js/best.js`, Asa's call, 9 Nov 2026). Nothing else is saved.
 - **`css/tokens.css` is the only place colours and sizes are defined.** Both
   themes, every time.
 - **Accessibility is not a later milestone.** Semantic HTML, visible focus

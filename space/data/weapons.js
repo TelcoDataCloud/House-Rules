@@ -17,7 +17,8 @@
    swap you to a different gun. Swapping KEEPS your level.
 
    Helpers sit beside your main gun: homing missiles (weak, they
-   always hit) and drones (little ships that shoot with you).
+   always hit), drones (little ships that shoot with you), a
+   bigger engine and a stronger shield.
 
    damage  how hard one shot hits. 1 is normal.
    rate    shots every second
@@ -130,7 +131,7 @@ export const GUNS = {
   },
 };
 
-// Helpers. Three steps each. They work with any main gun.
+// Helpers. A few steps each. They work with any main gun.
 export const HELPERS = {
   // Homing missiles always hit, so they are weak on purpose.
   homing: {
@@ -151,11 +152,32 @@ export const HELPERS = {
       { say: 'Fast drones', drones: 2, every: 0.3, damage: 0.5 },
     ],
   },
+
+  // A bigger engine: your ship flies faster. (It starts at the
+  // speed in data/ship.js.)
+  engine: {
+    name: 'Engine', short: 'E', colour: 'cyan',
+    steps: [
+      { say: 'Faster engine', speed: 350 },
+      { say: 'Turbo engine', speed: 410 },
+      { say: 'Hyper engine', speed: 470 },
+    ],
+  },
+
+  // A stronger shield. It takes more hits before it breaks
+  // (see SHIELD in data/ship.js). Two steps: level 2, then level 3.
+  shields: {
+    name: 'Shield', short: 'S', colour: 'cyan',
+    steps: [
+      { say: 'Strong shield', level: 2 },
+      { say: 'Mega shield', level: 3 },
+    ],
+  },
 };
 
 // Cards you can pick again and again. They do one thing, once.
 export const EXTRAS = {
-  shield: { name: 'Shield', say: 'Shield on', colour: 'cyan' },
+  shield: { name: 'Shield', say: 'Shield on', colour: 'cyan' },     // puts your shield back, full
   bombpack: { name: 'Bombs', say: '+2 bombs', colour: 'yellow' },
   points: { name: 'Points', say: '+3000 points', colour: 'yellow' },
 };

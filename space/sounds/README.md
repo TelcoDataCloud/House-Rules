@@ -7,7 +7,8 @@ them for anything:
   explosions, hits, shields, debris.
 - From OpenGameArt.org: *Chunky Explosion* (bigboom),
   *Rocket Launch* (launch), *Electricity Sound Effects* (spark),
-  *Mech Stomp Step Sound* (stomp).
+  *Mech Stomp Step Sound* (stomp), *LEGIT Audio Fire Staff* (fire, roar),
+  *Ice Shatters* (ice).
 
 The sounds are packed into a few text files (`pack-1.json`... listed in
 `packs.json`), which the game loads.

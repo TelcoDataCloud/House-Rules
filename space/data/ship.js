@@ -12,7 +12,7 @@ export const GAME_NAME = 'Star Base';
 export const SHIP = {
   art: 'comet',      // the picture of the ship: art/comet.svg
   size: 64,          // how big the ship is drawn
-  speed: 380,        // how fast it flies
+  speed: 290,        // how fast it flies at first. The Engine card makes it faster.
   lives: 3,          // ships you start with
   bombs: 3,          // bombs you start with (press space)
   maxLives: 5,       // the most ships you can have. Extra ones become points.
@@ -28,4 +28,15 @@ export const SHIP = {
 export const STAR = {
   seconds: 5,        // how long it lasts. Try 10!
   danger: 6,         // how many enemy shots close to you counts as busy
+};
+
+// YOUR SHIELD. It can take a few hits before it breaks. The Shield
+// card makes it stronger: level 1, then 2, then 3.
+//   hp     how many hits it can take, at level 1, 2 and 3
+//   hurt   how much each kind of enemy shot takes off it
+//          crash is bumping into an enemy ship
+// A boss's big cannon breaks any shield, except a FULL level 3 one.
+export const SHIELD = {
+  hp: [3, 6, 10],
+  hurt: { pink: 1, bullet: 1, green: 2, red: 3, bolt: 3, rocket: 4, plasma: 6, mine: 6, crash: 4, flak: 1, shard: 1, ice: 2, ember: 1, slag: 4, fire: 2 },
 };
