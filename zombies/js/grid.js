@@ -109,12 +109,27 @@ export function removeThing(col, row) {
 
 // ---------- fences and walls that join up ----------
 // A fence on its own uses its picture. Next to another fence (or a
-// wall) it is drawn as a straight run instead: rails that go right to
-// the edge of the square, so the next one carries on in a straight
-// line. Left and right runs show the pickets from the front; up and
-// down runs show a column of pickets. Colours: css/game.css (.run-*).
+// wall) it uses the painted joining pieces instead:
+//   fence-h  the same fence seen straight on, for left and right runs.
+//            Each square shows one whole piece, edge to edge, so the
+//            next one carries on in a straight line.
+//   fence-v  a long column of the same pickets, for up and down runs.
+//            It is cut into squares like a sticker on a roll, so the
+//            pickets carry on from one square to the next.
+// The pictures are in pics/ (the packs), made in Higgsfield from the
+// original fence, wall and stone wall.
 const JOINS = new Set(['fence', 'wall', 'stonewall']);
 const joins = (c, r) => { const n = thingAt(c, r); return !!(n && JOINS.has(n.kind)); };
+
+// Sizes in pixels (a square is 40):
+//   tall   how tall the left and right piece stands
+//   width  how wide the up and down column is
+//   v      how wide the column painting is compared to how long it is
+const SHAPE = {
+  fence:     { tall: 38, width: 20, v: 0.186 },
+  wall:      { tall: 42, width: 22, v: 0.211 },
+  stonewall: { tall: 32, width: 22, v: 0.222 },
+};
 
 export function relink() {
   for (const t of state.things.values()) {
@@ -123,50 +138,50 @@ export function relink() {
     const w = joins(t.col - 1, t.row), e = joins(t.col + 1, t.row);
     t.el.querySelector('.run')?.remove();
     const pic = t.el.querySelector('use');
-    if (!n && !s && !w && !e) { if (pic) pic.style.display = ''; continue; }
+    const ready = document.getElementById('art-' + t.kind + '-h');   // paintings not here yet: keep the picture
+    if ((!n && !s && !w && !e) || !ready) { if (pic) pic.style.display = ''; continue; }
     if (pic) pic.style.display = 'none';
-    t.el.prepend(drawRun(t.kind, { n, s, w, e }));
+    t.el.prepend(drawRun(t, { n, s, w, e }));
   }
 }
 
-function drawRun(kind, { n, s, w, e }) {
-  const g = el('g', { class: 'run run-' + kind });
-  const H = TILE, mid = H / 2, foot = H * 0.78;
-  const stone = kind === 'stonewall', wall = kind === 'wall';
-  // up and down: a column down the middle, drawn top to bottom so lower pickets sit in front
+function drawRun(t, { n, s, w, e }) {
+  const g = el('g', { class: 'run' });
+  const H = TILE, mid = H / 2, foot = H * 0.9;
+  const shape = SHAPE[t.kind];
+  const across = w || e;
+  // up and down: a column of pickets down the middle of the square
   if (n || s) {
-    const top = n ? -H * 0.25 : mid - 6, bottom = s ? foot : mid + 6;
-    if (stone) {
-      for (let y = top; y < bottom; y += 10) g.appendChild(el('rect', { class: 'block', x: mid - 10, y, width: 20, height: Math.min(10, bottom - y), rx: 2 }));
-    } else {
-      g.appendChild(el('rect', { class: 'rail', x: mid - 8, y: top, width: 4, height: bottom - top }));
-      g.appendChild(el('rect', { class: 'rail', x: mid + 4, y: top, width: 4, height: bottom - top }));
-      for (let y = top - 8; y < bottom - 12; y += 8) g.appendChild(picket(mid, y, wall ? 16 : 14, 20, wall));
+    const top = n ? 0 : (across ? mid - 12 : 0);
+    const bottom = s ? H : (across ? mid + 4 : foot);
+    // where the column starts: the top square of this run
+    let first = t.row;
+    while (joins(t.col, first - 1)) first--;
+    const firstAcross = joins(t.col - 1, first) || joins(t.col + 1, first);
+    const startY = (first - t.row) * H + (first === t.row ? top : (firstAcross ? mid - 12 : 0));
+    const cw = shape.width, long = cw / shape.v;
+    const clip = box(mid - cw / 2 - 2, top, cw + 4, bottom - top);
+    for (let y = startY; y < bottom; y += long) {
+      if (y + long <= top) continue;
+      clip.appendChild(el('use', { href: '#art-' + t.kind + '-v', x: 2, y: y - top, width: cw, height: long }));
     }
+    g.appendChild(clip);
   }
-  // left and right: rails right to the edge, pickets in front
-  if (w || e) {
-    const x0 = w ? 0 : mid - 4, x1 = e ? H : mid + 4;
-    if (stone) {
-      [[foot - 20, 0], [foot - 10, 6]].forEach(([y, shift]) => {
-        for (let x = x0 - shift; x < x1; x += 13) {
-          const a = Math.max(x, x0), b = Math.min(x + 13, x1);
-          if (b - a > 2) g.appendChild(el('rect', { class: 'block', x: a, y, width: b - a, height: 10, rx: 2 }));
-        }
-      });
-    } else {
-      [foot - 18, foot - 8].forEach((y) => g.appendChild(el('rect', { class: 'rail', x: x0, y, width: x1 - x0, height: 5 })));
-      const gap = wall ? 10 : 10, pw = wall ? 10 : 8;
-      for (let x = (w ? 5 : mid); x <= (e ? H - 4 : mid); x += gap) g.appendChild(picket(x, foot - (wall ? 30 : 26), pw, wall ? 30 : 26, wall));
-    }
+  // left and right: the straight-on piece, standing on the bottom of the square
+  if (across) {
+    const pw = H + 2, ph = shape.tall;
+    const x0 = w ? -1 : mid - 4, x1 = e ? H + 1 : mid + 4;
+    const whole = !(n || s);   // a straight line gets the whole piece, even at its ends
+    const clip = whole ? box(-1, foot - ph, pw, ph) : box(x0, foot - ph, x1 - x0, ph);
+    clip.appendChild(el('use', { href: '#art-' + t.kind + '-h', x: whole ? 0 : -1 - x0, y: 0, width: pw, height: ph }));
+    g.appendChild(clip);
   }
   return g;
 }
 
-// One picket: a plank with a point (fence) or a round top (log wall)
-function picket(x, y, w, h, round) {
-  if (round) return el('rect', { class: 'picket', x: x - w / 2, y, width: w, height: h, rx: w / 2 });
-  return el('polygon', { class: 'picket', points: `${x - w / 2},${y + h} ${x - w / 2},${y + 5} ${x},${y} ${x + w / 2},${y + 5} ${x + w / 2},${y + h}` });
+// A window: anything inside it is cut off at its edges
+function box(x, y, width, height) {
+  return el('svg', { x, y, width: Math.max(0, width), height: Math.max(0, height), overflow: 'hidden' });
 }
 
 function drawGlow(thing) {
