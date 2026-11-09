@@ -39,6 +39,7 @@ export function startNight(whenDone) {
   state.curedTonight = 0;
   state.joined = [];
   state.socksTonight = 0;
+  state.turnedTonight = 0;
   clearCombat();
   state.gasAt = null;
   state.brokeTonight = 0;

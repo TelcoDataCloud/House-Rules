@@ -106,7 +106,7 @@ function dawnResult() {
   const justWon = won && !state.wonAlready;
   if (justWon) state.wonAlready = true;
   $('result-title').textContent = justWon ? LINES.win : won ? 'DAWN. Still winning.' : 'DAWN';
-  const taken = state.taken.length ? `<p>${icon('zombieicon')} ${state.taken.map((t) => t.name || t.job).join(', ')} carried off. Cure them tomorrow.</p>` : '';
+  const taken = state.taken.length ? `<p>${icon('zombieicon')} ${state.taken.map((t) => t.name || t.job).join(', ')} turned into ${state.taken.length > 1 ? 'zombies' : 'a zombie'}. They come back tomorrow night. Cure them!</p>` : '';
   const broke = state.brokeTonight ? `<p>${icon('plank')} ${state.brokeTonight} traps broke</p>` : '';
   const pits = state.zombies.length ? `<p>${icon('pit')} ${state.zombies.length} waiting in pits</p>` : '';
   const joined = (state.joined || []).length ? `<p>${icon('villager')} Joined: ${state.joined.map((j) => `${j.name} the ${(JOBS[j.job] || { name: j.job }).name.toLowerCase()}`).join(', ')}</p>` : '';
