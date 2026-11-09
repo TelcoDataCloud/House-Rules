@@ -50,6 +50,7 @@
       <button type="button" class="go" id="continue" hidden>CONTINUE</button>
       <button type="button" class="go" id="start">PLAY</button>
       <button type="button" class="quiet" id="how-btn">How to play</button>
+      <button type="button" class="quiet" id="title-sound" aria-pressed="true">&#128266; Sound on</button>
     </div>
     <p class="other-games">Also by Asa and Hendrix: <a href="../">Trap House</a> and <a href="../space/">Star Base</a></p>
   </div>
@@ -135,7 +136,11 @@
     <button type="button" id="btn-pillow" hidden aria-label="Pyjama army: everyone pillow fights, once a night"><svg width="34" height="34" aria-hidden="true"><use href="#art-pillow" width="34" height="34"></use></svg> PILLOWS <small>F</small></button>
   </div>
 
-  <div class="bar" id="bar"></div>
+  <div class="bar-wrap" id="bar-wrap">
+    <button type="button" class="bar-scroll left" id="bar-left" aria-label="Scroll the build bar left" hidden>&#9664;</button>
+    <div class="bar" id="bar"></div>
+    <button type="button" class="bar-scroll right" id="bar-right" aria-label="Scroll the build bar right" hidden>&#9654;</button>
+  </div>
   <p class="help" id="help"></p>
 </main>
 

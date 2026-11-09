@@ -66,12 +66,13 @@ const clampR = (r) => Math.max(0, Math.min(ROWS - 1, r));
 // The next point to walk towards on the way to goal.
 // who: what blocked() should treat the walker as (the hero passes null)
 export function nextStep(z, goal, dt, who = z) {
-  z.pathT = (z.pathT || 0) - dt;
+  z.pathAge = (z.pathAge || 0) + dt;
   const key = Math.floor(goal.x) + ',' + Math.floor(goal.y);
-  if (!z.path || z.pathT <= 0 || z.pathKey !== key) {
+  // work it out again every second or so, or when the goal moves (but not more than 4 times a second)
+  if (!z.path || z.pathAge > z.pathEvery || (z.pathKey !== key && z.pathAge > 0.25)) {
     const p = findPath(z, goal.x, goal.y, who);
     z.path = p.cells; z.pathReached = p.reached; z.pathKey = key;
-    z.pathT = 0.8 + Math.random() * 0.5;
+    z.pathAge = 0; z.pathEvery = 0.8 + Math.random() * 0.5;
   }
   const cx = Math.floor(z.x), cy = Math.floor(z.y);
   // drop squares already reached

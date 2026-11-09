@@ -17,10 +17,10 @@
 export const JOBS = {
   farmer:  { name: 'Farmer',  art: 'farmer',  makes: 'carrots', amount: 2, does: 'They will grow carrots.' },
   builder: { name: 'Builder', art: 'builder', makes: 'planks',  amount: 3, does: 'They will chop wood.' },
-  brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery', does: 'They will cook potion.' },
+  brewer:  { name: 'Brewer',  art: 'brewer',  makes: 'potion',  amount: 1, needs: 'brewery', does: 'They cook potion at the brewery. Each pot takes a few carrots, so keep farmers busy.' },
   miner:   { name: 'Miner',   art: 'miner',   makes: 'stone',   amount: 2, needs: 'mine', does: 'They will dig stone.' },
-  lookout: { name: 'Lookout', art: 'lookout', makes: null },
-  crew:    { name: 'Crew',    art: 'builder', makes: null },
+  lookout: { name: 'Lookout', art: 'lookout', makes: null, does: 'They watch from the tower and shout what is coming. They do not gather anything.' },
+  crew:    { name: 'Crew',    art: 'builder', makes: null, does: 'They work a catapult or tower. They do not gather anything. Take the thing back to free them.' },
   nightshift: { name: 'Night shift', art: 'vampire', makes: 'planks', amount: 2 },
   // cured animals live in the village too
   cow:     { name: 'Cow',     art: 'cowfriend',     makes: 'potion',  amount: 1, cheap: true },
@@ -37,6 +37,8 @@ export const START = ['farmer', 'farmer', 'builder', 'brewer'];
 // What you start the game holding
 // Enough planks to fence and pit a first night before anyone has worked
 export const POCKETS = { planks: 24, carrots: 6, potion: 2, stone: 0 };
+// Hard starts poorer (Grok's playtest, 9 Nov: day 1 was too rich)
+export const POCKETS_HARD = { planks: 16, carrots: 4, potion: 2, stone: 0 };
 
 // How many villagers you need to win the first level
 export const WIN_AT = 12;
