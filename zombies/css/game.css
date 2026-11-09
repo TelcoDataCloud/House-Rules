@@ -172,9 +172,3 @@
 
 /* fences and walls joined into straight runs (js/grid.js relink) */
 .run { pointer-events: none; }
-.run .picket, .run .rail, .run .block { stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
-.run-fence .picket { fill: var(--fence-rail); }
-.run-fence .rail { fill: var(--wall-rail); }
-.run-wall .picket { fill: var(--wall-rail); }
-.run-wall .rail { fill: var(--fence-rail); }
-.run-stonewall .block { fill: var(--stone); }
