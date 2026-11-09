@@ -128,7 +128,58 @@ export function drawZ(z) {
   z.el.setAttribute('transform', `translate(${z.x * TILE - 20} ${z.y * TILE - 36})`);
   z.el.classList.toggle('dizzy', z.dizzy > 0);
   z.el.classList.toggle('stuck', z.stuck > 0 || !!z.pit);
-  z.el.classList.toggle('walking', z.dizzy <= 0 && z.stuck <= 0 && !z.pit);
+  z.el.classList.toggle('walking', z.dizzy <= 0 && z.stuck <= 0 && !z.pit && !(z.poseT > 0));
+  ['laughing', 'dancing', 'sneezing'].forEach((p) => z.el.classList.toggle(p, z.poseT > 0 && z.pose === p));
+}
+
+// ---------- skittles and combo traps ----------
+// A zombie flying through the air knocks over every zombie he hits,
+// and those fly a bit too. Land on another trap and it goes off:
+// that is a COMBO TRAP and it is worth an odd sock.
+const COMBO_ON = new Set(['pit', 'bounce', 'spin', 'drop', 'stick', 'log', 'slow', 'ice', 'mirror', 'whoopee', 'banana', 'sneeze', 'disco', 'circle']);
+let chain = { n: 0, at: -9 };
+
+function flyingInto(z) {
+  if (!z.launchTrap) return;   // only a trap or a whack sends him flying hard enough
+  z.bowled = z.bowled || new Set([z]);
+  for (const o of state.zombies) {
+    if (z.bowled.has(o) || o.pit || o.big || o.flying > 0 || o.leaving) continue;
+    if (Math.hypot(o.x - z.x, o.y - z.y) > 0.75) continue;
+    z.bowled.add(o);
+    o.bowled = new Set([o, z]);
+    o.flyX = z.flyX * 0.6; o.flyY = z.flyY * 0.6; o.flying = 0.35;
+    o.dizzy = Math.max(o.dizzy, 2.5);
+    o.launchTrap = null;   // the skittles fall over but do not knock down more
+    skittle(o);
+  }
+  checkComboLanding(z);   // whacked or bounced into another trap?
+}
+
+function checkComboLanding(z) {
+  const t = thingAt(Math.floor(z.x), Math.floor(z.y));
+  if (t && t !== z.launchTrap && t !== z.comboFrom && COMBO_ON.has(t.does) && !t.broken) {
+    z.comboFrom = t;
+    z.flying = 0;
+    z.bowled = null; z.launchTrap = null;
+    burst(t.col + 0.5, t.row - 0.6, 'COMBO TRAP!');
+    blip('super');
+    giveSock(t.col + 0.5, t.row);
+    stepOn(z, t);
+  }
+}
+
+function skittle(o) {
+  blip('pin', { volume: 0.8 });
+  if (state.time - chain.at > 1.5) chain.n = 0;
+  chain.n++; chain.at = state.time;
+  if (chain.n === 3) { burst(o.x, o.y - 1.2, 'STRIKE!'); blip('cheer'); giveSock(o.x, o.y); }
+  else burst(o.x, o.y - 0.7, chain.n > 3 ? `x${chain.n}` : 'BONK');
+}
+
+function giveSock(x, y) {
+  state.socks = (state.socks || 0) + 1;
+  state.socksTonight = (state.socksTonight || 0) + 1;
+  burst(x, y - 0.4, '+1 sock');
 }
 
 // Where does this zombie want to go right now?
@@ -186,9 +237,17 @@ export function updateZombies(dt) {
     if (z.flying > 0) {
       z.x += z.flyX * dt / 0.6; z.y += z.flyY * dt / 0.6; z.flying -= dt;
       z.x = Math.max(0.5, Math.min(COLS - 0.5, z.x)); z.y = Math.max(0.5, Math.min(ROWS - 0.5, z.y));
+      flyingInto(z);
+      if (z.flying <= 0) { z.bowled = null; z.launchTrap = null; }
       drawZ(z); continue;
     }
     if (z.dizzy > 0) { z.dizzy -= dt; drawZ(z); continue; }
+    // laughing at a whoopee cushion, dancing at the disco, about to sneeze
+    if (z.poseT > 0) {
+      z.poseT -= dt;
+      if (z.poseT <= 0) { if (z.pose === 'dancing') burst(z.x, z.y - 0.7, pick(['awkward', 'um', '...'])); z.pose = null; }
+      drawZ(z); continue;
+    }
     if (z.stuck > 0) { z.stuck -= dt; drawZ(z); continue; }
     if (z.eatT > 0) z.eatT -= dt;
     if (z.scaredT > 0) z.scaredT -= dt;
@@ -288,7 +347,7 @@ export function updateZombies(dt) {
             blip('splat');
           }
         }
-        if (z.data.throws === 'gas') { cloud(z.x, z.y, 2, 4); state.gasAt = { x: z.x, y: z.y, t: 4 }; burst(z.x, z.y - 0.5, 'PARP'); blip('groan'); }
+        if (z.data.throws === 'gas') { cloud(z.x, z.y, 2, 4); state.gasAt = { x: z.x, y: z.y, t: 4 }; burst(z.x, z.y - 0.5, 'PARP'); blip('fart'); }
       }
     }
 
@@ -306,7 +365,7 @@ export function updateZombies(dt) {
     // carrying someone off
     if (z.carrying) { z.carrying.x = z.x + 0.5; z.carrying.y = z.y - 0.3; drawVillager(z.carrying); }
     if (z.leaving && (z.x < 0.3 || z.y < 0.3 || z.x > COLS - 0.3 || z.y > ROWS - 0.3)) {
-      if (z.carrying) { state.taken.push({ job: z.carrying.job, kind: 'bob', name: z.carrying.name }); say(LINES.taken.replace('{name}', z.carrying.name), true); removeVillager(z.carrying); }
+      if (z.carrying) { state.taken.push({ job: z.carrying.job, kind: 'bob', name: z.carrying.name }); say(LINES.taken.replace('{name}', z.carrying.name), true); blip('sad'); removeVillager(z.carrying); }
       remove(z);
       continue;
     }
@@ -335,7 +394,7 @@ export function hurtHero() {
   if (h.hearts <= 0) return;
   h.hearts--;
   burst(h.x, h.y - 0.6, 'OW');
-  blip('bonk');
+  blip('thud');
   if (h.hearts <= 0) {
     if (diff.heroDowns) { h.down = 10; say(LINES.heroDown, true); }
     else { h.hearts = 2; h.blink = 2; burst(h.x, h.y - 1, LINES.gotUp); say(LINES.gotUp, true); }
@@ -360,7 +419,7 @@ export function cure(z) {
   state.joined.push({ name: v.name, job });
   burst(z.x, z.y - 0.8, 'POP!');
   blip('pop');
-  setTimeout(() => blip('cheer'), 180);
+  setTimeout(() => blip('joined'), 180);
   const jobName = (JOBS[job] || { name: job }).name.toLowerCase();
   const line = LINES.joined.replace('{name}', v.name).replace('{job}', jobName).replace('{does}', (JOBS[job] || {}).does || '');
   say(line, true);

@@ -13,6 +13,18 @@ import { blip } from './voice.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { KEEP_AT_LEAST } from '../data/villagers.js';
 import { wear, bite } from './hard.js';
+import { panic } from './folk.js';
+import { playMusic } from './voice.js';
+
+const LAUGHS = ['HAHA', 'HEE HEE', 'HOHO', 'SNORT'];
+const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
+
+// Send a zombie flying. Anything he hits on the way falls over too
+// (zombies.js), and if he lands on another trap that is a COMBO TRAP.
+function launch(z, t, fx, fy, seconds = 0.6) {
+  z.flyX = fx; z.flyY = fy; z.flying = seconds;
+  z.launchTrap = t; z.bowled = null;
+}
 
 const ACT = {
   pit(z, t) {
@@ -37,9 +49,7 @@ const ACT = {
     z.bounced = t;
     const dx = z.x - z.lastX, dy = z.y - z.lastY;
     const len = Math.hypot(dx, dy) || 1;
-    z.flyX = -dx / len * (t.data.tiles || 5);
-    z.flyY = -dy / len * (t.data.tiles || 5);
-    z.flying = 0.6;
+    launch(z, t, -dx / len * (t.data.tiles || 5), -dy / len * (t.data.tiles || 5));
     z.dizzy = 3;
     burst(z.x, z.y - 0.5, 'BOING');
     blip('boing');
@@ -92,8 +102,8 @@ const ACT = {
     z.iced = t;
     const dx = z.x - z.lastX, dy = z.y - z.lastY;
     const len = Math.hypot(dx, dy) || 1;
-    z.flyX = dx / len * (t.data.tiles || 4); z.flyY = dy / len * (t.data.tiles || 4);
-    z.flying = 0.6; z.dizzy = 2;
+    launch(z, t, dx / len * (t.data.tiles || 4), dy / len * (t.data.tiles || 4));
+    z.dizzy = 2;
     burst(z.x, z.y - 0.5, 'WHEEE');
     blip('boing');
     wear(t);
@@ -101,9 +111,67 @@ const ACT = {
   mirror(z, t) {
     if (z.mirrored === t) return;
     z.mirrored = t;
+    if (z.data.hates === 'garlic') { burst(z.x, z.y - 0.5, 'no reflection?'); return; }   // vampires have no reflection
     z.stuck = t.data.seconds || 20;
     z.el.classList.add('stuck');
     burst(z.x, z.y - 0.5, 'hello handsome');
+    wear(t);
+  },
+  whoopee(z, t) {
+    if (z.whooped === t) return;
+    z.whooped = t;
+    const reach = t.data.reach || 3;
+    burst(t.col + 0.5, t.row - 0.2, 'PFFFRRRT');
+    blip('fart', { big: true });
+    setTimeout(() => blip('laugh'), 500);
+    state.zombies.forEach((o) => {
+      if (o.pit || o.leaving || Math.hypot(o.x - t.col - 0.5, o.y - t.row - 0.5) > reach) return;
+      o.pose = 'laughing'; o.poseT = t.data.seconds || 3;
+      if (Math.random() < 0.6) burst(o.x, o.y - 0.7, pickOne(LAUGHS));
+    });
+    wear(t);
+  },
+  banana(z, t) {
+    if (z.slipped === t) return;
+    z.slipped = t;
+    const dx = z.x - z.lastX, dy = z.y - z.lastY;
+    const len = Math.hypot(dx, dy) || 1;
+    launch(z, t, dx / len * (t.data.tiles || 4), dy / len * (t.data.tiles || 4), 0.8);
+    z.dizzy = 2.5;
+    burst(z.x, z.y - 0.5, 'WHOOPS');
+    blip('slip');
+    wear(t);
+  },
+  sneeze(z, t) {
+    if (z.sneezed === t) return;
+    z.sneezed = t;
+    const dx = z.x - z.lastX, dy = z.y - z.lastY;
+    const len = Math.hypot(dx, dy) || 1;
+    z.pose = 'sneezing'; z.poseT = 0.5;
+    burst(z.x, z.y - 0.6, 'aaah...');
+    blip('sneeze');
+    setTimeout(() => {
+      if (!state.zombies.includes(z) || z.pit) return;
+      z.pose = null; z.poseT = 0;
+      launch(z, t, -dx / len * (t.data.tiles || 6), -dy / len * (t.data.tiles || 6), 0.7);
+      z.dizzy = 2.5;
+      burst(z.x, z.y - 0.6, 'CHOO!');
+    }, 500 / (window.ZOMBIES.fast || 1));
+    wear(t);
+  },
+  disco(z, t) {
+    if (z.discoed === t || t.discoOn > state.time) return;
+    z.discoed = t;
+    const secs = t.data.seconds || 8;
+    t.discoOn = state.time + secs;
+    state.discoUntil = Math.max(state.discoUntil || 0, state.time + secs);
+    burst(t.col + 0.5, t.row - 0.3, 'DANCE OFF!');
+    t.el.classList.add('disco-on');
+    playMusic('disco');
+    state.zombies.forEach((o) => {
+      if (o.pit || o.leaving || Math.hypot(o.x - t.col - 0.5, o.y - t.row - 0.5) > (t.data.reach || 3)) return;
+      o.pose = 'dancing'; o.poseT = secs;
+    });
     wear(t);
   },
   net(z, t) {
@@ -129,7 +197,7 @@ const ACT = {
     if (!v) return;
     const canTake = diff.takeVillagers && state.night >= (diff.takeFrom || 1) && state.villagers.filter((p) => !p.taken).length > KEEP_AT_LEAST;
     if (canTake && z.data.bites) {
-      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'hsss'); }
+      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'hsss'); panic(v, z, t); }
       if (state.time - z.bedSince < 3) return;
       bite(z, v);
       z.leaving = true;
@@ -137,7 +205,7 @@ const ACT = {
     }
     if (canTake && !z.carrying) {
       // it takes three seconds of tugging: whack him off before then
-      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'heave'); }
+      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'heave'); panic(v, z, t); }
       if (state.time - z.bedSince < 3) return;
       z.bedSince = 0;
       v.taken = true;

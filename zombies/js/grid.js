@@ -88,6 +88,7 @@ export function placeThing(kind, col, row) {
   const thing = { kind, col, row, el: g, used: false, held: [], crew: 0, hp: 3, does: data.does, data };
   state.things.set(key(col, row), thing);
   if (data.does === 'scare') drawGlow(thing);
+  if (JOINS.has(kind)) relink();
   // cottages puff smoke from the chimney (top right of the picture)
   if (data.does === 'bed') {
     const smoke = el('g', { class: 'smoke' });
@@ -103,6 +104,39 @@ export function removeThing(col, row) {
   t.el.remove();
   if (t.glow) t.glow.remove();
   state.things.delete(key(col, row));
+  if (JOINS.has(t.kind)) relink();
+}
+
+// ---------- fences and walls that join up ----------
+// Two fences (or walls) side by side get rails between them, so a row
+// of them reads as one long fence. The rails are drawn under the
+// pictures. Their colours are in css/game.css (.link-fence and friends).
+const JOINS = new Set(['fence', 'wall', 'stonewall']);
+
+export function relink() {
+  const things = document.getElementById('things');
+  let g = document.getElementById('links');
+  if (!g) g = el('g', { id: 'links' });
+  things.prepend(g);
+  g.innerHTML = '';
+  for (const t of state.things.values()) {
+    if (!JOINS.has(t.kind)) continue;
+    [[1, 0], [0, 1]].forEach(([dc, dr]) => {
+      const n = thingAt(t.col + dc, t.row + dr);
+      if (!n || !JOINS.has(n.kind)) return;
+      const kind = t.kind === n.kind ? t.kind : 'fence';
+      const x = (t.col + 0.5) * TILE, y = (t.row + 0.5) * TILE;
+      if (dc) {
+        // side by side: rails across
+        const rails = kind === 'fence' ? [[-8, 6], [4, 6]] : [[-12, 22]];
+        rails.forEach(([oy, h]) => g.appendChild(el('rect', { class: 'link link-' + kind, x: x - 2, y: y + oy, width: TILE + 4, height: h, rx: 3 })));
+      } else {
+        // one above the other: posts down the gap
+        const posts = kind === 'fence' ? [[-7, 6], [3, 6]] : [[-10, 20]];
+        posts.forEach(([ox, w]) => g.appendChild(el('rect', { class: 'link link-' + kind, x: x + ox, y: y - 4, width: w, height: TILE + 6, rx: 3 })));
+      }
+    });
+  }
 }
 
 function drawGlow(thing) {
@@ -140,5 +174,6 @@ export function pointToTile(ev) {
 export function clearThings() {
   document.getElementById('things').innerHTML = '';
   document.getElementById('glows').innerHTML = '';
+  relink();
   state.things = new Map();
 }
