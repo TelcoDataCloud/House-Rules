@@ -33,7 +33,8 @@ import { sound } from './audio.js';
 import * as fx from './fx.js';
 import { makeCracks, crackSpot, breakApart } from './breakup.js';
 import { drawHole, bossDamage, debris, sparks } from './damage.js';
-import { makeRig, rigMuzzle, rigFire, drawRig } from './rig.js';
+import { makeRig, rigMuzzle, rigFire, drawRig, lightningArc } from './rig.js';
+import { bossShot, pattern, lastStand, clearDangers } from './attacks.js';
 
 function part(boss, name, art, w, h, ox, oy, r, hits, open) {
 
@@ -48,8 +49,13 @@ function part(boss, name, art, w, h, ox, oy, r, hits, open) {
   return p;
 }
 
+// Its colours: data/bosses.js hue.
+function tintOf(cfg) {
+  return cfg.hue ? `hue:${cfg.hue}` : cfg.tint || '';
+}
+
 function makeHauler(cfg, name, cx) {
-  const boss = { name, cfg, kind: 'hauler', t: 0, phase: 'enter', cx, x: cx, y: -160, parts: [], fireWait: 1.5, gun: 0, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: cx > W / 2 ? 2.2 : 0 };
+  const boss = { tint: tintOf(cfg), name, cfg, kind: 'hauler', t: 0, phase: 'enter', cx, x: cx, y: -160, parts: [], fireWait: 1.5, gun: 0, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: cx > W / 2 ? 2.2 : 0 };
   boss.title = cfg.name;
   // The Hauler kind: a body and two side parts (engines or guns) to shoot off.
   const [w, h] = cfg.size || [220, 120];
@@ -67,7 +73,7 @@ function makeHauler(cfg, name, cx) {
 
 function makeCore(cfg, name) {
   const [w, h] = cfg.size;
-  const boss = { name, cfg, kind: 'core', t: 0, phase: 'enter', x: W / 2, y: -h, parts: [], fireWait: 1.5, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: 0 };
+  const boss = { tint: tintOf(cfg), name, cfg, kind: 'core', t: 0, phase: 'enter', x: W / 2, y: -h, parts: [], fireWait: 1.5, stage: 1, charging: 0, swayT: 0, hold: 0, twinDelay: 0 };
   boss.title = cfg.name;
   boss.w = w; boss.h = h;
   boss.art = cfg.art;
@@ -97,6 +103,8 @@ function makeCore(cfg, name) {
 export function spawnBoss(name) {
   const cfg = BOSSES[name];
   if (!cfg) { console.warn(`No boss called ${name}`); return; }
+  // Every boss roars as it comes in, in its own voice.
+  sound.bossIn(cfg.voice || 1);
   if (cfg.kind === 'hauler') {
     if (cfg.twins) { makeHauler(cfg, name, W / 2 - 110); makeHauler(cfg, name, W / 2 + 110); }
     else makeHauler(cfg, name, W / 2);
@@ -133,15 +141,18 @@ function hurt(boss, p, n, how) {
   }
 }
 
-// Watch the eye: nearly done means LAST STAND.
+// Watch its weak spot (the eye, or a hauler's body): nearly done
+// means LAST STAND, and out comes its special attack (js/attacks.js).
 function checkLastStand(boss) {
-  if (boss.kind !== 'core' || boss.stage !== 2 || !hardness().lastStand || boss.eye.hp > boss.eye.max * 0.4) return;
+  const weak = boss.kind === 'core' ? boss.eye : boss.body;
+  if (boss.stage !== 2 || !weak.open || !hardness().lastStand || weak.hp > weak.max * 0.4) return;
   boss.stage = 3;
   boss.charging = 1;
   fx.banner('LAST STAND!', 'warn');
   sound.powerUp();
   fx.shake(true);
   boss.escortWait = 2;
+  boss.lastWait = 1.4;
 }
 
 // A leg is shot off: it falls away, and the boss staggers.
@@ -327,7 +338,7 @@ function updateCannon(boss, dt) {
     const along = rx * dx + ry * dy;
     const across = Math.abs(rx * dy - ry * dx);
     const width = sh.kind === 'lightning' ? boss.cfg.cannonWidth * 0.75 : boss.cfg.cannonWidth;
-    if (along > 0 && across < width / 2 + SHIP.hitSize) hitShip();
+    if (along > 0 && across < width / 2 + SHIP.hitSize) hitShip('cannon');
     if (sh.t >= sh.warn + sh.fire) {
       boss.shot = null;
       c.angle = 0;
@@ -362,6 +373,7 @@ function fireCannon(boss, sh) {
 function clearCannon(boss) {
   boss.shot = null;
   boss.cannon = null;
+  clearDangers(boss);
 }
 
 // The big moment: time slows right down, BOSS DOWN! Glowing cracks
@@ -374,8 +386,12 @@ function die(boss) {
   state.slow = 1.6;
   fx.banner('BOSS DOWN!', 'gold');
   fx.shake(true);
+  // How it goes down (data/bosses.js death).
+  const style = boss.cfg.death || 'split';
+  boss.death = style;
+  const colour = { shatter: '#bfe8ff', zap: '#c89bff', melt: '#ff7a1a', blackhole: '#b05cff', nova: '#ffffff' }[style] || '#9aa0bd';
   boss.cracks = makeCracks(boss.kind === 'core' ? 5 : 4);
-  const booms = boss.kind === 'core' ? 14 : 9;
+  const booms = Math.round((boss.kind === 'core' ? 14 : 9) * (style === 'nova' ? 1.7 : 1));
   const end = booms * 0.16 + 0.2;
   boss.crackTime = end;
   for (let i = 0; i < booms; i++) {
@@ -383,18 +399,42 @@ function die(boss) {
       // Each bang is a bit further out along one of the cracks.
       const crack = boss.cracks[i % boss.cracks.length];
       const step = Math.min(2, 1 + Math.floor(i / boss.cracks.length / 1.5));
+      const pose = deathPose(boss) || {};
       const [x, y] = crackSpot(boss, crack.pts[step]);
-      fx.boom(x, y, 60 + Math.random() * 40, 8, '#9aa0bd');
-      sound.boom();
+      const sc = pose.s || 1;
+      fx.boom(boss.x + (x - boss.x) * sc, boss.y + (pose.dy || 0) + (y - boss.y) * sc, (60 + Math.random() * 40) * sc, 8, colour);
+      if (style === 'zap') sound.chain(x); else sound.boom();
       if (i % 3 === 0) fx.shake(true);
     });
   }
+  // A chain reaction: the engines go up first, one after the other.
+  if (style === 'chain') {
+    for (const [i, p] of [boss.left, boss.right].entries()) {
+      if (p) after(0.3 + i * 0.5, () => { fx.boom(p.x, p.y, 130, 14); sound.boom(p.x); fx.shake(true); });
+    }
+  }
   after(end, () => {
-    fx.boom(boss.x, boss.y, boss.w * 0.9, 18, '#ffd23f');
-    sound.bossDeath(boss.x);
+    const pose = deathPose(boss) || {};
+    boss.y += pose.dy || 0;
+    sound.death(style, boss.x);
     fx.flash();
     fx.shake(true);
-    breakApart(boss);
+    if (style === 'implode' || style === 'blackhole') {
+      // Gone to a point: a flash and a ring, no big pieces.
+      fx.boom(boss.x, boss.y, boss.w * 0.5, 24, colour);
+      fx.add('ring', boss.x, boss.y, 1.2);
+      breakApart(boss, { pieces: false, shards: 30 });
+    } else if (style === 'nova') {
+      // Omega: a blinding star, a huge ring, then the pieces.
+      fx.boom(boss.x, boss.y, boss.w * 1.4, 30, '#ffd23f');
+      fx.add('ring', boss.x, boss.y, 1.6);
+      for (let i = 0; i < 6; i++) after(0.1 + i * 0.12, () => fx.boom(boss.x + (Math.random() - 0.5) * boss.w, boss.y + (Math.random() - 0.5) * boss.h, 90, 10, '#ffd23f'));
+      breakApart(boss, { shards: 40 });
+    } else {
+      fx.boom(boss.x, boss.y, boss.w * 0.9, 18, style === 'shatter' ? '#bfe8ff' : '#ffd23f');
+      if (style === 'melt') for (let i = 0; i < 16; i++) fx.add('jet', boss.x + (Math.random() - 0.5) * boss.w * 0.8, boss.y, 0.9, { vx: (Math.random() - 0.5) * 160, vy: -120 - Math.random() * 160, gravity: 400, size: 10, draw: lavaDrop });
+      breakApart(boss, { ice: style === 'shatter', shards: style === 'shatter' ? 46 : 16 });
+    }
     fx.award(boss.cfg.points, boss.x, boss.y - 40);
     if (boss.cfg.drops) boss.cfg.drops.forEach((d, i) => drop(d, boss.x + (i - 1.5) * 34, boss.y));
     boss.gone = true;
@@ -406,18 +446,32 @@ function die(boss) {
   }
 }
 
-// A ring of bullets from the eye, with a gap pointing at you.
-// One shot from a boss gun, in its own kind (data/bosses.js).
-// Bullets come in a burst of three. slow < 1 makes a ring gentler.
-function bossShot(x, y, angle, kind = 'pink', slow = 1) {
-  const speed = (SHOT_SPEED[kind] || 140) * slow;
-  if (kind === 'bullet') {
-    for (let i = 0; i < 3; i++) after(i * 0.1, () => addFoe(x, y, angle, speed, 'bullet'));
-  } else {
-    addFoe(x, y, angle, speed, kind);
+// A drop of lava, for a melting boss.
+function lavaDrop(p, k) {
+  radial(p.x, p.y, p.size * (1 - k * 0.5), [[0, '#fff6c0'], [0.35, '#ffb030'], [1, 'rgba(255,80,20,0)']], 1 - k, 'lighter');
+}
+
+// How a dying boss looks as it goes down, k from 0 to 1:
+//   rot  turned   s  smaller   sx, sy  squashed   dy  moved down
+//   glow  white-hot   red  red-hot   vortex  sucked into a black hole
+function deathPose(boss) {
+  if (boss.phase !== 'dying' || !boss.crackTime) return null;
+  const k = Math.min(1, boss.t / boss.crackTime);
+  const side = boss.x < W / 2 ? -1 : 1;
+  switch (boss.death) {
+    case 'spin': return { rot: 3.2 * k * k, s: 1 - 0.15 * k, dy: 40 * k };
+    case 'implode': return { s: 1 - 0.85 * k * k, glow: k, noCracks: true };
+    case 'blackhole': return { rot: 7 * k * k, s: 1 - 0.9 * k * k, vortex: k, noCracks: true };
+    case 'crush': return { sx: 1 + 0.25 * k, sy: 1 - 0.5 * k, dy: boss.h * 0.25 * k };
+    case 'topple': return { rot: 0.6 * k * k * side, dy: 80 * k * k };
+    case 'melt': return { sy: 1 - 0.25 * k, dy: 90 * k, red: k, noCracks: true };
+    case 'zap': return { zap: true };
+    case 'shatter': return { glow: 0.4 * k };
+    default: return null;
   }
 }
 
+// A ring of bullets from the eye, with a gap pointing at you.
 function fireRing(boss, turn = 0) {
   const eye = boss.eye;
   const s = state.ship;
@@ -432,6 +486,27 @@ function fireRing(boss, turn = 0) {
   }
 }
 
+// Angry: its own pattern now and then (data/bosses.js phase2).
+// LAST STAND: its special attack (lastStand). Never while its big
+// cannon is firing.
+function bossMoves(boss, dt) {
+  if (boss.stage < 2 || boss.charging > 0 || boss.shot) return;
+  const cfg = boss.cfg;
+  const hard = hardness();
+  boss.patternWait = (boss.patternWait ?? 2.5) - dt;
+  if (boss.patternWait <= 0) {
+    boss.patternWait = (cfg.patternEvery || 5.5) * (hard.patternWait || 1) * (boss.stage === 3 ? 1.6 : 1);
+    pattern(boss);
+  }
+  if (boss.stage === 3) {
+    boss.lastWait -= dt;
+    if (boss.lastWait <= 0) {
+      boss.lastWait = (cfg.lastEvery || 5) * Math.max(1, (hard.patternWait || 1) * 0.9);
+      lastStand(boss);
+    }
+  }
+}
+
 function fight(boss, dt) {
   const cfg = boss.cfg;
   const angry = boss.stage >= 2;
@@ -443,8 +518,10 @@ function fight(boss, dt) {
   if (boss.hold > 0) boss.hold -= dt;
   else boss.swayT += dt * (angry ? (boss.kind === 'hauler' ? 1.7 : 2.2) : 1);
   updateCannon(boss, dt);
+  bossMoves(boss, dt);
 
   if (boss.kind === 'hauler') {
+    checkLastStand(boss);
     boss.x = boss.cx + Math.sin((boss.swayT - 2.5) * 0.9) * boss.sway;
     boss.fireWait -= dt;
     if (boss.fireWait <= 0 && boss.charging <= 0) {
@@ -560,12 +637,23 @@ export function updateBosses(dt) {
 export function drawBosses() {
   for (const boss of state.bosses) {
     if (boss.gone || boss.broken) continue;
-    const tint = boss.cfg.tint || '';
+    const tint = boss.tint;
     const t = boss.clock || 0;
     const dying = boss.phase === 'dying';
     // Shaking when it is dying.
     const jx = dying ? (Math.random() - 0.5) * 6 : 0;
     const jy = dying ? (Math.random() - 0.5) * 4 : 0;
+    // Going down in its own way: turning, shrinking, squashing, sinking.
+    const pose = deathPose(boss);
+    if (pose && pose.vortex) drawVortex(boss, pose.vortex, t);
+    ctx.save();
+    if (pose) {
+      const sc = pose.s ?? 1;
+      ctx.translate(boss.x, boss.y + (pose.dy || 0));
+      ctx.rotate(pose.rot || 0);
+      ctx.scale(sc * (pose.sx ?? 1), sc * (pose.sy ?? 1));
+      ctx.translate(-boss.x, -boss.y);
+    }
 
     for (const p of boss.parts) {
       if (!p.leg || p.hidden) continue;
@@ -585,7 +673,8 @@ export function drawBosses() {
     if (boss.cannon) drawRig(boss, boss.cannon, 'under', jx, jy);
 
     // The body. White when hit, flashing when powering up or dying.
-    const flashOn = (boss.charging > 0 || dying) && Math.floor(t * 14) % 2 === 0;
+    // (Dying: only at first, so you can see how it goes down.)
+    const flashOn = (boss.charging > 0 || (dying && boss.t < 0.6)) && Math.floor(t * 14) % 2 === 0;
     const look = boss.flashT > 0 || flashOn ? 'white' : 'img';
     const body = bitmap(boss.art, { tint });
     if (boss.flying) {
@@ -600,7 +689,16 @@ export function drawBosses() {
     const shadow = boss.flying ? [30, 60, 0.3] : [8, 16, 0.32];
     sprite(body, boss.x + jx, boss.y + jy, boss.w, boss.h, { look, shadow });
     if (boss.angry && !dying) glowOver(body, boss.x, boss.y, boss.w, boss.h, 'red', 0.12 + 0.12 * Math.sin(t * 12));
-    if (dying && boss.cracks) drawCracks(boss, body);
+    if (dying && boss.cracks && !(pose && pose.noCracks)) drawCracks(boss, body);
+    if (pose && pose.glow) glowOver(body, boss.x, boss.y, boss.w, boss.h, 'white', pose.glow * 0.9);
+    if (pose && pose.red) glowOver(body, boss.x, boss.y, boss.w, boss.h, 'red', pose.red * 0.8);
+    if (pose && pose.zap) {
+      // Lightning crawls all over it.
+      for (let i = 0; i < 3; i++) {
+        const spot = () => [boss.x + (Math.random() - 0.5) * boss.w * 0.8, boss.y + (Math.random() - 0.5) * boss.h * 0.7];
+        lightningArc(spot(), spot(), 0.9);
+      }
+    }
     if (boss.cannon && !dying) drawRig(boss, boss.cannon, 'over', jx, jy);
 
     // Burning holes where its guns and engines were.
@@ -618,8 +716,29 @@ export function drawBosses() {
         glowOver(set, p.x, p.y, p.w, p.h, 'pink', 0.15 + 0.15 * Math.sin(t * 10));
       }
     }
+    ctx.restore();
     drawShot(boss);
   }
+}
+
+// A black hole opens behind a dying boss and swallows it.
+function drawVortex(boss, k, t) {
+  const r = boss.w * 0.5 * Math.min(1, k * 1.6) * (1 - 0.6 * Math.max(0, k - 0.8) / 0.2);
+  radial(boss.x, boss.y, r * 1.6, [[0, 'rgba(176,92,255,0.5)'], [1, 'rgba(176,92,255,0)']], 1, 'lighter');
+  ctx.save();
+  ctx.translate(boss.x, boss.y);
+  ctx.strokeStyle = '#d8b0ff';
+  ctx.shadowColor = '#b05cff';
+  ctx.shadowBlur = 14;
+  ctx.lineWidth = 3;
+  for (let i = 0; i < 5; i++) {
+    ctx.rotate(t * 5 + i);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, r * (1 - i * 0.12), r * (0.35 - i * 0.04), 0, 0, Math.PI * 1.2);
+    ctx.stroke();
+  }
+  ctx.restore();
+  radial(boss.x, boss.y, r * 0.5, [[0, '#000000'], [0.8, '#06020c'], [1, 'rgba(20,4,40,0)']]);
 }
 
 // Glowing cracks spread over a dying boss, only on its metal.
