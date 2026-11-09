@@ -782,6 +782,11 @@
 .cap-B { --cap: var(--yellow); }
 .cap-S { --cap: var(--cyan); }
 .cap-1UP { --cap: var(--green); }
+.cap-STAR { --cap: var(--yellow); }
+.cap-POW { --cap: var(--orange); }
+.cap-SLOW { --cap: var(--cyan); }
+.cap-WING { --cap: var(--violet); }
+.mini-cap.small b { font-size: 8px; }
 @keyframes hover { from { transform: translateY(-2px) rotate(-4deg); } to { transform: translateY(2px) rotate(4deg); } }
 
 @media (prefers-reduced-motion: reduce) {
