@@ -19,6 +19,7 @@ import { LINES } from '../data/lines.js';
 import { el } from './grid.js';
 import { burst } from './fx.js';
 import { blip, say } from './voice.js';
+import { rescue } from './folk.js';
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
@@ -45,17 +46,18 @@ export function swing(spin = false) {
     n++;
   });
   swingLook(spin);
-  if (!n) { burst(h.x, h.y - 0.9, 'swish'); return 0; }
+  if (!n) { burst(h.x, h.y - 0.9, 'swish'); blip('whoosh', { volume: 0.6 }); return 0; }
 
   // combo
   if (state.time - comboAt < COMBO_TIME) comboN += n; else comboN = n;
   comboAt = state.time;
-  if (superHit) { burst(h.x, h.y - 1.4, 'SUPER WHACK'); comboN = 0; shake(2); }
+  if (superHit) { burst(h.x, h.y - 1.4, 'SUPER WHACK'); comboN = 0; shake(2); blip('super'); }
   else if (comboN >= 2) burst(h.x, h.y - 1.4, `COMBO x${comboN}`);
-  if (spin) { spinReadyAt = state.time + SPIN_COOLDOWN; burst(h.x, h.y - 1.4, 'SPIN!'); }
+  if (spin) { spinReadyAt = state.time + SPIN_COOLDOWN; burst(h.x, h.y - 1.4, 'SPIN!'); blip('whoosh'); }
 
   burst(h.x, h.y - 0.8, pick(LINES.whack));
-  blip(w.sound || 'bonk');
+  // each hit in a combo is a little higher, so a run of whacks sounds like it is building
+  blip(w.sound || 'bonk', { rate: 1 + Math.min(comboN, 6) * 0.05 });
   hitStop(spin || superHit ? 0.12 : 0.06);
   shake(spin || superHit ? 2 : 1);
   if (!state.whackedOnce) {
@@ -68,6 +70,7 @@ export function swing(spin = false) {
 
 function hit(z, w, power) {
   const h = state.hero;
+  rescue(z);   // was he dragging someone out of a cottage?
   z.dizzy = w.stun * (power > 1 ? 1.3 : 1);
   z.bedSince = 0;
   z.circle = null;
@@ -75,6 +78,7 @@ function hit(z, w, power) {
   const knock = w.knock * power;
   z.flyX = dx / len * knock / 0.35; z.flyY = dy / len * knock / 0.35;
   z.flying = 0.35;
+  z.bowled = null; z.launchTrap = 'hero';   // whack him into a trap for a COMBO TRAP
   if (z.carrying) { z.carrying.taken = false; z.carrying = null; z.leaving = false; }
   if (!z.armOff && Math.random() < w.armOff) dropArm(z);
   if (Math.random() < w.drop) dropLoot(z.x, z.y);
@@ -171,7 +175,7 @@ export function updateCombat(dt) {
       state[l.item.gives] = (state[l.item.gives] || 0) + l.item.amount;
       if (l.item.gives === 'socks') state.socksTonight = (state.socksTonight || 0) + 1;
       burst(h.x, h.y - 1, `+${l.item.amount} ${l.item.gives}`);
-      blip('pop');
+      blip('coin');
       import('./hud.js').then((m) => { m.drawCounts(); m.flashCount(l.item.gives); });
     }
     l.el.setAttribute('x', l.x * TILE - 12); l.el.setAttribute('y', l.y * TILE - 12);

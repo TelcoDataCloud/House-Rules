@@ -99,7 +99,7 @@ export const TRICKS = {
       }
       splash(z.x, z.y, 3, 'var(--gas)');
       burst(z.x, z.y - 1, n ? 'BUUURP' : 'burp');
-      blip('groan');
+      blip('burp');
     }
   },
 };

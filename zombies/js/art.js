@@ -20,6 +20,7 @@ const NAMES = [
   'cowfriend', 'chickenfriend', 'sheepfriend', 'pigfriend', 'pumpkinfarmer',
   'map', 'cottage', 'boulders', 'mine', 'stonewall', 'stone', 'miner',
   'spoon', 'pan', 'rubberchicken', 'mallet', 'sock',
+  'whoopee', 'banana', 'pepper', 'disco', 'tophat', 'crown', 'partyhat', 'moustache', 'pillow',
 ];
 
 export async function loadArt() {

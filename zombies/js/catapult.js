@@ -88,7 +88,8 @@ export function fire() {
 
 // Fling something from a catapult to a spot, along an arc
 function launch(from, to, kind) {
-  blip('twang');
+  blip('thud');
+  blip('whoosh', { volume: 0.7 });
   burst(from.col + 0.5, from.row, 'TWANG');
   const ammo = kind;
   // the shot flies along the same arc

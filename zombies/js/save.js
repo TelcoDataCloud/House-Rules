@@ -12,6 +12,7 @@
 import { state } from './state.js';
 import { placeThing, clearThings } from './grid.js';
 import { addVillager } from './villagers.js';
+import { drawWear } from './folk.js';
 
 const KEY = 'snot-moon-save';
 
@@ -20,7 +21,7 @@ export function saveGame() {
     const data = {
       mode: state.mode, night: state.night, moonDay: state.moonDay,
       planks: state.planks, carrots: state.carrots, potion: state.potion, stone: state.stone || 0, weapon: state.weapon || 0, socks: state.socks || 0,
-      villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
+      villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, wear: v.wear || null, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
       things: [...state.things.values()].map((t) => ({ kind: t.kind, col: t.col, row: t.row, broken: !!t.broken, wear: t.wear || 0 })),
     };
     localStorage.setItem(KEY, JSON.stringify(data));
@@ -55,6 +56,8 @@ export function loadGame() {
   data.villagers.forEach((s) => {
     const v = addVillager(s.job);
     v.name = s.name;
+    v.wear = s.wear || null;
+    drawWear(v);
     v.oldJob = s.oldJob;
     if (s.crewAt) {
       const t = state.things.get(s.crewAt[0] + ',' + s.crewAt[1]);

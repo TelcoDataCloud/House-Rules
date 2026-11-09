@@ -20,6 +20,7 @@ import { drawHearts } from './hud.js';
 import { puddleAt } from './gross.js';
 import { ringBell } from './hard.js';
 import { viaBridge } from './zombies.js';
+import { pyjamaArmy } from './folk.js';
 
 export const SPEED = 5;   // squares a second
 const keys = new Set();
@@ -46,6 +47,7 @@ export function listen() {
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) { keys.add(k); goal = null; e.preventDefault(); }
     if (k === ' ') { if (!e.repeat) holdDown(); e.preventDefault(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); }
     if (k === 'e') { throwPotion(); e.preventDefault(); }
+    if (k === 'f') { pyjamaArmy(); e.preventDefault(); }
     if (k === 'b') { const bell = [...state.things.values()].find((t) => t.does === 'bell' && !t.broken); if (bell) ringBell(bell); }
   });
   window.addEventListener('keyup', (e) => { keys.delete(e.key.toLowerCase()); if (e.key === ' ' && state.phase === 'night') holdUp(); });
