@@ -12,7 +12,7 @@ export const GUIDE = [
   { art: 'wall',     head: 'DAY: BUILD',     text: 'Pick a thing from the bar, then click a square. Click it again to take it back and get everything back.' },
   { art: 'plank',    head: 'PLANKS BUILD',   text: 'Builders chop planks in the forest. Walls, fences, torches and houses cost planks.' },
   { art: 'carrot',   head: 'CARROTS BUY',    text: 'Farmers grow carrots on the carrot plots. Carrots buy the gross traps, better weapons and potion. Too many? Swap them for planks.' },
-  { art: 'bucket',   head: 'MAKING POTION',  text: 'Build a brewery. Tap a villager and make them a brewer. Each day they cook 1 potion from a few carrots.' },
+  { art: 'brewery',  head: 'MAKING POTION',  text: 'Potion is the most important thing! A brewer at the brewery turns a few carrots into 1 potion, once a day. Tap a villager to make them a brewer. No carrots, no potion, so keep farmers busy.' },
   { art: 'stone',    head: 'STONE',          text: 'Build a mine right next to the big grey rocks. Miners dig stone. Stone walls cannot be climbed or dug under.' },
   { art: 'hero',     head: 'NIGHT: FIGHT',   text: 'Click where to run, or use WASD. Space or WHACK hits. Hold it to spin. Whacked is not cured!' },
   { art: 'bucket',   head: 'POTION CURES',   text: 'The POTION button cures the nearest zombie. He joins your village! Trap the rest in pits and cure them in the morning.' },
@@ -37,7 +37,8 @@ export const LAND = {
 export const TIPS = {
   day1:      'Tip: builders get planks, farmers grow carrots. Build walls and traps, then press NIGHT FALLS.',
   brewery:   'Tip: potion is made in a brewery. Build one, then tap a villager and make them a brewer.',
-  brewer:    'Tip: you have a brewery but no brewer. Tap a villager and make them a brewer.',
+  brewer:    'Tip: you have a brewery but no brewer. Tap a villager and make them a brewer. Brewers turn carrots into potion.',
+  bed:       'Tip: someone has no bed! Build a cottage. The flashing button in the bar.',
   carrots:   'Tip: lots of carrots! Swap them for planks, buy a better weapon, or build a whoopee cushion.',
   mine:      'Tip: the grey rocks have stone in them. Build a mine right next to them.',
   night1:    'Tip: click to run. Space or WHACK to hit. Hold it to spin. POTION cures.',

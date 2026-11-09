@@ -315,3 +315,30 @@ button.quiet, .upgrade-btn { color: var(--text); }
 .title-pic { display: block; width: 100%; height: auto; border: var(--ink-w) solid var(--ink); border-radius: 18px; margin: 0 0 12px; }
 .title-pic[hidden] { display: none; }
 .title-art[hidden] { display: none; }
+
+/* the cottage button when somebody has no bed */
+.bar .thing { position: relative; }
+.bar .thing.needed { animation: needed 1s infinite; }
+@keyframes needed { 0%,100% { box-shadow: 0 4px 0 var(--ink), 0 0 0 0 var(--heart); } 50% { box-shadow: 0 4px 0 var(--ink), 0 0 0 6px var(--heart); } }
+.bar .thing .badge {
+  position: absolute; top: 3px; right: 3px; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--heart); color: var(--star); border: 2px solid var(--ink); font-weight: 900; line-height: 22px;
+}
+@media (prefers-reduced-motion: reduce) { .bar .thing.needed { animation: none; outline: 4px solid var(--heart); } }
+
+/* build bar scroll arrows */
+.bar-wrap { position: relative; }
+.bar-scroll {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  min-width: 44px; min-height: 52px; padding: 0 8px; font-size: 1.1rem; background: var(--panel); color: var(--text);
+}
+.bar-scroll:hover, .bar-scroll:active { transform: translateY(-50%); }
+.bar-scroll.left { left: -6px; }
+.bar-scroll.right { right: -6px; }
+.bar-scroll[hidden], .bar-wrap:has(.bar[hidden]) .bar-scroll { display: none; }
+
+/* nothing ever pushes the page sideways on a phone */
+html, body { overflow-x: clip; max-width: 100%; }   /* clip, not hidden: hidden would break the sticky night buttons */
+.game { max-width: 100vw; }
+/* on phones the corner buttons scroll away with the page instead of covering the counts */
+@media (max-width: 900px) { .toolbar { position: absolute; } }

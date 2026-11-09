@@ -130,12 +130,13 @@
 .hero .weapon.spin { animation: spinweapon 450ms ease-out; }
 @keyframes swing { 0% { transform: rotate(-70deg); } 60% { transform: rotate(60deg); } 100% { transform: rotate(0); } }
 @keyframes spinweapon { from { transform: rotate(0); } to { transform: rotate(720deg); } }
-.hero.charging .body { filter: drop-shadow(0 0 6px #ffd23f) drop-shadow(0 0 10px #ffd23f); }
+.hero.charging .body { animation: charge 300ms infinite; transform-origin: 20px 40px; }
+@keyframes charge { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 .stage.shake { animation: shake 160ms; }
 .stage.shake2 { animation: shake2 260ms; }
 @keyframes shake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(-4px, 2px); } 50% { transform: translate(3px,-3px); } 75% { transform: translate(-2px, 1px); } }
 @keyframes shake2 { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-8px, 4px); } 40% { transform: translate(7px,-5px); } 60% { transform: translate(-5px, 3px); } 80% { transform: translate(3px,-2px); } }
-.loot { animation: lootbob 900ms infinite ease-in-out; transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 4px #fff6a0); }
+.loot { animation: lootbob 900ms infinite ease-in-out; transform-box: fill-box; transform-origin: center; }   /* no glow filter: filters on moving things made nights lag */
 @keyframes lootbob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 .dropped.crawling { animation: struggle 300ms infinite; }
 @media (prefers-reduced-motion: reduce) { .hero .weapon.swing, .hero .weapon.spin, .loot, .dropped.crawling { animation: none; } }
