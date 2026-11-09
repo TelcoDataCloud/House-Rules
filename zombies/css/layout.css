@@ -261,3 +261,38 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
 .upgrade-btn svg { vertical-align: middle; }
 .upgrade-btn.cannot { opacity: 0.6; }
 .upgrade-btn[hidden] { display: none; }
+
+/* the villager picker: chat, jobs, high five, hats, name */
+.job-picker { width: 260px; max-width: calc(100vw - 16px); }
+.job-picker .says {
+  font-weight: 700; font-style: italic; background: var(--page); border: 2px solid var(--ink);
+  border-radius: 12px; padding: 6px 10px; margin: 0 0 6px;
+}
+.job-picker .small { font-size: 0.85rem; margin: 4px 0 0; color: var(--text-dim); }
+.job-picker .row { display: flex; flex-wrap: wrap; gap: 6px; }
+.job-picker .row button { flex: 1 1 auto; }
+.job-picker .hats button { display: inline-flex; align-items: center; gap: 2px; padding: 4px 6px; min-width: 52px; }
+.job-picker .hats button.cannot { opacity: 0.5; }
+.job-picker .name-form input {
+  flex: 1; min-width: 0; min-height: 44px; font: inherit; font-weight: 700; padding: 4px 8px;
+  border: var(--ink-w) solid var(--ink); border-radius: var(--radius); background: var(--panel); color: var(--text);
+}
+#btn-pillow { background: var(--panel); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+#btn-pillow[hidden] { display: none; }
+#btn-pillow.used { opacity: 0.45; }
+
+/* the picker never runs off the bottom: it scrolls, and on a phone it sits at the bottom of the screen */
+.job-picker { max-height: calc(100% - 8px); overflow-y: auto; }
+@media (max-width: 700px) {
+  .job-picker { position: fixed; left: 8px !important; right: 8px; top: auto !important; bottom: 8px; width: auto; max-height: 72vh; z-index: 30; }
+  .sky { flex-basis: 100%; min-width: 0; }
+  .skybar { min-width: 60px; }
+  .night-buttons { gap: 8px; }
+  .night-buttons button { font-size: 1.25rem; padding: 6px 8px; min-width: 0; }
+  .night-buttons small { display: none; }
+  #btn-pillow svg { width: 26px; height: 26px; }
+}
+#btn-pillow { color: var(--text); }
+/* quiet buttons sit on the panel colour, so they take the panel's text colour (readable in both themes) */
+button.quiet, .upgrade-btn { color: var(--text); }
+.credits { margin: -10px 0 16px; font-weight: 800; color: var(--text); }

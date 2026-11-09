@@ -139,3 +139,38 @@
 @keyframes lootbob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 .dropped.crawling { animation: struggle 300ms infinite; }
 @media (prefers-reduced-motion: reduce) { .hero .weapon.swing, .hero .weapon.spin, .loot, .dropped.crawling { animation: none; } }
+
+/* ---------- Z12: funny traps ---------- */
+.mob.laughing .body { animation: giggle 260ms infinite; }
+.mob.dancing .body { animation: dance 520ms infinite; transform-origin: 20px 40px; }
+.mob.sneezing .body { animation: aah 500ms forwards; transform-origin: 20px 40px; }
+@keyframes giggle { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-3px) rotate(3deg); } }
+@keyframes dance { 0% { transform: rotate(-14deg) translateX(-3px); } 50% { transform: rotate(14deg) translateX(3px) translateY(-4px); } 100% { transform: rotate(-14deg) translateX(-3px); } }
+@keyframes aah { to { transform: scaleY(1.15) rotate(-10deg); } }
+.thing.disco-on use { animation: disco 400ms infinite; }
+@keyframes disco { 0% { filter: hue-rotate(0deg) brightness(1.2); } 100% { filter: hue-rotate(360deg) brightness(1.2); } }
+
+/* ---------- Z12: villagers being people ---------- */
+.mob .wear { pointer-events: none; }
+.villager.happy .body { animation: hooray 400ms 4; }
+.villager.goof .body { animation: tumble 900ms 2; transform-origin: 20px 30px; }
+.villager.panic .body { animation: flail 180ms infinite; }
+@keyframes hooray { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes tumble { 0% { transform: rotate(0); } 50% { transform: rotate(90deg) translateY(6px); } 100% { transform: rotate(0); } }
+@keyframes flail { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg) translateY(-3px); } }
+.villager .ask circle { fill: var(--button); stroke: var(--ink); stroke-width: 2.5; }
+.villager .ask text { font: 900 13px var(--font); fill: var(--ink); }
+.villager .ask { animation: bob 900ms infinite; }
+.villager .pillow { pointer-events: none; }
+.thrown { pointer-events: none; }
+.feather { fill: var(--star); stroke: var(--ink); stroke-width: 1; animation: feather 1.2s ease-out forwards; }
+@keyframes feather { to { transform: translate(var(--dx), 30px) rotate(200deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .thing.disco-on use, .villager .ask, .feather { animation: none !important; }
+}
+
+/* rails between fences and walls side by side (js/grid.js relink) */
+.link { stroke: var(--ink); stroke-width: 2.5; pointer-events: none; }
+.link-fence { fill: var(--fence-rail); }
+.link-wall { fill: var(--wall-rail); }
+.link-stonewall { fill: var(--stone); }
