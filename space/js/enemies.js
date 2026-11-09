@@ -85,7 +85,7 @@ function shoot(e) {
 }
 
 // How fast each kind of enemy shot flies.
-export const SHOT_SPEED = { pink: 130, green: 140, red: 170, bullet: 230, rocket: 150, plasma: 85, mine: 90, bolt: 190 };
+export const SHOT_SPEED = { pink: 130, green: 140, red: 170, bullet: 230, rocket: 150, plasma: 85, mine: 90, bolt: 190, flak: 200, shard: 150, ice: 190, frost: 140, slag: 120, ember: 60 };
 
 // --- the patterns ---
 const PATTERNS = {

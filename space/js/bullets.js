@@ -8,11 +8,22 @@
    =========================================================== */
 
 import { state, W, H, hardness } from './state.js';
-import { ctx, radial } from './canvas.js';
+import { ctx, radial, made2d } from './canvas.js';
 import { shotLook, missileLook, foeLook } from './looks.js';
 import { targets } from './collide.js';
 import { trail, smokePuff } from './fx.js';
 import { FOE_SHOTS, ROCKET_START, ROCKET_TOP, MINE_WAKE, MINE_FUSE } from '../data/foeshots.js';
+import { sound } from './audio.js';
+import * as fx from './fx.js';
+
+// How fast the bits of a burst fly.
+const SHOT_SPEED_OF = { shard: 150, frost: 120, ember: 90 };
+
+function burstFx(b) {
+  if (b.colour === 'flak') { fx.boom(b.x, b.y, 34, 6, '#ffd23f'); sound.flak(b.x); }
+  else if (b.colour === 'ice') { fx.spark(b.x, b.y); sound.ice(b.x); }
+  else { fx.boom(b.x, b.y, 30, 6, '#ff7a1a'); sound.slag(b.x); }
+}
 
 const CAP = 300;
 
@@ -49,12 +60,34 @@ export function addFoe(x, y, angle, speed, colour = 'pink') {
   const kind = FOE_SHOTS[colour] || FOE_SHOTS.pink;
   const b = { w: kind.size[0], h: kind.size[1] };
   const start = kind.move === 'speedup' ? ROCKET_START : kind.move === 'mine' ? 0.45 : 1;
+  b.fuse = kind.fuse || 0;
+  b.into = kind.into;
+  b.count = kind.count || 0;
   Object.assign(b, {
     x, y, dx: Math.sin(rad), dy: Math.cos(rad), speed: sp, vx: Math.sin(rad) * sp * start, vy: Math.cos(rad) * sp * start,
     r: kind.hitSize, colour, move: kind.move, t: 0,
     hp: kind.canShoot ? kind.hits : 0, points: kind.points || 0,
   });
   state.foes.push(b);
+}
+
+// A shell bursts: its bits fly out in a ring.
+const bursting = [];
+function burst(b) {
+  b.dead = true;
+  bursting.push(b);
+}
+function burstNow() {
+  for (const b of bursting.splice(0)) {
+    const turn = Math.random() * 360;
+    const sp = SHOT_SPEED_OF[b.into] || 140;
+    for (let i = 0; i < b.count; i++) {
+      // 'ember' splashes up and out, then falls.
+      const a = b.into === 'ember' ? 180 + (i - (b.count - 1) / 2) * 30 : turn + (i * 360) / b.count;
+      addFoe(b.x, b.y, a, sp, b.into);
+    }
+    burstFx(b);
+  }
 }
 
 function gone(b) {
@@ -82,38 +115,52 @@ function steer(m, dt) {
 }
 
 export function updateBullets(dt) {
+  // TIME WARP (an Easy helper): enemy shots fly at half speed.
+  const foeDt = state.warp > 0 ? dt * 0.5 : dt;
   for (const b of state.shots) {
     b.x += b.vx * dt;
     b.y += b.vy * dt;
     if (gone(b)) b.dead = true;
   }
   for (const b of state.foes) {
-    b.t += dt;
+    b.t += foeDt;
     if (b.move === 'speedup') {
       // A rocket: slow at first, then faster and faster, with smoke.
       const k = Math.min(ROCKET_TOP, ROCKET_START + b.t * 1.1);
       b.vx = b.dx * b.speed * k;
       b.vy = b.dy * b.speed * k;
-      b.puff = (b.puff || 0) - dt;
+      b.puff = (b.puff || 0) - foeDt;
       if (b.puff <= 0) { b.puff = 0.06; smokePuff(b.x - b.dx * 16, b.y - b.dy * 16); }
     } else if (b.move === 'mine') {
       // A mine: drifts, slows down, wakes up when you are close.
-      b.vx *= 1 - dt * 0.6;
-      b.vy = Math.max(45, b.vy * (1 - dt * 0.6));
+      b.vx *= 1 - foeDt * 0.6;
+      b.vy = Math.max(45, b.vy * (1 - foeDt * 0.6));
       const s = state.ship;
       if (!b.armed && s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_WAKE) {
         b.armed = MINE_FUSE;
       }
       if (b.armed) {
-        b.armed -= dt;
+        b.armed -= foeDt;
         b.vy *= 0.9;
         if (b.armed <= 0) b.blow = true;     // js/loop.js does the bang
       }
+    } else if (b.move === 'burst') {
+      // Flak and ice: slows down, then bursts into bits all round.
+      b.vx *= 1 - foeDt * 1.6;
+      b.vy *= 1 - foeDt * 1.6;
+      if (b.t >= b.fuse) burst(b);
+    } else if (b.move === 'lob') {
+      // Slag: falls faster and faster, then splashes.
+      b.vy += 140 * foeDt;
+      if (b.t >= b.fuse) burst(b);
+    } else if (b.move === 'fall') {
+      b.vy += 220 * foeDt;
     }
-    b.x += b.vx * dt;
-    b.y += b.vy * dt;
+    b.x += b.vx * foeDt;
+    b.y += b.vy * foeDt;
     if (gone(b)) b.dead = true;
   }
+  burstNow();
   for (const m of state.missiles) {
     steer(m, dt);
     m.x += m.vx * dt;
@@ -137,6 +184,19 @@ function stamp(img, b, w, h, turn = true) {
 export function drawShots() {
   for (const b of state.shots) stamp(shotLook(b.cls, b.weak), b, 24, 44);
   for (const m of state.missiles) stamp(missileLook(m.big), m, 24, 40);
+}
+
+// A plasma ring, with its glow, painted once.
+function plasmaRing() {
+  return made2d('foe|plasma-ring', 48, 24, (g) => {
+    g.strokeStyle = 'rgba(200,150,255,0.9)';
+    g.shadowColor = '#b05cff';
+    g.shadowBlur = 8;
+    g.lineWidth = 2;
+    g.beginPath();
+    g.ellipse(24, 12, 19, 7, 0, 0, Math.PI * 2);
+    g.stroke();
+  });
 }
 
 // Enemy shots are drawn pointing DOWN (js/looks.js); turn each one
@@ -172,24 +232,40 @@ export function drawFoes() {
         if (blink) radial(b.x, b.y, 30, [[0, 'rgba(255,59,59,0.6)'], [1, 'rgba(255,59,59,0)']], 1, 'lighter');
         break;
       }
+      case 'flak': {
+        // Blinks faster and faster as it gets ready to burst.
+        const left = b.fuse - b.t;
+        const blink = left < 0.5 && Math.floor(b.t * 20) % 2 === 0;
+        stamp(foeLook('flak', blink), b, 30, 30, false);
+        break;
+      }
+      case 'shard': stampFoe(foeLook('shard'), b, 14, 22); break;
+      case 'frost': stampFoe(foeLook('frost'), b, 16, 24); break;
+      case 'ice':
+        stampFoe(foeLook('ice'), b, 24, 46);
+        radial(b.x, b.y, 16, [[0, 'rgba(160,220,255,0.4)'], [1, 'rgba(160,220,255,0)']], 1, 'lighter');
+        break;
+      case 'slag':
+        radial(b.x, b.y, 26 + Math.sin(b.t * 18) * 3, [[0, 'rgba(255,140,40,0.55)'], [1, 'rgba(255,80,20,0)']], 1, 'lighter');
+        ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.t * 3); ctx.translate(-b.x, -b.y);
+        stamp(foeLook('slag'), b, 40, 40, false);
+        ctx.restore();
+        break;
+      case 'ember': stamp(foeLook('ember'), b, 18, 18, false); break;
       case 'plasma': {
         // A plasma torpedo: a pulsing core, two rings of energy spinning
         // round it at different tilts, and sparks crackling off it.
         const pulse = 1 + Math.sin(b.t * 20) * 0.07;
         stamp(foeLook('plasma'), b, 54 * pulse, 54 * pulse, false);
+        // (The rings are painted once with their glow, then turned:
+        // glows drawn every frame slow the game right down.)
         ctx.save();
         ctx.translate(b.x, b.y);
         ctx.globalCompositeOperation = 'lighter';
-        ctx.strokeStyle = 'rgba(200,150,255,0.9)';
-        ctx.shadowColor = '#b05cff';
-        ctx.shadowBlur = 8;
-        ctx.lineWidth = 2;
         for (const [tilt, speed] of [[0.5, 4], [-0.9, -5]]) {
           ctx.save();
           ctx.rotate(tilt + b.t * speed);
-          ctx.beginPath();
-          ctx.ellipse(0, 0, 19, 7, 0, 0, Math.PI * 2);
-          ctx.stroke();
+          ctx.drawImage(plasmaRing(), -24, -12, 48, 24);
           ctx.restore();
         }
         if (Math.random() < 0.5) {

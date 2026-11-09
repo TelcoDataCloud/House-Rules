@@ -59,7 +59,7 @@ export function drawHud() {
   }
 
   // Your gun, your helpers and your bomb, each with dots for its level.
-  const weapons = [s.gun, s.gunLevel, s.homing, s.drones, s.bomb, s.bombLevel].join();
+  const weapons = [s.gun, s.gunLevel, s.homing, s.drones, s.engine, s.shields, s.bomb, s.bombLevel].join();
   if (changed('weapons', weapons)) {
     // A picture for each thing, and dots for how far it is upgraded.
     const chip = (thing, pic, level, max) => {
@@ -67,7 +67,7 @@ export function drawHud() {
       return `<span class="hud-weapon ${thing.colour}" title="${thing.name}" aria-label="${thing.name} level ${level}">${icon(pic)}<span class="pips">${pips}</span></span>`;
     };
     let html = chip(GUNS[s.gun], s.gun, s.gunLevel, MAX_LEVEL);
-    for (const k of Object.keys(HELPERS)) if (s[k] > 0) html += chip(HELPERS[k], k, s[k], 3);
+    for (const k of Object.keys(HELPERS)) if (s[k] > 0) html += chip(HELPERS[k], k, s[k], HELPERS[k].steps.length);
     html += chip(BOMBS[s.bomb], `bomb-${s.bomb}`, s.bombLevel, 3);
     $('hud-weapons').hidden = false;
     $('hud-weapons').innerHTML = html;

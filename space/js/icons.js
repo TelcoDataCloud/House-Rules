@@ -14,6 +14,8 @@ export const PICS = {
   rail: '<rect x="32" y="0" width="6" height="32" fill="#ffd23f"/><rect x="34" y="0" width="2" height="32" fill="#ffffff"/><ellipse cx="35" cy="30" rx="10" ry="3" fill="none" stroke="#ffd23f" stroke-width="2"/><ellipse cx="35" cy="20" rx="8" ry="2.5" fill="none" stroke="#ffd23f" stroke-width="1.5"/>',
   homing: '<path d="M22 32 C14 18 22 8 52 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/><circle cx="52" cy="4" r="5" fill="#ff3fa4"/><path d="M48 32 C56 18 48 8 18 4" stroke="#ff3fa4" stroke-width="3" fill="none" stroke-dasharray="4 4"/>',
   drones: '<use href="#art-drone" x="2" y="14" width="18" height="20"/><use href="#art-drone" x="50" y="14" width="18" height="20"/>',
+  engine: '<path d="M27 2 L43 2 L46 12 L24 12 Z" fill="#8a90a8" stroke="#05070f" stroke-width="1.5"/><path d="M26 13 Q35 40 44 13 Z" fill="#ffd23f"/><path d="M30 13 Q35 30 40 13 Z" fill="#ffffff"/>',
+  shields: '<circle cx="35" cy="44" r="30" fill="none" stroke="#38f0ff" stroke-width="4"/><circle cx="35" cy="44" r="23" fill="none" stroke="#38f0ff" stroke-width="2.5"/><circle cx="35" cy="44" r="17" fill="none" stroke="#38f0ff" stroke-width="1.5"/>',
   shield: '<circle cx="35" cy="44" r="30" fill="none" stroke="#38f0ff" stroke-width="4"/>',
   points: '<text x="35" y="24" text-anchor="middle" font-size="18" font-weight="800" fill="#ffd23f" stroke="#05070f" stroke-width="1">+3000</text>',
   bombpack: '<circle cx="24" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/><circle cx="46" cy="18" r="10" fill="#ffd23f" stroke="#3a2a00" stroke-width="2"/>',
