@@ -1,0 +1,48 @@
+<!-- partyhat: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Blue and yellow striped party hat</title>
+<defs>
+<clipPath id="partyhat-cone-clip">
+<path d="M410 309 L592 305 L839 802 Q785 842 705 866 Q512 890 319 866 Q237 843 184 804 Z" />
+</clipPath>
+</defs>
+
+<g id="partyhat-hat-brim" stroke="#050505" stroke-width="21" stroke-linejoin="round">
+<path d="M193 764 L134 808 L133 917 L239 986 L296 1005 Q511 1022 729 1004 L785 985 L890 916 L890 807 L830 764 Z" fill="#0061f5" />
+</g>
+<g id="partyhat-brim-facets">
+<path d="M144 810 L241 872 L299 892 Q510 908 725 891 L783 871 L879 810 L830 774 L704 847 L320 848 L194 776 Z" fill="#00a6ff" />
+<path d="M144 824 L241 883 L242 975 L144 912 Z" fill="#0051c9" />
+<path d="M242 883 L299 902 L299 995 L242 975 Z" fill="#0043ae" />
+<path d="M299 902 Q511 918 725 901 L725 994 Q510 1010 299 995 Z" fill="#0064ff" />
+<path d="M725 901 L783 880 L783 974 L725 994 Z" fill="#0040a6" />
+<path d="M783 880 L879 822 L879 910 L783 974 Z" fill="#0049b9" />
+<path d="M242 883 L289 860 L340 872 L299 902 Z" fill="#0086ff" />
+<path d="M704 869 L742 856 L783 880 L725 901 Z" fill="#008dff" />
+</g>
+<g id="partyhat-striped-cone">
+<path d="M410 309 L592 305 L839 802 Q785 842 705 866 Q512 890 319 866 Q237 843 184 804 Z" fill="#0065ff" />
+<g clip-path="url(#partyhat-cone-clip)">
+<path d="M340 452 Q510 424 609 331 L658 431 Q553 546 286 583 Z" fill="#ffe500" />
+<path d="M220 716 Q530 694 712 538 L770 650 Q599 806 249 833 L184 805 Z" fill="#ffe400" />
+<path d="M540 309 L592 305 L839 802 Q791 836 715 862 Z" fill="#0048be" />
+<path d="M561 374 Q588 358 609 331 L658 431 Q630 459 599 481 Z" fill="#edac00" />
+<path d="M636 598 Q682 570 712 538 L770 650 Q729 691 675 724 Z" fill="#ebab00" />
+</g>
+<path d="M410 309 L592 305 L839 802 Q785 842 705 866 Q512 890 319 866 Q237 843 184 804 Z" fill="none" stroke="#030403" stroke-width="22" stroke-linejoin="round" />
+</g>
+<g id="partyhat-blocky-pompom">
+<path d="M449 16 L485 10 L601 28 L598 69 L658 81 L654 137 L696 145 L688 230 L656 248 L642 245 L637 292 L590 315 L548 307 L508 335 L407 316 L408 294 L356 282 L361 222 L326 214 L332 130 L370 109 L374 62 L447 43 Z" fill="#ffdf00" stroke="#050503" stroke-width="22" stroke-linejoin="round" />
+<path d="M384 70 L456 50 L460 26 L486 21 L591 37 L539 66 L487 87 Z" fill="#fff66b" />
+<path d="M384 70 L487 87 L539 66 L534 124 L584 99 L586 86 L649 88 L622 112 L584 135 L573 239 L471 220 L466 268 L378 251 L383 171 L365 175 L365 214 L336 207 L341 136 L377 141 Z" fill="#ffe500" />
+<path d="M341 136 L377 141 L380 121 L368 121 Z" fill="#fff45a" />
+<path d="M539 66 L591 37 L583 99 L534 124 Z" fill="#ecad00" />
+<path d="M584 135 L622 112 L649 88 L643 146 L620 161 L609 216 L573 239 Z" fill="#ecab00" />
+<path d="M620 161 L646 150 L686 153 L660 168 Z" fill="#ffec28" />
+<path d="M620 161 L660 168 L653 237 L633 234 L626 285 L589 303 L594 253 L609 242 Z" fill="#ffc000" />
+<path d="M660 168 L686 153 L679 223 L653 237 Z" fill="#eaa500" />
+<path d="M471 220 L573 239 L609 216 L609 242 L573 260 L487 241 L483 268 L463 287 L420 279 L418 309 L505 324 L512 272 L536 258 L529 294 L589 303 L594 253 L573 260 L487 241 Z" fill="#f6b900" />
+<path d="M512 272 L536 258 L529 294 L508 315 L505 324 Z" fill="#eaaa00" />
+<path d="M378 251 L420 260 L418 281 L367 273 L372 214 L365 214 L365 175 L383 171 Z" fill="#f4bb00" />
+</g>
+</svg>

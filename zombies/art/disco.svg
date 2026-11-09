@@ -1,0 +1,128 @@
+<!-- disco: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Wooden disco ball post with colourful lights and speaker</title>
+<defs>
+<clipPath id="disco-ball-clip"><path d="M633 247C720 242 784 288 823 365C859 435 851 499 816 553C776 613 719 647 644 649C569 651 513 621 468 567C431 523 423 472 438 420C452 373 480 340 504 307C537 267 580 249 633 247Z" /></clipPath>
+<linearGradient id="disco-wood-front" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#a44f12" /><stop offset="1" stop-color="#da7c1c" /></linearGradient>
+<linearGradient id="disco-silver-base" x1="0" y1="1" x2=".8" y2="0"><stop stop-color="#66748d" /><stop offset=".5" stop-color="#a7b2c8" /><stop offset="1" stop-color="#e6ebf6" /></linearGradient>
+<linearGradient id="disco-speaker-front" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#4e3d67" /><stop offset="1" stop-color="#9981b3" /></linearGradient>
+</defs>
+
+<g stroke="#080807" stroke-width="19" stroke-linejoin="round" stroke-linecap="round">
+<g id="disco-wooden-base">
+<path d="M111 840L237 802L327 854L327 985L244 1012L111 951Z" fill="#995019" />
+<path d="M111 840L239 805L327 854L244 893Z" fill="#ffb94e" stroke="none" />
+<path d="M244 893L327 866V985L244 1003Z" fill="#ac591b" stroke="none" />
+<path d="M121 857L181 880V976L121 946Z" fill="#854015" stroke="none" />
+<path d="M169 742L255 715L324 748V842L253 864L169 832Z" fill="#ad5717" />
+<path d="M178 746L253 726L314 750L252 781Z" fill="#ffb748" stroke="none" />
+<path d="M178 762L218 779V841L178 826Z" fill="#8d4211" stroke="none" />
+</g>
+<g id="disco-post">
+<path d="M215 171L285 149L362 181L365 743L280 769L209 738Z" fill="url(#disco-wood-front)" />
+<path d="M222 187L279 210V755L219 733Z" fill="#864211" stroke="none" />
+<path d="M282 215L343 195V736L285 753Z" fill="#cc711b" stroke="none" />
+<path d="M325 223L466 131L491 164L342 352L326 345Z" fill="#d47a1a" />
+<path d="M337 227L472 155L445 204L394 216L341 272Z" fill="#8a3b07" stroke="none" />
+<path d="M285 115L692 12L752 35L753 113L347 229L285 203Z" fill="#a95616" />
+<path d="M296 115L692 22L742 40L337 151Z" fill="#ffbd55" stroke="none" />
+<path d="M325 139L611 62V139L331 211Z" fill="#aa5616" stroke-width="12" />
+<path d="M329 139L559 63L607 77L339 149Z" fill="#ffc766" stroke="none" />
+<path d="M194 48L301 12L393 43V112L285 147L194 175Z" fill="#b8641a" />
+<path d="M194 51L285 80V202L194 175Z" fill="#824010" />
+<path d="M285 80L393 47V112L326 133V189L285 202Z" fill="#ba651a" stroke-width="12" />
+<path d="M204 53L301 22L384 48L285 81Z" fill="#ffbd59" stroke="none" />
+<path d="M248 39L302 22L340 34L289 52Z" fill="#f4aa43" stroke="none" />
+<path d="M244 68L279 79V139L244 125Z" fill="#68320c" stroke="none" />
+</g>
+<g id="disco-hanging-bracket">
+<path d="M563 45L623 25L674 48L679 158L626 174L585 158L614 145V71Z" fill="#66577f" stroke-width="17" />
+<path d="M574 46L622 35L666 53L624 65Z" fill="#9785b1" stroke="none" />
+<path d="M626 70L669 58V151L628 163Z" fill="#70618d" stroke="none" />
+<path d="M604 164L657 164V231L629 242L605 231Z" fill="#777b96" stroke-width="15" />
+<path d="M615 178L632 175V231L615 225Z" fill="#9da5bd" stroke="none" />
+</g>
+</g>
+<g id="disco-disco-ball">
+<path d="M633 247C720 242 784 288 823 365C859 435 851 499 816 553C776 613 719 647 644 649C569 651 513 621 468 567C431 523 423 472 438 420C452 373 480 340 504 307C537 267 580 249 633 247Z" fill="url(#disco-silver-base)" />
+<g clip-path="url(#disco-ball-clip)">
+<path d="M503 306L573 282L618 285L600 359L527 344Z" fill="#bbc6dd" />
+<path d="M657 281L694 281L752 319L729 351L684 358Z" fill="#fff" />
+<path d="M493 339L530 347L566 360L558 435L477 414Z" fill="#e5ecfb" />
+<path d="M648 361L725 352L758 426L655 446Z" fill="#fff" />
+<path d="M786 336L819 365L839 413L800 429L773 351Z" fill="#8694ad" />
+<path d="M437 412L479 426L480 509L441 488Z" fill="#e3eafa" />
+<path d="M566 443L650 449L651 528L558 525Z" fill="#b3bed6" />
+<path d="M655 446L733 440L737 520L654 529Z" fill="#f5f7fd" />
+<path d="M805 424L838 407L839 478L806 500Z" fill="#d9e0f1" />
+<path d="M482 515L558 527L575 592L515 582Z" fill="#bbc7de" />
+<path d="M573 531L650 532L650 597L583 592Z" fill="#8c9bb6" />
+<path d="M741 519L801 506L774 575L716 591Z" fill="#fafbff" />
+<path d="M650 600L713 594L689 640L648 651Z" fill="#b8c5df" />
+<path d="M490 578L531 599L573 638L543 630Z" fill="#8fa0bc" />
+<path d="M439 476C446 556 500 604 569 627L597 654L476 628L408 507Z" fill="#596b88" opacity=".4" />
+<g fill="none" stroke="#414958" stroke-width="10" stroke-linejoin="round">
+<path d="M487 319C555 375 721 381 794 326" />
+<path d="M445 396C519 460 742 466 834 392" />
+<path d="M436 484C518 544 733 547 842 480" />
+<path d="M475 564C564 614 722 607 799 558" />
+<path d="M589 275C506 325 461 447 492 539C512 596 542 628 577 651" />
+<path d="M628 283C599 334 583 389 565 444C550 504 559 579 608 647" />
+<path d="M649 355C654 428 652 532 650 644" />
+<path d="M661 288C690 332 715 398 733 443C748 518 728 597 688 645" stroke="#74829e" />
+<path d="M697 279C776 324 813 416 805 492C801 538 776 589 749 617" />
+</g>
+<path d="M638 259C715 251 778 303 806 352" fill="none" stroke="#f6f8ff" stroke-width="12" opacity=".6" />
+</g>
+<path d="M633 247C720 242 784 288 823 365C859 435 851 499 816 553C776 613 719 647 644 649C569 651 513 621 468 567C431 523 423 472 438 420C452 373 480 340 504 307C537 267 580 249 633 247Z" fill="none" stroke="#080909" stroke-width="14" stroke-linejoin="round" />
+<path d="M567 227L605 209V228L632 238L658 229V211L698 226V271Q633 311 566 272Z" fill="#777e98" stroke="#080909" stroke-width="17" stroke-linejoin="round" />
+<path d="M577 231L606 221V231L631 241L659 234L680 229L689 233L632 252Z" fill="#b6bfd4" />
+<path d="M576 241L630 258V286L577 268Z" fill="#626982" />
+<path d="M752 293L765 338L813 356L772 371L755 424L742 375L705 357L741 342Z" fill="#fff" />
+<path d="M534 476L547 514L580 528L547 540L534 575L522 540L488 527L521 515Z" fill="#fff" />
+</g>
+<g id="disco-light-cable" stroke="#090909" stroke-width="17" stroke-linejoin="round">
+<path d="M215 237C174 245 172 275 205 310C236 347 295 374 352 386C369 390 376 414 369 441C355 478 253 512 197 500L187 476C243 481 319 453 347 432L347 412C271 394 201 355 179 321C148 278 174 245 215 237Z" fill="#62677e" />
+<path d="M203 509C216 551 273 593 353 615Q375 622 376 653L355 669C333 640 276 632 237 600C206 580 185 550 184 526Z" fill="#62677e" />
+</g>
+<g id="disco-coloured-lamps" stroke="#090909" stroke-width="14" stroke-linejoin="round">
+<path d="M178 267L214 253L264 285L254 345L211 362L162 328Z" fill="#f8208c" />
+<path d="M189 274L221 270L249 292L218 340L182 317Z" fill="#ff8dd6" stroke="none" />
+<path d="M226 298L250 293L242 315L221 320L216 339L191 322L217 328Z" fill="#ff54b4" stroke="none" />
+<path d="M287 416L337 395L376 404L387 464L337 491L290 477Z" fill="#ffce00" />
+<path d="M296 418L324 426L330 482L299 472Z" fill="#f1b500" stroke="none" />
+<path d="M324 426L364 411L369 455L333 471Z" fill="#ffff87" stroke="none" />
+<path d="M171 497L205 489L260 522L248 581L210 594L157 559Z" fill="#00cce7" />
+<path d="M182 507L222 530L212 573L176 551Z" fill="#63f4ff" stroke="none" />
+<path d="M222 530L251 525L239 574L216 581Z" fill="#00bfd7" stroke="none" />
+<path d="M286 641L346 611L379 622L392 687L340 713L296 702Z" fill="#8236e7" />
+<path d="M296 645L324 650L331 700L302 694Z" fill="#6725cb" stroke="none" />
+<path d="M325 649L364 632L373 676L338 692Z" fill="#b56af8" stroke="none" />
+</g>
+<g id="disco-speaker" stroke="#09090a" stroke-width="18" stroke-linejoin="round">
+<path d="M289 747L463 695L569 739V951L368 1010L289 971Z" fill="#322a41" />
+<path d="M289 747L463 695L569 739L367 797Z" fill="#78668e" />
+<path d="M299 761L357 791V994L299 966Z" fill="#2c2639" stroke="none" />
+<path d="M367 797L569 739V951L368 1010Z" fill="url(#disco-speaker-front)" stroke-width="13" />
+<path d="M378 804L557 752" fill="none" stroke="#b7a0cb" stroke-width="7" />
+<path d="M540 885C529 933 487 966 451 953C410 939 400 901 407 866C416 825 452 793 485 797C524 800 552 839 540 885Z" fill="#454354" stroke-width="15" />
+<path d="M476 800L478 815C455 813 427 839 416 867L404 872C409 833 438 799 476 800Z" fill="#292831" stroke="none" />
+<path d="M482 815C523 818 539 859 526 895C511 930 478 950 450 940L461 916C491 910 503 872 492 850Z" fill="#56576c" stroke="none" />
+<ellipse cx="466" cy="874" rx="30" ry="40" transform="rotate(27 466 874)" fill="#9470bb" stroke-width="10" />
+<path d="M440 877L488 861C489 881 479 899 464 905C448 910 438 897 440 877Z" fill="#8360ad" stroke="none" />
+<g fill="#f7f4ff" stroke="none">
+<path d="M387 810L409 803V826L387 833Z" />
+<path d="M530 772L552 766V788L530 795Z" />
+<path d="M387 962L409 955V978L387 985Z" />
+<path d="M530 922L552 915V938L530 945Z" />
+</g>
+</g>
+<g id="disco-floating-sparkles" fill="#fff" stroke-linejoin="round">
+<path d="M819 115C810 161 796 175 753 189C793 202 809 219 817 260C826 217 840 203 881 189C838 176 827 160 819 115Z" stroke="#ffc000" stroke-width="8" />
+<path d="M896 286C889 319 879 330 840 342C872 352 882 366 887 402C897 370 910 356 943 348C909 337 902 319 896 286Z" stroke="#ff268a" stroke-width="8" />
+<path d="M460 247C454 274 447 282 420 294C446 301 454 312 460 339C467 311 474 303 498 294C474 285 467 275 460 247Z" stroke="#00c9e6" stroke-width="7" />
+<path d="M445 571C438 597 428 613 403 621C428 630 438 639 446 668C454 640 465 629 487 620C462 611 452 597 445 571Z" stroke="#5929db" stroke-width="8" />
+<path d="M836 580C829 613 818 629 784 640C815 648 827 664 833 699C842 664 854 651 886 641C853 631 842 615 836 580Z" stroke="#00cbe5" stroke-width="8" />
+<path d="M671 663C662 691 654 704 625 714C654 722 664 737 669 763C677 735 688 724 715 713C688 704 678 691 671 663Z" stroke="#ffbf00" stroke-width="8" />
+</g>
+</svg>
