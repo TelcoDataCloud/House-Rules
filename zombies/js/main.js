@@ -12,7 +12,7 @@ import { LINES } from '../data/lines.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { START as START_THINGS } from '../data/traps.js';
 import { WIN_AT, JOBS } from '../data/villagers.js';
-import { loadArt, icon } from './art.js';
+import { loadArt, loadPictures, icon } from './art.js';
 import { drawGround, placeThing, clearThings } from './grid.js';
 import { startVillage } from './villagers.js';
 import { startDay, stopDay, nightFallsPressed, buyWeapon, swapCarrots, dayClick, dayHover, clearHover } from './day.js';
@@ -212,6 +212,7 @@ function wire() {
 async function boot() {
   loadSounds();   // no need to wait: the beeps cover until they arrive
   await loadArt();
+  loadPictures();   // the paintings take over as they arrive
   drawGround();
   wire();
   titleScreen();
