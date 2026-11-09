@@ -22,15 +22,39 @@ import { state } from './state.js';
 
 let last = '', lastAt = 0;
 
+// Every villager gets their own voice: a different accent if the
+// device has one (British, Australian, Irish, Indian, Scottish,
+// South African, American...), and their own pitch and speed.
+// Worked out from their name, so Pip always sounds like Pip.
+let accents = null;
+function englishVoices() {
+  if (accents && accents.length) return accents;
+  if (!('speechSynthesis' in window)) return [];
+  accents = window.speechSynthesis.getVoices().filter((v) => /^en/i.test(v.lang));
+  return accents;
+}
+export function voiceFor(name) {
+  let h = 7;
+  for (const ch of String(name)) h = (h * 31 + ch.charCodeAt(0)) % 100003;
+  const list = englishVoices();
+  return {
+    voice: list.length ? list[h % list.length] : null,
+    pitch: 0.6 + (h % 11) / 10,          // 0.6 (deep) to 1.6 (squeaky)
+    rate: 0.85 + ((h >> 3) % 5) / 10,    // 0.85 (slow) to 1.25 (fast)
+  };
+}
+
 // Lines wait their turn instead of talking over each other.
 // urgent: true jumps the queue (OW, carried off).
-export function say(text, urgent = false) {
+// who: a voice from voiceFor() (a villager talking), or nothing for the game's own voice
+export function say(text, urgent = false, who = null) {
   if (state.muted || !('speechSynthesis' in window)) return;
   const now = performance.now();
   if (text === last && now - lastAt < 3000) return;
   last = text; lastAt = now;
   const line = new SpeechSynthesisUtterance(text.replace(/[!{}#@%]/g, '').toLowerCase());
-  line.rate = 1.05; line.pitch = 1.1;
+  line.rate = who ? who.rate : 1.05; line.pitch = who ? who.pitch : 1.1;
+  if (who && who.voice) { line.voice = who.voice; line.lang = who.voice.lang; }
   if (urgent) window.speechSynthesis.cancel();
   else if (window.speechSynthesis.pending) return;   // one waiting is plenty
   window.speechSynthesis.speak(line);

@@ -24,9 +24,13 @@ import { startWork, updateWork, retask } from './work.js';
 import { tonight, cure } from './zombies.js';
 import { nextWeapon } from './combat.js';
 import { burst } from './fx.js';
-import { say, blip } from './voice.js';
+import { say, blip, voiceFor } from './voice.js';
 import { mend, fixTrap } from './hard.js';
 import { saveGame } from './save.js';
+import { costHTML, missing, pay } from './cost.js';
+import { MARKET } from '../data/weapons.js';
+import { landLine, checkTips } from './tips.js';
+let tipClock = 0;
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 let plan = null;
@@ -95,19 +99,31 @@ function dayTick(now) {
   last = now;
   updateWork(dt);
   updateFolkDay(dt);
+  tipClock += dt;
+  if (tipClock > 2) { tipClock = 0; checkTips(); }
   raf = requestAnimationFrame(dayTick);
 }
 
 export function stopDay() { cancelAnimationFrame(raf); closePicker(); }
 
+// The market: swap carrots for planks
+export function swapCarrots() {
+  if (missing(MARKET.give)) { flashCount('carrots'); helpSay(`You need ${costHTML(MARKET.give)} to swap. Farmers grow carrots.`); blip('nope', { volume: 0.5 }); return; }
+  pay(MARKET.give);
+  pay(MARKET.get, -1);
+  helpSay(`Swapped ${costHTML(MARKET.give)} for ${costHTML(MARKET.get)}.`);
+  blip('coin');
+  flashCount('planks');
+  drawCounts();
+}
+
 // Buy the next weapon
 export function buyWeapon() {
   const next = nextWeapon();
   if (!next) return;
-  if (state.planks < next.planks) { flashCount('planks'); helpSay(`The ${next.name} needs ${next.planks} planks.`); return; }
-  if ((state.stone || 0) < (next.stone || 0)) { flashCount('stone'); helpSay(`The ${next.name} needs ${next.stone} stone. Build a mine.`); return; }
-  state.planks -= next.planks;
-  state.stone = (state.stone || 0) - (next.stone || 0);
+  const short = missing(next);
+  if (short) { flashCount(short); helpSay(`The ${next.name} needs ${costHTML(next)}.` + (short === 'stone' ? ' Build a mine.' : short === 'carrots' ? ' Farmers grow carrots.' : '')); return; }
+  pay(next);
   state.weapon = (state.weapon || 0) + 1;
   helpSay(`<b>${next.name}!</b> Stuns for ${next.stun} seconds and whacks them ${next.knock} squares.`);
   say(next.name);
@@ -152,7 +168,7 @@ function openPicker(v, ev) {
   closePicker();
   picking = v;
   const line = chatLine(v);
-  say(line);
+  say(line, true, voiceFor(v.name));
   const box = document.createElement('div');
   box.className = 'job-picker';
   const jobs = ['farmer', 'builder', 'brewer', 'miner'].filter((j) => j !== 'miner' || [...state.things.values()].some((t) => t.does === 'mine'));
@@ -228,20 +244,19 @@ export function dayClick(ev) {
   if (here && TRAPS[here.kind] && !here.held.length) {
     if (here.kind === 'bed' && [...state.things.values()].filter((t) => t.does === 'bed').length <= 1) { cannot(p, 'Keep one cottage'); return; }
     state.villagers.filter((v) => v.crewOf === here).forEach((c) => { c.job = c.oldJob || 'farmer'; c.crewOf = null; placeAtWork(c); drawVillager(c); });
-    state.planks += TRAPS[here.kind].planks;
-    state.stone += TRAPS[here.kind].stone || 0;
+    pay(TRAPS[here.kind], -1);   // you get it all back
     removeThing(p.col, p.row);
     burst(p.col + 0.5, p.row + 0.5, 'back');
     rehome();
     drawCounts();
     return;
   }
-  if (!state.picked) return;
+  if (!state.picked) { const line = landLine(p.col, p.row); helpSay(line); say(line); return; }
   const t = TRAPS[state.picked];
   if (here || !buildable(p.col, p.row)) { cannot(p, 'Not here'); return; }
   if (t.nearRock && !nearRock(p.col, p.row)) { cannot(p, 'Next to the boulders'); return; }
-  if (state.planks < t.planks) { cannot(p, 'Need planks', 'planks'); return; }
-  if (state.stone < (t.stone || 0)) { cannot(p, 'Need stone', 'stone'); return; }
+  const short = missing(t);
+  if (short) { cannot(p, 'Need ' + short, short); return; }
   if (t.needsJob && !state.villagers.some((v) => v.job === t.needsJob)) { cannot(p, 'Needs a ' + t.needsJob); return; }
   const crew = [];
   if (t.crew) {
@@ -249,8 +264,7 @@ export function dayClick(ev) {
     if (free.length < t.crew) { cannot(p, `Need ${t.crew} villagers`, 'villagers'); return; }
     crew.push(...free.slice(0, t.crew));
   }
-  state.planks -= t.planks;
-  state.stone -= t.stone || 0;
+  pay(t);
   const thing = placeThing(state.picked, p.col, p.row);
   crew.forEach((c, i) => {
     c.oldJob = c.job; c.job = 'crew'; c.crewOf = thing; thing.crewMember = c;
