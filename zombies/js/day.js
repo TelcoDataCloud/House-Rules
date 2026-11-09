@@ -13,14 +13,14 @@ import { TRAPS } from '../data/traps.js';
 import { ZOMBIES } from '../data/zombies.js';
 import { LINES } from '../data/lines.js';
 import { DIFFICULTY } from '../data/difficulty.js';
-import { POCKETS } from '../data/villagers.js';
+import { POCKETS, POCKETS_HARD } from '../data/villagers.js';
 import { placeThing, removeThing, thingAt, pointToTile, isEdge, el, buildable, nearRock } from './grid.js';
 import { buildBar, drawCounts, drawDay, drawSun, lookoutSay, helpSay, banner, flashCount } from './hud.js';
 import { wakeUp, placeAtWork, draw as drawVillager, setJob, assignBeds, assignHomes, drawHomes } from './villagers.js';
 import { chatLine, highFive, buyHat, hatsFor, rename, morningRequests, builtNear, startFolkDay, updateFolkDay } from './folk.js';
 import { icon } from './art.js';
 import { JOBS } from '../data/villagers.js';
-import { startWork, updateWork, retask } from './work.js';
+import { startWork, updateWork, retask, joinWork } from './work.js';
 import { tonight, cure } from './zombies.js';
 import { nextWeapon } from './combat.js';
 import { burst } from './fx.js';
@@ -30,7 +30,7 @@ import { saveGame } from './save.js';
 import { costHTML, missing, pay } from './cost.js';
 import { MARKET } from '../data/weapons.js';
 import { landLine, checkTips } from './tips.js';
-let tipClock = 0;
+let tipClock = 0, saveClock = 0;
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 let plan = null;
@@ -58,10 +58,15 @@ export function startDay(onNight, loaded = false) {
     if (t.used && !t.broken) { t.used = false; t.el.style.opacity = 1; }
   }
 
-  const stillBroken = state.night > 1 ? mend() : 0;
+  const stillBroken = state.night > 1 && !loaded ? mend() : 0;   // a saved day was already mended
   wakeUp();
   assignBeds();
-  startWork();
+  if (loaded && state.resumeTrips) {
+    // carry on the day where it was saved
+    state.villagers.forEach((v) => { v.task = null; v.busy = 0; });
+    state.tripsTotal = state.tripsDone + state.villagers.reduce((n, v) => n + (v.trips || 0), 0);
+  } else startWork();
+  state.resumeTrips = false;
   closePicker();
   if (!loaded) morningRequests();
   startFolkDay();
@@ -80,9 +85,10 @@ export function startDay(onNight, loaded = false) {
   buildBar(pickThing);
   onNightHandler = onNight;
   drawDay();
-  drawSun(0);
+  drawSun(state.tripsTotal ? state.tripsDone / state.tripsTotal : 0);
   drawCounts();
-  if (state.night === 1) helpSay(LINES.start.replace('{planks}', POCKETS.planks).replace('{carrots}', POCKETS.carrots).replace('{potion}', POCKETS.potion) + ' ' + DAY_HELP);
+  const pockets = state.mode === 'hard' ? POCKETS_HARD : POCKETS;
+  if (state.night === 1 && !loaded) helpSay(LINES.start.replace('{planks}', pockets.planks).replace('{carrots}', pockets.carrots).replace('{potion}', pockets.potion) + ' ' + DAY_HELP);
   if (stillBroken) lookoutSay(`${stillBroken} traps still broken. Click one to mend it for a plank.`);
   const noBed = state.villagers.find((v) => !v.bed);
   if (noBed) { lookoutSay(LINES.noBedFor.replace('{name}', noBed.name) + ' ' + line); say(LINES.noBedFor.replace('{name}', noBed.name)); }
@@ -99,6 +105,8 @@ function dayTick(now) {
   last = now;
   updateWork(dt);
   updateFolkDay(dt);
+  saveClock += dt;
+  if (saveClock > 8) { saveClock = 0; saveGame(); }   // keep the day's work if the page reloads
   tipClock += dt;
   if (tipClock > 2) { tipClock = 0; checkTips(); }
   raf = requestAnimationFrame(dayTick);
@@ -174,6 +182,7 @@ function openPicker(v, ev) {
   const jobs = ['farmer', 'builder', 'brewer', 'miner'].filter((j) => j !== 'miner' || [...state.things.values()].some((t) => t.does === 'mine'));
   box.innerHTML = `<p><b>${v.name}</b> the ${(JOBS[v.job] || { name: v.job }).name.toLowerCase()}</p>` +
     `<p class="says">${line}</p>` +
+    (JOBS[v.job] && JOBS[v.job].does ? `<p class="small">${JOBS[v.job].does}</p>` : '') +
     `<div class="row">${jobs.map((j) => `<button type="button" data-job="${j}" ${v.job === j ? 'aria-pressed="true"' : ''}>${JOBS[j].name}</button>`).join('')}</div>` +
     '<button type="button" data-do="five">High five!</button>' +
     `<p class="small">Hats, paid in odd socks (you have ${state.socks || 0}):</p>` +
@@ -217,16 +226,21 @@ export function closePicker() {
 
 export function dayClick(ev) {
   const p = pointToTile(ev);
-  if (picking) { closePicker(); return; }
-  // a villager under the pointer?
+  if (picking) closePicker();   // and carry on: the tap still counts
+  // a villager under the pointer? (when you are building on an empty
+  // square, the building wins, so a villager standing near never eats the tap)
   const v = state.villagers.find((x) => x.job !== 'crew' && Math.abs(x.x - p.x) < 0.6 && p.y > x.y - 1.1 && p.y < x.y + 0.3);
-  if (v && !state.picked) { openPicker(v, ev); return; }
+  const building = state.picked && !thingAt(p.col, p.row) && buildable(p.col, p.row);
+  if (v && !building) { openPicker(v, ev); return; }
   const here = thingAt(p.col, p.row);
   // cure a zombie in a pit
   if (here && here.does === 'pit' && here.held.length) {
     if (state.potion <= 0) { cannot(p, 'No potion', 'potion'); say(LINES.noPotion); return; }
     state.potion--;
+    const before = state.villagers.length;
     cure(here.held[0]);
+    // the new villager gets a home and starts work today, not tomorrow
+    if (state.villagers.length > before) { rehome(); joinWork(state.villagers[state.villagers.length - 1]); }
     drawCounts();
     return;
   }
@@ -253,7 +267,8 @@ export function dayClick(ev) {
   }
   if (!state.picked) { const line = landLine(p.col, p.row); helpSay(line); say(line); return; }
   const t = TRAPS[state.picked];
-  if (here || !buildable(p.col, p.row)) { cannot(p, 'Not here'); return; }
+  if (here) { cannot(p, 'Something is already here'); return; }
+  if (!buildable(p.col, p.row)) { const line = landLine(p.col, p.row); cannot(p, 'Not here'); helpSay('You cannot build here. ' + line); return; }
   if (t.nearRock && !nearRock(p.col, p.row)) { cannot(p, 'Next to the boulders'); return; }
   const short = missing(t);
   if (short) { cannot(p, 'Need ' + short, short); return; }
