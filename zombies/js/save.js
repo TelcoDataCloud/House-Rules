@@ -22,7 +22,7 @@ export function saveGame() {
       mode: state.mode, night: state.night, moonDay: state.moonDay,
       planks: state.planks, carrots: state.carrots, potion: state.potion, stone: state.stone || 0, weapon: state.weapon || 0, socks: state.socks || 0,
       villagers: state.villagers.map((v) => ({ job: v.job, oldJob: v.oldJob || null, name: v.name, wear: v.wear || null, crewAt: v.crewOf ? [v.crewOf.col, v.crewOf.row] : null })),
-      taken: state.taken || [],
+      taken: state.taken || [], tipsOff: !!state.tipsOff, tipsSeen: state.tipsSeen || [],
       things: [...state.things.values()].map((t) => ({ kind: t.kind, col: t.col, row: t.row, broken: !!t.broken, wear: t.wear || 0 })),
     };
     localStorage.setItem(KEY, JSON.stringify(data));
@@ -46,6 +46,7 @@ export function loadGame() {
   state.night = data.night;
   state.moonDay = data.moonDay;
   state.taken = data.taken || [];
+  state.tipsOff = !!data.tipsOff; state.tipsSeen = data.tipsSeen || [];
   state.planks = data.planks; state.carrots = data.carrots; state.potion = data.potion; state.stone = data.stone || 0; state.weapon = data.weapon || 0; state.socks = data.socks || 0;
   clearThings();
   document.getElementById('mobs').innerHTML = '';

@@ -19,7 +19,7 @@ import { say } from './voice.js';
 import { drawHearts } from './hud.js';
 import { puddleAt } from './gross.js';
 import { ringBell } from './hard.js';
-import { viaBridge } from './zombies.js';
+import { nextStep } from './path.js';
 import { pyjamaArmy } from './folk.js';
 
 export const SPEED = 5;   // squares a second
@@ -76,9 +76,10 @@ export function update(dt) {
   if (keys.has('a') || keys.has('arrowleft')) dx -= 1;
   if (keys.has('d') || keys.has('arrowright')) dx += 1;
   if (!dx && !dy && goal) {
-    const g = viaBridge(h, goal);
+    const g = nextStep(h, goal, dt, null);
     dx = g.x - h.x; dy = g.y - h.y;
-    if (Math.hypot(dx, dy) < 0.15) { goal = null; dx = dy = 0; }
+    // there, or as close as you can get (you tapped a fence or the water)
+    if (Math.hypot(goal.x - h.x, goal.y - h.y) < 0.15 || (!h.pathReached && !h.path.length && Math.hypot(goal.x - h.x, goal.y - h.y) > 1.2)) { goal = null; h.path = null; dx = dy = 0; }
   }
   const len = Math.hypot(dx, dy);
   if (len) {
