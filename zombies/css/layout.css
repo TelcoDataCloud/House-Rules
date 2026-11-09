@@ -310,3 +310,8 @@ button.quiet, .upgrade-btn { color: var(--text); }
 .tip-ok { min-height: 44px; padding: 4px 14px; }
 #tips-toggle.off { opacity: 0.45; }
 #guide-btn { font-family: var(--font-title); font-size: 1.5rem; }
+
+/* the painted title picture */
+.title-pic { display: block; width: 100%; height: auto; border: var(--ink-w) solid var(--ink); border-radius: 18px; margin: 0 0 12px; }
+.title-pic[hidden] { display: none; }
+.title-art[hidden] { display: none; }
