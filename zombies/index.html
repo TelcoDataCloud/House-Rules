@@ -20,6 +20,8 @@
 
 <div class="toolbar">
   <button type="button" id="pause-btn" class="toggle" aria-label="Pause" title="Pause" hidden>&#9208;</button>
+  <button type="button" id="guide-btn" class="toggle" aria-label="How to play" title="How to play">?</button>
+  <button type="button" id="tips-toggle" class="toggle" aria-pressed="true" aria-label="Turn tips off" title="Tips on or off">&#128161;</button>
   <button type="button" id="theme-toggle" class="toggle" aria-label="Switch to dark theme" title="Light or dark">&#127769;</button>
   <button type="button" id="sound-toggle" class="toggle" aria-label="Turn sound off" title="Sound">&#128266;</button>
 </div>
@@ -94,10 +96,12 @@
     <div class="moon-strip" id="moon-strip" hidden></div>
     <p class="lookout-line" id="lookout-line"></p>
     <button type="button" class="upgrade-btn" id="upgrade-btn" hidden></button>
+    <button type="button" class="upgrade-btn" id="swap-btn" hidden></button>
     <button type="button" class="go night-btn" id="night-falls">NIGHT FALLS</button>
   </div>
 
   <div class="stage" id="stage">
+    <p class="tip" id="tip" role="status" hidden><span></span> <button type="button" class="tip-ok" aria-label="Close tip">OK</button></p>
     <!-- The village. Drawn by js/grid.js. -->
     <svg class="village" id="village" viewBox="0 0 1440 960" aria-label="The village">
       <defs>

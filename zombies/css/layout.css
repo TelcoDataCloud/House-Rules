@@ -296,3 +296,17 @@ h2 { font-family: var(--font-title); font-size: 2.4rem; margin: 0 0 10px; letter
 /* quiet buttons sit on the panel colour, so they take the panel's text colour (readable in both themes) */
 button.quiet, .upgrade-btn { color: var(--text); }
 .credits { margin: -10px 0 16px; font-weight: 800; color: var(--text); }
+
+/* tips pop up over the top of the village */
+.stage { position: relative; }
+.tip {
+  position: absolute; z-index: 7; top: 8px; left: 50%; transform: translateX(-50%);
+  width: min(92%, 560px); margin: 0; padding: 10px 12px; display: flex; gap: 10px; align-items: center;
+  background: var(--panel); color: var(--text); border: var(--ink-w) solid var(--ink); border-radius: var(--radius);
+  box-shadow: 0 4px 0 var(--ink); font-weight: 800;
+}
+.tip[hidden] { display: none; }
+.tip span { flex: 1; }
+.tip-ok { min-height: 44px; padding: 4px 14px; }
+#tips-toggle.off { opacity: 0.45; }
+#guide-btn { font-family: var(--font-title); font-size: 1.5rem; }
