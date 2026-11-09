@@ -7,7 +7,7 @@
    is gone when you refresh.
    =========================================================== */
 
-import { SHIP } from '../data/ship.js';
+import { SHIP, SHIELD } from '../data/ship.js';
 import { DIFFICULTY } from '../data/difficulty.js';
 import { loadBest } from './best.js';
 import { LEVELS } from '../data/levels.js';
@@ -40,14 +40,15 @@ export function newGame(startAt = 0) {
       x: W / 2, y: H + 60,
       lives: SHIP.lives, bombs: SHIP.bombs,
       power: 0,
-      // your main gun and its level, 1 to 4 (see data/weapons.js)
+      // your main gun and its level, 1 to 6 (see data/weapons.js)
       gun: START_GUN, gunLevel: 1,
-      // helpers, 0 to 3
-      homing: 0, drones: 0,
+      // helpers: 0 is none yet (see HELPERS in data/weapons.js)
+      homing: 0, drones: 0, engine: 0, shields: 0,
       // your kind of bomb and its level, 1 to 3 (see data/bombs.js)
       bomb: START_BOMB, bombLevel: 1,
       droneList: [],
-      shield: hard.shield, shieldWait: 0,
+      shield: hard.shield, shieldHp: SHIELD.hp[0], shieldWait: 0,
+      boost: 0, wing: 0,   // Easy helpers: overdrive and wingmen (seconds left)
       invuln: 0, dead: 0, entering: 1.2,
       fireWait: 0.4, missileWait: 0.8,
     },
@@ -66,13 +67,16 @@ export function startLevel() {
     dropCounter: 0,
     enemies: [], plates: [], parts: [], bosses: [],
     shots: [], missiles: [], foes: [], pickups: [],
+    dangers: [],          // bosses' fire jets, shockwaves and so on (js/attacks.js)
     flocks: {}, later: [],
     endTimer: 0, ending: null,
     slow: 0,              // seconds of slow motion left
     hintWait: 20,         // seconds before the bomb hint may show
     starWait: 8,          // seconds before a star power capsule may drop
+    warp: 0,              // seconds of TIME WARP left (enemy shots slowed)
+    helpWait: 6,          // seconds before the next Easy helper capsule
   });
-  Object.assign(s, { x: W / 2, y: H + 60, entering: 1.2, invuln: 0, star: 0, dead: 0, droneList: [] });
+  Object.assign(s, { x: W / 2, y: H + 60, entering: 1.2, invuln: 0, star: 0, dead: 0, droneList: [], boost: 0, wing: 0, wingList: [] });
   // Remember how you started, so Try again can put you back here.
   state.levelStart = { score: state.score, ship: JSON.parse(JSON.stringify(s)) };
 }

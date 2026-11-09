@@ -237,6 +237,67 @@ export function foeLook(kind, armed = false) {
         g.fillStyle = armed ? '#ffffff' : '#ff3b3b';
         g.beginPath(); g.arc(c, c, armed ? 6 : 4, 0, Math.PI * 2); g.fill();
       });
+    case 'flak':
+      // A flak shell: a dark metal ball with a hot yellow band.
+      return made2d(`foe|flak|${armed}`, 30, 30, (g) => {
+        const c = 15;
+        const body = g.createRadialGradient(c - 4, c - 4, 1, c, c, 10);
+        body.addColorStop(0, '#9aa0b8'); body.addColorStop(0.6, '#3a3f56'); body.addColorStop(1, '#10121e');
+        g.fillStyle = body;
+        g.beginPath(); g.arc(c, c, 10, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = '#05070f'; g.lineWidth = 2; g.stroke();
+        g.shadowColor = '#ffd23f'; g.shadowBlur = 8;
+        g.strokeStyle = armed ? '#ffffff' : '#ffd23f'; g.lineWidth = 3;
+        g.beginPath(); g.ellipse(c, c, 10, 3.5, 0, 0, Math.PI * 2); g.stroke();
+      });
+    case 'shard':
+      return made2d('foe|shard', 14, 22, (g) => { g.translate(3, 2); dart(g, 8, 16, '#ffffff', '#ffd23f', 'rgba(255,154,42,0.55)'); });
+    case 'frost':
+      return made2d('foe|frost', 16, 24, (g) => { g.translate(3, 2); dart(g, 10, 18, '#ffffff', '#bfe8ff', 'rgba(120,200,255,0.55)'); });
+    case 'ice':
+      // An icicle: a long pale-blue crystal, white down the middle.
+      return made2d('foe|ice', 24, 46, (g) => {
+        g.translate(12, 4);
+        g.shadowColor = '#7fd4ff'; g.shadowBlur = 10;
+        const body = g.createLinearGradient(-8, 0, 8, 0);
+        body.addColorStop(0, '#5aa8e0'); body.addColorStop(0.45, '#e8f8ff'); body.addColorStop(0.55, '#ffffff'); body.addColorStop(1, '#7fc0f0');
+        g.fillStyle = body;
+        g.strokeStyle = 'rgba(10, 20, 40, 0.9)'; g.lineWidth = 1.5;
+        g.beginPath(); g.moveTo(0, 38); g.lineTo(8, 10); g.lineTo(3, 0); g.lineTo(-3, 0); g.lineTo(-8, 10); g.closePath();
+        g.fill(); g.shadowBlur = 0; g.stroke();
+        g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 1;
+        g.beginPath(); g.moveTo(0, 2); g.lineTo(0, 34); g.stroke();
+      });
+    case 'slag':
+      // A glob of melted rock: dark crust over glowing orange.
+      return made2d('foe|slag', 40, 40, (g) => {
+        const c = 20;
+        g.shadowColor = '#ff7a1a'; g.shadowBlur = 14;
+        const hot = g.createRadialGradient(c, c, 2, c, c, 14);
+        hot.addColorStop(0, '#fff6c0'); hot.addColorStop(0.4, '#ffb030'); hot.addColorStop(1, '#c03a10');
+        g.fillStyle = hot;
+        g.beginPath();
+        for (let i = 0; i <= 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          const r = 12 + Math.sin(i * 2.7) * 2.5;
+          if (i) g.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r); else g.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r);
+        }
+        g.fill();
+        g.shadowBlur = 0;
+        g.fillStyle = 'rgba(40, 18, 10, 0.85)';
+        for (const [x, y, r] of [[-5, -5, 4], [5, -2, 3], [-1, 6, 3.5], [6, 6, 2]]) { g.beginPath(); g.arc(c + x, c + y, r, 0, Math.PI * 2); g.fill(); }
+        g.strokeStyle = '#2a1008'; g.lineWidth = 1.5;
+        g.beginPath(); g.arc(c, c, 13, 0, Math.PI * 2); g.stroke();
+      });
+    case 'ember':
+      return made2d('foe|ember', 18, 18, (g) => {
+        const glow = g.createRadialGradient(9, 9, 0, 9, 9, 8);
+        glow.addColorStop(0, '#ffffff'); glow.addColorStop(0.35, '#ffd23f'); glow.addColorStop(0.7, '#ff7a1a'); glow.addColorStop(1, 'rgba(255,59,26,0)');
+        g.fillStyle = glow;
+        g.beginPath(); g.arc(9, 9, 8, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = 'rgba(40, 10, 4, 0.9)'; g.lineWidth = 1.2;
+        g.beginPath(); g.arc(9, 9, 4.5, 0, Math.PI * 2); g.stroke();
+      });
     default:
       // An energy dart: pink and white, pointed.
       return made2d('foe|pink', 26, 44, (g) => {

@@ -113,13 +113,16 @@ function darkened(src, amount) {
   return c;
 }
 
-// Turn an SVG red, the way the red Hauler is, by wrapping the
-// whole picture in an SVG colour filter (works in every browser).
+// Recolour an SVG by wrapping the whole picture in an SVG colour
+// filter (works in every browser). tint is 'red', or 'hue:120' to
+// turn every colour 120 degrees round the colour wheel.
 function tinted(text, tint) {
-  if (tint !== 'red') return text;
-  const filter = '<filter id="tint-red-f"><feColorMatrix type="hueRotate" values="-85"/><feColorMatrix type="saturate" values="1.5"/></filter>';
+  let filter = '';
+  if (tint === 'red') filter = '<filter id="tint-f"><feColorMatrix type="hueRotate" values="-85"/><feColorMatrix type="saturate" values="1.5"/></filter>';
+  else if (tint.startsWith('hue:')) filter = `<filter id="tint-f"><feColorMatrix type="hueRotate" values="${Number(tint.slice(4)) || 0}"/><feColorMatrix type="saturate" values="1.3"/></filter>`;
+  if (!filter) return text;
   return text
-    .replace(/<svg\b[^>]*>/, (open) => `${open}<defs>${filter}</defs><g filter="url(#tint-red-f)">`)
+    .replace(/<svg\b[^>]*>/, (open) => `${open}<defs>${filter}</defs><g filter="url(#tint-f)">`)
     .replace(/<\/svg>\s*$/, '</g></svg>');
 }
 
