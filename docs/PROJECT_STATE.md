@@ -1252,3 +1252,43 @@ the villager turns into a zombie.
   an agent retypes, and 60 to 80 KB music packs broke. Music is now 24 kbps
   mono in 16 KB packs (14 of them), and the night tune is the shorter
   Wacky Waiting. `tools/pack-sounds.py` packs music at 20 KB.
+
+### Z13 Smarter (9 Nov)
+
+Asa's list after playing: everything costs planks and carrots pile up;
+villagers all sound the same; rocks, forest and water are not explained;
+the how-to should be a guide you can open; potion making is not
+explained, so tips you can turn on and off; walls join at an angle, not
+straight; zombies push against fences instead of walking round.
+- **Zombies find their way** (`js/path.js`): a flood fill over the grid
+  round water, rocks, fences and walls, worked out again every second or
+  so. A gap in a fence ring is where they all go. Fully fenced in, they
+  go to the closest spot and climb as before. Tap-to-run uses it too.
+  `viaBridge` is no longer used for zombies or the hero.
+- **Straight fences** (`relink` in `js/grid.js`): a fence, wall or stone
+  wall with a neighbour is drawn as a straight run of pickets, rails or
+  blocks to the edge of the square, so runs line up. On its own it keeps
+  its picture.
+- **Carrots buy things** (`js/cost.js`, costs can be any mix of planks,
+  stone and carrots): whoopee 2, banana 3, pepper 3, honey 4 carrots;
+  brains, pumpkin drop, scarecrow and disco are part carrots. Weapons cost
+  carrots (pan 15, rubber chicken 25 + 2 stone, mallet 40 + 6 stone).
+  A Swap button by day: 5 carrots for 2 planks (`MARKET` in
+  `data/weapons.js`).
+- **Voices**: every villager gets a voice worked out from their name: an
+  English accent from the device's voices (British, Australian, Irish,
+  Indian, Scottish, American, where the device has them) and their own
+  pitch and speed. Used for chat, high fives, yelling when munched, MY
+  HERO and thank yous.
+- **Guide** (`data/guide.js`): 11 cards, shown at the start and from the
+  new ? button any time (the night pauses). Tap any land in the day with
+  nothing picked to hear what it is (forest, water, bridge, rocks, pond,
+  track, grass).
+- **Tips** (light bulb button, on by default, saved): each shows once a
+  game when useful (no brewery, no brewer, lots of carrots, mine, pit to
+  cure, socks, night controls, munching, no potion, pillows), read out.
+- Animals and the giant come sooner: a chicken on night 2, a cow on night
+  3, Giant Gary from night 4 on Easy. The Pumpkin King is still every
+  fifth night.
+- **Hendrix's turn:** in `zombies/data/guide.js`, change the `rock` line
+  in `LAND` to his own words, then tap the rocks in the game.
