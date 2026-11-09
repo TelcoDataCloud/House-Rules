@@ -22,6 +22,10 @@
             'drop'    a pumpkin on the head, zombie goes blind (once)
             'stick'   stuck for "seconds" (honey)
             'bait'    zombies nearby crowd round it (scarecrow)
+            'whoopee' PFFFRT: every zombie in "reach" stops to laugh for "seconds"
+            'banana'  he slips and slides "tiles" squares, knocking his friends over
+            'sneeze'  AH CHOO: the sneeze blows him "tiles" squares backwards
+            'disco'   every zombie in "reach" dances for "seconds"
             'log'     a log rolls along the row, knocks them dizzy (once)
             'bed'     a villager sleeps here (zombies want these)
             'farm'    carrots grow here
@@ -54,6 +58,11 @@ export const TRAPS = {
   drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop', uses: 1, what: 'A pumpkin on the head. He cannot see.', from: 4 },
   honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3, what: 'Stuck fast for a while.', from: 3 },
   scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3, what: 'Zombies think it is a villager and crowd it.', from: 3 },
+  whoopee: { name: 'Whoopee cushion', art: 'whoopee', planks: 1, crew: 0, does: 'whoopee', reach: 3, seconds: 3, uses: 3, what: 'PFFFRT! Every zombie nearby stops to laugh.' },
+  banana:  { name: 'Banana peels', art: 'banana', planks: 1, crew: 0, does: 'banana', tiles: 4, uses: 3, what: 'He slips, slides and knocks his friends over like skittles.', from: 2 },
+  pepper:  { name: 'Pepper pot', art: 'pepper',  planks: 2, crew: 0, does: 'sneeze', tiles: 6, uses: 3, what: 'AH CHOO! The sneeze blows him backwards.', from: 2 },
+  disco:   { name: 'Disco ball', art: 'disco',   planks: 5, crew: 0, does: 'disco', reach: 3, seconds: 8, uses: 2, what: 'Every zombie nearby has to dance till the song stops.', from: 3 },
+  mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 12, uses: 2, what: 'He stops to admire himself. Vampires walk straight past.', from: 3 },
   log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1, what: 'Rolls along the row and knocks them over. Once.', from: 3 },
   bed:     { name: 'Cottage',   art: 'cottage', planks: 4, crew: 0, does: 'bed', holds: 2, what: 'Two villagers sleep here. Zombies want these.' },
   mine:    { name: 'Mine',      art: 'mine',    planks: 6, crew: 0, does: 'mine', nearRock: true, what: 'Build it next to the boulders. Miners dig stone here.', from: 4 },
@@ -65,7 +74,6 @@ export const TRAPS = {
   garlic:  { name: 'Garlic',    art: 'garlic',  planks: 2, crew: 0, does: 'garlic', hard: true, what: 'Vampires cannot cross it.' },
   silver:  { name: 'Silver bell', art: 'silver', planks: 3, crew: 0, does: 'silver', reach: 4, hard: true, what: 'The werewolf runs away from it.' },
   ice:     { name: 'Ice slide', art: 'ice',     planks: 2, crew: 0, does: 'ice', tiles: 4, uses: 4, hard: true, what: 'Zombies slide right off it.' },
-  mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 20, uses: 2, hard: true, what: 'A zombie waves at himself for ages.' },
   dawn:    { name: 'Dawn mirror', art: 'dawn',  planks: 4, crew: 0, does: 'dawn', reach: 2, from: 0.7, hard: true, what: 'Late in the night, zombies near it go home early.' },
   sprinkler: { name: 'Sprinkler', art: 'sprinkler', planks: 6, crew: 2, does: 'sprinkler', reach: 2, seconds: 15, hard: true, what: 'Cures one zombie nearby now and then. Two villagers run it.' },
   net:     { name: 'Giant net',  art: 'net',    planks: 4, crew: 0, does: 'net', needsJob: 'giant', hard: true, what: 'Catches Giant Gary. Needs a giant villager to set up.' },

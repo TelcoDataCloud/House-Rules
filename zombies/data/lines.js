@@ -7,7 +7,8 @@
    =========================================================== */
 
 export const LINES = {
-  title: 'SNOT MOON',
+  title: 'ZOMBIE WARS',
+  credits: 'Made by Hendrix, Felix and Luka, with help from Dad',
   tagline: 'Cure the zombies. Grow the village.',
   dayTitle: 'DAY {n}',
   nightTitle: 'NIGHT {n}',
