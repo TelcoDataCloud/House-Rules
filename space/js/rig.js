@@ -164,7 +164,10 @@ export function drawRig(boss, r, layer, jx = 0, jy = 0) {
   }
 }
 
-// A crackling arc of lightning between two points.
+// A crackling arc of lightning between two points. (The fortress's
+// chain lightning uses it too.)
+export function lightningArc(a, b, strength) { arc(a, b, strength); }
+
 function arc([ax, ay], [bx, by], strength) {
   ctx.save();
   ctx.globalCompositeOperation = 'lighter';

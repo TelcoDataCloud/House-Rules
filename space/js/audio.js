@@ -2,7 +2,8 @@
    AUDIO: the sounds
 
    Most sounds are recorded sound files in the sounds folder
-   (free sounds by Kenney, kenney.nl, that anyone may use).
+   (free sounds by Kenney, kenney.nl, and others that anyone may
+   use: see sounds/README.md).
    Each one has 2 or 3 versions, and each time one plays it is
    picked at random and its pitch nudged a little, so a hundred
    shots never sound exactly the same.
@@ -29,6 +30,7 @@ const FILES = {
   hit: 3, clang: 3, pop: 3, boom: 2, crunch: 2, debris: 2,
   shield: 2, shatter: 2,
   bigboom: 1, launch: 1, spark: 2, stomp: 1,
+  fire: 2, ice: 2, roar: 1,
 };
 const buffers = {};
 
@@ -36,11 +38,12 @@ const buffers = {};
 // sounds/packs.json (made by tools/pack-sounds.py from .mp3 files).
 async function loadSounds() {
   const pack = {};
-  try {
-    const list = await (await fetch('sounds/packs.json')).json();
-    const parts = await Promise.all(list.map(async (name) => (await fetch(`sounds/${name}`)).json()));
-    for (const part of parts) Object.assign(pack, part);
-  } catch (e) { return; }
+  let list = [];
+  try { list = await (await fetch('sounds/packs.json')).json(); } catch (e) { return; }
+  // Each pack on its own, so one missing pack doesn't stop the rest.
+  await Promise.all(list.map(async (name) => {
+    try { Object.assign(pack, await (await fetch(`sounds/${name}`)).json()); } catch (e) { /* the synth covers it */ }
+  }));
   await Promise.all(Object.entries(FILES).flatMap(([name, n]) => Array.from({ length: n }, async (_, i) => {
     const text = pack[`${name}-${i + 1}`];
     if (!text) return;
@@ -200,6 +203,11 @@ export const sound = {
   // The shield takes a hit (and stays), or breaks.
   shield() { if (!play('shield', { vol: 0.4 })) tone(900, 300, 0.25, 'triangle', 0.15); },
   shieldBreak() { if (!play('shatter', { vol: 0.5, big: true })) tone(900, 300, 0.25, 'triangle', 0.15); },
+  // A hit the shield holds: a soft hum. A big hit that cracks it: a crack.
+  shieldHit(x = null) { if (!play('shield', { vol: 0.28, x, rate: 1.4 })) tone(1200, 700, 0.12, 'triangle', 0.08); },
+  shieldCrack(x = null) {
+    if (!play('ice', { vol: 0.4, x, rate: 1.3 }) && !play('shatter', { vol: 0.3, x, rate: 1.6 })) tone(1600, 400, 0.15, 'square', 0.06);
+  },
   // High Explosive and the other plain bangs.
   bomb() {
     play('crunch', { vol: 0.6, big: true, rate: 0.8 });
@@ -230,6 +238,33 @@ export const sound = {
   stomp(x = null) { play('stomp', { vol: 0.5, x, rate: 0.85 }); },
   // A boss's last big bang.
   bossDeath(x = null) { if (!play('bigboom', { vol: 1, x, big: true })) this.boom(x); play('debris', { vol: 0.4, x, delay: 0.4 }); },
+  // --- each boss's own sounds ---
+  // A boss arrives: a roar, pitched for each boss (data/bosses.js voice).
+  bossIn(voice = 1) {
+    if (!play('roar', { vol: 0.55, rate: voice, big: true })) tone(80 * voice, 40 * voice, 1.2, 'sawtooth', 0.12);
+    tone(50 * voice, 35 * voice, 1.4, 'sine', 0.2);
+  },
+  // LAST STAND attacks.
+  flak(x = null) { play('crunch', { vol: 0.25, x, rate: 1.8 }); play('pop', { vol: 0.3, x, rate: 1.4 }); },
+  flame(x = null) { if (!play('fire', { vol: 0.6, x })) crash(1.2, 0.25, 1800); },
+  ice(x = null) { if (!play('ice', { vol: 0.5, x })) tone(2400, 900, 0.2, 'triangle', 0.06); },
+  eyeLaser() { if (!play('rail', { vol: 0.6, rate: 0.35, big: true })) tone(90, 60, 2, 'sawtooth', 0.12); tone(300, 220, 2.2, 'square', 0.03); },
+  chain(x = null) { play('spark', { vol: 0.35, x, rate: 0.8 }); },
+  gravity() { tone(160, 40, 1.6, 'sine', 0.2); tone(320, 80, 1.6, 'triangle', 0.05); },
+  slag(x = null) { if (!play('fire', { vol: 0.45, x, rate: 0.7 })) crash(0.6, 0.2, 700); },
+  shock(x = null) { play('stomp', { vol: 0.7, x, rate: 0.6, big: true }); play('boom', { vol: 0.4, x, rate: 0.6 }); },
+  fireWall() { if (!play('fire', { vol: 0.7, rate: 0.8 })) crash(1.5, 0.3, 1200); play('roar', { vol: 0.25, rate: 1.4 }); },
+  // Each boss goes down its own way (data/bosses.js death).
+  death(style, x = null) {
+    if (style === 'shatter') { play('ice', { vol: 0.8, x, big: true }); play('ice', { vol: 0.6, x, rate: 0.7, delay: 0.15 }); }
+    else if (style === 'melt') { play('fire', { vol: 0.8, x, big: true, rate: 0.6 }); play('roar', { vol: 0.4, x, rate: 0.5 }); }
+    else if (style === 'zap') { for (let i = 0; i < 4; i++) play('spark', { vol: 0.5, x, delay: i * 0.12 }); }
+    else if (style === 'blackhole' || style === 'implode') { tone(900, 40, 1.2, 'sine', 0.2); tone(1800, 80, 1.2, 'triangle', 0.05); }
+    else if (style === 'nova') { this.nuke(); return; }
+    else if (style === 'crush') { play('clang', { vol: 0.7, x, rate: 0.5, big: true }); }
+    else if (style === 'topple') { play('stomp', { vol: 0.9, x, rate: 0.5, big: true }); }
+    this.bossDeath(x);
+  },
   laserBomb() { tone(80, 120, 2, 'sawtooth', 0.12); tone(900, 700, 2, 'square', 0.03); },
   // A boss powering up: a long rising hum.
   powerUp() { tone(60, 600, 1.8, 'sawtooth', 0.08); tone(120, 1200, 1.8, 'square', 0.03); },

@@ -64,12 +64,15 @@ function drawPiece(p, k) {
 }
 
 // Step 3: split into pieces that fly apart.
-export function breakApart(boss) {
+//   pieces  false: no big pieces (a boss that shrank to nothing)
+//   shards  how many little bits fly out
+//   ice     true for bits of ice instead of metal
+export function breakApart(boss, { pieces = true, shards = 16, ice = false } = {}) {
   boss.broken = true;                 // stop drawing the whole boss
   if (calm.matches) return;           // calm mode: the big bang is enough
   const { w, h } = boss;
-  const set = art(boss.art, { tint: boss.cfg.tint || '' });
-  const n = boss.cracks.length;
+  const set = art(boss.art, { tint: boss.tint || '' });
+  const n = pieces ? boss.cracks.length : 0;
 
   for (let i = 0; i < n; i++) {
     const c0 = boss.cracks[i];
@@ -104,13 +107,13 @@ export function breakApart(boss) {
   }
 
   // Metal shards: little dark bits with hot edges.
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < shards; i++) {
     const a = Math.random() * Math.PI * 2;
     const sp = 160 + Math.random() * 200;
     fx.add('shard', boss.x + (Math.random() - 0.5) * w * 0.4, boss.y + (Math.random() - 0.5) * h * 0.4, 1.4 + Math.random() * 0.6, {
       vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, gravity: 260,
       vr: (Math.random() - 0.5) * 16, size: 8 + Math.random() * 12,
-      draw: drawShard,
+      draw: drawShard, ice,
     });
   }
 }
@@ -122,9 +125,10 @@ function drawShard(p, k) {
   ctx.rotate(p.rot);
   const s = p.size;
   const g = ctx.createLinearGradient(-s / 2, -s / 2, s / 2, s / 2);
-  g.addColorStop(0, '#ffb35a');
-  g.addColorStop(0.35, '#5a5f78');
-  g.addColorStop(1, '#2a2d40');
+  // Ice shards are pale blue and white; metal ones dark with hot edges.
+  g.addColorStop(0, p.ice ? '#ffffff' : '#ffb35a');
+  g.addColorStop(0.35, p.ice ? '#bfe8ff' : '#5a5f78');
+  g.addColorStop(1, p.ice ? '#5aa8e0' : '#2a2d40');
   ctx.fillStyle = g;
   ctx.beginPath();
   ctx.moveTo(-s / 2, -s / 2);
