@@ -24,6 +24,7 @@ import { ringBell } from './hard.js';
 import { updateCombat, clearCombat, holdDown, holdUp, swing } from './combat.js';
 import { startFolkNight, updateFolkNight, endFolkNight, pyjamaArmy } from './folk.js';
 import { setDrums } from './voice.js';
+import { checkTips } from './tips.js';
 
 let raf = 0;
 let last = 0;
@@ -112,6 +113,7 @@ function tick(now) {
     if (state.gasAt) state.gasAt.t -= dt;
     walkHome(dt);
     updateFolkNight(dt);
+    if (Math.floor(state.time) !== Math.floor(state.time - dt)) checkTips();
     // the drums get louder the more zombies are up and about
     if (Math.floor(state.time) !== Math.floor(state.time - dt)) setDrums(state.zombies.filter((z) => !z.pit && !z.leaving && !(z.wait > 0)).length / 10);
     drawSun(state.time / diff.nightSeconds);

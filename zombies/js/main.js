@@ -15,12 +15,14 @@ import { WIN_AT, JOBS } from '../data/villagers.js';
 import { loadArt, icon } from './art.js';
 import { drawGround, placeThing, clearThings } from './grid.js';
 import { startVillage } from './villagers.js';
-import { startDay, stopDay, nightFallsPressed, buyWeapon, dayClick, dayHover, clearHover } from './day.js';
+import { startDay, stopDay, nightFallsPressed, buyWeapon, swapCarrots, dayClick, dayHover, clearHover } from './day.js';
 import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightTap, nightMove, nightUp, checkWin } from './night.js';
 import { setupCamera, setAiming, startView } from './camera.js';
 import * as hero from './hero.js';
 import { say, blip, loadSounds, warmSounds, playMusic, stopMusic, setMuted } from './voice.js';
 import { saveGame, loadGame, hasSave, clearSave } from './save.js';
+import { GUIDE } from '../data/guide.js';
+import { setTipsOff, hideTip } from './tips.js';
 
 const $ = (id) => document.getElementById(id);
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -49,13 +51,13 @@ function modeNote() {
   document.querySelectorAll('.mode').forEach((b) => b.setAttribute('aria-pressed', b.dataset.mode === state.mode ? 'true' : 'false'));
 }
 
-// The four how-to cards come from LINES.howTo in data/lines.js
+// The how-to cards come from GUIDE in data/guide.js. The ? button opens them any time.
 function howToScreen(then) {
-  $('how-cards').innerHTML = LINES.howTo.map((c) =>
+  $('how-cards').innerHTML = GUIDE.map((c) =>
     `<div class="how-card">${icon(c.art, 72)}<h3>${c.head}</h3><p>${c.text}</p></div>`).join('');
   afterHowTo = then;
   show('screen-how');
-  say(LINES.howTo[0].head + '. ' + LINES.howTo[0].text);
+  say(GUIDE[0].head + '. ' + GUIDE[0].text);
 }
 
 function newGame() {
@@ -80,6 +82,7 @@ function continueGame() {
   fresh();
   $('fx').innerHTML = '';
   if (!loadGame()) { titleScreen(); return; }
+  setTipsOff(!!state.tipsOff);
   seenHowTo = true;
   show(null);
   startView();
@@ -141,12 +144,21 @@ function wire() {
   $('start').addEventListener('click', newGame);
   $('continue').addEventListener('click', continueGame);
   $('how-btn').addEventListener('click', () => howToScreen(titleScreen));
+  // the ? button: the guide at any time (the night pauses while you read)
+  $('guide-btn').addEventListener('click', () => {
+    if (state.phase === 'title') { howToScreen(titleScreen); return; }
+    if (state.phase === 'night' && !isPaused()) pauseNight(true);
+    howToScreen(() => show(null));
+  });
+  $('tips-toggle').addEventListener('click', () => { setTipsOff(!state.tipsOff); if (state.phase === 'day') saveGame(); });
+  document.querySelector('#tip .tip-ok').addEventListener('click', hideTip);
   $('how-done').addEventListener('click', () => { const f = afterHowTo; afterHowTo = null; if (f) f(); });
   $('next-day').addEventListener('click', nextDay);
   $('play-again').addEventListener('click', () => { stopDay(); clearSave(); titleScreen(); });
   $('to-title').addEventListener('click', () => { stopDay(); stopNight(); titleScreen(); });
   $('night-falls').addEventListener('click', nightFallsPressed);
   $('upgrade-btn').addEventListener('click', buyWeapon);
+  $('swap-btn').addEventListener('click', swapCarrots);
   $('pause-btn').addEventListener('click', () => { if (state.phase === 'night') pauseNight(!isPaused()); });
   $('resume').addEventListener('click', () => pauseNight(false));
   $('pause-title').addEventListener('click', () => { stopNight(); titleScreen(); });

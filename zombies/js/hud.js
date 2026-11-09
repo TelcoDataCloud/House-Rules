@@ -12,6 +12,8 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { WIN_AT } from '../data/villagers.js';
 import { LINES } from '../data/lines.js';
 import { weapon, nextWeapon } from './combat.js';
+import { costHTML, missing } from './cost.js';
+import { MARKET } from '../data/weapons.js';
 
 export function drawCounts() {
   document.getElementById('counts').innerHTML =
@@ -40,16 +42,27 @@ export function flashCount(which) {
 
 // The weapon button: what you have, and what the next one costs
 export function drawUpgrade() {
+  drawSwap();
   const b = document.getElementById('upgrade-btn');
   if (!b) return;
   const next = nextWeapon();
   b.hidden = state.phase !== 'day';
   const now = weapon();
   if (!next) { b.innerHTML = `${icon(now.art, 26)} ${now.name}`; b.disabled = true; return; }
-  const cost = `${next.planks} ${icon('plank', 16)}` + (next.stone ? ` ${next.stone} ${icon('stone', 16)}` : '');
+  const cost = costHTML(next);
   b.innerHTML = `${icon(now.art, 26)} Upgrade to ${icon(next.art, 26)} <b>${next.name}</b> ${cost}`;
   b.disabled = false;
-  b.classList.toggle('cannot', state.planks < next.planks || (state.stone || 0) < (next.stone || 0));
+  b.classList.toggle('cannot', !!missing(next));
+}
+
+// The market button: carrots for planks
+function drawSwap() {
+  const b = document.getElementById('swap-btn');
+  if (!b) return;
+  b.hidden = state.phase !== 'day';
+  b.innerHTML = `Swap ${costHTML(MARKET.give)} for ${costHTML(MARKET.get)}`;
+  b.setAttribute('aria-label', `Swap ${MARKET.give.carrots} carrots for ${MARKET.get.planks} planks`);
+  b.classList.toggle('cannot', !!missing(MARKET.give));
 }
 
 export function drawHearts() {
@@ -134,7 +147,7 @@ export function buildBar(pickHandler) {
     b.dataset.id = id;
     b.setAttribute('aria-pressed', 'false');
     b.title = t.what || '';
-    const cost = (t.planks ? `${t.planks} ${icon('plank', 16)}` : '') + (t.stone ? ` ${t.stone} ${icon('stone', 16)}` : '') + (t.crew ? ' ' + t.crew + icon('villager', 16) : '');
+    const cost = costHTML(t) + (t.crew ? ' ' + t.crew + icon('villager', 16) : '');
     b.innerHTML = `${icon('' + t.art, 44)}<span>${t.name}</span><span class="cost">${cost}</span>`;
     b.addEventListener('click', () => onPick(id));
     bar.appendChild(b);
@@ -145,7 +158,7 @@ export function drawBar() {
   document.querySelectorAll('#bar .thing').forEach((b) => {
     const t = TRAPS[b.dataset.id];
     if (!t) return;
-    b.classList.toggle('cannot', state.planks < t.planks || state.stone < (t.stone || 0));
+    b.classList.toggle('cannot', !!missing(t));
     b.setAttribute('aria-pressed', state.picked === b.dataset.id ? 'true' : 'false');
   });
 }
