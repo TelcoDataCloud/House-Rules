@@ -1167,3 +1167,59 @@ whacking so make that fun; bigger map; catapult autofire.
   out of their way). `tools/read-map.py` and `tools/make-land.py` turn
   the painting into `data/map.js`. The camera starts zoomed on the
   village and follows the hero at night.
+
+### Z12 Funny (9 Nov, morning)
+
+Asa: funnier traps, villagers to play with by day and at night, better
+sounds. No glue puddle, no bath time. Kenney sounds, plus a few of our
+own recordings later.
+- **Sounds** (`js/voice.js`, `sounds/`): 84 Kenney CC0 sounds packed into
+  text files by `tools/pack-sounds.py` (6 sound packs, then 10 music packs
+  that load after). One sound per weapon (spoon clink, pan BONG, rubber
+  chicken thud plus squawk, mallet thump), combo whacks rise in pitch,
+  skittle clatter, coin pickups, building knocks, chop and mine trips,
+  jingles for night, dawn, cured, rescue, SUPER WHACK and win. Each play
+  picks a random version at a slightly random pitch. Farts, burps,
+  sneezes, snores and zombie laughs are made live with WebAudio; a
+  recording with the same name replaces them. Music: Farm Frolics by
+  day, Mishief Stroll at night with a Drumming Sticks layer that gets
+  louder as more zombies are up, Alpha Dance while a disco ball plays.
+  The sound button stops everything. Kenney's site is blocked from the
+  sandbox; the files came from GitHub's LFS host (media.githubusercontent.com)
+  via the public `series-ai/jam-ready-assets` and `lopezsteffanie/gnome-agotchi-v2` repos.
+- **Funny traps** (`data/traps.js`, `js/traps.js`): Whoopee cushion (all
+  zombies near it stop and laugh), Banana peels (slip and slide),
+  Pepper pot (aaah... CHOO, blown backwards), Disco ball (everyone near
+  dances till the song stops, then "awkward"), Mirror now on Easy too
+  (vampires have no reflection and walk past).
+- **Skittles and combo traps** (`js/zombies.js`): a zombie sent flying by
+  a trap or a whack knocks over every zombie he hits; three in a row is
+  STRIKE and an odd sock. Fly into another trap and it goes off: COMBO
+  TRAP, another sock.
+- **Villagers by day** (`js/folk.js`, words in `data/folk.js`): tap one to
+  hear a line (they remember being zombies), change job, high five, buy a
+  hat with odd socks (party hat 1, moustache 2, top hat 3, crown 5; saved),
+  or rename them. Most mornings one villager asks for something (a hat, a
+  high five, a torch, carrots or a fence by their box); do it and they
+  cheer and work an extra trip (potion makers give a sock instead, so
+  potion stays rare). Once a day someone goofs (falls in the pond, sneezes
+  on a carrot, finds a sock).
+- **Villagers at night:** sleepers snore (Zzz, and a snore when the hero
+  is near). On Hard, a zombie tugging at a cottage makes the villager run
+  round it screaming; whack the zombie and they shout MY HERO, the
+  village cheers, +1 sock. Villagers with no cottage throw socks at
+  zombies that come close. PILLOWS button (or F), once a night from night
+  2: everyone runs out and bops zombies for 4 seconds.
+- Fixes on the way: the villager picker scrolls and sits at the bottom
+  of a phone screen; the night buttons fit on a phone; the time bar no
+  longer pushes the page wider than a phone at night; quiet buttons are
+  readable in the dark theme. Milestone dots now run to Z12.
+- **Hendrix's turn:** in `zombies/data/folk.js`, add his own line to
+  `CHAT`. Tap any villager and they might say it.
+- **Renamed** (Asa, 9 Nov): the game is now **Zombie Wars**, made by
+  Hendrix, Felix and Luka, with help from Dad (credit line on the title
+  screen, from `LINES.credits` in `data/lines.js`). The save key stays
+  `snot-moon-save` so nobody loses a village.
+- **Fences and walls join up** (Asa, 9 Nov): a fence, wall or stone wall
+  next to another gets rails drawn between them (`relink` in `js/grid.js`),
+  so a run of them reads as one fence.
