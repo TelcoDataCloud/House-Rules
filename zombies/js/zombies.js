@@ -35,6 +35,8 @@ import { stepOn } from './traps.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
+import { KEEP_AT_LEAST } from '../data/villagers.js';
+import { panic, drawWear } from './folk.js';
 import { JOBS } from '../data/villagers.js';
 import { TRICKS, flickBogey, puddleAt, updateDropped, updateFlattened } from './gross.js';
 import { updateHard } from './hard.js';
@@ -53,8 +55,6 @@ export function tonight() {
   const kinds = [];
   for (let i = 0; i < count; i++) kinds.push(pick(pool));
   plan.extra.forEach((k) => kinds.push(k));
-  // anyone carried off last night comes back tonight, as a zombie
-  state.taken.forEach((t) => kinds.push(t.kind || 'bob'));
   const moon = moonTonight();
   if (moon) moon.extra.forEach((k) => kinds.push(k));
   if (moon && moon.maybe && Math.random() < (moon.chance || 0.5)) moon.maybe.forEach((k) => kinds.push(k));
@@ -62,7 +62,8 @@ export function tonight() {
   if (window.ZOMBIES.horde) return { kinds: window.ZOMBIES.horde, side: plan.side, moon };
   if (state.night >= GIANT_FROM[state.mode] && (state.night - GIANT_FROM[state.mode]) % 2 === 0) kinds.push('giant');
   if (state.night % KING_EVERY === 0) kinds.push('pumpkinking');
-  return { kinds, side: plan.side, moon };
+  // anyone turned last night comes back tonight, still a zombie, still with their name
+  return { kinds, side: plan.side, moon, returning: [...state.taken] };
 }
 
 export function moonTonight() {
@@ -79,6 +80,82 @@ export function spawnHorde(plan) {
     const z = makeZombie(kind, plan.side, i);
     state.zombies.push(z);
   });
+  (plan.returning || []).forEach((was, i) => {
+    const z = makeZombie(was.kind || 'bob', plan.side, plan.kinds.length + i);
+    nameTag(z, was);
+    state.zombies.push(z);
+  });
+}
+
+// A zombie who used to be a villager wears their name, so you know who to save
+function nameTag(z, was) {
+  z.wasVillager = was;
+  const t = el('text', { class: 'zname', x: 20, y: 24, 'text-anchor': 'middle' });
+  t.textContent = was.name;
+  z.el.appendChild(t);
+}
+
+// ---------- munching brains ----------
+// A zombie that reaches a villager stands next to them and munches.
+// A bar over his head fills up. Whack him (or bop him, trip him, sock
+// him) and he stops. If the bar fills, the villager turns into a zombie.
+function canTurn() {
+  const diff = DIFFICULTY[state.mode];
+  return diff.takeVillagers && state.night >= (diff.takeFrom || 1) && state.villagers.filter((p) => !p.taken).length > KEEP_AT_LEAST;
+}
+
+function startMunch(z, v) {
+  z.munch = { v, t: 0, nom: 0 };
+  z.el.classList.add('munching');
+  z.face = v.x < z.x ? -1 : 1;
+  const bar = el('g', { class: 'munch-bar' });
+  bar.appendChild(el('rect', { class: 'munch-back', x: 2, y: -16, width: 36, height: 7, rx: 3 }));
+  z.munchFill = el('rect', { class: 'munch-fill', x: 2, y: -16, width: 0, height: 7, rx: 3 });
+  bar.appendChild(z.munchFill);
+  z.el.appendChild(bar);
+  burst(z.x, z.y - 1, 'BRAAAINS');
+  blip('groan');
+  panic(v, z);
+}
+
+export function stopMunch(z) {
+  if (!z.munch) return;
+  z.munch = null;
+  z.el.classList.remove('munching');
+  z.el.querySelector('.munch-bar')?.remove();
+}
+
+function munchStep(z, dt) {
+  const v = z.munch.v;
+  if (!state.villagers.includes(v) || v.taken || v.pillow || Math.hypot(v.x - z.x, v.y - z.y) > 1.4) { stopMunch(z); return false; }
+  const secs = DIFFICULTY[state.mode].munchSeconds || 6;
+  z.munch.t += dt;
+  z.munchFill.setAttribute('width', Math.min(36, 36 * z.munch.t / secs));
+  z.munch.nom -= dt;
+  if (z.munch.nom <= 0) { z.munch.nom = 1; burst(z.x + z.face * 0.4, z.y - 0.9, pick(['nom', 'NOM', 'munch', 'slurp'])); blip('tap', { volume: 0.4, rate: 0.7 }); }
+  if (z.munch.t >= secs) {
+    stopMunch(z);
+    if (canTurn()) turnVillager(z, v);
+    else {   // too few villagers left (or night 1): they wriggle free
+      burst(v.x, v.y - 1.2, 'ESCAPED!');
+      z.dizzy = 2.5;
+      v.x = CENTRE.x + (Math.random() - 0.5); v.y = CENTRE.y + 1; drawVillager(v);
+    }
+  }
+  return true;
+}
+
+function turnVillager(z, v) {
+  const was = { name: v.name, job: v.job, kind: z.data.bites ? z.kind : 'bob', wear: v.wear || null };
+  removeVillager(v);
+  const nz = makeZombie(was.kind, 'north', 0, { x: v.x, y: v.y });
+  nz.wait = 0; nz.dizzy = 1.5;
+  nameTag(nz, was);
+  state.zombies.push(nz);
+  burst(v.x, v.y - 1.2, z.data.bites ? 'CHOMP' : 'BRAAAINS!');
+  blip('sad');
+  say((z.data.bites ? LINES.bitten : LINES.turned).replace('{name}', was.name), true);
+  state.turnedTonight = (state.turnedTonight || 0) + 1;
 }
 
 function edgeSpot(side) {
@@ -206,7 +283,11 @@ function target(z) {
     const d = Math.hypot(v.x - z.x, v.y - z.y) - (DIFFICULTY[state.mode].bedlessHalfTrips && !v.bed ? 6 : 0);
     if (d < bd) { bd = d; best = v; }
   });
-  if (best) return { x: best.x, y: best.y };
+  // stand next to them, one zombie each side, never on top of them
+  if (best) {
+    const spot = [[0.75, 0.05], [-0.75, 0.05], [0.55, -0.55], [-0.55, -0.55], [0.5, 0.6], [-0.5, 0.6]][z.id % 6];
+    return { x: best.x + spot[0], y: best.y + spot[1], munch: best };
+  }
   return { x: CENTRE.x, y: CENTRE.y };
 }
 
@@ -231,8 +312,9 @@ export function updateZombies(dt) {
   for (const z of [...state.zombies]) {
     z.lastX = z.x; z.lastY = z.y;
     if (z.wait > 0) { z.wait -= dt; continue; }
-    if (z.pit) { drawZ(z); continue; }
+    if (z.pit) { stopMunch(z); drawZ(z); continue; }
     mutter(z, dt);
+    if (z.munch && (z.flying > 0 || z.dizzy > 0 || z.stuck > 0 || z.poseT > 0 || z.leaving)) stopMunch(z);
 
     if (z.flying > 0) {
       z.x += z.flyX * dt / 0.6; z.y += z.flyY * dt / 0.6; z.flying -= dt;
@@ -261,6 +343,8 @@ export function updateZombies(dt) {
       drawZ(z); continue;
     }
 
+    if (z.munch && munchStep(z, dt)) { drawZ(z); continue; }
+
     if (z.data.trick && TRICKS[z.data.trick]) TRICKS[z.data.trick](z, dt);
 
     let goal;
@@ -272,6 +356,8 @@ export function updateZombies(dt) {
     if (!goal.bait) goal = viaBridge(z, goal);
     let dx = goal.x - z.x, dy = goal.y - z.y;
     const dist = Math.hypot(dx, dy) || 1;
+    // next to a villager: start munching
+    if (goal.munch && (dist < 0.35 || Math.hypot(goal.munch.x - z.x, goal.munch.y - z.y) < 0.9) && !z.data.harmless) { startMunch(z, goal.munch); drawZ(z); continue; }
     dx /= dist; dy /= dist;
 
     // crowding the scarecrow
@@ -411,12 +497,13 @@ export function cure(z) {
   if (z.carrying) { z.carrying.taken = false; z.carrying = null; }
   if (z.pit) z.pit.held = z.pit.held.filter((o) => o !== z);
   remove(z);
-  const v = addVillager(job, z.x, z.y);
+  const v = addVillager(z.wasVillager ? z.wasVillager.job : job, z.x, z.y);
+  if (z.wasVillager) { v.name = z.wasVillager.name; v.wear = z.wasVillager.wear; drawWear(v); burst(z.x, z.y - 1.3, `${v.name} is back!`); }
   v.el.classList.add('cured');
   v.walkHome = true;
   state.curedTonight++;
   state.joined = state.joined || [];
-  state.joined.push({ name: v.name, job });
+  state.joined.push({ name: v.name, job: v.job });
   burst(z.x, z.y - 0.8, 'POP!');
   blip('pop');
   setTimeout(() => blip('joined'), 180);
@@ -438,6 +525,8 @@ export function sendHome() {
     if (z.pit) return;
     z.leaving = true; z.circle = null; z.stuck = 0; z.dizzy = 0; z.blind = 0; z.flying = 0;
     z.bubble.textContent = 'ooh, sun';
+    stopMunch(z);
+    if (z.wasVillager && !z.goneHome) { z.goneHome = true; state.taken.push(z.wasVillager); }
     if (z.carrying && !DIFFICULTY[state.mode].takeVillagers) { z.carrying.taken = false; z.carrying = null; }
   });
 }

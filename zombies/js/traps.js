@@ -7,13 +7,10 @@
    trap, add a word here and in data/traps.js.
    =========================================================== */
 
-import { state, TILE, CENTRE } from './state.js';
+import { state, TILE } from './state.js';
 import { burst, splash } from './fx.js';
 import { blip } from './voice.js';
-import { DIFFICULTY } from '../data/difficulty.js';
-import { KEEP_AT_LEAST } from '../data/villagers.js';
-import { wear, bite } from './hard.js';
-import { panic } from './folk.js';
+import { wear } from './hard.js';
 import { playMusic } from './voice.js';
 
 const LAUGHS = ['HAHA', 'HEE HEE', 'HOHO', 'SNORT'];
@@ -191,36 +188,9 @@ const ACT = {
       else burst(z.x, z.y - 0.5, 'munch');
     }
   },
-  bed(z, t) {
-    const diff = DIFFICULTY[state.mode];
-    const v = state.villagers.find((p) => p.bed === t && !p.taken && !(p.pumpkin > 0));
-    if (!v) return;
-    const canTake = diff.takeVillagers && state.night >= (diff.takeFrom || 1) && state.villagers.filter((p) => !p.taken).length > KEEP_AT_LEAST;
-    if (canTake && z.data.bites) {
-      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'hsss'); panic(v, z, t); }
-      if (state.time - z.bedSince < 3) return;
-      bite(z, v);
-      z.leaving = true;
-      return;
-    }
-    if (canTake && !z.carrying) {
-      // it takes three seconds of tugging: whack him off before then
-      if (!z.bedSince) { z.bedSince = state.time; burst(z.x, z.y - 0.5, 'heave'); panic(v, z, t); }
-      if (state.time - z.bedSince < 3) return;
-      z.bedSince = 0;
-      v.taken = true;
-      z.carrying = v;
-      z.leaving = true;
-      burst(z.x, z.y - 0.5, 'GOT ONE');
-      blip('groan');
-    } else if (!z.scaredT) {
-      // Easy: the villager is scared, hops to the well, the zombie just stands there puzzled
-      z.scaredT = 4;
-      z.dizzy = 2;
-      v.x = CENTRE.x + Math.random(); v.y = CENTRE.y + 1;
-      burst(z.x, z.y - 0.5, 'eek');
-    }
-  },
+  // Cottages: the zombies are after the villagers, not the house.
+  // The munching is in js/zombies.js.
+  bed() {},
 };
 
 export function stepOn(z, thing) {

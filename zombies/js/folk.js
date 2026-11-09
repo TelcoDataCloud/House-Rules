@@ -6,9 +6,8 @@
    something; do it and they cheer and work an extra trip. Now and
    then someone falls in the pond.
 
-   At night: sleepers snore. A zombie tugging at a cottage makes
-   the villager inside run out screaming; whack that zombie and
-   they shout MY HERO. Villagers with no cottage throw socks at
+   At night: sleepers snore. A zombie munching on a villager makes
+   them flail and scream; whack that zombie and they shout MY HERO. Villagers with no cottage throw socks at
    any zombie that comes close. And once a night the PYJAMA ARMY
    button sends everyone out with pillows.
 
@@ -160,10 +159,10 @@ export function startFolkNight() {
   drawPillowButton();
 }
 
-// A zombie started tugging at this villager's cottage
-export function panic(v, z, cottage) {
+// A zombie started munching on this villager's head
+export function panic(v, z) {
   if (!v || v.panic || v.taken) return;
-  v.panic = { z, cx: cottage.col + 0.5, cy: cottage.row + 0.9, a: Math.random() * 6, yell: 0 };
+  v.panic = { z, yell: 0 };
   v.el.classList.add('panic');
   burst(v.x, v.y - 1.2, pick(PANIC));
   blip('squeak');
@@ -171,8 +170,9 @@ export function panic(v, z, cottage) {
 
 // The hero whacked z: if z was after someone, they are saved
 export function rescue(z) {
-  const v = state.villagers.find((p) => (p.panic && p.panic.z === z) || z.carrying === p);
-  if (!v || !(z.bedSince || z.carrying)) return;
+  if (!z.munch) return;
+  const v = z.munch.v;
+  if (!state.villagers.includes(v)) return;
   endPanic(v);
   burst(v.x, v.y - 1.4, pick(RESCUED));
   say(pick(RESCUED), true);
@@ -188,7 +188,6 @@ export function rescue(z) {
 function endPanic(v) {
   v.panic = null;
   v.el.classList.remove('panic');
-  if (v.bedSpot && !v.taken) { v.x = v.bedSpot.x; v.y = v.bedSpot.y; drawVillager(v); }
 }
 
 export function updateFolkNight(dt) {
@@ -197,15 +196,12 @@ export function updateFolkNight(dt) {
 
   state.villagers.forEach((v) => {
     if (v.taken) { if (v.panic) { v.panic = null; v.el.classList.remove('panic'); } return; }
-    // running round screaming
+    // being munched: flailing and screaming
     if (v.panic) {
       const z = v.panic.z;
-      if (!state.zombies.includes(z) || (!z.bedSince && !z.carrying)) { endPanic(v); return; }
-      v.panic.a += dt * 5;
-      v.x = v.panic.cx + Math.cos(v.panic.a) * 0.9; v.y = v.panic.cy + Math.sin(v.panic.a) * 0.5;
+      if (!state.zombies.includes(z) || !z.munch || z.munch.v !== v) { endPanic(v); return; }
       v.panic.yell -= dt;
       if (v.panic.yell <= 0) { v.panic.yell = 1.4; burst(v.x, v.y - 1.2, pick(PANIC)); }
-      drawVillager(v);
       return;
     }
     if (v.pillow) { pillowStep(v, dt); return; }

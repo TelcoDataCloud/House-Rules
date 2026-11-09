@@ -52,7 +52,7 @@ function audio() {
 // ---------- the recorded sounds ----------
 const raw = {};        // name -> base64 text (or its parts)
 const buffers = {};    // 'bonk' -> [AudioBuffer, AudioBuffer...]
-let packsLoaded = false;
+let packsLoaded = false, musicLoaded = false;
 
 async function fetchPacks(list) {
   await Promise.all(list.map(async (file) => {
@@ -69,7 +69,7 @@ export async function loadSounds() {
     const packs = await (await fetch('sounds/packs.json')).json();
     await fetchPacks(packs.sfx);
     packsLoaded = true;
-    fetchPacks(packs.music).then(() => { if (wantMusic) playMusic(wantMusic, true); });
+    fetchPacks(packs.music).then(() => { musicLoaded = true; if (wantMusic) playMusic(wantMusic, true); });
   } catch (e) { /* no sounds folder: the beeps below still work */ }
 }
 
@@ -250,7 +250,8 @@ export function playMusic(name, retry = false) {
   wantMusic = name;
   if (state.muted || !audio()) return;
   if (playing && playing.name === name) return;
-  if (!loopBuffer(name)) {   // still decoding: try again in a moment
+  if (!loopBuffer(name)) {   // still decoding: try again in a moment (unless that tune is not in the packs)
+    if (buffers['music-' + name] || (packsLoaded && !Object.keys(raw).some((k) => k.startsWith('music-' + name)) && musicLoaded)) return;
     setTimeout(() => { if (wantMusic === name) playMusic(name, true); }, 600);
     return;
   }
