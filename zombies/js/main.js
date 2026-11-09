@@ -23,6 +23,7 @@ import { say, blip, loadSounds, warmSounds, playMusic, stopMusic, setMuted } fro
 import { saveGame, loadGame, hasSave, clearSave } from './save.js';
 import { GUIDE } from '../data/guide.js';
 import { setTipsOff, hideTip } from './tips.js';
+import { setupBarArrows } from './hud.js';
 
 const $ = (id) => document.getElementById(id);
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -192,10 +193,23 @@ function wire() {
     $('theme-toggle').textContent = dark ? '☀️' : '🌙';
     $('theme-toggle').setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
   });
+  // Sound on or off: the corner button and the big one on the title do the
+  // same thing, and the choice is remembered on this device
+  const soundButtons = (muted) => {
+    $('sound-toggle').textContent = muted ? '🔇' : '🔊';
+    $('sound-toggle').setAttribute('aria-label', muted ? 'Turn sound on' : 'Turn sound off');
+    $('title-sound').textContent = muted ? '🔇 Sound off' : '🔊 Sound on';
+    $('title-sound').setAttribute('aria-pressed', muted ? 'false' : 'true');
+  };
+  const setSound = (muted) => {
+    setMuted(muted);
+    soundButtons(muted);
+    try { localStorage.setItem('zombie-wars-muted', muted ? '1' : '0'); } catch (e) { /* private window: fine */ }
+  };
+  try { if (localStorage.getItem('zombie-wars-muted') === '1') { state.muted = true; soundButtons(true); } } catch (e) { /* fine */ }
+  $('title-sound').addEventListener('click', () => setSound(!state.muted));
   $('sound-toggle').addEventListener('click', () => {
-    setMuted(!state.muted);
-    $('sound-toggle').textContent = state.muted ? '🔇' : '🔊';
-    $('sound-toggle').setAttribute('aria-label', state.muted ? 'Turn sound on' : 'Turn sound off');
+    setSound(!state.muted);
   });
   // browsers only allow sound after the first tap or key, so get the sounds ready then
   ['pointerdown', 'keydown'].forEach((type) => window.addEventListener(type, warmSounds));
@@ -213,6 +227,7 @@ async function boot() {
   loadSounds();   // no need to wait: the beeps cover until they arrive
   await loadArt();
   loadPictures();   // the paintings take over as they arrive
+  setupBarArrows();
   drawGround();
   wire();
   titleScreen();

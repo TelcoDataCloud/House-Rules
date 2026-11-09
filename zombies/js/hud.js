@@ -96,14 +96,20 @@ export function drawDay() {
   }
 }
 
+// Called every frame at night, so it never measures the page (that
+// made the browser redo the layout 60 times a second): the bar's width
+// is remembered and only checked again when the window changes size.
+let skyWidth = 0, lastLabel = '', lastLeft = '';
+window.addEventListener('resize', () => { skyWidth = 0; });
 export function drawSun(fraction) {
-  const sky = document.getElementById('skybar');
-  const w = sky.clientWidth - 26;
-  document.getElementById('sun').style.left = Math.max(0, Math.min(w, fraction * w)) + 'px';
+  if (!skyWidth) skyWidth = Math.max(1, document.getElementById('skybar').clientWidth - 26);
+  const left = Math.max(0, Math.min(skyWidth, fraction * skyWidth)).toFixed(0) + 'px';
+  if (left !== lastLeft) { lastLeft = left; document.getElementById('sun').style.left = left; }
   if (state.phase === 'night') {
-    const left = Math.max(0, Math.ceil(DIFFICULTY[state.mode].nightSeconds * (1 - fraction)));
-    document.getElementById('sky-label').textContent = `Night ends in ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
-  }
+    const secs = Math.max(0, Math.ceil(DIFFICULTY[state.mode].nightSeconds * (1 - fraction)));
+    const label = `Night ends in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`;
+    if (label !== lastLabel) { lastLabel = label; document.getElementById('sky-label').textContent = label; }
+  } else lastLabel = '';
 }
 
 export function lookoutSay(text) {
@@ -152,6 +158,24 @@ export function buildBar(pickHandler) {
     b.addEventListener('click', () => onPick(id));
     bar.appendChild(b);
   });
+  barArrows();
+}
+
+// Arrows on the build bar when there is more to scroll to
+function barArrows() {
+  const bar = document.getElementById('bar');
+  const l = document.getElementById('bar-left'), r = document.getElementById('bar-right');
+  if (!l) return;
+  const more = bar.scrollWidth > bar.clientWidth + 4;
+  l.hidden = !more || bar.scrollLeft < 4 || bar.hidden;
+  r.hidden = !more || bar.scrollLeft + bar.clientWidth > bar.scrollWidth - 4 || bar.hidden;
+}
+export function setupBarArrows() {
+  const bar = document.getElementById('bar');
+  bar.addEventListener('scroll', barArrows, { passive: true });
+  window.addEventListener('resize', barArrows);
+  document.getElementById('bar-left').addEventListener('click', () => bar.scrollBy({ left: -bar.clientWidth * 0.7, behavior: 'smooth' }));
+  document.getElementById('bar-right').addEventListener('click', () => bar.scrollBy({ left: bar.clientWidth * 0.7, behavior: 'smooth' }));
 }
 
 export function drawBar() {
@@ -160,5 +184,13 @@ export function drawBar() {
     if (!t) return;
     b.classList.toggle('cannot', !!missing(t));
     b.setAttribute('aria-pressed', state.picked === b.dataset.id ? 'true' : 'false');
+    // someone has no bed: the cottage button flashes with a badge, so kids see what to build
+    if (t.does === 'bed') {
+      const need = state.phase === 'day' && state.villagers.some((v) => !v.bed);
+      b.classList.toggle('needed', need);
+      b.querySelector('.badge')?.remove();
+      if (need) b.insertAdjacentHTML('beforeend', '<span class="badge" aria-hidden="true">!</span>');
+      b.setAttribute('aria-label', t.name + (need ? ': someone needs a bed' : ''));
+    }
   });
 }
