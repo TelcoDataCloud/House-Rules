@@ -1292,3 +1292,26 @@ straight; zombies push against fences instead of walking round.
   fifth night.
 - **Hendrix's turn:** in `zombies/data/guide.js`, change the `rock` line
   in `LAND` to his own words, then tap the rocks in the game.
+
+### Z14 Painted characters (9 Nov)
+
+Asa: the concept art is so much better than the game; use it on the
+title; where are the animal zombies and giants; make the graphics more
+like the Higgsfield concept art. Asa picked "characters and title
+first" (traps, buildings and the map later).
+- 34 characters redrawn in the concept style with Higgsfield (GPT Image
+  2.6, PNG with a transparent background): every zombie, the zombie
+  animals, Giant Gary, the Pumpkin King, the hero, every villager job,
+  the cured animals and the zombie face icon. Cropped, stood on the
+  bottom edge and saved as 192 px webp (giants 256) by
+  `tools/pack-pics.py --make`.
+- Pictures are packed as base64 text in `zombies/pics/` (16 KB packs,
+  listed in `pics/packs.json`) because the GitHub connector only takes
+  text. `loadPictures()` in `js/art.js` swaps each painting into its
+  `<symbol id="art-NAME">` once it loads, so all the existing `<use>`
+  code just works, and anything without a painting keeps its drawing.
+- Title screen shows Asa's Pumpkin King concept picture (`title` in the
+  packs), with the old drawing until it loads.
+- Animals and giants were in the game from night 3 to 5; Z13 brought
+  them earlier.
+- Next for the art: traps, buildings, fences, the map.
