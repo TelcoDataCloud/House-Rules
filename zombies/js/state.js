@@ -56,6 +56,7 @@ export function fresh() {
   state.dropped = [];
   state.weapon = 0;
   state.socks = 0;
+  state.tipsSeen = [];   // tips already shown this game (tipsOff is kept: it is your choice)
   state.arms = [];
   state.loot = [];
   state.hitStop = 0;
