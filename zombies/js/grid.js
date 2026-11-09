@@ -108,35 +108,65 @@ export function removeThing(col, row) {
 }
 
 // ---------- fences and walls that join up ----------
-// Two fences (or walls) side by side get rails between them, so a row
-// of them reads as one long fence. The rails are drawn under the
-// pictures. Their colours are in css/game.css (.link-fence and friends).
+// A fence on its own uses its picture. Next to another fence (or a
+// wall) it is drawn as a straight run instead: rails that go right to
+// the edge of the square, so the next one carries on in a straight
+// line. Left and right runs show the pickets from the front; up and
+// down runs show a column of pickets. Colours: css/game.css (.run-*).
 const JOINS = new Set(['fence', 'wall', 'stonewall']);
+const joins = (c, r) => { const n = thingAt(c, r); return !!(n && JOINS.has(n.kind)); };
 
 export function relink() {
-  const things = document.getElementById('things');
-  let g = document.getElementById('links');
-  if (!g) g = el('g', { id: 'links' });
-  things.prepend(g);
-  g.innerHTML = '';
   for (const t of state.things.values()) {
     if (!JOINS.has(t.kind)) continue;
-    [[1, 0], [0, 1]].forEach(([dc, dr]) => {
-      const n = thingAt(t.col + dc, t.row + dr);
-      if (!n || !JOINS.has(n.kind)) return;
-      const kind = t.kind === n.kind ? t.kind : 'fence';
-      const x = (t.col + 0.5) * TILE, y = (t.row + 0.5) * TILE;
-      if (dc) {
-        // side by side: rails across
-        const rails = kind === 'fence' ? [[-8, 6], [4, 6]] : [[-12, 22]];
-        rails.forEach(([oy, h]) => g.appendChild(el('rect', { class: 'link link-' + kind, x: x - 2, y: y + oy, width: TILE + 4, height: h, rx: 3 })));
-      } else {
-        // one above the other: posts down the gap
-        const posts = kind === 'fence' ? [[-7, 6], [3, 6]] : [[-10, 20]];
-        posts.forEach(([ox, w]) => g.appendChild(el('rect', { class: 'link link-' + kind, x: x + ox, y: y - 4, width: w, height: TILE + 6, rx: 3 })));
-      }
-    });
+    const n = joins(t.col, t.row - 1), s = joins(t.col, t.row + 1);
+    const w = joins(t.col - 1, t.row), e = joins(t.col + 1, t.row);
+    t.el.querySelector('.run')?.remove();
+    const pic = t.el.querySelector('use');
+    if (!n && !s && !w && !e) { if (pic) pic.style.display = ''; continue; }
+    if (pic) pic.style.display = 'none';
+    t.el.prepend(drawRun(t.kind, { n, s, w, e }));
   }
+}
+
+function drawRun(kind, { n, s, w, e }) {
+  const g = el('g', { class: 'run run-' + kind });
+  const H = TILE, mid = H / 2, foot = H * 0.78;
+  const stone = kind === 'stonewall', wall = kind === 'wall';
+  // up and down: a column down the middle, drawn top to bottom so lower pickets sit in front
+  if (n || s) {
+    const top = n ? -H * 0.25 : mid - 6, bottom = s ? foot : mid + 6;
+    if (stone) {
+      for (let y = top; y < bottom; y += 10) g.appendChild(el('rect', { class: 'block', x: mid - 10, y, width: 20, height: Math.min(10, bottom - y), rx: 2 }));
+    } else {
+      g.appendChild(el('rect', { class: 'rail', x: mid - 8, y: top, width: 4, height: bottom - top }));
+      g.appendChild(el('rect', { class: 'rail', x: mid + 4, y: top, width: 4, height: bottom - top }));
+      for (let y = top - 8; y < bottom - 12; y += 8) g.appendChild(picket(mid, y, wall ? 16 : 14, 20, wall));
+    }
+  }
+  // left and right: rails right to the edge, pickets in front
+  if (w || e) {
+    const x0 = w ? 0 : mid - 4, x1 = e ? H : mid + 4;
+    if (stone) {
+      [[foot - 20, 0], [foot - 10, 6]].forEach(([y, shift]) => {
+        for (let x = x0 - shift; x < x1; x += 13) {
+          const a = Math.max(x, x0), b = Math.min(x + 13, x1);
+          if (b - a > 2) g.appendChild(el('rect', { class: 'block', x: a, y, width: b - a, height: 10, rx: 2 }));
+        }
+      });
+    } else {
+      [foot - 18, foot - 8].forEach((y) => g.appendChild(el('rect', { class: 'rail', x: x0, y, width: x1 - x0, height: 5 })));
+      const gap = wall ? 10 : 10, pw = wall ? 10 : 8;
+      for (let x = (w ? 5 : mid); x <= (e ? H - 4 : mid); x += gap) g.appendChild(picket(x, foot - (wall ? 30 : 26), pw, wall ? 30 : 26, wall));
+    }
+  }
+  return g;
+}
+
+// One picket: a plank with a point (fence) or a round top (log wall)
+function picket(x, y, w, h, round) {
+  if (round) return el('rect', { class: 'picket', x: x - w / 2, y, width: w, height: h, rx: w / 2 });
+  return el('polygon', { class: 'picket', points: `${x - w / 2},${y + h} ${x - w / 2},${y + 5} ${x},${y} ${x + w / 2},${y + 5} ${x + w / 2},${y + h}` });
 }
 
 function drawGlow(thing) {
@@ -174,6 +204,5 @@ export function pointToTile(ev) {
 export function clearThings() {
   document.getElementById('things').innerHTML = '';
   document.getElementById('glows').innerHTML = '';
-  relink();
   state.things = new Map();
 }

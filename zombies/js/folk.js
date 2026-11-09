@@ -18,7 +18,7 @@ import { state, TILE } from './state.js';
 import { CHAT, PANIC, RESCUED, HATS, REQUESTS, REQUEST_CHANCE, GOOFS, PILLOW, SOCK_THROW } from '../data/folk.js';
 import { el } from './grid.js';
 import { burst } from './fx.js';
-import { blip, say, playMusic } from './voice.js';
+import { blip, say, playMusic, voiceFor } from './voice.js';
 import { draw as drawVillager } from './villagers.js';
 import { banner, drawCounts, helpSay } from './hud.js';
 
@@ -65,6 +65,7 @@ export function chatLine(v) {
 
 export function highFive(v) {
   burst(v.x, v.y - 1.2, 'HIGH FIVE!');
+  say(pick(['Yeah!', 'Woo!', 'Nice one!', 'Up top!']), true, voiceFor(v.name));
   blip('tap', { rate: 1.3 });
   blip('cheer', { volume: 0.4 });
   happy(v);
@@ -120,6 +121,7 @@ function done(v) {
   v.request = null;
   drawAsk(v);
   burst(v.x, v.y - 1.4, 'YAY! THANK YOU!');
+  say('Yay! Thank you!', false, voiceFor(v.name));
   blip('joined');
   happy(v);
   // an extra trip of work (potion makers give a sock instead, potion stays rare)
@@ -164,7 +166,9 @@ export function panic(v, z) {
   if (!v || v.panic || v.taken) return;
   v.panic = { z, yell: 0 };
   v.el.classList.add('panic');
-  burst(v.x, v.y - 1.2, pick(PANIC));
+  const yell = pick(PANIC);
+  burst(v.x, v.y - 1.2, yell);
+  say(yell, false, voiceFor(v.name));
   blip('squeak');
 }
 
@@ -175,7 +179,7 @@ export function rescue(z) {
   if (!state.villagers.includes(v)) return;
   endPanic(v);
   burst(v.x, v.y - 1.4, pick(RESCUED));
-  say(pick(RESCUED), true);
+  say(pick(RESCUED), true, voiceFor(v.name));
   blip('cheer');
   state.socks = (state.socks || 0) + 1;
   state.socksTonight = (state.socksTonight || 0) + 1;
