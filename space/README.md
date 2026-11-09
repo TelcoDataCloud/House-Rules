@@ -190,3 +190,43 @@ From Asa's change list after a playtest.
   wings slide out of its sides; two tesla coils rise and arc together
   before the lightning strikes; armour doors slide open to show a glowing
   plasma core. Omega brings out all four.
+
+## Every boss its own, shields, engines, Easy helpers (9 Nov)
+
+- **Every boss is different** (data/bosses.js): its own colours (`hue`),
+  its own roar (`voice`), its own pattern once it is angry (`phase2`), its
+  own LAST STAND attack (`lastStand`, Medium and Hard) and its own way of
+  going down (`death`). The Hauler Mk 2 is bigger, the Twin Haulers are
+  smaller and ice blue.
+
+  | Boss | Angry pattern | Last stand | Goes down |
+  |---|---|---|---|
+  | The Hauler | sweep | flak shells | spins |
+  | Hauler Mk 2 | aimed bursts | flamethrowers | chain reaction |
+  | Twin Haulers | cross | icicles | shatters like ice |
+  | The Core | spiral | sweeping eye laser | implodes |
+  | Sky Fortress | walls with a gap | chain lightning orbs | zapped apart |
+  | The Overlord | mines | black hole | sucked into a black hole |
+  | The Crusher | rocket rain | slag globs | crushed flat |
+  | Goliath | helper ships | shockwaves | topples over |
+  | Inferno | wavy stream | walls of fire | melts |
+  | Omega | storm (all) | all of them in turn | a blinding nova |
+
+  The patterns and last stands are in `js/attacks.js`. New shots for
+  them: flak, shard, ice, frost, slag, ember (data/foeshots.js).
+- **Shield levels** (data/ship.js SHIELD): level 1 takes 3 hits' worth,
+  level 2 takes 6, level 3 takes 10. Each kind of shot takes off a
+  different amount; the shield cracks and goes yellow then red. A boss's
+  big cannon breaks any shield but a full level 3. A **Shield** card
+  levels it up.
+- **Engine** card: the Comet starts slower (290) and the card takes it to
+  350, 410, then 470.
+- **Easy helpers in boss fights** (data/difficulty.js HELP): from level 2
+  a free shield and bomb when a boss arrives and POW capsules; from level 3
+  SLOW and WING too. A capsule drops every 22 seconds of the
+  fight: POW (gun 2 levels stronger for 12 s), SLOW (enemy shots half
+  speed for 6 s), WING (two wingmen for 20 s). Angry bosses also fire
+  their patterns less often, with fewer shots, on Easy.
+- New sounds: fire (LEGIT Audio Fire Staff) and ice (Ice Shatters), both
+  CC0, in `sounds/pack-7.json` to `pack-9.json`.
+- The best score is the one thing saved (CLAUDE.md has the exception).
