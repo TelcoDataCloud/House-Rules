@@ -61,10 +61,19 @@ export async function loadPictures() {
     const b64 = parts.map((k) => raw[k]).join('').replace(/!(.)(\d+)!/g, (m, ch, n) => ch.repeat(Number(n)));
     const url = 'data:image/webp;base64,' + b64;
     if (name === 'title') { const t = document.getElementById('title-pic'); if (t) { t.src = url; t.hidden = false; document.getElementById('title-drawing')?.setAttribute('hidden', ''); } return; }
-    const sym = document.getElementById('art-' + name);
+    let sym = document.getElementById('art-' + name);
+    // fence-h, wall-v and friends are the pieces that join fences up (grid.js).
+    // They only exist as paintings, and they stretch to fit their square.
+    const piece = /-[hv]$/.test(name);
+    if (!sym && piece) {
+      sym = document.createElementNS('http://www.w3.org/2000/svg', 'symbol');
+      sym.id = 'art-' + name;
+      document.getElementById('sprites').appendChild(sym);
+    }
     if (!sym) return;
     sym.setAttribute('viewBox', '0 0 1024 1024');
-    sym.innerHTML = `<image href="${url}" x="0" y="0" width="1024" height="1024"/>`;
+    if (piece) sym.setAttribute('preserveAspectRatio', 'none');
+    sym.innerHTML = `<image href="${url}" x="0" y="0" width="1024" height="1024"${piece ? ' preserveAspectRatio="none"' : ''}/>`;
   });
 }
 
