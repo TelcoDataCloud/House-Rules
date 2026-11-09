@@ -13,7 +13,7 @@ import { DIFFICULTY } from '../data/difficulty.js';
 import { START as START_THINGS } from '../data/traps.js';
 import { WIN_AT, JOBS } from '../data/villagers.js';
 import { loadArt, loadPictures, icon } from './art.js';
-import { drawGround, placeThing, clearThings } from './grid.js';
+import { drawGround, placeThing, clearThings, relink } from './grid.js';
 import { startVillage } from './villagers.js';
 import { startDay, stopDay, nightFallsPressed, buyWeapon, swapCarrots, dayClick, dayHover, clearHover } from './day.js';
 import { startNight, stopNight, pauseNight, isPaused, wireNightButtons, nightDown, nightTap, nightMove, nightUp, checkWin } from './night.js';
@@ -226,7 +226,7 @@ function wire() {
 async function boot() {
   loadSounds();   // no need to wait: the beeps cover until they arrive
   await loadArt();
-  loadPictures();   // the paintings take over as they arrive
+  loadPictures().then(relink);   // the paintings take over as they arrive (then fences join up with them)
   setupBarArrows();
   drawGround();
   wire();
