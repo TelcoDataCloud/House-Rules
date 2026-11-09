@@ -32,6 +32,7 @@ export function viaBridge(from, goal) {
   return { ...goal, x: goalEast ? best.west : best.east, y: best.y };
 }
 import { stepOn } from './traps.js';
+import { nextStep } from './path.js';
 import { burst, snotScreen, cloud } from './fx.js';
 import { blip, say } from './voice.js';
 import { addVillager, removeVillager, draw as drawVillager } from './villagers.js';
@@ -353,12 +354,14 @@ export function updateZombies(dt) {
     else if (z.blind > 0) { z.blind -= dt; goal = { x: z.x + Math.cos(z.id + state.time * 2) * 3, y: z.y + Math.sin(z.id * 2 + state.time * 2) * 3 }; }
     else goal = target(z);
 
-    if (!goal.bait) goal = viaBridge(z, goal);
-    let dx = goal.x - z.x, dy = goal.y - z.y;
-    const dist = Math.hypot(dx, dy) || 1;
+    const dist = Math.hypot(goal.x - z.x, goal.y - z.y) || 1;
     // next to a villager: start munching
     if (goal.munch && (dist < 0.35 || Math.hypot(goal.munch.x - z.x, goal.munch.y - z.y) < 0.9) && !z.data.harmless) { startMunch(z, goal.munch); drawZ(z); continue; }
-    dx /= dist; dy /= dist;
+    // find the way round fences, water and rocks (js/path.js)
+    const way = z.blind > 0 ? goal : nextStep(z, goal, dt);
+    let dx = way.x - z.x, dy = way.y - z.y;
+    const wd = Math.hypot(dx, dy) || 1;
+    dx /= wd; dy /= wd;
 
     // crowding the scarecrow
     if (goal.bait && dist < 0.8) {
