@@ -23,6 +23,7 @@ export const LINES = {
   whack: ['BONK', 'WHACK', 'THUD'],
   noPotion: 'No potion left. Trap them!',
   taken: '{name} was carried off. Cure them tomorrow.',
+  turned: '{name} turned into a zombie! Cure them to get them back.',
   heroDown: 'Oof. Sit down a bit.',
   bitten: '{name} was bitten! They come back as a vampire.',
   broken: '{n} traps broke. Builders fix them in the morning.',

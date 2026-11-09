@@ -9,8 +9,10 @@
    nightSeconds   how long the night lasts
    hordeStart     zombies on night 1
    hordeGrow      more zombies each night
-   takeVillagers  can zombies carry a sleeping villager off?
+   takeVillagers  can a zombie turn a villager into a zombie?
    takeFrom       the first night they are allowed to (night 1 is a warm up)
+   munchSeconds   how long a zombie has to munch on a villager's head
+                  before they turn. Whack him before the bar fills!
    trapsBreak     do traps wear out?
    heroDowns      can the hero get knocked down?
    heartsRegrow   seconds until a lost heart comes back (0 = never)
@@ -28,11 +30,13 @@
 export const DIFFICULTY = {
   easy: {
     name: 'Easy',
-    note: 'Small hordes. Nobody gets taken.',
+    note: 'Small hordes. Slow munchers. Save your villagers!',
     nightSeconds: 90,
     hordeStart: 6,
     hordeGrow: 2,
-    takeVillagers: false,
+    takeVillagers: true,
+    takeFrom: 2,
+    munchSeconds: 9,
     trapsBreak: false,
     heroDowns: false,
     heartsRegrow: 15,
@@ -46,12 +50,13 @@ export const DIFFICULTY = {
   },
   hard: {
     name: 'Hard',
-    note: 'Big hordes. They take villagers. The moon matters.',
+    note: 'Big hordes. Fast munchers. The moon matters.',
     nightSeconds: 120,
     hordeStart: 8,
     hordeGrow: 3,
     takeVillagers: true,
     takeFrom: 2,
+    munchSeconds: 4,
     trapsBreak: true,
     heroDowns: true,
     heartsRegrow: 0,

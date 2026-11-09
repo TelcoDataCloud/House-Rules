@@ -21,7 +21,7 @@ out.mkdir(exist_ok=True)
 for old in out.glob('*.json'):
     old.unlink()
 
-def split(text, size=76_000):
+def split(text, size):
     # cut into parts, never in the middle of a !q190! marker
     parts = []
     while text:
@@ -36,17 +36,17 @@ def split(text, size=76_000):
 def squash(text):
     return re.sub(r'([A-Za-z0-9+/=])\1{7,}', lambda m: f'!{m.group(1)}{len(m.group(0))}!', text)
 
-def pack(files, prefix):
-    packs, cur, size = [], {}, 0
+def pack(files, prefix, size=80_000):
+    packs, cur, used = [], {}, 0
     for f in files:
         text = squash(base64.b64encode(f.read_bytes()).decode())
         # a long sound (music) is cut into parts: name~0, name~1...
-        parts = split(text)
+        parts = split(text, size - 4_000)
         for n, part in enumerate(parts):
             key = f.stem if len(parts) == 1 else f'{f.stem}~{n}'
-            if size and size + len(part) > 80_000:
-                packs.append(cur); cur, size = {}, 0
-            cur[key] = part; size += len(part)
+            if used and used + len(part) > size:
+                packs.append(cur); cur, used = {}, 0
+            cur[key] = part; used += len(part)
     if cur: packs.append(cur)
     names = []
     for i, p in enumerate(packs, 1):
@@ -57,6 +57,7 @@ def pack(files, prefix):
 
 files = sorted(src.glob('*.mp3'))
 sfx = pack([f for f in files if not f.stem.startswith('music-')], 'sfx')
-music = pack([f for f in files if f.stem.startswith('music-')], 'music')
+# music goes in small packs (20 KB) so each one is easy to upload
+music = pack([f for f in files if f.stem.startswith('music-')], 'music', 20_000)
 (out / 'packs.json').write_text(json.dumps({'sfx': sfx, 'music': music}))
 print(f'{len(files)} sounds: {len(sfx)} sound packs, {len(music)} music packs')

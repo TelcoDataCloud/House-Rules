@@ -5,7 +5,7 @@ them for anything:
 
 - **Kenney** (www.kenney.nl): *Impact Sounds*, *Interface Sounds*,
   *Foley Sounds*, *RPG Audio*, *Retro Sounds 2*, *Music Jingles* and
-  *Music Loops* (Farm Frolics by day, Mishief Stroll at night with
+  *Music Loops* (Farm Frolics by day, Wacky Waiting at night with
   Drumming Sticks on top, Alpha Dance for the disco ball).
 
 The farts, burps, sneezes, snores and zombie laughs are not files: they
