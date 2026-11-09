@@ -1315,3 +1315,46 @@ first" (traps, buildings and the map later).
 - Animals and giants were in the game from night 3 to 5; Z13 brought
   them earlier.
 - Next for the art: traps, buildings, fences, the map.
+
+### Z15 Playtest fixes (9 Nov, Grok's list)
+
+Bugs:
+1. Changing a villager's job mid-trip now frees the farm, brewery or
+   mine (`dropTask` in `js/work.js`), and a new job never keeps more
+   trips than that job allows (a new brewer still makes 1 potion a day).
+2. A zombie cured in a pit by day gets a home and starts work at once
+   (`joinWork`).
+3. Brewers pay their carrots when they set off, so two brewers cannot
+   spend the same carrots; a brewer short of carrots says "need 3
+   carrots". Dropped or lost trips give the carrots back.
+4. A villager stuck for 14 s goes home with "got lost!" and no pay.
+5. Building next to a villager now builds (the tap used to open the
+   villager instead); a tap while the picker is open still counts; "Not
+   here" says what the land is.
+6. The day saves every 8 seconds as well as at dawn, with each
+   villager's trips left, so a reload carries on mid-day. A reload at
+   night still goes back to the start of that day.
+7. Night lag: `drawSun` measured the page every frame (forced layout
+   60 times a second); it now remembers the width and only touches the
+   page when the numbers change. Loot and the charging hero lost their
+   glow filters. Paths are worked out at most four times a second.
+   Profiled with a 24-zombie horde and a fence ring: 60 fps, JS under 1%.
+Clarity:
+8. Potion guide card rewritten (brewer + carrots, once a day), brewer job
+   says what it needs, tip when there is a brewery and no brewer.
+9. When someone has no bed the cottage button in the bar flashes with a
+   red badge, and a tip says so.
+10. Big "Sound on/off" button on the title, synced with the corner one,
+    remembered on the device (`zombie-wars-muted`).
+11. Lookout and crew explain themselves in the picker (they do not
+    gather).
+Mobile:
+12. `overflow-x: clip` on the page (clip, not hidden, so the sticky night
+    buttons still work); checked at 375 px: no sideways scroll.
+13. Not checked on a real phone yet (needs Asa).
+14. Build bar has left and right arrow buttons when it scrolls. The
+    corner buttons scroll away on phones instead of covering the counts.
+Minor:
+15. `pics/packs.json` and `sounds/packs.json` were missing when Grok
+    played; both are live now.
+16. Hard starts with 16 planks and 4 carrots (`POCKETS_HARD`).
