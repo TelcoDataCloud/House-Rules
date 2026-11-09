@@ -14,7 +14,7 @@ import { state, W, H, hardness, powerBar, giveBombs } from './state.js';
 import { rawArt } from './art.js';
 import { ctx, art, sprite, radial } from './canvas.js';
 import { input } from './input.js';
-import { SHIP, STAR } from '../data/ship.js';
+import { SHIP, STAR, SHIELD } from '../data/ship.js';
 import { GUNS, HELPERS, EXTRAS,  MAX_LEVEL } from '../data/weapons.js';
 import { BOMBS } from '../data/bombs.js';
 import { addShot, addMissile } from './bullets.js';
@@ -40,9 +40,35 @@ export function makeShip() {
 }
 
 // --- what you have right now ---
-function gunNow() {
+// OVERDRIVE (an Easy helper capsule) adds 2 gun levels for a while.
+export function gunLevelNow() {
   const s = state.ship;
-  return GUNS[s.gun].levels[s.gunLevel - 1];
+  return Math.min(MAX_LEVEL, s.gunLevel + (s.boost > 0 ? 2 : 0));
+}
+
+function gunNow() {
+  return GUNS[state.ship.gun].levels[gunLevelNow() - 1];
+}
+
+// How fast you fly: the Engine card makes it faster.
+function speed() {
+  const e = helper('engine');
+  return e ? e.speed : SHIP.speed;
+}
+
+// --- the shield ---
+// Level 1 to 3 (the Shield card). Each level can take more hits.
+export function shieldLevel() {
+  return 1 + (state.ship.shields || 0);
+}
+function shieldMax() {
+  return SHIELD.hp[shieldLevel() - 1];
+}
+// Put the shield up, full.
+export function raiseShield() {
+  const s = state.ship;
+  s.shield = true;
+  s.shieldHp = shieldMax();
 }
 
 function helper(track) {
@@ -53,7 +79,7 @@ function helper(track) {
 function fire() {
   const s = state.ship;
   const g = gunNow();
-  const look = s.gun === 'laser' ? g.look : s.gunLevel >= 5 ? 'gold' : '';
+  const look = s.gun === 'laser' ? g.look : gunLevelNow() >= 5 ? 'gold' : '';
   sound.shot(s.gun, s.x);
   for (const shot of g.shots) {
     const a = (shot.angle * Math.PI) / 180;
@@ -78,7 +104,7 @@ function fireRail() {
     for (const t of inLine) t.onHit(g.twin ? g.damage / 2 : g.damage);
     // Shots in the way that can be shot down pop too.
     for (const b of state.foes) if (b.hp > 0 && b.y < s.y && Math.abs(b.x - x) < 14) { b.dead = true; fx.pop(b.x, b.y, b.colour); }
-    fx.rail(x, s.y - NOSE, s.gunLevel);
+    fx.rail(x, s.y - NOSE, gunLevelNow());
   }
   sound.rail();
   return g.every;
@@ -170,23 +196,46 @@ function move(dt) {
     const dx = tx - s.x;
     const dy = ty - s.y;
     const d = Math.hypot(dx, dy);
-    const stepSize = Math.min(d, SHIP.speed * 1.6 * dt, d * 12 * dt);
+    const stepSize = Math.min(d, speed() * 1.6 * dt, d * 12 * dt);
     if (d > 0.5) { s.x += (dx / d) * stepSize; s.y += (dy / d) * stepSize; }
   } else {
     let vx = (input.right ? 1 : 0) - (input.left ? 1 : 0);
     let vy = (input.down ? 1 : 0) - (input.up ? 1 : 0);
     if (vx && vy) { vx *= 0.707; vy *= 0.707; }
-    s.x += vx * SHIP.speed * dt;
-    s.y += vy * SHIP.speed * dt;
+    s.x += vx * speed() * dt;
+    s.y += vy * speed() * dt;
   }
   // Keep the whole ship, shield and all, inside the play area.
   s.x = Math.max(36, Math.min(W - 36, s.x));
   s.y = Math.max(120, Math.min(H - 40, s.y));
 }
 
+// --- WINGMEN (an Easy helper capsule): two ships fly beside you
+// for a while and fire with you. ---
+function updateWingmen(dt) {
+  const s = state.ship;
+  if (!(s.wing > 0)) { s.wingList = []; return; }
+  s.wingList = s.wingList && s.wingList.length ? s.wingList : [-1, 1].map((side) => ({ side, x: s.x + side * 200, y: s.y + 120, wait: 0.3 }));
+  for (const w of s.wingList) {
+    // Leaving: they peel off down the screen in the last second.
+    const leaving = s.wing < 1;
+    const tx = s.x + w.side * (leaving ? 220 : 72);
+    const ty = s.y + (leaving ? 200 : 22);
+    w.x += (tx - w.x) * Math.min(1, dt * 5);
+    w.y += (ty - w.y) * Math.min(1, dt * 5);
+    w.wait -= dt;
+    if (w.wait <= 0 && s.dead <= 0 && !leaving) {
+      w.wait = 0.22;
+      addShot(w.x - 4, w.y - 14, 0, -SHIP.shotSpeed, { cls: '', damage: 0.8 });
+      addShot(w.x + 4, w.y - 14, 0, -SHIP.shotSpeed, { cls: '', damage: 0.8 });
+    }
+  }
+}
+
 export function updateShip(dt) {
   const s = state.ship;
   updateDrones(dt);
+  updateWingmen(dt);
   if (s.dead > 0) {
     s.beamOn = false;
     s.dead -= dt;
@@ -202,11 +251,14 @@ export function updateShip(dt) {
 
   if (s.invuln > 0) s.invuln -= dt;
   if (s.star > 0) s.star -= dt;
+  if (s.boost > 0) s.boost -= dt;
+  if (s.wing > 0) s.wing -= dt;
+  if (s.shieldShake > 0) s.shieldShake -= dt;
 
   const back = hardness().shieldBack;
   if (!s.shield && back && s.shieldWait > 0) {
     s.shieldWait -= dt;
-    if (s.shieldWait <= 0) { s.shield = true; sound.shield(); fx.floatText(s.x, s.y - 50, 'SHIELD'); }
+    if (s.shieldWait <= 0) { raiseShield(); sound.shield(); fx.floatText(s.x, s.y - 50, 'SHIELD'); }
   }
 
   s.fireWait -= dt;
@@ -226,7 +278,7 @@ export function updateShip(dt) {
 // is the bigger engines, bay is the bomb racks.
 function partLevels() {
   const s = state.ship;
-  const lv = s.gunLevel;
+  const lv = gunLevelNow();
   return {
     spread: s.gun === 'blaster' ? Math.min(3, lv - 1) : 0,
     beam: s.gun === 'beam' ? Math.min(3, lv) : 0,
@@ -266,7 +318,8 @@ function droneLook() {
 
 // Engine fire out of the two nozzles. Bigger as your gun grows.
 function flames(s) {
-  const len = 12 + Math.min(4, s.gunLevel - 1) * 3;
+  // A bigger engine makes a longer flame.
+  const len = 12 + Math.min(4, gunLevelNow() - 1) * 3 + (s.engine || 0) * 4;
   for (const side of [-4.5, 4.5]) {
     const flick = 0.85 + Math.random() * 0.3;
     const x = s.x + side;
@@ -290,7 +343,7 @@ function drawBeams(s) {
   if (!s.beamOn || !s.beams) return;
   const ox = s.x;
   const oy = s.y - NOSE + 6;
-  const lv = s.gunLevel;
+  const lv = gunLevelNow();
   s.beams.forEach((b, i) => {
     const len = Math.min(b.len, 1000);
     const flicker = 0.85 + Math.random() * 0.15;
@@ -325,6 +378,10 @@ export function drawShip() {
   (s.droneList || []).forEach((d) => {
     sprite(droneLook(), d.x, d.y, 18, 20, { shadow: [6, 14, 0.35] });
   });
+  // Wingmen: little copies of your ship, see-through as they leave.
+  for (const w of s.wingList || []) {
+    if (lastShip) sprite(lastShip, w.x, w.y, SHIP_W * 0.6, SHIP_H * 0.6, { alpha: s.wing < 1 ? s.wing : 0.95, shadow: [6, 13, 0.3] });
+  }
   drawBeams(s);
   if (s.dead > 0) return;
   flames(s);
@@ -344,20 +401,60 @@ export function drawShip() {
     ctx.stroke();
     ctx.restore();
   }
-  if (s.shield) {
-    // A thin, see-through bubble, so you can still see your ship.
-    ctx.save();
-    ctx.globalAlpha = 0.55 + 0.15 * Math.sin(state.time * 6);
-    ctx.strokeStyle = '#38f0ff';
-    ctx.shadowColor = '#38f0ff';
-    ctx.shadowBlur = 10;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.ellipse(s.x, s.y + 1, 36, 38, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-    radial(s.x, s.y + 1, 38, [[0.7, 'rgba(56,240,255,0)'], [1, 'rgba(56,240,255,0.18)']]);
+  if (s.shield) drawShield(s);
+  if (s.boost > 0) {
+    // OVERDRIVE: an orange glow under the ship.
+    radial(s.x, s.y + 6, 44, [[0, 'rgba(255,154,42,0.45)'], [1, 'rgba(255,154,42,0)']], s.boost < 2 && Math.floor(s.boost * 8) % 2 ? 0.3 : 1, 'lighter');
   }
+}
+
+// The shield: a see-through bubble, so you can still see your ship.
+// Level 2 has a second ring; level 3 a third. It cracks as it is hit,
+// and turns from blue to yellow to red when it is nearly gone.
+function drawShield(s) {
+  const level = shieldLevel();
+  const left = Math.max(0, s.shieldHp ?? shieldMax()) / shieldMax();
+  const colour = left > 0.6 ? '#38f0ff' : left > 0.3 ? '#ffd23f' : '#ff5a3b';
+  const rgb = left > 0.6 ? '56,240,255' : left > 0.3 ? '255,210,63' : '255,90,59';
+  // A wobble when it takes a hit.
+  const wob = s.shieldShake > 0 ? Math.sin(s.shieldShake * 60) * 3 : 0;
+  const rx = 36 + wob;
+  const ry = 38 - wob;
+  ctx.save();
+  ctx.globalAlpha = 0.55 + 0.15 * Math.sin(state.time * 6);
+  ctx.strokeStyle = colour;
+  ctx.shadowColor = colour;
+  ctx.shadowBlur = 10;
+  for (let i = 0; i < level; i++) {
+    ctx.lineWidth = i === 0 ? 1.6 : 1;
+    ctx.beginPath();
+    ctx.ellipse(s.x, s.y + 1, rx - i * 4, ry - i * 4, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  // Cracks: more of them the more it is hurt.
+  const cracks = Math.round((1 - left) * 7);
+  if (cracks > 0) {
+    ctx.globalAlpha = 0.85;
+    ctx.lineWidth = 1.3;
+    ctx.shadowBlur = 4;
+    ctx.strokeStyle = '#ffffff';
+    ctx.beginPath();
+    for (let i = 0; i < cracks; i++) {
+      // Each crack starts at the bubble's edge and zigzags inwards.
+      const a = i * 2.4 + 0.7;
+      let x = s.x + Math.cos(a) * rx;
+      let y = s.y + 1 + Math.sin(a) * ry;
+      ctx.moveTo(x, y);
+      for (let j = 1; j <= 3; j++) {
+        x -= Math.cos(a) * 5 + Math.cos(a + j * 1.9) * 3;
+        y -= Math.sin(a) * 5 + Math.sin(a + j * 1.9) * 3;
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+  radial(s.x, s.y + 1, 38, [[0.7, `rgba(${rgb},0)`], [1, `rgba(${rgb},${0.12 + 0.04 * level})`]]);
 }
 
 function respawn() {
@@ -369,16 +466,31 @@ function respawn() {
   s.dead = 0;
 }
 
-// Something touched the ship.
-export function hitShip() {
+// Something touched the ship. what: the kind of shot, 'crash',
+// 'cannon' (a boss's big attack) and so on. See SHIELD in data/ship.js.
+export function hitShip(what = 'crash') {
   const s = state.ship;
   if (state.god || s.invuln > 0 || s.dead > 0 || s.entering > 0 || state.mode !== 'play') return;
   if (s.shield) {
+    const max = shieldMax();
+    const hp = s.shieldHp ?? max;
+    let hurt = SHIELD.hurt[what] ?? 2;
+    // The big cannon breaks any shield, except a full level 3 one.
+    if (what === 'cannon') hurt = shieldLevel() === 3 && hp >= max ? max - 1 : hp;
+    s.shieldHp = hp - hurt;
+    fx.spark(s.x, s.y);
+    if (s.shieldHp > 0) {
+      // It held! A wobble, a crack, and a moment to get away.
+      s.invuln = 0.5;
+      s.shieldShake = 0.3;
+      if (s.shieldHp / max <= 0.5 && hp / max > 0.5) { sound.shieldCrack(s.x); fx.floatText(s.x, s.y - 50, 'CRACK!'); }
+      else sound.shieldHit(s.x);
+      return;
+    }
     s.shield = false;
     s.invuln = 1.2;
     s.shieldWait = hardness().shieldBack || 0;
     sound.shieldBreak();
-    fx.spark(s.x, s.y);
     fx.floatText(s.x, s.y - 50, 'SHIELD GONE');
     return;
   }
@@ -436,7 +548,7 @@ export function rollChoices() {
   if (s.gunLevel < MAX_LEVEL) pool.push('gun-up');
   const otherGun = shuffle(Object.keys(GUNS).filter((k) => k !== s.gun))[0];
   pool.push(`gun-${otherGun}`);
-  for (const k of Object.keys(HELPERS)) if (s[k] < 3) pool.push(k);
+  for (const k of Object.keys(HELPERS)) if ((s[k] || 0) < HELPERS[k].steps.length) pool.push(k);
   // Rare bombs (like the Nuke) turn up less often.
   const others = Object.keys(BOMBS).filter((k) => k !== s.bomb);
   const weight = (k) => BOMBS[k].rare || 1;
@@ -452,7 +564,7 @@ export function rollChoices() {
   const cards = pool.slice(0, 3);
   // One-off cards, but never a pointless one (a shield when you have
   // one, bombs when you are full).
-  const extras = Object.keys(EXTRAS).filter((k) => !(k === 'shield' && s.shield) && !(k === 'bombpack' && s.bombs >= SHIP.maxBombs));
+  const extras = Object.keys(EXTRAS).filter((k) => !(k === 'shield' && s.shield && s.shieldHp >= shieldMax()) && !(k === 'bombpack' && s.bombs >= SHIP.maxBombs));
   if (cards.length === 3 && Math.random() < 0.2) cards[2] = extras[Math.floor(Math.random() * extras.length)];
   for (const e of extras) if (cards.length < 3 && !cards.includes(e)) cards.push(e);
   return shuffle(cards);
@@ -480,7 +592,8 @@ export function cardInfo(key) {
     return { name: b.name, say: `New bombs, +1 bomb`, colour: b.colour, pic: key, tag: 'SWAP' };
   }
   const h = HELPERS[key];
-  return { name: h.name, say: h.steps[s[key]].say, colour: h.colour, pic: key, level: s[key], max: 3, tag: s[key] === 0 ? 'NEW' : '' };
+  const n = s[key] || 0;
+  return { name: h.name, say: h.steps[n].say, colour: h.colour, pic: key, level: n, max: h.steps.length, tag: n === 0 ? 'NEW' : '' };
 }
 
 export function takeUpgrade(key) {
@@ -488,14 +601,14 @@ export function takeUpgrade(key) {
   let say = '';
   let tune = key;
   if (EXTRAS[key]) {
-    if (key === 'shield') s.shield = true;
+    if (key === 'shield') raiseShield();
     if (key === 'bombpack') giveBombs(2);
     if (key === 'points') state.score += 3000;
     say = EXTRAS[key].say;
   } else if (key === 'gun-up') {
     if (s.gunLevel >= MAX_LEVEL) return false;
     s.gunLevel++;
-    say = gunNow().say;
+    say = GUNS[s.gun].levels[s.gunLevel - 1].say;
     tune = s.gun;
   } else if (key.startsWith('gun-')) {
     s.gun = key.slice(4);
@@ -513,9 +626,11 @@ export function takeUpgrade(key) {
     say = BOMBS[s.bomb].name;
     tune = 'bombpack';
   } else if (HELPERS[key]) {
-    if (s[key] >= 3) return false;
-    s[key]++;
+    if ((s[key] || 0) >= HELPERS[key].steps.length) return false;
+    s[key] = (s[key] || 0) + 1;
     say = HELPERS[key].steps[s[key] - 1].say;
+    // A stronger shield goes straight on, full.
+    if (key === 'shields') raiseShield();
   } else return false;
   s.power -= powerBar();
   sound.upgrade(tune);
