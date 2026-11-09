@@ -45,12 +45,25 @@ const WORK = {
   pumpkinfarmer: { at: 'farm', makes: 'carrots', amount: 4, verb: 'grew' },
 };
 
+// How many trips a villager gets in a day
+function tripsFor(v) {
+  const diff = DIFFICULTY[state.mode];
+  let n = WORK[v.job] ? Math.min(diff.trips, WORK[v.job].trips || diff.trips) : 0;
+  if (diff.bedlessHalfTrips && !v.bed) n = Math.ceil(n / 2);
+  return n;
+}
+
+// Someone new joined in the day (cured in a pit): they start work straight away
+export function joinWork(v) {
+  v.trips = tripsFor(v);
+  v.task = null; v.busy = 0;
+  state.tripsTotal = (state.tripsTotal || 0) + v.trips;
+}
+
 // Start of a day: everyone gets their trips
 export function startWork() {
-  const diff = DIFFICULTY[state.mode];
   state.villagers.forEach((v) => {
-    v.trips = WORK[v.job] ? Math.min(diff.trips, WORK[v.job].trips || diff.trips) : 0;
-    if (diff.bedlessHalfTrips && !v.bed) v.trips = Math.ceil(v.trips / 2);
+    v.trips = tripsFor(v);
     v.task = null;
     v.busy = 0;
   });
@@ -59,7 +72,21 @@ export function startWork() {
 }
 
 // A villager changed job mid day: leftover trips use the new job
-export function retask(v) { v.task = null; }
+export function retask(v) {
+  dropTask(v);
+  // a new job never gets more trips than that job allows (a new brewer still makes 1 potion a day)
+  const left = Math.min(v.trips || 0, tripsFor(v));
+  state.tripsTotal -= (v.trips || 0) - left;
+  v.trips = left;
+}
+
+// Stop a trip part way: free the workplace and give back any carrots paid
+function dropTask(v) {
+  if (!v.task) return;
+  if (v.task.spot.thing && v.task.spot.thing.worker === v) v.task.spot.thing.worker = null;
+  if (v.task.paid) { state.carrots += v.task.paid; drawCounts(); }
+  v.task = null;
+}
 
 function tripsLeft() { return state.villagers.some((v) => v.trips > 0 || v.task); }
 
@@ -94,23 +121,32 @@ export function updateWork(dt) {
   const diff = DIFFICULTY[state.mode];
   state.villagers.forEach((v) => {
     // a job with no work (catapult crew, a lookout) drops whatever trip it was on
-    if (!WORK[v.job]) { if (v.task && v.task.spot.thing) v.task.spot.thing.worker = null; v.task = null; v.trips = 0; return; }
+    if (!WORK[v.job]) { dropTask(v); v.trips = 0; return; }
     if (!v.task) {
       if (!(v.trips > 0)) { v.el.classList.remove('walking'); return; }
       const w = WORK[v.job];
       const spot = workplace(v);
       if (!spot) return;                           // nothing to work on; wait
+      let paid = 0;
       if (w.makes === 'potion') {
-        const cost = w.free ? 0 : w.cheap ? Math.ceil(diff.potionCostCarrots / 2) : diff.potionCostCarrots;
-        if (state.carrots < cost) return;          // wait for carrots
+        // the carrots go in the pot when the brewer sets off, so two brewers can't spend the same carrots
+        paid = w.free ? 0 : w.cheap ? Math.ceil(diff.potionCostCarrots / 2) : diff.potionCostCarrots;
+        if (state.carrots < paid) {                // wait for carrots, and say so now and then
+          v.waitSaid = (v.waitSaid || 0) - dt;
+          if (v.waitSaid <= 0) { v.waitSaid = 8; burst(v.x, v.y - 1.2, `need ${paid} carrots`); }
+          return;
+        }
+        state.carrots -= paid;
+        flashCount('carrots');
+        drawCounts();
       }
       if (spot.thing) spot.thing.worker = v;
-      v.task = { step: 'go', spot, age: 0 };
+      v.task = { step: 'go', spot, age: 0, paid };
     }
     const t = v.task;
     t.age += dt;
-    // stuck somewhere silly for too long: give up the walk and count the trip
-    if (t.age > 14) { if (t.spot.thing) t.spot.thing.worker = null; v.x = v.home.x; v.y = v.home.y; drawVillager(v); finishTrip(v); return; }
+    // stuck somewhere silly for too long: give up, go home, no pay for that trip (carrots back)
+    if (t.age > 14) { dropTask(v); v.trips--; state.tripsDone++; v.x = v.home.x; v.y = v.home.y; drawVillager(v); burst(v.x, v.y - 1, 'got lost!'); drawSun(state.tripsTotal ? state.tripsDone / state.tripsTotal : 0); return; }
     if (t.step === 'go' || t.step === 'home') {
       const goal = t.step === 'go' ? t.spot : v.home;
       const dx = goal.x - v.x, dy = goal.y - v.y, d = Math.hypot(dx, dy);
@@ -156,10 +192,7 @@ function finishTrip(v) {
   state.tripsDone++;
   let made = w.amount;
   if (w.makes === 'potion') {
-    const cost = w.free ? 0 : w.cheap ? Math.ceil(diff.potionCostCarrots / 2) : diff.potionCostCarrots;
-    state.carrots -= cost;
-    state.potion += 1;
-    flashCount('carrots');
+    state.potion += 1;   // the carrots were paid when the trip started
   } else {
     state[w.makes] += made;
   }
