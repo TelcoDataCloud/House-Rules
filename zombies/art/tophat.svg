@@ -1,0 +1,28 @@
+<!-- tophat: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <title>Blocky black top hat with red band</title>
+  
+  <g id="tophat-hat" stroke="#000000" stroke-linejoin="round" stroke-linecap="round">
+    <g id="tophat-brim">
+      <path d="M18 771 177 680 848 682 1006 748 990 902 720 1007 161 981 26 908Z" fill="#202020" stroke-width="34" />
+      <path d="M18 771 177 680 848 682 1006 748 716 891 163 855Z" fill="#454545" stroke="none" />
+      <path d="M18 771 163 855 163 981 26 908Z" fill="#292929" stroke="none" />
+      <path d="M163 855 716 891 720 1007 161 981Z" fill="#222222" stroke="none" />
+      <path d="M716 891 1006 748 990 902 720 1007Z" fill="#101010" stroke="none" />
+      <path d="M18 771 177 680 848 682 1006 748 990 902 720 1007 161 981 26 908Z" fill="none" stroke-width="34" />
+    </g>
+    <g id="tophat-crown">
+      <path d="M123 130 366 19 899 61 846 751 665 826 Q358 829 176 769Z" fill="#202020" stroke-width="39" />
+      <path d="M123 130 366 19 899 61 675 170Z" fill="#494949" stroke="none" />
+      <path d="M123 130 675 170 662 641 Q359 644 169 585Z" fill="#202020" stroke="none" />
+      <path d="M675 170 899 61 846 565 662 641Z" fill="#101010" stroke="none" />
+      <g id="tophat-red-band" stroke="none">
+        <path d="M169 585 Q359 644 662 641L846 565 846 751 665 826 Q358 829 176 769Z" fill="#ff080d" />
+        <path d="M169 585 Q359 644 662 641L663 711Q357 713 173 658Z" fill="#ff343e" />
+        <path d="M662 641 846 565 846 751 665 826Z" fill="#d60000" />
+      </g>
+      <path d="M169 585Q359 644 662 641L846 565" fill="none" stroke-width="23" />
+      <path d="M123 130 366 19 899 61 846 751 665 826 Q358 829 176 769Z" fill="none" stroke-width="39" />
+    </g>
+  </g>
+</svg>

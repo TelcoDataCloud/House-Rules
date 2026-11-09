@@ -1,0 +1,100 @@
+<!-- pepper: drawn by GPT Image via Higgsfield, 8 Nov 2026. Edit the colours below. -->
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<title>Giant pepper shaker trap on a wooden stand</title>
+
+<g stroke="#090909" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+<g id="pepper-wooden-stand">
+<path d="M128 577 105 730 170 772 246 745 269 621Z" fill="#a34d1b" />
+<path d="m128 577 64 22-20 153-67-22Z" fill="#ed8a2e" stroke="none" />
+<path d="m672 631 63-10 17 136-40 46-68-16Z" fill="#994616" />
+<path d="m686 646 29-9 28 131-28 19Z" fill="#bd6220" stroke="none" />
+<path d="m149 780 224-125 360 94-222 141Z" fill="#8e431a" />
+<path d="m183 778 167-97 59 18-124 87Z" fill="#b25b22" stroke="none" />
+<path d="m285 798 131-83 152 41-131 82Z" fill="#693012" stroke="none" />
+<path d="m685 784 68-54 60 16-3 148-57 34-67-20Z" fill="#a75422" />
+<path d="m687 784 66 23 60-38v-23l-60-16Z" fill="#ff9a3d" stroke="none" />
+<path d="m753 807 57-32v119l-57 26Z" fill="#773811" stroke="none" />
+<path d="m113 814 67-40 316 91 231-91 21 26-2 68-237 120-360-93Z" fill="#a95420" />
+<path d="m154 800 35-23 313 88 216-87 27 20-235 118Z" fill="#ef8b32" stroke="none" />
+<path d="m510 916 235-118v70L510 986Z" fill="#8b4118" stroke="none" />
+<path d="m43 808 74 14 63-29v125l-59 34-77-23Z" fill="#ac5724" />
+<path d="m121 822 59-29v125l-59 34Z" fill="#7e3b17" stroke="none" />
+<path d="m33 756 65-38 76 24 3 66-56 53-88-25Z" fill="#c26b2b" />
+<path d="m34 756 85 27 55-34-76-31Z" fill="#ff9e42" stroke="none" />
+<path d="m119 783 55-34 3 59-56 45Z" fill="#995020" stroke="none" />
+<path d="m131 585-35-92 37-112 89-57 53 14-20 157-62 107Z" fill="#b75b1e" />
+<path d="m133 381 65 24 77-67-53-14Z" fill="#ff9c3a" stroke="none" />
+<path d="m96 493 64 24 38-112-65-24Z" fill="#be6625" stroke="none" />
+<path d="m160 517 33 85-62-17-35-92Z" fill="#874014" stroke="none" />
+</g>
+<g id="pepper-glass-body">
+<path d="m324 224 88-36 282 119 56 94q7 15 1 33L641 690l-60 66-147 17q-12 1-26-5L193 681q-10-4-15-17l-36-94q-7-18 3-36L314 239q4-9 10-15Z" fill="#b4dff6" />
+<path d="m355 219 69-24 270 117 51 91-88 22-114-4L368 269Z" fill="#d3efff" stroke="none" />
+<path d="m543 421 26 8 123-1 53-17-107 276-61 64-143 15 34-44Z" fill="#7fa3b9" stroke="none" />
+<path d="m570 429 149-2-94 244-53 65-95 15Z" fill="#7194ab" stroke="none" />
+<path d="m155 540 177-309 27-9-19 52-167 286 33 91 218 89 18 20-246-95Z" fill="#d2f0ff" stroke="none" />
+<path d="m198 559 139-267q6-11 17-5l183 138-70 276q-3 12-17 21l-30 10-208-86-25-59q-5-13 11-28Z" fill="#aad0e9" stroke="none" />
+<g id="pepper-peppercorns" stroke="none">
+<path d="m187 568 16-34 25-12 32 12 2-24 31-12 32 13 16-33 28-9 37 13 16-32 29-10 45 20 29 43-57 199-18 20-26 8-210-86Z" fill="#57534f" />
+<path d="m406 482 16-32 29-10 41 17-31 17-10 38Z" fill="#56514d" />
+<path d="m460 476 31-20 36 14-10 38-35-13Z" fill="#94877f" />
+<path d="m384 506 23-23 55 28-31 22Z" fill="#92857d" />
+<path d="m341 478 28-9 38 14-23 23-9 29-49-21Z" fill="#605a56" />
+<path d="m299 539 27-25 51 21-27 24Z" fill="#978980" />
+<path d="m260 511 33-13 31 14-26 27-6 37-39-17Z" fill="#615a55" />
+<path d="m211 579 34-28 48 24-31 26Z" fill="#9c8d83" />
+<path d="m211 579 51 22-13 58-36-15-15-38Z" fill="#71665e" />
+<path d="m299 539 51 20-18 65-42-17Z" fill="#6d645f" />
+<path d="m350 559 25-24 55-2-18 49-41 12-16 40-23-10Z" fill="#4f4b48" />
+<path d="m371 594 23-21 53 23-20 27-34-7Z" fill="#95867d" />
+<path d="m355 634 16-40 56 29-11 37-53-20Z" fill="#84766c" />
+<path d="m296 614 58 19-20 62-56-23Z" fill="#8e8076" />
+<path d="m334 695 20-62 48 21-16 62Z" fill="#514c48" />
+<path d="m416 660 37 14-6 32-24 23-37-13Z" fill="#9a8a7f" />
+<path d="m437 563 18-24 43 16-11 35Z" fill="#9a8c82" />
+<path d="m455 539 9-44 52 19-18 41Z" fill="#665f59" />
+</g>
+<path d="m277 408 69-106 46 35-68 105Z" fill="#fff" stroke="none" />
+<path d="m239 473 27-47 45 31-27 45Z" fill="#fff" stroke="none" />
+</g>
+<g id="pepper-metal-lid">
+<path d="m414 152-25 58q-3 7 2 18l31 63q4 7 13 13l109 72 117 26q9 2 18-3l57-28 58-122-55-81-176-88Z" fill="#98999c" />
+<path d="m397 210 35 71 119 79 26-58-123-61-34-87Z" fill="#bfc0c4" stroke="none" />
+<path d="m551 360 111 27 69-28 29-57-157 23-26-23Z" fill="#76777a" stroke="none" />
+<path d="m418 146 72-90q4-5 14-7l70-13q9-2 17 1l96 35q7 3 14 10l74 70 27 74q3 10-2 20l-32 71-65 31q-7 2-15 0l-111-24-117-77q-6-4-9-12l-35-76q-3-7 2-13Z" fill="#bfc0c4" />
+<path d="m489 84 17-24 74-15 106 36 84 78 23 72-65 39-116-29-108-74Z" fill="#dedee0" stroke="none" />
+<path d="m489 84 15 83 108 74-96-77Z" fill="#f5f5f5" stroke="none" />
+<path d="m504 167 108 74-35 83-117-77Z" fill="#96979a" stroke="none" />
+<path d="m612 241 116 29-32 70-119-16Z" fill="#747578" stroke="none" />
+<path d="m728 270 65-39-33 79-64 30Z" fill="#565759" stroke="none" />
+<g fill="#050505" stroke="none">
+<ellipse cx="563" cy="98" rx="27" ry="18" transform="rotate(20 563 98)" />
+<ellipse cx="641" cy="97" rx="27" ry="18" transform="rotate(20 641 97)" />
+<ellipse cx="594" cy="158" rx="28" ry="18" transform="rotate(22 594 158)" />
+<ellipse cx="701" cy="149" rx="27" ry="18" transform="rotate(21 701 149)" />
+<ellipse cx="666" cy="207" rx="28" ry="19" transform="rotate(20 666 207)" />
+<ellipse cx="735" cy="204" rx="21" ry="19" transform="rotate(-10 735 204)" />
+</g>
+</g>
+<g id="pepper-front-support">
+<path d="m497 818 72-286q3-12 15-18l72-43q10-7 22-3l57 20q12 4 15 18l10 57-46 105-53 35-36 135-51 39Z" fill="#a9521b" />
+<path d="m578 526 63 22 91-53-62-22Z" fill="#ff9c3e" stroke="none" />
+<path d="m578 526 63 22-29 107-65-23Z" fill="#ed8730" stroke="none" />
+<path d="m547 632 65 23-41 198-65-36Z" fill="#bd6323" stroke="none" />
+<path d="m641 548 91-53 13 42-44 2-37 30-10 94 37 25-30 15-36 135-51 27Z" fill="#884015" stroke="none" />
+<path d="m670 569 45-29q7-4 15-1l49 17q13 4 13 17v56q0 8-9 14l-43 27q-6 4-14 1l-47-18q-12-4-12-16v-55q0-9 3-13Z" fill="#aaa" />
+<path d="m674 576 48-31 58 20-44 34Z" fill="#e4e4e6" stroke="none" />
+<path d="m736 599 48-30v62l-48 32Z" fill="#555658" stroke="none" />
+<path d="m674 576 62 23v64l-59-23Z" fill="#99999c" stroke="none" />
+<path d="m430 913 82 17 63-30v86q0 10-11 15l-53 18-72-20q-11-3-11-14Z" fill="#b26129" />
+<path d="m512 938 59-30v79l-59 23Z" fill="#874317" stroke="none" />
+<path d="m429 849 64-27q7-3 14-1l62 22q11 4 11 16v52q0 9-10 14l-56 28-79-23q-14-4-14-15v-51q0-11 8-15Z" fill="#b36228" />
+<path d="m430 852 65-25 74 23-57 29Z" fill="#ffa246" stroke="none" />
+<path d="m512 879 60-29v62l-60 32Z" fill="#884419" stroke="none" />
+</g>
+<g id="pepper-pepper-dust" fill="#c1bfbd" stroke-width="13">
+<path d="M845 122c-20-3-31-16-32-34-1-25 18-43 42-39 4-25 25-43 48-42 28-1 51 17 52 44 28-3 46 19 45 47-1 28-23 48-51 48-2 27-22 45-49 45-23 0-41-12-48-31-9 15-25 16-37 7-15-11-10-33 4-41 9-6 18-5 26-4Z" />
+<circle cx="779" cy="166" r="24" fill="#d0cecc" />
+</g>
+</g>
+</svg>
