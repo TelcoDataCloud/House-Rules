@@ -9,15 +9,17 @@
      5. draw everything where it now is
    =========================================================== */
 
-import { state, level, hardness } from './state.js';
+import { state, level, hardness, after, W, H } from './state.js';
 import { takeActions } from './input.js';
 import { updateShip, drawShip, hitShip, useBomb, canPick, rollChoices } from './ship.js';
 import { spawnWave, updateEnemies, drawEnemies } from './enemies.js';
 import { spawnBase, updateBases, drawBases } from './bases.js';
 import { spawnBoss, updateBosses, drawBosses } from './bosses.js';
+import { updateDangers, drawDangers } from './attacks.js';
 import { updateBullets, drawShots, drawFoes, sweep } from './bullets.js';
 import { updatePickups, drawPickups } from './pickups.js';
-import { clear } from './canvas.js';
+import { clear, ctx } from './canvas.js';
+import { HELP } from '../data/difficulty.js';
 import { touching, targets } from './collide.js';
 import { drawHud } from './hud.js';
 import { openPick, pickByNumber, showOver, showWin, show } from './screens.js';
@@ -37,7 +39,7 @@ function readLevel() {
     if (line.say) { fx.banner(line.say); if (line.say === 'WARNING') sound.warn(); }
     if (line.what) spawnWave(line);
     if (line.base) spawnBase(line.base);
-    if (line.boss) spawnBoss(line.boss);
+    if (line.boss) { spawnBoss(line.boss); bossKit(); }
   }
 }
 
@@ -56,7 +58,7 @@ function blowMine(b) {
   fx.mineRing(b.x, b.y, MINE_BLAST);
   sound.boom();
   const s = state.ship;
-  if (s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_BLAST + SHIP.hitSize) hitShip();
+  if (s.dead <= 0 && Math.hypot(s.x - b.x, s.y - b.y) < MINE_BLAST + SHIP.hitSize) hitShip('mine');
 }
 
 function collisions() {
@@ -87,7 +89,7 @@ function collisions() {
         fx.spark(b.x, b.y);
         if (b.hp <= 0) {
           b.dead = true;
-          if (b.move === 'mine' || b.colour === 'rocket' || b.colour === 'plasma') fx.boom(b.x, b.y, 40, 6, '#ffd23f');
+          if (b.move === 'mine' || ['rocket', 'plasma', 'flak', 'ice', 'slag'].includes(b.colour)) fx.boom(b.x, b.y, 40, 6, '#ffd23f');
           else fx.pop(b.x, b.y, b.colour);
           fx.award(b.points, b.x, b.y - 10);
           sound.ping();
@@ -103,11 +105,11 @@ function collisions() {
   const me = { x: s.x, y: s.y, r: SHIP.hitSize };
   for (const b of state.foes) {
     if (b.blow) continue;
-    if (touching(b, me)) { b.dead = true; if (b.move === 'mine') blowMine(b); hitShip(); }
+    if (touching(b, me)) { b.dead = true; if (b.move === 'mine') blowMine(b); else hitShip(b.colour); }
   }
   for (const e of state.enemies) {
     // Things on the ground can't crash into you: you fly over them.
-    if (!e.dead && !e.spec.ground && e.wait <= 0 && touching(e, me, -e.r * 0.4)) { hitShip(); e.onHit(3); }
+    if (!e.dead && !e.spec.ground && e.wait <= 0 && touching(e, me, -e.r * 0.4)) { hitShip('crash'); e.onHit(3); }
   }
 }
 
@@ -123,6 +125,33 @@ function starRescue(dt) {
   if (near < STAR.danger) return;
   state.starWait = hardness().starWait;
   drop('STAR', Math.max(40, Math.min(440, s.x + (Math.random() - 0.5) * 80)), Math.max(60, s.y - 150));
+}
+
+// EASY HELPERS (data/difficulty.js): on Easy a boss fight gets a
+// free shield and bomb, then a helper capsule now and then:
+// OVERDRIVE, TIME WARP or WINGMEN. HELP.from says which level each
+// one starts on.
+function helps(what) {
+  return hardness().helpers && state.levelIndex + 1 >= HELP.from[what];
+}
+
+function bossKit() {
+  if (!helps('kit')) return;
+  HELP.kit.forEach((type, i) => after(1.5 + i * 0.6, () => drop(type, 160 + i * 160, 60)));
+  state.helpWait = 10;
+}
+
+function easyHelp(dt) {
+  if (state.warp > 0) state.warp -= dt;
+  const kinds = ['POW', 'SLOW', 'WING'].filter(helps);
+  if (!kinds.length || !state.bosses.some((b) => b.phase === 'fight')) return;
+  state.helpWait -= dt;
+  if (state.helpWait > 0) return;
+  state.helpWait = HELP.every;
+  // Take turns, so you get each one.
+  state.helpTurn = ((state.helpTurn ?? -1) + 1) % kinds.length;
+  const s = state.ship;
+  drop(kinds[state.helpTurn], Math.max(50, Math.min(W - 50, s.x + (Math.random() < 0.5 ? -90 : 90))), Math.max(60, s.y - 260));
 }
 
 // Lots of danger close by and bombs left over? Tell him about the bomb.
@@ -169,10 +198,12 @@ function step(dt) {
   updateBases(dt);
   updateEnemies(dt);
   updateBosses(dt);
+  updateDangers(dt);
   updateBullets(dt);
   collisions();
   bombHint(dt);
   starRescue(dt);
+  easyHelp(dt);
   updatePickups(dt);
   fx.updateFx(dt);
   sweep(state.shots);
@@ -201,9 +232,15 @@ function draw() {
   drawPickups();          // capsules
   drawEnemies(false);     // ships in the air
   drawBosses();           // bosses (and their big laser)
+  drawDangers();          // fire jets, shockwaves, black holes...
   drawShots();            // your shots and missiles
   drawShip();             // you, your drones, your beam
   drawFoes();             // enemy shots, on top so you can always see them
+  if (state.warp > 0) {
+    // TIME WARP: a cool blue haze over everything.
+    ctx.fillStyle = `rgba(90, 150, 255, ${Math.min(0.1, state.warp * 0.05)})`;
+    ctx.fillRect(0, 0, W, H);
+  }
   fx.drawFx(1);           // bangs, sparks, scores
   drawHud();
 }

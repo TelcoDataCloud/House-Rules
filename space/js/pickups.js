@@ -1,14 +1,16 @@
 /* ===========================================================
    PICKUPS: the tokens that fall out of things
 
-   P power, B bomb, S shield, 1UP extra ship.
+   P power, B bomb, S shield, 1UP extra ship, and the star.
+   On Easy, from level 3: POW, SLOW and WING (data/difficulty.js).
    They drift down slowly, and if your ship is close they are
    pulled towards you, so they are easy to catch.
    =========================================================== */
 
 import { state, H, powerBar, giveBombs, giveLife } from './state.js';
-import { autoUpgrade } from './ship.js';
+import { autoUpgrade, raiseShield } from './ship.js';
 import { STAR } from '../data/ship.js';
+import { HELP } from '../data/difficulty.js';
 import { art, sprite, outlinedText, radial } from './canvas.js';
 import { rawArt } from './art.js';
 import {  BANK } from '../data/weapons.js';
@@ -16,9 +18,9 @@ import { sound } from './audio.js';
 import { floatText, banner } from './fx.js';
 
 // The glow colour of each capsule.
-const CAP = { P: '#ff7a1a', B: '#ffd23f', S: '#38f0ff', '1UP': '#4dff7c', STAR: '#ffe14a' };
+const CAP = { P: '#ff7a1a', B: '#ffd23f', S: '#38f0ff', '1UP': '#4dff7c', STAR: '#ffe14a', POW: '#ff9a2a', SLOW: '#6fa8ff', WING: '#c07cff' };
 // What is written on each capsule.
-const LABEL = { STAR: '\u2605' };
+const LABEL = { STAR: String.fromCharCode(9733) };   // a star
 
 export function drop(type, x, y) {
   // A floating capsule (art/capsule.svg). Its glow colour says what is inside.
@@ -66,7 +68,7 @@ function collect(p) {
   if (p.type === 'B') {
     if (giveBombs(1)) { state.score += 1000; floatText(p.x, p.y, '+1000'); } else floatText(p.x, p.y, 'BOMB');
   }
-  if (p.type === 'S') { s.shield = true; floatText(p.x, p.y, 'SHIELD'); }
+  if (p.type === 'S') { raiseShield(); floatText(p.x, p.y, 'SHIELD'); }
   if (p.type === 'STAR') {
     s.star = STAR.seconds;
     s.invuln = Math.max(s.invuln, STAR.seconds);
@@ -74,6 +76,10 @@ function collect(p) {
     sound.power();
     sound.shield();
   }
+  // The Easy helpers (data/difficulty.js).
+  if (p.type === 'POW') { s.boost = HELP.boost; banner('OVERDRIVE!', 'gold'); sound.upgrade('rapid'); }
+  if (p.type === 'SLOW') { state.warp = HELP.warp; banner('TIME WARP!'); sound.upgrade('beam'); }
+  if (p.type === 'WING') { s.wing = HELP.wing; s.wingList = []; banner('WINGMEN!'); sound.upgrade('drones'); }
   if (p.type === '1UP') {
     if (giveLife()) { state.score += 5000; floatText(p.x, p.y, '+5000', true); } else floatText(p.x, p.y, '1UP!', true);
   }
@@ -88,7 +94,8 @@ export function drawPickups() {
     const tilt = Math.sin(p.t * 3.5) * 0.07;
     radial(p.x, p.y + bob, 26, [[0, colour + '88'], [1, colour + '00']], 1, 'lighter');
     sprite(look, p.x, p.y + bob, p.w, p.h, { rot: tilt, shadow: [5, 10, 0.35] });
-    outlinedText(LABEL[p.type] || p.type, p.x, p.y + bob - 0.5, p.type === '1UP' ? 10 : p.type === 'STAR' ? 16 : 13, '#ffffff');
+    const label = LABEL[p.type] || p.type;
+    outlinedText(label, p.x, p.y + bob - 0.5, p.type === 'STAR' ? 16 : label.length >= 4 ? 8 : label.length === 3 ? 10 : 13, '#ffffff');
     if (p.type === 'STAR') {
       // Star capsules sparkle, so you notice them.
       radial(p.x, p.y + bob, 40 + Math.sin(p.t * 8) * 6, [[0, 'rgba(255,225,74,0.45)'], [1, 'rgba(255,225,74,0)']], 1, 'lighter');
