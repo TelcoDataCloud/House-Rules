@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Snot Moon</title>
+<title>Zombie Wars</title>
 <meta name="description" content="Cure the zombies. Grow the village. A game by Asa and Hendrix.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800&display=swap">
@@ -35,8 +35,9 @@
       <use href="#art-fence" x="100" y="80" width="40" height="40"/><use href="#art-fence" x="220" y="80" width="40" height="40"/>
       <use href="#art-torch" x="70" y="78" width="40" height="40"/><use href="#art-torch" x="255" y="78" width="40" height="40"/>
     </svg>
-    <h1 id="title-name">SNOT MOON</h1>
+    <h1 id="title-name">ZOMBIE WARS</h1>
     <p class="tagline" id="title-tagline">Cure the zombies. Grow the village.</p>
+    <p class="credits" id="title-credits">Made by Hendrix, Felix and Luka, with help from Dad</p>
     <div class="modes" role="group" aria-label="Pick how hard">
       <button type="button" class="mode" data-mode="easy" aria-pressed="true">Easy</button>
       <button type="button" class="mode" data-mode="hard" aria-pressed="false">Hard</button>
@@ -126,6 +127,7 @@
   <div class="night-buttons" id="night-buttons" hidden>
     <button type="button" id="btn-whack">WHACK <small>Space</small></button>
     <button type="button" id="btn-potion">POTION <span id="btn-potion-count">0</span> <small>E</small></button>
+    <button type="button" id="btn-pillow" hidden aria-label="Pyjama army: everyone pillow fights, once a night"><svg width="34" height="34" aria-hidden="true"><use href="#art-pillow" width="34" height="34"></use></svg> PILLOWS <small>F</small></button>
   </div>
 
   <div class="bar" id="bar"></div>
