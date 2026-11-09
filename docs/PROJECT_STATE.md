@@ -1182,7 +1182,7 @@ own recordings later.
   picks a random version at a slightly random pitch. Farts, burps,
   sneezes, snores and zombie laughs are made live with WebAudio; a
   recording with the same name replaces them. Music: Farm Frolics by
-  day, Mishief Stroll at night with a Drumming Sticks layer that gets
+  day, Wacky Waiting at night with a Drumming Sticks layer that gets
   louder as more zombies are up, Alpha Dance while a disco ball plays.
   The sound button stops everything. Kenney's site is blocked from the
   sandbox; the files came from GitHub's LFS host (media.githubusercontent.com)
@@ -1223,3 +1223,32 @@ own recordings later.
 - **Fences and walls join up** (Asa, 9 Nov): a fence, wall or stone wall
   next to another gets rails drawn between them (`relink` in `js/grid.js`),
   so a run of them reads as one fence.
+
+### Z12.1 Brain munching (9 Nov)
+
+Asa: zombies stood on the same square as villagers; they should stand
+next to them and eat their brains, with an animation, and if it finishes
+the villager turns into a zombie.
+- Zombies now walk to a spot beside a villager (up to six spots round
+  them), never on top. There they chomp, "nom" bubbles pop up and a red
+  bar fills over the zombie's head while the villager flails and yells.
+- The bar takes `munchSeconds` (Easy 9, Hard 4, in `data/difficulty.js`).
+  Whack, bop, sock, trip or trap the zombie and he stops (the bar
+  resets). Whacking him mid-munch is the MY HERO rescue (+1 sock).
+- If the bar fills, the villager turns into a zombie on the spot, with
+  their name over their head. Cure them and they come back as
+  themselves (same name, job and hat). Any still zombies at dawn go off
+  with the horde and come back next night with their name on; the
+  turned list is saved with the village.
+- **Easy changed:** Easy used to be "nobody gets taken". Now villagers
+  can turn on Easy too, from night 2, but the munch is slow (9 s). Set
+  `takeVillagers: false` in `data/difficulty.js` to go back. Night 1 and
+  the last two villagers are still safe: they wriggle free (ESCAPED!).
+- The old carry-off from the cottages is gone; cottages just hold the
+  sleepers. Vampires still turn people into vampires.
+- The Dot and Bex boxes Asa asked about are the home squares from Z11:
+  the box stays while its owner is out working.
+- **Music made small enough to upload:** the connector can only push text
+  an agent retypes, and 60 to 80 KB music packs broke. Music is now 24 kbps
+  mono in 16 KB packs (14 of them), and the night tune is the shorter
+  Wacky Waiting. `tools/pack-sounds.py` packs music at 20 KB.
