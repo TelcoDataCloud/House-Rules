@@ -39,6 +39,8 @@
    needsJob a villager job that must live here before you can build it
    what     one short line for kids: what it does (shows when you pick it)
    stone    how many stone it costs (as well as planks)
+   carrots  how many carrots it costs. Planks build things, carrots
+            buy things: the gross traps cost carrots.
    holds    for a cottage: how many villagers sleep in it
    nearRock true means it can only go next to the boulders (the mine)
    auto     for the catapult: seconds between the pumpkins it throws by itself
@@ -52,16 +54,16 @@ export const TRAPS = {
   torch:   { name: 'Torch',     art: 'torch',   planks: 1, crew: 0, does: 'scare', reach: 2, what: 'Zombies walk away from the light.' },
   mud:     { name: 'Mud pit',   art: 'mud',     planks: 1, crew: 0, does: 'slow', slow: 0.35, what: 'Zombies go slow in it.', from: 2 },
   pit:     { name: 'Pit trap',  art: 'pit',     planks: 2, crew: 0, does: 'pit', holds: 3, uses: 2, what: 'Holds 3 zombies. Pour potion in tomorrow.' },
-  brains:  { name: 'Brains',    art: 'brains',  planks: 2, crew: 0, does: 'circle', what: 'One zombie walks round it all night.', from: 2 },
+  brains:  { name: 'Brains',    art: 'brains',  planks: 1, carrots: 3, crew: 0, does: 'circle', what: 'One zombie walks round it all night.', from: 2 },
   tramp:   { name: 'Trampoline', art: 'tramp',  planks: 3, crew: 0, does: 'bounce', tiles: 5, uses: 4, what: 'Boing! The zombie flies back.', from: 2 },
   spin:    { name: 'Spin door', art: 'spin',    planks: 3, crew: 0, does: 'spin', seconds: 5, uses: 4, what: 'In, round, and back out. Confused.', from: 4 },
-  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 2, crew: 0, does: 'drop', uses: 1, what: 'A pumpkin on the head. He cannot see.', from: 4 },
-  honey:   { name: 'Honey',     art: 'honey',   planks: 2, crew: 0, does: 'stick', seconds: 15, uses: 3, what: 'Stuck fast for a while.', from: 3 },
-  scare:   { name: 'Scarecrow', art: 'scare',   planks: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3, what: 'Zombies think it is a villager and crowd it.', from: 3 },
-  whoopee: { name: 'Whoopee cushion', art: 'whoopee', planks: 1, crew: 0, does: 'whoopee', reach: 3, seconds: 3, uses: 3, what: 'PFFFRT! Every zombie nearby stops to laugh.' },
-  banana:  { name: 'Banana peels', art: 'banana', planks: 1, crew: 0, does: 'banana', tiles: 4, uses: 3, what: 'He slips, slides and knocks his friends over like skittles.', from: 2 },
-  pepper:  { name: 'Pepper pot', art: 'pepper',  planks: 2, crew: 0, does: 'sneeze', tiles: 6, uses: 3, what: 'AH CHOO! The sneeze blows him backwards.', from: 2 },
-  disco:   { name: 'Disco ball', art: 'disco',   planks: 5, crew: 0, does: 'disco', reach: 3, seconds: 8, uses: 2, what: 'Every zombie nearby has to dance till the song stops.', from: 3 },
+  drop:    { name: 'Pumpkin drop', art: 'drop', planks: 1, carrots: 3, crew: 0, does: 'drop', uses: 1, what: 'A pumpkin on the head. He cannot see.', from: 4 },
+  honey:   { name: 'Honey',     art: 'honey',   carrots: 4, crew: 0, does: 'stick', seconds: 15, uses: 3, what: 'Stuck fast for a while.', from: 3 },
+  scare:   { name: 'Scarecrow', art: 'scare',   planks: 1, carrots: 2, crew: 0, does: 'bait', reach: 4, seconds: 20, uses: 3, what: 'Zombies think it is a villager and crowd it.', from: 3 },
+  whoopee: { name: 'Whoopee cushion', art: 'whoopee', carrots: 2, crew: 0, does: 'whoopee', reach: 3, seconds: 3, uses: 3, what: 'PFFFRT! Every zombie nearby stops to laugh.' },
+  banana:  { name: 'Banana peels', art: 'banana', carrots: 3, crew: 0, does: 'banana', tiles: 4, uses: 3, what: 'He slips, slides and knocks his friends over like skittles.', from: 2 },
+  pepper:  { name: 'Pepper pot', art: 'pepper',  carrots: 3, crew: 0, does: 'sneeze', tiles: 6, uses: 3, what: 'AH CHOO! The sneeze blows him backwards.', from: 2 },
+  disco:   { name: 'Disco ball', art: 'disco',   planks: 3, carrots: 4, crew: 0, does: 'disco', reach: 3, seconds: 8, uses: 2, what: 'Every zombie nearby has to dance till the song stops.', from: 3 },
   mirror:  { name: 'Mirror',    art: 'mirror',  planks: 3, crew: 0, does: 'mirror', seconds: 12, uses: 2, what: 'He stops to admire himself. Vampires walk straight past.', from: 3 },
   log:     { name: 'Log',       art: 'log',     planks: 3, crew: 0, does: 'log', uses: 1, what: 'Rolls along the row and knocks them over. Once.', from: 3 },
   bed:     { name: 'Cottage',   art: 'cottage', planks: 4, crew: 0, does: 'bed', holds: 2, what: 'Two villagers sleep here. Zombies want these.' },
