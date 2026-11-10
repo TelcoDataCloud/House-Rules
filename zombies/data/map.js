@@ -1,9 +1,11 @@
 /* ===========================================================
    MAP: the land under the village
 
-   Hendrix: the picture is art/map.svg. This file is a little
-   drawing of the same land, one letter per square, 24 across
-   and 16 down, so the game knows where zombies can walk.
+   Hendrix: the picture is a painting (map, in the pics packs),
+   with the old drawing art/map.svg underneath until it loads.
+   This file is a little drawing of the same land, one letter
+   per square, 36 across and 24 down, so the game knows where
+   zombies can walk.
 
      .  grass, anyone can walk and you can build
      ~  water: nobody can walk here
