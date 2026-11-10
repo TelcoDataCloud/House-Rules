@@ -71,9 +71,12 @@ export async function loadPictures() {
       document.getElementById('sprites').appendChild(sym);
     }
     if (!sym) return;
-    sym.setAttribute('viewBox', '0 0 1024 1024');
-    if (piece) sym.setAttribute('preserveAspectRatio', 'none');
-    sym.innerHTML = `<image href="${url}" x="0" y="0" width="1024" height="1024"${piece ? ' preserveAspectRatio="none"' : ''}/>`;
+    // the map keeps its own shape (wider than tall); everything else is square
+    const [w, h] = name === 'map' ? [1024, 688] : [1024, 1024];
+    const stretch = piece || name === 'map';
+    sym.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    if (stretch) sym.setAttribute('preserveAspectRatio', 'none');
+    sym.innerHTML = `<image href="${url}" x="0" y="0" width="${w}" height="${h}"${stretch ? ' preserveAspectRatio="none"' : ''}/>`;
   });
 }
 
